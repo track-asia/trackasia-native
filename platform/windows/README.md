@@ -15,7 +15,7 @@ To install the required Visual Studio components, open Visual Studio Installer a
 Open `x64 Native Tools Command Prompt for VS 2022` and then clone the repository:
 
 ```cmd
-git clone --recurse-submodules -j8 https://github.com/track-asia-vn/maplibre-native.git
+git clone --recurse-submodules -j8 https://github.com/track-asia-vn/trackasia-native.git
 cd maplibre-native
 ```
 

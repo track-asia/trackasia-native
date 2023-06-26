@@ -1,8 +1,8 @@
 module: MapLibre
 author: MapLibre Contributors
 author_url: https://maplibre.org/
-github_url: https://github.com/track-asia-vn/maplibre-native
-copyright: '[License](https://github.com/track-asia-vn/maplibre-native/blob/main/platform/ios/LICENSE.md)'
+github_url: https://github.com/track-asia-vn/trackasia-native
+copyright: '[License](https://github.com/track-asia-vn/trackasia-native/blob/main/platform/ios/LICENSE.md)'
 
 head: |
   <link rel='shortcut icon' href='https://maplibre.org/favicon.ico' type='image/x-icon' />

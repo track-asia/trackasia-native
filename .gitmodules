@@ -18,7 +18,7 @@
 	url = https://github.com/okdshin/unique_resource.git
 [submodule "vendor/boost"]
 	path = vendor/boost
-	url = https://github.com/track-asia-vn/maplibre-gl-native-boost.git
+	url = https://github.com/track-asia-vn/trackasia-gl-native-boost.git
 [submodule "vendor/benchmark"]
 	path = vendor/benchmark
 	url = https://github.com/google/benchmark.git
@@ -27,7 +27,7 @@
 	url = https://github.com/mapbox/eternal.git
 [submodule "vendor/mapbox-base"]
 	path = vendor/mapbox-base
-	url = https://github.com/track-asia-vn/maplibre-native-base.git
+	url = https://github.com/track-asia-vn/trackasia-native-base.git
 [submodule "vendor/googletest"]
 	path = vendor/googletest
 	url = https://github.com/google/googletest.git
@@ -37,9 +37,9 @@
 [submodule "vendor/cpp-httplib"]
 	path = vendor/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib.git
-[submodule "platform/android/vendor/maplibre-java"]
-	path = platform/android/vendor/maplibre-java
-	url = https://github.com/track-asia-vn/maplibre-java
+[submodule "platform/android/vendor/trackasia-java"]
+	path = platform/android/vendor/trackasia-java
+	url = https://github.com/track-asia-vn/trackasia-java
 [submodule "platform/android/vendor/mapbox-gestures-android"]
 	path = platform/android/vendor/mapbox-gestures-android
 	url = https://github.com/mapbox/mapbox-gestures-android.git

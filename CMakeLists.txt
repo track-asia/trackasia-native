@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 option(MLN_WITH_CORE_ONLY "Build only the core bits, no platform code" OFF)
 option(MLN_WITH_CLANG_TIDY "Build with clang-tidy checks enabled" OFF)
 option(MLN_WITH_COVERAGE "Enable code coverage collection" OFF)
-option(MLN_WITH_QT "Build MapLibre Native Qt bindings" OFF)
-option(MLN_WITH_NODE "Build MapLibre Native Node.js bindings" OFF)
+option(MLN_WITH_QT "Build Trackasia Native Qt bindings" OFF)
+option(MLN_WITH_NODE "Build Trackasia Native Node.js bindings" OFF)
 option(MLN_WITH_SANITIZER "Use [address|thread|undefined] here" OFF)
 option(MLN_WITH_RTTI "Compile with runtime type information" OFF)
 option(MLN_WITH_OPENGL "Build with OpenGL renderer" ON)
@@ -1101,7 +1101,7 @@ set_target_properties(
     mbgl-core
     PROPERTIES
         INTERFACE_MAPBOX_NAME "Mapbox GL Native"
-        INTERFACE_MAPBOX_URL "https://github.com/track-asia-vn/maplibre-native"
+        INTERFACE_MAPBOX_URL "https://github.com/track-asia-vn/trackasia-native"
         INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE.md
 )

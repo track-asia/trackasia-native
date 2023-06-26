@@ -1,4 +1,4 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS")
 load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 
 # This is defined by both
@@ -21,7 +21,7 @@ cc_library(
         ],
         allow_empty = False,
     ),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + TRACKASIA_FLAGS,
     includes = [
         "include",
         "src",
@@ -64,24 +64,24 @@ genrule(
 # they are needed until rules_apple has platforms support
 # https://github.com/bazelbuild/rules_apple/issues/1658
 # Allows passing a command line flag to set the Platform
-# bazel build [target] --//:maplibre_platform=ios
+# bazel build [target] --//:trackasia_platform=ios
 
 string_flag(
-    name = "maplibre_platform",
+    name = "trackasia_platform",
     build_setting_default = "ios",
 )
 
 config_setting(
     name = "linux",
     flag_values = {
-        ":maplibre_platform": "linux",
+        ":trackasia_platform": "linux",
     },
 )
 
 config_setting(
     name = "ios",
     flag_values = {
-        ":maplibre_platform": "ios",
+        ":trackasia_platform": "ios",
     },
 )
 

@@ -34,14 +34,13 @@ CPP_FLAGS = WARNING_FLAGS + [
     "-std=c++17",
 ]
 """
-Compilation flags related to the Maplibre codebase. Relevant for all .cpp .mm and .m code
+Compilation flags related to the Trackasia codebase. Relevant for all .cpp .mm and .m code
  - src/*
  - include/*
  - platform/*
 Not important for any vendors that are imported.
 """
-
-MAPLIBRE_FLAGS = [
+_FLAGS = [
     "-DMBGL_USE_GLES2=1",
     "-DMBGL_RENDER_BACKEND_OPENGL=1",
     "-DGLES_SILENCE_DEPRECATION",

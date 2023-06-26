@@ -1,8 +1,8 @@
 # MapLibre Native for iOS
 
-[![GitHub Action build status](https://github.com/track-asia-vn/maplibre-native/workflows/ios-ci/badge.svg)](https://github.com/track-asia-vn/maplibre-native/actions/workflows/ios-ci.yml) [![GitHub Action build status](https://github.com/track-asia-vn/maplibre-native/workflows/ios-release/badge.svg)](https://github.com/track-asia-vn/maplibre-native/actions/workflows/ios-release.yml)
+[![GitHub Action build status](https://github.com/track-asia-vn/trackasia-native/workflows/ios-ci/badge.svg)](https://github.com/track-asia-vn/trackasia-native/actions/workflows/ios-ci.yml) [![GitHub Action build status](https://github.com/track-asia-vn/trackasia-native/workflows/ios-release/badge.svg)](https://github.com/track-asia-vn/trackasia-native/actions/workflows/ios-release.yml)
 
-A library based on [MapLibre Native](https://github.com/track-asia-vn/maplibre-native) for embedding interactive map views with scalable, customizable vector maps into iOS Applications.
+A library based on [MapLibre Native](https://github.com/track-asia-vn/trackasia-native) for embedding interactive map views with scalable, customizable vector maps into iOS Applications.
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ MapLibre Native for iOS is distributed using the [Swift Package Index](https://s
 
 3. Choose "Next". Xcode should clone the distribution repository and download the binaries.
 
-There is a an open bounty to extend this Getting Started guide ([#809](https://github.com/track-asia-vn/maplibre-native/issues/809)). In the meantime, refer to one of these external guides:
+There is a an open bounty to extend this Getting Started guide ([#809](https://github.com/track-asia-vn/trackasia-native/issues/809)). In the meantime, refer to one of these external guides:
 
 - [Get Started with MapLibre Native for iOS using SwiftUI](https://docs.maptiler.com/maplibre-gl-native-ios/ios-swiftui-basic-get-started/)
 - [Get Started With MapLibre Native for iOS using UIKit](https://docs.maptiler.com/maplibre-gl-native-ios/ios-uikit-basic-get-started/)
@@ -33,7 +33,7 @@ make iproj
 
 ### Bazel
 
-The above setup is quite fragile and relies on the `.xcodeproj` files part of the source tree (making changes hard to review). We are looking into a better way to set up an Xcode project for MapLibre Native iOS development. As of May 2023 we are experimenting with [Bazel](https://bazel.build/) together with [rules_xcodeproj](https://github.com/MobileNativeFoundation/rules_xcodeproj). Please [share your experiences](https://github.com/track-asia-vn/maplibre-native/discussions/1145).
+The above setup is quite fragile and relies on the `.xcodeproj` files part of the source tree (making changes hard to review). We are looking into a better way to set up an Xcode project for MapLibre Native iOS development. As of May 2023 we are experimenting with [Bazel](https://bazel.build/) together with [rules_xcodeproj](https://github.com/MobileNativeFoundation/rules_xcodeproj). Please [share your experiences](https://github.com/track-asia-vn/trackasia-native/discussions/1145).
 
 You need to install bazelisk, which is a wrapper around Bazel which ensures that the version specified in `.bazelversion` is used.
 

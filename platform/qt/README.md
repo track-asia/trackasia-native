@@ -1,6 +1,6 @@
 # MapLibre Native for Qt
 
-[![GitHub Action build status](https://github.com/track-asia-vn/maplibre-native/workflows/qt-ci/badge.svg)](https://github.com/track-asia-vn/maplibre-native/actions/workflows/qt-ci.yml) 
+[![GitHub Action build status](https://github.com/track-asia-vn/trackasia-native/workflows/qt-ci/badge.svg)](https://github.com/track-asia-vn/trackasia-native/actions/workflows/qt-ci.yml) 
 
 This is a community maintained MapLibre SDK for usage in Qt apps.
 Both Qt5 (minimal 5.6) and Qt6 are supported.

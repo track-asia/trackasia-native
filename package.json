@@ -1,9 +1,9 @@
 {
-  "name": "@maplibre/maplibre-gl-native",
+  "name": "@trackasia/trackasia-gl-native",
   "version": "5.2.0",
-  "description": "Renders map tiles with MapLibre Native",
+  "description": "Renders map tiles with Trackasia Native",
   "keywords": [
-    "maplibre",
+    "trackasia",
     "gl"
   ],
   "directories": {
@@ -17,7 +17,7 @@
   "types": "platform/node/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/track-asia-vn/maplibre-native.git"
+    "url": "git+https://github.com/track-asia-vn/trackasia-native.git"
   },
   "license": "BSD-2-Clause",
   "dependencies": {
@@ -69,7 +69,7 @@
   "binary": {
     "module_name": "mbgl",
     "module_path": "./lib/{node_abi}",
-    "host": "https://github.com/track-asia-vn/maplibre-native/releases/download/",
+    "host": "https://github.com/track-asia-vn/trackasia-native/releases/download/",
     "remote_path": "node-v{version}",
     "package_name": "{node_abi}-{platform}-{arch}-{configuration}.tar.gz"
   }

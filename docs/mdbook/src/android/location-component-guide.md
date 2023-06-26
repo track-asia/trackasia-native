@@ -80,7 +80,7 @@ val locationComponentOptions =
 
 7. Here is the final results with different color configurations. For the complete content of this demo, please refer to the source code of the [Test APP] [^2].
 
-   ![result](https://github.com/track-asia-vn/maplibre-native/assets/19887090/03dfc87b-111b-4dd0-b4a3-d89e30ed6b63)
+   ![result](https://github.com/track-asia-vn/trackasia-native/assets/19887090/03dfc87b-111b-4dd0-b4a3-d89e30ed6b63)
 
 
 [^1]: A variety of [camera modes] determine how the camera will track the user location.  
@@ -93,8 +93,8 @@ val locationComponentOptions =
 [PermissionManager]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.permissions/-permissions-manager/index.html
 [LocationComponentOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component-options/index.html
 [demotiles]: https://demotiles.maplibre.org/style.json
-[predefined styles]: https://github.com/track-asia-vn/maplibre-native/tree/main/src/mbgl/util/tile_server_options.cpp
+[predefined styles]: https://github.com/track-asia-vn/trackasia-native/tree/main/src/mbgl/util/tile_server_options.cpp
 [LocationComponentActivationOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component-activation-options/index.html
 [LocationEngine]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.engine/-location-engine/index.html
-[Test APP]: https://github.com/track-asia-vn/maplibre-native/tree/main/platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia-vn/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt
+[Test APP]: https://github.com/track-asia-vn/trackasia-native/tree/main/platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia-vn/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt
 [camera modes]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.modes/-camera-mode/index.html

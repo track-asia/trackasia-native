@@ -133,11 +133,11 @@ jobs:
       - name: Copy developer config with API key for UI tests
         if: github.ref == 'refs/heads/main'
         run: |
-          MAPLIBRE_DEVELOPER_CONFIG_XML='${{ secrets.MAPLIBRE_DEVELOPER_CONFIG_XML }}'
-          if [ -n "${MAPLIBRE_DEVELOPER_CONFIG_XML}" ]; then
-            echo "${MAPLIBRE_DEVELOPER_CONFIG_XML}" > MapboxGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
+          TRACKASIA_DEVELOPER_CONFIG_XML='${{ secrets.TRACASIA_DEVELOPER_CONFIG_XML }}'
+          if [ -n "${TRACKASIA_DEVELOPER_CONFIG_XML}" ]; then
+            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > MapboxGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
           else
-            echo "No secrets.MAPLIBRE_DEVELOPER_CONFIG_XML variable set, not copying..."
+            echo "No secrets.TRACKASIA_DEVELOPER_CONFIG_XML variable set, not copying..."
           fi
     
       - name: Build UI tests
@@ -231,7 +231,7 @@ jobs:
       - name: Schedule test run
         uses: realm/aws-devicefarm/test-application@master
         with:
-          name: MapLibre Native Android Instrumentation Test
+          name: Trackasia Native Android Instrumentation Test
           project_arn: ${{ vars.AWS_DEVICE_FARM_PROJECT_ARN }}
           device_pool_arn: ${{ vars.AWS_DEVICE_FARM_DEVICE_POOL_ARN }}
           app_arn: ${{ env.ANDROID_APP_ARN }}

@@ -263,7 +263,7 @@ class MLNDocumentationGuideTests: XCTestCase, MLNMapViewDelegate {
         let yellow = NSExpression(forConstantValue: UIColor.yellow)
 
 
-        XCTExpectFailure("Awaiting unit test refactoring for https://github.com/track-asia-vn/maplibre-native/issues/331")
+        XCTExpectFailure("Awaiting unit test refactoring for https://github.com/track-asia-vn/trackasia-native/issues/331")
         layer.circleColor = NSExpression(forMLNMatchingKey: type,
                                          in: [earthquake:orange, explosion:red, quarryBlast:yellow],
                                          default: defaultColor)

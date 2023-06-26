@@ -1,3 +1,3 @@
-# MapLibre Native for Android
+# Trackasia Native for Android
 
-MapLibre Native for Android is a library for embedding interactive map views with scalable, customizable vector maps onto Android devices.
+Track Native for Android is a library for embedding interactive map views with scalable, customizable vector maps onto Android devices.

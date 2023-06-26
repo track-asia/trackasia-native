@@ -26,7 +26,7 @@ PUBLISH_VERSION="5.11.0"
 BINARY_DIRECTORY='/Volumes/Data/Temp/maplibre'
 PUBLISH_PRE_FLAG=''
 S3_DISTRIBUTION=false
-MAPBOX_ZIP_FILE_URL="https://github.com/track-asia-vn/maplibre-native/releases/download/ios-v5.11.0/Mapbox-5.11.0.zip"
+MAPBOX_ZIP_FILE_URL="https://github.com/track-asia-vn/trackasia-native/releases/download/ios-v5.11.0/Mapbox-5.11.0.zip"
 MAPBOX_ZIP_FILE="Mapbox-5.11.0.zip"
 DIST_GITHUB_TOKEN="PUT YOUR TOKEN HERE:"
 

@@ -34,7 +34,7 @@ apt install libjpeg-turbo8 libicu66
 First, clone the repository. This repository uses git submodules, which are also required to build the project.
 
 ```bash
-git clone --recurse-submodules -j8 https://github.com/track-asia-vn/maplibre-native.git
+git clone --recurse-submodules -j8 https://github.com/track-asia-vn/trackasia-native.git
 cd maplibre-native
 ```
 

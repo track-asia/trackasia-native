@@ -13,7 +13,7 @@ to install the pre-commit hooks configured in `.pre-commit-config.yml`.
 
 ## Render Tests
 
-To check that the output of the rendering is correct, we compare actual rendered PNGs for simple styles with expected PNGs. The content of the tests is stored in the MapLibre GL JS submodule which means that GL JS and Native are in fact quasi pixel-identical in their rendering.
+To check that the output of the rendering is correct, we compare actual rendered PNGs for simple styles with expected PNGs. The content of the tests is stored in the Trackasia GL JS submodule which means that GL JS and Native are in fact quasi pixel-identical in their rendering.
 
 The directory sturcture of the render tests looks like:
 
@@ -76,9 +76,9 @@ The render test results are summarized in a HTML website located next to the man
 
 ---
 
-# MapLibre & C++
+# Trackasia & C++
 
-MapLibre makes use of a common set of C++ files for iOS, macOS, Android, Linux & Qt.  See [`platform/default/src/mbgl/`](`platform/default/src/mbgl/`), 
+Trackasia makes use of a common set of C++ files for iOS, macOS, Android, Linux & Qt.  See [`platform/default/src/mbgl/`](`platform/default/src/mbgl/`), 
 or any of the platform make files:
 
 * [`platform/android/android.cmake`](platform/android/android.cmake)
@@ -109,7 +109,7 @@ Add this to your header.
 ```c++
 #include <iostream>
 #include <sstream>
-#define LOG_TAG "# MapLibre "
+#define LOG_TAG "# Trackasia "
 
 #ifdef __ANDROID__
   #include <android/log.h>
@@ -137,17 +137,17 @@ Which will log the following samples.
 
 #### Android Sample Logging Output
 
-> com.mapbox.mapboxsdk.testapp D/# MapLibre: online_file_source.cpp: # MapLibre: online_file_source.cpp activateRequest req->resource.url = https://api.maptiler.com/tiles/v3/tiles.json
+> com.mapbox.mapboxsdk.testapp D/#Trackasia: online_file_source.cpp: # Trackasia: online_file_source.cpp activateRequest req->resource.url = https://api.maptiler.com/tiles/v3/tiles.json
 
 #### Xcode Sample Logging Output
 
-> MapLibre: online_file_source.cpp activateRequest req->resource.url = https://demotiles.maplibre.org/style.json
+> Trackasia: online_file_source.cpp activateRequest req->resource.url = https://demotiles.maplibre.org/style.json
 
 ---
 
 ### Autocomplete with `make`
 
-MapLibre makes use of several command line tools for local and cloud builds.  
+Trackasia makes use of several command line tools for local and cloud builds.  
 To see what targets exist you have to review the `Makefile`, which can be tedious.
 
 There is a better way with the Zsh.  While in a folder with a `Makefile`, you can type `make` followed by hitting `<tab>` twice.

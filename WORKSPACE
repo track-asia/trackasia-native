@@ -1,4 +1,4 @@
-workspace(name = "Maplibre")
+workspace(name = "Trackasia")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 

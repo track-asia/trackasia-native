@@ -14,6 +14,6 @@ To make an Android release, do the following:
   * You need write access to push the tag, e.g. `git push --atomic origin main android-v9.6.0`
 
 * Once the tag is pushed, you can run the `release-android.yml` workflow
-  * Go to https://github.com/track-asia-vn/maplibre-native/actions
+  * Go to https://github.com/track-asia-vn/trackasia-native/actions
   * Press `android-release`
   * Press `Run workflow` from the tag you pushed

@@ -5,7 +5,7 @@ ext {
     mapLibreArtifactDescription = 'MapLibre Maps SDK for Android'
     mapLibreDeveloperName = 'MapLibre'
     mapLibreDeveloperId = 'maplibre'
-    mapLibreArtifactUrl = 'https://github.com/track-asia-vn/maplibre-native'
+    mapLibreArtifactUrl = 'https://github.com/track-asia-vn/trackasia-native'
     mapLibreArtifactScmUrl = 'scm:git@github.com:maplibre/maplibre-native.git'
     mapLibreArtifactLicenseName = 'BSD'
     mapLibreArtifactLicenseUrl = 'https://opensource.org/licenses/BSD-2-Clause'
