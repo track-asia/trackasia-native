@@ -87,14 +87,14 @@ val locationComponentOptions =
       They provide the right context to your users at the correct time.  
 [^2]: In [Test APP], it also uses menu items to manage user location icon.  
 
-[LocationComponent]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component/index.html
+[LocationComponent]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component/index.html
 [Android Developer Documentation]: https://developer.android.com/training/location/permissions
-[onMapReadyCallback]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.maps/-on-map-ready-callback/index.html
-[PermissionManager]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.permissions/-permissions-manager/index.html
-[LocationComponentOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component-options/index.html
-[demotiles]: https://demotiles.maplibre.org/style.json
+[onMapReadyCallback]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.maps/-on-map-ready-callback/index.html
+[PermissionManager]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.permissions/-permissions-manager/index.html
+[LocationComponentOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component-options/index.html
+[demotiles]: https://demotiles.track-asia.com/style.json
 [predefined styles]: https://github.com/track-asia/trackasia-native/tree/main/src/mbgl/util/tile_server_options.cpp
-[LocationComponentActivationOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component-activation-options/index.html
-[LocationEngine]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.engine/-location-engine/index.html
+[LocationComponentActivationOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component-activation-options/index.html
+[LocationEngine]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.engine/-location-engine/index.html
 [Test APP]: https://github.com/track-asia/trackasia-native/tree/main/platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt
-[camera modes]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.modes/-camera-mode/index.html
+[camera modes]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.modes/-camera-mode/index.html

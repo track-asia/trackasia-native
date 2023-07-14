@@ -1032,7 +1032,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         [self.mapView.style addLayer:ohioLayer];
     }
 
-    NSURL *imageURL = [NSURL URLWithString:@"https://maplibre.org/maplibre-gl-js-docs/assets/radar.gif"];
+    NSURL *imageURL = [NSURL URLWithString:@"https://track-asia.com/maplibre-gl-js-docs/assets/radar.gif"];
     MLNCoordinateQuad quad = { {46.437, -80.425},
       {37.936, -80.425},
       {37.936, -71.516},

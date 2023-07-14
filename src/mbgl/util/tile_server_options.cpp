@@ -215,11 +215,11 @@ TileServerOptions TileServerOptions::DefaultConfiguration() {
 }
 
 TileServerOptions TileServerOptions::MapLibreConfiguration() {
-    std::vector<mbgl::util::DefaultStyle> styles{// https://demotiles.maplibre.org/style.json
+    std::vector<mbgl::util::DefaultStyle> styles{// https://demotiles.track-asia.com/style.json
                                                  mbgl::util::DefaultStyle("maplibre://maps/style", "Basic", 1)};
 
     TileServerOptions options = TileServerOptions()
-                                    .withBaseURL("https://demotiles.maplibre.org")
+                                    .withBaseURL("https://demotiles.track-asia.com")
                                     .withUriSchemeAlias("maplibre")
                                     .withApiKeyParameterName("")
                                     .withSourceTemplate("/tiles/{domain}.json", "", {})

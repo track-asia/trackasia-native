@@ -3,7 +3,7 @@
 This guide will show you how to add Markers in the map.
 
 `Annotation` is an overlay on top of a Map. In package
-`org.maplibre.android.annotations`, it has the following subclasses:
+`com.trackasia.android.annotations`, it has the following subclasses:
 1. [Marker]
 2. [Polyline]
 3. [Polygon]
@@ -75,15 +75,15 @@ Then add markers to the map with GeoJSON:
   <img src="https://github.com/track-asia/trackasia-native/assets/19887090/00446249-9b19-4a48-8a46-00d4c5a2f981" alt="Screenshot with the map in demotile style">
 </div>
 
-[Marker]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker/index.html
+[Marker]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker/index.html
 [provided image]: https://github.com/track-asia/trackasia-native/blob/main/platform/android/MapboxGLAndroidSDK/src/main/res/drawable-xxxhdpi/maplibre_marker_icon_default.png
-[Polyline]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polyline/index.html
-[Polygon]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polygon/index.html
+[Polyline]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polyline/index.html
+[Polygon]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polygon/index.html
 [marker image]: https://raw.githubusercontent.com/track-asia/trackasia-native/main/test/fixtures/sprites/default_marker.png
-[IconFactory]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-icon-factory/index.html
-[Icon]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-icon/index.html
+[IconFactory]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-icon-factory/index.html
+[Icon]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-icon/index.html
 [Quickstart]: ./getting-started-guide.md
-[mvn]: https://mvnrepository.com/artifact/org.maplibre.gl/android-plugin-annotation-v9
+[mvn]: https://mvnrepository.com/artifact/com.trackasia.gl/android-plugin-annotation-v9
 [Android Developer Documentation]: https://developer.android.com/topic/libraries/architecture/coroutines
-[MarkerOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker-options/index.html
+[MarkerOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker-options/index.html
 [Test App]: https://github.com/track-asia/trackasia-native/tree/main/platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia/android/testapp/activity/annotation/JsonApiActivity.kt

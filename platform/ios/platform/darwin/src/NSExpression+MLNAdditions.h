@@ -17,7 +17,7 @@ typedef NSString *MLNExpressionInterpolationMode NS_TYPED_ENUM;
  An `NSString` identifying the `linear` interpolation type in an `NSExpression`.
  
  This attribute corresponds to the `linear` value in the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#interpolate"><code>interpolate</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#interpolate"><code>interpolate</code></a>
  expression operator in the MapLibre Style Spec.
  */
 FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionInterpolationModeLinear;
@@ -26,7 +26,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionI
  An `NSString` identifying the `expotential` interpolation type in an `NSExpression`.
  
  This attribute corresponds to the `exponential` value in the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#interpolate"><code>interpolate</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#interpolate"><code>interpolate</code></a>
  expression operator in the MapLibre Style Spec.
  */
 FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionInterpolationModeExponential;
@@ -35,7 +35,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionI
  An `NSString` identifying the `cubic-bezier` interpolation type in an `NSExpression`.
  
  This attribute corresponds to the `cubic-bezier` value in the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#interpolate"><code>interpolate</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#interpolate"><code>interpolate</code></a>
  expression operator in the MapLibre Style Spec.
  */
 FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionInterpolationModeCubicBezier;
@@ -43,7 +43,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionI
 /**
  Methods for creating expressions that use Mapbox-specific functionality and for
  converting to and from the JSON format defined in the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/">MapLibre Style Spec</a>.
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/">MapLibre Style Spec</a>.
  */
 @interface NSExpression (MLNAdditions)
 
@@ -51,35 +51,35 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionI
 
 /**
  `NSExpression` variable that corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#zoom"><code>zoom</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#zoom"><code>zoom</code></a>
  expression operator in the MapLibre Style Spec.
  */
 @property (class, nonatomic, readonly) NSExpression *zoomLevelVariableExpression;
 
 /**
  `NSExpression` variable that corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#heatmap-density"><code>heatmap-density</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#heatmap-density"><code>heatmap-density</code></a>
  expression operator in the MapLibre Style Spec.
  */
 @property (class, nonatomic, readonly) NSExpression *heatmapDensityVariableExpression;
 
 /**
  `NSExpression` variable that corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#line-progress"><code>line-progress</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#line-progress"><code>line-progress</code></a>
  expression operator in the MapLibre Style Spec.
  */
 @property (class, nonatomic, readonly) NSExpression *lineProgressVariableExpression;
 
 /**
  `NSExpression` variable that corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#geometry-type"><code>geometry-type</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#geometry-type"><code>geometry-type</code></a>
  expression operator in the MapLibre Style Spec.
  */
 @property (class, nonatomic, readonly) NSExpression *geometryTypeVariableExpression;
 
 /**
  `NSExpression` variable that corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#id"><code>id</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#id"><code>id</code></a>
  expression operator in the MapLibre Style Spec.
  */
 @property (class, nonatomic, readonly) NSExpression *featureIdentifierVariableExpression;
@@ -93,7 +93,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionI
 
 /**
  `NSExpression` variable that corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/expressions/#properties"><code>properties</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/expressions/#properties"><code>properties</code></a>
  expression operator in the MapLibre Style Spec.
  */
 @property (class, nonatomic, readonly) NSExpression *featureAttributesVariableExpression;
@@ -186,7 +186,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionI
  from JSON data.
  
  The Foundation object is interpreted according to the
- [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/expressions/).
+ [MapLibre Style Spec](https://track-asia.com/maplibre-style-spec/expressions/).
  See the
  “[Information for Style Authors](../for-style-authors.html#setting-attribute-values)”
  guide for a correspondence of operators and types between the style
@@ -203,7 +203,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNExpressionInterpolationMode MLNExpressionI
  An equivalent Foundation object that can be serialized as JSON.
  
  The Foundation object conforms to the
- [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/expressions/).
+ [MapLibre Style Spec](https://track-asia.com/maplibre-style-spec/expressions/).
  See the
  “[Information for Style Authors](../for-style-authors.html#setting-attribute-values)”
  guide for a correspondence of operators and types between the style

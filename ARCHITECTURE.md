@@ -28,7 +28,7 @@ Code and build scripts belonging to platform SDKs are contained in the `platform
   - iOS SDK runs benchmark test through a separate app named `BenchmarkApp`.
   - Android SDK does not have benchmark test.
 - `bin` contains the code for tools like `mbgl-cache`, `mbgl-offline`, and `mbgl-render`.
-- `expression-test` contains tests for the expression feature in the map style (see more details about expression [here](https://maplibre.org/maplibre-style-spec/expressions/).
+- `expression-test` contains tests for the expression feature in the map style (see more details about expression [here](https://track-asia.com/trackasia-style-spec/expressions/).
 - `metrics` contains test manifest files and ground truth for graphic comparison based render test.
 - `misc` contains protobuf for style, vector tile, and glyphs. It also icons and pictures used in documents.
 - `render-test` contains image diff based render tests. These tests verify if the rendering results match with expectations by capturing the rendering results and compare with the groundtruth images in the `metrics` directory.
@@ -77,7 +77,7 @@ See the relevant platform-specific `README.md` / `INSTALL.md` for details.
 ## Map
 ## Style
 
-The "Style" component of Trackasia Native contains an implementation of the [Trackasia Style Spec](https://maplibre.org/maplibre-style-spec/), defining what data to draw, the order to draw it in, and how to style the data when drawing it.
+The "Style" component of Trackasia Native contains an implementation of the [Trackasia Style Spec](https://track-asia.com/trackasia-style-spec/), defining what data to draw, the order to draw it in, and how to style the data when drawing it.
 
 In addition to supporting styles loaded from a URL, Trackasia Native includes a runtime styling API, which allows users to dynamically modify the current style: add and remove layers, modify layer properties, and so on. As appropriate for a C++ API, the runtime styling API API is _strongly typed_: there are subclasses for each layer type, with correctly-typed accessors for each style property. This results in a large API surface area. Fortunately, this is automated, by generating the API – and the regular portion of the implementation – from the style specification.
 

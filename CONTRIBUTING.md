@@ -2,7 +2,7 @@
 
 ## Documentation
 
-- For a high-level overview of Trackasia Native, check out the [Trackasia Native Markdown Book](https://maplibre.org/maplibre-native/docs/book/).
+- For a high-level overview of Trackasia Native, check out the [Trackasia Native Markdown Book](https://trackasia.com/trackasia-native/docs/book/).
 - See [`DEVELOPING.md`](DEVELOPING.md) for getting started with development.
 
 ## Source code checkout

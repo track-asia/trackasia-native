@@ -1426,7 +1426,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
         { 37.936, -71.516 },
         { 46.437, -71.516 } };
 
-    MLNImageSource *imageSource = [[MLNImageSource alloc] initWithIdentifier:@"style-image-source-id" coordinateQuad:coordinateQuad URL:[NSURL URLWithString:@"https://maplibre.org/maplibre-gl-js-docs/assets/radar0.gif"]];
+    MLNImageSource *imageSource = [[MLNImageSource alloc] initWithIdentifier:@"style-image-source-id" coordinateQuad:coordinateQuad URL:[NSURL URLWithString:@"https://track-asia.com/maplibre-gl-js-docs/assets/radar0.gif"]];
 
     [self.mapView.style addSource:imageSource];
     
@@ -1444,7 +1444,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
 - (void)updateAnimatedImageSource:(NSTimer *)timer {
     static int radarSuffix = 0;
     MLNImageSource *imageSource = (MLNImageSource *)timer.userInfo;
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://maplibre.org/maplibre-gl-js-docs/assets/radar%d.gif", radarSuffix++]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://track-asia.com/maplibre-gl-js-docs/assets/radar%d.gif", radarSuffix++]];
     [imageSource setValue:url forKey:@"URL"];
     if (radarSuffix > 3) {
         radarSuffix = 0;
@@ -1907,7 +1907,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
     
     /// Style that does not require an `apiKey` nor any further configuration
     [self.styleNames addObject:@"MapLibre Basic"];
-    [self.styleURLs addObject:[NSURL URLWithString:@"https://demotiles.maplibre.org/style.json"]];
+    [self.styleURLs addObject:[NSURL URLWithString:@"https://demotiles.track-asia.com/style.json"]];
 
     /// Add MapLibre Styles if an `apiKey` exists
     NSString* apiKey = [MLNSettings apiKey];

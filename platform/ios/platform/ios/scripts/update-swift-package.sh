@@ -17,7 +17,7 @@ rm -f Package.swift
 cp platform/ios/scripts/swift_package_template.swift Package.swift
 
 export GITHUB_USER=maplibre
-export GITHUB_REPO=maplibre-native
+export GITHUB_REPO=trackasia-native
 export BUILDTYPE=Release
 export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/track-asia/maplibre-gl-native-distribution
 

@@ -45,7 +45,7 @@ jazzy \
     --module-version ${SHORT_VERSION} \
     --readme ${README} \
     --documentation="platform/{darwin,ios}/docs/guides/*.md" \
-    --root-url https://maplibre.org/maplibre-native/ios/api/ \
+    --root-url https://track-asia.com/trackasia-native/ios/api/ \
     --theme ${THEME} \
     --head "${CUSTOM_HEAD}" \
     --output ${OUTPUT} \

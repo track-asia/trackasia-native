@@ -17,7 +17,7 @@ function finish { >&2 echo -en "\033[0m"; }
 trap finish EXIT
 
 export GITHUB_USER=maplibre
-export GITHUB_REPO=maplibre-native
+export GITHUB_REPO=trackasia-native
 export BUILDTYPE=Release
 export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/track-asia/maplibre-gl-native-distribution
 

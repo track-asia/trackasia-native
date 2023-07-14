@@ -1,11 +1,11 @@
 module: MapLibre
 author: MapLibre Contributors
-author_url: https://maplibre.org/
+author_url: https://track-asia.com/
 github_url: https://github.com/track-asia/trackasia-native
 copyright: '[License](https://github.com/track-asia/trackasia-native/blob/main/platform/ios/LICENSE.md)'
 
 head: |
-  <link rel='shortcut icon' href='https://maplibre.org/favicon.ico' type='image/x-icon' />
+  <link rel='shortcut icon' href='https://track-asia.com/favicon.ico' type='image/x-icon' />
 
 objc: Yes
 skip_undocumented: Yes

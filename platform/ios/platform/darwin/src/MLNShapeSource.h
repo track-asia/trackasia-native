@@ -20,7 +20,7 @@ typedef NSString *MLNShapeSourceOption NS_STRING_ENUM;
  `YES` clusters the points by radius into groups. The default value is `NO`.
  
  This option corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/#sources-geojson-cluster"><code>cluster</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/#sources-geojson-cluster"><code>cluster</code></a>
  source property in the MapLibre Style Spec.
  
  This option only affects point features within an `MLNShapeSource` object; it
@@ -66,7 +66,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionClus
  ```
 
  This option corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/#sources-geojson-clusterProperties"><code>clusterProperties</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/#sources-geojson-clusterProperties"><code>clusterProperties</code></a>
  source property in the MapLibre Style Spec.
 
  This option only affects point features within an `MLNShapeSource` object; it
@@ -80,7 +80,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionClus
  maximum zoom level, the shapes are not clustered.
  
  This option corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/#sources-geojson-clusterMaxZoom"><code>clusterMaxZoom</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/#sources-geojson-clusterMaxZoom"><code>clusterMaxZoom</code></a>
  source property in the MapLibre Style Spec.
  
  This option only affects point features within an `MLNShapeSource` object; it
@@ -93,7 +93,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionMaxi
  which to create vector tiles. The default value is 0.
 
  This option corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/#sources-geojson-minzoom"><code>minzoom</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/#sources-geojson-minzoom"><code>minzoom</code></a>
  source property in the MapLibre Style Spec.
  */
 FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionMinimumZoomLevel;
@@ -104,7 +104,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionMini
  zoom levels. The default value is 18.
  
  This option corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/#sources-geojson-maxzoom"><code>maxzoom</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/#sources-geojson-maxzoom"><code>maxzoom</code></a>
  source property in the MapLibre Style Spec.
  */
 FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionMaximumZoomLevel;
@@ -116,7 +116,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionMaxi
  artifacts near tile edges and slower performance. The default value is 128.
  
  This option corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/#sources-geojson-buffer"><code>buffer</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/#sources-geojson-buffer"><code>buffer</code></a>
  source property in the MapLibre Style Spec.
  */
 FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionBuffer;
@@ -127,7 +127,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionBuff
  improves performance. The default value is 0.375.
  
  This option corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/#sources-geojson-tolerance"><code>tolerance</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/#sources-geojson-tolerance"><code>tolerance</code></a>
  source property in the MapLibre Style Spec.
  */
 FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionSimplificationTolerance;
@@ -139,7 +139,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionSimp
  The default value is `NO`.
  
  This option corresponds to the
- <a href="https://maplibre.org/maplibre-style-spec/sources/#geojson-lineMetrics"><code>lineMetrics</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/sources/#geojson-lineMetrics"><code>lineMetrics</code></a>
  source property in the MapLibre Style Spec.
  */
 FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionLineDistanceMetrics;
@@ -158,7 +158,7 @@ FOUNDATION_EXTERN MLN_EXPORT const MLNShapeSourceOption MLNShapeSourceOptionLine
  use the `MLNComputedShapeSource` or `MLNVectorTileSource` class.
 
  Each
- <a href="https://maplibre.org/maplibre-style-spec/#sources-geojson"><code>geojson</code></a>
+ <a href="https://track-asia.com/maplibre-style-spec/#sources-geojson"><code>geojson</code></a>
  source defined by the style JSON file is represented at runtime by an
  `MLNShapeSource` object that you can use to refine the map’s content and
  initialize new style layers. You can also add and remove sources dynamically
