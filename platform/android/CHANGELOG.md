@@ -6,10 +6,10 @@ Trackasia welcomes participation and contributions from everyone. Please read [`
 
 ### ✨ Features and improvements
 
-- 💥 Breaking: Change package of all classes from `com.mapbox.mapboxsdk` to `org.maplibre.android` ([#1201](https://github.com/track-asia/trackasia-native/pull/1201)). This means you will need to fix your imports.
+- 💥 Breaking: Change package of all classes from `com.mapbox.mapboxsdk` to `org.trackasia.android` ([#1201](https://github.com/track-asia/trackasia-native/pull/1201)). This means you will need to fix your imports.
 
   > To migrate:  
-  > In your imports in each of your project files, replace `com.mapbox.mapboxsdk.` with `org.maplibre.android.*`.
+  > In your imports in each of your project files, replace `com.mapbox.mapboxsdk.` with `org.trackasia.android.*`.
 
 - 💥 Breaking: Rename several classes to no longer contain the word "Mapbox". You will need to migrate by renaming references.
 
@@ -19,10 +19,10 @@ Trackasia welcomes participation and contributions from everyone. Please read [`
   > These are the most important classes that have been renamed:
   >
   > - `Mapbox` → `Trackasia`
-  > - `MapboxMap` → `MapLibreMap`
-  > - `MapboxConstants` → `MapLibreConstants`
-  > - `MapboxMapOptions` → `MapLibreMapOptions`
-  > - but also others, less frequently used ones, like `MapboxGLSurfaceView` → `MapLibreGLSurfaceView`.
+  > - `MapboxMap` → `trackasiaMap`
+  > - `MapboxConstants` → `trackasiaConstants`
+  > - `MapboxMapOptions` → `trackasiaMapOptions`
+  > - but also others, less frequently used ones, like `MapboxGLSurfaceView` → `trackasiaGLSurfaceView`.
 
 ### 🐞 Bug fixes
 
@@ -33,7 +33,7 @@ Trackasia welcomes participation and contributions from everyone. Please read [`
 ### ✨ Features and improvements
 
 - Change to a more natural fling animation and allow setting `flingThreshold` and `flingAnimationBaseTime` in `UiSettings` ([#963](https://github.com/track-asia/trackasia-native/pull/963))
-- Add support for the [`index-of` expression](https://maplibre.org/maplibre-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
+- Add support for the [`index-of` expression](https://trackasia.org/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
 
 ### 🐞 Bug fixes
 
@@ -57,10 +57,10 @@ Trackasia welcomes participation and contributions from everyone. Please read [`
 
 ### ✨ Features and improvements
 
-- 💥 Breaking: Changed resourcePrefix to `maplibre_` from `mapbox_` ([#647](https://github.com/track-asia/trackasia-native/pull/647)) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with MapLibre logo.
+- 💥 Breaking: Changed resourcePrefix to `trackasia_` from `mapbox_` ([#647](https://github.com/track-asia/trackasia-native/pull/647)) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with trackasia logo.
 
   > To migrate:  
-  > If you use any of the public Android resources, you will get an error that they can not be found. Replace the prefix of each, e.g. `R.style.mapbox_LocationComponent` -> `R.style.maplibre_LocationComponent`.
+  > If you use any of the public Android resources, you will get an error that they can not be found. Replace the prefix of each, e.g. `R.style.mapbox_LocationComponent` -> `R.style.trackasia_LocationComponent`.
 
 - 💥 Breaking: several deprecated overloads of `LocationComponent.activateLocationComponent` were removed. Use `LocationComponentActivationOptions.Builder` instead.
 

@@ -13,7 +13,7 @@ ext {
     ]
 
     versions = [
-            mapLibreServices: '5.9.0',
+            trackasiaServices: '5.9.0',
             mapboxCore      : '2.0.1',
             mapboxGestures  : '0.7.0',
             appCompat       : '1.5.1',
@@ -46,9 +46,8 @@ ext {
     ]
     
     dependenciesList = [
-            mapboxJavaGeoJSON      : "org.maplibre.gl:android-sdk-geojson:${versions.mapLibreServices}",
             mapboxAndroidGestures  : "com.mapbox.mapboxsdk:mapbox-android-gestures:${versions.mapboxGestures}",
-            mapboxJavaTurf         : "org.maplibre.gl:android-sdk-turf:${versions.mapLibreServices}",
+            mapboxTrackasiaJava    : "org.trackasia.gl:android-sdk-turf:${versions.trackasiaServices}",
 
             junit                  : "junit:junit:${versions.junit}",
             amdroidxJunit          : "androidx.test.ext:junit:1.1.4",

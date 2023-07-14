@@ -139,8 +139,8 @@ run-android-benchmark-$1-%: android-benchmark-$1
 # Run the test app on connected android device with specified abi
 .PHONY: run-android-$1
 run-android-$1:
-	-adb uninstall org.maplibre.testapp 2> /dev/null
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :MapboxGLAndroidSDKTestApp:install$(BUILDTYPE) && adb shell am start -n org.maplibre.testapp/.activity.FeatureOverviewActivity
+	-adb uninstall com.trackasia.testapp 2> /dev/null
+	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :MapboxGLAndroidSDKTestApp:install$(BUILDTYPE) && adb shell am start -n org.trackasia.testapp/.activity.FeatureOverviewActivity
 
 # Build test app instrumentation tests apk and test app apk for specified abi
 .PHONY: android-ui-test-$1
@@ -150,12 +150,12 @@ android-ui-test-$1:
 # Run test app instrumentation tests on a connected android device or emulator with specified abi
 .PHONY: run-android-ui-test-$1
 run-android-ui-test-$1:
-	-adb uninstall org.maplibre.testapp 2> /dev/null
+	-adb uninstall org.trackasia.testapp 2> /dev/null
 	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :MapboxGLAndroidSDKTestApp:connectedAndroidTest
 
 # Run Java Instrumentation tests on a connected android device or emulator with specified abi and test filter
 run-android-ui-test-$1-%:
-	-adb uninstall org.maplibre.testapp 2> /dev/null
+	-adb uninstall org.trackasia.testapp 2> /dev/null
 	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :MapboxGLAndroidSDKTestApp:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="$$*"
 
 # Symbolicate native stack trace with the specified abi
@@ -166,7 +166,7 @@ android-ndk-stack-$1:
 # Run render tests with pixelmatch
 .PHONY: run-android-render-test-$1
 run-android-render-test-$1: $(BUILD_DEPS)
-	-adb uninstall org.maplibre.testapp 2> /dev/null
+	-adb uninstall org.trackasia.testapp 2> /dev/null
 	# delete old test results
 	rm -rf build/render-test/track-asia/
   # copy test definitions & ignore file to test app assets folder, clear old ones first
@@ -174,7 +174,7 @@ run-android-render-test-$1: $(BUILD_DEPS)
 	cp -r metrics/integration MapboxGLAndroidSDKTestApp/src/main/assets
 	cp platform/node/test/ignores.json MapboxGLAndroidSDKTestApp/src/main/assets/integration/ignores.json
 	# run RenderTest.java to generate static map images
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :MapboxGLAndroidSDKTestApp:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="org.maplibre.testapp.render.RenderTest"
+	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :MapboxGLAndroidSDKTestApp:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="org.trackasia.testapp.render.RenderTest"
 	# pull generated images from the device
 	adb pull "`adb shell 'printenv EXTERNAL_STORAGE' | tr -d '\r'`/track-asia/render" build/render-test
 	# copy expected result and run pixelmatch
@@ -229,7 +229,7 @@ android-ui-test:
 #Run instrumentations tests on MicroSoft App Center, ${devices} can be "xiaomi","huawei","OnePlus","htc"
 .PHONY: run-android-test-app-center
 run-android-test-app-center:
-	appcenter test run espresso --app "MapLibre-mobile/Maps-sdk" --devices "MapLibre-mobile/${devices}" --app-path MapboxGLAndroidSDKTestApp/build/outputs/apk/debug/MapboxGLAndroidSDKTestApp-debug.apk  --test-series "master" --locale "en_US" --build-dir MapboxGLAndroidSDKTestApp/build/outputs/apk/androidTest/debug --token ${APPCENTER_ACCESS_TOKEN}
+	appcenter test run espresso --app "Trackasia-mobile/Maps-sdk" --devices "Trackasia-mobile/${devices}" --app-path MapboxGLAndroidSDKTestApp/build/outputs/apk/debug/MapboxGLAndroidSDKTestApp-debug.apk  --test-series "master" --locale "en_US" --build-dir MapboxGLAndroidSDKTestApp/build/outputs/apk/androidTest/debug --token ${APPCENTER_ACCESS_TOKEN}
 
 # Uploads the compiled Android SDK to Maven Central Staging
 .PHONY: run-android-publish
@@ -239,7 +239,7 @@ run-android-publish:
 # Dump system graphics information for the test app
 .PHONY: android-gfxinfo
 android-gfxinfo:
-	adb shell dumpsys gfxinfo org.maplibre.testapp reset
+	adb shell dumpsys gfxinfo org.trackasia.testapp reset
 
 # Runs checkstyle and lint on the java code
 .PHONY: android-check

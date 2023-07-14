@@ -11,7 +11,7 @@ cat >foo <<EOF
      Subkey-Type: RSA
      Subkey-Length: 4096
      Name-Real: Petr Pokorny
-     Name-Comment: MapLibre publish
+     Name-Comment: trackasia publish
      Name-Email: petr.pokorny@maptiler.com
      Expire-Date: 0
      Passphrase: < Put your password here >
@@ -26,5 +26,5 @@ gpg --list-secret-keys
 
 # gpg --keyserver hkp://ipv4.pool.sks-keyservers.net --send-keys < your key here - i.e. 6BCC07D1, last 8 characters > 
 # gpg --keyserver hkps://keys.openpgp.org --send-key 6BCC07D1
-# gpg --export-secret-keys < your key here - i.e. 6BCC07D1, last 8 characters > /Volumes/Src/src/MapTiler/Native/maplibre-gl-native/platform/android/signing-key.gpg
-# base64 /Volumes/Src/src/MapTiler/Native/maplibre-gl-native/platform/android/signing-key.gpg > /Volumes/Src/src/MapTiler/Native/maplibre-gl-native/platform/android/signing-key.text
+# gpg --export-secret-keys < your key here - i.e. 6BCC07D1, last 8 characters > /Volumes/Src/src/MapTiler/Native/trackasia-gl-native/platform/android/signing-key.gpg
+# base64 /Volumes/Src/src/MapTiler/Native/trackasia-gl-native/platform/android/signing-key.gpg > /Volumes/Src/src/MapTiler/Native/trackasia-gl-native/platform/android/signing-key.text

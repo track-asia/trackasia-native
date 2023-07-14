@@ -1,0 +1,106 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 21 min SDK version: x86",
+    "file_": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "rebuilding JSON /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/.cxx/Debug/2a4p3q3w/x86/android_gradle_build.json due to:",
+    "file_": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "- no fingerprint file, will remove stale configuration folder",
+    "file_": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "removing stale contents from \u0027/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/.cxx/Debug/2a4p3q3w/x86\u0027",
+    "file_": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "created folder \u0027/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/.cxx/Debug/2a4p3q3w/x86\u0027",
+    "file_": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "executing cmake /Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/cmake \\\n  -H/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp \\\n  -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n  -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n  -DCMAKE_SYSTEM_VERSION\u003d21 \\\n  -DANDROID_PLATFORM\u003dandroid-21 \\\n  -DANDROID_ABI\u003dx86 \\\n  -DCMAKE_ANDROID_ARCH_ABI\u003dx86 \\\n  -DANDROID_NDK\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393 \\\n  -DCMAKE_ANDROID_NDK\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393 \\\n  -DCMAKE_TOOLCHAIN_FILE\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393/build/cmake/android.toolchain.cmake \\\n  -DCMAKE_MAKE_PROGRAM\u003d/Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/ninja \\\n  -DCMAKE_C_FLAGS\u003d-Qunused-arguments \\\n  -DCMAKE_CXX_FLAGS\u003d-Qunused-arguments \\\n  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/build/intermediates/cxx/Debug/2a4p3q3w/obj/x86 \\\n  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/build/intermediates/cxx/Debug/2a4p3q3w/obj/x86 \\\n  -DCMAKE_BUILD_TYPE\u003dDebug \\\n  -B/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/.cxx/Debug/2a4p3q3w/x86 \\\n  -GNinja \\\n  -DANDROID_TOOLCHAIN\u003dclang \\\n  -DANDROID_STL\u003dc++_static \\\n  -DANDROID_CPP_FEATURES\u003dexceptions\n",
+    "file_": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "/Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/cmake \\\n  -H/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp \\\n  -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n  -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n  -DCMAKE_SYSTEM_VERSION\u003d21 \\\n  -DANDROID_PLATFORM\u003dandroid-21 \\\n  -DANDROID_ABI\u003dx86 \\\n  -DCMAKE_ANDROID_ARCH_ABI\u003dx86 \\\n  -DANDROID_NDK\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393 \\\n  -DCMAKE_ANDROID_NDK\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393 \\\n  -DCMAKE_TOOLCHAIN_FILE\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393/build/cmake/android.toolchain.cmake \\\n  -DCMAKE_MAKE_PROGRAM\u003d/Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/ninja \\\n  -DCMAKE_C_FLAGS\u003d-Qunused-arguments \\\n  -DCMAKE_CXX_FLAGS\u003d-Qunused-arguments \\\n  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/build/intermediates/cxx/Debug/2a4p3q3w/obj/x86 \\\n  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/build/intermediates/cxx/Debug/2a4p3q3w/obj/x86 \\\n  -DCMAKE_BUILD_TYPE\u003dDebug \\\n  -B/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/.cxx/Debug/2a4p3q3w/x86 \\\n  -GNinja \\\n  -DANDROID_TOOLCHAIN\u003dclang \\\n  -DANDROID_STL\u003dc++_static \\\n  -DANDROID_CPP_FEATURES\u003dexceptions\n",
+    "file_": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed with problem. Exception: com.android.ide.common.process.ProcessException: -- The C compiler identification is Clang 14.0.6\n-- The CXX compiler identification is Clang 14.0.6\n-- Detecting C compiler ABI info\n-- Detecting C compiler ABI info - done\n-- Check for working C compiler: /Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang - skipped\n-- Detecting C compile features\n-- Detecting C compile features - done\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: /Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- Configuring GL-Native with OpenGL renderer backend\n-- Configuring incomplete, errors occurred!\nSee also \"/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/.cxx/Debug/2a4p3q3w/x86/CMakeFiles/CMakeOutput.log\".\n\nC++ build system [configure] failed while executing:\n    /Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/cmake \\\n      -H/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp \\\n      -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n      -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n      -DCMAKE_SYSTEM_VERSION\u003d21 \\\n      -DANDROID_PLATFORM\u003dandroid-21 \\\n      -DANDROID_ABI\u003dx86 \\\n      -DCMAKE_ANDROID_ARCH_ABI\u003dx86 \\\n      -DANDROID_NDK\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393 \\\n      -DCMAKE_ANDROID_NDK\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393 \\\n      -DCMAKE_TOOLCHAIN_FILE\u003d/Users/sangnguyen/Library/Android/sdk/ndk/25.1.8937393/build/cmake/android.toolchain.cmake \\\n      -DCMAKE_MAKE_PROGRAM\u003d/Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/ninja \\\n      -DCMAKE_C_FLAGS\u003d-Qunused-arguments \\\n      -DCMAKE_CXX_FLAGS\u003d-Qunused-arguments \\\n      -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/build/intermediates/cxx/Debug/2a4p3q3w/obj/x86 \\\n      -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/build/intermediates/cxx/Debug/2a4p3q3w/obj/x86 \\\n      -DCMAKE_BUILD_TYPE\u003dDebug \\\n      -B/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/.cxx/Debug/2a4p3q3w/x86 \\\n      -GNinja \\\n      -DANDROID_TOOLCHAIN\u003dclang \\\n      -DANDROID_STL\u003dc++_static \\\n      -DANDROID_CPP_FEATURES\u003dexceptions\n  from /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK\nCMake Warning (dev) in CMakeLists.txt:\n  No project() command is present.  The top-level CMakeLists.txt file must\n  contain a literal, direct call to the project() command.  Add a line of\n  code such as\n\n    project(ProjectName)\n\n  near the top of the file, but after cmake_minimum_required().\n\n  CMake is pretending there is a \"project(Project)\" command on the first\n  line.\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:4 (add_subdirectory):\n  The source directory\n\n    /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base\n\n  does not contain a CMakeLists.txt file.\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:7 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-extras-kdbush.hpp\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:16 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-extras-expected-lite\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:25 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-supercluster.hpp\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:34 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-shelf-pack-cpp\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:43 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-geojson-vt-cpp\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:52 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-extras-rapidjson\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:61 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-geojson.hpp\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:70 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-geometry.hpp\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:79 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-optional\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:88 (set_target_properties):\n  set_target_properties Can not find target to add properties to: mapbox-base\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:97 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-variant\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/vendor/mapbox-base.cmake:106 (set_target_properties):\n  set_target_properties Can not find target to add properties to:\n  mapbox-base-cheap-ruler-cpp\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1032 (include)\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1068 (export):\n  export given target \"mapbox-base\" which is not built by this project.\n\n\nCMake Error at /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/scripts/license.cmake:24 (message):\n  License not found for target: mbgl-vendor-boost\nCall Stack (most recent call first):\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/scripts/license.cmake:40 (mbgl_generate_license)\n  /Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/CMakeLists.txt:1119 (include)",
+    "file_": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  }
+]

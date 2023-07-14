@@ -1,0 +1,201 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- these are public -->
+    <declare-styleable name="trackasia_MapView" >
+
+        <!--DEPRECATED use trackasia_apiBaseUri instead -->
+        <attr name="trackasia_apiBaseUrl" format="string"/>
+
+        <!--Configuration-->
+        <attr name="trackasia_apiBaseUri" format="string"/>
+        <attr name="trackasia_localIdeographEnabled" format="boolean"/>
+        <attr name="trackasia_localIdeographFontFamily" format="string"/>
+        <attr name="trackasia_localIdeographFontFamilies" format="reference"/>
+        <attr name="trackasia_cross_source_collisions" format="boolean"/>
+
+        <!--Camera-->
+        <attr name="trackasia_cameraTargetLat" format="float"/>
+        <attr name="trackasia_cameraTargetLng" format="float"/>
+        <attr name="trackasia_cameraZoom" format="float"/>
+        <attr name="trackasia_cameraBearing" format="float"/>
+        <attr name="trackasia_cameraTilt" format="float"/>
+
+        <!--Zoom-->
+        <attr name="trackasia_cameraZoomMax" format="float"/>
+        <attr name="trackasia_cameraZoomMin" format="float"/>
+
+        <!--Pitch-->
+        <attr name="trackasia_cameraPitchMax" format="float"/>
+        <attr name="trackasia_cameraPitchMin" format="float"/>
+
+        <!--Gestures-->
+        <attr name="trackasia_uiZoomGestures" format="boolean"/>
+        <attr name="trackasia_uiScrollGestures" format="boolean"/>
+        <attr name="trackasia_uiHorizontalScrollGestures" format="boolean"/>
+        <attr name="trackasia_uiRotateGestures" format="boolean"/>
+        <attr name="trackasia_uiTiltGestures" format="boolean"/>
+        <attr name="trackasia_uiDoubleTapGestures" format="boolean"/>
+        <attr name="trackasia_uiQuickZoomGestures" format="boolean"/>
+
+        <!--Compass-->
+        <attr name="trackasia_uiCompass" format="boolean"/>
+        <attr name="trackasia_uiCompassGravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_vertical" value="0x10"/>
+            <flag name="fill_vertical" value="0x70"/>
+            <flag name="center_horizontal" value="0x01"/>
+            <flag name="fill_horizontal" value="0x07"/>
+            <flag name="center" value="0x11"/>
+            <flag name="fill" value="0x77"/>
+            <flag name="clip_vertical" value="0x80"/>
+            <flag name="clip_horizontal" value="0x08"/>
+            <flag name="start" value="0x00800003"/>
+            <flag name="end" value="0x00800005"/>
+        </attr>
+        <attr name="trackasia_uiCompassMarginLeft" format="dimension"/>
+        <attr name="trackasia_uiCompassMarginTop" format="dimension"/>
+        <attr name="trackasia_uiCompassMarginRight" format="dimension"/>
+        <attr name="trackasia_uiCompassMarginBottom" format="dimension"/>
+        <attr name="trackasia_uiCompassFadeFacingNorth" format="boolean"/>
+        <attr name="trackasia_uiCompassDrawable" format="reference"/>
+
+        <!--Logo-->
+        <attr name="trackasia_uiLogo" format="boolean"/>
+        <attr name="trackasia_uiLogoGravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_vertical" value="0x10"/>
+            <flag name="fill_vertical" value="0x70"/>
+            <flag name="center_horizontal" value="0x01"/>
+            <flag name="fill_horizontal" value="0x07"/>
+            <flag name="center" value="0x11"/>
+            <flag name="fill" value="0x77"/>
+            <flag name="clip_vertical" value="0x80"/>
+            <flag name="clip_horizontal" value="0x08"/>
+            <flag name="start" value="0x00800003"/>
+            <flag name="end" value="0x00800005"/>
+        </attr>
+        <attr name="trackasia_uiLogoMarginLeft" format="dimension"/>
+        <attr name="trackasia_uiLogoMarginTop" format="dimension"/>
+        <attr name="trackasia_uiLogoMarginRight" format="dimension"/>
+        <attr name="trackasia_uiLogoMarginBottom" format="dimension"/>
+
+        <!--Attribution-->
+        <attr name="trackasia_uiAttribution" format="boolean"/>
+        <attr name="trackasia_uiAttributionGravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_vertical" value="0x10"/>
+            <flag name="fill_vertical" value="0x70"/>
+            <flag name="center_horizontal" value="0x01"/>
+            <flag name="fill_horizontal" value="0x07"/>
+            <flag name="center" value="0x11"/>
+            <flag name="fill" value="0x77"/>
+            <flag name="clip_vertical" value="0x80"/>
+            <flag name="clip_horizontal" value="0x08"/>
+            <flag name="start" value="0x00800003"/>
+            <flag name="end" value="0x00800005"/>
+        </attr>
+        <attr name="trackasia_uiAttributionMarginLeft" format="dimension"/>
+        <attr name="trackasia_uiAttributionMarginTop" format="dimension"/>
+        <attr name="trackasia_uiAttributionMarginRight" format="dimension"/>
+        <attr name="trackasia_uiAttributionMarginBottom" format="dimension"/>
+        <attr name="trackasia_uiAttributionTintColor" format="color"/>
+
+        <!-- Use TextureView-->
+        <attr name="trackasia_renderTextureMode" format="boolean"/>
+        <attr name="trackasia_renderTextureTranslucentSurface" format="boolean"/>
+        <attr name="trackasia_foregroundLoadColor" format="color"/>
+
+        <attr name="trackasia_enableTilePrefetch" format="boolean"/>
+        <attr name="trackasia_prefetchZoomDelta" format="integer"/>
+        <attr name="trackasia_enableZMediaOverlay" format="boolean"/>
+        <attr name="trackasia_pixelRatio" format="float"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="trackasia_BubbleLayout">
+        <attr name="trackasia_bl_arrowWidth" format="dimension|reference"/>
+        <attr name="trackasia_bl_cornersRadius" format="dimension|reference"/>
+        <attr name="trackasia_bl_arrowHeight" format="dimension|reference"/>
+        <attr name="trackasia_bl_arrowPosition" format="dimension|reference"/>
+        <attr name="trackasia_bl_bubbleColor" format="color|reference"/>
+        <attr name="trackasia_bl_strokeWidth" format="dimension|reference"/>
+        <attr name="trackasia_bl_strokeColor" format="color|reference"/>
+
+        <attr name="trackasia_bl_arrowDirection" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+            <enum name="top" value="2"/>
+            <enum name="bottom" value="3"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="trackasia_LocationComponent">
+        <attr name="trackasia_foregroundDrawable" format="reference"/>
+        <attr name="trackasia_foregroundTintColor" format="color"/>
+        <attr name="trackasia_backgroundDrawable" format="reference"/>
+        <attr name="trackasia_backgroundTintColor" format="color"/>
+        <attr name="trackasia_bearingDrawable" format="reference"/>
+        <attr name="trackasia_bearingTintColor" format="color"/>
+        <attr name="trackasia_gpsDrawable" format="reference"/>
+
+        <attr name="trackasia_foregroundDrawableStale" format="reference"/>
+        <attr name="trackasia_foregroundStaleTintColor" format="color"/>
+        <attr name="trackasia_backgroundDrawableStale" format="reference"/>
+        <attr name="trackasia_backgroundStaleTintColor" format="color"/>
+
+        <attr name="trackasia_accuracyAlpha" format="float"/>
+        <attr name="trackasia_accuracyColor" format="color"/>
+
+        <attr name="trackasia_elevation" format="dimension"/>
+
+        <!-- Stale state -->
+        <attr name="trackasia_enableStaleState" format="boolean"/>
+        <attr name="trackasia_staleStateTimeout" format="integer" min="0"/>
+
+        <!-- Location icon padding -->
+        <attr name="trackasia_iconPaddingLeft" format="integer"/>
+        <attr name="trackasia_iconPaddingTop" format="integer"/>
+        <attr name="trackasia_iconPaddingRight" format="integer"/>
+        <attr name="trackasia_iconPaddingBottom" format="integer"/>
+
+        <!-- Map layer configuration -->
+        <attr name="trackasia_layer_above" format="string"/>
+        <attr name="trackasia_layer_below" format="string"/>
+
+        <!-- Icon scale based on map zoom levels -->
+        <attr name="trackasia_maxZoomIconScale" format="float"/>
+        <attr name="trackasia_minZoomIconScale" format="float"/>
+
+        <!-- Camera tracking settings -->
+        <attr name="trackasia_trackingGesturesManagement" format="boolean"/>
+        <attr name="trackasia_trackingInitialMoveThreshold" format="dimension"/>
+        <attr name="trackasia_trackingMultiFingerMoveThreshold" format="dimension"/>
+
+        <!-- Animation duration multiplier -->
+        <attr name="trackasia_trackingAnimationDurationMultiplier" format="float" />
+
+        <!-- Compass animation -->
+        <attr name="trackasia_compassAnimationEnabled" format="boolean" />
+
+        <!-- Accuracy animation-->
+        <attr name="trackasia_accuracyAnimationEnabled" format="boolean" />
+
+        <!-- Pulsing circle -->
+        <attr name="trackasia_pulsingLocationCircleEnabled" format="boolean" />
+        <attr name="trackasia_pulsingLocationCircleFadeEnabled" format="boolean" />
+        <attr name="trackasia_pulsingLocationCircleColor" format="color" />
+        <attr name="trackasia_pulsingLocationCircleDuration" format="float" />
+        <attr name="trackasia_pulsingLocationCircleRadius" format="float" />
+        <attr name="trackasia_pulsingLocationCircleAlpha" format="float" />
+        <attr name="trackasia_pulsingLocationCircleInterpolator" format="string" />
+
+    </declare-styleable>
+</resources>

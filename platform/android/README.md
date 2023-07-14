@@ -6,11 +6,11 @@ Trackasia Native for Android is a library for embedding interactive map views wi
 
 ## Getting Started
 
-Visit [https://maplibre.org/maplibre-native/docs/book/android/getting-started-guide.html](https://maplibre.org/maplibre-native/docs/book/android/getting-started-guide.html) to view the Getting Started Guide for Trackasia Native for Android.
+Visit [https://trackasia.org/trackasia-native/docs/book/android/getting-started-guide.html](https://trackasia.org/trackasia-native/docs/book/android/getting-started-guide.html) to view the Getting Started Guide for Trackasia Native for Android.
 
 ## Documentation
 
-Visit [https://maplibre.org/maplibre-native/android/api/](https://maplibre.org/maplibre-native/android/api/) to view the current API reference Javadoc files for Trackasia Native for Android.
+Visit [https://trackasia.org/trackasia-native/android/api/](https://trackasia.org/trackasia-native/android/api/) to view the current API reference Javadoc files for Trackasia Native for Android.
 
 ## Contributing
 
