@@ -13,7 +13,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp">
 
-        <org.trackasia.android.maps.MapView
+        <com.trackasia.android.maps.MapView
             android:id="@+id/mini_map"
             android:layout_width="100dp"
             maps:trackasia_enableZMediaOverlay="true"

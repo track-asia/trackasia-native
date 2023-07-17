@@ -1,12 +1,12 @@
-package org.trackasia.android.maps.renderer.egl;
+package com.trackasia.android.maps.renderer.egl;
 
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.constants.trackasiaConstants;
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.log.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +16,7 @@ import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
 
-import static org.trackasia.android.utils.Compare.compare;
+import static com.trackasia.android.utils.Compare.compare;
 import static javax.microedition.khronos.egl.EGL10.EGL_ALPHA_MASK_SIZE;
 import static javax.microedition.khronos.egl.EGL10.EGL_ALPHA_SIZE;
 import static javax.microedition.khronos.egl.EGL10.EGL_BLUE_SIZE;
@@ -88,7 +88,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     int[] numConfigs = new int[1];
     if (!egl.eglChooseConfig(display, configAttributes, null, 0, numConfigs)) {
       Logger.e(TAG, String.format(
-        trackasiaConstants.trackasia_LOCALE, "eglChooseConfig(NULL) returned error %d", egl.eglGetError())
+        MapLibreConstants.trackasia_LOCALE, "eglChooseConfig(NULL) returned error %d", egl.eglGetError())
       );
     }
     return numConfigs;
@@ -100,7 +100,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     EGLConfig[] configs = new EGLConfig[numConfigs[0]];
     if (!egl.eglChooseConfig(display, configAttributes, configs, numConfigs[0], numConfigs)) {
       Logger.e(TAG, String.format(
-        trackasiaConstants.trackasia_LOCALE, "eglChooseConfig() returned error %d", egl.eglGetError())
+        MapLibreConstants.trackasia_LOCALE, "eglChooseConfig() returned error %d", egl.eglGetError())
       );
     }
     return configs;
@@ -258,7 +258,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     int[] attributevalue = new int[1];
     if (!egl.eglGetConfigAttrib(display, config, attributeName, attributevalue)) {
       Logger.e(TAG, String.format(
-        trackasiaConstants.trackasia_LOCALE, "eglGetConfigAttrib(%d) returned error %d", attributeName, egl.eglGetError())
+        MapLibreConstants.trackasia_LOCALE, "eglGetConfigAttrib(%d) returned error %d", attributeName, egl.eglGetError())
       );
     }
     return attributevalue[0];

@@ -88,7 +88,7 @@ struct LayerTypeInfo {
 };
 
 /**
- * The runtime representation of a [layer](https://track-asia.com/maplibre-style-spec/#layers)
+ * The runtime representation of a [layer](https://track-asia.com/trackasia-style-spec/#layers)
  * from the Trackasia Style Spec.
  *
  * `Layer` is an abstract base class; concrete derived classes are provided for

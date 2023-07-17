@@ -1,11 +1,11 @@
-package org.trackasia.android.integration
+package com.trackasia.android.integration
 
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
-import org.trackasia.android.AppCenter
+import com.trackasia.android.AppCenter
 import org.junit.Before
 
 const val TIMEOUT_UI_SEARCH_WAIT = 5000L

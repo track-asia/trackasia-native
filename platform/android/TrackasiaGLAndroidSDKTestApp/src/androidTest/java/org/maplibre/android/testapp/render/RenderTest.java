@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.render;
+package com.trackasia.android.testapp.render;
 
 import android.Manifest;
 
@@ -9,9 +9,9 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
-import org.trackasia.android.AppCenter;
-import org.trackasia.android.testapp.activity.render.RenderTestActivity;
-import org.trackasia.android.testapp.utils.SnapshotterIdlingResource;
+import com.trackasia.android.AppCenter;
+import com.trackasia.android.testapp.activity.render.RenderTestActivity;
+import com.trackasia.android.testapp.utils.SnapshotterIdlingResource;
 
 import org.junit.After;
 import org.junit.Before;

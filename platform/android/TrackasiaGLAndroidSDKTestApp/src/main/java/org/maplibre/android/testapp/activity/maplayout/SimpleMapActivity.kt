@@ -1,11 +1,11 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.NavUtils
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.NavUtils
 
 /**
  * Test activity showcasing a simple MapView without any MapboxMap interaction.
@@ -18,7 +18,7 @@ class SimpleMapActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: trackasiaMap ->
+            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
                 val styles = Style.getPredefinedStyles()
                 if (styles != null && styles.size > 0) {
                     val styleUrl = styles[0].url

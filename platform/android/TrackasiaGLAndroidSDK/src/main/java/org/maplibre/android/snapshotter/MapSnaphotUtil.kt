@@ -1,4 +1,4 @@
-package org.trackasia.android.snapshotter
+package com.trackasia.android.snapshotter
 
 import android.graphics.BitmapFactory
 

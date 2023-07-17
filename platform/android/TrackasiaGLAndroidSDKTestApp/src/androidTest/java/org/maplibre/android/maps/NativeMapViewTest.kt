@@ -1,20 +1,20 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.content.Context
 import android.graphics.PointF
 import androidx.test.annotation.UiThreadTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
-import org.trackasia.android.AppCenter
-import org.trackasia.android.trackasia
-import org.trackasia.android.WellKnownTileServer
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.geometry.ProjectedMeters
-import org.trackasia.android.maps.renderer.MapRenderer
-import org.trackasia.android.style.layers.TransitionOptions
-import org.trackasia.android.testapp.utils.TestConstants
+import com.trackasia.android.AppCenter
+import com.trackasia.android.Trackasia
+import com.trackasia.android.WellKnownTileServer
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.geometry.ProjectedMeters
+import com.trackasia.android.maps.renderer.MapRenderer
+import com.trackasia.android.style.layers.TransitionOptions
+import com.trackasia.android.testapp.utils.TestConstants
 import org.junit.After
 import org.junit.Assert
 import org.junit.Assert.*
@@ -43,8 +43,8 @@ class NativeMapViewTest : AppCenter() {
     @UiThreadTest
     fun before() {
         val context = InstrumentationRegistry.getInstrumentation().context
-        val apiKey = trackasia.getApiKey()
-        trackasia.getInstance(context, apiKey, WellKnownTileServer.MapTiler)
+        val apiKey = Trackasia.getApiKey()
+        Trackasia.getInstance(context, apiKey, WellKnownTileServer.MapTiler)
         nativeMapView = NativeMapView(context, 2.0f, false, null, null, DummyRenderer(context))
         nativeMapView.resizeView(WIDTH, HEIGHT)
     }
@@ -53,8 +53,8 @@ class NativeMapViewTest : AppCenter() {
     @UiThreadTest
     fun after() {
         val context = InstrumentationRegistry.getInstrumentation().context
-        val apiKey = trackasia.getApiKey()
-        trackasia.getInstance(context)
+        val apiKey = Trackasia.getApiKey()
+        Trackasia.getInstance(context)
         nativeMapView.destroy()
     }
 

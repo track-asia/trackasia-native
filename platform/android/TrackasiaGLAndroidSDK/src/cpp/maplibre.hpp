@@ -7,7 +7,7 @@
 namespace mbgl {
 namespace android {
 
-class trackasia {
+class Trackasia {
 public:
     static constexpr auto Name() { return "org/track-asia/android/trackasia"; };
     static jboolean hasInstance(jni::JNIEnv&);

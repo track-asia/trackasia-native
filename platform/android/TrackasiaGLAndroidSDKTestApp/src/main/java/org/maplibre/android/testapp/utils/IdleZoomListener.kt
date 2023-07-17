@@ -1,11 +1,11 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import android.widget.TextView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.trackasiaMap.OnCameraIdleListener
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.MapLibreMap.OnCameraIdleListener
+import com.trackasia.android.testapp.R
 
-class IdleZoomListener(private val trackasiaMap: trackasiaMap, private val textView: TextView) :
+class IdleZoomListener(private val trackasiaMap: MapLibreMap, private val textView: TextView) :
     OnCameraIdleListener {
     override fun onCameraIdle() {
         val context = textView.context

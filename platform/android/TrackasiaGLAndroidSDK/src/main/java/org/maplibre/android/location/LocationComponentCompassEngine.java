@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.log.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

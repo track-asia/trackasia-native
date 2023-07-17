@@ -6,7 +6,7 @@ The files produced by building mbgl-core target can be reused as libraries in ot
 
 ## Prerequisites
 
-The Windows port, for while, relies on `Microsoft Visual Studio` to build MapLibre Native, either using `Ninja` or `Microsoft Visual Studio`. The build was tested with `Microsoft Visual Studio 2022 Community Edition`. Other 2022 editions might work as well. Earlier versions are not guaranteed to work, but `Microsoft Visual Studio 2019` might work.
+The Windows port, for while, relies on `Microsoft Visual Studio` to buildTrackasia native, either using `Ninja` or `Microsoft Visual Studio`. The build was tested with `Microsoft Visual Studio 2022 Community Edition`. Other 2022 editions might work as well. Earlier versions are not guaranteed to work, but `Microsoft Visual Studio 2019` might work.
 
 To install the required Visual Studio components, open Visual Studio Installer and check `Desktop Development with C++` option. Make sure `C++ CMake tools for Windows` is selected in the right pane. If `git` is not already installed, select `Git for Windows` option in `Individual Components`. When Visual Studio finishes the install process, everything is ready to start.
 
@@ -27,7 +27,7 @@ Configure the build with the following command:
 cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 ```
 
-It will take some time to build and install all components on which Maplibre depends.
+It will take some time to build and install all components on which Trackasia depends.
 
 ## Alternative configure commands
 
@@ -81,9 +81,9 @@ If all went well and target `mbgl-render` or `ALL_BUILD` was chosen, there shoul
 .\build\bin\mbgl-render.exe --style https://raw.githubusercontent.com/track-asia/demotiles/gh-pages/style.json --output out.png
 ```
 
-This should produce an `out.png` map tile image with the default MapLibre styling from [the MapLibre demo](https://track-asia.com/).
+This should produce an `out.png` map tile image with the default Trackasia styling from [the Trackasia demo](https://track-asia.com/).
 
-![Sample image of world from mbgl-render command](/misc/sample-maplibre-style-mbgl-render-out.png)
+![Sample image of world from mbgl-render command](/misc/sample-trackasia-style-mbgl-render-out.png)
 
 ### Using your own style/tiles 
 

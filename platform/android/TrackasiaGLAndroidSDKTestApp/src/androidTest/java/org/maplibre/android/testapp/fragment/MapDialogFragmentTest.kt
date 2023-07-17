@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.fragment
+package com.trackasia.android.testapp.fragment
 
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
@@ -7,9 +7,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import org.trackasia.android.AppCenter
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.activity.maplayout.MapInDialogActivity
+import com.trackasia.android.AppCenter
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.maplayout.MapInDialogActivity
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test

@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.utils.MapFragmentUtils;
+import com.trackasia.android.utils.MapFragmentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
 
   private final List<OnMapReadyCallback> mapReadyCallbackList = new ArrayList<>();
   private OnMapViewReadyCallback mapViewReadyCallback;
-  private trackasiaMap trackasiaMap;
+  private MapLibreMap trackasiaMap;
   private MapView map;
 
   /**
@@ -53,7 +53,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
    * @return MapFragment instantiated.
    */
   @NonNull
-  public static MapFragment newInstance(@Nullable trackasiaMapOptions trackasiaMapOptions) {
+  public static MapFragment newInstance(@Nullable MapLibreMapOptions trackasiaMapOptions) {
     MapFragment mapFragment = new MapFragment();
     mapFragment.setArguments(MapFragmentUtils.createFragmentArgs(trackasiaMapOptions));
     return mapFragment;
@@ -69,7 +69,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
   @Override
   public void onInflate(@NonNull Context context, AttributeSet attrs, Bundle savedInstanceState) {
     super.onInflate(context, attrs, savedInstanceState);
-    setArguments(MapFragmentUtils.createFragmentArgs(trackasiaMapOptions.createFromAttributes(context, attrs)));
+    setArguments(MapFragmentUtils.createFragmentArgs(MapLibreMapOptions.createFromAttributes(context, attrs)));
   }
 
   /**
@@ -125,7 +125,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
    * @param trackasiaMap The public api controller of the map
    */
   @Override
-  public void onMapReady(@NonNull trackasiaMap trackasiaMap) {
+  public void onMapReady(@NonNull MapLibreMap trackasiaMap) {
     this.trackasiaMap = trackasiaMap;
     for (OnMapReadyCallback onMapReadyCallback : mapReadyCallbackList) {
       onMapReadyCallback.onMapReady(trackasiaMap);

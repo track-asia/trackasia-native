@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.location
+package com.trackasia.android.testapp.activity.location
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -15,18 +15,18 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ListPopupWindow
-import org.trackasia.android.location.LocationComponent
-import org.trackasia.android.location.LocationComponentActivationOptions
-import org.trackasia.android.location.LocationComponentOptions
-import org.trackasia.android.location.engine.LocationEngineRequest
-import org.trackasia.android.location.modes.CameraMode
-import org.trackasia.android.location.permissions.PermissionsListener
-import org.trackasia.android.location.permissions.PermissionsManager
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.location.LocationComponent
+import com.trackasia.android.location.LocationComponentActivationOptions
+import com.trackasia.android.location.LocationComponentOptions
+import com.trackasia.android.location.engine.LocationEngineRequest
+import com.trackasia.android.location.modes.CameraMode
+import com.trackasia.android.location.permissions.PermissionsListener
+import com.trackasia.android.location.permissions.PermissionsManager
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 
 /**
  * This activity shows how to customize the LocationComponent's pulsing circle.
@@ -38,7 +38,7 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
     private lateinit var pulsingCircleColorButton: Button
     private var permissionsManager: PermissionsManager? = null
     private var locationComponent: LocationComponent? = null
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var currentPulseDuration = 0f
 
     //endregion
@@ -85,7 +85,7 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
     }
 
     @SuppressLint("MissingPermission")
-    override fun onMapReady(trackasiaMap: trackasiaMap) {
+    override fun onMapReady(trackasiaMap: MapLibreMap) {
         this.trackasiaMap = trackasiaMap
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
             locationComponent = trackasiaMap.locationComponent

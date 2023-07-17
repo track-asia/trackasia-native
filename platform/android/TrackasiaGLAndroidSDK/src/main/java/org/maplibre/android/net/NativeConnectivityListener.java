@@ -1,8 +1,8 @@
-package org.trackasia.android.net;
+package com.trackasia.android.net;
 
 import androidx.annotation.Keep;
 
-import org.trackasia.android.LibraryLoader;
+import com.trackasia.android.LibraryLoader;
 
 /**
  * Updates the native library's connectivity state

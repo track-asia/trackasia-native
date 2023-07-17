@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.customlayer
+package com.trackasia.android.testapp.activity.customlayer
 
 import android.os.Bundle
 import android.view.Menu
@@ -7,15 +7,15 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.CustomLayer
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.model.customlayer.ExampleCustomLayer
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.CustomLayer
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.model.customlayer.ExampleCustomLayer
 
 /**
  * Test activity showcasing the Custom Layer API
@@ -25,7 +25,7 @@ import org.trackasia.android.testapp.model.customlayer.ExampleCustomLayer
  *
  */
 class CustomLayerActivity : AppCompatActivity() {
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var mapView: MapView
     private var customLayer: CustomLayer? = null
     private lateinit var fab: FloatingActionButton
@@ -35,7 +35,7 @@ class CustomLayerActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: trackasiaMap? ->
+            OnMapReadyCallback { map: MapLibreMap? ->
                 trackasiaMap = map!!
                 trackasiaMap.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(

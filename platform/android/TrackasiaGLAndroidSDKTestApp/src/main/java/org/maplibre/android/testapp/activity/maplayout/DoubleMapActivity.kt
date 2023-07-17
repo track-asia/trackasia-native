@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
-import org.trackasia.android.utils.MapFragmentUtils
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
+import com.trackasia.android.utils.MapFragmentUtils
 
 /**
  * Test activity showcasing having 2 maps on top of each other.
@@ -27,7 +27,7 @@ class DoubleMapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_fragment)
         if (savedInstanceState == null) {
-            val options = trackasiaMapOptions.createFromAttributes(this, null)
+            val options = MapLibreMapOptions.createFromAttributes(this, null)
             options.camera(
                 CameraPosition.Builder()
                     .target(MACHU_PICCHU)
@@ -62,7 +62,7 @@ class DoubleMapActivity : AppCompatActivity() {
             // MapView large
             mapView = MapView(view.context, MapFragmentUtils.resolveArgs(view.context, arguments))
             mapView.onCreate(savedInstanceState)
-            mapView.getMapAsync { trackasiaMap: trackasiaMap ->
+            mapView.getMapAsync { trackasiaMap: MapLibreMap ->
                 trackasiaMap.setStyle(
                     Style.getPredefinedStyle(
                         "Streets"
@@ -75,7 +75,7 @@ class DoubleMapActivity : AppCompatActivity() {
             mapViewMini = view.findViewById(R.id.mini_map)
             mapViewMini.onCreate(savedInstanceState)
             mapViewMini.getMapAsync(
-                OnMapReadyCallback { trackasiaMap: trackasiaMap ->
+                OnMapReadyCallback { trackasiaMap: MapLibreMap ->
                     trackasiaMap.moveCamera(
                         CameraUpdateFactory.newCameraPosition(
                             CameraPosition.Builder().target(MACHU_PICCHU)

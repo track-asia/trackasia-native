@@ -1,9 +1,9 @@
-package org.trackasia.android.testapp.offline
+package com.trackasia.android.testapp.offline
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import org.trackasia.android.AppCenter
-import org.trackasia.android.testapp.activity.offline.OfflineActivity
-import org.trackasia.android.testapp.utils.OfflineUtils.convertRegionName
+import com.trackasia.android.AppCenter
+import com.trackasia.android.testapp.activity.offline.OfflineActivity
+import com.trackasia.android.testapp.utils.OfflineUtils.convertRegionName
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -1,4 +1,4 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.content.Context
 import org.junit.Assert
@@ -17,7 +17,7 @@ class AttributionDialogManagerTest {
     )
 
     @InjectMocks
-    var trackasiaMap = Mockito.mock(trackasiaMap::class.java)
+    var trackasiaMap = Mockito.mock(MapLibreMap::class.java)
 
     @InjectMocks
     var style = Mockito.mock(

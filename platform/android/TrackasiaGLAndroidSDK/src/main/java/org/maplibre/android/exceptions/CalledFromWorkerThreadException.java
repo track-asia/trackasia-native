@@ -1,4 +1,4 @@
-package org.trackasia.android.exceptions;
+package com.trackasia.android.exceptions;
 
 public class CalledFromWorkerThreadException extends RuntimeException {
 

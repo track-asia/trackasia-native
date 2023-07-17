@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Storage API classes.
+ * Contains the Trackasia Maps Android Storage API classes.
  */
-package org.trackasia.android.storage;
+package com.trackasia.android.storage;

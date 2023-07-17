@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,17 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.expressions.Expression.FormatOption
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.expressions.Expression.FormatOption
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.utils.BitmapUtils
 
 /**
  * Test image in label.
@@ -31,7 +31,7 @@ class ImageInLabelActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(trackasiaMap: trackasiaMap) {
+    override fun onMapReady(trackasiaMap: MapLibreMap) {
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
             val us = BitmapUtils.getBitmapFromDrawable(
                 resources.getDrawable(R.drawable.ic_us)

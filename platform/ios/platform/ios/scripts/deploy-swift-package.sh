@@ -16,10 +16,10 @@ function step { >&2 echo -e "\033[1m\033[36m* $@\033[0m"; }
 function finish { >&2 echo -en "\033[0m"; }
 trap finish EXIT
 
-export GITHUB_USER=maplibre
+export GITHUB_USER=trackasia
 export GITHUB_REPO=trackasia-native
 export BUILDTYPE=Release
-export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/track-asia/maplibre-gl-native-distribution
+export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/track-asia/trackasia-gl-native-distribution
 
 VERSION_TAG=${VERSION_TAG:-''}
 PUBLISH_VERSION=

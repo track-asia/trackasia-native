@@ -1,4 +1,4 @@
-package org.trackasia.android.location.engine;
+package com.trackasia.android.location.engine;
 
 import android.content.Context;
 import android.location.Criteria;
@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class trackasiaFusedLocationEngineImplAdditionalTest2 {
+public class MapLibreFusedLocationEngineImplAdditionalTest2 {
   private static final long INTERVAL = 1000L;
   private static final String PROVIDER = "test_provider";
   private ArrayList<LocationEngineProxy> engines = new ArrayList<>();
@@ -67,7 +67,7 @@ public class trackasiaFusedLocationEngineImplAdditionalTest2 {
       }
     }).when(mockLocationManager)
       .requestLocationUpdates(anyString(), anyLong(), anyFloat(), any(LocationListener.class), any(Looper.class));
-    engines.add(new LocationEngineProxy<>(new trackasiaFusedLocationEngineImpl(mockContext)));
+    engines.add(new LocationEngineProxy<>(new MapLibreFusedLocationEngineImpl(mockContext)));
     engines.add(new LocationEngineProxy<>(new AndroidLocationEngineImpl(mockContext)));
   }
 

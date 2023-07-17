@@ -1,14 +1,14 @@
-package org.trackasia.android.testapp.geometry;
+package com.trackasia.android.testapp.geometry;
 
 import static org.junit.Assert.assertEquals;
 
-import org.trackasia.android.camera.CameraUpdateFactory;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.geometry.LatLngBounds;
-import org.trackasia.android.testapp.action.trackasiaMapAction;
-import org.trackasia.android.testapp.activity.BaseTest;
-import org.trackasia.android.testapp.activity.feature.QueryRenderedFeaturesBoxHighlightActivity;
-import org.trackasia.android.testapp.utils.TestConstants;
+import com.trackasia.android.camera.CameraUpdateFactory;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLngBounds;
+import com.trackasia.android.testapp.action.MapLibreMapAction;
+import com.trackasia.android.testapp.activity.BaseTest;
+import com.trackasia.android.testapp.activity.feature.QueryRenderedFeaturesBoxHighlightActivity;
+import com.trackasia.android.testapp.utils.TestConstants;
 
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class LatLngBoundsTest extends BaseTest {
   public void testLatLngBounds() {
     // regression test for #9322
     validateTestSetup();
-    trackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapLibreMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
       LatLngBounds bounds = new LatLngBounds.Builder()
         .include(new LatLng(48.8589506, 2.2773457))
         .include(new LatLng(47.2383171, -1.6309316))
@@ -41,7 +41,7 @@ public class LatLngBoundsTest extends BaseTest {
   public void testLatLngBoundsBearing() {
     // regression test for #12549
     validateTestSetup();
-    trackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapLibreMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
       LatLngBounds bounds = new LatLngBounds.Builder()
         .include(new LatLng(48.8589506, 2.2773457))
         .include(new LatLng(47.2383171, -1.6309316))

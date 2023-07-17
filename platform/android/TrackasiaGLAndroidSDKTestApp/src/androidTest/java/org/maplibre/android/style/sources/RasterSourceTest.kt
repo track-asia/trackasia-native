@@ -1,4 +1,4 @@
-package org.trackasia.android.style.sources
+package com.trackasia.android.style.sources
 
 import androidx.test.annotation.UiThreadTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner

@@ -1,9 +1,9 @@
-package org.trackasia.android.snapshotter
+package com.trackasia.android.snapshotter
 
 import android.graphics.Bitmap
 import android.graphics.PointF
 import androidx.annotation.Keep
-import org.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLng
 
 /**
  * A completed snapshot.
@@ -24,7 +24,7 @@ class MapSnapshot private constructor(val nativePtr: Long, bitmap: Bitmap, attri
     val attributions: Array<String>
 
     /**
-     * @return Flag indicating to show the trackasia logo.
+     * @return Flag indicating to show the Trackasia logo.
      */
     val isShowLogo: Boolean
 

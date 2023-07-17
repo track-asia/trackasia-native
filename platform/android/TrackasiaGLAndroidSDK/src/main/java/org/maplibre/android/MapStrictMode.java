@@ -1,4 +1,4 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
 /**
  * Using this class you can enable a strict mode that will throw the {@link MapStrictModeException}

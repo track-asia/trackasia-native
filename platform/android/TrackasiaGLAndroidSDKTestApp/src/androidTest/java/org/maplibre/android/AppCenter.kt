@@ -1,4 +1,4 @@
-package org.trackasia.android
+package com.trackasia.android
 
 import com.microsoft.appcenter.espresso.Factory
 import org.junit.After

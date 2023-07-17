@@ -1,8 +1,8 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import org.trackasia.android.testapp.R
+import com.trackasia.android.testapp.R
 
 class ItemClickSupport private constructor(private val recyclerView: RecyclerView) {
     private var onItemClickListener: OnItemClickListener? = null

@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.geometry;
+package com.trackasia.android.testapp.geometry;
 
 import androidx.test.annotation.UiThreadTest;
 
@@ -6,14 +6,14 @@ import com.google.gson.JsonArray;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.layers.PropertyFactory;
-import org.trackasia.android.style.layers.SymbolLayer;
-import org.trackasia.android.style.sources.GeoJsonSource;
-import org.trackasia.android.testapp.action.trackasiaMapAction;
-import org.trackasia.android.testapp.activity.EspressoTest;
-import org.trackasia.android.testapp.utils.TestingAsyncUtils;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.PropertyFactory;
+import com.trackasia.android.style.layers.SymbolLayer;
+import com.trackasia.android.style.sources.GeoJsonSource;
+import com.trackasia.android.testapp.action.MapLibreMapAction;
+import com.trackasia.android.testapp.activity.EspressoTest;
+import com.trackasia.android.testapp.utils.TestingAsyncUtils;
 
 import org.junit.Test;
 
@@ -123,7 +123,7 @@ public class GeoJsonConversionTest extends EspressoTest {
   @Test
   public void testNegativeNumberPropertyConversion() {
     validateTestSetup();
-    onView(isRoot()).perform(new trackasiaMapAction((uiController, mapboxMap) -> {
+    onView(isRoot()).perform(new MapLibreMapAction((uiController, mapboxMap) -> {
       LatLng latLng = new LatLng();
       Feature feature = Feature.fromGeometry(Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude()));
 

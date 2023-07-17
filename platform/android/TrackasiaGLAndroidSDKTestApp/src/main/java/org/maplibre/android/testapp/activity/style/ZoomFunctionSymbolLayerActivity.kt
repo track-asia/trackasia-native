@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.os.Bundle
 import android.view.Menu
@@ -8,17 +8,17 @@ import com.google.gson.JsonObject
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.trackasiaMap.OnMapClickListener
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.Property
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.MapLibreMap.OnMapClickListener
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.Property
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 
 /**
@@ -26,7 +26,7 @@ import timber.log.Timber
  */
 class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var source: GeoJsonSource? = null
     private var layer: SymbolLayer? = null
     private var isInitialPosition = true
@@ -52,7 +52,7 @@ class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: trackasiaMap ->
+            OnMapReadyCallback { map: MapLibreMap ->
                 trackasiaMap = map
                 map.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
                     updateSource(style)

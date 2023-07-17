@@ -1,4 +1,4 @@
-package org.trackasia.android.location.permissions;
+package com.trackasia.android.location.permissions;
 
 import android.Manifest;
 import android.app.Activity;

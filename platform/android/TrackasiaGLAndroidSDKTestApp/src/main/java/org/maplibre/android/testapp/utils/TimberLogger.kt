@@ -1,6 +1,6 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
-import org.trackasia.android.log.LoggerDefinition
+import com.trackasia.android.log.LoggerDefinition
 import timber.log.Timber
 
 class TimberLogger : LoggerDefinition {

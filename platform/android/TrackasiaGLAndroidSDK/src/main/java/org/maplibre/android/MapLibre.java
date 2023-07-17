@@ -1,4 +1,4 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,16 +10,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import timber.log.Timber;
 
-import org.trackasia.android.constants.trackasiaConstants;
-import org.trackasia.android.exceptions.trackasiaConfigurationException;
-import org.trackasia.android.net.ConnectivityReceiver;
-import org.trackasia.android.storage.FileSource;
-import org.trackasia.android.util.DefaultStyle;
-import org.trackasia.android.util.TileServerOptions;
-import org.trackasia.android.utils.ThreadUtils;
+import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.exceptions.MapLibreConfigurationException;
+import com.trackasia.android.net.ConnectivityReceiver;
+import com.trackasia.android.storage.FileSource;
+import com.trackasia.android.util.DefaultStyle;
+import com.trackasia.android.util.TileServerOptions;
+import com.trackasia.android.utils.ThreadUtils;
 
 /**
- * The entry point to initialize the trackasia Android SDK.
+ * The entry point to initialize the Trackasia Android SDK.
  * <p>
  * Obtain a reference by calling {@link #getInstance(Context, String, WellKnownTileServer)}.
  * Usually this class is configured in Application#onCreate() and is responsible for the
@@ -29,11 +29,11 @@ import org.trackasia.android.utils.ThreadUtils;
 @UiThread
 @SuppressLint("StaticFieldLeak")
 @Keep
-public final class trackasia {
+public final class Trackasia {
 
-  private static final String TAG = "Mbgl-trackasia";
+  private static final String TAG = "Mbgl-Trackasia";
   private static ModuleProvider moduleProvider;
-  private static trackasia INSTANCE;
+  private static Trackasia INSTANCE;
 
   private Context context;
   @Nullable
@@ -42,27 +42,27 @@ public final class trackasia {
   private TileServerOptions tileServerOptions;
 
   /**
-   * Get an instance of trackasia.
+   * Get an instance of Trackasia.
    * <p>
    * This class manages the API key, application context, and connectivity state.
    * </p>
    *
    * @param context Android context which holds or is an application context
-   * @return the single instance of trackasia
+   * @return the single instance of Trackasia
    */
   @UiThread
   @NonNull
-  public static synchronized trackasia getInstance(@NonNull Context context) {
+  public static synchronized Trackasia getInstance(@NonNull Context context) {
     ThreadUtils.init(context);
     ThreadUtils.checkThread(TAG);
     if (INSTANCE == null) {
       Context appContext = context.getApplicationContext();
       FileSource.initializeFileDirsPaths(appContext);
-      INSTANCE = new trackasia(appContext, null);
+      INSTANCE = new Trackasia(appContext, null);
       ConnectivityReceiver.instance(appContext);
     }
 
-    TileServerOptions tileServerOptions = TileServerOptions.get(WellKnownTileServer.trackasia);
+    TileServerOptions tileServerOptions = TileServerOptions.get(WellKnownTileServer.Trackasia);
     INSTANCE.tileServerOptions = tileServerOptions;
     INSTANCE.apiKey = null;
     FileSource fileSource = FileSource.getInstance(context);
@@ -73,7 +73,7 @@ public final class trackasia {
   }
 
   /**
-   * Get an instance of trackasia.
+   * Get an instance of Trackasia.
    * <p>
    * This class manages the API key, application context, and connectivity state.
    * </p>
@@ -84,11 +84,11 @@ public final class trackasia {
    *                   bootstrap the SDK. The predefined configuration includes
    *                   rules for converting resource URLs between normal and canonical forms
    *                   and set of predefined styles available on the server.
-   * @return the single instance of trackasia
+   * @return the single instance of Trackasia
    */
   @UiThread
   @NonNull
-  public static synchronized trackasia getInstance(@NonNull Context context, @Nullable String apiKey,
+  public static synchronized Trackasia getInstance(@NonNull Context context, @Nullable String apiKey,
                                                   WellKnownTileServer tileServer) {
     ThreadUtils.init(context);
     ThreadUtils.checkThread(TAG);
@@ -96,7 +96,7 @@ public final class trackasia {
       Timber.plant();
       Context appContext = context.getApplicationContext();
       FileSource.initializeFileDirsPaths(appContext);
-      INSTANCE = new trackasia(appContext, apiKey);
+      INSTANCE = new Trackasia(appContext, apiKey);
       ConnectivityReceiver.instance(appContext);
     } else {
       INSTANCE.apiKey = apiKey;
@@ -110,12 +110,12 @@ public final class trackasia {
     return INSTANCE;
   }
 
-  trackasia(@NonNull Context context, @Nullable String apiKey) {
+  Trackasia(@NonNull Context context, @Nullable String apiKey) {
     this.context = context;
     this.apiKey = apiKey;
   }
 
-  trackasia(@NonNull Context context, @Nullable String apiKey, @NonNull TileServerOptions options) {
+  Trackasia(@NonNull Context context, @Nullable String apiKey, @NonNull TileServerOptions options) {
     this.context = context;
     this.apiKey = apiKey;
     this.tileServerOptions = options;
@@ -232,16 +232,16 @@ public final class trackasia {
   }
 
   /**
-   * Runtime validation of trackasia creation.
+   * Runtime validation of Trackasia creation.
    */
   private static void validateMapbox() {
     if (INSTANCE == null) {
-      throw new trackasiaConfigurationException();
+      throw new MapLibreConfigurationException();
     }
   }
 
   /**
-   * Runtime validation of trackasia access token
+   * Runtime validation of Trackasia access token
    *
    * @param apiKey the access token to validate
    * @return true is valid, false otherwise
@@ -251,7 +251,7 @@ public final class trackasia {
       return false;
     }
 
-    apiKey = apiKey.trim().toLowerCase(trackasiaConstants.trackasia_LOCALE);
+    apiKey = apiKey.trim().toLowerCase(MapLibreConstants.trackasia_LOCALE);
     return apiKey.length() != 0;
   }
 
@@ -260,14 +260,14 @@ public final class trackasia {
    */
   public static void throwIfApiKeyInvalid(@Nullable String apiKey) {
     if (!isApiKeyValid(apiKey)) {
-      throw new trackasiaConfigurationException(
+      throw new MapLibreConfigurationException(
               "A valid API key is required, currently provided key is: " + apiKey);
     }
   }
 
 
   /**
-   * Internal use. Check if the {@link trackasia#INSTANCE} is present.
+   * Internal use. Check if the {@link Trackasia#INSTANCE} is present.
    */
   public static boolean hasInstance() {
     return INSTANCE != null;

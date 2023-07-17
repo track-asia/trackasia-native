@@ -3,14 +3,14 @@ package com.mapbox.mapboxsdk.style.expressions
 import android.graphics.Color
 import com.mapbox.geojson.Point
 import com.mapbox.geojson.Polygon
-import org.trackasia.android.style.expressions.Expression.FormatOption
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.PropertyValue
-import org.trackasia.android.utils.ColorUtils
+import com.trackasia.android.style.expressions.Expression.FormatOption
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.PropertyValue
+import com.trackasia.android.utils.ColorUtils
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.expressions.Expression
 import org.robolectric.RobolectricTestRunner
 import java.util.*
 

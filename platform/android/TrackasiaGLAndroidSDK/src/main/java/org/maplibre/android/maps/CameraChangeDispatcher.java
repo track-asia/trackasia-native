@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.os.Handler;
 import android.os.Message;
@@ -10,17 +10,17 @@ import java.lang.annotation.Retention;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static org.trackasia.android.maps.trackasiaMap.OnCameraIdleListener;
-import static org.trackasia.android.maps.trackasiaMap.OnCameraMoveCanceledListener;
-import static org.trackasia.android.maps.trackasiaMap.OnCameraMoveListener;
-import static org.trackasia.android.maps.trackasiaMap.OnCameraMoveStartedListener;
+import static com.trackasia.android.maps.MapLibreMap.OnCameraIdleListener;
+import static com.trackasia.android.maps.MapLibreMap.OnCameraMoveCanceledListener;
+import static com.trackasia.android.maps.MapLibreMap.OnCameraMoveListener;
+import static com.trackasia.android.maps.MapLibreMap.OnCameraMoveStartedListener;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Class responsible for dispatching camera change events to registered listeners.
  */
-class CameraChangeDispatcher implements trackasiaMap.OnCameraMoveStartedListener, trackasiaMap.OnCameraMoveListener,
-  trackasiaMap.OnCameraMoveCanceledListener, OnCameraIdleListener {
+class CameraChangeDispatcher implements MapLibreMap.OnCameraMoveStartedListener, MapLibreMap.OnCameraMoveListener,
+  MapLibreMap.OnCameraMoveCanceledListener, OnCameraIdleListener {
 
   private final CameraChangeHandler handler = new CameraChangeHandler(this);
 

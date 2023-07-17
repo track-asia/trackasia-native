@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
 
 /**
  * Test activity showcasing showing a Map inside of a DialogFragment.
@@ -40,7 +40,7 @@ class MapInDialogActivity : AppCompatActivity() {
             mapView = view.findViewById(R.id.mapView)
             mapView.onCreate(savedInstanceState)
             mapView.getMapAsync(
-                OnMapReadyCallback { trackasiaMap: trackasiaMap ->
+                OnMapReadyCallback { trackasiaMap: MapLibreMap ->
                     trackasiaMap.setStyle(
                         Style.getPredefinedStyle("Outdoor")
                     )

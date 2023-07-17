@@ -1,9 +1,9 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
-import org.trackasia.android.AppCenter
-import org.trackasia.android.style.layers.Layer
+import com.trackasia.android.AppCenter
+import com.trackasia.android.style.layers.Layer
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)

@@ -1,7 +1,7 @@
-package org.trackasia.android.offline
+package com.trackasia.android.offline
 
 import androidx.annotation.Keep
-import org.trackasia.android.offline.OfflineRegion.DownloadState
+import com.trackasia.android.offline.OfflineRegion.DownloadState
 
 /**
  * A region's status includes its active/inactive state as well as counts

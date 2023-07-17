@@ -1,11 +1,11 @@
-package org.trackasia.android.style.types;
+package com.trackasia.android.style.types;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.utils.ColorUtils;
+import com.trackasia.android.utils.ColorUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;

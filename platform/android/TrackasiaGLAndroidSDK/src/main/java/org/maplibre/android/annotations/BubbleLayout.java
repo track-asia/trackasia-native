@@ -1,4 +1,4 @@
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,9 +11,9 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.R;
-import org.trackasia.android.maps.Style;
-import org.trackasia.android.style.layers.SymbolLayer;
+import com.trackasia.android.R;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.style.layers.SymbolLayer;
 
 /**
  * Bubble View for Android with custom stroke width and color, arrow size, position and direction.
@@ -24,7 +24,7 @@ import org.trackasia.android.style.layers.SymbolLayer;
  * After the bitmap is added to the {@link Style} object, a
  * {@link SymbolLayer} or the
  * <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   trackasia Annotation Plugin</a> can reference the image ID.
+ *   Trackasia Annotation Plugin</a> can reference the image ID.
  */
 @Deprecated
 public class BubbleLayout extends LinearLayout {

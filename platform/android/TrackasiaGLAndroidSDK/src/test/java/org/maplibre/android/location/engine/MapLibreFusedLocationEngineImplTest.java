@@ -1,4 +1,4 @@
-package org.trackasia.android.location.engine;
+package com.trackasia.android.location.engine;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -35,7 +35,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class trackasiaFusedLocationEngineImplTest {
+public class MapLibreFusedLocationEngineImplTest {
   private static final double LATITUDE = 37.7749;
   private static final double LONGITUDE = 122.4194;
 
@@ -43,13 +43,13 @@ public class trackasiaFusedLocationEngineImplTest {
   private LocationManager locationManagerMock;
 
   private LocationEngine engine;
-  private trackasiaFusedLocationEngineImpl trackasiaFusedLocationEngineImpl;
+  private MapLibreFusedLocationEngineImpl trackasiaFusedLocationEngineImpl;
 
   @Before
   public void setUp() {
     Context context = mock(Context.class);
     when(context.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManagerMock);
-    trackasiaFusedLocationEngineImpl = new trackasiaFusedLocationEngineImpl(context);
+    trackasiaFusedLocationEngineImpl = new MapLibreFusedLocationEngineImpl(context);
     engine = new LocationEngineProxy<>(trackasiaFusedLocationEngineImpl);
   }
 

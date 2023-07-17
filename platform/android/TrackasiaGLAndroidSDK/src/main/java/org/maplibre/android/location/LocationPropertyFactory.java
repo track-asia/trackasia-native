@@ -1,16 +1,16 @@
 // This file is generated. Edit scripts/generate-style-code.js, then run `make style-code`.
 
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import androidx.annotation.ColorInt;
 
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.types.Formatted;
-import static org.trackasia.android.utils.ColorUtils.colorToRgbaString;
-import org.trackasia.android.style.layers.LayoutPropertyValue;
-import org.trackasia.android.style.layers.PaintPropertyValue;
-import org.trackasia.android.style.layers.Property;
-import org.trackasia.android.style.layers.PropertyValue;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.types.Formatted;
+import static com.trackasia.android.utils.ColorUtils.colorToRgbaString;
+import com.trackasia.android.style.layers.LayoutPropertyValue;
+import com.trackasia.android.style.layers.PaintPropertyValue;
+import com.trackasia.android.style.layers.Property;
+import com.trackasia.android.style.layers.PropertyValue;
 
 /**
  * Constructs paint/layout properties for Layers

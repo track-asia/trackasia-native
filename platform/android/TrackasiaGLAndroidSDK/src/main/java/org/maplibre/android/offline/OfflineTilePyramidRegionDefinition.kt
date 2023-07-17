@@ -1,10 +1,10 @@
-package org.trackasia.android.offline
+package com.trackasia.android.offline
 
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.Keep
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
 
 /**
  * An offline region defined by a style URL, geographic bounding box, zoom range, and

@@ -1,4 +1,4 @@
-package org.trackasia.android.offline
+package com.trackasia.android.offline
 
 import androidx.annotation.Keep
 import androidx.annotation.StringDef

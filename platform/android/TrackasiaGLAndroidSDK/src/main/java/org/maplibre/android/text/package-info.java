@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Text API classes.
+ * Contains the Trackasia Maps Android Text API classes.
  */
-package org.trackasia.android.text;
+package com.trackasia.android.text;

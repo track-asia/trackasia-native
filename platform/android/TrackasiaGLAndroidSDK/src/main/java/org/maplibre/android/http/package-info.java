@@ -1,4 +1,4 @@
 /**
  * Do not use this package. Internal use only.
  */
-package org.trackasia.android.http;
+package com.trackasia.android.http;

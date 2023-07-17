@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.location
+package com.trackasia.android.testapp.activity.location
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,20 +6,20 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.location.LocationComponent
-import org.trackasia.android.location.LocationComponentActivationOptions
-import org.trackasia.android.location.engine.LocationEngine
-import org.trackasia.android.location.engine.LocationEngineDefault
-import org.trackasia.android.location.engine.LocationEngineRequest
-import org.trackasia.android.location.modes.RenderMode
-import org.trackasia.android.location.permissions.PermissionsListener
-import org.trackasia.android.location.permissions.PermissionsManager
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.location.LocationComponent
+import com.trackasia.android.location.LocationComponentActivationOptions
+import com.trackasia.android.location.engine.LocationEngine
+import com.trackasia.android.location.engine.LocationEngineDefault
+import com.trackasia.android.location.engine.LocationEngineRequest
+import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.location.permissions.PermissionsListener
+import com.trackasia.android.location.permissions.PermissionsManager
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 
 class ManualLocationUpdatesActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
@@ -101,7 +101,7 @@ class ManualLocationUpdatesActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     @SuppressLint("MissingPermission")
-    override fun onMapReady(trackasiaMap: trackasiaMap) {
+    override fun onMapReady(trackasiaMap: MapLibreMap) {
         trackasiaMap.setStyle(
             Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
         ) { style: Style? ->

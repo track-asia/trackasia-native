@@ -1,9 +1,9 @@
-package org.trackasia.android.annotations
+package com.trackasia.android.annotations
 
 import android.graphics.Bitmap
-import org.trackasia.android.exceptions.InvalidMarkerPositionException
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.utils.MockParcel
+import com.trackasia.android.exceptions.InvalidMarkerPositionException
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.utils.MockParcel
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
@@ -36,17 +36,17 @@ class MarkerTest {
 
     @Test
     fun testTitle() {
-        val markerOptions = MarkerOptions().title("trackasia").position(LatLng())
+        val markerOptions = MarkerOptions().title("Trackasia").position(LatLng())
         val marker = markerOptions.marker
-        Assert.assertEquals(marker.title, "trackasia")
-        Assert.assertEquals(markerOptions.getTitle(), "trackasia")
+        Assert.assertEquals(marker.title, "Trackasia")
+        Assert.assertEquals(markerOptions.getTitle(), "Trackasia")
     }
 
     @Test
     fun testSnippet() {
-        val markerOptions = MarkerOptions().snippet("trackasia").position(LatLng())
+        val markerOptions = MarkerOptions().snippet("Trackasia").position(LatLng())
         val marker = markerOptions.marker
-        Assert.assertEquals(marker.snippet, "trackasia")
+        Assert.assertEquals(marker.snippet, "Trackasia")
     }
 
     @Test

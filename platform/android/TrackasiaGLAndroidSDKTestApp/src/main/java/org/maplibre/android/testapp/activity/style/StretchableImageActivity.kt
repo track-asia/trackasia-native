@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.os.AsyncTask
 import android.os.Bundle
@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
-import org.trackasia.android.maps.*
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.*
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.GeoParseUtil
-import org.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.maps.*
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.*
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.GeoParseUtil
+import com.trackasia.android.utils.BitmapUtils
 import timber.log.Timber
 import java.io.IOException
 import java.lang.ref.WeakReference
@@ -22,7 +22,7 @@ import java.util.ArrayList
  * Test stretchable image as a background for text..
  */
 class StretchableImageActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var mapView: MapView
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class StretchableImageActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(trackasiaMap: trackasiaMap) {
+    override fun onMapReady(trackasiaMap: MapLibreMap) {
         this.trackasiaMap = trackasiaMap
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
             val popup = BitmapUtils.getBitmapFromDrawable(

@@ -1,13 +1,13 @@
-package org.trackasia.android.testapp.activity.imagegenerator
+package com.trackasia.android.testapp.activity.imagegenerator
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.log.Logger
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.databinding.ActivitySnapshotBinding
+import com.trackasia.android.log.Logger
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.databinding.ActivitySnapshotBinding
 import timber.log.Timber
 
 /**
@@ -17,7 +17,7 @@ class SnapshotActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivitySnapshotBinding
 
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
 
     private val idleListener = object : MapView.OnDidFinishRenderingFrameListener {
         override fun onDidFinishRenderingFrame(fully: Boolean) {
@@ -40,7 +40,7 @@ class SnapshotActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Outdoor"))) { binding.mapView.addOnDidFinishRenderingFrameListener(idleListener) }
     }

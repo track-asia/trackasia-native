@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.action;
+package com.trackasia.android.testapp.action;
 
 import android.view.View;
 
@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 
-import org.trackasia.android.maps.trackasiaMap;
+import com.trackasia.android.maps.MapLibreMap;
 
 import org.hamcrest.Matcher;
 
@@ -14,12 +14,12 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-public class trackasiaMapAction implements ViewAction {
+public class MapLibreMapAction implements ViewAction {
 
   private OnInvokeActionListener invokeViewAction;
-  private trackasiaMap trackasiaMap;
+  private MapLibreMap trackasiaMap;
 
-  public trackasiaMapAction(OnInvokeActionListener invokeViewAction, trackasiaMap trackasiaMap) {
+  public MapLibreMapAction(OnInvokeActionListener invokeViewAction, MapLibreMap trackasiaMap) {
     this.invokeViewAction = invokeViewAction;
     this.trackasiaMap = trackasiaMap;
   }
@@ -39,12 +39,12 @@ public class trackasiaMapAction implements ViewAction {
     invokeViewAction.onInvokeAction(uiController, trackasiaMap);
   }
 
-  public static void invoke(trackasiaMap trackasiaMap, OnInvokeActionListener invokeViewAction) {
-    onView(withId(android.R.id.content)).perform(new trackasiaMapAction(invokeViewAction, trackasiaMap));
+  public static void invoke(MapLibreMap trackasiaMap, OnInvokeActionListener invokeViewAction) {
+    onView(withId(android.R.id.content)).perform(new MapLibreMapAction(invokeViewAction, trackasiaMap));
   }
 
   public interface OnInvokeActionListener {
-    void onInvokeAction(@NonNull UiController uiController, @NonNull trackasiaMap trackasiaMap);
+    void onInvokeAction(@NonNull UiController uiController, @NonNull MapLibreMap trackasiaMap);
   }
 }
 

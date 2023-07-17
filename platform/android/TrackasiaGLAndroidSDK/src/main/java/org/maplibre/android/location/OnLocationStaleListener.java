@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 /**
  * Listener that can be added as a callback when the last location update

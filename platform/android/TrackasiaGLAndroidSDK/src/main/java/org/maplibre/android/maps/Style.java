@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -10,14 +10,14 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.trackasia;
-import org.trackasia.android.constants.trackasiaConstants;
-import org.trackasia.android.style.layers.Layer;
-import org.trackasia.android.style.layers.TransitionOptions;
-import org.trackasia.android.style.light.Light;
-import org.trackasia.android.style.sources.Source;
-import org.trackasia.android.util.DefaultStyle;
-import org.trackasia.android.utils.BitmapUtils;
+import com.trackasia.android.Trackasia;
+import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.style.layers.TransitionOptions;
+import com.trackasia.android.style.light.Light;
+import com.trackasia.android.style.sources.Source;
+import com.trackasia.android.util.DefaultStyle;
+import com.trackasia.android.utils.BitmapUtils;
 
 import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
@@ -31,7 +31,7 @@ import java.util.Map;
  * The proxy object for current map style.
  * <p>
  * To create new instances of this object, create a new instance using a {@link Builder} and load the style with
- * MapboxMap. This object is returned from {@link trackasiaMap#getStyle()} once the style
+ * MapboxMap. This object is returned from {@link MapLibreMap#getStyle()} once the style
  * has been loaded by underlying map.
  * </p>
  */
@@ -741,7 +741,7 @@ public class Style {
           addLayerBelow(layerWrapper.layer, ((Builder.LayerBelowWrapper) layerWrapper).belowLayer);
         } else {
           // just add layer to map, but below annotations
-          addLayerBelow(layerWrapper.layer, trackasiaConstants.LAYER_ID_ANNOTATIONS);
+          addLayerBelow(layerWrapper.layer, MapLibreConstants.LAYER_ID_ANNOTATIONS);
         }
       }
 
@@ -851,7 +851,7 @@ public class Style {
      * <p>
      * This method is asynchronous and will return before the style finishes loading.
      * If you wish to wait for the map to finish loading, listen to the {@link MapView.OnDidFinishLoadingStyleListener}
-     * callback or use {@link trackasiaMap#setStyle(String, OnStyleLoaded)} instead.
+     * callback or use {@link MapLibreMap#setStyle(String, OnStyleLoaded)} instead.
      * </p>
      * If the style fails to load or an invalid style URI is set, the map view will become blank.
      * An error message will be logged in the Android logcat and {@link MapView.OnDidFailLoadingMapListener} callback
@@ -1413,7 +1413,7 @@ public class Style {
    *  @return The list of predefined styles
    */
   public static DefaultStyle[] getPredefinedStyles() {
-    return trackasia.getPredefinedStyles();
+    return Trackasia.getPredefinedStyles();
   }
 
   /**
@@ -1423,7 +1423,7 @@ public class Style {
    */
   @NonNull
   public static String getPredefinedStyle(String name) {
-    DefaultStyle style = trackasia.getPredefinedStyle(name);
+    DefaultStyle style = Trackasia.getPredefinedStyle(name);
     if (style != null) {
       return style.getUrl();
     }

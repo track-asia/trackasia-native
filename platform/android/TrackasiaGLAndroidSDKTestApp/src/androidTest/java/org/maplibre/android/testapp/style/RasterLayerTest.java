@@ -1,6 +1,6 @@
 // This file is generated. Edit scripts/generate-style-code.js, then run `make style-code`.
 
-package org.trackasia.android.testapp.style;
+package com.trackasia.android.testapp.style;
 
 import android.graphics.Color;
 import androidx.test.annotation.UiThreadTest;
@@ -12,22 +12,22 @@ import com.mapbox.geojson.MultiPoint;
 import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
-import org.trackasia.android.maps.BaseLayerTest;
+import com.trackasia.android.maps.BaseLayerTest;
 import org.junit.Before;
 import timber.log.Timber;
 
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.layers.RasterLayer;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.RasterLayer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.trackasia.android.style.expressions.Expression.*;
+import static com.trackasia.android.style.expressions.Expression.*;
 import static org.junit.Assert.*;
-import static org.trackasia.android.style.layers.Property.*;
-import static org.trackasia.android.style.layers.PropertyFactory.*;
+import static com.trackasia.android.style.layers.Property.*;
+import static com.trackasia.android.style.layers.PropertyFactory.*;
 
-import org.trackasia.android.style.layers.TransitionOptions;
+import com.trackasia.android.style.layers.TransitionOptions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

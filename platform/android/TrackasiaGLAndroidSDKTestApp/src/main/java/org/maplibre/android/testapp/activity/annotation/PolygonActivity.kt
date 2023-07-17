@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.annotation
+package com.trackasia.android.testapp.activity.annotation
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,12 +6,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.annotations.Polygon
-import org.trackasia.android.annotations.PolygonOptions
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.* // ktlint-disable no-wildcard-imports
-import org.trackasia.android.testapp.R
+import com.trackasia.android.annotations.Polygon
+import com.trackasia.android.annotations.PolygonOptions
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.* // ktlint-disable no-wildcard-imports
+import com.trackasia.android.testapp.R
 import java.util.ArrayList
 
 /**
@@ -23,7 +23,7 @@ import java.util.ArrayList
  */
 class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var polygon: Polygon? = null
     private var fullAlpha = true
     private var polygonIsVisible = true
@@ -34,7 +34,7 @@ class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
 
         // configure inital map state
-        val options = trackasiaMapOptions.createFromAttributes(this, null)
+        val options = MapLibreMapOptions.createFromAttributes(this, null)
             .attributionTintColor(Config.RED_COLOR)
             .compassFadesWhenFacingNorth(false)
             .camera(
@@ -53,7 +53,7 @@ class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(mapView)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         map.setStyle(Style.getPredefinedStyle("Streets"))
         map.setOnPolygonClickListener { polygon: Polygon ->

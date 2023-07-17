@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Location layer component.
+ * Contains the Trackasia Location layer component.
  */
-package org.trackasia.android.location;
+package com.trackasia.android.location;

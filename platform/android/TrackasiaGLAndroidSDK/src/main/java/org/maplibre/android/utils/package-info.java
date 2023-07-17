@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Utility API classes.
+ * Contains the Trackasia Maps Android Utility API classes.
  */
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;

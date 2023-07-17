@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -13,19 +13,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.FeatureCollection
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.Property
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.style.sources.Source
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.ResourceUtils.readRawResource
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.Property
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.style.sources.Source
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.ResourceUtils.readRawResource
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
@@ -34,7 +34,7 @@ import java.lang.ref.WeakReference
  */
 class SymbolGeneratorActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_symbol_generator)
@@ -43,7 +43,7 @@ class SymbolGeneratorActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         map.setStyle(Style.getPredefinedStyle("Outdoor")) { style: Style? ->
             addSymbolClickListener()
@@ -301,7 +301,7 @@ class SymbolGeneratorActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private class GenerateSymbolTask internal constructor(
-        private val trackasiaMap: trackasiaMap?,
+        private val trackasiaMap: MapLibreMap?,
         context: Context
     ) : AsyncTask<FeatureCollection?, Void?, HashMap<String, Bitmap>>() {
         private val context: WeakReference<Context>

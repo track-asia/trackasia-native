@@ -1,21 +1,21 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.trackasia
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngQuad
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.RasterLayer
-import org.trackasia.android.style.sources.ImageSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.Trackasia
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngQuad
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.RasterLayer
+import com.trackasia.android.style.sources.ImageSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.utils.BitmapUtils
 
 /**
  * Test activity showing how to use a series of images to create an animation
@@ -37,7 +37,7 @@ class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         val quad = LatLngQuad(
             LatLng(46.437, -80.425),
             LatLng(46.437, -71.516),
@@ -99,7 +99,7 @@ class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         private val drawables: Array<Bitmap?>
         private var drawableIndex: Int
         fun getBitmap(resourceId: Int): Bitmap? {
-            val context = trackasia.getApplicationContext()
+            val context = Trackasia.getApplicationContext()
             val drawable = BitmapUtils.getDrawableFromRes(context, resourceId)
             if (drawable is BitmapDrawable) {
                 return drawable.bitmap

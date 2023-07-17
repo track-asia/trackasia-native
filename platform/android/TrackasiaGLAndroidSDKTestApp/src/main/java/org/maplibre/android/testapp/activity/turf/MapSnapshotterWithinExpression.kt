@@ -1,35 +1,35 @@
-package org.trackasia.android.testapp.activity.turf
+package com.trackasia.android.testapp.activity.turf
 
 import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.*
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.snapshotter.MapSnapshot
-import org.trackasia.android.snapshotter.MapSnapshotter
-import org.trackasia.android.style.expressions.Expression.within
-import org.trackasia.android.style.layers.CircleLayer
-import org.trackasia.android.style.layers.FillLayer
-import org.trackasia.android.style.layers.LineLayer
-import org.trackasia.android.style.layers.Property.NONE
-import org.trackasia.android.style.layers.PropertyFactory.*
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonOptions
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.databinding.ActivityMapsnapshotterWithinExpressionBinding
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.snapshotter.MapSnapshot
+import com.trackasia.android.snapshotter.MapSnapshotter
+import com.trackasia.android.style.expressions.Expression.within
+import com.trackasia.android.style.layers.CircleLayer
+import com.trackasia.android.style.layers.FillLayer
+import com.trackasia.android.style.layers.LineLayer
+import com.trackasia.android.style.layers.Property.NONE
+import com.trackasia.android.style.layers.PropertyFactory.*
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonOptions
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.databinding.ActivityMapsnapshotterWithinExpressionBinding
 
 /**
  * An Activity that showcases the use of MapSnapshotter with 'within' expression
  */
 class MapSnapshotterWithinExpression : AppCompatActivity() {
     private lateinit var binding: ActivityMapsnapshotterWithinExpressionBinding
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var snapshotter: MapSnapshotter
     private var snapshotInProgress = false
 

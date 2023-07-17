@@ -1,14 +1,14 @@
-package org.trackasia.android.testapp.maps
+package com.trackasia.android.testapp.maps
 
 import androidx.test.espresso.UiController
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.action.trackasiaMapAction
-import org.trackasia.android.testapp.activity.EspressoTest
-import org.trackasia.android.testapp.utils.TestingAsyncUtils
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.action.MapLibreMapAction
+import com.trackasia.android.testapp.activity.EspressoTest
+import com.trackasia.android.testapp.utils.TestingAsyncUtils
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -18,7 +18,7 @@ class StyleLoadTest : EspressoTest() {
     @Test
     fun updateSourceAfterStyleLoad() {
         validateTestSetup()
-        trackasiaMapAction.invoke(trackasiaMap) { uiController: UiController, trackasiaMap: trackasiaMap ->
+        MapLibreMapAction.invoke(trackasiaMap) { uiController: UiController, trackasiaMap: MapLibreMap ->
             val source = GeoJsonSource("id")
             val layer = SymbolLayer("id", "id")
             trackasiaMap.setStyle(Style.Builder().withSource(source).withLayer(layer))

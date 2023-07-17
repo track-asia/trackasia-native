@@ -1,7 +1,7 @@
 <%
   const properties = locals.properties;
 -%>
-package org.trackasia.android.testapp.style;
+package com.trackasia.android.testapp.style;
 
 import android.graphics.Color;
 import androidx.test.espresso.UiController;
@@ -9,14 +9,14 @@ import androidx.test.espresso.ViewAction;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import android.view.View;
 
-import org.trackasia.android.style.light.Light;
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.layers.FillExtrusionLayer;
-import org.trackasia.android.style.layers.TransitionOptions;
-import org.trackasia.android.style.light.Position;
-import org.trackasia.android.testapp.R;
-import org.trackasia.android.testapp.activity.BaseTest;
-import org.trackasia.android.testapp.activity.style.FillExtrusionStyleTestActivity;
+import com.trackasia.android.style.light.Light;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.FillExtrusionLayer;
+import com.trackasia.android.style.layers.TransitionOptions;
+import com.trackasia.android.style.light.Position;
+import com.trackasia.android.testapp.R;
+import com.trackasia.android.testapp.activity.BaseTest;
+import com.trackasia.android.testapp.activity.style.FillExtrusionStyleTestActivity;
 
 import timber.log.Timber;
 
@@ -27,14 +27,14 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.trackasia.android.style.expressions.Expression.eq;
-import static org.trackasia.android.style.layers.Property.ANCHOR_MAP;
-import static org.trackasia.android.style.layers.PropertyFactory.fillExtrusionBase;
-import static org.trackasia.android.style.layers.PropertyFactory.fillExtrusionColor;
-import static org.trackasia.android.style.layers.PropertyFactory.fillExtrusionHeight;
-import static org.trackasia.android.style.layers.PropertyFactory.fillExtrusionOpacity;
+import static com.trackasia.android.style.expressions.Expression.eq;
+import static com.trackasia.android.style.layers.Property.ANCHOR_MAP;
+import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionBase;
+import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionColor;
+import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionHeight;
+import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionOpacity;
 
-import static org.trackasia.android.testapp.action.trackasiaMapAction.invoke;
+import static com.trackasia.android.testapp.action.MapLibreMapAction.invoke;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

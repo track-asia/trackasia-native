@@ -1,12 +1,12 @@
 # Changelog for Mapbox Maps SDK for macOS
 
-MapLibre welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-native/blob/main/CONTRIBUTING.md) to get started.
+Trackasia welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-native/blob/main/CONTRIBUTING.md) to get started.
 
 ## 0.19.1 - September 06, 2021
 
 ### Bug Fixes
 
-* Invalid tile url template for MapLibre style [#107](https://github.com/track-asia/trackasia-native/pull/107)
+* Invalid tile url template for Trackasia Style [#107](https://github.com/track-asia/trackasia-native/pull/107)
 * Adjust local glyphs [#122](https://github.com/track-asia/trackasia-native/pull/122)
 * Return correct Mapbox TileServerOptions [#132](https://github.com/track-asia/trackasia-native/pull/132)
 
@@ -30,7 +30,7 @@ MapLibre welcomes participation and contributions from everyone. Please read [`C
 
 ### Other
 
-* mapbox-gl-js submodule has been replaced with maplibre-gl-js
+* mapbox-gl-js submodule has been replaced with trackasia-gl-js
 * Removed Mapbox Mobile Events and Telemetry [#7](https://github.com/track-asia/trackasia-native/pull/7)
 
 ## 0.17.0 - January 6, 2021

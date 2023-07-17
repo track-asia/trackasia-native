@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.camera
+package com.trackasia.android.testapp.activity.camera
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,18 +11,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 
 /**
  * Test activity showcasing using the scrollBy Camera API by moving x,y pixels above Grenada, Spain.
  */
 class ScrollByActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var seekBarX: SeekBar
     private lateinit var seekBarY: SeekBar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class ScrollByActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(Style.getPredefinedStyle("Pastel"))
         val uiSettings = trackasiaMap.uiSettings

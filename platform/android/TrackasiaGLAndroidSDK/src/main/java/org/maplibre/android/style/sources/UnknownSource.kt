@@ -1,4 +1,4 @@
-package org.trackasia.android.style.sources
+package com.trackasia.android.style.sources
 
 import androidx.annotation.Keep
 import androidx.annotation.UiThread

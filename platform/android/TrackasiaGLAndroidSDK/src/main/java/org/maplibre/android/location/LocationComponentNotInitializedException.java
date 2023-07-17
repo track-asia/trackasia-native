@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 final class LocationComponentNotInitializedException extends RuntimeException {
   LocationComponentNotInitializedException() {

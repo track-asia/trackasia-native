@@ -1,11 +1,11 @@
-package org.trackasia.android.testapp.maps.widgets;
+package com.trackasia.android.testapp.maps.widgets;
 
-import org.trackasia.android.camera.CameraPosition;
-import org.trackasia.android.camera.CameraUpdateFactory;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.testapp.action.WaitAction;
-import org.trackasia.android.testapp.activity.EspressoTest;
-import org.trackasia.android.testapp.utils.TestConstants;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.camera.CameraUpdateFactory;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.testapp.action.WaitAction;
+import com.trackasia.android.testapp.activity.EspressoTest;
+import com.trackasia.android.testapp.utils.TestConstants;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
-import static org.trackasia.android.testapp.action.trackasiaMapAction.invoke;
+import static com.trackasia.android.testapp.action.MapLibreMapAction.invoke;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;

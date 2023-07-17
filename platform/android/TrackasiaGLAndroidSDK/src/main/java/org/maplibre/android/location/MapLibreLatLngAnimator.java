@@ -1,14 +1,14 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.animation.TypeEvaluator;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLng;
 
-class trackasiaLatLngAnimator extends trackasiaAnimator<LatLng> {
+class MapLibreLatLngAnimator extends MapLibreAnimator<LatLng> {
 
-  trackasiaLatLngAnimator(@NonNull LatLng[] values, @NonNull AnimationsValueChangeListener updateListener,
+  MapLibreLatLngAnimator(@NonNull LatLng[] values, @NonNull AnimationsValueChangeListener updateListener,
                          int maxAnimationFps) {
     super(values, updateListener, maxAnimationFps);
   }

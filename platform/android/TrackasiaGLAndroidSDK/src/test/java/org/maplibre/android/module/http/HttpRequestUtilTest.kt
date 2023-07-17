@@ -1,7 +1,7 @@
-package org.trackasia.android.module.http
+package com.trackasia.android.module.http
 
-import org.trackasia.android.trackasiaInjector
-import org.trackasia.android.utils.ConfigUtils
+import com.trackasia.android.MapLibreInjector
+import com.trackasia.android.utils.ConfigUtils
 import io.mockk.mockk
 import okhttp3.OkHttpClient
 import org.junit.Assert.assertEquals
@@ -14,7 +14,7 @@ class HttpRequestUtilTest {
 
     @Test
     fun replaceHttpClient() {
-        trackasiaInjector.inject(mockk(relaxed = true), "", ConfigUtils.getMockedOptions())
+        MapLibreInjector.inject(mockk(relaxed = true), "", ConfigUtils.getMockedOptions())
 
         assertEquals(HttpRequestImpl.DEFAULT_CLIENT, HttpRequestImpl.client)
 
@@ -33,6 +33,6 @@ class HttpRequestUtilTest {
             HttpRequestImpl.client
         )
 
-        trackasiaInjector.clear()
+        MapLibreInjector.clear()
     }
 }

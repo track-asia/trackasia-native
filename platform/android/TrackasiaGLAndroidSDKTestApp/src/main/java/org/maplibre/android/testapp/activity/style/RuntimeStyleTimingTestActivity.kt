@@ -1,20 +1,20 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.*
-import org.trackasia.android.style.layers.*
-import org.trackasia.android.style.sources.VectorSource
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.*
+import com.trackasia.android.style.layers.*
+import com.trackasia.android.style.sources.VectorSource
+import com.trackasia.android.testapp.R
 
 /**
  * Test activity for unit test execution
  */
 class RuntimeStyleTimingTestActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    lateinit var trackasiaMap: trackasiaMap
+    lateinit var trackasiaMap: MapLibreMap
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class RuntimeStyleTimingTestActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: trackasiaMap ->
+        mapView.getMapAsync { trackasiaMap: MapLibreMap ->
             this@RuntimeStyleTimingTestActivity.trackasiaMap = trackasiaMap
             val parksLayer = CircleLayer("parks", "parks_source")
             parksLayer.sourceLayer = "parks"

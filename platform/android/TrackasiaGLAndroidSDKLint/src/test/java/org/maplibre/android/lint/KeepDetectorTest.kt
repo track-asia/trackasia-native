@@ -1,4 +1,4 @@
-package org.trackasia.android.lint
+package com.trackasia.android.lint
 
 /*
 import com.android.tools.lint.checks.infrastructure.TestFiles.java

@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Annotation API classes.
+ * Contains the Trackasia Maps Android Annotation API classes.
  */
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;

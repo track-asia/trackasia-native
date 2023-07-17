@@ -1,9 +1,9 @@
-package org.trackasia.android.testapp.storage
+package com.trackasia.android.testapp.storage
 
 import android.app.Activity
 import androidx.annotation.WorkerThread
-import org.trackasia.android.AppCenter
-import org.trackasia.android.storage.FileSource
+import com.trackasia.android.AppCenter
+import com.trackasia.android.storage.FileSource
 import org.junit.Assert
 import java.io.File
 import java.util.concurrent.CountDownLatch

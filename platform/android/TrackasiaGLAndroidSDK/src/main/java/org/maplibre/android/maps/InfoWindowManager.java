@@ -1,11 +1,11 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.annotations.InfoWindow;
-import org.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.InfoWindow;
+import com.trackasia.android.annotations.Marker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,8 @@ import java.util.List;
  * Maintains a {@link List} of opened {@link InfoWindow} and tracks configurations as
  * allowConcurrentMultipleInfoWindows which allows to have multiple {@link InfoWindow} open at the
  * same time. Responsible for managing listeners as
- * {@link trackasiaMap.OnInfoWindowClickListener} and
- * {@link trackasiaMap.OnInfoWindowLongClickListener}.
+ * {@link MapLibreMap.OnInfoWindowClickListener} and
+ * {@link MapLibreMap.OnInfoWindowLongClickListener}.
  * </p>
  */
 class InfoWindowManager {
@@ -25,15 +25,15 @@ class InfoWindowManager {
   private final List<InfoWindow> infoWindows = new ArrayList<>();
 
   @Nullable
-  private trackasiaMap.InfoWindowAdapter infoWindowAdapter;
+  private MapLibreMap.InfoWindowAdapter infoWindowAdapter;
   private boolean allowConcurrentMultipleInfoWindows;
 
   @Nullable
-  private trackasiaMap.OnInfoWindowClickListener onInfoWindowClickListener;
+  private MapLibreMap.OnInfoWindowClickListener onInfoWindowClickListener;
   @Nullable
-  private trackasiaMap.OnInfoWindowLongClickListener onInfoWindowLongClickListener;
+  private MapLibreMap.OnInfoWindowLongClickListener onInfoWindowLongClickListener;
   @Nullable
-  private trackasiaMap.OnInfoWindowCloseListener onInfoWindowCloseListener;
+  private MapLibreMap.OnInfoWindowCloseListener onInfoWindowCloseListener;
 
   void update() {
     if (!infoWindows.isEmpty()) {
@@ -43,12 +43,12 @@ class InfoWindowManager {
     }
   }
 
-  void setInfoWindowAdapter(@Nullable trackasiaMap.InfoWindowAdapter infoWindowAdapter) {
+  void setInfoWindowAdapter(@Nullable MapLibreMap.InfoWindowAdapter infoWindowAdapter) {
     this.infoWindowAdapter = infoWindowAdapter;
   }
 
   @Nullable
-  trackasiaMap.InfoWindowAdapter getInfoWindowAdapter() {
+  MapLibreMap.InfoWindowAdapter getInfoWindowAdapter() {
     return infoWindowAdapter;
   }
 
@@ -64,30 +64,30 @@ class InfoWindowManager {
     return marker != null && (!TextUtils.isEmpty(marker.getTitle()) || !TextUtils.isEmpty(marker.getSnippet()));
   }
 
-  void setOnInfoWindowClickListener(@Nullable trackasiaMap.OnInfoWindowClickListener listener) {
+  void setOnInfoWindowClickListener(@Nullable MapLibreMap.OnInfoWindowClickListener listener) {
     onInfoWindowClickListener = listener;
   }
 
   @Nullable
-  trackasiaMap.OnInfoWindowClickListener getOnInfoWindowClickListener() {
+  MapLibreMap.OnInfoWindowClickListener getOnInfoWindowClickListener() {
     return onInfoWindowClickListener;
   }
 
-  void setOnInfoWindowLongClickListener(@Nullable trackasiaMap.OnInfoWindowLongClickListener listener) {
+  void setOnInfoWindowLongClickListener(@Nullable MapLibreMap.OnInfoWindowLongClickListener listener) {
     onInfoWindowLongClickListener = listener;
   }
 
   @Nullable
-  trackasiaMap.OnInfoWindowLongClickListener getOnInfoWindowLongClickListener() {
+  MapLibreMap.OnInfoWindowLongClickListener getOnInfoWindowLongClickListener() {
     return onInfoWindowLongClickListener;
   }
 
-  void setOnInfoWindowCloseListener(@Nullable trackasiaMap.OnInfoWindowCloseListener listener) {
+  void setOnInfoWindowCloseListener(@Nullable MapLibreMap.OnInfoWindowCloseListener listener) {
     onInfoWindowCloseListener = listener;
   }
 
   @Nullable
-  trackasiaMap.OnInfoWindowCloseListener getOnInfoWindowCloseListener() {
+  MapLibreMap.OnInfoWindowCloseListener getOnInfoWindowCloseListener() {
     return onInfoWindowCloseListener;
   }
 

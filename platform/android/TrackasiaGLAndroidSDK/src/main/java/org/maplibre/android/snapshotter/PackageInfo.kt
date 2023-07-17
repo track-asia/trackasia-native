@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Snapshotter API classes.
+ * Contains the Trackasia Maps Android Snapshotter API classes.
  */
-package org.trackasia.android.snapshotter
+package com.trackasia.android.snapshotter

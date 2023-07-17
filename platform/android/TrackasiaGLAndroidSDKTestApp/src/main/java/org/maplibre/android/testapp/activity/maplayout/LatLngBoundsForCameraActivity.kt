@@ -1,22 +1,22 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.annotations.PolygonOptions
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
+import com.trackasia.android.annotations.PolygonOptions
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
 
 /**
  * Test activity showcasing restricting user gestures to a bounds around Iceland, almost worldview and IDL.
  */
 class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restricted_bounds)
@@ -25,7 +25,7 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(trackasiaMap: trackasiaMap) {
+    override fun onMapReady(trackasiaMap: MapLibreMap) {
         this.trackasiaMap = trackasiaMap
         trackasiaMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
         trackasiaMap.setMinZoomPreference(2.0)

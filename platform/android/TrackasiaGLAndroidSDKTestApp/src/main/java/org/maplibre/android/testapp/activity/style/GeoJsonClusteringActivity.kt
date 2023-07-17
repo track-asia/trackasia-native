@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Color
 import android.graphics.Point
@@ -9,20 +9,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.mapbox.geojson.Feature
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.CircleLayer
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonOptions
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.CircleLayer
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonOptions
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.utils.BitmapUtils
 import timber.log.Timber
 import java.net.URI
 import java.net.URISyntaxException
@@ -33,7 +33,7 @@ import java.util.Objects
  */
 class GeoJsonClusteringActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var clusterSource: GeoJsonSource? = null
     private var clickOptionCounter = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class GeoJsonClusteringActivity : AppCompatActivity() {
         // noinspection ConstantConditions
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: trackasiaMap? ->
+            OnMapReadyCallback { map: MapLibreMap? ->
                 if (map != null) {
                     trackasiaMap = map
                 }

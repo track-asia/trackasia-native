@@ -1,5 +1,5 @@
-module: MapLibre
-author: MapLibre Contributors
+module: Trackasia
+author: Trackasia Contributors
 author_url: https://track-asia.com/
 github_url: https://github.com/track-asia/trackasia-native
 copyright: '[License](https://github.com/track-asia/trackasia-native/blob/main/platform/ios/LICENSE.md)'

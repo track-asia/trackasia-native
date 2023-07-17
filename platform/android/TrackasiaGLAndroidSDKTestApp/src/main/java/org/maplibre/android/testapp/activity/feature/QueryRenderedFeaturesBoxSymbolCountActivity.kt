@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.feature
+package com.trackasia.android.testapp.activity.feature
 
 import android.graphics.BitmapFactory
 import android.graphics.RectF
@@ -6,16 +6,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.BackgroundLayer
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.ResourceUtils
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.BackgroundLayer
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.ResourceUtils
 import timber.log.Timber
 import java.io.IOException
 
@@ -24,7 +24,7 @@ import java.io.IOException
  */
 class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    lateinit var trackasiaMap: trackasiaMap
+    lateinit var trackasiaMap: MapLibreMap
         private set
     private lateinit var toast: Toast
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: trackasiaMap ->
+        mapView.getMapAsync { trackasiaMap: MapLibreMap ->
             this@QueryRenderedFeaturesBoxSymbolCountActivity.trackasiaMap = trackasiaMap
             try {
                 val testPoints = ResourceUtils.readRawResource(

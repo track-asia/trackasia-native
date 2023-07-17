@@ -1,22 +1,22 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.annotations.MarkerOptions
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
 
 /**
  * Test activity showcasing using the map padding API.
  */
 class MapPaddingActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_padding)
@@ -24,7 +24,7 @@ class MapPaddingActivity : AppCompatActivity() {
         mapView.setTag(true)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: trackasiaMap ->
+            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
                 this@MapPaddingActivity.trackasiaMap = trackasiaMap
                 trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
                 val paddingLeft = resources.getDimension(R.dimen.map_padding_left).toInt()

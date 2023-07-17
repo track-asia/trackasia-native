@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.adapter
+package com.trackasia.android.testapp.adapter
 
 import android.content.Context
 import android.util.SparseArray
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import org.trackasia.android.testapp.utils.FontCache
+import com.trackasia.android.testapp.utils.FontCache
 import java.util.*
 
 class FeatureSectionAdapter(

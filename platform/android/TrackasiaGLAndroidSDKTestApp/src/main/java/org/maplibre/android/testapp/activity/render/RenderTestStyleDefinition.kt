@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.render
+package com.trackasia.android.testapp.activity.render
 
 import java.util.HashMap
 

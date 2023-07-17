@@ -1,10 +1,10 @@
-package org.trackasia.android.testapp.string;
+package com.trackasia.android.testapp.string;
 
 import static org.junit.Assert.assertEquals;
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
-import org.trackasia.android.testapp.activity.EspressoTest;
+import com.trackasia.android.testapp.activity.EspressoTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,10 +1,10 @@
-package org.trackasia.android.geometry
+package com.trackasia.android.geometry
 
-import org.trackasia.android.constants.GeometryConstants
-import org.trackasia.android.exceptions.InvalidLatLngBoundsException
-import org.trackasia.android.geometry.LatLngBounds.Companion.from
-import org.trackasia.android.geometry.LatLngBounds.Companion.world
-import org.trackasia.android.utils.MockParcel
+import com.trackasia.android.constants.GeometryConstants
+import com.trackasia.android.exceptions.InvalidLatLngBoundsException
+import com.trackasia.android.geometry.LatLngBounds.Companion.from
+import com.trackasia.android.geometry.LatLngBounds.Companion.world
+import com.trackasia.android.utils.MockParcel
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

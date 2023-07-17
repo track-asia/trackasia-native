@@ -1,7 +1,7 @@
-package org.trackasia.android.location
+package com.trackasia.android.location
 
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.Layer
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.Layer
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Assert.assertFalse

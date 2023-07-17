@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.model.activity
+package com.trackasia.android.testapp.model.activity
 
 import android.os.Parcel
 import android.os.Parcelable

@@ -1,4 +1,4 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 /**
  * Comparisons from std sdk, which aren't available in API level 15 and below

@@ -1,19 +1,19 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 import android.graphics.Typeface;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.log.Logger;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.trackasia.android.constants.trackasiaConstants.DEFAULT_FONT;
+import static com.trackasia.android.constants.MapLibreConstants.DEFAULT_FONT;
 
 /**
  * Utility class to select a font from a range of font names based on the availability of fonts on the device.

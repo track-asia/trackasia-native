@@ -1,18 +1,18 @@
-package org.trackasia.android.offline
+package com.trackasia.android.offline
 
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.IntDef
 import androidx.annotation.Keep
-import org.trackasia.android.LibraryLoader
-import org.trackasia.android.trackasia
-import org.trackasia.android.net.ConnectivityReceiver
-import org.trackasia.android.storage.FileSource
+import com.trackasia.android.LibraryLoader
+import com.trackasia.android.Trackasia
+import com.trackasia.android.net.ConnectivityReceiver
+import com.trackasia.android.storage.FileSource
 
 /**
  * An offline region is the basic building block for offline mobile maps.
- * Use [org.trackasia.android.offline.OfflineManager.CreateOfflineRegionCallback]
+ * Use [com.trackasia.android.offline.OfflineManager.CreateOfflineRegionCallback]
  * to create a new offline region.
  */
 class OfflineRegion @Keep private constructor(offlineRegionPtr: Long, fileSource: FileSource, idParam: Long, definition: OfflineRegionDefinition, metadata: ByteArray) {
@@ -82,13 +82,13 @@ class OfflineRegion @Keep private constructor(offlineRegionPtr: Long, fileSource
         fun onError(error: OfflineRegionError)
 
         /*
-     * Implement this method to be notified when the limit on the number of trackasia
+     * Implement this method to be notified when the limit on the number of Trackasia
      * tiles stored for offline regions has been reached.
      *
      * Once the limit has been reached, the SDK will not download further offline
-     * tiles from trackasia APIs until existing tiles have been removed.
+     * tiles from Trackasia APIs until existing tiles have been removed.
      *
-     * This limit does not apply to non-trackasia tile sources.
+     * This limit does not apply to non-Trackasia tile sources.
      *
      * This method will be executed on the main thread.
      */
@@ -229,7 +229,7 @@ class OfflineRegion @Keep private constructor(offlineRegionPtr: Long, fileSource
      * [com.mapbox.mapboxsdk.offline.OfflineManager.createOfflineRegion] instead.
      */
     init {
-        context = trackasia.getApplicationContext()
+        context = Trackasia.getApplicationContext()
         this.fileSource = fileSource
         this.id = idParam
         this.definition = definition
@@ -361,7 +361,7 @@ class OfflineRegion @Keep private constructor(offlineRegionPtr: Long, fileSource
     }
 
     /**
-     * Invalidate all the tiles from an offline region forcing trackasia GL to revalidate
+     * Invalidate all the tiles from an offline region forcing Trackasia GL to revalidate
      * the tiles with the server before using. This is more efficient than deleting the
      * offline region and downloading it again because if the data on the cache matches
      * the server, no new data gets transmitted.

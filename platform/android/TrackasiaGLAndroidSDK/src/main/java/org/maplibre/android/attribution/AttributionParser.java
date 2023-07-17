@@ -1,4 +1,4 @@
-package org.trackasia.android.attribution;
+package com.trackasia.android.attribution;
 
 import android.content.Context;
 import android.text.Html;
@@ -130,10 +130,10 @@ public class AttributionParser {
   }
 
   /**
-   * Invoked to validate if an url is valid for the trackasia configuration.
+   * Invoked to validate if an url is valid for the Trackasia configuration.
    *
    * @param url the url to be validated
-   * @return if the url is valid for trackasia
+   * @return if the url is valid for Trackasia
    */
   private boolean isValidForMapbox(@NonNull String url) {
     return withMapboxAttribution || !url.equals(Attribution.MAPBOX_URL);
@@ -191,7 +191,7 @@ public class AttributionParser {
    * <p>
    * AttributionData, set with {@link #withAttributionData(String...)}, is the only required property to build
    * the underlying AttributionParser. Other properties include trimming the copyright sign, hiding
-   * attribution as improve this map and trackasia.
+   * attribution as improve this map and Trackasia.
    * </p>
    */
   public static class Options {

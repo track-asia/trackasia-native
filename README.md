@@ -31,7 +31,7 @@ The documentation of Trackasia Native is a work in progress. To get an architect
 - [Windows](platform/windows/README.md)
 - [macOS](platform/ios/platform/macos/README.md)
 
-Platforms with a ⭐️ are **Trackasia Core Projects** and have a substantial amount of financial resources allocated to them. Learn about the different [project tiers](https://github.com/track-asia/Trackasia/blob/main/PROJECT_TIERS.md#project-tiers).
+Platforms with a ⭐️ are **Trackasia Core Projects** and have a substantial amount of financial resources allocated to them. Learn about the different [project tiers](https://github.com/track-asia/track-asia/blob/main/PROJECT_TIERS.md#project-tiers).
 
 ## Renderer Modularization & Metal
 
@@ -54,7 +54,7 @@ Join the `#Trackasia-native` Slack channel at OSMUS. Get an invite at https://sl
 
 ### Bounties 💰
 
-Thanks to our sponsors, we are able to award bounties to developers making contributions toward certain [bounty directions](https://github.com/track-asia/Trackasia/issues?q=is%3Aissue+is%3Aopen+label%3A%22bounty+direction%22). To get started doing bounties, refer to the [step-by-step bounties guide](https://Trackasia.org/roadmap/step-by-step-bounties-guide/).
+Thanks to our sponsors, we are able to award bounties to developers making contributions toward certain [bounty directions](https://github.com/track-asia/track-asia/issues?q=is%3Aissue+is%3Aopen+label%3A%22bounty+direction%22). To get started doing bounties, refer to the [step-by-step bounties guide](https://Trackasia.org/roadmap/step-by-step-bounties-guide/).
 
 ## Sponsors
 

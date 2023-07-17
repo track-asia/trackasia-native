@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 /**
  * Contains all the constants being used for the {@link LocationComponent}.

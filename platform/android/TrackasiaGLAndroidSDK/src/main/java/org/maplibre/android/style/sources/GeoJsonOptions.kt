@@ -1,7 +1,7 @@
-package org.trackasia.android.style.sources
+package com.trackasia.android.style.sources
 
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.expressions.Expression.ExpressionLiteral
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.expressions.Expression.ExpressionLiteral
 /**
  * Builder class for composing GeoJsonSource objects.
  *

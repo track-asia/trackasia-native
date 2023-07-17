@@ -1,8 +1,8 @@
-package org.trackasia.android
+package com.trackasia.android
 
-import org.trackasia.android.testapp.trackasiaApplication
+import com.trackasia.android.testapp.MapLibreApplication
 
-class InstrumentationApplication : trackasiaApplication() {
+class InstrumentationApplication : MapLibreApplication() {
     fun initializeLeakCanary(): Boolean {
         // do not initialize leak canary during instrumentation tests
         return true

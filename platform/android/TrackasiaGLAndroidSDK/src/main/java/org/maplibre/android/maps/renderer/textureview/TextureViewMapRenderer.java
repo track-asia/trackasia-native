@@ -1,11 +1,11 @@
-package org.trackasia.android.maps.renderer.textureview;
+package com.trackasia.android.maps.renderer.textureview;
 
 import android.content.Context;
 import android.view.TextureView;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.maps.renderer.MapRenderer;
+import com.trackasia.android.maps.renderer.MapRenderer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

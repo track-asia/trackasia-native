@@ -1,4 +1,4 @@
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;
 
 import android.content.res.Resources;
 import android.graphics.PointF;
@@ -14,10 +14,10 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.R;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.maps.MapView;
-import org.trackasia.android.maps.trackasiaMap;
+import com.trackasia.android.R;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.maps.MapView;
+import com.trackasia.android.maps.MapLibreMap;
 
 import java.lang.ref.WeakReference;
 
@@ -34,13 +34,13 @@ import java.lang.ref.WeakReference;
  * </p>
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   trackasia Annotation Plugin</a> instead
+ *   Trackasia Annotation Plugin</a> instead
  */
 @Deprecated
 public class InfoWindow {
 
   private WeakReference<Marker> boundMarker;
-  private WeakReference<trackasiaMap> mapboxMap;
+  private WeakReference<MapLibreMap> mapboxMap;
   protected WeakReference<View> view;
 
   private float markerHeightOffset;
@@ -53,17 +53,17 @@ public class InfoWindow {
   @LayoutRes
   private int layoutRes;
 
-  InfoWindow(MapView mapView, int layoutResId, trackasiaMap trackasiaMap) {
+  InfoWindow(MapView mapView, int layoutResId, MapLibreMap trackasiaMap) {
     layoutRes = layoutResId;
     View view = LayoutInflater.from(mapView.getContext()).inflate(layoutResId, mapView, false);
     initialize(view, trackasiaMap);
   }
 
-  InfoWindow(@NonNull View view, trackasiaMap trackasiaMap) {
+  InfoWindow(@NonNull View view, MapLibreMap trackasiaMap) {
     initialize(view, trackasiaMap);
   }
 
-  private void initialize(@NonNull View view, trackasiaMap trackasiaMap) {
+  private void initialize(@NonNull View view, MapLibreMap trackasiaMap) {
     this.mapboxMap = new WeakReference<>(trackasiaMap);
     isVisible = false;
     this.view = new WeakReference<>(view);
@@ -71,9 +71,9 @@ public class InfoWindow {
     view.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        trackasiaMap trackasiaMap = InfoWindow.this.mapboxMap.get();
+        MapLibreMap trackasiaMap = InfoWindow.this.mapboxMap.get();
         if (trackasiaMap != null) {
-          trackasiaMap.OnInfoWindowClickListener onInfoWindowClickListener = trackasiaMap.getOnInfoWindowClickListener();
+          MapLibreMap.OnInfoWindowClickListener onInfoWindowClickListener = trackasiaMap.getOnInfoWindowClickListener();
           boolean handledDefaultClick = false;
           if (onInfoWindowClickListener != null) {
             handledDefaultClick = onInfoWindowClickListener.onInfoWindowClick(getBoundMarker());
@@ -90,9 +90,9 @@ public class InfoWindow {
     view.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
       public boolean onLongClick(View v) {
-        trackasiaMap trackasiaMap = InfoWindow.this.mapboxMap.get();
+        MapLibreMap trackasiaMap = InfoWindow.this.mapboxMap.get();
         if (trackasiaMap != null) {
-          trackasiaMap.OnInfoWindowLongClickListener listener = trackasiaMap.getOnInfoWindowLongClickListener();
+          MapLibreMap.OnInfoWindowLongClickListener listener = trackasiaMap.getOnInfoWindowLongClickListener();
           if (listener != null) {
             listener.onInfoWindowLongClick(getBoundMarker());
           }
@@ -103,7 +103,7 @@ public class InfoWindow {
   }
 
   private void closeInfoWindow() {
-    trackasiaMap mapbox = mapboxMap.get();
+    MapLibreMap mapbox = mapboxMap.get();
     Marker marker = boundMarker.get();
     if (marker != null && mapbox != null) {
       mapbox.deselectMarker(marker);
@@ -129,7 +129,7 @@ public class InfoWindow {
     MapView.LayoutParams lp = new MapView.LayoutParams(MapView.LayoutParams.WRAP_CONTENT,
       MapView.LayoutParams.WRAP_CONTENT);
 
-    trackasiaMap trackasiaMap = this.mapboxMap.get();
+    MapLibreMap trackasiaMap = this.mapboxMap.get();
     View view = this.view.get();
     if (view != null && trackasiaMap != null) {
       view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -222,7 +222,7 @@ public class InfoWindow {
    */
   @NonNull
   InfoWindow close() {
-    trackasiaMap trackasiaMap = this.mapboxMap.get();
+    MapLibreMap trackasiaMap = this.mapboxMap.get();
     if (isVisible && trackasiaMap != null) {
       isVisible = false;
       View view = this.view.get();
@@ -231,7 +231,7 @@ public class InfoWindow {
       }
 
       Marker marker = getBoundMarker();
-      trackasiaMap.OnInfoWindowCloseListener listener = trackasiaMap.getOnInfoWindowCloseListener();
+      MapLibreMap.OnInfoWindowCloseListener listener = trackasiaMap.getOnInfoWindowCloseListener();
       if (listener != null) {
         listener.onInfoWindowClose(marker);
       }
@@ -247,7 +247,7 @@ public class InfoWindow {
    *
    * @param overlayItem the tapped overlay item
    */
-  void adaptDefaultMarker(@NonNull Marker overlayItem, trackasiaMap trackasiaMap, @NonNull MapView mapView) {
+  void adaptDefaultMarker(@NonNull Marker overlayItem, MapLibreMap trackasiaMap, @NonNull MapView mapView) {
     View view = this.view.get();
     if (view == null) {
       view = LayoutInflater.from(mapView.getContext()).inflate(layoutRes, mapView, false);
@@ -291,7 +291,7 @@ public class InfoWindow {
    * Will result in getting this {@link InfoWindow} and updating the view being displayed.
    */
   public void update() {
-    trackasiaMap trackasiaMap = this.mapboxMap.get();
+    MapLibreMap trackasiaMap = this.mapboxMap.get();
     Marker marker = boundMarker.get();
     View view = this.view.get();
     if (trackasiaMap != null && marker != null && view != null) {

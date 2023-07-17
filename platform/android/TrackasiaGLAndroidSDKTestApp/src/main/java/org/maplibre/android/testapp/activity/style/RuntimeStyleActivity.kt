@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,30 +11,30 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.mapbox.geojson.Polygon
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.trackasiaMap.CancelableCallback
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.CircleLayer
-import org.trackasia.android.style.layers.FillLayer
-import org.trackasia.android.style.layers.Layer
-import org.trackasia.android.style.layers.LineLayer
-import org.trackasia.android.style.layers.Property
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.RasterLayer
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.layers.TransitionOptions
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.style.sources.RasterSource
-import org.trackasia.android.style.sources.Source
-import org.trackasia.android.style.sources.TileSet
-import org.trackasia.android.style.sources.VectorSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.ResourceUtils
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.MapLibreMap.CancelableCallback
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.CircleLayer
+import com.trackasia.android.style.layers.FillLayer
+import com.trackasia.android.style.layers.Layer
+import com.trackasia.android.style.layers.LineLayer
+import com.trackasia.android.style.layers.Property
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.RasterLayer
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.layers.TransitionOptions
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.style.sources.RasterSource
+import com.trackasia.android.style.sources.Source
+import com.trackasia.android.style.sources.TileSet
+import com.trackasia.android.style.sources.VectorSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.ResourceUtils
 import timber.log.Timber
 import java.io.IOException
 import java.util.Arrays
@@ -45,7 +45,7 @@ import java.util.Collections
  */
 class RuntimeStyleActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var styleLoaded = false
     var lngLats = listOf(
         Arrays.asList(
@@ -80,7 +80,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: trackasiaMap? ->
+            OnMapReadyCallback { map: MapLibreMap? ->
                 // Store for later
                 if (map != null) {
                     trackasiaMap = map

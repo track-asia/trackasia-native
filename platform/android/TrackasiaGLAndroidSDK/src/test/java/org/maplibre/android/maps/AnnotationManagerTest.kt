@@ -1,11 +1,11 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import androidx.collection.LongSparseArray
-import org.trackasia.android.annotations.Annotation
-import org.trackasia.android.annotations.BaseMarkerOptions
-import org.trackasia.android.annotations.Marker
-import org.trackasia.android.annotations.MarkerOptions
-import org.trackasia.android.geometry.LatLng
+import com.trackasia.android.annotations.Annotation
+import com.trackasia.android.annotations.BaseMarkerOptions
+import com.trackasia.android.annotations.Marker
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.geometry.LatLng
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.ArgumentMatchers
@@ -45,9 +45,9 @@ class AnnotationManagerTest {
         val aMarkerOptions = Mockito.mock(
             BaseMarkerOptions::class.java
         )
-        val atrackasiaMap = Mockito.mock(trackasiaMap::class.java)
+        val aMapLibreMap = Mockito.mock(MapLibreMap::class.java)
         Mockito.`when`(aMarkerOptions.marker).thenReturn(aMarker)
-        annotationManager.addMarker(aMarkerOptions, atrackasiaMap)
+        annotationManager.addMarker(aMarkerOptions, aMapLibreMap)
         Assert.assertEquals(aMarker, annotationManager.annotations[0])
         Assert.assertEquals(aMarker, annotationManager.getAnnotation(aId))
     }
@@ -84,7 +84,7 @@ class AnnotationManagerTest {
         val secondMarkerOption = MarkerOptions().position(LatLng()).title("second")
         markerList.add(firstMarkerOption)
         markerList.add(secondMarkerOption)
-        val atrackasiaMap = Mockito.mock(trackasiaMap::class.java)
+        val aMapLibreMap = Mockito.mock(MapLibreMap::class.java)
         Mockito.`when`(
             aNativeMapView.addMarker(
                 ArgumentMatchers.any(
@@ -94,7 +94,7 @@ class AnnotationManagerTest {
         ).thenReturn(firstId, secondId)
         Mockito.`when`(aNativeMapView.addMarkers(ArgumentMatchers.anyList()))
             .thenReturn(longArrayOf(firstId, secondId))
-        annotationManager.addMarkers(markerList, atrackasiaMap)
+        annotationManager.addMarkers(markerList, aMapLibreMap)
         Assert.assertEquals(2, annotationManager.annotations.size)
         Assert.assertEquals("first", (annotationManager.annotations[0] as Marker).title)
         Assert.assertEquals("second", (annotationManager.annotations[1] as Marker).title)

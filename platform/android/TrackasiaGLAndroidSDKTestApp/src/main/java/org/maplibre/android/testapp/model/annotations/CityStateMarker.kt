@@ -1,6 +1,6 @@
-package org.trackasia.android.testapp.model.annotations
+package com.trackasia.android.testapp.model.annotations
 
-import org.trackasia.android.annotations.Marker
+import com.trackasia.android.annotations.Marker
 
 class CityStateMarker(
     cityStateOptions: CityStateMarkerOptions?,

@@ -1,7 +1,7 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
 public enum WellKnownTileServer {
   Mapbox,
   MapTiler,
-  trackasia;
+  Trackasia;
 }

@@ -1,15 +1,15 @@
-package org.trackasia.android.testapp.activity.textureview
+package com.trackasia.android.testapp.activity.textureview
 
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.ResourceUtils
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.ResourceUtils
 import timber.log.Timber
 import java.io.IOException
 
@@ -18,7 +18,7 @@ import java.io.IOException
  */
 class TextureViewTransparentBackgroundActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private val trackasiaMap: trackasiaMap? = null
+    private val trackasiaMap: MapLibreMap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_textureview_transparent)
@@ -33,7 +33,7 @@ class TextureViewTransparentBackgroundActivity : AppCompatActivity() {
     }
 
     private fun setupMapView(savedInstanceState: Bundle?) {
-        val trackasiaMapOptions = trackasiaMapOptions.createFromAttributes(this, null)
+        val trackasiaMapOptions = MapLibreMapOptions.createFromAttributes(this, null)
         trackasiaMapOptions.translucentTextureSurface(true)
         trackasiaMapOptions.textureMode(true)
         trackasiaMapOptions.camera(
@@ -44,11 +44,11 @@ class TextureViewTransparentBackgroundActivity : AppCompatActivity() {
         )
         mapView = MapView(this, trackasiaMapOptions)
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: trackasiaMap -> initMap(trackasiaMap) }
+        mapView.getMapAsync { trackasiaMap: MapLibreMap -> initMap(trackasiaMap) }
         (findViewById<View>(R.id.coordinator_layout) as ViewGroup).addView(mapView)
     }
 
-    private fun initMap(trackasiaMap: trackasiaMap) {
+    private fun initMap(trackasiaMap: MapLibreMap) {
         try {
             trackasiaMap.setStyle(
                 Style.Builder().fromJson(ResourceUtils.readRawResource(this, R.raw.no_bg_style))

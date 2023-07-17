@@ -1,4 +1,4 @@
-package org.trackasia.android.attribution;
+package com.trackasia.android.attribution;
 
 import androidx.annotation.Nullable;
 

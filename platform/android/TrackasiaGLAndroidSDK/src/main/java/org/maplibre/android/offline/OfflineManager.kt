@@ -1,4 +1,4 @@
-package org.trackasia.android.offline
+package com.trackasia.android.offline
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,12 +6,12 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.Keep
 import androidx.annotation.UiThread
-import org.trackasia.android.LibraryLoader
-import org.trackasia.android.R
-import org.trackasia.android.geometry.LatLngBounds.Companion.world
-import org.trackasia.android.net.ConnectivityReceiver
-import org.trackasia.android.storage.FileSource
-import org.trackasia.android.utils.FileUtils
+import com.trackasia.android.LibraryLoader
+import com.trackasia.android.R
+import com.trackasia.android.geometry.LatLngBounds.Companion.world
+import com.trackasia.android.net.ConnectivityReceiver
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.utils.FileUtils
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -284,7 +284,7 @@ class OfflineManager private constructor(context: Context) {
      * Forces re-validation of the ambient cache.
      *
      *
-     * Forces trackasia GL Native to revalidate resources stored in the ambient
+     * Forces Trackasia GL Native to revalidate resources stored in the ambient
      * cache with the tile server before using them, making sure they
      * are the latest version. This is more efficient than cleaning the
      * cache because if the resource is considered valid after the server
@@ -521,7 +521,7 @@ class OfflineManager private constructor(context: Context) {
     }
 
     /**
-     * Sets the maximum number of trackasia-hosted tiles that may be downloaded and stored on the current device.
+     * Sets the maximum number of Trackasia-hosted tiles that may be downloaded and stored on the current device.
      * By default, the limit is set to 6,000.
      *
      *

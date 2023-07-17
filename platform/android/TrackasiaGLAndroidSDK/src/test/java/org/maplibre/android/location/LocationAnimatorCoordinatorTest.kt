@@ -1,18 +1,18 @@
-package org.trackasia.android.location
+package com.trackasia.android.location
 
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.location.Location
 import android.util.SparseArray
 import android.view.animation.LinearInterpolator
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_TILT_ANIM_DURATION
-import org.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_ZOOM_ANIM_DURATION
-import org.trackasia.android.location.trackasiaAnimator.*
-import org.trackasia.android.location.modes.RenderMode
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Projection
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_TILT_ANIM_DURATION
+import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_ZOOM_ANIM_DURATION
+import com.trackasia.android.location.MapLibreAnimator.*
+import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Projection
 import io.mockk.*
 import org.junit.Assert.*
 import org.junit.Before
@@ -20,7 +20,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.robolectric.RobolectricTestRunner
-import org.trackasia.testUtils.Assert as trackasiaAssert
+import com.trackasia.testUtils.Assert as MapLibreAssert
 
 @RunWith(RobolectricTestRunner::class)
 class LocationAnimatorCoordinatorTest {
@@ -28,8 +28,8 @@ class LocationAnimatorCoordinatorTest {
     private lateinit var locationAnimatorCoordinator: LocationAnimatorCoordinator
     private val cameraPosition: CameraPosition = CameraPosition.DEFAULT
 
-    private val animatorProvider: trackasiaAnimatorProvider = mockk()
-    private val animatorSetProvider: trackasiaAnimatorSetProvider = mockk()
+    private val animatorProvider: MapLibreAnimatorProvider = mockk()
+    private val animatorSetProvider: MapLibreAnimatorSetProvider = mockk()
 
     private val projection: Projection = mockk()
 
@@ -73,7 +73,7 @@ class LocationAnimatorCoordinatorTest {
         every {
             animatorProvider.floatAnimator(capture(floatsSlot), capture(listenerSlot), capture(maxFpsSlot))
         } answers {
-            trackasiaFloatAnimator(
+            MapLibreFloatAnimator(
                 floatsSlot.captured,
                 listenerSlot.captured,
                 maxFpsSlot.captured
@@ -84,18 +84,18 @@ class LocationAnimatorCoordinatorTest {
         every {
             animatorProvider.latLngAnimator(capture(latLngsSlot), capture(listenerSlot), capture(maxFpsSlot))
         } answers {
-            trackasiaLatLngAnimator(
+            MapLibreLatLngAnimator(
                 latLngsSlot.captured,
                 listenerSlot.captured,
                 maxFpsSlot.captured
             )
         }
 
-        val callback = slot<trackasiaMap.CancelableCallback>()
+        val callback = slot<MapLibreMap.CancelableCallback>()
         every {
             animatorProvider.cameraAnimator(capture(floatsSlot), capture(listenerSlot), capture(callback))
         } answers {
-            trackasiaCameraAnimatorAdapter(
+            MapLibreCameraAnimatorAdapter(
                 floatsSlot.captured,
                 listenerSlot.captured,
                 callback.captured
@@ -104,7 +104,7 @@ class LocationAnimatorCoordinatorTest {
         every {
             animatorProvider.cameraAnimator(capture(floatsSlot), capture(listenerSlot), null)
         } answers {
-            trackasiaCameraAnimatorAdapter(
+            MapLibreCameraAnimatorAdapter(
                 floatsSlot.captured,
                 listenerSlot.captured,
                 null
@@ -131,18 +131,18 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.feedNewLocation(location, cameraPosition, false)
 
         val cameraLatLngTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_LATLNG]?.target as LatLng
-        trackasiaAssert.assertEquals(location.latitude, cameraLatLngTarget.latitude)
-        trackasiaAssert.assertEquals(location.longitude, cameraLatLngTarget.longitude)
+        MapLibreAssert.assertEquals(location.latitude, cameraLatLngTarget.latitude)
+        MapLibreAssert.assertEquals(location.longitude, cameraLatLngTarget.longitude)
 
         val layerLatLngTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_LATLNG]?.target as LatLng
-        trackasiaAssert.assertEquals(location.latitude, layerLatLngTarget.latitude)
-        trackasiaAssert.assertEquals(location.longitude, layerLatLngTarget.longitude)
+        MapLibreAssert.assertEquals(location.latitude, layerLatLngTarget.latitude)
+        MapLibreAssert.assertEquals(location.longitude, layerLatLngTarget.longitude)
 
         val cameraBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(location.bearing, cameraBearingTarget)
+        MapLibreAssert.assertEquals(location.bearing, cameraBearingTarget)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(location.bearing, layerBearingTarget)
+        MapLibreAssert.assertEquals(location.bearing, layerBearingTarget)
     }
 
     @Test
@@ -163,18 +163,18 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.feedNewLocation(arrayOf(locationInter, location), cameraPosition, false, false)
 
         val cameraLatLngTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_LATLNG]?.target as LatLng
-        trackasiaAssert.assertEquals(location.latitude, cameraLatLngTarget.latitude)
-        trackasiaAssert.assertEquals(location.longitude, cameraLatLngTarget.longitude)
+        MapLibreAssert.assertEquals(location.latitude, cameraLatLngTarget.latitude)
+        MapLibreAssert.assertEquals(location.longitude, cameraLatLngTarget.longitude)
 
         val layerLatLngTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_LATLNG]?.target as LatLng
-        trackasiaAssert.assertEquals(location.latitude, layerLatLngTarget.latitude)
-        trackasiaAssert.assertEquals(location.longitude, layerLatLngTarget.longitude)
+        MapLibreAssert.assertEquals(location.latitude, layerLatLngTarget.latitude)
+        MapLibreAssert.assertEquals(location.longitude, layerLatLngTarget.longitude)
 
         val cameraBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(location.bearing, cameraBearingTarget)
+        MapLibreAssert.assertEquals(location.bearing, cameraBearingTarget)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(location.bearing, layerBearingTarget)
+        MapLibreAssert.assertEquals(location.bearing, layerBearingTarget)
 
         verify {
             animatorProvider.latLngAnimator(
@@ -295,14 +295,14 @@ class LocationAnimatorCoordinatorTest {
         location.longitude = 17.0
         location.bearing = 0f
 
-        val animator = mockk<trackasiaFloatAnimator>(relaxed = true)
+        val animator = mockk<MapLibreFloatAnimator>(relaxed = true)
         every { animator.animatedValue } returns 270f
         locationAnimatorCoordinator.animatorArray.put(ANIMATOR_LAYER_GPS_BEARING, animator)
 
         locationAnimatorCoordinator.feedNewLocation(location, cameraPosition, false)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(360f, layerBearingTarget)
+        MapLibreAssert.assertEquals(360f, layerBearingTarget)
     }
 
     @Test
@@ -312,14 +312,14 @@ class LocationAnimatorCoordinatorTest {
         location.longitude = 17.0
         location.bearing = 90f
 
-        val animator = mockk<trackasiaFloatAnimator>(relaxed = true)
+        val animator = mockk<MapLibreFloatAnimator>(relaxed = true)
         every { animator.animatedValue } returns 280f
         locationAnimatorCoordinator.animatorArray.put(ANIMATOR_LAYER_GPS_BEARING, animator)
 
         locationAnimatorCoordinator.feedNewLocation(location, cameraPosition, false)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(450f, layerBearingTarget)
+        MapLibreAssert.assertEquals(450f, layerBearingTarget)
     }
 
     @Test
@@ -329,14 +329,14 @@ class LocationAnimatorCoordinatorTest {
         location.longitude = 17.0
         location.bearing = 300f
 
-        val animator = mockk<trackasiaFloatAnimator>(relaxed = true)
+        val animator = mockk<MapLibreFloatAnimator>(relaxed = true)
         every { animator.animatedValue } returns 450f
         locationAnimatorCoordinator.animatorArray.put(ANIMATOR_LAYER_GPS_BEARING, animator)
 
         locationAnimatorCoordinator.feedNewLocation(location, cameraPosition, false)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(-60f, layerBearingTarget)
+        MapLibreAssert.assertEquals(-60f, layerBearingTarget)
     }
 
     @Test
@@ -346,14 +346,14 @@ class LocationAnimatorCoordinatorTest {
         location.longitude = 17.0
         location.bearing = 350f
 
-        val animator = mockk<trackasiaFloatAnimator>(relaxed = true)
+        val animator = mockk<MapLibreFloatAnimator>(relaxed = true)
         every { animator.animatedValue } returns 10f
         locationAnimatorCoordinator.animatorArray.put(ANIMATOR_LAYER_GPS_BEARING, animator)
 
         locationAnimatorCoordinator.feedNewLocation(location, cameraPosition, false)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(-10f, layerBearingTarget)
+        MapLibreAssert.assertEquals(-10f, layerBearingTarget)
     }
 
     @Test
@@ -363,14 +363,14 @@ class LocationAnimatorCoordinatorTest {
         location.longitude = 17.0
         location.bearing = 90f
 
-        val animator = mockk<trackasiaFloatAnimator>(relaxed = true)
+        val animator = mockk<MapLibreFloatAnimator>(relaxed = true)
         every { animator.animatedValue } returns -280f
         locationAnimatorCoordinator.animatorArray.put(ANIMATOR_LAYER_GPS_BEARING, animator)
 
         locationAnimatorCoordinator.feedNewLocation(location, cameraPosition, false)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(90f, layerBearingTarget)
+        MapLibreAssert.assertEquals(90f, layerBearingTarget)
     }
 
     @Test
@@ -380,14 +380,14 @@ class LocationAnimatorCoordinatorTest {
         location.longitude = 17.0
         location.bearing = 270f
 
-        val animator = mockk<trackasiaFloatAnimator>(relaxed = true)
+        val animator = mockk<MapLibreFloatAnimator>(relaxed = true)
         every { animator.animatedValue } returns -350f
         locationAnimatorCoordinator.animatorArray.put(ANIMATOR_LAYER_GPS_BEARING, animator)
 
         locationAnimatorCoordinator.feedNewLocation(location, cameraPosition, false)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(-90f, layerBearingTarget)
+        MapLibreAssert.assertEquals(-90f, layerBearingTarget)
     }
 
     @Test
@@ -413,16 +413,16 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.feedNewLocation(location, cameraPosition, true)
 
         val cameraLatLngTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_LATLNG]?.target as LatLng
-        trackasiaAssert.assertEquals(cameraLatLngTarget.latitude, cameraLatLngTarget.latitude)
+        MapLibreAssert.assertEquals(cameraLatLngTarget.latitude, cameraLatLngTarget.latitude)
 
         val layerLatLngTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_LATLNG]?.target as LatLng
-        trackasiaAssert.assertEquals(layerLatLngTarget.latitude, layerLatLngTarget.latitude)
+        MapLibreAssert.assertEquals(layerLatLngTarget.latitude, layerLatLngTarget.latitude)
 
         val cameraBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(0f, cameraBearingTarget)
+        MapLibreAssert.assertEquals(0f, cameraBearingTarget)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(location.bearing, layerBearingTarget)
+        MapLibreAssert.assertEquals(location.bearing, layerBearingTarget)
     }
 
     @Test
@@ -439,10 +439,10 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.feedNewCompassBearing(bearing, cameraPosition)
 
         val cameraBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_COMPASS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(bearing, cameraBearingTarget)
+        MapLibreAssert.assertEquals(bearing, cameraBearingTarget)
 
         val layerBearingTarget = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_COMPASS_BEARING]?.target as Float
-        trackasiaAssert.assertEquals(bearing, layerBearingTarget)
+        MapLibreAssert.assertEquals(bearing, layerBearingTarget)
     }
 
     @Test
@@ -458,7 +458,7 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.feedNewAccuracyRadius(accuracy, false)
 
         val layerAccuracy = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_ACCURACY]?.target as Float
-        trackasiaAssert.assertEquals(layerAccuracy, accuracy)
+        MapLibreAssert.assertEquals(layerAccuracy, accuracy)
     }
 
     @Test
@@ -474,7 +474,7 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.feedNewAccuracyRadius(accuracy, true)
 
         val layerAccuracy = locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_ACCURACY]?.target as Float
-        trackasiaAssert.assertEquals(layerAccuracy, accuracy)
+        MapLibreAssert.assertEquals(layerAccuracy, accuracy)
     }
 
     @Test
@@ -500,7 +500,7 @@ class LocationAnimatorCoordinatorTest {
         )
 
         val animator = locationAnimatorCoordinator.animatorArray[ANIMATOR_ZOOM]
-        trackasiaAssert.assertEquals(zoom, animator.target as Float)
+        MapLibreAssert.assertEquals(zoom, animator.target as Float)
         verify { animatorSetProvider.startAnimation(eq(listOf(animator)), any<LinearInterpolator>(), DEFAULT_TRACKING_ZOOM_ANIM_DURATION) }
     }
 
@@ -527,7 +527,7 @@ class LocationAnimatorCoordinatorTest {
         )
 
         val animator = locationAnimatorCoordinator.animatorArray[ANIMATOR_TILT]
-        trackasiaAssert.assertEquals(tilt, animator.target as Float)
+        MapLibreAssert.assertEquals(tilt, animator.target as Float)
         verify { animatorSetProvider.startAnimation(eq(listOf(animator)), any<LinearInterpolator>(), DEFAULT_TRACKING_TILT_ANIM_DURATION) }
     }
 
@@ -724,7 +724,7 @@ class LocationAnimatorCoordinatorTest {
 
     @Test
     fun remove_gps_animator() {
-        val animator = mockk<trackasiaFloatAnimator>(relaxed = true)
+        val animator = mockk<MapLibreFloatAnimator>(relaxed = true)
         locationAnimatorCoordinator.animatorArray.put(ANIMATOR_LAYER_GPS_BEARING, animator)
 
         locationAnimatorCoordinator.cancelAndRemoveGpsBearingAnimation()

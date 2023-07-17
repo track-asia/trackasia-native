@@ -1,4 +1,4 @@
-package org.trackasia.android.location
+package com.trackasia.android.location
 
 import android.animation.ValueAnimator
 import io.mockk.every
@@ -9,15 +9,15 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class trackasiaAnimatorTest {
+class MapLibreAnimatorTest {
 
     @Test
     fun fps_unlimited() {
         val valueAnimator = mockk<ValueAnimator>()
         every { valueAnimator.animatedValue } answers { 5f }
-        val listener = mockk<trackasiaAnimator.AnimationsValueChangeListener<Float>>()
+        val listener = mockk<MapLibreAnimator.AnimationsValueChangeListener<Float>>()
         every { listener.onNewAnimationValue(any()) } answers {}
-        val mapboxAnimator = trackasiaFloatAnimator(
+        val mapboxAnimator = MapLibreFloatAnimator(
             floatArrayOf(
                 0f,
                 10f
@@ -34,9 +34,9 @@ class trackasiaAnimatorTest {
     fun fps_limited() {
         val valueAnimator = mockk<ValueAnimator>()
         every { valueAnimator.animatedValue } answers { 5f }
-        val listener = mockk<trackasiaAnimator.AnimationsValueChangeListener<Float>>()
+        val listener = mockk<MapLibreAnimator.AnimationsValueChangeListener<Float>>()
         every { listener.onNewAnimationValue(any()) } answers {}
-        val mapboxAnimator = trackasiaFloatAnimator(
+        val mapboxAnimator = MapLibreFloatAnimator(
             floatArrayOf(
                 0f,
                 10f

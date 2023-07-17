@@ -7,7 +7,7 @@
 #   - $HASH is the hash value computed from this text.
 #   - $CMAKE is the path to CMake 3.18.1.
 #   - $NINJA is the path to Ninja.
--H$PROJECT/MapboxGLAndroidSDK/src/cpp
+-H$PROJECT/TrackasiaGLAndroidSDK/src/cpp
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 -DCMAKE_SYSTEM_VERSION=21
@@ -20,10 +20,10 @@
 -DCMAKE_MAKE_PROGRAM=$NINJA
 -DCMAKE_C_FLAGS=-Qunused-arguments
 -DCMAKE_CXX_FLAGS=-Qunused-arguments
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$PROJECT/MapboxGLAndroidSDKTestApp/build/intermediates/cxx/Debug/$HASH/obj/$ABI
--DCMAKE_RUNTIME_OUTPUT_DIRECTORY=$PROJECT/MapboxGLAndroidSDKTestApp/build/intermediates/cxx/Debug/$HASH/obj/$ABI
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$PROJECT/TrackasiaGLAndroidSDKTestApp/build/intermediates/cxx/Debug/$HASH/obj/$ABI
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=$PROJECT/TrackasiaGLAndroidSDKTestApp/build/intermediates/cxx/Debug/$HASH/obj/$ABI
 -DCMAKE_BUILD_TYPE=Debug
--B$PROJECT/MapboxGLAndroidSDKTestApp/.cxx/Debug/$HASH/$ABI
+-B$PROJECT/TrackasiaGLAndroidSDKTestApp/.cxx/Debug/$HASH/$ABI
 -GNinja
 -DANDROID_TOOLCHAIN=clang
 -DANDROID_STL=c++_static

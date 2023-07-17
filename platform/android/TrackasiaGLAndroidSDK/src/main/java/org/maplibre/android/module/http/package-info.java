@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Modular Http API classes.
+ * Contains the Trackasia Maps Android Modular Http API classes.
  */
-package org.trackasia.android.module.http;
+package com.trackasia.android.module.http;

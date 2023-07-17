@@ -1,17 +1,17 @@
-package org.trackasia.android.testapp.style;
+package com.trackasia.android.testapp.style;
 
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.style.layers.CircleLayer;
-import org.trackasia.android.style.layers.Layer;
-import org.trackasia.android.style.sources.GeoJsonSource;
-import org.trackasia.android.testapp.R;
-import org.trackasia.android.testapp.action.trackasiaMapAction;
-import org.trackasia.android.testapp.activity.EspressoTest;
-import org.trackasia.android.testapp.utils.ResourceUtils;
-import org.trackasia.android.testapp.utils.TestingAsyncUtils;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.style.layers.CircleLayer;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.style.sources.GeoJsonSource;
+import com.trackasia.android.testapp.R;
+import com.trackasia.android.testapp.action.MapLibreMapAction;
+import com.trackasia.android.testapp.activity.EspressoTest;
+import com.trackasia.android.testapp.utils.ResourceUtils;
+import com.trackasia.android.testapp.utils.TestingAsyncUtils;
 
 import org.hamcrest.Matcher;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class GeoJsonSourceTests extends EspressoTest {
   @Test
   public void testFeatureCollection() {
     validateTestSetup();
-    trackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapLibreMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
       GeoJsonSource source = null;
       source = new GeoJsonSource("source", FeatureCollection
               .fromJson(ResourceUtils.readRawResource(rule.getActivity(), R.raw.test_feature_collection)));
@@ -50,7 +50,7 @@ public class GeoJsonSourceTests extends EspressoTest {
   @Test
   public void testPointGeometry() {
     validateTestSetup();
-    trackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapLibreMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
       GeoJsonSource source = new GeoJsonSource("source", Point.fromLngLat(0d, 0d));
       mapboxMap.getStyle().addSource(source);
       mapboxMap.getStyle().addLayer(new CircleLayer("layer", source.getId()));
@@ -60,7 +60,7 @@ public class GeoJsonSourceTests extends EspressoTest {
   @Test
   public void testFeatureProperties() {
     validateTestSetup();
-    trackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapLibreMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
       GeoJsonSource source = null;
       source = new GeoJsonSource("source",
               ResourceUtils.readRawResource(rule.getActivity(), R.raw.test_feature_properties));
@@ -72,7 +72,7 @@ public class GeoJsonSourceTests extends EspressoTest {
   @Test
   public void testUpdateCoalescing() {
     validateTestSetup();
-    trackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapLibreMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
       GeoJsonSource source = new GeoJsonSource("source");
       mapboxMap.getStyle().addSource(source);
       mapboxMap.getStyle().addLayer(new CircleLayer("layer", source.getId()));
@@ -93,7 +93,7 @@ public class GeoJsonSourceTests extends EspressoTest {
   public void testClearCollectionDuringConversion() {
     // https://github.com/mapbox/mapbox-gl-native/issues/14565
     validateTestSetup();
-    trackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapLibreMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
       for (int j = 0; j < 1000; j++) {
         List<Feature> features = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
@@ -142,7 +142,7 @@ public class GeoJsonSourceTests extends EspressoTest {
 
   protected void testFeatureFromResource(final @RawRes int resource) {
     validateTestSetup();
-    trackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapLibreMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
       GeoJsonSource source = new GeoJsonSource("source");
       mapboxMap.getStyle().addSource(source);
       Layer layer = new CircleLayer("layer", source.getId());

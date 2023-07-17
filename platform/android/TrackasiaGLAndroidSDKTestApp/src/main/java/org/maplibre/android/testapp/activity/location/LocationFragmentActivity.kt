@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.location
+package com.trackasia.android.testapp.activity.location
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,18 +8,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.location.LocationComponentActivationOptions
-import org.trackasia.android.location.engine.LocationEngineCallback
-import org.trackasia.android.location.engine.LocationEngineResult
-import org.trackasia.android.location.permissions.PermissionsListener
-import org.trackasia.android.location.permissions.PermissionsManager
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.databinding.ActivityLocationLayerFragmentBinding
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.location.LocationComponentActivationOptions
+import com.trackasia.android.location.engine.LocationEngineCallback
+import com.trackasia.android.location.engine.LocationEngineResult
+import com.trackasia.android.location.permissions.PermissionsListener
+import com.trackasia.android.location.permissions.PermissionsManager
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.databinding.ActivityLocationLayerFragmentBinding
 
 class LocationFragmentActivity : AppCompatActivity() {
 
@@ -94,7 +94,7 @@ class LocationFragmentActivity : AppCompatActivity() {
         }
 
         private lateinit var mapView: MapView
-        private lateinit var trackasiaMap: trackasiaMap
+        private lateinit var trackasiaMap: MapLibreMap
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             mapView = MapView(inflater.context)

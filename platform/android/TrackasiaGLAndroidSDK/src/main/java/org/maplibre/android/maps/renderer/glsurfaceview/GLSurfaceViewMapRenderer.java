@@ -1,14 +1,14 @@
-package org.trackasia.android.maps.renderer.glsurfaceview;
+package com.trackasia.android.maps.renderer.glsurfaceview;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.maps.renderer.MapRenderer;
-import org.trackasia.android.maps.renderer.egl.EGLConfigChooser;
-import org.trackasia.android.maps.renderer.egl.EGLContextFactory;
-import org.trackasia.android.maps.renderer.egl.EGLWindowSurfaceFactory;
+import com.trackasia.android.maps.renderer.MapRenderer;
+import com.trackasia.android.maps.renderer.egl.EGLConfigChooser;
+import com.trackasia.android.maps.renderer.egl.EGLContextFactory;
+import com.trackasia.android.maps.renderer.egl.EGLWindowSurfaceFactory;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -24,10 +24,10 @@ import static android.opengl.GLSurfaceView.RENDERMODE_WHEN_DIRTY;
 public class GLSurfaceViewMapRenderer extends MapRenderer implements GLSurfaceView.Renderer {
 
   @NonNull
-  private final trackasiaGLSurfaceView glSurfaceView;
+  private final MapLibreGLSurfaceView glSurfaceView;
 
   public GLSurfaceViewMapRenderer(Context context,
-                                  trackasiaGLSurfaceView glSurfaceView,
+                                  MapLibreGLSurfaceView glSurfaceView,
                                   String localIdeographFontFamily) {
     super(context, localIdeographFontFamily);
     this.glSurfaceView = glSurfaceView;
@@ -37,7 +37,7 @@ public class GLSurfaceViewMapRenderer extends MapRenderer implements GLSurfaceVi
     glSurfaceView.setRenderer(this);
     glSurfaceView.setRenderMode(RENDERMODE_WHEN_DIRTY);
     glSurfaceView.setPreserveEGLContextOnPause(true);
-    glSurfaceView.setDetachedListener(new trackasiaGLSurfaceView.OnGLSurfaceViewDetachedListener() {
+    glSurfaceView.setDetachedListener(new MapLibreGLSurfaceView.OnGLSurfaceViewDetachedListener() {
       @Override
       public void onGLSurfaceViewDetached() {
         // because the GL thread is destroyed when the view is detached from window,

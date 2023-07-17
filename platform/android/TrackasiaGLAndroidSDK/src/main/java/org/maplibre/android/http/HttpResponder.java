@@ -1,4 +1,4 @@
-package org.trackasia.android.http;
+package com.trackasia.android.http;
 
 /**
  * Interface definition for a callback to be invoked when either a response was returned for a requested resource or

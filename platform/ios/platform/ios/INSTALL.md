@@ -40,7 +40,7 @@ Before building, follow these steps to install prerequisites:
 ### Build the iOS Demo App
 
 ```
-git clone --recurse-submodules git@github.com:maplibre/trackasia-native.git
+git clone --recurse-submodules git@github.com:trackasia/trackasia-native.git
 cd trackasia-native/platform/ios 
 make iproj
 ```

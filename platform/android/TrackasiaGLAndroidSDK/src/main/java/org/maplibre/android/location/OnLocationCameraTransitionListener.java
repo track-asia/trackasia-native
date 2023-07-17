@@ -1,6 +1,6 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
-import org.trackasia.android.location.modes.CameraMode;
+import com.trackasia.android.location.modes.CameraMode;
 
 /**
  * Callback for {@link CameraMode } transition state.

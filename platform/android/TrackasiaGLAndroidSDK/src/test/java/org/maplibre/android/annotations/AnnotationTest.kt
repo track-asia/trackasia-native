@@ -1,6 +1,6 @@
-package org.trackasia.android.annotations
+package com.trackasia.android.annotations
 
-import org.trackasia.android.maps.trackasiaMap
+import com.trackasia.android.maps.MapLibreMap
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -9,7 +9,7 @@ import org.mockito.Mockito
 
 class AnnotationTest {
     @InjectMocks
-    private val trackasiaMap = Mockito.mock(trackasiaMap::class.java)
+    private val trackasiaMap = Mockito.mock(MapLibreMap::class.java)
     private var annotation: Annotation? = null
     private val compare: Annotation = object : Annotation() {
         override fun getId(): Long {

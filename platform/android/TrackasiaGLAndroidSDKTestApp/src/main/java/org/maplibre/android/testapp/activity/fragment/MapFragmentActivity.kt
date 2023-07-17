@@ -1,14 +1,14 @@
-package org.trackasia.android.testapp.activity.fragment
+package com.trackasia.android.testapp.activity.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.* // ktlint-disable no-wildcard-imports
-import org.trackasia.android.maps.MapFragment.OnMapViewReadyCallback
-import org.trackasia.android.maps.MapView.OnDidFinishRenderingFrameListener
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.* // ktlint-disable no-wildcard-imports
+import com.trackasia.android.maps.MapFragment.OnMapViewReadyCallback
+import com.trackasia.android.maps.MapView.OnDidFinishRenderingFrameListener
+import com.trackasia.android.testapp.R
 
 /**
  * Test activity showcasing using the MapFragment API using SDK Fragments.
@@ -22,7 +22,7 @@ class MapFragmentActivity :
     OnMapViewReadyCallback,
     OnMapReadyCallback,
     OnDidFinishRenderingFrameListener {
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var mapView: MapView
     private var initialCameraAnimation = true
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +41,8 @@ class MapFragmentActivity :
         mapFragment.getMapAsync(this)
     }
 
-    private fun createFragmentOptions(): trackasiaMapOptions {
-        val options = trackasiaMapOptions.createFromAttributes(this, null)
+    private fun createFragmentOptions(): MapLibreMapOptions {
+        val options = MapLibreMapOptions.createFromAttributes(this, null)
         options.scrollGesturesEnabled(false)
         options.zoomGesturesEnabled(false)
         options.tiltGesturesEnabled(false)
@@ -65,7 +65,7 @@ class MapFragmentActivity :
         mapView.addOnDidFinishRenderingFrameListener(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(Style.getPredefinedStyle("Outdoor"))
     }

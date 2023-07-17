@@ -67,29 +67,29 @@ for ((i=0; i<${TOTAL_TESTS}; i++)); do
     exit 5
   fi
 
-  # The path to the maplibre dynamic lib
-  LIB_PATH="${OUTPUT_DIR}/${ARCHIVE_NAME}/Products/Applications/MapLibre Native.app/Frameworks/Mapbox.framework/Mapbox"
+  # The path to the trackasia dynamic lib
+  LIB_PATH="${OUTPUT_DIR}/${ARCHIVE_NAME}/Products/Applications/Trackasia Native.app/Frameworks/Mapbox.framework/Mapbox"
   if [[ ! -f "$LIB_PATH" ]]; then
-      echo "${RED}MapLibre dynamic lib not found: $LIB_PATH${NORMAL}"
+      echo "${RED}Trackasia dynamic lib not found: $LIB_PATH${NORMAL}"
       exit 6
   fi
 
   # Current lib size in bytes
   CURRENT_LIB_SIZE=$(wc -c "${LIB_PATH}" | awk '{print $1}')
   if [ -z $CURRENT_LIB_SIZE ]; then
-    echo "${RED}Failed to compute the size of MapLibre: ${LIB_PATH}${NORMAL}"
+    echo "${RED}Failed to compute the size of Trackasia: ${LIB_PATH}${NORMAL}"
     exit 7
   fi
 
   if (($CURRENT_LIB_SIZE > $INITIAL_LIB_SIZE)); then
     FAILED_TESTS=$((FAILED_TESTS+1))
-    echo -e "${RED}\n[FAILED] MapLibre size is ${CURRENT_LIB_SIZE} bytes. This is larger than the initial size of ${INITIAL_LIB_SIZE} bytes.\n${NORMAL}"
+    echo -e "${RED}\n[FAILED] Trackasia size is ${CURRENT_LIB_SIZE} bytes. This is larger than the initial size of ${INITIAL_LIB_SIZE} bytes.\n${NORMAL}"
   else
     PASSED_TESTS=$((PASSED_TESTS+1))
     if (($CURRENT_LIB_SIZE == $INITIAL_LIB_SIZE)); then
-      echo -e "${GREEN}\n[PASSED] MapLibre size is ${CURRENT_LIB_SIZE} bytes. This is equal with the initial size of ${INITIAL_LIB_SIZE} bytes.\n${NORMAL}"
+      echo -e "${GREEN}\n[PASSED] Trackasia size is ${CURRENT_LIB_SIZE} bytes. This is equal with the initial size of ${INITIAL_LIB_SIZE} bytes.\n${NORMAL}"
     else 
-      echo -e "${GREEN}\n[PASSED] MapLibre size is ${CURRENT_LIB_SIZE} bytes. This is smaller than the initial size of ${INITIAL_LIB_SIZE} bytes.\n${NORMAL}"
+      echo -e "${GREEN}\n[PASSED] Trackasia size is ${CURRENT_LIB_SIZE} bytes. This is smaller than the initial size of ${INITIAL_LIB_SIZE} bytes.\n${NORMAL}"
     fi
   fi
 done

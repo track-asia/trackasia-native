@@ -1,18 +1,18 @@
-package org.trackasia.android.location
+package com.trackasia.android.location
 
 import android.content.Context
 import android.location.Location
 import android.os.Looper
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.location.LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS
-import org.trackasia.android.location.engine.LocationEngine
-import org.trackasia.android.location.engine.LocationEngineRequest
-import org.trackasia.android.location.modes.CameraMode
-import org.trackasia.android.location.modes.RenderMode
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Projection
-import org.trackasia.android.maps.Style
-import org.trackasia.android.maps.Transform
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.location.LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS
+import com.trackasia.android.location.engine.LocationEngine
+import com.trackasia.android.location.engine.LocationEngineRequest
+import com.trackasia.android.location.modes.CameraMode
+import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Projection
+import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.Transform
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -31,7 +31,7 @@ class LocationComponentTest {
     private lateinit var locationComponentOptions: LocationComponentOptions
 
     @Mock
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
 
     @Mock
     private lateinit var transform: Transform
@@ -69,7 +69,7 @@ class LocationComponentTest {
     @Mock
     private lateinit var style: Style
 
-    private lateinit var developerAnimationListeners: List<trackasiaMap.OnDeveloperAnimationListener>
+    private lateinit var developerAnimationListeners: List<MapLibreMap.OnDeveloperAnimationListener>
 
     private val defaultOptions: LocationComponentActivationOptions
         get() = LocationComponentActivationOptions.builder(context, style).locationEngine(locationEngine).locationEngineRequest(locationEngineRequest).locationComponentOptions(locationComponentOptions).build()
@@ -486,7 +486,7 @@ class LocationComponentTest {
         locationComponent.activateLocationComponent(defaultOptions)
         locationComponent.isLocationComponentEnabled = true
 
-        val callback = mock(trackasiaMap.CancelableCallback::class.java)
+        val callback = mock(MapLibreMap.CancelableCallback::class.java)
 
         locationComponent.tiltWhileTracking(30.0, 500L, callback)
         verify(callback).onCancel()
@@ -501,7 +501,7 @@ class LocationComponentTest {
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()
 
-        val callback = mock(trackasiaMap.CancelableCallback::class.java)
+        val callback = mock(MapLibreMap.CancelableCallback::class.java)
 
         locationComponent.tiltWhileTracking(30.0, 500L, callback)
         verify(callback).onCancel()
@@ -517,7 +517,7 @@ class LocationComponentTest {
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()
 
-        val callback = mock(trackasiaMap.CancelableCallback::class.java)
+        val callback = mock(MapLibreMap.CancelableCallback::class.java)
 
         locationComponent.tiltWhileTracking(30.0, 500L, callback)
         verify(callback).onCancel()
@@ -533,7 +533,7 @@ class LocationComponentTest {
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()
 
-        val callback = mock(trackasiaMap.CancelableCallback::class.java)
+        val callback = mock(MapLibreMap.CancelableCallback::class.java)
 
         locationComponent.tiltWhileTracking(30.0, 500L, callback)
         verify(callback, times(0)).onCancel()
@@ -546,7 +546,7 @@ class LocationComponentTest {
         locationComponent.activateLocationComponent(defaultOptions)
         locationComponent.isLocationComponentEnabled = true
 
-        val callback = mock(trackasiaMap.CancelableCallback::class.java)
+        val callback = mock(MapLibreMap.CancelableCallback::class.java)
 
         locationComponent.zoomWhileTracking(14.0, 500L, callback)
         verify(callback).onCancel()
@@ -561,7 +561,7 @@ class LocationComponentTest {
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()
 
-        val callback = mock(trackasiaMap.CancelableCallback::class.java)
+        val callback = mock(MapLibreMap.CancelableCallback::class.java)
 
         locationComponent.zoomWhileTracking(14.0, 500L, callback)
         verify(callback).onCancel()
@@ -577,7 +577,7 @@ class LocationComponentTest {
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()
 
-        val callback = mock(trackasiaMap.CancelableCallback::class.java)
+        val callback = mock(MapLibreMap.CancelableCallback::class.java)
 
         locationComponent.zoomWhileTracking(14.0, 500L, callback)
         verify(callback).onCancel()
@@ -593,7 +593,7 @@ class LocationComponentTest {
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()
 
-        val callback = mock(trackasiaMap.CancelableCallback::class.java)
+        val callback = mock(MapLibreMap.CancelableCallback::class.java)
 
         locationComponent.zoomWhileTracking(14.0, 500L, callback)
         verify(callback, times(0)).onCancel()

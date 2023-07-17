@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.camera
+package com.trackasia.android.testapp.activity.camera
 
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -16,18 +16,18 @@ import androidx.collection.LongSparseArray
 import androidx.core.view.animation.PathInterpolatorCompat
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
 
 /** Test activity showcasing using Android SDK animators to animate camera position changes. */
 class CameraAnimatorActivity : AppCompatActivity(), OnMapReadyCallback {
     private val animators = LongSparseArray<Animator>()
     private lateinit var set: Animator
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_animator)
@@ -38,7 +38,7 @@ class CameraAnimatorActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         map.setStyle(Style.getPredefinedStyle("Streets"))
         initFab()

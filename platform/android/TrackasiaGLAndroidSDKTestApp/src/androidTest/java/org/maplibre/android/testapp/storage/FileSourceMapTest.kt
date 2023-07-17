@@ -1,11 +1,11 @@
-package org.trackasia.android.testapp.storage
+package com.trackasia.android.testapp.storage
 
 import androidx.test.annotation.UiThreadTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import org.trackasia.android.AppCenter
-import org.trackasia.android.storage.FileSource
-import org.trackasia.android.testapp.activity.espresso.EspressoTestActivity
+import com.trackasia.android.AppCenter
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

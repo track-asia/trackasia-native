@@ -1,6 +1,6 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
-import org.trackasia.android.location.modes.RenderMode;
+import com.trackasia.android.location.modes.RenderMode;
 
 /**
  * Listener that gets invoked when layer render mode changes.

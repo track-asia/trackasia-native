@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,25 +6,25 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.FillExtrusionLayer
-import org.trackasia.android.style.layers.Property
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.light.Light
-import org.trackasia.android.style.light.Position
-import org.trackasia.android.testapp.R
-import org.trackasia.android.utils.ColorUtils
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.FillExtrusionLayer
+import com.trackasia.android.style.layers.Property
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.light.Light
+import com.trackasia.android.style.light.Position
+import com.trackasia.android.testapp.R
+import com.trackasia.android.utils.ColorUtils
 
 /**
  * Test activity showing 3D buildings with a FillExtrusion Layer
  */
 class BuildingFillExtrusionActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var light: Light? = null
     private var isMapAnchorLight = false
     private var isLowIntensityLight = false
@@ -36,7 +36,7 @@ class BuildingFillExtrusionActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: trackasiaMap? ->
+            OnMapReadyCallback { map: MapLibreMap? ->
                 if (map != null) {
                     trackasiaMap = map
                 }

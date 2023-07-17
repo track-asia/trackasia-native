@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.graphics.PointF;
 

@@ -81,7 +81,7 @@ for future improvement. This document intends to address the first.
 This document proposes the following component architecture for Trackasia
 Native to address the architectural shortcomings.
 
-![](media/proposed-architecture-of-maplibre-gl.png)    
+![](media/proposed-architecture-of-trackasia-gl.png)    
 *Figure 4: Proposed Architecture of Trackasia Native*
 
 Proposed architecture of Trackasia Native in Figure 4 addresses the 

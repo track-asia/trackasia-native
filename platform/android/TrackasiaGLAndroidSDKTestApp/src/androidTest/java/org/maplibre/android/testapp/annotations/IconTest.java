@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.annotations;
+package com.trackasia.android.testapp.annotations;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,15 +10,15 @@ import android.app.Activity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.test.annotation.UiThreadTest;
 
-import org.trackasia.android.annotations.Icon;
-import org.trackasia.android.annotations.IconFactory;
-import org.trackasia.android.annotations.Marker;
-import org.trackasia.android.annotations.MarkerOptions;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.maps.IconManagerResolver;
-import org.trackasia.android.testapp.R;
-import org.trackasia.android.testapp.activity.EspressoTest;
-import org.trackasia.android.testapp.utils.IconUtils;
+import com.trackasia.android.annotations.Icon;
+import com.trackasia.android.annotations.IconFactory;
+import com.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.MarkerOptions;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.maps.IconManagerResolver;
+import com.trackasia.android.testapp.R;
+import com.trackasia.android.testapp.activity.EspressoTest;
+import com.trackasia.android.testapp.utils.IconUtils;
 
 import org.junit.Before;
 import org.junit.Test;

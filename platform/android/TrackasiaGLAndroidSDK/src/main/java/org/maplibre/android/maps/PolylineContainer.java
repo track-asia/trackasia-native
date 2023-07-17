@@ -1,12 +1,12 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 
 import androidx.annotation.NonNull;
 import androidx.collection.LongSparseArray;
 
-import org.trackasia.android.annotations.Annotation;
-import org.trackasia.android.annotations.Polyline;
-import org.trackasia.android.annotations.PolylineOptions;
+import com.trackasia.android.annotations.Annotation;
+import com.trackasia.android.annotations.Polyline;
+import com.trackasia.android.annotations.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ class PolylineContainer implements Polylines {
   }
 
   @Override
-  public Polyline addBy(@NonNull PolylineOptions polylineOptions, @NonNull trackasiaMap trackasiaMap) {
+  public Polyline addBy(@NonNull PolylineOptions polylineOptions, @NonNull MapLibreMap trackasiaMap) {
     Polyline polyline = polylineOptions.getPolyline();
     if (!polyline.getPoints().isEmpty()) {
       long id = nativeMap != null ? nativeMap.addPolyline(polyline) : 0;
@@ -38,7 +38,7 @@ class PolylineContainer implements Polylines {
 
   @NonNull
   @Override
-  public List<Polyline> addBy(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull trackasiaMap trackasiaMap) {
+  public List<Polyline> addBy(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull MapLibreMap trackasiaMap) {
     int count = polylineOptionsList.size();
     Polyline polyline;
     List<Polyline> polylines = new ArrayList<>(count);

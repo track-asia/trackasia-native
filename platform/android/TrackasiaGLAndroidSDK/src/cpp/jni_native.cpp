@@ -162,7 +162,7 @@ void registerNatives(JavaVM* vm) {
     Logger::registerNative(env);
 
     // AssetManager
-    trackasia::registerNative(env);
+    Trackasia::registerNative(env);
 
     // Util
     DefaultStyle::registerNative(env);

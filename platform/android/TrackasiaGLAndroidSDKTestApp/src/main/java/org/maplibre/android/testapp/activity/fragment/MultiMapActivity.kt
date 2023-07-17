@@ -1,13 +1,13 @@
-package org.trackasia.android.testapp.activity.fragment
+package com.trackasia.android.testapp.activity.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.maps.SupportMapFragment
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.SupportMapFragment
+import com.trackasia.android.testapp.R
 
 /**
  * Test Activity showcasing using multiple static map fragments in one layout.
@@ -29,6 +29,6 @@ class MultiMapActivity : AppCompatActivity() {
         styleId: String
     ) {
         (fragmentManager.findFragmentById(fragmentId) as SupportMapFragment?)
-            ?.getMapAsync(OnMapReadyCallback { trackasiaMap: trackasiaMap -> trackasiaMap.setStyle(styleId) })
+            ?.getMapAsync(OnMapReadyCallback { trackasiaMap: MapLibreMap -> trackasiaMap.setStyle(styleId) })
     }
 }

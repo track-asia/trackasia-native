@@ -1,4 +1,4 @@
-package org.trackasia.android.text;
+package com.trackasia.android.text;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

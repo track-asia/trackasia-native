@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.offline
+package com.trackasia.android.testapp.activity.offline
 
 import android.content.Context
 import android.os.Bundle
@@ -10,12 +10,12 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.log.Logger
-import org.trackasia.android.offline.OfflineManager
-import org.trackasia.android.offline.OfflineRegion
-import org.trackasia.android.storage.FileSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.databinding.ActivityChangeResourcesCachePathBinding
+import com.trackasia.android.log.Logger
+import com.trackasia.android.offline.OfflineManager
+import com.trackasia.android.offline.OfflineRegion
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.databinding.ActivityChangeResourcesCachePathBinding
 import java.io.File
 
 class ChangeResourcesCachePathActivity :

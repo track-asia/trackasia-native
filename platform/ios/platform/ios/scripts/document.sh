@@ -49,5 +49,5 @@ jazzy \
     --theme ${THEME} \
     --head "${CUSTOM_HEAD}" \
     --output ${OUTPUT} \
-    --title "MapLibre Native for iOS" \
+    --title "Trackasia Native for iOS" \
     --module-version ${SHORT_VERSION}

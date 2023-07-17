@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.view
+package com.trackasia.android.testapp.view
 
 import android.content.Context
 import android.util.AttributeSet

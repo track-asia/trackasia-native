@@ -1,4 +1,4 @@
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;
 
 import androidx.annotation.IntDef;
 

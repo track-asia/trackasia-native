@@ -1,4 +1,4 @@
-package org.trackasia.android.maps.widgets;
+package com.trackasia.android.maps.widgets;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -13,16 +13,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 
-import org.trackasia.android.maps.trackasiaMap;
-import org.trackasia.android.maps.trackasiaMapOptions;
+import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.MapLibreMapOptions;
 
 /**
  * UI element overlaid on a map to show the map's bearing when it isn't true north (0.0). Tapping
  * the compass resets the bearing to true north and hides the compass.
  * <p>
  * You can change the behaviour of this View during initialisation with
- * {@link trackasiaMapOptions}, and xml attributes. While running you can
- * use {@link org.trackasia.android.maps.UiSettings}.
+ * {@link MapLibreMapOptions}, and xml attributes. While running you can
+ * use {@link com.trackasia.android.maps.UiSettings}.
  * </p>
  */
 public final class CompassView extends ImageView implements Runnable {
@@ -35,7 +35,7 @@ public final class CompassView extends ImageView implements Runnable {
   private boolean fadeCompassViewFacingNorth = true;
   @Nullable
   private ViewPropertyAnimatorCompat fadeAnimator;
-  private trackasiaMap.OnCompassAnimationListener compassAnimationListener;
+  private MapLibreMap.OnCompassAnimationListener compassAnimationListener;
   private boolean isAnimating = false;
 
   public CompassView(@NonNull Context context) {
@@ -62,7 +62,7 @@ public final class CompassView extends ImageView implements Runnable {
     setLayoutParams(lp);
   }
 
-  public void injectCompassAnimationListener(@NonNull trackasiaMap.OnCompassAnimationListener compassAnimationListener) {
+  public void injectCompassAnimationListener(@NonNull MapLibreMap.OnCompassAnimationListener compassAnimationListener) {
     this.compassAnimationListener = compassAnimationListener;
   }
 

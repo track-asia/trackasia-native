@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Style Sources API classes.
+ * Contains the Trackasia Maps Android Style Sources API classes.
  */
-package org.trackasia.android.style.sources
+package com.trackasia.android.style.sources

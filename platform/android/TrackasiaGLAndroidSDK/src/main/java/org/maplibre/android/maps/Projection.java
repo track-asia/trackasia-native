@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.graphics.PointF;
 
@@ -6,11 +6,11 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 
 import com.mapbox.geojson.Point;
-import org.trackasia.android.constants.GeometryConstants;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.geometry.LatLngBounds;
-import org.trackasia.android.geometry.ProjectedMeters;
-import org.trackasia.android.geometry.VisibleRegion;
+import com.trackasia.android.constants.GeometryConstants;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLngBounds;
+import com.trackasia.android.geometry.ProjectedMeters;
+import com.trackasia.android.geometry.VisibleRegion;
 
 import java.util.ArrayList;
 import java.util.List;

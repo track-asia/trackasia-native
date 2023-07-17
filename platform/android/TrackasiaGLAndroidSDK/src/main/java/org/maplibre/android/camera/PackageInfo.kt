@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Camera API classes.
+ * Contains the Trackasia Maps Android Camera API classes.
  */
-package org.trackasia.android.camera
+package com.trackasia.android.camera

@@ -1,6 +1,6 @@
-# Changelog for MapLibre Native for iOS 
+# Changelog for Trackasia Native for iOS 
 
-MapLibre welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-native/blob/master/CONTRIBUTING.md) to get started.
+Trackasia welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-native/blob/master/CONTRIBUTING.md) to get started.
 
 ## main
 
@@ -34,7 +34,7 @@ MapLibre welcomes participation and contributions from everyone. Please read [`C
 ### Bug Fixes
 
 * ScaleBar enhancements [#120](https://github.com/track-asia/trackasia-native/pull/120), [#121](https://github.com/track-asia/trackasia-native/pull/121)
-* Invalid tile url template for MapLibre style [#107](https://github.com/track-asia/trackasia-native/pull/107)
+* Invalid tile url template for Trackasia style [#107](https://github.com/track-asia/trackasia-native/pull/107)
 * Address crash when localFontFamilyName is nil [#109](https://github.com/track-asia/trackasia-native/pull/109)
 * Fix for annotations stuttering and drifting when panning [#113](https://github.com/track-asia/trackasia-native/pull/113)
 * Adjust local glyphs [#122](https://github.com/track-asia/trackasia-native/pull/122)
@@ -82,7 +82,7 @@ MapLibre welcomes participation and contributions from everyone. Please read [`C
 
 ### Other
 
-* mapbox-gl-js submodule has been replaced with maplibre-gl-js
+* mapbox-gl-js submodule has been replaced with trackasia-gl-js
 * Removed Mapbox Mobile Events and Telemetry [#7](https://github.com/track-asia/trackasia-native/pull/7)
 
 ## 5.10.0 - January 6, 2021
@@ -1393,7 +1393,7 @@ This is the final scheduled version of the Mapbox iOS SDK that supports iOS 7. (
 - A two-finger vertical swipe now tilts the map into perspective mode. ([#2116](https://github.com/mapbox/mapbox-gl-native/pull/2116))
 - A new `MLNMapCamera` API allows you to transition multiple viewpoint properties, including rotation and pitch, simultaneously with an optional custom duration and timing function. ([#2193](https://github.com/mapbox/mapbox-gl-native/pull/2193))
 - A new user tracking mode, `MLNUserTrackingModeFollowWithCourse`, has been added for indicating the current direction of travel. ([#2068](https://github.com/mapbox/mapbox-gl-native/pull/2068))
-- Version 8 (`v8`) of the [Mapbox GL style spec](https://track-asia.com/maplibre-style-spec/) is now required. If you are using a custom `v7` style, it needs to be upgraded using [this migrator script](https://github.com/mapbox/mapbox-gl-style-spec/blob/mb-pages/migrations/v7.js). ([#2052](https://github.com/mapbox/mapbox-gl-native/pull/2052))
+- Version 8 (`v8`) of the [Mapbox GL style spec](https://track-asia.com/trackasia-style-spec/) is now required. If you are using a custom `v7` style, it needs to be upgraded using [this migrator script](https://github.com/mapbox/mapbox-gl-style-spec/blob/mb-pages/migrations/v7.js). ([#2052](https://github.com/mapbox/mapbox-gl-native/pull/2052))
 - Applications built with Mapbox GL no longer crash when Location Services launches them in background mode. ([#1821](https://github.com/mapbox/mapbox-gl-native/pull/1821), [#1869](https://github.com/mapbox/mapbox-gl-native/pull/1869))
 - Fixed a crash when adding annotations to an `MLNMapView` inside `-viewDidLoad`. ([#1874](https://github.com/mapbox/mapbox-gl-native/pull/1874))
 - The user location annotation view now indicates the location reading’s accuracy and the device’s heading. ([#2010](https://github.com/mapbox/mapbox-gl-native/pull/2010))

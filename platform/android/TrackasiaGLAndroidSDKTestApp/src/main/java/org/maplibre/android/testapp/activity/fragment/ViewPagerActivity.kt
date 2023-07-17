@@ -1,14 +1,14 @@
-package org.trackasia.android.testapp.activity.fragment
+package com.trackasia.android.testapp.activity.fragment
 
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.trackasiaMapOptions
-import org.trackasia.android.maps.Style
-import org.trackasia.android.maps.SupportMapFragment
-import org.trackasia.android.testapp.databinding.ActivityViewpagerBinding
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapLibreMapOptions
+import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.SupportMapFragment
+import com.trackasia.android.testapp.databinding.ActivityViewpagerBinding
 
 /**
  * Test activity showcasing using the Android SDK ViewPager API to show MapFragments.
@@ -45,7 +45,7 @@ class ViewPagerActivity : AppCompatActivity() {
         }
 
         override fun getItem(position: Int): androidx.fragment.app.Fragment {
-            val options = trackasiaMapOptions.createFromAttributes(context)
+            val options = MapLibreMapOptions.createFromAttributes(context)
             options.textureMode(true)
             options.camera(
                 CameraPosition.Builder()

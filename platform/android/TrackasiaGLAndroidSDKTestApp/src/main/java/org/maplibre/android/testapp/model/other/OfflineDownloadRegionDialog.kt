@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.model.other
+package com.trackasia.android.testapp.model.other
 
 import android.app.Activity
 import android.app.Dialog
@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.model.other.OfflineDownloadRegionDialog.DownloadRegionDialogListener
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.model.other.OfflineDownloadRegionDialog.DownloadRegionDialogListener
 import timber.log.Timber
 
 class OfflineDownloadRegionDialog : DialogFragment() {

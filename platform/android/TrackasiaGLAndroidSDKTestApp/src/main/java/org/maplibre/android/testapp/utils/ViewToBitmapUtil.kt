@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

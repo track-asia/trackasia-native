@@ -1,4 +1,4 @@
-package org.trackasia.android.maps.renderer.egl;
+package com.trackasia.android.maps.renderer.egl;
 
 import android.opengl.GLSurfaceView;
 import android.util.Log;

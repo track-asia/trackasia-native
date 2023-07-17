@@ -1,13 +1,13 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.*
-import org.trackasia.android.style.layers.*
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.*
+import com.trackasia.android.style.layers.*
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 import java.net.URI
 import java.net.URISyntaxException
@@ -21,7 +21,7 @@ import java.net.URISyntaxException
  */
 class RealTimeGeoJsonActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var handler: Handler? = null
     private var runnable: Runnable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class RealTimeGeoJsonActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style -> // add source
             try {
@@ -89,7 +89,7 @@ class RealTimeGeoJsonActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private class RefreshGeoJsonRunnable internal constructor(
-        private val trackasiaMap: trackasiaMap,
+        private val trackasiaMap: MapLibreMap,
         private val handler: Handler
     ) : Runnable {
         override fun run() {

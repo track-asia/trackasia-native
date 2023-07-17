@@ -1,11 +1,11 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.graphics.RectF;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.annotations.BaseMarkerOptions;
-import org.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.BaseMarkerOptions;
+import com.trackasia.android.annotations.Marker;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ import java.util.List;
  * Interface that defines convenient methods for working with a {@link Marker}'s collection.
  */
 interface Markers {
-  Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull trackasiaMap trackasiaMap);
+  Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull MapLibreMap trackasiaMap);
 
-  List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull trackasiaMap trackasiaMap);
+  List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull MapLibreMap trackasiaMap);
 
-  void update(@NonNull Marker updatedMarker, @NonNull trackasiaMap trackasiaMap);
+  void update(@NonNull Marker updatedMarker, @NonNull MapLibreMap trackasiaMap);
 
   List<Marker> obtainAll();
 

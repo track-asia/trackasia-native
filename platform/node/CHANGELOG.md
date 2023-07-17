@@ -29,7 +29,7 @@
 * Fix memory access violation exception in vector_tile_data.cpp by @tdcosta100 in https://github.com/track-asia/trackasia-native/pull/632
 
 # 5.1.0
-* First Maplibre Native Node Stable Release
+* FirstTrackasia native Node Stable Release
 * Node workflow - build linux arm64 in a container #520 https://github.com/track-asia/trackasia-native/pull/590
 
 # 5.0.1

@@ -1,14 +1,14 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.graphics.RectF;
 
 import androidx.annotation.NonNull;
 import androidx.collection.LongSparseArray;
 
-import org.trackasia.android.annotations.Annotation;
-import org.trackasia.android.annotations.BaseMarkerOptions;
-import org.trackasia.android.annotations.Icon;
-import org.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.Annotation;
+import com.trackasia.android.annotations.BaseMarkerOptions;
+import com.trackasia.android.annotations.Icon;
+import com.trackasia.android.annotations.Marker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ class MarkerContainer implements Markers {
   }
 
   @Override
-  public Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull trackasiaMap trackasiaMap) {
+  public Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull MapLibreMap trackasiaMap) {
     Marker marker = prepareMarker(markerOptions);
     long id = nativeMapView != null ? nativeMapView.addMarker(marker) : 0;
     marker.setMapboxMap(trackasiaMap);
@@ -40,7 +40,7 @@ class MarkerContainer implements Markers {
 
   @NonNull
   @Override
-  public List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull trackasiaMap
+  public List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull MapLibreMap
       trackasiaMap) {
     int count = markerOptionsList.size();
     List<Marker> markers = new ArrayList<>(count);
@@ -67,7 +67,7 @@ class MarkerContainer implements Markers {
   }
 
   @Override
-  public void update(@NonNull Marker updatedMarker, @NonNull trackasiaMap trackasiaMap) {
+  public void update(@NonNull Marker updatedMarker, @NonNull MapLibreMap trackasiaMap) {
     ensureIconLoaded(updatedMarker, trackasiaMap);
     nativeMapView.updateMarker(updatedMarker);
     annotations.setValueAt(annotations.indexOfKey(updatedMarker.getId()), updatedMarker);
@@ -102,8 +102,8 @@ class MarkerContainer implements Markers {
     int count = annotationList.size();
     for (int i = 0; i < count; i++) {
       Annotation annotation = annotationList.get(i);
-      if (annotation instanceof org.trackasia.android.annotations.Marker && idsList.contains(annotation.getId())) {
-        annotations.add((org.trackasia.android.annotations.Marker) annotation);
+      if (annotation instanceof com.trackasia.android.annotations.Marker && idsList.contains(annotation.getId())) {
+        annotations.add((com.trackasia.android.annotations.Marker) annotation);
       }
     }
 
@@ -132,7 +132,7 @@ class MarkerContainer implements Markers {
     return marker;
   }
 
-  private void ensureIconLoaded(Marker marker, @NonNull trackasiaMap trackasiaMap) {
+  private void ensureIconLoaded(Marker marker, @NonNull MapLibreMap trackasiaMap) {
     iconManager.ensureIconLoaded(marker, trackasiaMap);
   }
 

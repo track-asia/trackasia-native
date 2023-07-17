@@ -1,4 +1,4 @@
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;
@@ -7,8 +7,8 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.exceptions.InvalidMarkerPositionException;
-import org.trackasia.android.geometry.LatLng;
+import com.trackasia.android.exceptions.InvalidMarkerPositionException;
+import com.trackasia.android.geometry.LatLng;
 
 /**
  * <p>
@@ -23,7 +23,7 @@ import org.trackasia.android.geometry.LatLng;
  * </pre>
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   trackasia Annotation Plugin</a> instead
+ *   Trackasia Annotation Plugin</a> instead
  */
 @Deprecated
 public final class MarkerOptions extends BaseMarkerOptions<Marker, MarkerOptions> implements Parcelable {

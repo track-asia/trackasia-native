@@ -1,16 +1,16 @@
-package org.trackasia.android.testapp.activity.espresso
+package com.trackasia.android.testapp.activity.espresso
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 
 class DeviceIndependentTestActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var mapView: MapView
-    lateinit var trackasiaMap: trackasiaMap
+    lateinit var trackasiaMap: MapLibreMap
         protected set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +23,7 @@ class DeviceIndependentTestActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
     }

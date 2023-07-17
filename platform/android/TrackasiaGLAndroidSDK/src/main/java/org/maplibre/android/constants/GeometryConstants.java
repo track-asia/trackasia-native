@@ -1,4 +1,4 @@
-package org.trackasia.android.constants;
+package com.trackasia.android.constants;
 
 /**
  * Contains constants used throughout the sdk classes.

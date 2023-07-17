@@ -1,12 +1,12 @@
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;
 
 import android.graphics.Color;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.maps.trackasiaMap;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.maps.MapLibreMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * Polygon is a geometry annotation that's a closed loop of coordinates.
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   trackasia Annotation Plugin</a> instead
+ *   Trackasia Annotation Plugin</a> instead
  */
 @Deprecated
 public final class Polygon extends BasePointCollection {
@@ -103,7 +103,7 @@ public final class Polygon extends BasePointCollection {
 
   @Override
   void update() {
-    trackasiaMap trackasiaMap = getMapboxMap();
+    MapLibreMap trackasiaMap = getMapboxMap();
     if (trackasiaMap != null) {
       trackasiaMap.updatePolygon(this);
     }

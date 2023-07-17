@@ -1,4 +1,4 @@
-package org.trackasia.android.snapshotter
+package com.trackasia.android.snapshotter
 
 import android.content.Context
 import android.graphics.*
@@ -11,22 +11,22 @@ import android.widget.TextView
 import androidx.annotation.Keep
 import androidx.annotation.UiThread
 import androidx.core.content.res.ResourcesCompat
-import org.trackasia.android.R
-import org.trackasia.android.attribution.AttributionLayout
-import org.trackasia.android.attribution.AttributionMeasure
-import org.trackasia.android.attribution.AttributionParser
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.log.Logger
-import org.trackasia.android.maps.Image
-import org.trackasia.android.maps.Style
-import org.trackasia.android.maps.Style.Builder.*
-import org.trackasia.android.storage.FileSource
-import org.trackasia.android.style.layers.Layer
-import org.trackasia.android.style.sources.Source
-import org.trackasia.android.utils.FontUtils
-import org.trackasia.android.utils.ThreadUtils
+import com.trackasia.android.R
+import com.trackasia.android.attribution.AttributionLayout
+import com.trackasia.android.attribution.AttributionMeasure
+import com.trackasia.android.attribution.AttributionParser
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.log.Logger
+import com.trackasia.android.maps.Image
+import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.Style.Builder.*
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.style.layers.Layer
+import com.trackasia.android.style.sources.Source
+import com.trackasia.android.utils.FontUtils
+import com.trackasia.android.utils.ThreadUtils
 
 /**
  * The map snapshotter creates a large of the map, rendered
@@ -133,9 +133,9 @@ open class MapSnapshotter(context: Context, options: Options) {
 
         /**
          * @return the font family used for locally generating ideographs,
-         * Default font for local ideograph font family is [trackasiaConstants.DEFAULT_FONT].
+         * Default font for local ideograph font family is [MapLibreConstants.DEFAULT_FONT].
          */
-        var localIdeographFontFamily = trackasiaConstants.DEFAULT_FONT
+        var localIdeographFontFamily = MapLibreConstants.DEFAULT_FONT
             private set
 
         /**
@@ -222,7 +222,7 @@ open class MapSnapshotter(context: Context, options: Options) {
         }
 
         /**
-         * @param showLogo The flag indicating to show the trackasia logo.
+         * @param showLogo The flag indicating to show the Trackasia logo.
          * @return the mutated [Options]
          */
         fun withLogo(showLogo: Boolean): Options {
@@ -237,7 +237,7 @@ open class MapSnapshotter(context: Context, options: Options) {
          *
          * The font family argument is passed to [android.graphics.Typeface.create].
          * Default system fonts are defined in &#x27;/system/etc/fonts.xml&#x27;
-         * Default font for local ideograph font family is [trackasiaConstants.DEFAULT_FONT].
+         * Default font for local ideograph font family is [MapLibreConstants.DEFAULT_FONT].
          *
          *
          * @param fontFamily font family for local ideograph generation.
@@ -255,7 +255,7 @@ open class MapSnapshotter(context: Context, options: Options) {
          *
          * The font families are checked against the default system fonts defined in
          * &#x27;/system/etc/fonts.xml&#x27;. Default font for local ideograph font family is
-         * [trackasiaConstants.DEFAULT_FONT].
+         * [MapLibreConstants.DEFAULT_FONT].
          *
          *
          * @param fontFamilies font families for local ideograph generation.
@@ -663,7 +663,7 @@ open class MapSnapshotter(context: Context, options: Options) {
                     } else if (layerWrapper is LayerBelowWrapper) {
                         addLayerBelow(layerWrapper.getLayer(), layerWrapper.belowLayer)
                     } else {
-                        addLayerBelow(layerWrapper.layer, trackasiaConstants.LAYER_ID_ANNOTATIONS)
+                        addLayerBelow(layerWrapper.layer, MapLibreConstants.LAYER_ID_ANNOTATIONS)
                     }
                 }
                 for (image in builder.images) {

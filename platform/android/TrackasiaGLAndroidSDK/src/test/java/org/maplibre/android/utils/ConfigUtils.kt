@@ -1,7 +1,7 @@
-package org.trackasia.android.utils
+package com.trackasia.android.utils
 
-import org.trackasia.android.util.DefaultStyle
-import org.trackasia.android.util.TileServerOptions
+import com.trackasia.android.util.DefaultStyle
+import com.trackasia.android.util.TileServerOptions
 
 class ConfigUtils {
     companion object {

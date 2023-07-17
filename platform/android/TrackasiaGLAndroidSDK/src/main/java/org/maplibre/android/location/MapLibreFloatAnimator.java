@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.animation.FloatEvaluator;
 import android.animation.TypeEvaluator;
@@ -6,8 +6,8 @@ import android.animation.TypeEvaluator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 
-class trackasiaFloatAnimator extends trackasiaAnimator<Float> {
-  trackasiaFloatAnimator(@NonNull @Size(min = 2) Float[] values,
+class MapLibreFloatAnimator extends MapLibreAnimator<Float> {
+  MapLibreFloatAnimator(@NonNull @Size(min = 2) Float[] values,
                         @NonNull AnimationsValueChangeListener updateListener, int maxAnimationFps) {
     super(values, updateListener, maxAnimationFps);
   }

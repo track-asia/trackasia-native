@@ -1,7 +1,7 @@
-package org.trackasia.android.testapp.activity.render
+package com.trackasia.android.testapp.activity.render
 
-import org.trackasia.android.maps.Style
-import org.trackasia.android.snapshotter.MapSnapshotter
+import com.trackasia.android.maps.Style
+import com.trackasia.android.snapshotter.MapSnapshotter
 
 class RenderTestDefinition internal constructor( // eg. background-color
     val category: String?, // eg. colorSpace-hcl

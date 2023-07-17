@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.annotation
+package com.trackasia.android.testapp.activity.annotation
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,14 +7,14 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.annotations.Polyline
-import org.trackasia.android.annotations.PolylineOptions
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.annotations.Polyline
+import com.trackasia.android.annotations.PolylineOptions
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 import java.util.*
 
 /**
@@ -28,7 +28,7 @@ class PolylineActivity : AppCompatActivity() {
     private var polylines: MutableList<Polyline>? = null
     private var polylineOptions: ArrayList<PolylineOptions?>? = ArrayList()
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var fullAlpha = true
     private var showPolylines = true
     private var width = true
@@ -44,7 +44,7 @@ class PolylineActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: trackasiaMap ->
+            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
                 this@PolylineActivity.trackasiaMap = trackasiaMap
                 trackasiaMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
                 trackasiaMap.setOnPolylineClickListener { polyline: Polyline ->

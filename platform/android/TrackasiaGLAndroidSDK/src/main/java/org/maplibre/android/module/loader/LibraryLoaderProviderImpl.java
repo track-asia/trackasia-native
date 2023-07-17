@@ -1,7 +1,7 @@
-package org.trackasia.android.module.loader;
+package com.trackasia.android.module.loader;
 
-import org.trackasia.android.LibraryLoader;
-import org.trackasia.android.LibraryLoaderProvider;
+import com.trackasia.android.LibraryLoader;
+import com.trackasia.android.LibraryLoaderProvider;
 
 /**
  * Concrete implementation of a native library loader.

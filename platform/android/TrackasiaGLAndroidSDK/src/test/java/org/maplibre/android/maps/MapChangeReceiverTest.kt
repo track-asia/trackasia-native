@@ -1,9 +1,9 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import com.google.common.util.concurrent.ExecutionError
-import org.trackasia.android.log.Logger
-import org.trackasia.android.log.LoggerDefinition
-import org.trackasia.android.maps.MapView.*
+import com.trackasia.android.log.Logger
+import com.trackasia.android.log.LoggerDefinition
+import com.trackasia.android.maps.MapView.*
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

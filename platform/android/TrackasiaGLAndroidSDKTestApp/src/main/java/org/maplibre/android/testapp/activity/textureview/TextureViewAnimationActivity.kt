@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.textureview
+package com.trackasia.android.testapp.activity.textureview
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
@@ -6,11 +6,11 @@ import android.os.Handler
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.*
-import org.trackasia.android.maps.trackasiaMap.CancelableCallback
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.*
+import com.trackasia.android.maps.MapLibreMap.CancelableCallback
+import com.trackasia.android.testapp.R
 import java.util.*
 
 /**
@@ -18,7 +18,7 @@ import java.util.*
  */
 class TextureViewAnimationActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var handler: Handler? = null
     private var delayed: Runnable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class TextureViewAnimationActivity : AppCompatActivity() {
 
     private fun setupMapView(savedInstanceState: Bundle?) {
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.getMapAsync { trackasiaMap: trackasiaMap ->
+        mapView.getMapAsync { trackasiaMap: MapLibreMap ->
             this@TextureViewAnimationActivity.trackasiaMap = trackasiaMap
             trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
             setFpsView(trackasiaMap)
@@ -55,7 +55,7 @@ class TextureViewAnimationActivity : AppCompatActivity() {
         }
     }
 
-    private fun flyTo(trackasiaMap: trackasiaMap, place: Int, zoom: Double) {
+    private fun flyTo(trackasiaMap: MapLibreMap, place: Int, zoom: Double) {
         trackasiaMap.animateCamera(
             CameraUpdateFactory.newLatLngZoom(PLACES[place], zoom),
             10000,
@@ -77,7 +77,7 @@ class TextureViewAnimationActivity : AppCompatActivity() {
         )
     }
 
-    private fun setFpsView(trackasiaMap: trackasiaMap) {
+    private fun setFpsView(trackasiaMap: MapLibreMap) {
         val fpsView = findViewById<View>(R.id.fpsView) as TextView
         trackasiaMap.setOnFpsChangedListener { fps: Double ->
             fpsView.text = String.format(Locale.US, "FPS: %4.2f", fps)

@@ -1,16 +1,16 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.GesturesUiTestUtils.move
-import org.trackasia.android.maps.GesturesUiTestUtils.quickScale
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.activity.BaseTest
-import org.trackasia.android.testapp.activity.maplayout.SimpleMapActivity
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.GesturesUiTestUtils.move
+import com.trackasia.android.maps.GesturesUiTestUtils.quickScale
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.BaseTest
+import com.trackasia.android.testapp.activity.maplayout.SimpleMapActivity
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -115,7 +115,7 @@ class MapGestureDetectorTest : BaseTest() {
             initialZoom = trackasiaMap.cameraPosition.zoom
         }
         onView(withId(R.id.mapView)).perform(quickScale(-(trackasiaMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold * 2), withVelocity = false, duration = 1000L))
-        R.id.mapView.loopFor(trackasiaConstants.ANIMATION_DURATION.toLong())
+        R.id.mapView.loopFor(MapLibreConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
             Assert.assertTrue(trackasiaMap.cameraPosition.zoom < initialZoom!!)
         }
@@ -129,7 +129,7 @@ class MapGestureDetectorTest : BaseTest() {
             initialZoom = trackasiaMap.cameraPosition.zoom
         }
         onView(withId(R.id.mapView)).perform(quickScale(trackasiaMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold / 2, withVelocity = false, duration = 50L))
-        R.id.mapView.loopFor(trackasiaConstants.ANIMATION_DURATION.toLong())
+        R.id.mapView.loopFor(MapLibreConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
             Assert.assertEquals(initialZoom!! + 1, trackasiaMap.cameraPosition.zoom, 0.1)
         }
@@ -145,7 +145,7 @@ class MapGestureDetectorTest : BaseTest() {
             trackasiaMap.uiSettings.isQuickZoomGesturesEnabled = false
         }
         onView(withId(R.id.mapView)).perform(quickScale(trackasiaMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold * 2, withVelocity = false, duration = 50L))
-        R.id.mapView.loopFor(trackasiaConstants.ANIMATION_DURATION.toLong())
+        R.id.mapView.loopFor(MapLibreConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
             Assert.assertEquals(initialZoom!!, trackasiaMap.cameraPosition.zoom, 0.01)
         }

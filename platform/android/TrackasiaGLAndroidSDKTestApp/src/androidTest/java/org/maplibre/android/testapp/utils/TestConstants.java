@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.utils;
+package com.trackasia.android.testapp.utils;
 
 public class TestConstants {
   public static final double LAT_LNG_DELTA = 0.1;

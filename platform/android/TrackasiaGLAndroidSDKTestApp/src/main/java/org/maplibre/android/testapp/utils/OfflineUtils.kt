@@ -1,8 +1,8 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import org.trackasia.android.testapp.activity.offline.OfflineActivity
+import com.trackasia.android.testapp.activity.offline.OfflineActivity
 import timber.log.Timber
 import java.lang.Exception
 

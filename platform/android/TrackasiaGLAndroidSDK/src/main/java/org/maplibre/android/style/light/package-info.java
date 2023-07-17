@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Style Light API classes.
+ * Contains the Trackasia Maps Android Style Light API classes.
  */
-package org.trackasia.android.style.light;
+package com.trackasia.android.style.light;

@@ -1,10 +1,10 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.annotations.Polygon;
-import org.trackasia.android.annotations.PolygonOptions;
+import com.trackasia.android.annotations.Polygon;
+import com.trackasia.android.annotations.PolygonOptions;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import java.util.List;
  * Interface that defines convenient methods for working with a {@link Polygon}'s collection.
  */
 interface Polygons {
-  Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull trackasiaMap trackasiaMap);
+  Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull MapLibreMap trackasiaMap);
 
-  List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull trackasiaMap trackasiaMap);
+  List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapLibreMap trackasiaMap);
 
   void update(Polygon polygon);
 

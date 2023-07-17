@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Modular Library Loader API classes.
+ * Contains the Trackasia Maps Android Modular Library Loader API classes.
  */
-package org.trackasia.android.module.loader;
+package com.trackasia.android.module.loader;

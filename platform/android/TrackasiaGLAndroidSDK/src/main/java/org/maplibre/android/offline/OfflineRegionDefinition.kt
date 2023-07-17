@@ -1,8 +1,8 @@
-package org.trackasia.android.offline
+package com.trackasia.android.offline
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import org.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.geometry.LatLngBounds
 
 /**
  * This is the interface that all Offline Region definitions have to implement.

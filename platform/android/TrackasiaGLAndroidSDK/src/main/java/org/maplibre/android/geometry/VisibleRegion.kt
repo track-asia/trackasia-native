@@ -1,4 +1,4 @@
-package org.trackasia.android.geometry
+package com.trackasia.android.geometry
 
 import android.os.Build
 import android.os.Parcel

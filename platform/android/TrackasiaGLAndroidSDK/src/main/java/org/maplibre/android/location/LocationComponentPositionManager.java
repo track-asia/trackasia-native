@@ -1,10 +1,10 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.maps.Style;
-import org.trackasia.android.style.layers.Layer;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.style.layers.Layer;
 
 class LocationComponentPositionManager {
 

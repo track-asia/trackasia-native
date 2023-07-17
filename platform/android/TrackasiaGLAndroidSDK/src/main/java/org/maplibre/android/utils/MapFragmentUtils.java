@@ -1,4 +1,4 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,10 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.constants.trackasiaConstants;
-import org.trackasia.android.maps.MapFragment;
-import org.trackasia.android.maps.SupportMapFragment;
-import org.trackasia.android.maps.trackasiaMapOptions;
+import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.maps.MapFragment;
+import com.trackasia.android.maps.SupportMapFragment;
+import com.trackasia.android.maps.MapLibreMapOptions;
 
 /**
  * MapFragment utility class.
@@ -27,9 +27,9 @@ public class MapFragmentUtils {
    * @return a bundle of converted fragment arguments
    */
   @NonNull
-  public static Bundle createFragmentArgs(trackasiaMapOptions options) {
+  public static Bundle createFragmentArgs(MapLibreMapOptions options) {
     Bundle bundle = new Bundle();
-    bundle.putParcelable(trackasiaConstants.FRAG_ARG_trackasiaMAPOPTIONS, options);
+    bundle.putParcelable(MapLibreConstants.FRAG_ARG_MAPLIBREMAPOPTIONS, options);
     return bundle;
   }
 
@@ -41,13 +41,13 @@ public class MapFragmentUtils {
    * @return converted MapboxMapOptions
    */
   @Nullable
-  public static trackasiaMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
-    trackasiaMapOptions options;
-    if (args != null && args.containsKey(trackasiaConstants.FRAG_ARG_trackasiaMAPOPTIONS)) {
-      options = args.getParcelable(trackasiaConstants.FRAG_ARG_trackasiaMAPOPTIONS);
+  public static MapLibreMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
+    MapLibreMapOptions options;
+    if (args != null && args.containsKey(MapLibreConstants.FRAG_ARG_MAPLIBREMAPOPTIONS)) {
+      options = args.getParcelable(MapLibreConstants.FRAG_ARG_MAPLIBREMAPOPTIONS);
     } else {
       // load default options
-      options = trackasiaMapOptions.createFromAttributes(context);
+      options = MapLibreMapOptions.createFromAttributes(context);
     }
     return options;
   }

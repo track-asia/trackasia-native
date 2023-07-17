@@ -1,9 +1,9 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.content.Context
 import android.content.res.Resources
 import android.content.res.TypedArray
-import org.trackasia.android.R
+import com.trackasia.android.R
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
@@ -14,10 +14,10 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class trackasiaMapOptionsAttrsTest {
+class MapLibreMapOptionsAttrsTest {
 
     @RelaxedMockK
-    private lateinit var options: trackasiaMapOptions
+    private lateinit var options: MapLibreMapOptions
 
     @RelaxedMockK
     private lateinit var typedArray: TypedArray
@@ -40,7 +40,7 @@ class trackasiaMapOptionsAttrsTest {
     fun enabledLocalIdeographFontFamily() {
         mockEnableLocalIdeograph(enabled = true)
 
-        val options = trackasiaMapOptions.createFromAttributes(options, context, typedArray)
+        val options = MapLibreMapOptions.createFromAttributes(options, context, typedArray)
 
         verify(exactly = 1) {
             options.localIdeographFontFamily(any())
@@ -54,7 +54,7 @@ class trackasiaMapOptionsAttrsTest {
         val font = "foo"
         mockLocalIdeographString(font)
 
-        val options = trackasiaMapOptions.createFromAttributes(options, context, typedArray)
+        val options = MapLibreMapOptions.createFromAttributes(options, context, typedArray)
 
         verify(exactly = 1) {
             options.localIdeographFontFamily(font)
@@ -68,7 +68,7 @@ class trackasiaMapOptionsAttrsTest {
         val fonts = arrayOf("foo", "bar")
         mockLocalIdeographStringArray(fonts)
 
-        val options = trackasiaMapOptions.createFromAttributes(options, context, typedArray)
+        val options = MapLibreMapOptions.createFromAttributes(options, context, typedArray)
 
         verify(exactly = 1) {
             options.localIdeographFontFamily(*fonts)

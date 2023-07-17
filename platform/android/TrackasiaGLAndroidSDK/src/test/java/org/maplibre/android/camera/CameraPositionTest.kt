@@ -1,11 +1,11 @@
-package org.trackasia.android.camera
+package com.trackasia.android.camera
 
 import android.content.res.TypedArray
 import android.os.Parcel
-import org.trackasia.android.R
-import org.trackasia.android.camera.CameraUpdateFactory.ZoomUpdate
-import org.trackasia.android.camera.CameraUpdateFactory.zoomTo
-import org.trackasia.android.geometry.LatLng
+import com.trackasia.android.R
+import com.trackasia.android.camera.CameraUpdateFactory.ZoomUpdate
+import com.trackasia.android.camera.CameraUpdateFactory.zoomTo
+import com.trackasia.android.geometry.LatLng
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

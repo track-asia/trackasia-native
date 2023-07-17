@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.offline
+package com.trackasia.android.testapp.offline
 
 import android.content.Context
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
@@ -13,12 +13,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
-import org.trackasia.android.AppCenter
-import org.trackasia.android.offline.OfflineManager
-import org.trackasia.android.offline.OfflineRegion
-import org.trackasia.android.storage.FileSource
-import org.trackasia.android.testapp.activity.FeatureOverviewActivity
-import org.trackasia.android.testapp.utils.FileUtils
+import com.trackasia.android.AppCenter
+import com.trackasia.android.offline.OfflineManager
+import com.trackasia.android.offline.OfflineRegion
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.testapp.activity.FeatureOverviewActivity
+import com.trackasia.android.testapp.utils.FileUtils
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4ClassRunner::class)

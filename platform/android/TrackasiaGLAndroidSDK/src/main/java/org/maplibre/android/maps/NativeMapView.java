@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,28 +14,28 @@ import androidx.annotation.Nullable;
 
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
-import org.trackasia.android.LibraryLoader;
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.annotations.Icon;
-import org.trackasia.android.annotations.Marker;
-import org.trackasia.android.annotations.Polygon;
-import org.trackasia.android.annotations.Polyline;
-import org.trackasia.android.camera.CameraPosition;
-import org.trackasia.android.exceptions.CalledFromWorkerThreadException;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.geometry.LatLngBounds;
-import org.trackasia.android.geometry.ProjectedMeters;
-import org.trackasia.android.log.Logger;
-import org.trackasia.android.maps.renderer.MapRenderer;
-import org.trackasia.android.storage.FileSource;
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.layers.CannotAddLayerException;
-import org.trackasia.android.style.layers.Layer;
-import org.trackasia.android.style.layers.TransitionOptions;
-import org.trackasia.android.style.light.Light;
-import org.trackasia.android.style.sources.CannotAddSourceException;
-import org.trackasia.android.style.sources.Source;
-import org.trackasia.android.utils.BitmapUtils;
+import com.trackasia.android.LibraryLoader;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.annotations.Icon;
+import com.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.Polygon;
+import com.trackasia.android.annotations.Polyline;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.exceptions.CalledFromWorkerThreadException;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLngBounds;
+import com.trackasia.android.geometry.ProjectedMeters;
+import com.trackasia.android.log.Logger;
+import com.trackasia.android.maps.renderer.MapRenderer;
+import com.trackasia.android.storage.FileSource;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.CannotAddLayerException;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.style.layers.TransitionOptions;
+import com.trackasia.android.style.light.Light;
+import com.trackasia.android.style.sources.CannotAddSourceException;
+import com.trackasia.android.style.sources.Source;
+import com.trackasia.android.utils.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,7 +79,7 @@ final class NativeMapView implements NativeMap {
   private long nativePtr = 0;
 
   // Listener invoked to return a bitmap of the map
-  private trackasiaMap.SnapshotReadyCallback snapshotReadyCallback;
+  private MapLibreMap.SnapshotReadyCallback snapshotReadyCallback;
 
   static {
     LibraryLoader.load();
@@ -1509,7 +1509,7 @@ final class NativeMapView implements NativeMap {
   //
 
   @Override
-  public void addSnapshotCallback(@NonNull trackasiaMap.SnapshotReadyCallback callback) {
+  public void addSnapshotCallback(@NonNull MapLibreMap.SnapshotReadyCallback callback) {
     if (checkState("addSnapshotCallback")) {
       return;
     }
@@ -1518,14 +1518,14 @@ final class NativeMapView implements NativeMap {
   }
 
   @Override
-  public void setOnFpsChangedListener(@Nullable final trackasiaMap.OnFpsChangedListener listener) {
+  public void setOnFpsChangedListener(@Nullable final MapLibreMap.OnFpsChangedListener listener) {
     final Handler handler = new Handler();
     mapRenderer.queueEvent(new Runnable() {
 
       @Override
       public void run() {
         if (listener != null) {
-          mapRenderer.setOnFpsChangedListener(new trackasiaMap.OnFpsChangedListener() {
+          mapRenderer.setOnFpsChangedListener(new MapLibreMap.OnFpsChangedListener() {
             @Override
             public void onFpsChanged(final double fps) {
               handler.post(() -> listener.onFpsChanged(fps));

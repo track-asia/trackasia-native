@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,13 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.trackasia;
-import org.trackasia.android.R;
-import org.trackasia.android.attribution.Attribution;
-import org.trackasia.android.attribution.AttributionParser;
-import org.trackasia.android.camera.CameraPosition;
-import org.trackasia.android.style.sources.Source;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.Trackasia;
+import com.trackasia.android.R;
+import com.trackasia.android.attribution.Attribution;
+import com.trackasia.android.attribution.AttributionParser;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.style.sources.Source;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -47,11 +47,11 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
   @NonNull
   private final Context context;
   @NonNull
-  private final trackasiaMap trackasiaMap;
+  private final MapLibreMap trackasiaMap;
   private Set<Attribution> attributionSet;
   private AlertDialog dialog;
 
-  public AttributionDialogManager(@NonNull Context context, @NonNull trackasiaMap trackasiaMap) {
+  public AttributionDialogManager(@NonNull Context context, @NonNull MapLibreMap trackasiaMap) {
     this.context = context;
     this.trackasiaMap = trackasiaMap;
   }
@@ -108,7 +108,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
     Attribution[] attributions = attributionSet.toArray(new Attribution[attributionSet.size()]);
     String url = attributions[which].getUrl();
     if (url.contains(MAP_FEEDBACK_URL_OLD) || url.contains(MAP_FEEDBACK_URL)) {
-      url = buildMapFeedbackMapUrl(trackasia.getApiKey());
+      url = buildMapFeedbackMapUrl(Trackasia.getApiKey());
     }
     showWebPage(url);
   }
@@ -169,11 +169,11 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
 
   private static class AttributionBuilder {
 
-    private final trackasiaMap trackasiaMap;
+    private final MapLibreMap trackasiaMap;
     @NonNull
     private final WeakReference<Context> context;
 
-    AttributionBuilder(trackasiaMap trackasiaMap, Context context) {
+    AttributionBuilder(MapLibreMap trackasiaMap, Context context) {
       this.trackasiaMap = trackasiaMap;
       this.context = new WeakReference<>(context);
     }

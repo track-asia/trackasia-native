@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity
+package com.trackasia.android.testapp.activity
 
 import android.content.ComponentName
 import android.content.Intent
@@ -16,11 +16,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.adapter.FeatureAdapter
-import org.trackasia.android.testapp.adapter.FeatureSectionAdapter
-import org.trackasia.android.testapp.model.activity.Feature
-import org.trackasia.android.testapp.utils.ItemClickSupport
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.adapter.FeatureAdapter
+import com.trackasia.android.testapp.adapter.FeatureSectionAdapter
+import com.trackasia.android.testapp.model.activity.Feature
+import com.trackasia.android.testapp.utils.ItemClickSupport
 import timber.log.Timber
 import java.util.*
 

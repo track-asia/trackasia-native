@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.fragment
+package com.trackasia.android.testapp.activity.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.trackasiaMapOptions
-import org.trackasia.android.maps.Style
-import org.trackasia.android.maps.SupportMapFragment
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.databinding.ActivityRecyclerviewBinding
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapLibreMapOptions
+import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.SupportMapFragment
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.databinding.ActivityRecyclerviewBinding
 
 /**
  * TestActivity showcasing how to integrate a MapView in a RecyclerView.
@@ -102,7 +102,7 @@ class NestedViewPagerActivity : AppCompatActivity() {
         class MapPagerAdapter(private val context: Context, fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {
 
             override fun getItem(position: Int): androidx.fragment.app.Fragment {
-                val options = trackasiaMapOptions.createFromAttributes(context)
+                val options = MapLibreMapOptions.createFromAttributes(context)
                 options.textureMode(true)
                 options.doubleTapGesturesEnabled(false)
                 options.rotateGesturesEnabled(false)

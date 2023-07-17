@@ -1,12 +1,12 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 
 import androidx.annotation.NonNull;
 import androidx.collection.LongSparseArray;
 
-import org.trackasia.android.annotations.Annotation;
-import org.trackasia.android.annotations.Polygon;
-import org.trackasia.android.annotations.PolygonOptions;
+import com.trackasia.android.annotations.Annotation;
+import com.trackasia.android.annotations.Polygon;
+import com.trackasia.android.annotations.PolygonOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ class PolygonContainer implements Polygons {
   }
 
   @Override
-  public Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull trackasiaMap trackasiaMap) {
+  public Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull MapLibreMap trackasiaMap) {
     Polygon polygon = polygonOptions.getPolygon();
     if (!polygon.getPoints().isEmpty()) {
       long id = nativeMap != null ? nativeMap.addPolygon(polygon) : 0;
@@ -38,7 +38,7 @@ class PolygonContainer implements Polygons {
 
   @NonNull
   @Override
-  public List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull trackasiaMap trackasiaMap) {
+  public List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapLibreMap trackasiaMap) {
     int count = polygonOptionsList.size();
 
     Polygon polygon;

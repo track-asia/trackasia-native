@@ -1,11 +1,11 @@
-package org.trackasia.android.offline
+package com.trackasia.android.offline
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.mapbox.geojson.Point
-import org.trackasia.android.log.Logger
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.activity.FeatureOverviewActivity
+import com.trackasia.android.log.Logger
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.activity.FeatureOverviewActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

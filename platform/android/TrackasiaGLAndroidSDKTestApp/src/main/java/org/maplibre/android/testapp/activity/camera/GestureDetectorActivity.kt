@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.camera
+package com.trackasia.android.testapp.activity.camera
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,25 +13,25 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mapbox.android.gestures.*
-import org.trackasia.android.annotations.Marker
-import org.trackasia.android.annotations.MarkerOptions
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.trackasiaMap.*
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.FontCache
-import org.trackasia.android.testapp.utils.ResourceUtils
+import com.trackasia.android.annotations.Marker
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.MapLibreMap.*
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.FontCache
+import com.trackasia.android.testapp.utils.ResourceUtils
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
 /** Test activity showcasing APIs around gestures implementation. */
 class GestureDetectorActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var recyclerView: RecyclerView
     private var gestureAlertsAdapter: GestureAlertsAdapter? = null
     private var gesturesManager: AndroidGesturesManager? = null
@@ -43,7 +43,7 @@ class GestureDetectorActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: trackasiaMap ->
+            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
                 this@GestureDetectorActivity.trackasiaMap = trackasiaMap
                 trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
                 initializeMap()

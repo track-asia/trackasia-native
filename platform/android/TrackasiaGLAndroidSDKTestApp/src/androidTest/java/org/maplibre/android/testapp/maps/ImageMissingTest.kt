@@ -1,12 +1,12 @@
-package org.trackasia.android.testapp.maps
+package com.trackasia.android.testapp.maps
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import org.trackasia.android.AppCenter
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.activity.espresso.EspressoTestActivity
+import com.trackasia.android.AppCenter
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule

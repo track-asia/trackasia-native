@@ -1,9 +1,9 @@
-package org.trackasia.android.location
+package com.trackasia.android.location
 
 import android.content.Context
 import android.content.res.Resources
 import android.content.res.TypedArray
-import org.trackasia.android.R
+import com.trackasia.android.R
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

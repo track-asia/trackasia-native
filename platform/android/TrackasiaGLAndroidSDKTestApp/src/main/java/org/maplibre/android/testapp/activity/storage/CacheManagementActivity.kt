@@ -1,11 +1,11 @@
-package org.trackasia.android.testapp.activity.storage
+package com.trackasia.android.testapp.activity.storage
 
 import android.os.Bundle
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import org.trackasia.android.offline.OfflineManager
-import org.trackasia.android.testapp.databinding.ActivityCacheManagementBinding
+import com.trackasia.android.offline.OfflineManager
+import com.trackasia.android.testapp.databinding.ActivityCacheManagementBinding
 
 /**
  * Test activity showcasing the cache management APIs

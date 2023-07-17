@@ -1,4 +1,4 @@
-package org.trackasia.android.utils
+package com.trackasia.android.utils
 
 // Make converting from Java to Kotlin easier
 fun Double.Companion.isNaN(d: Double) = d.isNaN()

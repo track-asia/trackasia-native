@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

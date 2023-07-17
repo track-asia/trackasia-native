@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.annotation
+package com.trackasia.android.testapp.activity.annotation
 
 import android.os.Bundle
 import android.view.View
@@ -6,22 +6,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.trackasia.android.annotations.Marker
-import org.trackasia.android.annotations.MarkerOptions
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.IconUtils
+import com.trackasia.android.annotations.Marker
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.IconUtils
 
 /**
  * Test activity showcasing updating a Marker position, title, icon and snippet.
  */
 class DynamicMarkerChangeActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var marker: Marker? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class DynamicMarkerChangeActivity : AppCompatActivity() {
         mapView.setTag(false)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: trackasiaMap ->
+            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
                 trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
                 this@DynamicMarkerChangeActivity.trackasiaMap = trackasiaMap
                 // Create marker

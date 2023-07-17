@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import android.app.ActivityManager
 import android.content.Context
@@ -12,10 +12,10 @@ import android.view.WindowManager
 import androidx.annotation.StringDef
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import org.trackasia.android.MapStrictMode
-import org.trackasia.android.trackasia
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.module.http.HttpRequestUtil
+import com.trackasia.android.MapStrictMode
+import com.trackasia.android.Trackasia
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.module.http.HttpRequestUtil
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.OkHttpClient
@@ -42,14 +42,14 @@ class TileLoadingMeasurementUtils {
 
         private val isTileLoadingMeasurementOn: Boolean
             private get() = isBooleanMetaDataValueOn(
-                trackasiaConstants.KEY_META_DATA_MEASURE_TILE_DOWNLOAD_ON,
-                trackasiaConstants.DEFAULT_MEASURE_TILE_DOWNLOAD_ON
+                MapLibreConstants.KEY_META_DATA_MEASURE_TILE_DOWNLOAD_ON,
+                MapLibreConstants.DEFAULT_MEASURE_TILE_DOWNLOAD_ON
             )
 
         private fun isBooleanMetaDataValueOn(propKey: String, defaultValue: Boolean): Boolean {
             try {
                 // Try getting a custom value from the app Manifest
-                val context = trackasia.getApplicationContext()
+                val context = Trackasia.getApplicationContext()
                 val appInfo = context.packageManager.getApplicationInfo(
                     context.packageName,
                     PackageManager.GET_META_DATA
@@ -134,7 +134,7 @@ class TileLoadingMeasurementUtils {
 
                 private val ram: String
                     private get() {
-                        val actManager = trackasia.getApplicationContext()
+                        val actManager = Trackasia.getApplicationContext()
                             .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                         val memInfo = ActivityManager.MemoryInfo()
                         actManager.getMemoryInfo(memInfo)
@@ -142,7 +142,7 @@ class TileLoadingMeasurementUtils {
                     }
                 private val windowSize: String
                     private get() {
-                        val windowManager = trackasia.getApplicationContext()
+                        val windowManager = Trackasia.getApplicationContext()
                             .getSystemService(Context.WINDOW_SERVICE) as WindowManager
                         val display = windowManager.defaultDisplay
                         val metrics = DisplayMetrics()
@@ -155,7 +155,7 @@ class TileLoadingMeasurementUtils {
                 @get:ConnectionState
                 private val connectionState: String
                     private get() {
-                        val appContext = trackasia.getApplicationContext()
+                        val appContext = Trackasia.getApplicationContext()
                         val connectivityManager =
                             appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

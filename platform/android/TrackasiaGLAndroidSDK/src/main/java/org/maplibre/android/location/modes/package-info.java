@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Location layer component camera and render modes.
+ * Contains the Trackasia Location layer component camera and render modes.
  */
-package org.trackasia.android.location.modes;
+package com.trackasia.android.location.modes;

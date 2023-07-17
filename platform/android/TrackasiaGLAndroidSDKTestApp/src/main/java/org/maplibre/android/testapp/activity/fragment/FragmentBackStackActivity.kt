@@ -1,13 +1,13 @@
-package org.trackasia.android.testapp.activity.fragment
+package com.trackasia.android.testapp.activity.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.maps.SupportMapFragment
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.databinding.ActivityBackstackFragmentBinding
-import org.trackasia.android.testapp.utils.NavUtils
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.SupportMapFragment
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.databinding.ActivityBackstackFragmentBinding
+import com.trackasia.android.testapp.utils.NavUtils
 
 /**
  * Test activity showcasing using the MapFragment API as part of a backstacked fragment.
@@ -44,7 +44,7 @@ class FragmentBackStackActivity : AppCompatActivity() {
         binding.button.setOnClickListener { handleClick() }
     }
 
-    private fun initMap(trackasiaMap: trackasiaMap) {
+    private fun initMap(trackasiaMap: MapLibreMap) {
         trackasiaMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid")) {
             trackasiaMap.setPadding(300, 300, 300, 300)
         }

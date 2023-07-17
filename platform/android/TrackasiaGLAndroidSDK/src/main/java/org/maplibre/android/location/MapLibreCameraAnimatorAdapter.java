@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,21 +7,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 
-import org.trackasia.android.maps.trackasiaMap;
+import com.trackasia.android.maps.MapLibreMap;
 
-class trackasiaCameraAnimatorAdapter extends trackasiaFloatAnimator {
+class MapLibreCameraAnimatorAdapter extends MapLibreFloatAnimator {
   @Nullable
-  private final trackasiaMap.CancelableCallback cancelableCallback;
+  private final MapLibreMap.CancelableCallback cancelableCallback;
 
-  trackasiaCameraAnimatorAdapter(@NonNull @Size(min = 2) Float[] values,
+  MapLibreCameraAnimatorAdapter(@NonNull @Size(min = 2) Float[] values,
                                 AnimationsValueChangeListener updateListener,
-                                @Nullable trackasiaMap.CancelableCallback cancelableCallback) {
+                                @Nullable MapLibreMap.CancelableCallback cancelableCallback) {
     super(values, updateListener, Integer.MAX_VALUE);
     this.cancelableCallback = cancelableCallback;
-    addListener(new trackasiaAnimatorListener());
+    addListener(new MapLibreAnimatorListener());
   }
 
-  private final class trackasiaAnimatorListener extends AnimatorListenerAdapter {
+  private final class MapLibreAnimatorListener extends AnimatorListenerAdapter {
     @Override
     public void onAnimationCancel(Animator animation) {
       if (cancelableCallback != null) {

@@ -1,6 +1,6 @@
 // This file is generated. Edit scripts/generate-style-code.js, then run `make style-code`.
 
-package org.trackasia.android.style.layers;
+package com.trackasia.android.style.layers;
 
 import androidx.annotation.StringDef;
 

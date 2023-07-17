@@ -1,11 +1,11 @@
-package org.trackasia.android.testapp.model.other
+package com.trackasia.android.testapp.model.other
 
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import org.trackasia.android.testapp.R
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 
 class OfflineListRegionsDialog : DialogFragment() {

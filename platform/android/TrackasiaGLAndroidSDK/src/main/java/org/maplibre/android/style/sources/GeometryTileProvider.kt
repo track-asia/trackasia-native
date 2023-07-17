@@ -1,8 +1,8 @@
-package org.trackasia.android.style.sources
+package com.trackasia.android.style.sources
 
 import androidx.annotation.WorkerThread
 import com.mapbox.geojson.FeatureCollection
-import org.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.geometry.LatLngBounds
 
 /**
  * Interface that defines methods for working with [CustomGeometrySource].

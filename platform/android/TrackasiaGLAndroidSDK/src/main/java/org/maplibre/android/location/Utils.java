@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,12 +11,12 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.log.Logger;
-import org.trackasia.android.maps.trackasiaMap;
-import org.trackasia.android.maps.Projection;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.log.Logger;
+import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.Projection;
 
-import static org.trackasia.android.location.LocationComponentConstants.INSTANT_LOCATION_TRANSITION_THRESHOLD;
+import static com.trackasia.android.location.LocationComponentConstants.INSTANT_LOCATION_TRANSITION_THRESHOLD;
 
 public final class Utils {
 
@@ -95,7 +95,7 @@ public final class Utils {
     }
   }
 
-  static float calculateZoomLevelRadius(@NonNull trackasiaMap trackasiaMap, @Nullable Location location) {
+  static float calculateZoomLevelRadius(@NonNull MapLibreMap trackasiaMap, @Nullable Location location) {
     if (location == null) {
       return 0;
     }

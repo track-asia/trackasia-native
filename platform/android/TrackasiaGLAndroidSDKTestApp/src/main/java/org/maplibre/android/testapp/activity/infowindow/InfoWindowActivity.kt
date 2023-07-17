@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.infowindow
+package com.trackasia.android.testapp.activity.infowindow
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,18 +6,18 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.annotations.Marker
-import org.trackasia.android.annotations.MarkerOptions
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.trackasiaMap.OnInfoWindowClickListener
-import org.trackasia.android.maps.trackasiaMap.OnInfoWindowCloseListener
-import org.trackasia.android.maps.trackasiaMap.OnInfoWindowLongClickListener
-import org.trackasia.android.maps.trackasiaMap.OnMapLongClickListener
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.annotations.Marker
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.MapLibreMap.OnInfoWindowClickListener
+import com.trackasia.android.maps.MapLibreMap.OnInfoWindowCloseListener
+import com.trackasia.android.maps.MapLibreMap.OnInfoWindowLongClickListener
+import com.trackasia.android.maps.MapLibreMap.OnMapLongClickListener
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 import java.text.DecimalFormat
 
 /**
@@ -33,7 +33,7 @@ class InfoWindowActivity :
     OnInfoWindowCloseListener,
     OnInfoWindowClickListener,
     OnInfoWindowLongClickListener {
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var mapView: MapView
     private var customMarker: Marker? = null
     private val mapLongClickListener = OnMapLongClickListener { point ->
@@ -64,7 +64,7 @@ class InfoWindowActivity :
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(trackasiaMap: trackasiaMap) {
+    override fun onMapReady(trackasiaMap: MapLibreMap) {
         this.trackasiaMap = trackasiaMap
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
             addMarkers()

@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Formatted Expression Types API classes.
+ * Contains the Trackasia Maps Android Formatted Expression Types API classes.
  */
-package org.trackasia.android.style.types
+package com.trackasia.android.style.types

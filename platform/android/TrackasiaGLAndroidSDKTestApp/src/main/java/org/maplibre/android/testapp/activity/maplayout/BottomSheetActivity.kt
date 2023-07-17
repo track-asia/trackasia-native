@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.content.Context
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
-import org.trackasia.android.utils.MapFragmentUtils
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
+import com.trackasia.android.utils.MapFragmentUtils
 
 /**
  * Test activity showcasing using a bottomView with a MapView and stacking map fragments below.
@@ -113,7 +113,7 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(trackasiaMap: trackasiaMap) {
+        override fun onMapReady(trackasiaMap: MapLibreMap) {
             trackasiaMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
@@ -182,7 +182,7 @@ class BottomSheetActivity : AppCompatActivity() {
                 val bundle = Bundle()
                 bundle.putInt("mapcounter", mapCounter)
                 mapFragment.arguments = bundle
-                val trackasiaMapOptions = trackasiaMapOptions.createFromAttributes(context!!)
+                val trackasiaMapOptions = MapLibreMapOptions.createFromAttributes(context!!)
                 mapFragment.arguments = MapFragmentUtils.createFragmentArgs(trackasiaMapOptions)
                 return mapFragment
             }
@@ -209,7 +209,7 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(trackasiaMap: trackasiaMap) {
+        override fun onMapReady(trackasiaMap: MapLibreMap) {
             trackasiaMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
@@ -257,7 +257,7 @@ class BottomSheetActivity : AppCompatActivity() {
         companion object {
             fun newInstance(context: Context?): BottomSheetFragment {
                 val mapFragment = BottomSheetFragment()
-                val trackasiaMapOptions = trackasiaMapOptions.createFromAttributes(context!!)
+                val trackasiaMapOptions = MapLibreMapOptions.createFromAttributes(context!!)
                 trackasiaMapOptions.renderSurfaceOnTop(true)
                 mapFragment.arguments = MapFragmentUtils.createFragmentArgs(trackasiaMapOptions)
                 return mapFragment

@@ -1,4 +1,4 @@
-package org.trackasia.android.log
+package com.trackasia.android.log
 
 import io.mockk.mockk
 import io.mockk.verify

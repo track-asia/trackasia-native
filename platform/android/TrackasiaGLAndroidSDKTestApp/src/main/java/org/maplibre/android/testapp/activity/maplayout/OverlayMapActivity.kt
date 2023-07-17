@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.databinding.ActivityOverlayBinding
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.databinding.ActivityOverlayBinding
 
 /**
  * Test overlaying a Map with a View that uses a radial gradient shader.

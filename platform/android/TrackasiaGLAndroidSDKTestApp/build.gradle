@@ -9,12 +9,12 @@ android {
     compileSdkVersion androidVersions.compileSdkVersion
 
     defaultConfig {
-        applicationId "org.trackasia.testapp"
+        applicationId "com.trackasia.testapp"
         minSdkVersion androidVersions.minSdkVersion
         targetSdkVersion androidVersions.targetSdkVersion
         versionCode 14
         versionName "6.0.1"
-        testInstrumentationRunner "org.trackasia.android.InstrumentationRunner"
+        testInstrumentationRunner "com.trackasia.android.InstrumentationRunner"
         multiDexEnabled = true
     }
 
@@ -50,8 +50,8 @@ android {
         viewBinding = true
     }
 
-    namespace 'org.trackasia.android.testapp'
-    testNamespace 'org.trackasia.testapp.test'
+    namespace 'com.trackasia.android.testapp'
+    testNamespace 'com.trackasia.testapp.test'
     lint {
         abortOnError false
         baseline file('lint-baseline-local.xml')

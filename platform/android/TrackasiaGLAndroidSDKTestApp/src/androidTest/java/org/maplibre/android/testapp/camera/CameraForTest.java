@@ -1,15 +1,15 @@
-package org.trackasia.android.testapp.camera;
+package com.trackasia.android.testapp.camera;
 
 import androidx.annotation.NonNull;
 import androidx.test.annotation.UiThreadTest;
 
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
-import org.trackasia.android.camera.CameraPosition;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.geometry.LatLngBounds;
-import org.trackasia.android.testapp.activity.BaseTest;
-import org.trackasia.android.testapp.activity.espresso.DeviceIndependentTestActivity;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLngBounds;
+import com.trackasia.android.testapp.activity.BaseTest;
+import com.trackasia.android.testapp.activity.espresso.DeviceIndependentTestActivity;
 
 import org.junit.Test;
 

@@ -1,13 +1,13 @@
-package org.trackasia.android.snapshotter
+package com.trackasia.android.snapshotter
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.BackgroundLayer
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.testapp.activity.FeatureOverviewActivity
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.BackgroundLayer
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.testapp.activity.FeatureOverviewActivity
 import org.junit.Assert
 import org.junit.Assert.assertNotNull
 import org.junit.Rule

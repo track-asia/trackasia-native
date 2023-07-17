@@ -1,16 +1,16 @@
-package org.trackasia.android.testapp.activity.offline
+package com.trackasia.android.testapp.activity.offline
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.trackasia
-import org.trackasia.android.log.Logger
-import org.trackasia.android.maps.Style
-import org.trackasia.android.offline.OfflineManager
-import org.trackasia.android.offline.OfflineRegion
-import org.trackasia.android.storage.FileSource
-import org.trackasia.android.testapp.databinding.ActivityMergeOfflineRegionsBinding
-import org.trackasia.android.testapp.utils.FileUtils
+import com.trackasia.android.Trackasia
+import com.trackasia.android.log.Logger
+import com.trackasia.android.maps.Style
+import com.trackasia.android.offline.OfflineManager
+import com.trackasia.android.offline.OfflineRegion
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.testapp.databinding.ActivityMergeOfflineRegionsBinding
+import com.trackasia.android.testapp.utils.FileUtils
 
 class MergeOfflineRegionsActivity : AppCompatActivity() {
 
@@ -90,7 +90,7 @@ class MergeOfflineRegionsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // forcing offline state
-        trackasia.setConnected(false)
+        Trackasia.setConnected(false)
 
         binding.mapView.onCreate(savedInstanceState)
         binding.loadRegionBtn.setOnClickListener {
@@ -145,7 +145,7 @@ class MergeOfflineRegionsActivity : AppCompatActivity() {
         binding.mapView.onDestroy()
 
         // restoring connectivity state
-        trackasia.setConnected(null)
+        Trackasia.setConnected(null)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

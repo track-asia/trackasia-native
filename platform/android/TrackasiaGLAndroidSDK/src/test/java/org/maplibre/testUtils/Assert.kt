@@ -1,4 +1,4 @@
-package org.trackasia.testUtils
+package com.trackasia.testUtils
 
 const val DELTA_FLOAT: Float = 1e-15f
 const val DELTA_DOUBLE: Double = 1e-15

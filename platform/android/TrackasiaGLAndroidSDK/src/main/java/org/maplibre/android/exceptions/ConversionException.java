@@ -1,4 +1,4 @@
-package org.trackasia.android.exceptions;
+package com.trackasia.android.exceptions;
 
 /**
  * A ConversionException is thrown when a conversion failed to execute.

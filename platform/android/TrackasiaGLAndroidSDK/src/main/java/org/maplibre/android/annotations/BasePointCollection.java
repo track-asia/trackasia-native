@@ -1,9 +1,9 @@
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   trackasia Annotation Plugin</a> instead
+ *   Trackasia Annotation Plugin</a> instead
  */
 @Deprecated
 public abstract class BasePointCollection extends Annotation {

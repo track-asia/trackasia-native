@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,8 +8,8 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.R;
-import org.trackasia.android.utils.BitmapUtils;
+import com.trackasia.android.R;
+import com.trackasia.android.utils.BitmapUtils;
 
 class LayerBitmapProvider {
 

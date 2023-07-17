@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Offline API classes.
+ * Contains the Trackasia Maps Android Offline API classes.
  */
-package org.trackasia.android.offline
+package com.trackasia.android.offline

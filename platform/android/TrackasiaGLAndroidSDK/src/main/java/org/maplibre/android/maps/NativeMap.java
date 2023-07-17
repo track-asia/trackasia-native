@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
@@ -10,18 +10,18 @@ import androidx.annotation.Nullable;
 
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
-import org.trackasia.android.annotations.Marker;
-import org.trackasia.android.annotations.Polygon;
-import org.trackasia.android.annotations.Polyline;
-import org.trackasia.android.camera.CameraPosition;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.geometry.LatLngBounds;
-import org.trackasia.android.geometry.ProjectedMeters;
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.layers.Layer;
-import org.trackasia.android.style.layers.TransitionOptions;
-import org.trackasia.android.style.light.Light;
-import org.trackasia.android.style.sources.Source;
+import com.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.Polygon;
+import com.trackasia.android.annotations.Polyline;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLngBounds;
+import com.trackasia.android.geometry.ProjectedMeters;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.style.layers.TransitionOptions;
+import com.trackasia.android.style.light.Light;
+import com.trackasia.android.style.sources.Source;
 
 import java.util.List;
 
@@ -214,7 +214,7 @@ interface NativeMap {
   // Utils API
   //
 
-  void setOnFpsChangedListener(@NonNull trackasiaMap.OnFpsChangedListener listener);
+  void setOnFpsChangedListener(@NonNull MapLibreMap.OnFpsChangedListener listener);
 
   void setDebug(boolean debug);
 
@@ -285,5 +285,5 @@ interface NativeMap {
 
   long getNativePtr();
 
-  void addSnapshotCallback(@NonNull trackasiaMap.SnapshotReadyCallback callback);
+  void addSnapshotCallback(@NonNull MapLibreMap.SnapshotReadyCallback callback);
 }

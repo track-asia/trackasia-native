@@ -1,6 +1,6 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
-import org.trackasia.android.annotations.Icon;
+import com.trackasia.android.annotations.Icon;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -12,9 +12,9 @@ public class IconManagerResolver {
 
   private IconManager iconManager;
 
-  public IconManagerResolver(trackasiaMap trackasiaMap) {
+  public IconManagerResolver(MapLibreMap trackasiaMap) {
     try {
-      Field annotationManagerField = trackasiaMap.class.getDeclaredField("annotationManager");
+      Field annotationManagerField = MapLibreMap.class.getDeclaredField("annotationManager");
       annotationManagerField.setAccessible(true);
       AnnotationManager annotationManager = (AnnotationManager) annotationManagerField.get(trackasiaMap);
 

@@ -1,4 +1,4 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -12,8 +12,8 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.widget.ImageViewCompat;
 
-import org.trackasia.android.R;
-import org.trackasia.android.exceptions.ConversionException;
+import com.trackasia.android.R;
+import com.trackasia.android.exceptions.ConversionException;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

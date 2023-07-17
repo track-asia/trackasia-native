@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.annotation
+package com.trackasia.android.testapp.activity.annotation
 
 import android.graphics.Color
 import android.os.Bundle
@@ -14,15 +14,15 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.trackasia.android.trackasia
-import org.trackasia.android.annotations.IconFactory
-import org.trackasia.android.annotations.MarkerOptions
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.testapp.R
+import com.trackasia.android.Trackasia
+import com.trackasia.android.annotations.IconFactory
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.testapp.R
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -34,13 +34,13 @@ class JsonApiActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
 
     // Declare a variable for MapboxMap
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     /* ANCHOR_END: top */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Init trackasia
-        trackasia.getInstance(this)
+        // Init Trackasia
+        Trackasia.getInstance(this)
 
         // Init layout view
         setContentView(R.layout.activity_json_api)
@@ -102,7 +102,7 @@ class JsonApiActivity : AppCompatActivity() {
             this.resources,
             // Intentionally specify package name
             // This makes copy from another project easier
-            org.trackasia.android.R.drawable.trackasia_info_icon_default,
+            com.trackasia.android.R.drawable.trackasia_info_icon_default,
             null
         )!!
         val bitmapBlue = infoIconDrawable.toBitmap()

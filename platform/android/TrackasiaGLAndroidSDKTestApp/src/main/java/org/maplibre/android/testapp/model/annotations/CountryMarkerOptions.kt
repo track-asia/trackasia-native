@@ -1,11 +1,11 @@
-package org.trackasia.android.testapp.model.annotations
+package com.trackasia.android.testapp.model.annotations
 
 import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
-import org.trackasia.android.annotations.BaseMarkerOptions
-import org.trackasia.android.annotations.IconFactory
-import org.trackasia.android.geometry.LatLng
+import com.trackasia.android.annotations.BaseMarkerOptions
+import com.trackasia.android.annotations.IconFactory
+import com.trackasia.android.geometry.LatLng
 
 class CountryMarkerOptions : BaseMarkerOptions<CountryMarker?, CountryMarkerOptions?> {
     private var abbrevName: String? = null

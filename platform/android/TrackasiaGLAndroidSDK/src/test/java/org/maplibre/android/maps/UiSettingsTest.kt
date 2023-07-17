@@ -1,4 +1,4 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.content.Context
 import android.content.res.Resources
@@ -6,8 +6,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.maps.widgets.CompassView
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.maps.widgets.CompassView
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -56,7 +56,7 @@ class UiSettingsTest {
         FrameLayout.LayoutParams::class.java
     )
     private var uiSettings: UiSettings? = null
-    private val trackasiaMapOptions: trackasiaMapOptions? = null
+    private val trackasiaMapOptions: MapLibreMapOptions? = null
 
     @Before
     fun beforeTest() {

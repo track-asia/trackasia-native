@@ -1,7 +1,7 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.annotation.SuppressLint
-import org.trackasia.android.testapp.R
+import com.trackasia.android.testapp.R
 
 /**
  * TestActivity showcasing how to integrate multiple TexureView MapViews in a RecyclerView.

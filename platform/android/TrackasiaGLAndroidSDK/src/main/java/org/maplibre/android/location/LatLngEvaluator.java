@@ -1,10 +1,10 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.animation.TypeEvaluator;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLng;
 
 class LatLngEvaluator implements TypeEvaluator<LatLng> {
 

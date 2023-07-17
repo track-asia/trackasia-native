@@ -1,4 +1,4 @@
-package org.trackasia.android.net;
+package com.trackasia.android.net;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
-import org.trackasia.android.trackasia;
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.Trackasia;
+import com.trackasia.android.log.Logger;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -101,7 +101,7 @@ public class ConnectivityReceiver extends BroadcastReceiver {
   }
 
   /**
-   * Overwrites system connectivity state. To set, use {@link trackasia#setConnected(Boolean)}.
+   * Overwrites system connectivity state. To set, use {@link Trackasia#setConnected(Boolean)}.
    *
    * @param connected flag to determine the connectivity state, true for connected, false for
    *                  disconnected, and null for ConnectivityManager to determine.

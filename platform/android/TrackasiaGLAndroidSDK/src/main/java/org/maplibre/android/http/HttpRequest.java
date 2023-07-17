@@ -1,4 +1,4 @@
-package org.trackasia.android.http;
+package com.trackasia.android.http;
 
 /**
  * Interface definition for performing http requests.

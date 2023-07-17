@@ -1,10 +1,10 @@
-package org.trackasia.android.location.modes;
+package com.trackasia.android.location.modes;
 
 import android.location.Location;
 
 import androidx.annotation.IntDef;
 
-import org.trackasia.android.location.LocationComponent;
+import com.trackasia.android.location.LocationComponent;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

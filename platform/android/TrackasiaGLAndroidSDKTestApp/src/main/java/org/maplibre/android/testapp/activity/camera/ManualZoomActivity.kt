@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.camera
+package com.trackasia.android.testapp.activity.camera
 
 import android.graphics.Point
 import android.os.Bundle
@@ -6,11 +6,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 
 /**
  * Test activity showcasing the zoom Camera API.
@@ -18,14 +18,14 @@ import org.trackasia.android.testapp.R
  * This includes zoomIn, zoomOut, zoomTo, zoomBy (center and custom focal point).
  */
 class ManualZoomActivity : AppCompatActivity() {
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var mapView: MapView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manual_zoom)
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: trackasiaMap ->
+        mapView.getMapAsync { trackasiaMap: MapLibreMap ->
             this@ManualZoomActivity.trackasiaMap = trackasiaMap
             trackasiaMap.setStyle(
                 Style.Builder().fromUri(Style.getPredefinedStyle("Satellite Hybrid"))

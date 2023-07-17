@@ -1,4 +1,4 @@
-package org.trackasia.android.style.types
+package com.trackasia.android.style.types
 
 import androidx.annotation.Keep
 import java.util.*

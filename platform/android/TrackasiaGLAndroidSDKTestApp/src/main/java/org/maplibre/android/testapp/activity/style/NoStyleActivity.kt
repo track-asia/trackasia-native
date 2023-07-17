@@ -1,18 +1,18 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.PropertyFactory.iconImage
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.databinding.ActivityMapSimpleBinding
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.PropertyFactory.iconImage
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.databinding.ActivityMapSimpleBinding
 import java.net.URI
 
 /**

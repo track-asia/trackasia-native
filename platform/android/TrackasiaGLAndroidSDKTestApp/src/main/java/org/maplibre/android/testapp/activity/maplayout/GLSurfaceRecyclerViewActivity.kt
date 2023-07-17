@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.databinding.ActivityRecyclerviewBinding
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.databinding.ActivityRecyclerviewBinding
 
 /**
  * TestActivity showcasing how to integrate multiple GLSurfaceView MapViews in a RecyclerView.

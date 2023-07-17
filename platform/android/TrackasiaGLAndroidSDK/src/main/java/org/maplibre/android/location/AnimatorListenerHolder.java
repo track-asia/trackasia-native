@@ -1,22 +1,22 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 class AnimatorListenerHolder {
-  @trackasiaAnimator.Type
+  @MapLibreAnimator.Type
   private final int animatorType;
-  private final trackasiaAnimator.AnimationsValueChangeListener listener;
+  private final MapLibreAnimator.AnimationsValueChangeListener listener;
 
-  AnimatorListenerHolder(@trackasiaAnimator.Type int animatorType,
-                         trackasiaAnimator.AnimationsValueChangeListener listener) {
+  AnimatorListenerHolder(@MapLibreAnimator.Type int animatorType,
+                         MapLibreAnimator.AnimationsValueChangeListener listener) {
     this.animatorType = animatorType;
     this.listener = listener;
   }
 
-  @trackasiaAnimator.Type
+  @MapLibreAnimator.Type
   public int getAnimatorType() {
     return animatorType;
   }
 
-  public trackasiaAnimator.AnimationsValueChangeListener getListener() {
+  public MapLibreAnimator.AnimationsValueChangeListener getListener() {
     return listener;
   }
 

@@ -1,4 +1,4 @@
-package org.trackasia.android.location.engine;
+package com.trackasia.android.location.engine;
 
 /**
  * Data model that contains parameters for location

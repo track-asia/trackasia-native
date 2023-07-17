@@ -1,6 +1,6 @@
-# Contributing to MapLibre Native for iOS
+# Contributing to Trackasia Native for iOS
 
-This document explains how to build MapLibre Native for iOS from source. It is intended for advanced developers who wish to contribute to the library.
+This document explains how to build Trackasia Native for iOS from source. It is intended for advanced developers who wish to contribute to the library.
 
 ## Requirements
 

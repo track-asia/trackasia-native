@@ -1,13 +1,13 @@
-package org.trackasia.android.testapp.adapter
+package com.trackasia.android.testapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.model.activity.Feature
-import org.trackasia.android.testapp.utils.FontCache
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.model.activity.Feature
+import com.trackasia.android.testapp.utils.FontCache
 
 /**
  * Adapter used for FeatureOverviewActivity.

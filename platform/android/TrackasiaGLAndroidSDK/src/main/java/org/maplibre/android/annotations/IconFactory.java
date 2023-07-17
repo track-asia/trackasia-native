@@ -1,4 +1,4 @@
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,10 +13,10 @@ import android.view.WindowManager;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.R;
-import org.trackasia.android.exceptions.TooManyIconsException;
-import org.trackasia.android.utils.BitmapUtils;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.R;
+import com.trackasia.android.exceptions.TooManyIconsException;
+import com.trackasia.android.utils.BitmapUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,7 +31,7 @@ import java.io.InputStream;
  *
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- * trackasia Annotation Plugin</a> instead
+ * Trackasia Annotation Plugin</a> instead
  */
 @Deprecated
 public final class IconFactory {

@@ -1,7 +1,7 @@
 load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_xcframework", "apple_xcframework")
 load("@build_bazel_rules_apple//apple:ios.bzl", "ios_application", "ios_framework")
 load("@build_bazel_rules_apple//apple:resources.bzl", "apple_resource_bundle")
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS", "WARNING_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS", "WARNING_FLAGS")
 load(
     "@rules_xcodeproj//xcodeproj:defs.bzl",
     "top_level_target",
@@ -120,7 +120,7 @@ info_plist(
 
 apple_xcframework(
     name = "Mapbox.dynamic",
-    bundle_id = "com.maplibre.mapbox",
+    bundle_id = "com.trackasia.mapbox",
     bundle_name = "Mapbox",
     data = glob([
         "platform/ios/resources/*.lproj/**",
@@ -142,8 +142,8 @@ apple_xcframework(
 )
 
 ios_framework(
-    name = "MapLibre.link",
-    bundle_id = "com.maplibre.link",
+    name = "Trackasia.link",
+    bundle_id = "com.trackasia.link",
     families = ["iphone"],
     infoplists = ["info_plist"],
     linkopts = [""],
@@ -196,7 +196,7 @@ objc_library(
 
 apple_resource_bundle(
     name = "resources",
-    bundle_id = "com.maplibre.mapbox",
+    bundle_id = "com.trackasia.mapbox",
     bundle_name = "Mapbox",
     infoplists = ["info_static_plist"],
     resources = glob([
@@ -278,7 +278,7 @@ objc_library(
         "platform/ios/src/UIColor+MLNAdditions.mm",
         "platform/ios/src/UIImage+MLNAdditions.mm",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + [
+    copts = CPP_FLAGS + TRACKASIA_FLAGS + [
         "-fcxx-modules",
         "-fmodules",
         "-Wno-c99-extensions",
@@ -338,7 +338,7 @@ objc_library(
     hdrs = [
         "platform/darwin/include/mbgl/util/image+MLNAdditions.hpp",
     ],
-    copts = WARNING_FLAGS + MAPLIBRE_FLAGS + [
+    copts = WARNING_FLAGS + TRACKASIA_FLAGS + [
         "-fmodules",
         "-Wno-gnu-zero-variadic-macro-arguments",
         "-Wno-variadic-macros",
@@ -453,7 +453,7 @@ _IOS_APPLICATION_RESOURCES = [
 
 ios_application(
     name = "App",
-    bundle_id = "com.maplibre.app",
+    bundle_id = "com.trackasia.app",
     families = [
         "iphone",
         "ipad",
@@ -470,13 +470,13 @@ ios_application(
 
 ios_application(
     name = "AppDynamicLib",
-    bundle_id = "com.maplibre.app",
+    bundle_id = "com.trackasia.app",
     families = [
         "iphone",
         "ipad",
     ],
     frameworks = [
-        "MapLibre.link",
+        "Trackasia.link",
     ],
     infoplists = ["platform/ios/app/Info.plist"],
     minimum_os_version = "12.0",
@@ -487,7 +487,7 @@ ios_application(
     ],
 )
 
-# Outputs a file with the size of MapLibre as a dynamic library in bytes
+# Outputs a file with the size of Trackasia as a dynamic library in bytes
 genrule(
     name = "size",
     srcs = [
@@ -498,14 +498,14 @@ genrule(
     ],
     cmd = """
         unzip $(location AppDynamicLib)
-        stat -f%z ./Payload/AppDynamicLib.app/Frameworks/MapLibre.link.framework/MapLibre.link > $@
+        stat -f%z ./Payload/AppDynamicLib.app/Frameworks/Trackasia.link.framework/Trackasia.link > $@
     """,
 )
 
 xcodeproj(
     name = "xcodeproj",
     minimum_xcode_version = "14",
-    project_name = "MapLibre",
+    project_name = "Trackasia",
     tags = ["manual"],
     top_level_targets = [
         top_level_target(

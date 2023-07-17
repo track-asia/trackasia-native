@@ -1,8 +1,8 @@
-package org.trackasia.android.exceptions;
+package com.trackasia.android.exceptions;
 
-import org.trackasia.android.annotations.Icon;
-import org.trackasia.android.annotations.Marker;
-import org.trackasia.android.maps.MapView;
+import com.trackasia.android.annotations.Icon;
+import com.trackasia.android.annotations.Marker;
+import com.trackasia.android.maps.MapView;
 
 /**
  * <p>

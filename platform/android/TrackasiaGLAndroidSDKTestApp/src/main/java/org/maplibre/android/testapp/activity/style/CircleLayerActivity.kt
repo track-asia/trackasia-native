@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,18 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.MapView.OnDidFinishLoadingStyleListener
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.CircleLayer
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonOptions
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapView.OnDidFinishLoadingStyleListener
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.CircleLayer
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonOptions
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 import java.net.URI
 import java.net.URISyntaxException
@@ -32,7 +32,7 @@ import java.net.URISyntaxException
  */
 class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var styleFab: FloatingActionButton
     private lateinit var routeFab: FloatingActionButton
     private var layer: CircleLayer? = null
@@ -45,7 +45,7 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: trackasiaMap? ->
+            OnMapReadyCallback { map: MapLibreMap? ->
                 if (map != null) {
                     trackasiaMap = map
                 }

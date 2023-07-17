@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
@@ -10,23 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.LongSparseArray;
 
-import org.trackasia.android.trackasia;
-import org.trackasia.android.R;
-import org.trackasia.android.annotations.Annotation;
-import org.trackasia.android.annotations.BaseMarkerOptions;
-import org.trackasia.android.annotations.Marker;
-import org.trackasia.android.annotations.Polygon;
-import org.trackasia.android.annotations.PolygonOptions;
-import org.trackasia.android.annotations.Polyline;
-import org.trackasia.android.annotations.PolylineOptions;
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.Trackasia;
+import com.trackasia.android.R;
+import com.trackasia.android.annotations.Annotation;
+import com.trackasia.android.annotations.BaseMarkerOptions;
+import com.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.Polygon;
+import com.trackasia.android.annotations.PolygonOptions;
+import com.trackasia.android.annotations.Polyline;
+import com.trackasia.android.annotations.PolylineOptions;
+import com.trackasia.android.log.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Responsible for managing and tracking state of Annotations linked to Map. All events related to
- * annotations that occur on {@link trackasiaMap} are forwarded to this class.
+ * annotations that occur on {@link MapLibreMap} are forwarded to this class.
  * <p>
  * Responsible for referencing {@link InfoWindowManager}.
  * </p>
@@ -48,13 +48,13 @@ class AnnotationManager {
   private final LongSparseArray<Annotation> annotationsArray;
   private final List<Marker> selectedMarkers = new ArrayList<>();
 
-  private trackasiaMap trackasiaMap;
+  private MapLibreMap trackasiaMap;
   @Nullable
-  private trackasiaMap.OnMarkerClickListener onMarkerClickListener;
+  private MapLibreMap.OnMarkerClickListener onMarkerClickListener;
   @Nullable
-  private trackasiaMap.OnPolygonClickListener onPolygonClickListener;
+  private MapLibreMap.OnPolygonClickListener onPolygonClickListener;
   @Nullable
-  private trackasiaMap.OnPolylineClickListener onPolylineClickListener;
+  private MapLibreMap.OnPolylineClickListener onPolylineClickListener;
 
   private Annotations annotations;
   private ShapeAnnotations shapeAnnotations;
@@ -78,7 +78,7 @@ class AnnotationManager {
   // TODO refactor MapboxMap out for Projection and Transform
   // Requires removing MapboxMap from Annotations by using Peer model from #6912
   @NonNull
-  AnnotationManager bind(trackasiaMap trackasiaMap) {
+  AnnotationManager bind(MapLibreMap trackasiaMap) {
     this.trackasiaMap = trackasiaMap;
     return this;
   }
@@ -151,16 +151,16 @@ class AnnotationManager {
   // Markers
   //
 
-  Marker addMarker(@NonNull BaseMarkerOptions markerOptions, @NonNull trackasiaMap trackasiaMap) {
+  Marker addMarker(@NonNull BaseMarkerOptions markerOptions, @NonNull MapLibreMap trackasiaMap) {
     return markers.addBy(markerOptions, trackasiaMap);
   }
 
   List<Marker> addMarkers(@NonNull List<? extends BaseMarkerOptions> markerOptionsList,
-                          @NonNull trackasiaMap trackasiaMap) {
+                          @NonNull MapLibreMap trackasiaMap) {
     return markers.addBy(markerOptionsList, trackasiaMap);
   }
 
-  void updateMarker(@NonNull Marker updatedMarker, @NonNull trackasiaMap trackasiaMap) {
+  void updateMarker(@NonNull Marker updatedMarker, @NonNull MapLibreMap trackasiaMap) {
     if (!isAddedToMap(updatedMarker)) {
       logNonAdded(updatedMarker);
       return;
@@ -185,11 +185,11 @@ class AnnotationManager {
   // Polygons
   //
 
-  Polygon addPolygon(@NonNull PolygonOptions polygonOptions, @NonNull trackasiaMap trackasiaMap) {
+  Polygon addPolygon(@NonNull PolygonOptions polygonOptions, @NonNull MapLibreMap trackasiaMap) {
     return polygons.addBy(polygonOptions, trackasiaMap);
   }
 
-  List<Polygon> addPolygons(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull trackasiaMap trackasiaMap) {
+  List<Polygon> addPolygons(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapLibreMap trackasiaMap) {
     return polygons.addBy(polygonOptionsList, trackasiaMap);
   }
 
@@ -209,11 +209,11 @@ class AnnotationManager {
   // Polylines
   //
 
-  Polyline addPolyline(@NonNull PolylineOptions polylineOptions, @NonNull trackasiaMap trackasiaMap) {
+  Polyline addPolyline(@NonNull PolylineOptions polylineOptions, @NonNull MapLibreMap trackasiaMap) {
     return polylines.addBy(polylineOptions, trackasiaMap);
   }
 
-  List<Polyline> addPolylines(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull trackasiaMap trackasiaMap) {
+  List<Polyline> addPolylines(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull MapLibreMap trackasiaMap) {
     return polylines.addBy(polylineOptionsList, trackasiaMap);
   }
 
@@ -230,15 +230,15 @@ class AnnotationManager {
   }
 
   // TODO Refactor from here still in progress
-  void setOnMarkerClickListener(@Nullable trackasiaMap.OnMarkerClickListener listener) {
+  void setOnMarkerClickListener(@Nullable MapLibreMap.OnMarkerClickListener listener) {
     onMarkerClickListener = listener;
   }
 
-  void setOnPolygonClickListener(@Nullable trackasiaMap.OnPolygonClickListener listener) {
+  void setOnPolygonClickListener(@Nullable MapLibreMap.OnPolygonClickListener listener) {
     onPolygonClickListener = listener;
   }
 
-  void setOnPolylineClickListener(@Nullable trackasiaMap.OnPolylineClickListener listener) {
+  void setOnPolylineClickListener(@Nullable MapLibreMap.OnPolylineClickListener listener) {
     onPolylineClickListener = listener;
   }
 
@@ -298,7 +298,7 @@ class AnnotationManager {
     return infoWindowManager;
   }
 
-  void adjustTopOffsetPixels(@NonNull trackasiaMap trackasiaMap) {
+  void adjustTopOffsetPixels(@NonNull MapLibreMap trackasiaMap) {
     int count = annotationsArray.size();
     for (int i = 0; i < count; i++) {
       Annotation annotation = annotationsArray.get(i);
@@ -346,7 +346,7 @@ class AnnotationManager {
   }
 
   private ShapeAnnotationHit getShapeAnnotationHitFromTap(PointF tapPoint) {
-    float touchTargetSide = trackasia.getApplicationContext().getResources().getDimension(R.dimen.trackasia_eight_dp);
+    float touchTargetSide = Trackasia.getApplicationContext().getResources().getDimension(R.dimen.trackasia_eight_dp);
     RectF tapRect = new RectF(
       tapPoint.x - touchTargetSide,
       tapPoint.y - touchTargetSide,
@@ -441,9 +441,9 @@ class AnnotationManager {
 
     private long closestMarkerId = NO_ANNOTATION_ID;
 
-    MarkerHitResolver(@NonNull trackasiaMap trackasiaMap) {
+    MarkerHitResolver(@NonNull MapLibreMap trackasiaMap) {
       this.projection = trackasiaMap.getProjection();
-      this.minimalTouchSize = (int) (32 * trackasia.getApplicationContext().getResources().getDisplayMetrics().density);
+      this.minimalTouchSize = (int) (32 * Trackasia.getApplicationContext().getResources().getDisplayMetrics().density);
     }
 
     public long execute(@NonNull MarkerHit markerHit) {

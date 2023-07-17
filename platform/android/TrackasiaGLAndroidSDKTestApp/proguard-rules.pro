@@ -11,4 +11,4 @@
 # GMS
 -dontnote com.google.android.gms.**
 
--keep class org.trackasia.android.testapp.model.customlayer.ExampleCustomLayer { *; }
+-keep class com.trackasia.android.testapp.model.customlayer.ExampleCustomLayer { *; }

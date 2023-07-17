@@ -1,4 +1,4 @@
-package org.trackasia.android.camera
+package com.trackasia.android.camera
 
 import android.content.res.TypedArray
 import android.os.Build
@@ -7,13 +7,13 @@ import android.os.Parcelable
 import androidx.annotation.FloatRange
 import androidx.annotation.Keep
 import androidx.annotation.Size
-import org.trackasia.android.R
-import org.trackasia.android.camera.CameraPosition.Builder
-import org.trackasia.android.camera.CameraUpdateFactory.CameraPositionUpdate
-import org.trackasia.android.camera.CameraUpdateFactory.ZoomUpdate
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.utils.MathUtils
+import com.trackasia.android.R
+import com.trackasia.android.camera.CameraPosition.Builder
+import com.trackasia.android.camera.CameraUpdateFactory.CameraPositionUpdate
+import com.trackasia.android.camera.CameraUpdateFactory.ZoomUpdate
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.utils.MathUtils
 import java.util.Arrays
 
 /**
@@ -291,14 +291,14 @@ class CameraPosition
          * Set the tilt of the camera in degrees
          *
          *
-         * value is clamped to [trackasiaConstants.MINIMUM_TILT] and [trackasiaConstants.MAXIMUM_TILT].
+         * value is clamped to [MapLibreConstants.MINIMUM_TILT] and [MapLibreConstants.MAXIMUM_TILT].
          *
          *
          * @param tilt Tilt value of the camera
          * @return this
          */
-        fun tilt(@FloatRange(from = trackasiaConstants.MINIMUM_TILT, to = trackasiaConstants.MAXIMUM_TILT) tilt: Double): Builder {
-            this.tilt = MathUtils.clamp(tilt, trackasiaConstants.MINIMUM_TILT, trackasiaConstants.MAXIMUM_TILT)
+        fun tilt(@FloatRange(from = MapLibreConstants.MINIMUM_TILT, to = MapLibreConstants.MAXIMUM_TILT) tilt: Double): Builder {
+            this.tilt = MathUtils.clamp(tilt, MapLibreConstants.MINIMUM_TILT, MapLibreConstants.MAXIMUM_TILT)
             return this
         }
 
@@ -306,13 +306,13 @@ class CameraPosition
          * Set the zoom of the camera
          *
          *
-         * Zoom ranges from [trackasiaConstants.MINIMUM_ZOOM] to [trackasiaConstants.MAXIMUM_ZOOM]
+         * Zoom ranges from [MapLibreConstants.MINIMUM_ZOOM] to [MapLibreConstants.MAXIMUM_ZOOM]
          *
          *
          * @param zoom Zoom value of the camera
          * @return this
          */
-        fun zoom(@FloatRange(from = trackasiaConstants.MINIMUM_ZOOM.toDouble(), to = trackasiaConstants.MAXIMUM_ZOOM.toDouble()) zoom: Double): Builder {
+        fun zoom(@FloatRange(from = MapLibreConstants.MINIMUM_ZOOM.toDouble(), to = MapLibreConstants.MAXIMUM_ZOOM.toDouble()) zoom: Double): Builder {
             this.zoom = zoom
             return this
         }

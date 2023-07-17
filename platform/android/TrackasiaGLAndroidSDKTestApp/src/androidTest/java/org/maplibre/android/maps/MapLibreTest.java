@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -8,9 +8,9 @@ import static org.junit.Assert.assertTrue;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
-import org.trackasia.android.AppCenter;
-import org.trackasia.android.trackasia;
-import org.trackasia.android.exceptions.trackasiaConfigurationException;
+import com.trackasia.android.AppCenter;
+import com.trackasia.android.Trackasia;
+import com.trackasia.android.exceptions.MapLibreConfigurationException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
-public class trackasiaTest extends AppCenter {
+public class MapLibreTest extends AppCenter {
 
   private static final String API_KEY = "pk.0000000001";
   private static final String API_KEY_2 = "pk.0000000002";
@@ -27,42 +27,42 @@ public class trackasiaTest extends AppCenter {
 
   @Before
   public void setup() {
-    realToken = trackasia.getApiKey();
+    realToken = Trackasia.getApiKey();
   }
 
   @Test
   @UiThreadTest
   public void testConnected() {
-    assertTrue(trackasia.isConnected());
+    assertTrue(Trackasia.isConnected());
 
     // test manual connectivity
-    trackasia.setConnected(true);
-    assertTrue(trackasia.isConnected());
-    trackasia.setConnected(false);
-    assertFalse(trackasia.isConnected());
+    Trackasia.setConnected(true);
+    assertTrue(Trackasia.isConnected());
+    Trackasia.setConnected(false);
+    assertFalse(Trackasia.isConnected());
 
     // reset to Android connectivity
-    trackasia.setConnected(null);
-    assertTrue(trackasia.isConnected());
+    Trackasia.setConnected(null);
+    assertTrue(Trackasia.isConnected());
   }
 
   @Test
   @UiThreadTest
   public void setApiKey() {
-    trackasia.setApiKey(API_KEY);
-    assertSame(API_KEY, trackasia.getApiKey());
-    trackasia.setApiKey(API_KEY_2);
-    assertSame(API_KEY_2, trackasia.getApiKey());
+    Trackasia.setApiKey(API_KEY);
+    assertSame(API_KEY, Trackasia.getApiKey());
+    Trackasia.setApiKey(API_KEY_2);
+    assertSame(API_KEY_2, Trackasia.getApiKey());
   }
 
   @Test
   @UiThreadTest
   public void setNullApiKey() {
-    assertThrows(trackasiaConfigurationException.class, () -> trackasia.setApiKey(null));
+    assertThrows(MapLibreConfigurationException.class, () -> Trackasia.setApiKey(null));
   }
 
   @After
   public void tearDown() {
-    trackasia.setApiKey(realToken);
+    Trackasia.setApiKey(realToken);
   }
 }

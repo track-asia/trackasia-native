@@ -41,7 +41,7 @@
     import androidx.appcompat.app.AppCompatActivity
     import android.os.Bundle
     import android.view.LayoutInflater
-    import com.trackasia.android.Maplibre
+    import com.trackasia.android.Trackasia
     import com.trackasia.android.camera.CameraPosition
     import com.trackasia.android.geometry.LatLng
     import com.trackasia.android.maps.MapView
@@ -55,8 +55,8 @@
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
-            // Init MapLibre
-            MapLibre.getInstance(this)
+            // Init Trackasia
+            Trackasia.getInstance(this)
 
             // Init layout view
             val inflater = LayoutInflater.from(this)

@@ -1,25 +1,25 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.*
-import org.trackasia.android.style.layers.HillshadeLayer
-import org.trackasia.android.style.sources.RasterDemSource
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.*
+import com.trackasia.android.style.layers.HillshadeLayer
+import com.trackasia.android.style.sources.RasterDemSource
+import com.trackasia.android.testapp.R
 
 /**
  * Test activity showcasing using HillshadeLayer.
  */
 class HillshadeLayerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fill_extrusion_layer)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: trackasiaMap? ->
+            OnMapReadyCallback { map: MapLibreMap? ->
                 if (map != null) {
                     trackasiaMap = map
                 }

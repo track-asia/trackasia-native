@@ -1,7 +1,7 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import android.content.Context
-import org.trackasia.android.trackasia
+import com.trackasia.android.Trackasia
 import java.lang.Exception
 
 object ApiKeyUtils {
@@ -10,7 +10,7 @@ object ApiKeyUtils {
      *
      * Returns the ApiKey set in the app resources.
      *
-     * It will first search for a api key in the trackasia object. If not found it
+     * It will first search for a api key in the Trackasia object. If not found it
      * will then attempt to load the api key from the
      * `res/values/dev.xml` development file.
      *
@@ -20,7 +20,7 @@ object ApiKeyUtils {
     fun getApiKey(context: Context): String? {
         return try {
             // Read out AndroidManifest
-            val apiKey = trackasia.getApiKey()
+            val apiKey = Trackasia.getApiKey()
             require(!(apiKey == null || apiKey.isEmpty()))
             apiKey
         } catch (exception: Exception) {

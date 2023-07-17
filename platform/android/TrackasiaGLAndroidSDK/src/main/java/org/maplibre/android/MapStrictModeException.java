@@ -1,4 +1,4 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
 public class MapStrictModeException extends RuntimeException {
   MapStrictModeException(String message) {

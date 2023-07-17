@@ -1,15 +1,15 @@
-package org.trackasia.android.style.layers;
+package com.trackasia.android.style.layers;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.gson.JsonArray;
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.exceptions.ConversionException;
-import org.trackasia.android.log.Logger;
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.utils.ColorUtils;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.exceptions.ConversionException;
+import com.trackasia.android.log.Logger;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.utils.ColorUtils;
 
 import java.util.Arrays;
 

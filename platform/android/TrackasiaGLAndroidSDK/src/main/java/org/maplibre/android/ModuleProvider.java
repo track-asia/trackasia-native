@@ -1,8 +1,8 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.http.HttpRequest;
+import com.trackasia.android.http.HttpRequest;
 
 /**
  * Injects concrete instances of configurable abstractions

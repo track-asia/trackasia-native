@@ -1,4 +1,4 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS")
 
 cc_library(
     name = "render-test-lib",
@@ -27,7 +27,7 @@ cc_test(
         "--manifestPath",
         "metrics/linux-gcc8-release-style.json",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + TRACKASIA_FLAGS,
     data = [
         "//metrics:render-test-files",
     ],

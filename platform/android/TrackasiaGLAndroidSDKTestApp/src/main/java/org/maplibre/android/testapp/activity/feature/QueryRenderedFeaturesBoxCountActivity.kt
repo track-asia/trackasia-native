@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.feature
+package com.trackasia.android.testapp.activity.feature
 
 import android.graphics.PointF
 import android.graphics.RectF
@@ -8,11 +8,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Feature
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.NavUtils
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.NavUtils
 import timber.log.Timber
 
 /**
@@ -20,7 +20,7 @@ import timber.log.Timber
  */
 class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    lateinit var trackasiaMap: trackasiaMap
+    lateinit var trackasiaMap: MapLibreMap
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: trackasiaMap ->
+        mapView.getMapAsync { trackasiaMap: MapLibreMap ->
             this@QueryRenderedFeaturesBoxCountActivity.trackasiaMap = trackasiaMap
             trackasiaMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Streets")))
             selectionBox.setOnClickListener { view: View? ->

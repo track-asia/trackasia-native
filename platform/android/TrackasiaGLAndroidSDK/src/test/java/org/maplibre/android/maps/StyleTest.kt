@@ -1,16 +1,16 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ShapeDrawable
-import org.trackasia.android.trackasiaInjector
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.style.layers.CannotAddLayerException
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.layers.TransitionOptions
-import org.trackasia.android.style.sources.CannotAddSourceException
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.utils.ConfigUtils
+import com.trackasia.android.MapLibreInjector
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.style.layers.CannotAddLayerException
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.layers.TransitionOptions
+import com.trackasia.android.style.sources.CannotAddSourceException
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.utils.ConfigUtils
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
@@ -26,7 +26,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class StyleTest {
 
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
 
     private lateinit var nativeMapView: NativeMap
 
@@ -39,9 +39,9 @@ class StyleTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        trackasiaInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
+        MapLibreInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
         nativeMapView = mockk(relaxed = true)
-        trackasiaMap = trackasiaMap(
+        trackasiaMap = MapLibreMap(
             nativeMapView,
             null,
             null,
@@ -85,7 +85,7 @@ class StyleTest {
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                trackasiaConstants.LAYER_ID_ANNOTATIONS
+                MapLibreConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }
@@ -162,7 +162,7 @@ class StyleTest {
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                trackasiaConstants.LAYER_ID_ANNOTATIONS
+                MapLibreConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }

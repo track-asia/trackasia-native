@@ -1,4 +1,4 @@
-package org.trackasia.android.maps.renderer;
+package com.trackasia.android.maps.renderer;
 
 import android.content.Context;
 
@@ -6,9 +6,9 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.LibraryLoader;
-import org.trackasia.android.log.Logger;
-import org.trackasia.android.maps.trackasiaMap;
+import com.trackasia.android.LibraryLoader;
+import com.trackasia.android.log.Logger;
+import com.trackasia.android.maps.MapLibreMap;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -32,7 +32,7 @@ public abstract class MapRenderer implements MapRendererScheduler {
   // Holds the pointer to the native peer after initialisation
   private long nativePtr = 0;
   private double expectedRenderTime = 0;
-  private trackasiaMap.OnFpsChangedListener onFpsChangedListener;
+  private MapLibreMap.OnFpsChangedListener onFpsChangedListener;
 
   public MapRenderer(@NonNull Context context, String localIdeographFontFamily) {
     float pixelRatio = context.getResources().getDisplayMetrics().density;
@@ -61,7 +61,7 @@ public abstract class MapRenderer implements MapRendererScheduler {
     // Implement if needed
   }
 
-  public void setOnFpsChangedListener(trackasiaMap.OnFpsChangedListener listener) {
+  public void setOnFpsChangedListener(MapLibreMap.OnFpsChangedListener listener) {
     onFpsChangedListener = listener;
   }
 

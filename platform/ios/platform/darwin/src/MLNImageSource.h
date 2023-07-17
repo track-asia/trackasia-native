@@ -24,7 +24,7 @@ MLN_EXPORT
  appearance of content supplied by the image source.
  
  Each
- <a href="https://track-asia.com/maplibre-style-spec/#sources-image"><code>image</code></a>
+ <a href="https://track-asia.com/trackasia-style-spec/#sources-image"><code>image</code></a>
  source defined by the style JSON file is represented at runtime by an
  `MLNImageSource` object that you can use to initialize new style layers. You
  can also add and remove sources dynamically using methods such as
@@ -38,7 +38,7 @@ MLN_EXPORT
    bottomLeft: CLLocationCoordinate2D(latitude: 37.936, longitude: -80.425),
    bottomRight: CLLocationCoordinate2D(latitude: 37.936, longitude: -71.516),
    topRight: CLLocationCoordinate2D(latitude: 46.437, longitude: -71.516))
- let source = MLNImageSource(identifier: "radar", coordinateQuad: coordinates, url: URL(string: "https://track-asia.com/maplibre-gl-js-docs/assets/radar.gif")!)
+ let source = MLNImageSource(identifier: "radar", coordinateQuad: coordinates, url: URL(string: "https://track-asia.com/trackasia-gl-js-docs/assets/radar.gif")!)
  mapView.style?.addSource(source)
  ```
  

@@ -1,12 +1,12 @@
-package org.trackasia.android.location
+package com.trackasia.android.location
 
 import android.content.Context
 import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.view.animation.LinearInterpolator
-import org.trackasia.android.R
-import org.trackasia.android.maps.Style
+import com.trackasia.android.R
+import com.trackasia.android.maps.Style
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

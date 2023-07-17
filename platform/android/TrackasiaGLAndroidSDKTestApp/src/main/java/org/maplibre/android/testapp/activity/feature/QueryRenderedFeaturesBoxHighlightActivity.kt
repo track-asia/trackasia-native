@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.feature
+package com.trackasia.android.testapp.activity.feature
 
 import android.graphics.Color
 import android.graphics.RectF
@@ -7,15 +7,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.FeatureCollection
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.FillLayer
-import org.trackasia.android.style.layers.Layer
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.FillLayer
+import com.trackasia.android.style.layers.Layer
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 
 /**
@@ -23,7 +23,7 @@ import timber.log.Timber
  */
 class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    lateinit var trackasiaMap: trackasiaMap
+    lateinit var trackasiaMap: MapLibreMap
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: trackasiaMap ->
+        mapView.getMapAsync { trackasiaMap: MapLibreMap ->
             this@QueryRenderedFeaturesBoxHighlightActivity.trackasiaMap = trackasiaMap
 
             // Add layer / source

@@ -1,6 +1,6 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.log.Logger;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

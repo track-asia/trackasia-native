@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,33 +22,33 @@ import com.mapbox.android.gestures.ShoveGestureDetector;
 import com.mapbox.android.gestures.StandardScaleGestureDetector;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.annotations.Annotation;
-import org.trackasia.android.annotations.BaseMarkerOptions;
-import org.trackasia.android.annotations.Marker;
-import org.trackasia.android.annotations.MarkerOptions;
-import org.trackasia.android.annotations.Polygon;
-import org.trackasia.android.annotations.PolygonOptions;
-import org.trackasia.android.annotations.Polyline;
-import org.trackasia.android.annotations.PolylineOptions;
-import org.trackasia.android.camera.CameraPosition;
-import org.trackasia.android.camera.CameraUpdate;
-import org.trackasia.android.camera.CameraUpdateFactory;
-import org.trackasia.android.constants.trackasiaConstants;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.geometry.LatLngBounds;
-import org.trackasia.android.location.LocationComponent;
-import org.trackasia.android.location.LocationComponentActivationOptions;
-import org.trackasia.android.log.Logger;
-import org.trackasia.android.offline.OfflineRegionDefinition;
-import org.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.annotations.Annotation;
+import com.trackasia.android.annotations.BaseMarkerOptions;
+import com.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.MarkerOptions;
+import com.trackasia.android.annotations.Polygon;
+import com.trackasia.android.annotations.PolygonOptions;
+import com.trackasia.android.annotations.Polyline;
+import com.trackasia.android.annotations.PolylineOptions;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.camera.CameraUpdate;
+import com.trackasia.android.camera.CameraUpdateFactory;
+import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLngBounds;
+import com.trackasia.android.location.LocationComponent;
+import com.trackasia.android.location.LocationComponentActivationOptions;
+import com.trackasia.android.log.Logger;
+import com.trackasia.android.offline.OfflineRegionDefinition;
+import com.trackasia.android.style.expressions.Expression;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The general class to interact with in the Android trackasia SDK. It exposes the entry point for all
- * methods related to the MapView. You cannot instantiate {@link trackasiaMap} object directly, rather,
+ * The general class to interact with in the Android Trackasia SDK. It exposes the entry point for all
+ * methods related to the MapView. You cannot instantiate {@link MapLibreMap} object directly, rather,
  * you must obtain one from the getMapAsync() method on a MapFragment or MapView that you have
  * added to your application.
  * <p>
@@ -56,7 +56,7 @@ import java.util.List;
  * </p>
  */
 @UiThread
-public final class trackasiaMap {
+public final class MapLibreMap {
 
   private static final String TAG = "Mbgl-MapboxMap";
 
@@ -76,7 +76,7 @@ public final class trackasiaMap {
   private AnnotationManager annotationManager;
 
   @Nullable
-  private trackasiaMap.OnFpsChangedListener onFpsChangedListener;
+  private MapLibreMap.OnFpsChangedListener onFpsChangedListener;
 
   @Nullable
   private Style style;
@@ -84,7 +84,7 @@ public final class trackasiaMap {
   private boolean debugActive;
   private boolean started;
 
-  trackasiaMap(NativeMap map, Transform transform, UiSettings ui, Projection projection,
+  MapLibreMap(NativeMap map, Transform transform, UiSettings ui, Projection projection,
               OnGesturesManagerInteractionListener listener, CameraChangeDispatcher cameraChangeDispatcher,
               List<OnDeveloperAnimationListener> developerAnimationStartedListeners) {
     this.nativeMapView = map;
@@ -103,7 +103,7 @@ public final class trackasiaMap {
     nativeMapView.triggerRepaint();
   }
 
-  void initialise(@NonNull Context context, @NonNull trackasiaMapOptions options) {
+  void initialise(@NonNull Context context, @NonNull MapLibreMapOptions options) {
     transform.initialise(this, options);
     uiSettings.initialise(context, options);
 
@@ -163,8 +163,8 @@ public final class trackasiaMap {
    * @param outState the bundle to save the state to.
    */
   void onSaveInstanceState(@NonNull Bundle outState) {
-    outState.putParcelable(trackasiaConstants.STATE_CAMERA_POSITION, transform.getCameraPosition());
-    outState.putBoolean(trackasiaConstants.STATE_DEBUG_ACTIVE, isDebugActive());
+    outState.putParcelable(MapLibreConstants.STATE_CAMERA_POSITION, transform.getCameraPosition());
+    outState.putBoolean(MapLibreConstants.STATE_DEBUG_ACTIVE, isDebugActive());
     uiSettings.onSaveInstanceState(outState);
   }
 
@@ -174,7 +174,7 @@ public final class trackasiaMap {
    * @param savedInstanceState the bundle containing the saved state
    */
   void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-    final CameraPosition cameraPosition = savedInstanceState.getParcelable(trackasiaConstants.STATE_CAMERA_POSITION);
+    final CameraPosition cameraPosition = savedInstanceState.getParcelable(MapLibreConstants.STATE_CAMERA_POSITION);
 
     uiSettings.onRestoreInstanceState(savedInstanceState);
 
@@ -184,7 +184,7 @@ public final class trackasiaMap {
       );
     }
 
-    nativeMapView.setDebug(savedInstanceState.getBoolean(trackasiaConstants.STATE_DEBUG_ACTIVE));
+    nativeMapView.setDebug(savedInstanceState.getBoolean(MapLibreConstants.STATE_DEBUG_ACTIVE));
   }
 
   /**
@@ -263,7 +263,7 @@ public final class trackasiaMap {
    *
    * @param options the options object
    */
-  private void setPrefetchesTiles(@NonNull trackasiaMapOptions options) {
+  private void setPrefetchesTiles(@NonNull MapLibreMapOptions options) {
     if (!options.getPrefetchesTiles()) {
       setPrefetchZoomDelta(0);
     } else {
@@ -287,7 +287,7 @@ public final class trackasiaMap {
    * Check whether tile pre-fetching is enabled or not.
    *
    * @return true if enabled
-   * @see trackasiaMap#setPrefetchesTiles(boolean)
+   * @see MapLibreMap#setPrefetchesTiles(boolean)
    * @deprecated Use {@link #getPrefetchZoomDelta()} instead.
    */
   @Deprecated
@@ -313,7 +313,7 @@ public final class trackasiaMap {
    * Check current pre-fetching zoom delta.
    *
    * @return current zoom delta.
-   * @see trackasiaMap#setPrefetchZoomDelta(int)
+   * @see MapLibreMap#setPrefetchZoomDelta(int)
    */
   @IntRange(from = 0)
   public int getPrefetchZoomDelta() {
@@ -332,7 +332,7 @@ public final class trackasiaMap {
    * @param minZoom The new minimum zoom level.
    */
   public void setMinZoomPreference(
-    @FloatRange(from = trackasiaConstants.MINIMUM_ZOOM, to = trackasiaConstants.MAXIMUM_ZOOM) double minZoom) {
+    @FloatRange(from = MapLibreConstants.MINIMUM_ZOOM, to = MapLibreConstants.MAXIMUM_ZOOM) double minZoom) {
     transform.setMinZoom(minZoom);
   }
 
@@ -361,8 +361,8 @@ public final class trackasiaMap {
    *
    * @param maxZoom The new maximum zoom level.
    */
-  public void setMaxZoomPreference(@FloatRange(from = trackasiaConstants.MINIMUM_ZOOM,
-    to = trackasiaConstants.MAXIMUM_ZOOM) double maxZoom) {
+  public void setMaxZoomPreference(@FloatRange(from = MapLibreConstants.MINIMUM_ZOOM,
+    to = MapLibreConstants.MAXIMUM_ZOOM) double maxZoom) {
     transform.setMaxZoom(maxZoom);
   }
 
@@ -392,7 +392,7 @@ public final class trackasiaMap {
    * @param minPitch The new minimum Pitch.
    */
   public void setMinPitchPreference(
-    @FloatRange(from = trackasiaConstants.MINIMUM_PITCH, to = trackasiaConstants.MAXIMUM_PITCH) double minPitch) {
+    @FloatRange(from = MapLibreConstants.MINIMUM_PITCH, to = MapLibreConstants.MAXIMUM_PITCH) double minPitch) {
     transform.setMinPitch(minPitch);
   }
 
@@ -421,8 +421,8 @@ public final class trackasiaMap {
    *
    * @param maxPitch The new maximum Pitch.
    */
-  public void setMaxPitchPreference(@FloatRange(from = trackasiaConstants.MINIMUM_PITCH,
-    to = trackasiaConstants.MAXIMUM_PITCH) double maxPitch) {
+  public void setMaxPitchPreference(@FloatRange(from = MapLibreConstants.MINIMUM_PITCH,
+    to = MapLibreConstants.MAXIMUM_PITCH) double maxPitch) {
     transform.setMaxPitch(maxPitch);
   }
 
@@ -523,9 +523,9 @@ public final class trackasiaMap {
    * @param callback the callback to be invoked when an animation finishes or is canceled
    */
   public final void moveCamera(@NonNull final CameraUpdate update,
-                               @Nullable final trackasiaMap.CancelableCallback callback) {
+                               @Nullable final MapLibreMap.CancelableCallback callback) {
     notifyDeveloperAnimationListeners();
-    transform.moveCamera(trackasiaMap.this, update, callback);
+    transform.moveCamera(MapLibreMap.this, update, callback);
   }
 
   /**
@@ -537,7 +537,7 @@ public final class trackasiaMap {
    * @see CameraUpdateFactory for a set of updates.
    */
   public final void easeCamera(@NonNull CameraUpdate update) {
-    easeCamera(update, trackasiaConstants.ANIMATION_DURATION);
+    easeCamera(update, MapLibreConstants.ANIMATION_DURATION);
   }
 
   /**
@@ -553,8 +553,8 @@ public final class trackasiaMap {
    *                 Do not update or ease the camera from within onCancel().
    * @see CameraUpdateFactory for a set of updates.
    */
-  public final void easeCamera(@NonNull CameraUpdate update, @Nullable final trackasiaMap.CancelableCallback callback) {
-    easeCamera(update, trackasiaConstants.ANIMATION_DURATION, callback);
+  public final void easeCamera(@NonNull CameraUpdate update, @Nullable final MapLibreMap.CancelableCallback callback) {
+    easeCamera(update, MapLibreConstants.ANIMATION_DURATION, callback);
   }
 
   /**
@@ -591,7 +591,7 @@ public final class trackasiaMap {
    * @see CameraUpdateFactory for a set of updates.
    */
   public final void easeCamera(@NonNull CameraUpdate update, int durationMs,
-                               @Nullable final trackasiaMap.CancelableCallback callback) {
+                               @Nullable final MapLibreMap.CancelableCallback callback) {
     easeCamera(update, durationMs, true, callback);
   }
 
@@ -632,12 +632,12 @@ public final class trackasiaMap {
   public final void easeCamera(@NonNull final CameraUpdate update,
                                final int durationMs,
                                final boolean easingInterpolator,
-                               @Nullable final trackasiaMap.CancelableCallback callback) {
+                               @Nullable final MapLibreMap.CancelableCallback callback) {
     if (durationMs <= 0) {
       throw new IllegalArgumentException("Null duration passed into easeCamera");
     }
     notifyDeveloperAnimationListeners();
-    transform.easeCamera(trackasiaMap.this, update, durationMs, easingInterpolator, callback);
+    transform.easeCamera(MapLibreMap.this, update, durationMs, easingInterpolator, callback);
   }
 
   /**
@@ -650,7 +650,7 @@ public final class trackasiaMap {
    * @see CameraUpdateFactory for a set of updates.
    */
   public final void animateCamera(@NonNull CameraUpdate update) {
-    animateCamera(update, trackasiaConstants.ANIMATION_DURATION, null);
+    animateCamera(update, MapLibreConstants.ANIMATION_DURATION, null);
   }
 
   /**
@@ -665,8 +665,8 @@ public final class trackasiaMap {
    *                 called. Do not update or animate the camera from within onCancel().
    * @see CameraUpdateFactory for a set of updates.
    */
-  public final void animateCamera(@NonNull CameraUpdate update, @Nullable trackasiaMap.CancelableCallback callback) {
-    animateCamera(update, trackasiaConstants.ANIMATION_DURATION, callback);
+  public final void animateCamera(@NonNull CameraUpdate update, @Nullable MapLibreMap.CancelableCallback callback) {
+    animateCamera(update, MapLibreConstants.ANIMATION_DURATION, callback);
   }
 
   /**
@@ -703,12 +703,12 @@ public final class trackasiaMap {
    * @see CameraUpdateFactory for a set of updates.
    */
   public final void animateCamera(@NonNull final CameraUpdate update, final int durationMs,
-                                  @Nullable final trackasiaMap.CancelableCallback callback) {
+                                  @Nullable final MapLibreMap.CancelableCallback callback) {
     if (durationMs <= 0) {
       throw new IllegalArgumentException("Null duration passed into animateCamera");
     }
     notifyDeveloperAnimationListeners();
-    transform.animateCamera(trackasiaMap.this, update, durationMs, callback);
+    transform.animateCamera(MapLibreMap.this, update, durationMs, callback);
   }
 
   /**
@@ -859,7 +859,7 @@ public final class trackasiaMap {
   // API endpoint config
   //
 
-  private void setApiBaseUrl(@NonNull trackasiaMapOptions options) {
+  private void setApiBaseUrl(@NonNull MapLibreMapOptions options) {
     String apiBaseUrl = options.getApiBaseUrl();
     if (!TextUtils.isEmpty(apiBaseUrl)) {
       nativeMapView.setApiBaseUrl(apiBaseUrl);
@@ -989,7 +989,7 @@ public final class trackasiaMap {
    * @return The {@code Marker} that was added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1008,7 +1008,7 @@ public final class trackasiaMap {
    * @return The {@code Marker} that was added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1027,7 +1027,7 @@ public final class trackasiaMap {
    * @return A list of the {@code Marker}s that were added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1044,7 +1044,7 @@ public final class trackasiaMap {
    * @param updatedMarker An updated marker object
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void updateMarker(@NonNull Marker updatedMarker) {
@@ -1058,7 +1058,7 @@ public final class trackasiaMap {
    * @return The {@code Polyine} that was added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1073,7 +1073,7 @@ public final class trackasiaMap {
    * @return A list of the {@code Polyline}s that were added to the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1087,7 +1087,7 @@ public final class trackasiaMap {
    * @param polyline An updated polyline object.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void updatePolyline(@NonNull Polyline polyline) {
@@ -1101,7 +1101,7 @@ public final class trackasiaMap {
    * @return The {@code Polygon} that was added to the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1116,7 +1116,7 @@ public final class trackasiaMap {
    * @return A list of the {@code Polygon}s that were added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1130,7 +1130,7 @@ public final class trackasiaMap {
    * @param polygon An updated polygon object
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void updatePolygon(@NonNull Polygon polygon) {
@@ -1146,7 +1146,7 @@ public final class trackasiaMap {
    * @param marker Marker to remove
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeMarker(@NonNull Marker marker) {
@@ -1162,7 +1162,7 @@ public final class trackasiaMap {
    * @param polyline Polyline to remove
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removePolyline(@NonNull Polyline polyline) {
@@ -1178,7 +1178,7 @@ public final class trackasiaMap {
    * @param polygon Polygon to remove
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removePolygon(@NonNull Polygon polygon) {
@@ -1191,7 +1191,7 @@ public final class trackasiaMap {
    * @param annotation The annotation object to remove.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeAnnotation(@NonNull Annotation annotation) {
@@ -1204,7 +1204,7 @@ public final class trackasiaMap {
    * @param id The identifier associated to the annotation to be removed
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeAnnotation(long id) {
@@ -1217,7 +1217,7 @@ public final class trackasiaMap {
    * @param annotationList A list of annotation objects to remove.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeAnnotations(@NonNull List<? extends Annotation> annotationList) {
@@ -1229,7 +1229,7 @@ public final class trackasiaMap {
    *
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeAnnotations() {
@@ -1241,7 +1241,7 @@ public final class trackasiaMap {
    *
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void clear() {
@@ -1255,7 +1255,7 @@ public final class trackasiaMap {
    * @return An annotation with a matched id, null is returned if no match was found
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @Nullable
@@ -1270,7 +1270,7 @@ public final class trackasiaMap {
    * list will not update the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1285,7 +1285,7 @@ public final class trackasiaMap {
    * list will not update the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1300,7 +1300,7 @@ public final class trackasiaMap {
    * list will not update the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1315,7 +1315,7 @@ public final class trackasiaMap {
    * list will not update the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1330,7 +1330,7 @@ public final class trackasiaMap {
    *                 To unset the callback, use null.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setOnMarkerClickListener(@Nullable OnMarkerClickListener listener) {
@@ -1344,7 +1344,7 @@ public final class trackasiaMap {
    *                 To unset the callback, use null.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setOnPolygonClickListener(@Nullable OnPolygonClickListener listener) {
@@ -1358,7 +1358,7 @@ public final class trackasiaMap {
    *                 To unset the callback, use null.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setOnPolylineClickListener(@Nullable OnPolylineClickListener listener) {
@@ -1376,7 +1376,7 @@ public final class trackasiaMap {
    * @param marker The marker to select.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void selectMarker(@NonNull Marker marker) {
@@ -1392,7 +1392,7 @@ public final class trackasiaMap {
    *
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void deselectMarkers() {
@@ -1405,7 +1405,7 @@ public final class trackasiaMap {
    * @param marker the marker to deselect
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void deselectMarker(@NonNull Marker marker) {
@@ -1418,7 +1418,7 @@ public final class trackasiaMap {
    * @return The currently selected marker.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1441,7 +1441,7 @@ public final class trackasiaMap {
    *                          To unset the callback, use null.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setInfoWindowAdapter(@Nullable InfoWindowAdapter infoWindowAdapter) {
@@ -1454,7 +1454,7 @@ public final class trackasiaMap {
    * @return The callback to be invoked when an info window will be shown.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @Nullable
@@ -1468,7 +1468,7 @@ public final class trackasiaMap {
    * @param allow If true, map allows concurrent multiple infowindows to be shown.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setAllowConcurrentMultipleOpenInfoWindows(boolean allow) {
@@ -1481,7 +1481,7 @@ public final class trackasiaMap {
    * @return If true, map allows concurrent multiple infowindows to be shown.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public boolean isAllowConcurrentMultipleOpenInfoWindows() {
@@ -1543,10 +1543,10 @@ public final class trackasiaMap {
    */
   @Nullable
   public CameraPosition getCameraForLatLngBounds(@NonNull LatLngBounds latLngBounds,
-                                                 @FloatRange(from = trackasiaConstants.MINIMUM_DIRECTION,
-                                                   to = trackasiaConstants.MAXIMUM_DIRECTION) double bearing,
-                                                 @FloatRange(from = trackasiaConstants.MINIMUM_TILT,
-                                                   to = trackasiaConstants.MAXIMUM_TILT) double tilt) {
+                                                 @FloatRange(from = MapLibreConstants.MINIMUM_DIRECTION,
+                                                   to = MapLibreConstants.MAXIMUM_DIRECTION) double bearing,
+                                                 @FloatRange(from = MapLibreConstants.MINIMUM_TILT,
+                                                   to = MapLibreConstants.MAXIMUM_TILT) double tilt) {
     return getCameraForLatLngBounds(latLngBounds, new int[] {0, 0, 0, 0}, bearing, tilt);
   }
 
@@ -1563,10 +1563,10 @@ public final class trackasiaMap {
   @Nullable
   public CameraPosition getCameraForLatLngBounds(@NonNull LatLngBounds latLngBounds,
                                                  @NonNull @Size(value = 4) int[] padding,
-                                                 @FloatRange(from = trackasiaConstants.MINIMUM_DIRECTION,
-                                                   to = trackasiaConstants.MAXIMUM_DIRECTION) double bearing,
-                                                 @FloatRange(from = trackasiaConstants.MINIMUM_TILT,
-                                                   to = trackasiaConstants.MAXIMUM_TILT) double tilt) {
+                                                 @FloatRange(from = MapLibreConstants.MINIMUM_DIRECTION,
+                                                   to = MapLibreConstants.MAXIMUM_DIRECTION) double bearing,
+                                                 @FloatRange(from = MapLibreConstants.MINIMUM_TILT,
+                                                   to = MapLibreConstants.MAXIMUM_TILT) double tilt) {
     return nativeMapView.getCameraForLatLngBounds(latLngBounds, padding, bearing, tilt);
   }
 
@@ -1606,10 +1606,10 @@ public final class trackasiaMap {
    */
   @Nullable
   public CameraPosition getCameraForGeometry(@NonNull Geometry geometry,
-                                             @FloatRange(from = trackasiaConstants.MINIMUM_DIRECTION,
-                                               to = trackasiaConstants.MAXIMUM_DIRECTION) double bearing,
-                                             @FloatRange(from = trackasiaConstants.MINIMUM_TILT,
-                                               to = trackasiaConstants.MAXIMUM_TILT) double tilt) {
+                                             @FloatRange(from = MapLibreConstants.MINIMUM_DIRECTION,
+                                               to = MapLibreConstants.MAXIMUM_DIRECTION) double bearing,
+                                             @FloatRange(from = MapLibreConstants.MINIMUM_TILT,
+                                               to = MapLibreConstants.MAXIMUM_TILT) double tilt) {
     return getCameraForGeometry(geometry, new int[] {0, 0, 0, 0}, bearing, tilt);
   }
 
@@ -1625,10 +1625,10 @@ public final class trackasiaMap {
   @Nullable
   public CameraPosition getCameraForGeometry(@NonNull Geometry geometry,
                                              @NonNull @Size(value = 4) int[] padding,
-                                             @FloatRange(from = trackasiaConstants.MINIMUM_DIRECTION,
-                                               to = trackasiaConstants.MAXIMUM_DIRECTION) double bearing,
-                                             @FloatRange(from = trackasiaConstants.MINIMUM_TILT,
-                                               to = trackasiaConstants.MAXIMUM_TILT) double tilt) {
+                                             @FloatRange(from = MapLibreConstants.MINIMUM_DIRECTION,
+                                               to = MapLibreConstants.MAXIMUM_DIRECTION) double bearing,
+                                             @FloatRange(from = MapLibreConstants.MINIMUM_TILT,
+                                               to = MapLibreConstants.MAXIMUM_TILT) double tilt) {
     return nativeMapView.getCameraForGeometry(geometry, padding, bearing, tilt);
   }
 
@@ -2098,7 +2098,7 @@ public final class trackasiaMap {
    * any overload to activate the component,
    * then, enable it with {@link LocationComponent#setLocationComponentEnabled(boolean)}.
    * <p>
-   * You can customize the location icon and more with {@link org.trackasia.android.location.LocationComponentOptions}.
+   * You can customize the location icon and more with {@link com.trackasia.android.location.LocationComponentOptions}.
    *
    * @return the Location Component
    */
@@ -2114,7 +2114,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the map is flinged.
    *
-   * @see trackasiaMap#addOnFlingListener(OnFlingListener)
+   * @see MapLibreMap#addOnFlingListener(OnFlingListener)
    */
   public interface OnFlingListener {
     /**
@@ -2126,7 +2126,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the map is moved.
    *
-   * @see trackasiaMap#addOnMoveListener(OnMoveListener)
+   * @see MapLibreMap#addOnMoveListener(OnMoveListener)
    */
   public interface OnMoveListener {
     void onMoveBegin(@NonNull MoveGestureDetector detector);
@@ -2139,7 +2139,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the map is rotated.
    *
-   * @see trackasiaMap#addOnRotateListener(OnRotateListener)
+   * @see MapLibreMap#addOnRotateListener(OnRotateListener)
    */
   public interface OnRotateListener {
     void onRotateBegin(@NonNull RotateGestureDetector detector);
@@ -2152,7 +2152,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the map is scaled.
    *
-   * @see trackasiaMap#addOnScaleListener(OnScaleListener)
+   * @see MapLibreMap#addOnScaleListener(OnScaleListener)
    */
   public interface OnScaleListener {
     void onScaleBegin(@NonNull StandardScaleGestureDetector detector);
@@ -2165,7 +2165,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the map is tilted.
    *
-   * @see trackasiaMap#addOnShoveListener(OnShoveListener)
+   * @see MapLibreMap#addOnShoveListener(OnShoveListener)
    */
   public interface OnShoveListener {
     void onShoveBegin(@NonNull ShoveGestureDetector detector);
@@ -2243,7 +2243,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when a frame is rendered to the map view.
    *
-   * @see trackasiaMap#setOnFpsChangedListener(OnFpsChangedListener)
+   * @see MapLibreMap#setOnFpsChangedListener(OnFpsChangedListener)
    */
   public interface OnFpsChangedListener {
     /**
@@ -2299,7 +2299,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on the map view.
    *
-   * @see trackasiaMap#addOnMapClickListener(OnMapClickListener)
+   * @see MapLibreMap#addOnMapClickListener(OnMapClickListener)
    */
   public interface OnMapClickListener {
     /**
@@ -2315,7 +2315,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the user long clicks on the map view.
    *
-   * @see trackasiaMap#addOnMapLongClickListener(OnMapLongClickListener)
+   * @see MapLibreMap#addOnMapLongClickListener(OnMapLongClickListener)
    */
   public interface OnMapLongClickListener {
     /**
@@ -2331,10 +2331,10 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on a marker.
    *
-   * @see trackasiaMap#setOnMarkerClickListener(OnMarkerClickListener)
+   * @see MapLibreMap#setOnMarkerClickListener(OnMarkerClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public interface OnMarkerClickListener {
@@ -2350,10 +2350,10 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on a polygon.
    *
-   * @see trackasiaMap#setOnPolygonClickListener(OnPolygonClickListener)
+   * @see MapLibreMap#setOnPolygonClickListener(OnPolygonClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public interface OnPolygonClickListener {
@@ -2368,10 +2368,10 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on a polyline.
    *
-   * @see trackasiaMap#setOnPolylineClickListener(OnPolylineClickListener)
+   * @see MapLibreMap#setOnPolylineClickListener(OnPolylineClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public interface OnPolylineClickListener {
@@ -2386,7 +2386,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on an info window.
    *
-   * @see trackasiaMap#setOnInfoWindowClickListener(OnInfoWindowClickListener)
+   * @see MapLibreMap#setOnInfoWindowClickListener(OnInfoWindowClickListener)
    */
   public interface OnInfoWindowClickListener {
     /**
@@ -2401,7 +2401,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when the user long presses on a marker's info window.
    *
-   * @see trackasiaMap#setOnInfoWindowClickListener(OnInfoWindowClickListener)
+   * @see MapLibreMap#setOnInfoWindowClickListener(OnInfoWindowClickListener)
    */
   public interface OnInfoWindowLongClickListener {
 
@@ -2416,7 +2416,7 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when a marker's info window is closed.
    *
-   * @see trackasiaMap#setOnInfoWindowCloseListener(OnInfoWindowCloseListener)
+   * @see MapLibreMap#setOnInfoWindowCloseListener(OnInfoWindowCloseListener)
    */
   public interface OnInfoWindowCloseListener {
 
@@ -2431,10 +2431,10 @@ public final class trackasiaMap {
   /**
    * Interface definition for a callback to be invoked when an info window will be shown.
    *
-   * @see trackasiaMap#setInfoWindowAdapter(InfoWindowAdapter)
+   * @see MapLibreMap#setInfoWindowAdapter(InfoWindowAdapter)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * trackasia Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public interface InfoWindowAdapter {

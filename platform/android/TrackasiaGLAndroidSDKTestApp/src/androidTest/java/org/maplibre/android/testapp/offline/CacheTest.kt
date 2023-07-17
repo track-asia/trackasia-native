@@ -1,10 +1,10 @@
-package org.trackasia.android.testapp.offline
+package com.trackasia.android.testapp.offline
 
 import android.content.Context
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import org.trackasia.android.offline.OfflineManager
-import org.trackasia.android.testapp.activity.FeatureOverviewActivity
+import com.trackasia.android.offline.OfflineManager
+import com.trackasia.android.testapp.activity.FeatureOverviewActivity
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test

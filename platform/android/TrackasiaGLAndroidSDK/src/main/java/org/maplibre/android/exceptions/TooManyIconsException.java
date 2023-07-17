@@ -1,6 +1,6 @@
-package org.trackasia.android.exceptions;
+package com.trackasia.android.exceptions;
 
-import org.trackasia.android.annotations.IconFactory;
+import com.trackasia.android.annotations.IconFactory;
 
 /**
  * <p>

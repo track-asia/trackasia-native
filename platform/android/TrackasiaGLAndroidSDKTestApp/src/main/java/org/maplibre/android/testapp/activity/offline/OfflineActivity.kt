@@ -1,30 +1,30 @@
-package org.trackasia.android.testapp.activity.offline
+package com.trackasia.android.testapp.activity.offline
 
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.trackasia
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.offline.OfflineManager
-import org.trackasia.android.offline.OfflineManager.CreateOfflineRegionCallback
-import org.trackasia.android.offline.OfflineManager.ListOfflineRegionsCallback
-import org.trackasia.android.offline.OfflineRegion
-import org.trackasia.android.offline.OfflineRegion.OfflineRegionObserver
-import org.trackasia.android.offline.OfflineRegionError
-import org.trackasia.android.offline.OfflineRegionStatus
-import org.trackasia.android.offline.OfflineTilePyramidRegionDefinition
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.model.other.OfflineDownloadRegionDialog
-import org.trackasia.android.testapp.model.other.OfflineDownloadRegionDialog.DownloadRegionDialogListener
-import org.trackasia.android.testapp.model.other.OfflineListRegionsDialog
-import org.trackasia.android.testapp.utils.OfflineUtils
+import com.trackasia.android.Trackasia
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.offline.OfflineManager
+import com.trackasia.android.offline.OfflineManager.CreateOfflineRegionCallback
+import com.trackasia.android.offline.OfflineManager.ListOfflineRegionsCallback
+import com.trackasia.android.offline.OfflineRegion
+import com.trackasia.android.offline.OfflineRegion.OfflineRegionObserver
+import com.trackasia.android.offline.OfflineRegionError
+import com.trackasia.android.offline.OfflineRegionStatus
+import com.trackasia.android.offline.OfflineTilePyramidRegionDefinition
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.model.other.OfflineDownloadRegionDialog
+import com.trackasia.android.testapp.model.other.OfflineDownloadRegionDialog.DownloadRegionDialogListener
+import com.trackasia.android.testapp.model.other.OfflineListRegionsDialog
+import com.trackasia.android.testapp.utils.OfflineUtils
 import timber.log.Timber
 import java.util.ArrayList
 
@@ -40,7 +40,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
    * UI elements
    */
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var progressBar: ProgressBar? = null
     private var downloadRegion: Button? = null
     private var listRegions: Button? = null
@@ -55,16 +55,16 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offline)
 
-        // You can use trackasia.setConnected(Boolean) to manually set the connectivity
+        // You can use Trackasia.setConnected(Boolean) to manually set the connectivity
         // state of your app. This will override any checks performed via the ConnectivityManager.
-        // trackasia.getInstance().setConnected(false);
-        val connected = trackasia.isConnected()
-        Timber.d("trackasia is connected: %s", connected)
+        // Trackasia.getInstance().setConnected(false);
+        val connected = Trackasia.isConnected()
+        Timber.d("Trackasia is connected: %s", connected)
 
         // Set up map
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: trackasiaMap ->
+        mapView.getMapAsync { trackasiaMap: MapLibreMap ->
             Timber.d("Map is ready")
             this@OfflineActivity.trackasiaMap = trackasiaMap
             trackasiaMap.setStyle(Style.Builder().fromUri(STYLE_URL))
@@ -261,7 +261,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
             }
 
             override fun mapboxTileCountLimitExceeded(limit: Long) {
-                Timber.e("trackasia tile count limit exceeded: %s", limit)
+                Timber.e("Trackasia tile count limit exceeded: %s", limit)
                 offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
             }
         })

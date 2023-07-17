@@ -1,16 +1,16 @@
-package org.trackasia.android.testapp.activity.snapshot
+package com.trackasia.android.testapp.activity.snapshot
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.maps.Style
-import org.trackasia.android.snapshotter.MapSnapshot
-import org.trackasia.android.snapshotter.MapSnapshotter
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.Style
+import com.trackasia.android.snapshotter.MapSnapshot
+import com.trackasia.android.snapshotter.MapSnapshotter
+import com.trackasia.android.testapp.R
 import java.util.*
 
 /**

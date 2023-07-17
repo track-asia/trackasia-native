@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Geometry API classes.
+ * Contains the Trackasia Maps Android Geometry API classes.
  */
-package org.trackasia.android.geometry
+package com.trackasia.android.geometry

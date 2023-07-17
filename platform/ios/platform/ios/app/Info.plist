@@ -33,7 +33,7 @@
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<dict>
 		<key>MLNAccuracyAuthorizationDescription</key>
-		<string>MapLibre requires your precise location to help you navigate the map.</string>
+		<string>Trackasia requires your precise location to help you navigate the map.</string>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The map will display your location.</string>

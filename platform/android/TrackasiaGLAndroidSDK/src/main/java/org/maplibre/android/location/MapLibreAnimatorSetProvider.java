@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -8,16 +8,16 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-class trackasiaAnimatorSetProvider {
-  private static trackasiaAnimatorSetProvider instance;
+class MapLibreAnimatorSetProvider {
+  private static MapLibreAnimatorSetProvider instance;
 
-  private trackasiaAnimatorSetProvider() {
+  private MapLibreAnimatorSetProvider() {
     // private constructor
   }
 
-  static trackasiaAnimatorSetProvider getInstance() {
+  static MapLibreAnimatorSetProvider getInstance() {
     if (instance == null) {
-      instance = new trackasiaAnimatorSetProvider();
+      instance = new MapLibreAnimatorSetProvider();
     }
     return instance;
   }

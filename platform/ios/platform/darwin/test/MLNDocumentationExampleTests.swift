@@ -231,7 +231,7 @@ class MLNDocumentationExampleTests: XCTestCase, MLNMapViewDelegate {
           bottomLeft: CLLocationCoordinate2D(latitude: 37.936, longitude: -80.425),
           bottomRight: CLLocationCoordinate2D(latitude: 37.936, longitude: -71.516),
           topRight: CLLocationCoordinate2D(latitude: 46.437, longitude: -71.516))
-        let source = MLNImageSource(identifier: "radar", coordinateQuad: coordinates, url: URL(string: "https://track-asia.com/maplibre-gl-js-docs/assets/radar.gif")!)
+        let source = MLNImageSource(identifier: "radar", coordinateQuad: coordinates, url: URL(string: "https://track-asia.com/trackasia-gl-js-docs/assets/radar.gif")!)
         mapView.style?.addSource(source)
         //#-end-example-code
 

@@ -1,4 +1,4 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;

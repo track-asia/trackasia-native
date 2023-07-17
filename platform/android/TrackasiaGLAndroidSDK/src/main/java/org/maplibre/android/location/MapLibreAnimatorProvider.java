@@ -1,42 +1,42 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.animation.ValueAnimator;
 import android.view.animation.Interpolator;
 
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.maps.trackasiaMap;
-import org.trackasia.android.geometry.LatLng;
+import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.geometry.LatLng;
 
-final class trackasiaAnimatorProvider {
+final class MapLibreAnimatorProvider {
 
-  private static trackasiaAnimatorProvider INSTANCE;
+  private static MapLibreAnimatorProvider INSTANCE;
 
-  private trackasiaAnimatorProvider() {
+  private MapLibreAnimatorProvider() {
     // private constructor
   }
 
-  public static trackasiaAnimatorProvider getInstance() {
+  public static MapLibreAnimatorProvider getInstance() {
     if (INSTANCE == null) {
-      INSTANCE = new trackasiaAnimatorProvider();
+      INSTANCE = new MapLibreAnimatorProvider();
     }
     return INSTANCE;
   }
 
-  trackasiaLatLngAnimator latLngAnimator(LatLng[] values, trackasiaAnimator.AnimationsValueChangeListener updateListener,
+  MapLibreLatLngAnimator latLngAnimator(LatLng[] values, MapLibreAnimator.AnimationsValueChangeListener updateListener,
                                         int maxAnimationFps) {
-    return new trackasiaLatLngAnimator(values, updateListener, maxAnimationFps);
+    return new MapLibreLatLngAnimator(values, updateListener, maxAnimationFps);
   }
 
-  trackasiaFloatAnimator floatAnimator(Float[] values, trackasiaAnimator.AnimationsValueChangeListener updateListener,
+  MapLibreFloatAnimator floatAnimator(Float[] values, MapLibreAnimator.AnimationsValueChangeListener updateListener,
                                       int maxAnimationFps) {
-    return new trackasiaFloatAnimator(values, updateListener, maxAnimationFps);
+    return new MapLibreFloatAnimator(values, updateListener, maxAnimationFps);
   }
 
-  trackasiaCameraAnimatorAdapter cameraAnimator(Float[] values,
-                                               trackasiaAnimator.AnimationsValueChangeListener updateListener,
-                                               @Nullable trackasiaMap.CancelableCallback cancelableCallback) {
-    return new trackasiaCameraAnimatorAdapter(values, updateListener, cancelableCallback);
+  MapLibreCameraAnimatorAdapter cameraAnimator(Float[] values,
+                                               MapLibreAnimator.AnimationsValueChangeListener updateListener,
+                                               @Nullable MapLibreMap.CancelableCallback cancelableCallback) {
+    return new MapLibreCameraAnimatorAdapter(values, updateListener, cancelableCallback);
   }
 
   /**
@@ -52,7 +52,7 @@ final class trackasiaAnimatorProvider {
    *                                       the pulsing animation (linear, accelerate, bounce, etc.)
    * @return a built {@link PulsingLocationCircleAnimator} object.
    */
-  PulsingLocationCircleAnimator pulsingCircleAnimator(trackasiaAnimator.AnimationsValueChangeListener updateListener,
+  PulsingLocationCircleAnimator pulsingCircleAnimator(MapLibreAnimator.AnimationsValueChangeListener updateListener,
                                                       int maxAnimationFps,
                                                       float pulseSingleDuration,
                                                       float pulseMaxRadius,

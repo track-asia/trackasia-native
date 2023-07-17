@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.snapshot
+package com.trackasia.android.testapp.activity.snapshot
 
 import android.graphics.Color
 import android.os.Bundle
@@ -12,23 +12,23 @@ import com.google.gson.JsonPrimitive
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.maps.Style
-import org.trackasia.android.snapshotter.MapSnapshot
-import org.trackasia.android.snapshotter.MapSnapshotter
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.Property
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.RasterLayer
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.style.sources.RasterSource
-import org.trackasia.android.style.sources.Source
-import org.trackasia.android.testapp.R
-import org.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.Style
+import com.trackasia.android.snapshotter.MapSnapshot
+import com.trackasia.android.snapshotter.MapSnapshotter
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.Property
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.RasterLayer
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.style.sources.RasterSource
+import com.trackasia.android.style.sources.Source
+import com.trackasia.android.testapp.R
+import com.trackasia.android.utils.BitmapUtils
 import timber.log.Timber
 import java.util.Objects
 import java.util.Random
@@ -83,7 +83,7 @@ class MapSnapshotterActivity : AppCompatActivity() {
             grid.measuredHeight / grid.rowCount
         ) // Optionally the pixel ratio
             .withPixelRatio(1f)
-            .withLocalIdeographFontFamily(trackasiaConstants.DEFAULT_FONT)
+            .withLocalIdeographFontFamily(MapLibreConstants.DEFAULT_FONT)
 
         // Optionally the visible region
         if (row % 2 == 0) {

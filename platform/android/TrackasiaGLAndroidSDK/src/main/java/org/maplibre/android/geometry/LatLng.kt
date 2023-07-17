@@ -1,4 +1,4 @@
-package org.trackasia.android.geometry
+package com.trackasia.android.geometry
 
 import android.location.Location
 import android.os.Parcel
@@ -6,7 +6,7 @@ import android.os.Parcelable
 import androidx.annotation.FloatRange
 import androidx.annotation.Keep
 import com.mapbox.geojson.Point
-import org.trackasia.android.constants.GeometryConstants
+import com.trackasia.android.constants.GeometryConstants
 import com.mapbox.turf.TurfConstants
 import com.mapbox.turf.TurfMeasurement
 import kotlin.math.abs
@@ -21,7 +21,7 @@ import kotlin.math.abs
  *
  *
  *
- * trackasia GL displays maps in the Mercator Projection and projects geographical
+ * Trackasia GL displays maps in the Mercator Projection and projects geographical
  * data automatically, so all data enters in the WGS84 datum.
  *
  */

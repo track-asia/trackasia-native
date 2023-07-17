@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import androidx.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
  * <p>
  * Once an instance of this interface is set on a {@link MapFragment} or {@link MapView} object,
  * the onMapReady(MapboxMap) method is triggered when the map is ready to be used and provides an instance of
- * {@link trackasiaMap}.
+ * {@link MapLibreMap}.
  * </p>
  */
 public interface OnMapReadyCallback {
@@ -18,5 +18,5 @@ public interface OnMapReadyCallback {
    * @param trackasiaMap An instance of MapboxMap associated with the {@link MapFragment} or
    *                  {@link MapView} that defines the callback.
    */
-  void onMapReady(@NonNull trackasiaMap trackasiaMap);
+  void onMapReady(@NonNull MapLibreMap trackasiaMap);
 }

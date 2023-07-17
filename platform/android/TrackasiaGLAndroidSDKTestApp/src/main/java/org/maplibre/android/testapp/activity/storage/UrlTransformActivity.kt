@@ -1,15 +1,15 @@
-package org.trackasia.android.testapp.activity.storage
+package com.trackasia.android.testapp.activity.storage
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.storage.FileSource
-import org.trackasia.android.storage.FileSource.ResourceTransformCallback
-import org.trackasia.android.storage.Resource
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.storage.FileSource.ResourceTransformCallback
+import com.trackasia.android.storage.Resource
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 
 /**
@@ -42,7 +42,7 @@ class UrlTransformActivity : AppCompatActivity() {
 
         // Get a handle to the file source and set the resource transform
         FileSource.getInstance(this@UrlTransformActivity).setResourceTransform(Transform())
-        mapView.getMapAsync { map: trackasiaMap ->
+        mapView.getMapAsync { map: MapLibreMap ->
             Timber.i("Map loaded")
             map.setStyle(Style.getPredefinedStyle("Streets"))
         }

@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -21,12 +21,12 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-import org.trackasia.android.R;
-import org.trackasia.android.camera.CameraPosition;
-import org.trackasia.android.constants.trackasiaConstants;
-import org.trackasia.android.maps.widgets.CompassView;
-import org.trackasia.android.utils.BitmapUtils;
-import org.trackasia.android.utils.ColorUtils;
+import com.trackasia.android.R;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.maps.widgets.CompassView;
+import com.trackasia.android.utils.BitmapUtils;
+import com.trackasia.android.utils.ColorUtils;
 
 /**
  * Settings for the user interface of a MapboxMap. To obtain this interface, call getUiSettings().
@@ -83,8 +83,8 @@ public final class UiSettings {
 
   private boolean deselectMarkersOnTap = true;
 
-  private long flingAnimationBaseTime = trackasiaConstants.ANIMATION_DURATION_FLING_BASE;
-  private long flingThreshold = trackasiaConstants.VELOCITY_THRESHOLD_IGNORE_FLING;
+  private long flingAnimationBaseTime = MapLibreConstants.ANIMATION_DURATION_FLING_BASE;
+  private long flingThreshold = MapLibreConstants.VELOCITY_THRESHOLD_IGNORE_FLING;
 
   @Nullable
   private PointF userProvidedFocalPoint;
@@ -105,7 +105,7 @@ public final class UiSettings {
     this.mapView = mapView;
   }
 
-  void initialise(@NonNull Context context, @NonNull trackasiaMapOptions options) {
+  void initialise(@NonNull Context context, @NonNull MapLibreMapOptions options) {
     Resources resources = context.getResources();
     initialiseGestures(options);
     if (options.getCompassEnabled()) {
@@ -137,7 +137,7 @@ public final class UiSettings {
     restoreFocalPoint(savedInstanceState);
   }
 
-  private void initialiseGestures(trackasiaMapOptions options) {
+  private void initialiseGestures(MapLibreMapOptions options) {
     setZoomGesturesEnabled(options.getZoomGesturesEnabled());
     setScrollGesturesEnabled(options.getScrollGesturesEnabled());
     setHorizontalScrollGesturesEnabled(options.getHorizontalScrollGesturesEnabled());
@@ -148,42 +148,42 @@ public final class UiSettings {
   }
 
   private void saveGestures(Bundle outState) {
-    outState.putBoolean(trackasiaConstants.STATE_HORIZONAL_SCROLL_ENABLED, isHorizontalScrollGesturesEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_ZOOM_ENABLED, isZoomGesturesEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_SCROLL_ENABLED, isScrollGesturesEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_ROTATE_ENABLED, isRotateGesturesEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_TILT_ENABLED, isTiltGesturesEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_DOUBLE_TAP_ENABLED, isDoubleTapGesturesEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_SCALE_ANIMATION_ENABLED, isScaleVelocityAnimationEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_ROTATE_ANIMATION_ENABLED, isRotateVelocityAnimationEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_FLING_ANIMATION_ENABLED, isFlingVelocityAnimationEnabled());
-    outState.putBoolean(trackasiaConstants.STATE_INCREASE_ROTATE_THRESHOLD, isIncreaseRotateThresholdWhenScaling());
-    outState.putBoolean(trackasiaConstants.STATE_DISABLE_ROTATE_WHEN_SCALING, isDisableRotateWhenScaling());
-    outState.putBoolean(trackasiaConstants.STATE_INCREASE_SCALE_THRESHOLD, isIncreaseScaleThresholdWhenRotating());
-    outState.putBoolean(trackasiaConstants.STATE_QUICK_ZOOM_ENABLED, isQuickZoomGesturesEnabled());
-    outState.putFloat(trackasiaConstants.STATE_ZOOM_RATE, getZoomRate());
+    outState.putBoolean(MapLibreConstants.STATE_HORIZONAL_SCROLL_ENABLED, isHorizontalScrollGesturesEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_ZOOM_ENABLED, isZoomGesturesEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_SCROLL_ENABLED, isScrollGesturesEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_ROTATE_ENABLED, isRotateGesturesEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_TILT_ENABLED, isTiltGesturesEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_DOUBLE_TAP_ENABLED, isDoubleTapGesturesEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_SCALE_ANIMATION_ENABLED, isScaleVelocityAnimationEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_ROTATE_ANIMATION_ENABLED, isRotateVelocityAnimationEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_FLING_ANIMATION_ENABLED, isFlingVelocityAnimationEnabled());
+    outState.putBoolean(MapLibreConstants.STATE_INCREASE_ROTATE_THRESHOLD, isIncreaseRotateThresholdWhenScaling());
+    outState.putBoolean(MapLibreConstants.STATE_DISABLE_ROTATE_WHEN_SCALING, isDisableRotateWhenScaling());
+    outState.putBoolean(MapLibreConstants.STATE_INCREASE_SCALE_THRESHOLD, isIncreaseScaleThresholdWhenRotating());
+    outState.putBoolean(MapLibreConstants.STATE_QUICK_ZOOM_ENABLED, isQuickZoomGesturesEnabled());
+    outState.putFloat(MapLibreConstants.STATE_ZOOM_RATE, getZoomRate());
   }
 
   private void restoreGestures(Bundle savedInstanceState) {
-    setHorizontalScrollGesturesEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_HORIZONAL_SCROLL_ENABLED));
-    setZoomGesturesEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_ZOOM_ENABLED));
-    setScrollGesturesEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_SCROLL_ENABLED));
-    setRotateGesturesEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_ROTATE_ENABLED));
-    setTiltGesturesEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_TILT_ENABLED));
-    setDoubleTapGesturesEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_DOUBLE_TAP_ENABLED));
-    setScaleVelocityAnimationEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_SCALE_ANIMATION_ENABLED));
-    setRotateVelocityAnimationEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_ROTATE_ANIMATION_ENABLED));
-    setFlingVelocityAnimationEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_FLING_ANIMATION_ENABLED));
+    setHorizontalScrollGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_HORIZONAL_SCROLL_ENABLED));
+    setZoomGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_ZOOM_ENABLED));
+    setScrollGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_SCROLL_ENABLED));
+    setRotateGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_ROTATE_ENABLED));
+    setTiltGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_TILT_ENABLED));
+    setDoubleTapGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_DOUBLE_TAP_ENABLED));
+    setScaleVelocityAnimationEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_SCALE_ANIMATION_ENABLED));
+    setRotateVelocityAnimationEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_ROTATE_ANIMATION_ENABLED));
+    setFlingVelocityAnimationEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_FLING_ANIMATION_ENABLED));
     setIncreaseRotateThresholdWhenScaling(
-      savedInstanceState.getBoolean(trackasiaConstants.STATE_INCREASE_ROTATE_THRESHOLD));
-    setDisableRotateWhenScaling(savedInstanceState.getBoolean(trackasiaConstants.STATE_DISABLE_ROTATE_WHEN_SCALING));
+      savedInstanceState.getBoolean(MapLibreConstants.STATE_INCREASE_ROTATE_THRESHOLD));
+    setDisableRotateWhenScaling(savedInstanceState.getBoolean(MapLibreConstants.STATE_DISABLE_ROTATE_WHEN_SCALING));
     setIncreaseScaleThresholdWhenRotating(
-      savedInstanceState.getBoolean(trackasiaConstants.STATE_INCREASE_SCALE_THRESHOLD));
-    setQuickZoomGesturesEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_QUICK_ZOOM_ENABLED));
-    setZoomRate(savedInstanceState.getFloat(trackasiaConstants.STATE_ZOOM_RATE, 1.0f));
+      savedInstanceState.getBoolean(MapLibreConstants.STATE_INCREASE_SCALE_THRESHOLD));
+    setQuickZoomGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_QUICK_ZOOM_ENABLED));
+    setZoomRate(savedInstanceState.getFloat(MapLibreConstants.STATE_ZOOM_RATE, 1.0f));
   }
 
-  private void initialiseCompass(trackasiaMapOptions options, @NonNull Resources resources) {
+  private void initialiseCompass(MapLibreMapOptions options, @NonNull Resources resources) {
     isCompassInitialized = true;
     compassView = mapView.initialiseCompassView();
     setCompassEnabled(options.getCompassEnabled());
@@ -203,35 +203,35 @@ public final class UiSettings {
   }
 
   private void saveCompass(Bundle outState) {
-    outState.putBoolean(trackasiaConstants.STATE_COMPASS_ENABLED, isCompassEnabled());
-    outState.putInt(trackasiaConstants.STATE_COMPASS_GRAVITY, getCompassGravity());
-    outState.putInt(trackasiaConstants.STATE_COMPASS_MARGIN_LEFT, getCompassMarginLeft());
-    outState.putInt(trackasiaConstants.STATE_COMPASS_MARGIN_TOP, getCompassMarginTop());
-    outState.putInt(trackasiaConstants.STATE_COMPASS_MARGIN_BOTTOM, getCompassMarginBottom());
-    outState.putInt(trackasiaConstants.STATE_COMPASS_MARGIN_RIGHT, getCompassMarginRight());
-    outState.putBoolean(trackasiaConstants.STATE_COMPASS_FADE_WHEN_FACING_NORTH, isCompassFadeWhenFacingNorth());
-    outState.putByteArray(trackasiaConstants.STATE_COMPASS_IMAGE_BITMAP,
+    outState.putBoolean(MapLibreConstants.STATE_COMPASS_ENABLED, isCompassEnabled());
+    outState.putInt(MapLibreConstants.STATE_COMPASS_GRAVITY, getCompassGravity());
+    outState.putInt(MapLibreConstants.STATE_COMPASS_MARGIN_LEFT, getCompassMarginLeft());
+    outState.putInt(MapLibreConstants.STATE_COMPASS_MARGIN_TOP, getCompassMarginTop());
+    outState.putInt(MapLibreConstants.STATE_COMPASS_MARGIN_BOTTOM, getCompassMarginBottom());
+    outState.putInt(MapLibreConstants.STATE_COMPASS_MARGIN_RIGHT, getCompassMarginRight());
+    outState.putBoolean(MapLibreConstants.STATE_COMPASS_FADE_WHEN_FACING_NORTH, isCompassFadeWhenFacingNorth());
+    outState.putByteArray(MapLibreConstants.STATE_COMPASS_IMAGE_BITMAP,
       BitmapUtils.getByteArrayFromDrawable(getCompassImage()));
   }
 
   private void restoreCompass(Bundle savedInstanceState) {
-    boolean compassEnabled = savedInstanceState.getBoolean(trackasiaConstants.STATE_COMPASS_ENABLED);
+    boolean compassEnabled = savedInstanceState.getBoolean(MapLibreConstants.STATE_COMPASS_ENABLED);
     if (compassEnabled && !isCompassInitialized) {
       compassView = mapView.initialiseCompassView();
       isCompassInitialized = true;
     }
-    setCompassEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_COMPASS_ENABLED));
-    setCompassGravity(savedInstanceState.getInt(trackasiaConstants.STATE_COMPASS_GRAVITY));
-    setCompassMargins(savedInstanceState.getInt(trackasiaConstants.STATE_COMPASS_MARGIN_LEFT),
-      savedInstanceState.getInt(trackasiaConstants.STATE_COMPASS_MARGIN_TOP),
-      savedInstanceState.getInt(trackasiaConstants.STATE_COMPASS_MARGIN_RIGHT),
-      savedInstanceState.getInt(trackasiaConstants.STATE_COMPASS_MARGIN_BOTTOM));
-    setCompassFadeFacingNorth(savedInstanceState.getBoolean(trackasiaConstants.STATE_COMPASS_FADE_WHEN_FACING_NORTH));
+    setCompassEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_COMPASS_ENABLED));
+    setCompassGravity(savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_GRAVITY));
+    setCompassMargins(savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_MARGIN_LEFT),
+      savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_MARGIN_TOP),
+      savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_MARGIN_RIGHT),
+      savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_MARGIN_BOTTOM));
+    setCompassFadeFacingNorth(savedInstanceState.getBoolean(MapLibreConstants.STATE_COMPASS_FADE_WHEN_FACING_NORTH));
     setCompassImage(BitmapUtils.getDrawableFromByteArray(
-      mapView.getContext(), savedInstanceState.getByteArray(trackasiaConstants.STATE_COMPASS_IMAGE_BITMAP)));
+      mapView.getContext(), savedInstanceState.getByteArray(MapLibreConstants.STATE_COMPASS_IMAGE_BITMAP)));
   }
 
-  private void initialiseLogo(trackasiaMapOptions options, @NonNull Resources resources) {
+  private void initialiseLogo(MapLibreMapOptions options, @NonNull Resources resources) {
     isLogoInitialized = true;
     logoView = mapView.initialiseLogoView();
     setLogoEnabled(options.getLogoEnabled());
@@ -250,29 +250,29 @@ public final class UiSettings {
   }
 
   private void saveLogo(Bundle outState) {
-    outState.putInt(trackasiaConstants.STATE_LOGO_GRAVITY, getLogoGravity());
-    outState.putInt(trackasiaConstants.STATE_LOGO_MARGIN_LEFT, getLogoMarginLeft());
-    outState.putInt(trackasiaConstants.STATE_LOGO_MARGIN_TOP, getLogoMarginTop());
-    outState.putInt(trackasiaConstants.STATE_LOGO_MARGIN_RIGHT, getLogoMarginRight());
-    outState.putInt(trackasiaConstants.STATE_LOGO_MARGIN_BOTTOM, getLogoMarginBottom());
-    outState.putBoolean(trackasiaConstants.STATE_LOGO_ENABLED, isLogoEnabled());
+    outState.putInt(MapLibreConstants.STATE_LOGO_GRAVITY, getLogoGravity());
+    outState.putInt(MapLibreConstants.STATE_LOGO_MARGIN_LEFT, getLogoMarginLeft());
+    outState.putInt(MapLibreConstants.STATE_LOGO_MARGIN_TOP, getLogoMarginTop());
+    outState.putInt(MapLibreConstants.STATE_LOGO_MARGIN_RIGHT, getLogoMarginRight());
+    outState.putInt(MapLibreConstants.STATE_LOGO_MARGIN_BOTTOM, getLogoMarginBottom());
+    outState.putBoolean(MapLibreConstants.STATE_LOGO_ENABLED, isLogoEnabled());
   }
 
   private void restoreLogo(Bundle savedInstanceState) {
-    boolean logoEnabled = savedInstanceState.getBoolean(trackasiaConstants.STATE_LOGO_ENABLED);
+    boolean logoEnabled = savedInstanceState.getBoolean(MapLibreConstants.STATE_LOGO_ENABLED);
     if (logoEnabled && !isLogoInitialized) {
       logoView = mapView.initialiseLogoView();
       isLogoInitialized = true;
     }
-    setLogoEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_LOGO_ENABLED));
-    setLogoGravity(savedInstanceState.getInt(trackasiaConstants.STATE_LOGO_GRAVITY));
-    setLogoMargins(savedInstanceState.getInt(trackasiaConstants.STATE_LOGO_MARGIN_LEFT),
-      savedInstanceState.getInt(trackasiaConstants.STATE_LOGO_MARGIN_TOP),
-      savedInstanceState.getInt(trackasiaConstants.STATE_LOGO_MARGIN_RIGHT),
-      savedInstanceState.getInt(trackasiaConstants.STATE_LOGO_MARGIN_BOTTOM));
+    setLogoEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_LOGO_ENABLED));
+    setLogoGravity(savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_GRAVITY));
+    setLogoMargins(savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_MARGIN_LEFT),
+      savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_MARGIN_TOP),
+      savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_MARGIN_RIGHT),
+      savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_MARGIN_BOTTOM));
   }
 
-  private void initialiseAttribution(@NonNull Context context, trackasiaMapOptions options) {
+  private void initialiseAttribution(@NonNull Context context, MapLibreMapOptions options) {
     isAttributionInitialized = true;
     attributionsView = mapView.initialiseAttributionView();
     setAttributionEnabled(options.getAttributionEnabled());
@@ -297,26 +297,26 @@ public final class UiSettings {
   }
 
   private void saveAttribution(Bundle outState) {
-    outState.putInt(trackasiaConstants.STATE_ATTRIBUTION_GRAVITY, getAttributionGravity());
-    outState.putInt(trackasiaConstants.STATE_ATTRIBUTION_MARGIN_LEFT, getAttributionMarginLeft());
-    outState.putInt(trackasiaConstants.STATE_ATTRIBUTION_MARGIN_TOP, getAttributionMarginTop());
-    outState.putInt(trackasiaConstants.STATE_ATTRIBUTION_MARGIN_RIGHT, getAttributionMarginRight());
-    outState.putInt(trackasiaConstants.STATE_ATTRIBUTION_MARGIN_BOTTOM, getAttributionMarginBottom());
-    outState.putBoolean(trackasiaConstants.STATE_ATTRIBUTION_ENABLED, isAttributionEnabled());
+    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_GRAVITY, getAttributionGravity());
+    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_LEFT, getAttributionMarginLeft());
+    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_TOP, getAttributionMarginTop());
+    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_RIGHT, getAttributionMarginRight());
+    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_BOTTOM, getAttributionMarginBottom());
+    outState.putBoolean(MapLibreConstants.STATE_ATTRIBUTION_ENABLED, isAttributionEnabled());
   }
 
   private void restoreAttribution(Bundle savedInstanceState) {
-    boolean attributionEnabled = savedInstanceState.getBoolean(trackasiaConstants.STATE_ATTRIBUTION_ENABLED);
+    boolean attributionEnabled = savedInstanceState.getBoolean(MapLibreConstants.STATE_ATTRIBUTION_ENABLED);
     if (attributionEnabled && !isAttributionInitialized) {
       attributionsView = mapView.initialiseAttributionView();
       isAttributionInitialized = true;
     }
-    setAttributionEnabled(savedInstanceState.getBoolean(trackasiaConstants.STATE_ATTRIBUTION_ENABLED));
-    setAttributionGravity(savedInstanceState.getInt(trackasiaConstants.STATE_ATTRIBUTION_GRAVITY));
-    setAttributionMargins(savedInstanceState.getInt(trackasiaConstants.STATE_ATTRIBUTION_MARGIN_LEFT),
-      savedInstanceState.getInt(trackasiaConstants.STATE_ATTRIBUTION_MARGIN_TOP),
-      savedInstanceState.getInt(trackasiaConstants.STATE_ATTRIBUTION_MARGIN_RIGHT),
-      savedInstanceState.getInt(trackasiaConstants.STATE_ATTRIBUTION_MARGIN_BOTTOM));
+    setAttributionEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_ATTRIBUTION_ENABLED));
+    setAttributionGravity(savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_GRAVITY));
+    setAttributionMargins(savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_LEFT),
+      savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_TOP),
+      savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_RIGHT),
+      savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_BOTTOM));
   }
 
   public long getFlingAnimationBaseTime() {
@@ -518,7 +518,7 @@ public final class UiSettings {
 
   /**
    * <p>
-   * Enables or disables the trackasia logo.
+   * Enables or disables the Trackasia logo.
    * </p>
    * By default, the logo is enabled.
    *
@@ -549,7 +549,7 @@ public final class UiSettings {
   /**
    * <p>
    * Sets the gravity of the logo view. Use this to change the corner of the map view that the
-   * trackasia logo is displayed in.
+   * Trackasia logo is displayed in.
    * </p>
    * By default, the logo is in the bottom left corner.
    *
@@ -575,7 +575,7 @@ public final class UiSettings {
   }
 
   /**
-   * Sets the margins of the logo view in pixels. Use this to change the distance of the trackasia logo from the
+   * Sets the margins of the logo view in pixels. Use this to change the distance of the Trackasia logo from the
    * map view edge.
    *
    * @param left   The left margin in pixels.
@@ -686,7 +686,7 @@ public final class UiSettings {
    * <p>
    * Sets the gravity of the attribution.
    * </p>
-   * By default, the attribution is in the bottom left corner next to the trackasia logo.
+   * By default, the attribution is in the bottom left corner next to the Trackasia logo.
    *
    * @param gravity Android SDK Gravity.
    */
@@ -929,11 +929,11 @@ public final class UiSettings {
   }
 
   private void restoreDeselectMarkersOnTap(Bundle savedInstanceState) {
-    setDeselectMarkersOnTap(savedInstanceState.getBoolean(trackasiaConstants.STATE_DESELECT_MARKER_ON_TAP));
+    setDeselectMarkersOnTap(savedInstanceState.getBoolean(MapLibreConstants.STATE_DESELECT_MARKER_ON_TAP));
   }
 
   private void saveDeselectMarkersOnTap(Bundle outState) {
-    outState.putBoolean(trackasiaConstants.STATE_DESELECT_MARKER_ON_TAP, isDeselectMarkersOnTap());
+    outState.putBoolean(MapLibreConstants.STATE_DESELECT_MARKER_ON_TAP, isDeselectMarkersOnTap());
   }
 
   /**
@@ -1169,11 +1169,11 @@ public final class UiSettings {
   }
 
   private void saveFocalPoint(Bundle outState) {
-    outState.putParcelable(trackasiaConstants.STATE_USER_FOCAL_POINT, getFocalPoint());
+    outState.putParcelable(MapLibreConstants.STATE_USER_FOCAL_POINT, getFocalPoint());
   }
 
   private void restoreFocalPoint(Bundle savedInstanceState) {
-    PointF pointF = savedInstanceState.getParcelable(trackasiaConstants.STATE_USER_FOCAL_POINT);
+    PointF pointF = savedInstanceState.getParcelable(MapLibreConstants.STATE_USER_FOCAL_POINT);
     if (pointF != null) {
       setFocalPoint(pointF);
     }

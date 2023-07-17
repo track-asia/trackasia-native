@@ -1,6 +1,6 @@
 // This file is generated. Edit scripts/generate-style-code.js, then run `make style-code`.
 
-package org.trackasia.android.style.layers;
+package com.trackasia.android.style.layers;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Keep;
@@ -8,14 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
-import static org.trackasia.android.utils.ColorUtils.rgbaToColor;
+import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.layers.TransitionOptions;
-import org.trackasia.android.style.types.Formatted;
-import org.trackasia.android.style.types.FormattedSection;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.TransitionOptions;
+import com.trackasia.android.style.types.Formatted;
+import com.trackasia.android.style.types.FormattedSection;
 
 /**
  * An icon or a text label.

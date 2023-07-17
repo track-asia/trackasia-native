@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,22 +21,22 @@ import androidx.collection.LongSparseArray;
 import timber.log.Timber;
 
 import com.mapbox.android.gestures.AndroidGesturesManager;
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.trackasia;
-import org.trackasia.android.R;
-import org.trackasia.android.WellKnownTileServer;
-import org.trackasia.android.annotations.Annotation;
-import org.trackasia.android.constants.trackasiaConstants;
-import org.trackasia.android.exceptions.trackasiaConfigurationException;
-import org.trackasia.android.location.LocationComponent;
-import org.trackasia.android.maps.renderer.MapRenderer;
-import org.trackasia.android.maps.renderer.glsurfaceview.GLSurfaceViewMapRenderer;
-import org.trackasia.android.maps.renderer.glsurfaceview.trackasiaGLSurfaceView;
-import org.trackasia.android.maps.renderer.textureview.TextureViewMapRenderer;
-import org.trackasia.android.maps.widgets.CompassView;
-import org.trackasia.android.net.ConnectivityReceiver;
-import org.trackasia.android.storage.FileSource;
-import org.trackasia.android.utils.BitmapUtils;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.Trackasia;
+import com.trackasia.android.R;
+import com.trackasia.android.WellKnownTileServer;
+import com.trackasia.android.annotations.Annotation;
+import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.exceptions.MapLibreConfigurationException;
+import com.trackasia.android.location.LocationComponent;
+import com.trackasia.android.maps.renderer.MapRenderer;
+import com.trackasia.android.maps.renderer.glsurfaceview.GLSurfaceViewMapRenderer;
+import com.trackasia.android.maps.renderer.glsurfaceview.MapLibreGLSurfaceView;
+import com.trackasia.android.maps.renderer.textureview.TextureViewMapRenderer;
+import com.trackasia.android.maps.widgets.CompassView;
+import com.trackasia.android.net.ConnectivityReceiver;
+import com.trackasia.android.storage.FileSource;
+import com.trackasia.android.utils.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -45,8 +45,8 @@ import java.util.List;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import static org.trackasia.android.maps.widgets.CompassView.TIME_MAP_NORTH_ANIMATION;
-import static org.trackasia.android.maps.widgets.CompassView.TIME_WAIT_IDLE;
+import static com.trackasia.android.maps.widgets.CompassView.TIME_MAP_NORTH_ANIMATION;
+import static com.trackasia.android.maps.widgets.CompassView.TIME_WAIT_IDLE;
 
 /**
  * <p>
@@ -56,8 +56,8 @@ import static org.trackasia.android.maps.widgets.CompassView.TIME_WAIT_IDLE;
  * and style the features of the map to fit your application's use case.
  * </p>
  * <p>
- * Use of {@code MapView} requires a trackasia API access token.
- * Obtain an access token on the <a href="https://www.mapbox.com/studio/account/tokens/">trackasia account page</a>.
+ * Use of {@code MapView} requires a Trackasia API access token.
+ * Obtain an access token on the <a href="https://www.mapbox.com/studio/account/tokens/">Trackasia account page</a>.
  * </p>
  * <strong>Warning:</strong> Please note that you are responsible for getting permission to use the map data,
  * and for ensuring your use adheres to the relevant terms of use.
@@ -71,11 +71,11 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   @Nullable
   private NativeMap nativeMapView;
   @Nullable
-  private trackasiaMap trackasiaMap;
+  private MapLibreMap trackasiaMap;
   private View renderView;
 
   private AttributionClickListener attributionClickListener;
-  trackasiaMapOptions trackasiaMapOptions;
+  MapLibreMapOptions trackasiaMapOptions;
   private MapRenderer mapRenderer;
   private boolean destroyed;
 
@@ -102,40 +102,40 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   public MapView(@NonNull Context context) {
     super(context);
     Timber.d("MapView constructed with context");
-    initialize(context, trackasiaMapOptions.createFromAttributes(context));
+    initialize(context, MapLibreMapOptions.createFromAttributes(context));
   }
 
   @UiThread
   public MapView(@NonNull Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
     Timber.d("MapView constructed with context and attribute set");
-    initialize(context, trackasiaMapOptions.createFromAttributes(context, attrs));
+    initialize(context, MapLibreMapOptions.createFromAttributes(context, attrs));
   }
 
   @UiThread
   public MapView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     Timber.d( "MapView constructed with context, attributeSet and defStyleAttr");
-    initialize(context, trackasiaMapOptions.createFromAttributes(context, attrs));
+    initialize(context, MapLibreMapOptions.createFromAttributes(context, attrs));
   }
 
   @UiThread
-  public MapView(@NonNull Context context, @Nullable trackasiaMapOptions options) {
+  public MapView(@NonNull Context context, @Nullable MapLibreMapOptions options) {
     super(context);
     Timber.d("MapView constructed with context and MapboxMapOptions");
-    initialize(context, options == null ? trackasiaMapOptions.createFromAttributes(context) : options);
+    initialize(context, options == null ? MapLibreMapOptions.createFromAttributes(context) : options);
   }
 
   @CallSuper
   @UiThread
-  protected void initialize(@NonNull final Context context, @NonNull final trackasiaMapOptions options) {
+  protected void initialize(@NonNull final Context context, @NonNull final MapLibreMapOptions options) {
     if (isInEditMode()) {
       // in IDE layout editor, just return
       return;
     }
 
-    if (!trackasia.hasInstance()) {
-      throw new trackasiaConfigurationException();
+    if (!Trackasia.hasInstance()) {
+      throw new MapLibreConfigurationException();
     }
 
     // hide surface until map is fully loaded #10990
@@ -170,8 +170,8 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
     Transform transform = new Transform(this, nativeMapView, cameraDispatcher);
 
     // MapboxMap
-    List<trackasiaMap.OnDeveloperAnimationListener> developerAnimationListeners = new ArrayList<>();
-    trackasiaMap = new trackasiaMap(nativeMapView, transform, uiSettings, proj, registerTouchListener, cameraDispatcher,
+    List<MapLibreMap.OnDeveloperAnimationListener> developerAnimationListeners = new ArrayList<>();
+    trackasiaMap = new MapLibreMap(nativeMapView, transform, uiSettings, proj, registerTouchListener, cameraDispatcher,
             developerAnimationListeners);
     trackasiaMap.injectAnnotationManager(annotationManager);
 
@@ -191,7 +191,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
     requestDisallowInterceptTouchEvent(true);
 
     // notify Map object about current connectivity state
-    nativeMapView.setReachability(trackasia.isConnected());
+    nativeMapView.setReachability(Trackasia.isConnected());
 
     // initialise MapboxMap
     if (savedInstanceState == null) {
@@ -250,9 +250,9 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
     };
   }
 
-  private trackasiaMap.OnCompassAnimationListener createCompassAnimationListener(@NonNull final CameraChangeDispatcher
+  private MapLibreMap.OnCompassAnimationListener createCompassAnimationListener(@NonNull final CameraChangeDispatcher
                                                                                       cameraChangeDispatcher) {
-    return new trackasiaMap.OnCompassAnimationListener() {
+    return new MapLibreMap.OnCompassAnimationListener() {
       @Override
       public void onCompassAnimation() {
         cameraChangeDispatcher.onCameraMove();
@@ -280,7 +280,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
               0, trackasiaMap.getWidth() / 2, trackasiaMap.getHeight() / 2,
               TIME_MAP_NORTH_ANIMATION);
           }
-          cameraChangeDispatcher.onCameraMoveStarted(trackasiaMap.OnCameraMoveStartedListener.REASON_API_ANIMATION);
+          cameraChangeDispatcher.onCameraMoveStarted(MapLibreMap.OnCameraMoveStartedListener.REASON_API_ANIMATION);
           compassView.isAnimating(true);
           compassView.postDelayed(compassView, TIME_WAIT_IDLE + TIME_MAP_NORTH_ANIMATION);
         }
@@ -298,20 +298,20 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
    * Fragment#onViewCreated(View, Bundle).
    * </p>
    * You must set a valid access token with
-   * {@link trackasia#getInstance(Context, String, WellKnownTileServer)}
+   * {@link Trackasia#getInstance(Context, String, WellKnownTileServer)}
    * before you call this method or an exception will be thrown.
    *
    * @param savedInstanceState Pass in the parent's savedInstanceState.
-   * @see trackasia#getInstance(Context, String, WellKnownTileServer)
+   * @see Trackasia#getInstance(Context, String, WellKnownTileServer)
    */
   @UiThread
   public void onCreate(@Nullable Bundle savedInstanceState) {
-    if (savedInstanceState != null && savedInstanceState.getBoolean(trackasiaConstants.STATE_HAS_SAVED_STATE)) {
+    if (savedInstanceState != null && savedInstanceState.getBoolean(MapLibreConstants.STATE_HAS_SAVED_STATE)) {
       this.savedInstanceState = savedInstanceState;
     }
   }
 
-  private void initialiseDrawingSurface(trackasiaMapOptions options) {
+  private void initialiseDrawingSurface(MapLibreMapOptions options) {
     String localFontFamily = options.getLocalIdeographFontFamily();
     if (options.getTextureMode()) {
       TextureView textureView = new TextureView(getContext());
@@ -328,7 +328,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
       addView(textureView, 0);
       renderView = textureView;
     } else {
-      trackasiaGLSurfaceView glSurfaceView = new trackasiaGLSurfaceView(getContext());
+      MapLibreGLSurfaceView glSurfaceView = new MapLibreGLSurfaceView(getContext());
       glSurfaceView.setZOrderMediaOverlay(trackasiaMapOptions.getRenderSurfaceOnTop());
       mapRenderer = new GLSurfaceViewMapRenderer(getContext(), glSurfaceView, localFontFamily) {
         @Override
@@ -370,7 +370,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   @UiThread
   public void onSaveInstanceState(@NonNull Bundle outState) {
     if (trackasiaMap != null) {
-      outState.putBoolean(trackasiaConstants.STATE_HAS_SAVED_STATE, true);
+      outState.putBoolean(MapLibreConstants.STATE_HAS_SAVED_STATE, true);
       trackasiaMap.onSaveInstanceState(outState);
     }
   }
@@ -596,7 +596,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
 
   /**
    * Returns the map pixel ratio, by default it returns the device pixel ratio.
-   * Can be overwritten using {@link trackasiaMapOptions#pixelRatio(float)}.
+   * Can be overwritten using {@link MapLibreMapOptions#pixelRatio(float)}.
    *
    * @return the current map pixel ratio
    */
@@ -1046,7 +1046,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   /**
    * Interface definition for a callback to be invoked when the map has entered the idle state.
    * <p>
-   * Calling {@link trackasiaMap#snapshot(trackasiaMap.SnapshotReadyCallback)} from this callback
+   * Calling {@link MapLibreMap#snapshot(MapLibreMap.SnapshotReadyCallback)} from this callback
    * will result in recursive execution. Use {@link OnDidFinishRenderingFrameListener} instead.
    * </p>
    * <p>
@@ -1124,7 +1124,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   }
 
   /**
-   * Sets a callback object which will be triggered when the {@link trackasiaMap} instance is ready to be used.
+   * Sets a callback object which will be triggered when the {@link MapLibreMap} instance is ready to be used.
    *
    * @param callback The callback object that will be triggered when the map is ready to be used.
    */
@@ -1147,11 +1147,11 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   }
 
   @Nullable
-  trackasiaMap getMapboxMap() {
+  MapLibreMap getMapboxMap() {
     return trackasiaMap;
   }
 
-  void setMapboxMap(trackasiaMap trackasiaMap) {
+  void setMapboxMap(MapLibreMap trackasiaMap) {
     this.trackasiaMap = trackasiaMap;
   }
 
@@ -1200,75 +1200,75 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
     }
   }
 
-  private class GesturesManagerInteractionListener implements trackasiaMap.OnGesturesManagerInteractionListener {
+  private class GesturesManagerInteractionListener implements MapLibreMap.OnGesturesManagerInteractionListener {
 
     @Override
-    public void onAddMapClickListener(trackasiaMap.OnMapClickListener listener) {
+    public void onAddMapClickListener(MapLibreMap.OnMapClickListener listener) {
       mapGestureDetector.addOnMapClickListener(listener);
     }
 
     @Override
-    public void onRemoveMapClickListener(trackasiaMap.OnMapClickListener listener) {
+    public void onRemoveMapClickListener(MapLibreMap.OnMapClickListener listener) {
       mapGestureDetector.removeOnMapClickListener(listener);
     }
 
     @Override
-    public void onAddMapLongClickListener(trackasiaMap.OnMapLongClickListener listener) {
+    public void onAddMapLongClickListener(MapLibreMap.OnMapLongClickListener listener) {
       mapGestureDetector.addOnMapLongClickListener(listener);
     }
 
     @Override
-    public void onRemoveMapLongClickListener(trackasiaMap.OnMapLongClickListener listener) {
+    public void onRemoveMapLongClickListener(MapLibreMap.OnMapLongClickListener listener) {
       mapGestureDetector.removeOnMapLongClickListener(listener);
     }
 
     @Override
-    public void onAddFlingListener(trackasiaMap.OnFlingListener listener) {
+    public void onAddFlingListener(MapLibreMap.OnFlingListener listener) {
       mapGestureDetector.addOnFlingListener(listener);
     }
 
     @Override
-    public void onRemoveFlingListener(trackasiaMap.OnFlingListener listener) {
+    public void onRemoveFlingListener(MapLibreMap.OnFlingListener listener) {
       mapGestureDetector.removeOnFlingListener(listener);
     }
 
     @Override
-    public void onAddMoveListener(trackasiaMap.OnMoveListener listener) {
+    public void onAddMoveListener(MapLibreMap.OnMoveListener listener) {
       mapGestureDetector.addOnMoveListener(listener);
     }
 
     @Override
-    public void onRemoveMoveListener(trackasiaMap.OnMoveListener listener) {
+    public void onRemoveMoveListener(MapLibreMap.OnMoveListener listener) {
       mapGestureDetector.removeOnMoveListener(listener);
     }
 
     @Override
-    public void onAddRotateListener(trackasiaMap.OnRotateListener listener) {
+    public void onAddRotateListener(MapLibreMap.OnRotateListener listener) {
       mapGestureDetector.addOnRotateListener(listener);
     }
 
     @Override
-    public void onRemoveRotateListener(trackasiaMap.OnRotateListener listener) {
+    public void onRemoveRotateListener(MapLibreMap.OnRotateListener listener) {
       mapGestureDetector.removeOnRotateListener(listener);
     }
 
     @Override
-    public void onAddScaleListener(trackasiaMap.OnScaleListener listener) {
+    public void onAddScaleListener(MapLibreMap.OnScaleListener listener) {
       mapGestureDetector.addOnScaleListener(listener);
     }
 
     @Override
-    public void onRemoveScaleListener(trackasiaMap.OnScaleListener listener) {
+    public void onRemoveScaleListener(MapLibreMap.OnScaleListener listener) {
       mapGestureDetector.removeOnScaleListener(listener);
     }
 
     @Override
-    public void onAddShoveListener(trackasiaMap.OnShoveListener listener) {
+    public void onAddShoveListener(MapLibreMap.OnShoveListener listener) {
       mapGestureDetector.addShoveListener(listener);
     }
 
     @Override
-    public void onRemoveShoveListener(trackasiaMap.OnShoveListener listener) {
+    public void onRemoveShoveListener(MapLibreMap.OnShoveListener listener) {
       mapGestureDetector.removeShoveListener(listener);
     }
 
@@ -1394,7 +1394,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
     private final AttributionDialogManager defaultDialogManager;
     private UiSettings uiSettings;
 
-    private AttributionClickListener(@NonNull Context context, @NonNull trackasiaMap trackasiaMap) {
+    private AttributionClickListener(@NonNull Context context, @NonNull MapLibreMap trackasiaMap) {
       this.defaultDialogManager = new AttributionDialogManager(context, trackasiaMap);
       this.uiSettings = trackasiaMap.getUiSettings();
     }
@@ -1419,7 +1419,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   }
 
   /**
-   * Sets the strict mode that will throw the {@link org.trackasia.android.MapStrictModeException}
+   * Sets the strict mode that will throw the {@link com.trackasia.android.MapStrictModeException}
    * whenever the map would fail silently otherwise.
    *
    * @param strictModeEnabled true to enable the strict mode, false otherwise

@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.snapshot
+package com.trackasia.android.testapp.activity.snapshot
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,17 +6,17 @@ import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.Style
-import org.trackasia.android.snapshotter.MapSnapshot
-import org.trackasia.android.snapshotter.MapSnapshotter
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.HeatmapLayer
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.style.sources.Source
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.Style
+import com.trackasia.android.snapshotter.MapSnapshot
+import com.trackasia.android.snapshotter.MapSnapshotter
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.HeatmapLayer
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.style.sources.Source
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 import java.net.URI
 import java.net.URISyntaxException

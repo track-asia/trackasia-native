@@ -1,9 +1,9 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.location.modes.CameraMode;
-import org.trackasia.android.location.modes.RenderMode;
+import com.trackasia.android.location.modes.CameraMode;
+import com.trackasia.android.location.modes.RenderMode;
 
 /**
  * Interface defining the source of compass heading data that is

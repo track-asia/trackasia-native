@@ -23,7 +23,7 @@ public:
                                                                           const jni::Class<TileServerOptions>&);
     static jni::Local<jni::Object<TileServerOptions>> MapTilerConfiguration(jni::JNIEnv&,
                                                                             const jni::Class<TileServerOptions>&);
-    static jni::Local<jni::Object<TileServerOptions>> trackasiaConfiguration(jni::JNIEnv&,
+    static jni::Local<jni::Object<TileServerOptions>> MapLibreConfiguration(jni::JNIEnv&,
                                                                             const jni::Class<TileServerOptions>&);
 
     static mbgl::TileServerOptions getTileServerOptions(jni::JNIEnv&, const jni::Object<TileServerOptions>&);

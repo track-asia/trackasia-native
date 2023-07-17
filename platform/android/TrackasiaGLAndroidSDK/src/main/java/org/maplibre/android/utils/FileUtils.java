@@ -1,10 +1,10 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.log.Logger;
 
 import java.io.File;
 

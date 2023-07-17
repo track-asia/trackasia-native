@@ -1,4 +1,4 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -6,7 +6,7 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.exceptions.CalledFromWorkerThreadException;
+import com.trackasia.android.exceptions.CalledFromWorkerThreadException;
 
 /**
  * Utility class to verify if execution is running on the main thread.
@@ -21,7 +21,7 @@ public class ThreadUtils {
   /**
    * Initialises the thread utils, verifies debug state of the consuming app.
    *
-   * @param context Context hosting the trackasia Maps SDK for Android
+   * @param context Context hosting the Trackasia Maps SDK for Android
    * @return this
    */
   public static ThreadUtils init(@NonNull Context context) {

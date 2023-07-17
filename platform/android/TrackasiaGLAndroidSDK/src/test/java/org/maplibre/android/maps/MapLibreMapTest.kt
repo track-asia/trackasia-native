@@ -1,14 +1,14 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.content.Context
-import org.trackasia.android.trackasiaInjector
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.style.layers.TransitionOptions
-import org.trackasia.android.utils.ConfigUtils
+import com.trackasia.android.MapLibreInjector
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.style.layers.TransitionOptions
+import com.trackasia.android.utils.ConfigUtils
 import io.mockk.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -19,9 +19,9 @@ import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class trackasiaMapTest {
+class MapLibreMapTest {
 
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
 
     private lateinit var nativeMapView: NativeMap
 
@@ -29,7 +29,7 @@ class trackasiaMapTest {
 
     private lateinit var cameraChangeDispatcher: CameraChangeDispatcher
 
-    private lateinit var developerAnimationListener: trackasiaMap.OnDeveloperAnimationListener
+    private lateinit var developerAnimationListener: MapLibreMap.OnDeveloperAnimationListener
 
     @Mock
     private lateinit var context: Context
@@ -40,12 +40,12 @@ class trackasiaMapTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        trackasiaInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
+        MapLibreInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
         cameraChangeDispatcher = spyk()
         developerAnimationListener = mockk(relaxed = true)
         nativeMapView = mockk(relaxed = true)
         transform = mockk(relaxed = true)
-        trackasiaMap = trackasiaMap(
+        trackasiaMap = MapLibreMap(
             nativeMapView,
             transform,
             mockk(relaxed = true),
@@ -70,7 +70,7 @@ class trackasiaMapTest {
 
     @Test
     fun testMoveCamera() {
-        val callback = mockk<trackasiaMap.CancelableCallback>()
+        val callback = mockk<MapLibreMap.CancelableCallback>()
         val target = LatLng(1.0, 2.0)
         val expected = CameraPosition.Builder().target(target).build()
         val update = CameraUpdateFactory.newCameraPosition(expected)
@@ -81,23 +81,23 @@ class trackasiaMapTest {
 
     @Test
     fun testEaseCamera() {
-        val callback = mockk<trackasiaMap.CancelableCallback>()
+        val callback = mockk<MapLibreMap.CancelableCallback>()
         val target = LatLng(1.0, 2.0)
         val expected = CameraPosition.Builder().target(target).build()
         val update = CameraUpdateFactory.newCameraPosition(expected)
         trackasiaMap.easeCamera(update, callback)
-        verify { transform.easeCamera(trackasiaMap, update, trackasiaConstants.ANIMATION_DURATION, true, callback) }
+        verify { transform.easeCamera(trackasiaMap, update, MapLibreConstants.ANIMATION_DURATION, true, callback) }
         verify { developerAnimationListener.onDeveloperAnimationStarted() }
     }
 
     @Test
     fun testAnimateCamera() {
-        val callback = mockk<trackasiaMap.CancelableCallback>()
+        val callback = mockk<MapLibreMap.CancelableCallback>()
         val target = LatLng(1.0, 2.0)
         val expected = CameraPosition.Builder().target(target).build()
         val update = CameraUpdateFactory.newCameraPosition(expected)
         trackasiaMap.animateCamera(update, callback)
-        verify { transform.animateCamera(trackasiaMap, update, trackasiaConstants.ANIMATION_DURATION, callback) }
+        verify { transform.animateCamera(trackasiaMap, update, MapLibreConstants.ANIMATION_DURATION, callback) }
         verify { developerAnimationListener.onDeveloperAnimationStarted() }
     }
 
@@ -148,7 +148,7 @@ class trackasiaMapTest {
 
     @Test
     fun testFpsListener() {
-        val fpsChangedListener = mockk<trackasiaMap.OnFpsChangedListener>()
+        val fpsChangedListener = mockk<MapLibreMap.OnFpsChangedListener>()
         trackasiaMap.onFpsChangedListener = fpsChangedListener
         assertEquals("Listener should match", fpsChangedListener, trackasiaMap.onFpsChangedListener)
     }

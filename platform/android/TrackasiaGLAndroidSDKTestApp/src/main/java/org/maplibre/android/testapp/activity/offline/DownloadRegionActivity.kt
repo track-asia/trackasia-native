@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.offline
+package com.trackasia.android.testapp.activity.offline
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,13 +9,13 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.maps.Style
-import org.trackasia.android.offline.*
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.databinding.ActivityRegionDownloadBinding
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.Style
+import com.trackasia.android.offline.*
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.databinding.ActivityRegionDownloadBinding
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -243,7 +243,7 @@ class DownloadRegionActivity : AppCompatActivity(), OfflineRegion.OfflineRegionO
     }
 
     private fun initSeekbars() {
-        val maxZoom = trackasiaConstants.MAXIMUM_ZOOM.toInt()
+        val maxZoom = MapLibreConstants.MAXIMUM_ZOOM.toInt()
         binding.seekbarMinZoom.max = maxZoom
         binding.seekbarMinZoom.progress = 1
         binding.seekbarMaxZoom.max = maxZoom

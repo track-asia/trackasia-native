@@ -1,7 +1,7 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import androidx.test.espresso.UiController
-import org.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapView
 
 object TestingAsyncUtils {
     private const val DEFAULT_TIMEOUT = 15_000L

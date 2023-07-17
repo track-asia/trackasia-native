@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.render
+package com.trackasia.android.testapp.activity.render
 
 import android.content.res.AssetManager
 import android.graphics.Bitmap
@@ -12,8 +12,8 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import org.trackasia.android.snapshotter.MapSnapshot
-import org.trackasia.android.snapshotter.MapSnapshotter
+import com.trackasia.android.snapshotter.MapSnapshot
+import com.trackasia.android.snapshotter.MapSnapshotter
 import okio.buffer
 import okio.source
 import timber.log.Timber

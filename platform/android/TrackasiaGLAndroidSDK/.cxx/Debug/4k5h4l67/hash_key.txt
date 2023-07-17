@@ -7,7 +7,7 @@
 #   - $HASH is the hash value computed from this text.
 #   - $CMAKE is the path to CMake 3.18.1.
 #   - $NINJA is the path to Ninja.
--H$PROJECT/MapboxGLAndroidSDK/src/cpp
+-H$PROJECT/TrackasiaGLAndroidSDK/src/cpp
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 -DCMAKE_SYSTEM_VERSION=21

@@ -1,4 +1,4 @@
-package org.trackasia.android.location.engine;
+package com.trackasia.android.location.engine;
 
 import android.app.PendingIntent;
 import android.os.Looper;
@@ -12,7 +12,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 /**
  * Generic location engine interface wrapper for the location providers.
- * Default providers bundled with trackasia location library:
+ * Default providers bundled with Trackasia location library:
  * Android location provider and Google Play Services fused location provider
  *
  * @since 1.0.0

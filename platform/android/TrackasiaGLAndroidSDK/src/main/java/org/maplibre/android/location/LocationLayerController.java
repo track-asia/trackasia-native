@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
@@ -7,30 +7,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mapbox.geojson.Feature;
-import org.trackasia.android.location.modes.RenderMode;
-import org.trackasia.android.log.Logger;
-import org.trackasia.android.maps.trackasiaMap;
-import org.trackasia.android.maps.Style;
-import org.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.location.modes.RenderMode;
+import com.trackasia.android.log.Logger;
+import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.style.expressions.Expression;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.trackasia.android.location.LocationComponentConstants.BACKGROUND_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.BACKGROUND_LAYER;
-import static org.trackasia.android.location.LocationComponentConstants.BACKGROUND_STALE_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.BEARING_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.BEARING_LAYER;
-import static org.trackasia.android.location.LocationComponentConstants.FOREGROUND_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.FOREGROUND_LAYER;
-import static org.trackasia.android.location.LocationComponentConstants.FOREGROUND_STALE_ICON;
-import static org.trackasia.android.style.expressions.Expression.interpolate;
-import static org.trackasia.android.style.expressions.Expression.linear;
-import static org.trackasia.android.style.expressions.Expression.stop;
-import static org.trackasia.android.style.expressions.Expression.zoom;
+import static com.trackasia.android.location.LocationComponentConstants.BACKGROUND_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.BACKGROUND_LAYER;
+import static com.trackasia.android.location.LocationComponentConstants.BACKGROUND_STALE_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.BEARING_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.BEARING_LAYER;
+import static com.trackasia.android.location.LocationComponentConstants.FOREGROUND_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.FOREGROUND_LAYER;
+import static com.trackasia.android.location.LocationComponentConstants.FOREGROUND_STALE_ICON;
+import static com.trackasia.android.style.expressions.Expression.interpolate;
+import static com.trackasia.android.style.expressions.Expression.linear;
+import static com.trackasia.android.style.expressions.Expression.stop;
+import static com.trackasia.android.style.expressions.Expression.zoom;
 
-import org.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLng;
 
 final class LocationLayerController {
 
@@ -39,7 +39,7 @@ final class LocationLayerController {
   @RenderMode.Mode
   private int renderMode;
 
-  private final trackasiaMap trackasiaMap;
+  private final MapLibreMap trackasiaMap;
   private final LayerBitmapProvider bitmapProvider;
   private LocationComponentOptions options;
   private final OnRenderModeChangedListener internalRenderModeChangedListener;
@@ -52,7 +52,7 @@ final class LocationLayerController {
 
   private LocationLayerRenderer locationLayerRenderer;
 
-  LocationLayerController(trackasiaMap trackasiaMap, Style style,
+  LocationLayerController(MapLibreMap trackasiaMap, Style style,
                           LayerSourceProvider layerSourceProvider,
                           LayerFeatureProvider featureProvider,
                           LayerBitmapProvider bitmapProvider,
@@ -258,32 +258,32 @@ final class LocationLayerController {
     return !features.isEmpty();
   }
 
-  private final trackasiaAnimator.AnimationsValueChangeListener<LatLng> latLngValueListener =
-    new trackasiaAnimator.AnimationsValueChangeListener<LatLng>() {
+  private final MapLibreAnimator.AnimationsValueChangeListener<LatLng> latLngValueListener =
+    new MapLibreAnimator.AnimationsValueChangeListener<LatLng>() {
       @Override
       public void onNewAnimationValue(LatLng value) {
         locationLayerRenderer.setLatLng(value);
       }
   };
 
-  private final trackasiaAnimator.AnimationsValueChangeListener<Float> gpsBearingValueListener =
-    new trackasiaAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapLibreAnimator.AnimationsValueChangeListener<Float> gpsBearingValueListener =
+    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setGpsBearing(value);
       }
   };
 
-  private final trackasiaAnimator.AnimationsValueChangeListener<Float> compassBearingValueListener =
-    new trackasiaAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapLibreAnimator.AnimationsValueChangeListener<Float> compassBearingValueListener =
+    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setCompassBearing(value);
       }
   };
 
-  private final trackasiaAnimator.AnimationsValueChangeListener<Float> accuracyValueListener =
-    new trackasiaAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapLibreAnimator.AnimationsValueChangeListener<Float> accuracyValueListener =
+    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setAccuracyRadius(value);
@@ -293,8 +293,8 @@ final class LocationLayerController {
   /**
    * The listener that handles the updating of the pulsing circle's radius and opacity.
    */
-  private final trackasiaAnimator.AnimationsValueChangeListener<Float> pulsingCircleRadiusListener =
-    new trackasiaAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapLibreAnimator.AnimationsValueChangeListener<Float> pulsingCircleRadiusListener =
+    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float newPulseRadiusValue) {
         Float newPulseOpacityValue = null;
@@ -307,21 +307,21 @@ final class LocationLayerController {
 
   Set<AnimatorListenerHolder> getAnimationListeners() {
     Set<AnimatorListenerHolder> holders = new HashSet<>();
-    holders.add(new AnimatorListenerHolder(trackasiaAnimator.ANIMATOR_LAYER_LATLNG, latLngValueListener));
+    holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_LAYER_LATLNG, latLngValueListener));
 
     if (renderMode == RenderMode.GPS) {
-      holders.add(new AnimatorListenerHolder(trackasiaAnimator.ANIMATOR_LAYER_GPS_BEARING, gpsBearingValueListener));
+      holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_LAYER_GPS_BEARING, gpsBearingValueListener));
     } else if (renderMode == RenderMode.COMPASS) {
       holders.add(
-        new AnimatorListenerHolder(trackasiaAnimator.ANIMATOR_LAYER_COMPASS_BEARING, compassBearingValueListener));
+        new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_LAYER_COMPASS_BEARING, compassBearingValueListener));
     }
 
     if (renderMode == RenderMode.COMPASS || renderMode == RenderMode.NORMAL) {
-      holders.add(new AnimatorListenerHolder(trackasiaAnimator.ANIMATOR_LAYER_ACCURACY, accuracyValueListener));
+      holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_LAYER_ACCURACY, accuracyValueListener));
     }
 
     if (options.pulseEnabled()) {
-      holders.add(new AnimatorListenerHolder(trackasiaAnimator.ANIMATOR_PULSING_CIRCLE,
+      holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_PULSING_CIRCLE,
           pulsingCircleRadiusListener));
     }
     return holders;

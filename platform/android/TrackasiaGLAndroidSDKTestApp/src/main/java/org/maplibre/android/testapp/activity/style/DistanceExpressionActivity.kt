@@ -1,22 +1,22 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Point
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression.distance
-import org.trackasia.android.style.expressions.Expression.lt
-import org.trackasia.android.style.layers.FillLayer
-import org.trackasia.android.style.layers.Property.NONE
-import org.trackasia.android.style.layers.PropertyFactory.*
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.databinding.ActivityWithinExpressionBinding
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression.distance
+import com.trackasia.android.style.expressions.Expression.lt
+import com.trackasia.android.style.layers.FillLayer
+import com.trackasia.android.style.layers.Property.NONE
+import com.trackasia.android.style.layers.PropertyFactory.*
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.databinding.ActivityWithinExpressionBinding
 import com.mapbox.turf.TurfConstants
 import com.mapbox.turf.TurfTransformation
 
@@ -26,7 +26,7 @@ import com.mapbox.turf.TurfTransformation
 class DistanceExpressionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWithinExpressionBinding
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
 
     private val lat = 37.78794572301525
     private val lon = -122.40752220153807

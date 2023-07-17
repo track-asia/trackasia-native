@@ -1,12 +1,12 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.graphics.PointF
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.android.gestures.RotateGestureDetector
 import com.mapbox.android.gestures.ShoveGestureDetector
 import com.mapbox.android.gestures.StandardScaleGestureDetector
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.trackasiaMap.*
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapLibreMap.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito

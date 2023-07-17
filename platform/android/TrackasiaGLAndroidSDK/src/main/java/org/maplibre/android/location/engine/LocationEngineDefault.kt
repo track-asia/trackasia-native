@@ -1,4 +1,4 @@
-package org.trackasia.android.location.engine
+package com.trackasia.android.location.engine
 
 import android.content.Context
 
@@ -8,7 +8,7 @@ object LocationEngineDefault {
      */
     fun getDefaultLocationEngine(context: Context): LocationEngine {
         return LocationEngineProxy(
-            trackasiaFusedLocationEngineImpl(
+            MapLibreFusedLocationEngineImpl(
                 context.applicationContext
             )
         )

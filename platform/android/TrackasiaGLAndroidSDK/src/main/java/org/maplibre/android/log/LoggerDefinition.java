@@ -1,7 +1,7 @@
-package org.trackasia.android.log;
+package com.trackasia.android.log;
 
 /**
- * Definition of a logger for the trackasia Maps SDK for Android.
+ * Definition of a logger for the Trackasia Maps SDK for Android.
  */
 public interface LoggerDefinition {
 

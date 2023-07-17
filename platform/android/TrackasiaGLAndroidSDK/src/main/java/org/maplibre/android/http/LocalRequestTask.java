@@ -1,4 +1,4 @@
-package org.trackasia.android.http;
+package com.trackasia.android.http;
 
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
@@ -6,9 +6,9 @@ import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.trackasia;
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.Trackasia;
+import com.trackasia.android.log.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +26,7 @@ class LocalRequestTask extends AsyncTask<String, Void, byte[]> {
   @Nullable
   @Override
   protected byte[] doInBackground(String... strings) {
-    return loadFile(trackasia.getApplicationContext().getAssets(),
+    return loadFile(Trackasia.getApplicationContext().getAssets(),
       "integration/" + strings[0]
         .substring(8)
         .replaceAll("%20", " ")

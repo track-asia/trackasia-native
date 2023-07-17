@@ -1,20 +1,20 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.util.TileServerOptions;
+import com.trackasia.android.util.TileServerOptions;
 
 import java.lang.reflect.Field;
 
-public class TrackasiaInjector {
+public class MapLibreInjector {
 
   private static final String FIELD_INSTANCE = "INSTANCE";
 
   public static void inject(@NonNull Context context, @NonNull String apiKey,
                             @NonNull TileServerOptions options) {
-    Trackasia trackasia = new Trackasia(context, apiKey, options);
+    Trackasia Trackasia = new Trackasia(context, apiKey, options);
     try {
       Field instance = Trackasia.class.getDeclaredField(FIELD_INSTANCE);
       instance.setAccessible(true);

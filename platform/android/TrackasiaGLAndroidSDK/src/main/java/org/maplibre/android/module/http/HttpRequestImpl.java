@@ -1,4 +1,4 @@
-package org.trackasia.android.module.http;
+package com.trackasia.android.module.http;
 
 import android.os.Build;
 import android.text.TextUtils;
@@ -8,13 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import org.trackasia.android.BuildConfig;
-import org.trackasia.android.constants.trackasiaConstants;
-import org.trackasia.android.http.HttpIdentifier;
-import org.trackasia.android.http.HttpLogger;
-import org.trackasia.android.http.HttpRequest;
-import org.trackasia.android.http.HttpRequestUrl;
-import org.trackasia.android.http.HttpResponder;
+import com.trackasia.android.BuildConfig;
+import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.http.HttpIdentifier;
+import com.trackasia.android.http.HttpLogger;
+import com.trackasia.android.http.HttpRequest;
+import com.trackasia.android.http.HttpRequestUrl;
+import com.trackasia.android.http.HttpResponder;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -34,7 +34,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-import static org.trackasia.android.module.http.HttpRequestUtil.toHumanReadableAscii;
+import static com.trackasia.android.module.http.HttpRequestUtil.toHumanReadableAscii;
 
 public class HttpRequestImpl implements HttpRequest {
 
@@ -66,12 +66,12 @@ public class HttpRequestImpl implements HttpRequest {
         return;
       }
 
-      final String host = httpUrl.host().toLowerCase(trackasiaConstants.trackasia_LOCALE);
+      final String host = httpUrl.host().toLowerCase(MapLibreConstants.trackasia_LOCALE);
       resourceUrl = HttpRequestUrl.buildResourceUrl(host, resourceUrl, httpUrl.querySize(), offlineUsage);
 
       final Request.Builder builder = new Request.Builder()
         .url(resourceUrl)
-        .tag(resourceUrl.toLowerCase(trackasiaConstants.trackasia_LOCALE))
+        .tag(resourceUrl.toLowerCase(MapLibreConstants.trackasia_LOCALE))
         .addHeader("User-Agent", userAgentString);
       if (etag.length() > 0) {
         builder.addHeader("If-None-Match", etag);

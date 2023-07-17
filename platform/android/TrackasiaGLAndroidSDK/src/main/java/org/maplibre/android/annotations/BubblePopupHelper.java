@@ -1,4 +1,4 @@
-package org.trackasia.android.annotations;
+package com.trackasia.android.annotations;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -8,7 +8,7 @@ import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.R;
+import com.trackasia.android.R;
 
 @Deprecated
 class BubblePopupHelper {

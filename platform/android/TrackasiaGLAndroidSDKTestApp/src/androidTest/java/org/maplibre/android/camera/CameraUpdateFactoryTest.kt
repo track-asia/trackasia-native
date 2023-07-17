@@ -1,12 +1,12 @@
-package org.trackasia.android.camera
+package com.trackasia.android.camera
 
 import android.graphics.PointF
 import androidx.test.annotation.UiThreadTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.testapp.activity.BaseTest
-import org.trackasia.android.testapp.activity.espresso.DeviceIndependentTestActivity
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.testapp.activity.BaseTest
+import com.trackasia.android.testapp.activity.espresso.DeviceIndependentTestActivity
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

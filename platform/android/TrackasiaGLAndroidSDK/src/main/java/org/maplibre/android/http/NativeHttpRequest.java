@@ -1,16 +1,16 @@
-package org.trackasia.android.http;
+package com.trackasia.android.http;
 
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.trackasia;
+import com.trackasia.android.Trackasia;
 
 import java.util.concurrent.locks.ReentrantLock;
 
 @Keep
 public class NativeHttpRequest implements HttpResponder {
 
-  private final HttpRequest httpRequest = trackasia.getModuleProvider().createHttpRequest();
+  private final HttpRequest httpRequest = Trackasia.getModuleProvider().createHttpRequest();
 
   // Reentrancy is not needed, but "Lock" is an abstract class.
   private final ReentrantLock lock = new ReentrantLock();

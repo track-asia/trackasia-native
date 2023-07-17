@@ -1,12 +1,12 @@
-package org.trackasia.android.testapp.activity.textureview
+package com.trackasia.android.testapp.activity.textureview
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.trackasia.android.maps.*
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.*
+import com.trackasia.android.testapp.R
 
 /**
  * Test resizing a [android.view.TextureView] backed map on the fly.
@@ -32,10 +32,10 @@ class TextureViewResizeActivity : AppCompatActivity() {
     private fun setupMapView(savedInstanceState: Bundle?) {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: trackasiaMap -> setupMap(trackasiaMap) })
+        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: MapLibreMap -> setupMap(trackasiaMap) })
     }
 
-    private fun setupMap(trackasiaMap: trackasiaMap) {
+    private fun setupMap(trackasiaMap: MapLibreMap) {
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
     }
 

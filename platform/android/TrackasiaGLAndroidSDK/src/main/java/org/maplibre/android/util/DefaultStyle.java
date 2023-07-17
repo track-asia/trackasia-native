@@ -1,4 +1,4 @@
-package org.trackasia.android.util;
+package com.trackasia.android.util;
 
 import android.os.Parcel;
 import android.os.Parcelable;

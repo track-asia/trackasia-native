@@ -1,13 +1,13 @@
-package org.trackasia.android.geometry
+package com.trackasia.android.geometry
 
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.FloatRange
 import androidx.annotation.Keep
-import org.trackasia.android.constants.GeometryConstants
-import org.trackasia.android.exceptions.InvalidLatLngBoundsException
-import org.trackasia.android.utils.isInfinite
-import org.trackasia.android.utils.isNaN
+import com.trackasia.android.constants.GeometryConstants
+import com.trackasia.android.exceptions.InvalidLatLngBoundsException
+import com.trackasia.android.utils.isInfinite
+import com.trackasia.android.utils.isNaN
 
 /**
  * A geographical area representing a latitude/longitude aligned rectangle.

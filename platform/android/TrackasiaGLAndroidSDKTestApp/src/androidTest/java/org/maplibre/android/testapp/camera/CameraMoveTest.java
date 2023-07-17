@@ -1,12 +1,12 @@
 
-package org.trackasia.android.testapp.camera;
+package com.trackasia.android.testapp.camera;
 
-import org.trackasia.android.camera.CameraUpdate;
-import org.trackasia.android.maps.trackasiaMap;
+import com.trackasia.android.camera.CameraUpdate;
+import com.trackasia.android.maps.MapLibreMap;
 
 public class CameraMoveTest extends CameraTest {
   @Override
-  void executeCameraMovement(CameraUpdate cameraUpdate, trackasiaMap.CancelableCallback callback) {
+  void executeCameraMovement(CameraUpdate cameraUpdate, MapLibreMap.CancelableCallback callback) {
     trackasiaMap.moveCamera(cameraUpdate, callback);
   }
 }

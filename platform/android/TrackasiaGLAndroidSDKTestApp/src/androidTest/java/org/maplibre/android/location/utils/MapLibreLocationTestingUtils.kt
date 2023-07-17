@@ -1,4 +1,4 @@
-package org.trackasia.android.location.utils
+package com.trackasia.android.location.utils
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -8,26 +8,26 @@ import android.location.Location
 import android.os.Handler
 import android.os.Looper
 import com.mapbox.geojson.Feature
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.style.layers.Property
-import org.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.style.layers.Property
+import com.trackasia.android.style.sources.GeoJsonSource
 
-fun trackasiaMap.querySourceFeatures(sourceId: String): List<Feature> {
+fun MapLibreMap.querySourceFeatures(sourceId: String): List<Feature> {
     return this.style!!.getSourceAs<GeoJsonSource>(sourceId)?.querySourceFeatures(null) ?: emptyList()
 }
 
-fun trackasiaMap.queryRenderedFeatures(location: Location, layerId: String): List<Feature> {
+fun MapLibreMap.queryRenderedFeatures(location: Location, layerId: String): List<Feature> {
     val latLng = LatLng(location.latitude, location.longitude)
     val point = this.projection.toScreenLocation(latLng)
     return this.queryRenderedFeatures(point, layerId)
 }
 
-fun trackasiaMap.isLayerVisible(layerId: String): Boolean {
+fun MapLibreMap.isLayerVisible(layerId: String): Boolean {
     return this.style!!.getLayer(layerId)?.visibility?.value?.equals(Property.VISIBLE)!!
 }
 
-class TrackasiaTestingUtils {
+class MapLibreTestingUtils {
     companion object {
 
         /**
@@ -63,7 +63,7 @@ class TrackasiaTestingUtils {
     }
 }
 
-fun trackasiaMap.addImageFromDrawable(string: String, drawable: Drawable) {
+fun MapLibreMap.addImageFromDrawable(string: String, drawable: Drawable) {
     val bitmapFromDrawable = getBitmapFromDrawable(drawable)
     this.style!!.addImage(string, bitmapFromDrawable)
 }

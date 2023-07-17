@@ -1,13 +1,13 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.ShapeDrawable
 import android.util.Pair
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.layers.TransitionOptions
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.layers.TransitionOptions
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.utils.BitmapUtils
 import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

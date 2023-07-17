@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 /**
  * Describes the image content, e.g. where text can be fit into an image.

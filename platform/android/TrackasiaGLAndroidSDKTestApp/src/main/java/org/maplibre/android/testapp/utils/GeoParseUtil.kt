@@ -1,10 +1,10 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import android.content.Context
 import android.text.TextUtils
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
-import org.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLng
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader

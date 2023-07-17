@@ -1,4 +1,4 @@
-package org.trackasia.android.maps;
+package com.trackasia.android.maps;
 
 import android.graphics.Color;
 import android.view.View;
@@ -6,17 +6,17 @@ import android.view.View;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 
-import org.trackasia.android.annotations.BaseMarkerOptions;
-import org.trackasia.android.annotations.Marker;
-import org.trackasia.android.annotations.MarkerOptions;
-import org.trackasia.android.annotations.Polygon;
-import org.trackasia.android.annotations.PolygonOptions;
-import org.trackasia.android.annotations.Polyline;
-import org.trackasia.android.annotations.PolylineOptions;
-import org.trackasia.android.exceptions.InvalidMarkerPositionException;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.testapp.R;
-import org.trackasia.android.testapp.activity.EspressoTest;
+import com.trackasia.android.annotations.BaseMarkerOptions;
+import com.trackasia.android.annotations.Marker;
+import com.trackasia.android.annotations.MarkerOptions;
+import com.trackasia.android.annotations.Polygon;
+import com.trackasia.android.annotations.PolygonOptions;
+import com.trackasia.android.annotations.Polyline;
+import com.trackasia.android.annotations.PolylineOptions;
+import com.trackasia.android.exceptions.InvalidMarkerPositionException;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.testapp.R;
+import com.trackasia.android.testapp.activity.EspressoTest;
 
 import org.hamcrest.Matcher;
 import org.junit.Test;
@@ -41,7 +41,7 @@ import static org.junit.Assert.assertTrue;
  * @deprecated remove this file when removing deprecated annotations
  */
 @Deprecated
-public class trackasiaMapTest extends EspressoTest {
+public class MapLibreMapTest extends EspressoTest {
 
   //
   // InfoWindow
@@ -50,7 +50,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testConcurrentInfoWindowEnabled() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       trackasiaMap.setAllowConcurrentMultipleOpenInfoWindows(true);
       assertTrue("ConcurrentWindows should be true", trackasiaMap.isAllowConcurrentMultipleOpenInfoWindows());
     }));
@@ -59,7 +59,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testConcurrentInfoWindowDisabled() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       trackasiaMap.setAllowConcurrentMultipleOpenInfoWindows(false);
       assertFalse("ConcurrentWindows should be false", trackasiaMap.isAllowConcurrentMultipleOpenInfoWindows());
     }));
@@ -68,8 +68,8 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testInfoWindowAdapter() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
-      trackasiaMap.InfoWindowAdapter infoWindowAdapter = marker -> null;
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
+      MapLibreMap.InfoWindowAdapter infoWindowAdapter = marker -> null;
       trackasiaMap.setInfoWindowAdapter(infoWindowAdapter);
       assertEquals("InfoWindowAdpter should be the same", infoWindowAdapter, trackasiaMap.getInfoWindowAdapter());
     }));
@@ -82,7 +82,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddMarker() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       MarkerOptions markerOptions = new MarkerOptions().position(new LatLng());
       Marker marker = trackasiaMap.addMarker(markerOptions);
       assertTrue("Marker should be contained", trackasiaMap.getMarkers().contains(marker));
@@ -97,7 +97,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddMarkers() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<BaseMarkerOptions> markerList = new ArrayList<>();
       MarkerOptions markerOptions1 = new MarkerOptions().position(new LatLng()).title("a");
       MarkerOptions markerOptions2 = new MarkerOptions().position(new LatLng()).title("b");
@@ -113,7 +113,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddMarkersEmpty() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<BaseMarkerOptions> markerList = new ArrayList<>();
       trackasiaMap.addMarkers(markerList);
       assertEquals("Markers size should be 0", 0, trackasiaMap.getMarkers().size());
@@ -123,7 +123,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddMarkersSingleMarker() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<BaseMarkerOptions> markerList = new ArrayList<>();
       MarkerOptions markerOptions = new MarkerOptions().title("a").position(new LatLng());
       markerList.add(markerOptions);
@@ -136,7 +136,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddPolygon() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       PolygonOptions polygonOptions = new PolygonOptions().add(new LatLng());
       Polygon polygon = trackasiaMap.addPolygon(polygonOptions);
       assertTrue("Polygon should be contained", trackasiaMap.getPolygons().contains(polygon));
@@ -146,7 +146,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddEmptyPolygon() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       PolygonOptions polygonOptions = new PolygonOptions();
       Polygon polygon = trackasiaMap.addPolygon(polygonOptions);
       assertTrue("Polygon should be ignored", !trackasiaMap.getPolygons().contains(polygon));
@@ -156,7 +156,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddPolygons() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<PolygonOptions> polygonList = new ArrayList<>();
       PolygonOptions polygonOptions1 = new PolygonOptions().fillColor(Color.BLACK).add(new LatLng());
       PolygonOptions polygonOptions2 = new PolygonOptions().fillColor(Color.WHITE).add(new LatLng());
@@ -175,7 +175,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void addPolygonsEmpty() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       trackasiaMap.addPolygons(new ArrayList<PolygonOptions>());
       assertEquals("Polygons size should be 0", 0, trackasiaMap.getPolygons().size());
     }));
@@ -184,7 +184,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void addPolygonsSingle() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<PolygonOptions> polygonList = new ArrayList<>();
       PolygonOptions polygonOptions = new PolygonOptions().fillColor(Color.BLACK).add(new LatLng());
       polygonList.add(polygonOptions);
@@ -197,7 +197,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddPolyline() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       PolylineOptions polylineOptions = new PolylineOptions().add(new LatLng());
       Polyline polyline = trackasiaMap.addPolyline(polylineOptions);
       assertTrue("Polyline should be contained", trackasiaMap.getPolylines().contains(polyline));
@@ -207,7 +207,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddEmptyPolyline() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       PolylineOptions polylineOptions = new PolylineOptions();
       Polyline polyline = trackasiaMap.addPolyline(polylineOptions);
       assertTrue("Polyline should be ignored", !trackasiaMap.getPolylines().contains(polyline));
@@ -217,7 +217,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddPolylines() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<PolylineOptions> polylineList = new ArrayList<>();
       PolylineOptions polygonOptions1 = new PolylineOptions().color(Color.BLACK).add(new LatLng());
       PolylineOptions polygonOptions2 = new PolylineOptions().color(Color.WHITE).add(new LatLng());
@@ -238,7 +238,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddPolylinesEmpty() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       trackasiaMap.addPolylines(new ArrayList<PolylineOptions>());
       assertEquals("Polygons size should be 0", 0, trackasiaMap.getPolylines().size());
     }));
@@ -247,7 +247,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testAddPolylinesSingle() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<PolylineOptions> polylineList = new ArrayList<>();
       PolylineOptions polygonOptions = new PolylineOptions().color(Color.BLACK).add(new LatLng());
       polylineList.add(polygonOptions);
@@ -260,7 +260,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testRemoveMarker() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       MarkerOptions markerOptions = new MarkerOptions().position(new LatLng());
       Marker marker = trackasiaMap.addMarker(markerOptions);
       trackasiaMap.removeMarker(marker);
@@ -271,7 +271,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testRemovePolygon() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       PolygonOptions polygonOptions = new PolygonOptions();
       Polygon polygon = trackasiaMap.addPolygon(polygonOptions);
       trackasiaMap.removePolygon(polygon);
@@ -282,7 +282,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testRemovePolyline() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       PolylineOptions polylineOptions = new PolylineOptions();
       Polyline polyline = trackasiaMap.addPolyline(polylineOptions);
       trackasiaMap.removePolyline(polyline);
@@ -293,7 +293,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testRemoveAnnotation() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       MarkerOptions markerOptions = new MarkerOptions().position(new LatLng());
       Marker marker = trackasiaMap.addMarker(markerOptions);
       trackasiaMap.removeAnnotation(marker);
@@ -304,7 +304,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testRemoveAnnotationById() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       MarkerOptions markerOptions = new MarkerOptions().position(new LatLng());
       trackasiaMap.addMarker(markerOptions);
       // id will always be 0 in unit tests
@@ -316,7 +316,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testRemoveAnnotations() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<BaseMarkerOptions> markerList = new ArrayList<>();
       MarkerOptions markerOptions1 = new MarkerOptions().title("a").position(new LatLng());
       MarkerOptions markerOptions2 = new MarkerOptions().title("b").position(new LatLng());
@@ -331,7 +331,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testClear() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<BaseMarkerOptions> markerList = new ArrayList<>();
       MarkerOptions markerOptions1 = new MarkerOptions().title("a").position(new LatLng());
       MarkerOptions markerOptions2 = new MarkerOptions().title("b").position(new LatLng());
@@ -346,7 +346,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testRemoveAnnotationsByList() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       List<BaseMarkerOptions> markerList = new ArrayList<>();
       MarkerOptions markerOptions1 = new MarkerOptions().title("a").position(new LatLng());
       MarkerOptions markerOptions2 = new MarkerOptions().title("b").position(new LatLng());
@@ -363,7 +363,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testGetAnnotationById() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       MarkerOptions markerOptions = new MarkerOptions().position(new LatLng());
       Marker initialMarker = trackasiaMap.addMarker(markerOptions);
       Marker retrievedMarker = (Marker) trackasiaMap.getAnnotation(0);
@@ -375,7 +375,7 @@ public class trackasiaMapTest extends EspressoTest {
   public void testGetAnnotations() {
     validateTestSetup();
     onView(withId(R.id.mapView)).perform(
-      new trackasiaMapAction((uiController, view) ->
+      new MapLibreMapAction((uiController, view) ->
         assertNotNull("Annotations should be non null", trackasiaMap.getAnnotations()))
     );
   }
@@ -384,7 +384,7 @@ public class trackasiaMapTest extends EspressoTest {
   public void testGetMarkers() {
     validateTestSetup();
     onView(withId(R.id.mapView)).perform(
-      new trackasiaMapAction((uiController, view) ->
+      new MapLibreMapAction((uiController, view) ->
         assertNotNull("Markers should be non null", trackasiaMap.getMarkers()))
     );
   }
@@ -392,7 +392,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testGetPolygons() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) ->
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) ->
       assertNotNull("Polygons should be non null", trackasiaMap.getPolygons()))
     );
   }
@@ -400,7 +400,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testGetPolylines() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) ->
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) ->
       assertNotNull("Polylines should be non null", trackasiaMap.getPolylines()))
     );
   }
@@ -408,7 +408,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testGetSelectedMarkers() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) ->
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) ->
       assertNotNull("Selected markers should be non null", trackasiaMap.getSelectedMarkers()))
     );
   }
@@ -416,7 +416,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testSelectMarker() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       MarkerOptions markerOptions = new MarkerOptions().position(new LatLng());
       Marker marker = trackasiaMap.addMarker(markerOptions);
       trackasiaMap.selectMarker(marker);
@@ -427,7 +427,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testDeselectMarker() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       MarkerOptions markerOptions = new MarkerOptions().position(new LatLng());
       Marker marker = trackasiaMap.addMarker(markerOptions);
       trackasiaMap.selectMarker(marker);
@@ -439,7 +439,7 @@ public class trackasiaMapTest extends EspressoTest {
   @Test
   public void testDeselectMarkers() {
     validateTestSetup();
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       MarkerOptions markerOptions = new MarkerOptions().position(new LatLng());
       Marker marker1 = trackasiaMap.addMarker(markerOptions);
       Marker marker2 = trackasiaMap.addMarker(markerOptions);
@@ -450,11 +450,11 @@ public class trackasiaMapTest extends EspressoTest {
     }));
   }
 
-  public class trackasiaMapAction implements ViewAction {
+  public class MapLibreMapAction implements ViewAction {
 
     private InvokeViewAction invokeViewAction;
 
-    trackasiaMapAction(InvokeViewAction invokeViewAction) {
+    MapLibreMapAction(InvokeViewAction invokeViewAction) {
       this.invokeViewAction = invokeViewAction;
     }
 

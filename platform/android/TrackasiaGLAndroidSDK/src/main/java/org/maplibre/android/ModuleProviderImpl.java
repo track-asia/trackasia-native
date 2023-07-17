@@ -1,10 +1,10 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.http.HttpRequest;
-import org.trackasia.android.module.http.HttpRequestImpl;
-import org.trackasia.android.module.loader.LibraryLoaderProviderImpl;
+import com.trackasia.android.http.HttpRequest;
+import com.trackasia.android.module.http.HttpRequestImpl;
+import com.trackasia.android.module.loader.LibraryLoaderProviderImpl;
 
 public class ModuleProviderImpl implements ModuleProvider {
 

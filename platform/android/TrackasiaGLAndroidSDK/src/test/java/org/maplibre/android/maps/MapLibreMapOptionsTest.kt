@@ -1,10 +1,10 @@
-package org.trackasia.android.maps
+package com.trackasia.android.maps
 
 import android.graphics.Color
 import android.view.Gravity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.constants.trackasiaConstants
-import org.trackasia.android.geometry.LatLng
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.geometry.LatLng
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,40 +13,40 @@ import org.robolectric.RuntimeEnvironment
 import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
-class trackasiaMapOptionsTest {
+class MapLibreMapOptionsTest {
     @Test
     fun testSanity() {
         Assert.assertNotNull("should not be null",
-            trackasiaMapOptions()
+            MapLibreMapOptions()
         )
     }
 
     @Test
     fun testDebugEnabled() {
-        Assert.assertFalse(trackasiaMapOptions().debugActive)
-        Assert.assertTrue(trackasiaMapOptions().debugActive(true).debugActive)
-        Assert.assertFalse(trackasiaMapOptions().debugActive(false).debugActive)
+        Assert.assertFalse(MapLibreMapOptions().debugActive)
+        Assert.assertTrue(MapLibreMapOptions().debugActive(true).debugActive)
+        Assert.assertFalse(MapLibreMapOptions().debugActive(false).debugActive)
     }
 
     @Test
     fun testCompassEnabled() {
-        Assert.assertTrue(trackasiaMapOptions().compassEnabled(true).compassEnabled)
-        Assert.assertFalse(trackasiaMapOptions().compassEnabled(false).compassEnabled)
+        Assert.assertTrue(MapLibreMapOptions().compassEnabled(true).compassEnabled)
+        Assert.assertFalse(MapLibreMapOptions().compassEnabled(false).compassEnabled)
     }
 
     @Test
     fun testCompassGravity() {
         Assert.assertEquals(
             Gravity.TOP or Gravity.END,
-            trackasiaMapOptions().compassGravity
+            MapLibreMapOptions().compassGravity
         )
         Assert.assertEquals(
             Gravity.BOTTOM,
-            trackasiaMapOptions().compassGravity(Gravity.BOTTOM).compassGravity
+            MapLibreMapOptions().compassGravity(Gravity.BOTTOM).compassGravity
         )
         Assert.assertNotEquals(
             Gravity.START.toLong(),
-            trackasiaMapOptions().compassGravity(Gravity.BOTTOM).compassGravity.toLong()
+            MapLibreMapOptions().compassGravity(Gravity.BOTTOM).compassGravity.toLong()
         )
     }
 
@@ -55,14 +55,14 @@ class trackasiaMapOptionsTest {
         Assert.assertTrue(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
-                trackasiaMapOptions()
+                MapLibreMapOptions()
                     .compassMargins(intArrayOf(0, 1, 2, 3)).compassMargins
             )
         )
         Assert.assertFalse(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
-                trackasiaMapOptions()
+                MapLibreMapOptions()
                     .compassMargins(intArrayOf(0, 0, 0, 0)).compassMargins
             )
         )
@@ -70,23 +70,23 @@ class trackasiaMapOptionsTest {
 
     @Test
     fun testLogoEnabled() {
-        Assert.assertTrue(trackasiaMapOptions().logoEnabled(true).logoEnabled)
-        Assert.assertFalse(trackasiaMapOptions().logoEnabled(false).logoEnabled)
+        Assert.assertTrue(MapLibreMapOptions().logoEnabled(true).logoEnabled)
+        Assert.assertFalse(MapLibreMapOptions().logoEnabled(false).logoEnabled)
     }
 
     @Test
     fun testLogoGravity() {
         Assert.assertEquals(
             Gravity.BOTTOM or Gravity.START,
-            trackasiaMapOptions().logoGravity
+            MapLibreMapOptions().logoGravity
         )
         Assert.assertEquals(
             Gravity.BOTTOM,
-            trackasiaMapOptions().logoGravity(Gravity.BOTTOM).logoGravity
+            MapLibreMapOptions().logoGravity(Gravity.BOTTOM).logoGravity
         )
         Assert.assertNotEquals(
             Gravity.START.toLong(),
-            trackasiaMapOptions().logoGravity(Gravity.BOTTOM).logoGravity.toLong()
+            MapLibreMapOptions().logoGravity(Gravity.BOTTOM).logoGravity.toLong()
         )
     }
 
@@ -95,14 +95,14 @@ class trackasiaMapOptionsTest {
         Assert.assertTrue(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
-                trackasiaMapOptions()
+                MapLibreMapOptions()
                     .logoMargins(intArrayOf(0, 1, 2, 3)).logoMargins
             )
         )
         Assert.assertFalse(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
-                trackasiaMapOptions()
+                MapLibreMapOptions()
                     .logoMargins(intArrayOf(0, 0, 0, 0)).logoMargins
             )
         )
@@ -110,32 +110,32 @@ class trackasiaMapOptionsTest {
 
     @Test
     fun testAttributionTintColor() {
-        Assert.assertEquals(-1, trackasiaMapOptions().attributionTintColor)
+        Assert.assertEquals(-1, MapLibreMapOptions().attributionTintColor)
         Assert.assertEquals(
             Color.RED,
-            trackasiaMapOptions().attributionTintColor(Color.RED).attributionTintColor
+            MapLibreMapOptions().attributionTintColor(Color.RED).attributionTintColor
         )
     }
 
     @Test
     fun testAttributionEnabled() {
-        Assert.assertTrue(trackasiaMapOptions().attributionEnabled(true).attributionEnabled)
-        Assert.assertFalse(trackasiaMapOptions().attributionEnabled(false).attributionEnabled)
+        Assert.assertTrue(MapLibreMapOptions().attributionEnabled(true).attributionEnabled)
+        Assert.assertFalse(MapLibreMapOptions().attributionEnabled(false).attributionEnabled)
     }
 
     @Test
     fun testAttributionGravity() {
         Assert.assertEquals(
             Gravity.BOTTOM or Gravity.START,
-            trackasiaMapOptions().attributionGravity
+            MapLibreMapOptions().attributionGravity
         )
         Assert.assertEquals(
             Gravity.BOTTOM,
-            trackasiaMapOptions().attributionGravity(Gravity.BOTTOM).attributionGravity
+            MapLibreMapOptions().attributionGravity(Gravity.BOTTOM).attributionGravity
         )
         Assert.assertNotEquals(
             Gravity.START.toLong(),
-            trackasiaMapOptions().attributionGravity(Gravity.BOTTOM).attributionGravity.toLong()
+            MapLibreMapOptions().attributionGravity(Gravity.BOTTOM).attributionGravity.toLong()
         )
     }
 
@@ -144,14 +144,14 @@ class trackasiaMapOptionsTest {
         Assert.assertTrue(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
-                trackasiaMapOptions()
+                MapLibreMapOptions()
                     .attributionMargins(intArrayOf(0, 1, 2, 3)).attributionMargins
             )
         )
         Assert.assertFalse(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
-                trackasiaMapOptions()
+                MapLibreMapOptions()
                     .attributionMargins(intArrayOf(0, 0, 0, 0)).attributionMargins
             )
         )
@@ -160,18 +160,18 @@ class trackasiaMapOptionsTest {
     @Test
     fun testMinZoom() {
         Assert.assertEquals(
-            trackasiaConstants.MINIMUM_ZOOM.toDouble(),
-            trackasiaMapOptions().minZoomPreference,
+            MapLibreConstants.MINIMUM_ZOOM.toDouble(),
+            MapLibreMapOptions().minZoomPreference,
             DELTA
         )
         Assert.assertEquals(
             5.0,
-            trackasiaMapOptions().minZoomPreference(5.0).minZoomPreference,
+            MapLibreMapOptions().minZoomPreference(5.0).minZoomPreference,
             DELTA
         )
         Assert.assertNotEquals(
             2.0,
-            trackasiaMapOptions().minZoomPreference(5.0).minZoomPreference,
+            MapLibreMapOptions().minZoomPreference(5.0).minZoomPreference,
             DELTA
         )
     }
@@ -179,18 +179,18 @@ class trackasiaMapOptionsTest {
     @Test
     fun testMaxZoom() {
         Assert.assertEquals(
-            trackasiaConstants.MAXIMUM_ZOOM.toDouble(),
-            trackasiaMapOptions().maxZoomPreference,
+            MapLibreConstants.MAXIMUM_ZOOM.toDouble(),
+            MapLibreMapOptions().maxZoomPreference,
             DELTA
         )
         Assert.assertEquals(
             5.0,
-            trackasiaMapOptions().maxZoomPreference(5.0).maxZoomPreference,
+            MapLibreMapOptions().maxZoomPreference(5.0).maxZoomPreference,
             DELTA
         )
         Assert.assertNotEquals(
             2.0,
-            trackasiaMapOptions().maxZoomPreference(5.0).maxZoomPreference,
+            MapLibreMapOptions().maxZoomPreference(5.0).maxZoomPreference,
             DELTA
         )
     }
@@ -198,18 +198,18 @@ class trackasiaMapOptionsTest {
     @Test
     fun testMinPitch() {
         Assert.assertEquals(
-            trackasiaConstants.MINIMUM_PITCH.toDouble(),
-            trackasiaMapOptions().minPitchPreference,
+            MapLibreConstants.MINIMUM_PITCH.toDouble(),
+            MapLibreMapOptions().minPitchPreference,
             DELTA
         )
         Assert.assertEquals(
             5.0,
-            trackasiaMapOptions().minPitchPreference(5.0).minPitchPreference,
+            MapLibreMapOptions().minPitchPreference(5.0).minPitchPreference,
             DELTA
         )
         Assert.assertNotEquals(
             2.0,
-            trackasiaMapOptions().minPitchPreference(5.0).minPitchPreference,
+            MapLibreMapOptions().minPitchPreference(5.0).minPitchPreference,
             DELTA
         )
     }
@@ -217,55 +217,55 @@ class trackasiaMapOptionsTest {
     @Test
     fun testMaxPitch() {
         Assert.assertEquals(
-            trackasiaConstants.MAXIMUM_PITCH.toDouble(),
-            trackasiaMapOptions().maxPitchPreference,
+            MapLibreConstants.MAXIMUM_PITCH.toDouble(),
+            MapLibreMapOptions().maxPitchPreference,
             DELTA
         )
         Assert.assertEquals(
             5.0,
-            trackasiaMapOptions().maxPitchPreference(5.0).maxPitchPreference,
+            MapLibreMapOptions().maxPitchPreference(5.0).maxPitchPreference,
             DELTA
         )
         Assert.assertNotEquals(
             2.0,
-            trackasiaMapOptions().maxPitchPreference(5.0).maxPitchPreference,
+            MapLibreMapOptions().maxPitchPreference(5.0).maxPitchPreference,
             DELTA
         )
     }
 
     @Test
     fun testTiltGesturesEnabled() {
-        Assert.assertTrue(trackasiaMapOptions().tiltGesturesEnabled)
-        Assert.assertTrue(trackasiaMapOptions().tiltGesturesEnabled(true).tiltGesturesEnabled)
-        Assert.assertFalse(trackasiaMapOptions().tiltGesturesEnabled(false).tiltGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().tiltGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().tiltGesturesEnabled(true).tiltGesturesEnabled)
+        Assert.assertFalse(MapLibreMapOptions().tiltGesturesEnabled(false).tiltGesturesEnabled)
     }
 
     @Test
     fun testScrollGesturesEnabled() {
-        Assert.assertTrue(trackasiaMapOptions().scrollGesturesEnabled)
-        Assert.assertTrue(trackasiaMapOptions().scrollGesturesEnabled(true).scrollGesturesEnabled)
-        Assert.assertFalse(trackasiaMapOptions().scrollGesturesEnabled(false).scrollGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().scrollGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().scrollGesturesEnabled(true).scrollGesturesEnabled)
+        Assert.assertFalse(MapLibreMapOptions().scrollGesturesEnabled(false).scrollGesturesEnabled)
     }
 
     @Test
     fun testHorizontalScrollGesturesEnabled() {
-        Assert.assertTrue(trackasiaMapOptions().horizontalScrollGesturesEnabled)
-        Assert.assertTrue(trackasiaMapOptions().horizontalScrollGesturesEnabled(true).horizontalScrollGesturesEnabled)
-        Assert.assertFalse(trackasiaMapOptions().horizontalScrollGesturesEnabled(false).horizontalScrollGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().horizontalScrollGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().horizontalScrollGesturesEnabled(true).horizontalScrollGesturesEnabled)
+        Assert.assertFalse(MapLibreMapOptions().horizontalScrollGesturesEnabled(false).horizontalScrollGesturesEnabled)
     }
 
     @Test
     fun testZoomGesturesEnabled() {
-        Assert.assertTrue(trackasiaMapOptions().zoomGesturesEnabled)
-        Assert.assertTrue(trackasiaMapOptions().zoomGesturesEnabled(true).zoomGesturesEnabled)
-        Assert.assertFalse(trackasiaMapOptions().zoomGesturesEnabled(false).zoomGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().zoomGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().zoomGesturesEnabled(true).zoomGesturesEnabled)
+        Assert.assertFalse(MapLibreMapOptions().zoomGesturesEnabled(false).zoomGesturesEnabled)
     }
 
     @Test
     fun testRotateGesturesEnabled() {
-        Assert.assertTrue(trackasiaMapOptions().rotateGesturesEnabled)
-        Assert.assertTrue(trackasiaMapOptions().rotateGesturesEnabled(true).rotateGesturesEnabled)
-        Assert.assertFalse(trackasiaMapOptions().rotateGesturesEnabled(false).rotateGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().rotateGesturesEnabled)
+        Assert.assertTrue(MapLibreMapOptions().rotateGesturesEnabled(true).rotateGesturesEnabled)
+        Assert.assertFalse(MapLibreMapOptions().rotateGesturesEnabled(false).rotateGesturesEnabled)
     }
 
     @Test
@@ -273,52 +273,52 @@ class trackasiaMapOptionsTest {
         val position = CameraPosition.Builder().build()
         Assert.assertEquals(
             CameraPosition.Builder(position).build(),
-            trackasiaMapOptions().camera(position).camera
+            MapLibreMapOptions().camera(position).camera
         )
         Assert.assertNotEquals(
             CameraPosition.Builder().target(LatLng(1.0, 1.0)),
-            trackasiaMapOptions().camera(position)
+            MapLibreMapOptions().camera(position)
         )
-        Assert.assertNull(trackasiaMapOptions().camera)
+        Assert.assertNull(MapLibreMapOptions().camera)
     }
 
     @Test
     fun testPrefetchesTiles() {
         // Default value
-        Assert.assertTrue(trackasiaMapOptions().prefetchesTiles)
+        Assert.assertTrue(MapLibreMapOptions().prefetchesTiles)
 
         // Check mutations
-        Assert.assertTrue(trackasiaMapOptions().setPrefetchesTiles(true).prefetchesTiles)
-        Assert.assertFalse(trackasiaMapOptions().setPrefetchesTiles(false).prefetchesTiles)
+        Assert.assertTrue(MapLibreMapOptions().setPrefetchesTiles(true).prefetchesTiles)
+        Assert.assertFalse(MapLibreMapOptions().setPrefetchesTiles(false).prefetchesTiles)
     }
 
     @Test
     fun testPrefetchZoomDelta() {
         // Default value
-        Assert.assertEquals(4, trackasiaMapOptions().prefetchZoomDelta)
+        Assert.assertEquals(4, MapLibreMapOptions().prefetchZoomDelta)
 
         // Check mutations
         Assert.assertEquals(
             5,
-            trackasiaMapOptions().setPrefetchZoomDelta(5).prefetchZoomDelta
+            MapLibreMapOptions().setPrefetchZoomDelta(5).prefetchZoomDelta
         )
     }
 
     @Test
     fun testCrossSourceCollisions() {
         // Default value
-        Assert.assertTrue(trackasiaMapOptions().crossSourceCollisions)
+        Assert.assertTrue(MapLibreMapOptions().crossSourceCollisions)
 
         // check mutations
-        Assert.assertTrue(trackasiaMapOptions().crossSourceCollisions(true).crossSourceCollisions)
-        Assert.assertFalse(trackasiaMapOptions().crossSourceCollisions(false).crossSourceCollisions)
+        Assert.assertTrue(MapLibreMapOptions().crossSourceCollisions(true).crossSourceCollisions)
+        Assert.assertFalse(MapLibreMapOptions().crossSourceCollisions(false).crossSourceCollisions)
     }
 
     @Test
     fun testLocalIdeographFontFamily_enabledByDefault() {
-        val options = trackasiaMapOptions.createFromAttributes(RuntimeEnvironment.application, null)
+        val options = MapLibreMapOptions.createFromAttributes(RuntimeEnvironment.application, null)
         Assert.assertEquals(
-            trackasiaConstants.DEFAULT_FONT,
+            MapLibreConstants.DEFAULT_FONT,
             options.localIdeographFontFamily
         )
     }

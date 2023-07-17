@@ -1,13 +1,13 @@
-package org.trackasia.android.style.sources
+package com.trackasia.android.style.sources
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
 import androidx.annotation.UiThread
-import org.trackasia.android.trackasia
-import org.trackasia.android.geometry.LatLngQuad
-import org.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.Trackasia
+import com.trackasia.android.geometry.LatLngQuad
+import com.trackasia.android.utils.BitmapUtils
 import java.net.URI
 import java.net.URL
 /**
@@ -196,7 +196,7 @@ class ImageSource : Source {
     @Throws(IllegalArgumentException::class)
     fun setImage(@DrawableRes resourceId: Int) {
         checkThread()
-        val context = trackasia.getApplicationContext()
+        val context = Trackasia.getApplicationContext()
         val drawable = BitmapUtils.getDrawableFromRes(context, resourceId)
         if (drawable is BitmapDrawable) {
             nativeSetImage(drawable.bitmap)

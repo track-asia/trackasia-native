@@ -1,19 +1,19 @@
-package org.trackasia.android.testapp.activity.camera
+package com.trackasia.android.testapp.activity.camera
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.trackasiaMap.CancelableCallback
-import org.trackasia.android.maps.trackasiaMap.OnCameraIdleListener
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.MapLibreMap.CancelableCallback
+import com.trackasia.android.maps.MapLibreMap.OnCameraIdleListener
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 
 /**
@@ -45,7 +45,7 @@ class CameraAnimationTypeActivity : AppCompatActivity(), OnMapReadyCallback {
                     .show()
             }
         }
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var mapView: MapView
     private var cameraState = false
     private val cameraIdleListener = OnCameraIdleListener {
@@ -62,7 +62,7 @@ class CameraAnimationTypeActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Streets")))
         trackasiaMap.uiSettings.isAttributionEnabled = false

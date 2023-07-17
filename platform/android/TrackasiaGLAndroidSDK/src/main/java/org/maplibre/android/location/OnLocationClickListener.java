@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 /**
  * The Location Component exposes an API for listening to when the user clicks on the location

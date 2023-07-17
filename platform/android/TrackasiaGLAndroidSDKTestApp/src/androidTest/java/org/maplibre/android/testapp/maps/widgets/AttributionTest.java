@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.maps.widgets;
+package com.trackasia.android.testapp.maps.widgets;
 
 import android.app.Instrumentation;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.intent.Intents;
 
-import org.trackasia.android.maps.trackasiaMap;
-import org.trackasia.android.style.sources.Source;
-import org.trackasia.android.testapp.R;
-import org.trackasia.android.testapp.activity.EspressoTest;
+import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.style.sources.Source;
+import com.trackasia.android.testapp.R;
+import com.trackasia.android.testapp.activity.EspressoTest;
 
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -134,7 +134,7 @@ public class AttributionTest extends EspressoTest {
   }
 
   private void buildUrlSpans() {
-    onView(withId(R.id.mapView)).perform(new trackasiaMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
       for (Source source : trackasiaMap.getStyle().getSources()) {
         String attributionSource = source.getAttribution();
         if (!TextUtils.isEmpty(attributionSource)) {
@@ -147,9 +147,9 @@ public class AttributionTest extends EspressoTest {
 
   private class DisableAction implements ViewAction {
 
-    private trackasiaMap trackasiaMap;
+    private MapLibreMap trackasiaMap;
 
-    DisableAction(trackasiaMap map) {
+    DisableAction(MapLibreMap map) {
       trackasiaMap = map;
     }
 
@@ -169,11 +169,11 @@ public class AttributionTest extends EspressoTest {
     }
   }
 
-  private class trackasiaMapAction implements ViewAction {
+  private class MapLibreMapAction implements ViewAction {
 
     private InvokeViewAction invokeViewAction;
 
-    trackasiaMapAction(InvokeViewAction invokeViewAction) {
+    MapLibreMapAction(InvokeViewAction invokeViewAction) {
       this.invokeViewAction = invokeViewAction;
     }
 

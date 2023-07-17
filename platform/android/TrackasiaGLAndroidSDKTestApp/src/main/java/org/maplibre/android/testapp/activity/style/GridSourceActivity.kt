@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,15 +7,15 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.MultiLineString
 import com.mapbox.geojson.Point
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.*
-import org.trackasia.android.style.sources.CustomGeometrySource
-import org.trackasia.android.style.sources.GeometryTileProvider
-import org.trackasia.android.testapp.R
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.*
+import com.trackasia.android.style.sources.CustomGeometrySource
+import com.trackasia.android.style.sources.GeometryTileProvider
+import com.trackasia.android.testapp.R
 import java.util.*
 
 /**
@@ -92,7 +92,7 @@ class GridSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         source = CustomGeometrySource(ID_GRID_SOURCE, GridProvider())
         layer = LineLayer(ID_GRID_LAYER, ID_GRID_SOURCE)
         layer!!.setProperties(

@@ -1,9 +1,9 @@
-package org.trackasia.android.testapp.style;
+package com.trackasia.android.testapp.style;
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
-import org.trackasia.android.testapp.activity.BaseTest;
-import org.trackasia.android.testapp.activity.style.RuntimeStyleTimingTestActivity;
+import com.trackasia.android.testapp.activity.BaseTest;
+import com.trackasia.android.testapp.activity.style.RuntimeStyleTimingTestActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

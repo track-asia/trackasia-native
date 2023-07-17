@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.snapshot
+package com.trackasia.android.testapp.activity.snapshot
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -12,12 +12,12 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.ImageView
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.camera.CameraPosition
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.Style
-import org.trackasia.android.snapshotter.MapSnapshot
-import org.trackasia.android.snapshotter.MapSnapshotter
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.Style
+import com.trackasia.android.snapshotter.MapSnapshot
+import com.trackasia.android.snapshotter.MapSnapshotter
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 
 /**

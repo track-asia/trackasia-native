@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.maplayout
+package com.trackasia.android.testapp.activity.maplayout
 
 import android.content.Context
 import android.os.Bundle
@@ -8,13 +8,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.trackasia.android.maps.*
-import org.trackasia.android.maps.trackasiaMap.OnCameraMoveListener
-import org.trackasia.android.maps.trackasiaMap.OnFpsChangedListener
-import org.trackasia.android.style.layers.Layer
-import org.trackasia.android.style.layers.Property
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.*
+import com.trackasia.android.maps.MapLibreMap.OnCameraMoveListener
+import com.trackasia.android.maps.MapLibreMap.OnFpsChangedListener
+import com.trackasia.android.style.layers.Layer
+import com.trackasia.android.style.layers.Property
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 import java.util.*
 
@@ -23,7 +23,7 @@ import java.util.*
  */
 open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsChangedListener {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private var cameraMoveListener: OnCameraMoveListener? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var currentStyleIndex = 0
@@ -70,11 +70,11 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
         mapView.addOnDidFinishLoadingStyleListener { Timber.d("Style loaded") }
     }
 
-    protected open fun setupMapboxMapOptions(): trackasiaMapOptions {
-        return trackasiaMapOptions.createFromAttributes(this, null)
+    protected open fun setupMapboxMapOptions(): MapLibreMapOptions {
+        return MapLibreMapOptions.createFromAttributes(this, null)
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(
             Style.Builder().fromUri(STYLES[currentStyleIndex])

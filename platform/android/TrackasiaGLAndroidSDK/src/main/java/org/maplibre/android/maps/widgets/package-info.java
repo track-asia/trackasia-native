@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android Widgets API classes.
+ * Contains the Trackasia Maps Android Widgets API classes.
  */
-package org.trackasia.android.maps.widgets;
+package com.trackasia.android.maps.widgets;

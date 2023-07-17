@@ -1,16 +1,16 @@
-package org.trackasia.android.testapp.annotations;
+package com.trackasia.android.testapp.annotations;
 
 import android.graphics.Color;
 
-import org.trackasia.android.annotations.Polyline;
-import org.trackasia.android.annotations.PolylineOptions;
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.testapp.activity.EspressoTest;
+import com.trackasia.android.annotations.Polyline;
+import com.trackasia.android.annotations.PolylineOptions;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.testapp.activity.EspressoTest;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.trackasia.android.testapp.action.trackasiaMapAction.invoke;
+import static com.trackasia.android.testapp.action.MapLibreMapAction.invoke;
 import static org.junit.Assert.assertEquals;
 
 public class PolylineTest extends EspressoTest {

@@ -1,4 +1,4 @@
 /**
- * Contains the trackasia Maps Android EGL API classes.
+ * Contains the Trackasia Maps Android EGL API classes.
  */
-package org.trackasia.android.maps.renderer.egl;
+package com.trackasia.android.maps.renderer.egl;

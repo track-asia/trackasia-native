@@ -1,2 +1,2 @@
-CMake Error: The source directory "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/MapboxGLAndroidSDK/src/cpp" does not exist.
+CMake Error: The source directory "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-native/platform/android/TrackasiaGLAndroidSDK/src/cpp" does not exist.
 Specify --help for usage, or press the help button on the CMake GUI.

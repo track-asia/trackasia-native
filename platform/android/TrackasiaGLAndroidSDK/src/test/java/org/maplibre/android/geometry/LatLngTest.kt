@@ -1,7 +1,7 @@
-package org.trackasia.android.geometry
+package com.trackasia.android.geometry
 
 import android.location.Location
-import org.trackasia.android.utils.MockParcel
+import com.trackasia.android.utils.MockParcel
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test

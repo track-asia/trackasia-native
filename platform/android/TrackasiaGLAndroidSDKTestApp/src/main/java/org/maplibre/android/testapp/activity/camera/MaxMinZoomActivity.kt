@@ -1,20 +1,20 @@
-package org.trackasia.android.testapp.activity.camera
+package com.trackasia.android.testapp.activity.camera
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.MapView.OnDidFinishLoadingStyleListener
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.trackasiaMap.OnMapClickListener
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapView.OnDidFinishLoadingStyleListener
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.MapLibreMap.OnMapClickListener
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 
 /** Test activity showcasing using maximum and minimum zoom levels to restrict camera movement. */
 class MaxMinZoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private val clickListener = OnMapClickListener {
         if (trackasiaMap != null) {
             trackasiaMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Outdoor")))
@@ -33,7 +33,7 @@ class MaxMinZoomActivity : AppCompatActivity(), OnMapReadyCallback {
         )
     }
 
-    override fun onMapReady(map: trackasiaMap) {
+    override fun onMapReady(map: MapLibreMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
         trackasiaMap.setMinZoomPreference(3.0)

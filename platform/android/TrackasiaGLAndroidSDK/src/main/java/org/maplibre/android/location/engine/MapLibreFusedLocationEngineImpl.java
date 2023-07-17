@@ -1,4 +1,4 @@
-package org.trackasia.android.location.engine;
+package com.trackasia.android.location.engine;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
@@ -13,24 +13,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import timber.log.Timber;
 
-import static org.trackasia.android.location.engine.Utils.isBetterLocation;
+import static com.trackasia.android.location.engine.Utils.isBetterLocation;
 
 /**
- * trackasia replacement for Google Play Services Fused Location Client
+ * Trackasia replacement for Google Play Services Fused Location Client
  * <p>
  * Note: fusion will not work in background mode.
  */
-public class trackasiaFusedLocationEngineImpl extends AndroidLocationEngineImpl {
-  private static final String TAG = "trackasiaLocationEngine";
+public class MapLibreFusedLocationEngineImpl extends AndroidLocationEngineImpl {
+  private static final String TAG = "MapLibreLocationEngine";
 
-  public trackasiaFusedLocationEngineImpl(@NonNull Context context) {
+  public MapLibreFusedLocationEngineImpl(@NonNull Context context) {
     super(context);
   }
 
   @NonNull
   @Override
   public LocationListener createListener(LocationEngineCallback<LocationEngineResult> callback) {
-    return new trackasiaLocationEngineCallbackTransport(callback);
+    return new MapLibreLocationEngineCallbackTransport(callback);
   }
 
   @Override
@@ -100,11 +100,11 @@ public class trackasiaFusedLocationEngineImpl extends AndroidLocationEngineImpl 
       && currentProvider.equals(LocationManager.GPS_PROVIDER);
   }
 
-  private static final class trackasiaLocationEngineCallbackTransport implements LocationListener {
+  private static final class MapLibreLocationEngineCallbackTransport implements LocationListener {
     private final LocationEngineCallback<LocationEngineResult> callback;
     private Location currentBestLocation;
 
-    trackasiaLocationEngineCallbackTransport(LocationEngineCallback<LocationEngineResult> callback) {
+    MapLibreLocationEngineCallbackTransport(LocationEngineCallback<LocationEngineResult> callback) {
       this.callback = callback;
     }
 

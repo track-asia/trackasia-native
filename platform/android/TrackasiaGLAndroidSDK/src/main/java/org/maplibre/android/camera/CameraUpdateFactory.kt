@@ -1,11 +1,11 @@
-package org.trackasia.android.camera
+package com.trackasia.android.camera
 
 import android.graphics.Point
 import android.graphics.PointF
 import androidx.annotation.IntDef
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.maps.trackasiaMap
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.MapLibreMap
 import timber.log.Timber
 import java.lang.Double.max
 import java.util.Arrays
@@ -267,7 +267,7 @@ object CameraUpdateFactory {
     //
     class CameraPositionUpdate(val bearing: Double, val target: LatLng?, val tilt: Double, val zoom: Double, val padding: DoubleArray?) : CameraUpdate {
 
-        override fun getCameraPosition(trackasiaMap: trackasiaMap): CameraPosition {
+        override fun getCameraPosition(trackasiaMap: MapLibreMap): CameraPosition {
             if (target == null) {
                 val previousPosition = trackasiaMap.cameraPosition
                 return CameraPosition.Builder(this).target(previousPosition.target).build()
@@ -327,7 +327,7 @@ object CameraUpdateFactory {
         ) {
         }
 
-        override fun getCameraPosition(trackasiaMap: trackasiaMap): CameraPosition? {
+        override fun getCameraPosition(trackasiaMap: MapLibreMap): CameraPosition? {
             return if (bearing == null && tilt == null) {
                 // use current camera position tilt and bearing
                 trackasiaMap.getCameraForLatLngBounds(bounds, padding)
@@ -460,7 +460,7 @@ object CameraUpdateFactory {
             }
         }
 
-        override fun getCameraPosition(trackasiaMap: trackasiaMap): CameraPosition {
+        override fun getCameraPosition(trackasiaMap: MapLibreMap): CameraPosition {
             val cameraPosition = trackasiaMap.cameraPosition
             return if (type != ZOOM_TO_POINT) {
                 CameraPosition.Builder(cameraPosition).zoom(transformZoom(cameraPosition.zoom)).build()

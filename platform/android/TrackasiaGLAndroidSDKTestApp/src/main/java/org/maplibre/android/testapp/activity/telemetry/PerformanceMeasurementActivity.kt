@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.telemetry
+package com.trackasia.android.testapp.activity.telemetry
 
 import android.app.ActivityManager
 import android.os.Build
@@ -8,13 +8,13 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import org.trackasia.android.trackasia
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.module.http.HttpRequestUtil
-import org.trackasia.android.testapp.R
+import com.trackasia.android.Trackasia
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.module.http.HttpRequestUtil
+import com.trackasia.android.testapp.R
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.OkHttpClient.Builder
@@ -37,7 +37,7 @@ class PerformanceMeasurementActivity : AppCompatActivity() {
             .build()
         HttpRequestUtil.setOkHttpClient(okHttpClient)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: trackasiaMap ->
+            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
                 trackasiaMap.setStyle(
                     Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
                 )
@@ -135,7 +135,7 @@ class PerformanceMeasurementActivity : AppCompatActivity() {
 
         private val ram: String
             private get() {
-                val actManager = trackasia.getApplicationContext()
+                val actManager = Trackasia.getApplicationContext()
                     .getSystemService(ACTIVITY_SERVICE) as ActivityManager
                 val memInfo = ActivityManager.MemoryInfo()
                 actManager.getMemoryInfo(memInfo)
@@ -144,7 +144,7 @@ class PerformanceMeasurementActivity : AppCompatActivity() {
         private val windowSize: String
             private get() {
                 val windowManager =
-                    trackasia.getApplicationContext().getSystemService(WINDOW_SERVICE) as WindowManager
+                    Trackasia.getApplicationContext().getSystemService(WINDOW_SERVICE) as WindowManager
                 val display = windowManager.defaultDisplay
                 val metrics = DisplayMetrics()
                 display.getMetrics(metrics)

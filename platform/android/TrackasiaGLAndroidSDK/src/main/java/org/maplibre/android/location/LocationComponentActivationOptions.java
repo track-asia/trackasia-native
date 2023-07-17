@@ -1,13 +1,13 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.location.engine.LocationEngine;
-import org.trackasia.android.location.engine.LocationEngineRequest;
-import org.trackasia.android.maps.Style;
+import com.trackasia.android.location.engine.LocationEngine;
+import com.trackasia.android.location.engine.LocationEngineRequest;
+import com.trackasia.android.maps.Style;
 
 /**
  * A class which holds the various options for activating the Maps SDK's {@link LocationComponent} to eventually

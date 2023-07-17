@@ -1,4 +1,4 @@
-package org.trackasia.android.net;
+package com.trackasia.android.net;
 
 /**
  * Receives updates on connectivity state

@@ -1,11 +1,11 @@
-package org.trackasia.android.http;
+package com.trackasia.android.http;
 
 import android.util.Log;
 
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.log.Logger;
 
-import static org.trackasia.android.http.HttpRequest.CONNECTION_ERROR;
-import static org.trackasia.android.http.HttpRequest.TEMPORARY_ERROR;
+import static com.trackasia.android.http.HttpRequest.CONNECTION_ERROR;
+import static com.trackasia.android.http.HttpRequest.TEMPORARY_ERROR;
 
 public class HttpLogger {
 

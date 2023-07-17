@@ -1,4 +1,4 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;

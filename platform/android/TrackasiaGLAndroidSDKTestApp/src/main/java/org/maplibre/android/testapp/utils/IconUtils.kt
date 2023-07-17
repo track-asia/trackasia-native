@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.utils
+package com.trackasia.android.testapp.utils
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -7,8 +7,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import org.trackasia.android.annotations.Icon
-import org.trackasia.android.annotations.IconFactory
+import com.trackasia.android.annotations.Icon
+import com.trackasia.android.annotations.IconFactory
 
 object IconUtils {
     /**

@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.annotation
+package com.trackasia.android.testapp.activity.annotation
 
 import android.app.ProgressDialog
 import android.os.AsyncTask
@@ -11,14 +11,14 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuItemCompat
-import org.trackasia.android.annotations.MarkerOptions
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.utils.GeoParseUtil
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.GeoParseUtil
 import timber.log.Timber
 import java.io.IOException
 import java.lang.ref.WeakReference
@@ -29,7 +29,7 @@ import java.util.*
  * Test activity showcasing adding a large amount of Markers.
  */
 class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var mapView: MapView
     private var locations: List<LatLng>? = null
     private var progressDialog: ProgressDialog? = null
@@ -38,10 +38,10 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
         setContentView(R.layout.activity_marker_bulk)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: trackasiaMap -> initMap(trackasiaMap) })
+        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: MapLibreMap -> initMap(trackasiaMap) })
     }
 
-    private fun initMap(trackasiaMap: trackasiaMap) {
+    private fun initMap(trackasiaMap: MapLibreMap) {
         this.trackasiaMap = trackasiaMap
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
     }

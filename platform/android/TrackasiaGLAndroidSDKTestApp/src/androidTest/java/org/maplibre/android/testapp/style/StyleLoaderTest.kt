@@ -1,14 +1,14 @@
-package org.trackasia.android.testapp.style
+package com.trackasia.android.testapp.style
 
 import android.view.View
 import androidx.test.espresso.UiController
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.action.trackasiaMapAction
-import org.trackasia.android.testapp.activity.EspressoTest
-import org.trackasia.android.testapp.utils.ResourceUtils.readRawResource
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.action.MapLibreMapAction
+import com.trackasia.android.testapp.activity.EspressoTest
+import com.trackasia.android.testapp.utils.ResourceUtils.readRawResource
 import org.junit.Assert
 import org.junit.Test
 import java.io.IOException
@@ -20,9 +20,9 @@ class StyleLoaderTest : EspressoTest() {
     @Test
     fun testSetGetStyleJsonString() {
         validateTestSetup()
-        trackasiaMapAction.invoke(
+        MapLibreMapAction.invoke(
             trackasiaMap
-        ) { uiController: UiController?, trackasiaMap: trackasiaMap ->
+        ) { uiController: UiController?, trackasiaMap: MapLibreMap ->
             try {
                 val expected =
                     readRawResource(
@@ -41,9 +41,9 @@ class StyleLoaderTest : EspressoTest() {
     @Test
     fun testDefaultStyleLoadWithActivityLifecycleChange() {
         validateTestSetup()
-        trackasiaMapAction.invoke(
+        MapLibreMapAction.invoke(
             trackasiaMap
-        ) { uiController: UiController?, trackasiaMap: trackasiaMap ->
+        ) { uiController: UiController?, trackasiaMap: MapLibreMap ->
             try {
                 val expected =
                     readRawResource(

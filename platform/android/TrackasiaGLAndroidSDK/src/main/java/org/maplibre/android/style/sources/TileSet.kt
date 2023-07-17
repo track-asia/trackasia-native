@@ -1,8 +1,8 @@
-package org.trackasia.android.style.sources
+package com.trackasia.android.style.sources
 
 import androidx.annotation.Size
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
 
 /**
  * Tile set, allows using TileJson specification as source.

@@ -1,4 +1,4 @@
-package org.trackasia.android.utils;
+package com.trackasia.android.utils;
 
 // TODO Remove this class if we finally include it within MAS 3.x (GeoJSON)
 public class MathUtils {

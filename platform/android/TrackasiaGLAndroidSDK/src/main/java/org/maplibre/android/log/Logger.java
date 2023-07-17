@@ -1,4 +1,4 @@
-package org.trackasia.android.log;
+package com.trackasia.android.log;
 
 import android.util.Log;
 
@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 
 
 /**
- * Logger for the trackasia Maps SDK for Android
+ * Logger for the Trackasia Maps SDK for Android
  * <p>
  * Default implementation relies on {@link Log}.
  * Alternative implementations can be set with {@link #setLoggerDefinition(LoggerDefinition)}.
@@ -81,7 +81,7 @@ public final class Logger {
    * Set the verbosity of the Logger.
    * <p>
    * This configuration can be used to have more granular control over which logs are emitted by the
-   * trackasia Maps SDK for Android.
+   * Trackasia Maps SDK for Android.
    * </p>
    *
    * @param logLevel the verbosity level
@@ -313,7 +313,7 @@ public final class Logger {
   public static final int NONE = 99;
 
   /**
-   * Log level indicates which logs are allowed to be emitted by the trackasia Maps SDK for Android.
+   * Log level indicates which logs are allowed to be emitted by the Trackasia Maps SDK for Android.
    */
   @IntDef( {VERBOSE, DEBUG, INFO, WARN, ERROR, NONE})
   @Retention(RetentionPolicy.SOURCE)

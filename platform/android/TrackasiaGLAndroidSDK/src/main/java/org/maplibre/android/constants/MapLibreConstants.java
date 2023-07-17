@@ -1,11 +1,11 @@
-package org.trackasia.android.constants;
+package com.trackasia.android.constants;
 
 import java.util.Locale;
 
 /**
- * trackasiaConstants exposes trackasia related constants
+ * MapLibreConstants exposes Trackasia related constants
  */
-public class trackasiaConstants {
+public class MapLibreConstants {
 
   /**
    * Default Locale for data processing (ex: String.toLowerCase(MAPBOX_LOCALE, "foo"))
@@ -75,7 +75,7 @@ public class trackasiaConstants {
   /**
    * Value by which the default rotation threshold will be increased when scaling
    *
-   * @deprecated unused, see {@link org.trackasia.android.maps.UiSettings#setDisableRotateWhenScaling(boolean)}
+   * @deprecated unused, see {@link com.trackasia.android.maps.UiSettings#setDisableRotateWhenScaling(boolean)}
    */
   @Deprecated
   public static final float ROTATION_THRESHOLD_INCREASE_WHEN_SCALING = 25f;
@@ -192,7 +192,7 @@ public class trackasiaConstants {
   /**
    * Fragment Argument Key for MapboxMapOptions
    */
-  public static final String FRAG_ARG_trackasiaMAPOPTIONS = "MapboxMapOptions";
+  public static final String FRAG_ARG_MAPLIBREMAPOPTIONS = "MapboxMapOptions";
 
   /**
    * Layer Id of annotations layer

@@ -1,4 +1,4 @@
-package org.trackasia.android.geometry
+package com.trackasia.android.geometry
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -8,7 +8,7 @@ import androidx.annotation.Keep
  * ProjectedMeters is a projection of longitude, latitude points in Mercator meters.
  *
  *
- * these have been projected into trackasia GL's Mercator projection. Instead of decimal
+ * these have been projected into Trackasia GL's Mercator projection. Instead of decimal
  * degrees, it uses Mercator meters (which are notably not equivalent to SI meters)
  * except at the equator.
  *

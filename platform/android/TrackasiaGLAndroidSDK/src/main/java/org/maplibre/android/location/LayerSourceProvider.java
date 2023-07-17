@@ -1,18 +1,18 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import androidx.annotation.NonNull;
 
 import com.mapbox.geojson.Feature;
 
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.layers.CircleLayer;
-import org.trackasia.android.style.layers.Layer;
-import org.trackasia.android.style.layers.Property;
-import org.trackasia.android.style.layers.PropertyFactory;
-import org.trackasia.android.style.layers.SymbolLayer;
-import org.trackasia.android.style.layers.TransitionOptions;
-import org.trackasia.android.style.sources.GeoJsonOptions;
-import org.trackasia.android.style.sources.GeoJsonSource;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.CircleLayer;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.style.layers.Property;
+import com.trackasia.android.style.layers.PropertyFactory;
+import com.trackasia.android.style.layers.SymbolLayer;
+import com.trackasia.android.style.layers.TransitionOptions;
+import com.trackasia.android.style.sources.GeoJsonOptions;
+import com.trackasia.android.style.sources.GeoJsonSource;
 
 import java.util.HashSet;
 import java.util.Set;

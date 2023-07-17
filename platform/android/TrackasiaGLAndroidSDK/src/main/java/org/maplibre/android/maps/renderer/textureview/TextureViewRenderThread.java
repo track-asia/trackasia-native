@@ -1,4 +1,4 @@
-package org.trackasia.android.maps.renderer.textureview;
+package com.trackasia.android.maps.renderer.textureview;
 
 import android.graphics.SurfaceTexture;
 import android.view.TextureView;
@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
-import org.trackasia.android.log.Logger;
-import org.trackasia.android.maps.renderer.egl.EGLConfigChooser;
+import com.trackasia.android.log.Logger;
+import com.trackasia.android.maps.renderer.egl.EGLConfigChooser;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

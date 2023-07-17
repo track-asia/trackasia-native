@@ -1,6 +1,6 @@
-package org.trackasia.android.annotations
+package com.trackasia.android.annotations
 
-import org.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLng
 import org.junit.Assert
 import org.junit.Test
 

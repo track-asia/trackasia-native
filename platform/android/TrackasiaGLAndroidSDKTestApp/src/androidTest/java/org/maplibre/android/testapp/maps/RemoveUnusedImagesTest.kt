@@ -1,16 +1,16 @@
-package org.trackasia.android.testapp.maps
+package com.trackasia.android.testapp.maps
 
 import android.graphics.Bitmap
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import org.trackasia.android.AppCenter
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.activity.espresso.EspressoTestActivity
+import com.trackasia.android.AppCenter
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -28,7 +28,7 @@ class RemoveUnusedImagesTest : AppCenter() {
     var rule = ActivityTestRule(EspressoTestActivity::class.java)
 
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private val latch = CountDownLatch(1)
 
     @Before
@@ -107,7 +107,7 @@ class RemoveUnusedImagesTest : AppCenter() {
             """
     {
       "version": 8,
-      "name": "trackasia Streets",
+      "name": "Trackasia Streets",
       "sources": {
         "geojson": {
           "type": "geojson",

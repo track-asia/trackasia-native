@@ -1,12 +1,12 @@
 // This file is generated. Edit scripts/generate-style-code.js, then run `make style-code`.
 
-package org.trackasia.android.style.layers;
+package com.trackasia.android.style.layers;
 
 import androidx.annotation.ColorInt;
 
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.types.Formatted;
-import static org.trackasia.android.utils.ColorUtils.colorToRgbaString;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.types.Formatted;
+import static com.trackasia.android.utils.ColorUtils.colorToRgbaString;
 
 /**
  * Constructs paint/layout properties for Layers

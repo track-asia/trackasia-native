@@ -1,16 +1,16 @@
-package org.trackasia.android.location
+package com.trackasia.android.location
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.location.LocationComponentConstants.*
-import org.trackasia.android.location.modes.RenderMode
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.expressions.Expression
-import org.trackasia.android.style.layers.Layer
-import org.trackasia.android.style.layers.Property
-import org.trackasia.android.utils.BitmapUtils
-import org.trackasia.android.utils.ColorUtils
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.location.LocationComponentConstants.*
+import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.expressions.Expression
+import com.trackasia.android.style.layers.Layer
+import com.trackasia.android.style.layers.Property
+import com.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.utils.ColorUtils
 import io.mockk.*
 import org.junit.Assert
 import org.junit.Before

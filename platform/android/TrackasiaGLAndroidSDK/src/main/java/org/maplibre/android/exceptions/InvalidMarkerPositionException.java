@@ -1,4 +1,4 @@
-package org.trackasia.android.exceptions;
+package com.trackasia.android.exceptions;
 
 /**
  * A InvalidMarkerPositionException is thrown when a Marker object is created with an invalid LatLng position.

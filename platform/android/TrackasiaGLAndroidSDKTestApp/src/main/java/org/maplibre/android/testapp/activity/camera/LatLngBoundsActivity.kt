@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.camera
+package com.trackasia.android.testapp.activity.camera
 
 import android.content.Context
 import android.os.Bundle
@@ -8,24 +8,24 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.FeatureCollection.fromJson
 import com.mapbox.geojson.Point
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.Property.ICON_ANCHOR_CENTER
-import org.trackasia.android.style.layers.PropertyFactory.*
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.databinding.ActivityLatlngboundsBinding
-import org.trackasia.android.testapp.utils.GeoParseUtil
-import org.trackasia.android.utils.BitmapUtils
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.Property.ICON_ANCHOR_CENTER
+import com.trackasia.android.style.layers.PropertyFactory.*
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.databinding.ActivityLatlngboundsBinding
+import com.trackasia.android.testapp.utils.GeoParseUtil
+import com.trackasia.android.utils.BitmapUtils
 import java.net.URISyntaxException
 
 /** Test activity showcasing using the LatLngBounds camera API. */
 class LatLngBoundsActivity : AppCompatActivity() {
 
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private lateinit var bounds: LatLngBounds
     private lateinit var binding: ActivityLatlngboundsBinding

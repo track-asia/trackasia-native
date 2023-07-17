@@ -1,10 +1,10 @@
-package org.trackasia.android.integration
+package com.trackasia.android.integration
 
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import androidx.test.uiautomator.UiSelector
-import org.trackasia.android.testapp.activity.fragment.ViewPagerActivity
+import com.trackasia.android.testapp.activity.fragment.ViewPagerActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

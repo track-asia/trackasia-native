@@ -1,27 +1,27 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
 
-import org.trackasia.android.geometry.LatLng;
-import org.trackasia.android.location.modes.RenderMode;
-import org.trackasia.android.maps.Style;
-import org.trackasia.android.style.expressions.Expression;
-import org.trackasia.android.style.layers.Layer;
-import org.trackasia.android.utils.BitmapUtils;
-import org.trackasia.android.utils.ColorUtils;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.location.modes.RenderMode;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.utils.BitmapUtils;
+import com.trackasia.android.utils.ColorUtils;
 
-import static org.trackasia.android.location.LocationComponentConstants.BACKGROUND_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.BACKGROUND_STALE_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.BEARING_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.BEARING_STALE_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.FOREGROUND_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.FOREGROUND_STALE_ICON;
-import static org.trackasia.android.location.LocationComponentConstants.SHADOW_ICON;
-import static org.trackasia.android.style.expressions.Expression.rgba;
-import static org.trackasia.android.style.layers.Property.NONE;
-import static org.trackasia.android.style.layers.Property.VISIBLE;
+import static com.trackasia.android.location.LocationComponentConstants.BACKGROUND_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.BACKGROUND_STALE_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.BEARING_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.BEARING_STALE_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.FOREGROUND_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.FOREGROUND_STALE_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.SHADOW_ICON;
+import static com.trackasia.android.style.expressions.Expression.rgba;
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
 
 
 class IndicatorLocationLayerRenderer implements LocationLayerRenderer {

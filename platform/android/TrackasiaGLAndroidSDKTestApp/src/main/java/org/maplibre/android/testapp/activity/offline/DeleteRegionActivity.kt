@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.offline
+package com.trackasia.android.testapp.activity.offline
 
 import android.content.Context
 import android.content.DialogInterface
@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import org.trackasia.android.offline.OfflineManager
-import org.trackasia.android.offline.OfflineManager.ListOfflineRegionsCallback
-import org.trackasia.android.offline.OfflineRegion
-import org.trackasia.android.offline.OfflineRegion.OfflineRegionDeleteCallback
-import org.trackasia.android.offline.OfflineRegion.OfflineRegionInvalidateCallback
-import org.trackasia.android.testapp.R
-import org.trackasia.android.testapp.activity.offline.DeleteRegionActivity.OfflineRegionAdapter
-import org.trackasia.android.testapp.utils.OfflineUtils
+import com.trackasia.android.offline.OfflineManager
+import com.trackasia.android.offline.OfflineManager.ListOfflineRegionsCallback
+import com.trackasia.android.offline.OfflineRegion
+import com.trackasia.android.offline.OfflineRegion.OfflineRegionDeleteCallback
+import com.trackasia.android.offline.OfflineRegion.OfflineRegionInvalidateCallback
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.offline.DeleteRegionActivity.OfflineRegionAdapter
+import com.trackasia.android.testapp.utils.OfflineUtils
 import java.util.*
 
 /**

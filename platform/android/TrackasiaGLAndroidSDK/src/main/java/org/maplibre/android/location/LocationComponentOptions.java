@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,9 +17,9 @@ import androidx.annotation.StyleRes;
 
 import com.mapbox.android.gestures.AndroidGesturesManager;
 
-import org.trackasia.android.R;
-import org.trackasia.android.maps.trackasiaMap;
-import org.trackasia.android.style.layers.Layer;
+import com.trackasia.android.R;
+import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.style.layers.Layer;
 
 import java.util.Arrays;
 
@@ -439,7 +439,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will use this image in place of the provided or default trackasia_foregroundDrawableStale.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -466,7 +466,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default trackasia_foregroundDrawableStale.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -493,7 +493,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default trackasia_gpsDrawable.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -520,7 +520,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default trackasia_foregroundDrawable.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -547,7 +547,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default trackasia_backgroundDrawable.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -574,7 +574,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default trackasia_bearingDrawable.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -731,7 +731,7 @@ public class LocationComponentOptions implements Parcelable {
    * <p>
    * <strong>Note</strong>: If set to true, this can overwrite some of the gesture thresholds
    * and the custom {@link com.mapbox.android.gestures.AndroidGesturesManager} that was set with
-   * {@link trackasiaMap#setGesturesManager(AndroidGesturesManager, boolean, boolean)}.
+   * {@link MapLibreMap#setGesturesManager(AndroidGesturesManager, boolean, boolean)}.
    *
    * @return true if gestures are adjusted when in one of the camera tracking modes, false otherwise
    * @see Builder#trackingInitialMoveThreshold(float)
@@ -776,7 +776,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * Gets the id of the layer that's referenced when placing the component on the map using
-   * {@link org.trackasia.android.maps.Style#addLayerAbove(Layer, String)}.
+   * {@link com.trackasia.android.maps.Style#addLayerAbove(Layer, String)}.
    * <p>
    * The component is going to placed directly above this layer.
    *
@@ -788,7 +788,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * Gets the id of the layer that's referenced when placing the component on the map using
-   * {@link org.trackasia.android.maps.Style#addLayerBelow(Layer, String)}.
+   * {@link com.trackasia.android.maps.Style#addLayerBelow(Layer, String)}.
    * <p>
    * The component is going to placed directly below this layer.
    *
@@ -808,8 +808,8 @@ public class LocationComponentOptions implements Parcelable {
   }
 
   /**
-   * Enable or disable smooth animation of compass values for {@link org.trackasia.android.location.modes.CameraMode}
-   * and {@link org.trackasia.android.location.modes.RenderMode}.
+   * Enable or disable smooth animation of compass values for {@link com.trackasia.android.location.modes.CameraMode}
+   * and {@link com.trackasia.android.location.modes.RenderMode}.
    *
    * @return whether smooth compass animation is enabled
    */
@@ -1439,7 +1439,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default trackasia_backgroundDrawableStale.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1470,7 +1470,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default trackasia_foregroundDrawableStale.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1501,7 +1501,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default trackasia_gpsDrawable.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1532,7 +1532,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default trackasia_foregroundDrawable.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1563,7 +1563,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default trackasia_backgroundDrawable.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1594,7 +1594,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link com.trackasia.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default trackasia_bearingDrawable.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1732,8 +1732,8 @@ public class LocationComponentOptions implements Parcelable {
      *
      * @param padding The margins for the map in pixels (left, top, right, bottom).
      * @deprecated Use
-     * {@link org.trackasia.android.camera.CameraPosition.Builder#padding(double, double, double, double)} or
-     * {@link org.trackasia.android.camera.CameraUpdateFactory#paddingTo(double, double, double, double)}
+     * {@link com.trackasia.android.camera.CameraPosition.Builder#padding(double, double, double, double)} or
+     * {@link com.trackasia.android.camera.CameraUpdateFactory#paddingTo(double, double, double, double)}
      * instead.
      */
     @NonNull
@@ -1785,7 +1785,7 @@ public class LocationComponentOptions implements Parcelable {
      * <p>
      * <strong>Note</strong>: This can overwrite some of the gesture thresholds
      * and the custom {@link com.mapbox.android.gestures.AndroidGesturesManager} that was set with
-     * {@link trackasiaMap#setGesturesManager(AndroidGesturesManager, boolean, boolean)}.
+     * {@link MapLibreMap#setGesturesManager(AndroidGesturesManager, boolean, boolean)}.
      *
      * @param trackingGesturesManagement true if gestures should be adjusted when in one of the camera tracking modes,
      *                                   false otherwise
@@ -1840,7 +1840,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Sets the id of the layer that's referenced when placing the component on the map using
-     * {@link org.trackasia.android.maps.Style#addLayerAbove(Layer, String)}.
+     * {@link com.trackasia.android.maps.Style#addLayerAbove(Layer, String)}.
      * <p>
      * The component is going to placed directly above this layer.
      *
@@ -1854,7 +1854,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Sets the id of the layer that's referenced when placing the component on the map using
-     * {@link org.trackasia.android.maps.Style#addLayerBelow(Layer, String)}.
+     * {@link com.trackasia.android.maps.Style#addLayerBelow(Layer, String)}.
      * <p>
      * The component is going to placed directly below this layer.
      *
@@ -1879,8 +1879,8 @@ public class LocationComponentOptions implements Parcelable {
     }
 
     /**
-     * Enable or disable smooth animation of compass values for {@link org.trackasia.android.location.modes.CameraMode}
-     * and {@link org.trackasia.android.location.modes.RenderMode}.
+     * Enable or disable smooth animation of compass values for {@link com.trackasia.android.location.modes.CameraMode}
+     * and {@link com.trackasia.android.location.modes.RenderMode}.
      *
      * @return whether smooth compass animation is enabled
      */

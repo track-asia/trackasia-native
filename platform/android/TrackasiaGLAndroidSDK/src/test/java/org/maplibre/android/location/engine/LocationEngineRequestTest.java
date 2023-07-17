@@ -1,4 +1,4 @@
-package org.trackasia.android.location.engine;
+package com.trackasia.android.location.engine;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

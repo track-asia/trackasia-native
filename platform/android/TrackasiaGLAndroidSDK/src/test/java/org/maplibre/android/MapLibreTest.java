@@ -1,4 +1,4 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,9 +6,9 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 
-import org.trackasia.android.exceptions.TrackasiaConfigurationException;
-import org.trackasia.android.maps.MapView;
-import org.trackasia.android.utils.ConfigUtils;
+import com.trackasia.android.exceptions.MapLibreConfigurationException;
+import com.trackasia.android.maps.MapView;
+import com.trackasia.android.utils.ConfigUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,7 +28,7 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TrackasiaTest {
+public class MapLibreTest {
 
   private Context context;
   private Context appContext;
@@ -46,13 +46,13 @@ public class TrackasiaTest {
   @Test
   public void testGetApiKey() {
     final String apiKey = "pk.0000000001";
-    TrackasiaInjector.inject(context, apiKey, ConfigUtils.getMockedOptions());
+    MapLibreInjector.inject(context, apiKey, ConfigUtils.getMockedOptions());
     assertSame(apiKey, Trackasia.getApiKey());
   }
 
   @Test
   public void testApplicationContext() {
-    TrackasiaInjector.inject(context, "pk.0000000001", ConfigUtils.getMockedOptions());
+    MapLibreInjector.inject(context, "pk.0000000001", ConfigUtils.getMockedOptions());
     assertNotNull(Trackasia.getApplicationContext());
     assertNotEquals(context, appContext);
     assertEquals(appContext, appContext);
@@ -83,7 +83,7 @@ public class TrackasiaTest {
     when(context.obtainStyledAttributes(nullable(AttributeSet.class), any(int[].class), anyInt(), anyInt()))
       .thenReturn(typedArray);
 
-    expectedException.expect(TrackasiaConfigurationException.class);
+    expectedException.expect(MapLibreConfigurationException.class);
     expectedException.expectMessage(
       "\nUsing MapView requires calling Trackasia.getInstance(Context context, String apiKey,"
               + " WellKnownTileServer wellKnownTileServer) before inflating or creating the view."
@@ -93,6 +93,6 @@ public class TrackasiaTest {
 
   @After
   public void after() {
-    TrackasiaInjector.clear();
+    MapLibreInjector.clear();
   }
 }

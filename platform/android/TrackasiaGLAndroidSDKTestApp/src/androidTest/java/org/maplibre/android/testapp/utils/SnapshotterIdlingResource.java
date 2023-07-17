@@ -1,8 +1,8 @@
-package org.trackasia.android.testapp.utils;
+package com.trackasia.android.testapp.utils;
 
 import androidx.test.espresso.IdlingResource;
 
-import org.trackasia.android.testapp.activity.render.RenderTestActivity;
+import com.trackasia.android.testapp.activity.render.RenderTestActivity;
 
 public class SnapshotterIdlingResource implements IdlingResource, RenderTestActivity.OnRenderTestCompletionListener {
 

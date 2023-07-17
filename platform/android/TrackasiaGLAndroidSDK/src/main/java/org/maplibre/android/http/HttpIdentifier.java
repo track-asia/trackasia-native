@@ -1,12 +1,12 @@
-package org.trackasia.android.http;
+package com.trackasia.android.http;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 
 import androidx.annotation.NonNull;
 
-import org.trackasia.android.MapStrictMode;
-import org.trackasia.android.trackasia;
+import com.trackasia.android.MapStrictMode;
+import com.trackasia.android.Trackasia;
 
 public class HttpIdentifier {
 
@@ -19,7 +19,7 @@ public class HttpIdentifier {
    * @return the application identifier
    */
   public static String getIdentifier() {
-    return getIdentifier(trackasia.getApplicationContext());
+    return getIdentifier(Trackasia.getApplicationContext());
   }
 
   /**

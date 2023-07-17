@@ -1,4 +1,4 @@
-package org.trackasia.android.location;
+package com.trackasia.android.location;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -17,7 +17,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @param <K> Data type that will be animated.
  */
-abstract class trackasiaAnimator<K> extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
+abstract class MapLibreAnimator<K> extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
   @Retention(RetentionPolicy.SOURCE)
   @IntDef( {
     ANIMATOR_LAYER_LATLNG,
@@ -59,7 +59,7 @@ abstract class trackasiaAnimator<K> extends ValueAnimator implements ValueAnimat
    */
   private boolean invalid;
 
-  trackasiaAnimator(@NonNull @Size(min = 2) K[] values, @NonNull AnimationsValueChangeListener<K> updateListener,
+  MapLibreAnimator(@NonNull @Size(min = 2) K[] values, @NonNull AnimationsValueChangeListener<K> updateListener,
                    int maxAnimationFps) {
     minUpdateInterval = 1E9 / maxAnimationFps;
     setObjectValues((Object[]) values);
@@ -70,7 +70,7 @@ abstract class trackasiaAnimator<K> extends ValueAnimator implements ValueAnimat
     addListener(new AnimatorListener());
   }
 
-  public trackasiaAnimator(AnimationsValueChangeListener<K> updateListener, K target, K animatedValue,
+  public MapLibreAnimator(AnimationsValueChangeListener<K> updateListener, K target, K animatedValue,
                           double minUpdateInterval, long timeElapsed) {
     this.updateListener = updateListener;
     this.target = target;

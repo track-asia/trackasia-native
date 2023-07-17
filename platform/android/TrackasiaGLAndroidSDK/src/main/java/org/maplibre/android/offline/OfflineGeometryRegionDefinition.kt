@@ -1,4 +1,4 @@
-package org.trackasia.android.offline
+package com.trackasia.android.offline
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -6,8 +6,8 @@ import androidx.annotation.Keep
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.Geometry
 import com.mapbox.turf.TurfMeasurement
-import org.trackasia.android.geometry.LatLngBounds
-import org.trackasia.android.geometry.LatLngBounds.Companion.from
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.geometry.LatLngBounds.Companion.from
 
 /**
  * An offline region defined by a style URL, geometry, zoom range, and

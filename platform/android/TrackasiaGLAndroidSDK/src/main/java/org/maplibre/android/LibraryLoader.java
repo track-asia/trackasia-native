@@ -1,6 +1,6 @@
-package org.trackasia.android;
+package com.trackasia.android;
 
-import org.trackasia.android.log.Logger;
+import com.trackasia.android.log.Logger;
 
 /**
  * Loads the mapbox-gl shared library
@@ -13,7 +13,7 @@ public abstract class LibraryLoader {
 
   private static final String TAG = "Mbgl-LibraryLoader";
 
-  private static final LibraryLoader DEFAULT = trackasia.getModuleProvider()
+  private static final LibraryLoader DEFAULT = Trackasia.getModuleProvider()
     .createLibraryLoaderProvider()
     .getDefaultLibraryLoader();
 

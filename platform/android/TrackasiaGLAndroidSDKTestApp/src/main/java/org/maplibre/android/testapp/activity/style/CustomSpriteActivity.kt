@@ -1,4 +1,4 @@
-package org.trackasia.android.testapp.activity.style
+package com.trackasia.android.testapp.activity.style
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -9,17 +9,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
-import org.trackasia.android.camera.CameraUpdateFactory
-import org.trackasia.android.geometry.LatLng
-import org.trackasia.android.maps.MapView
-import org.trackasia.android.maps.trackasiaMap
-import org.trackasia.android.maps.OnMapReadyCallback
-import org.trackasia.android.maps.Style
-import org.trackasia.android.style.layers.Layer
-import org.trackasia.android.style.layers.PropertyFactory
-import org.trackasia.android.style.layers.SymbolLayer
-import org.trackasia.android.style.sources.GeoJsonSource
-import org.trackasia.android.testapp.R
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.Layer
+import com.trackasia.android.style.layers.PropertyFactory
+import com.trackasia.android.style.layers.SymbolLayer
+import com.trackasia.android.style.sources.GeoJsonSource
+import com.trackasia.android.testapp.R
 import timber.log.Timber
 
 /**
@@ -27,7 +27,7 @@ import timber.log.Timber
  */
 class CustomSpriteActivity : AppCompatActivity() {
     private var source: GeoJsonSource? = null
-    private lateinit var trackasiaMap: trackasiaMap
+    private lateinit var trackasiaMap: MapLibreMap
     private lateinit var mapView: MapView
     private lateinit var layer: Layer
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class CustomSpriteActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: trackasiaMap ->
+            OnMapReadyCallback { map: MapLibreMap ->
                 trackasiaMap = map
                 map.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
                     val fab = findViewById<FloatingActionButton>(R.id.fab)
