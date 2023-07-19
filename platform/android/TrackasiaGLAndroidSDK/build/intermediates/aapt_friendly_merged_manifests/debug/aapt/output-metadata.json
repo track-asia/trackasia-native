@@ -4,7 +4,7 @@
     "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "org.maplibre.android",
+  "applicationId": "com.trackasia.android",
   "variantName": "debug",
   "elements": [
     {

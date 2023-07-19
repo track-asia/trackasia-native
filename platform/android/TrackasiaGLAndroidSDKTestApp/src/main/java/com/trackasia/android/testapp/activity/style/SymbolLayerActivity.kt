@@ -16,9 +16,9 @@ import com.mapbox.geojson.Point
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
-import com.trackasia.android.maps.MapLibreMap.OnMapClickListener
-import com.trackasia.android.maps.MapLibreMapOptions
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
+import com.trackasia.android.maps.TrackasiaMapOptions
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -51,14 +51,14 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
     private var markerSymbolLayer: SymbolLayer? = null
     private var mapboxSignSymbolLayer: SymbolLayer? = null
     private var numberFormatSymbolLayer: SymbolLayer? = null
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private lateinit var mapView: MapView
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_symbollayer)
 
         // Create map configuration
-        val trackasiaMapOptions = MapLibreMapOptions.createFromAttributes(this)
+        val trackasiaMapOptions = TrackasiaMapOptions.createFromAttributes(this)
         trackasiaMapOptions.camera(
             CameraPosition.Builder().target(
                 LatLng(52.35273, 4.91638)
@@ -85,7 +85,7 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
         }
     }
 
-    override fun onMapReady(trackasiaMap: MapLibreMap) {
+    override fun onMapReady(trackasiaMap: TrackasiaMap) {
         this.trackasiaMap = trackasiaMap
         val carBitmap = BitmapUtils.getBitmapFromDrawable(
             ResourcesCompat.getDrawable(resources, R.drawable.ic_directions_car_black, null)

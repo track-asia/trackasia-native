@@ -34,7 +34,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
 
   private final List<OnMapReadyCallback> mapReadyCallbackList = new ArrayList<>();
   private OnMapViewReadyCallback mapViewReadyCallback;
-  private MapLibreMap trackasiaMap;
+  private TrackasiaMap trackasiaMap;
   private MapView map;
 
   /**
@@ -53,7 +53,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
    * @return MapFragment instantiated.
    */
   @NonNull
-  public static MapFragment newInstance(@Nullable MapLibreMapOptions trackasiaMapOptions) {
+  public static MapFragment newInstance(@Nullable TrackasiaMapOptions trackasiaMapOptions) {
     MapFragment mapFragment = new MapFragment();
     mapFragment.setArguments(MapFragmentUtils.createFragmentArgs(trackasiaMapOptions));
     return mapFragment;
@@ -69,7 +69,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
   @Override
   public void onInflate(@NonNull Context context, AttributeSet attrs, Bundle savedInstanceState) {
     super.onInflate(context, attrs, savedInstanceState);
-    setArguments(MapFragmentUtils.createFragmentArgs(MapLibreMapOptions.createFromAttributes(context, attrs)));
+    setArguments(MapFragmentUtils.createFragmentArgs(TrackasiaMapOptions.createFromAttributes(context, attrs)));
   }
 
   /**
@@ -125,7 +125,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
    * @param trackasiaMap The public api controller of the map
    */
   @Override
-  public void onMapReady(@NonNull MapLibreMap trackasiaMap) {
+  public void onMapReady(@NonNull TrackasiaMap trackasiaMap) {
     this.trackasiaMap = trackasiaMap;
     for (OnMapReadyCallback onMapReadyCallback : mapReadyCallbackList) {
       onMapReadyCallback.onMapReady(trackasiaMap);

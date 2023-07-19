@@ -3,7 +3,7 @@ package com.trackasia.android.maps
 import androidx.test.espresso.UiController
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.testapp.action.MapLibreMapAction.invoke
+import com.trackasia.android.testapp.action.TrackasiaMapAction.invoke
 import com.trackasia.android.testapp.activity.EspressoTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -17,7 +17,7 @@ class TransformTest : EspressoTest() {
     @Test
     fun mapboxMapScrollByWithPadding() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(initialCameraUpdate)
             trackasiaMap.scrollBy(400.0f, 0.0f)
             val expectedCameraPosition = trackasiaMap.cameraPosition

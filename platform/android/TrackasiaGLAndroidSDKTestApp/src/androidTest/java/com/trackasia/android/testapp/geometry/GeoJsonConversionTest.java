@@ -11,7 +11,7 @@ import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.layers.PropertyFactory;
 import com.trackasia.android.style.layers.SymbolLayer;
 import com.trackasia.android.style.sources.GeoJsonSource;
-import com.trackasia.android.testapp.action.MapLibreMapAction;
+import com.trackasia.android.testapp.action.TrackasiaMapAction;
 import com.trackasia.android.testapp.activity.EspressoTest;
 import com.trackasia.android.testapp.utils.TestingAsyncUtils;
 
@@ -123,7 +123,7 @@ public class GeoJsonConversionTest extends EspressoTest {
   @Test
   public void testNegativeNumberPropertyConversion() {
     validateTestSetup();
-    onView(isRoot()).perform(new MapLibreMapAction((uiController, mapboxMap) -> {
+    onView(isRoot()).perform(new TrackasiaMapAction((uiController, mapboxMap) -> {
       LatLng latLng = new LatLng();
       Feature feature = Feature.fromGeometry(Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude()));
 

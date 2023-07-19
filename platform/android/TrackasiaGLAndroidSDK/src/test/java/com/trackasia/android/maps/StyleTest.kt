@@ -3,8 +3,8 @@ package com.trackasia.android.maps
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ShapeDrawable
-import com.trackasia.android.MapLibreInjector
-import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.TrackasiaInjector
+import com.trackasia.android.constants.TrackasiaConstants
 import com.trackasia.android.style.layers.CannotAddLayerException
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.layers.TransitionOptions
@@ -26,7 +26,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class StyleTest {
 
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
 
     private lateinit var nativeMapView: NativeMap
 
@@ -39,9 +39,9 @@ class StyleTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        MapLibreInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
+        TrackasiaInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
         nativeMapView = mockk(relaxed = true)
-        trackasiaMap = MapLibreMap(
+        trackasiaMap = TrackasiaMap(
             nativeMapView,
             null,
             null,
@@ -85,7 +85,7 @@ class StyleTest {
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                MapLibreConstants.LAYER_ID_ANNOTATIONS
+                TrackasiaConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }
@@ -162,7 +162,7 @@ class StyleTest {
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                MapLibreConstants.LAYER_ID_ANNOTATIONS
+                TrackasiaConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }

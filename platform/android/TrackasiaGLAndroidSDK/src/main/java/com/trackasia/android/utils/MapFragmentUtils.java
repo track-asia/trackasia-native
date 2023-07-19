@@ -6,10 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.maps.MapFragment;
 import com.trackasia.android.maps.SupportMapFragment;
-import com.trackasia.android.maps.MapLibreMapOptions;
+import com.trackasia.android.maps.TrackasiaMapOptions;
 
 /**
  * MapFragment utility class.
@@ -27,9 +27,9 @@ public class MapFragmentUtils {
    * @return a bundle of converted fragment arguments
    */
   @NonNull
-  public static Bundle createFragmentArgs(MapLibreMapOptions options) {
+  public static Bundle createFragmentArgs(TrackasiaMapOptions options) {
     Bundle bundle = new Bundle();
-    bundle.putParcelable(MapLibreConstants.FRAG_ARG_MAPLIBREMAPOPTIONS, options);
+    bundle.putParcelable(TrackasiaConstants.FRAG_ARG_TrackasiaMapOPTIONS, options);
     return bundle;
   }
 
@@ -41,13 +41,13 @@ public class MapFragmentUtils {
    * @return converted MapboxMapOptions
    */
   @Nullable
-  public static MapLibreMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
-    MapLibreMapOptions options;
-    if (args != null && args.containsKey(MapLibreConstants.FRAG_ARG_MAPLIBREMAPOPTIONS)) {
-      options = args.getParcelable(MapLibreConstants.FRAG_ARG_MAPLIBREMAPOPTIONS);
+  public static TrackasiaMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
+    TrackasiaMapOptions options;
+    if (args != null && args.containsKey(TrackasiaConstants.FRAG_ARG_TrackasiaMapOPTIONS)) {
+      options = args.getParcelable(TrackasiaConstants.FRAG_ARG_TrackasiaMapOPTIONS);
     } else {
       // load default options
-      options = MapLibreMapOptions.createFromAttributes(context);
+      options = TrackasiaMapOptions.createFromAttributes(context);
     }
     return options;
   }

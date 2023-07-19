@@ -10,7 +10,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.trackasia.android.Trackasia
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.module.http.HttpRequestUtil
@@ -37,7 +37,7 @@ class PerformanceMeasurementActivity : AppCompatActivity() {
             .build()
         HttpRequestUtil.setOkHttpClient(okHttpClient)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
+            OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
                 trackasiaMap.setStyle(
                     Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
                 )

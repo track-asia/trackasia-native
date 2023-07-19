@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference
  * Test activity showcasing how to use a file:// resource for the style.json and how to use MapboxMap#setStyleJson.
  */
 class StyleFileActivity : AppCompatActivity() {
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private lateinit var mapView: MapView
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class StyleFileActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: MapLibreMap? ->
+            OnMapReadyCallback { map: TrackasiaMap? ->
                 if (map != null) {
                     trackasiaMap = map
                 }
@@ -66,10 +66,10 @@ class StyleFileActivity : AppCompatActivity() {
     /**
      * Task to read a style file from the raw folder
      */
-    private class LoadStyleFileTask internal constructor(context: Context, trackasiaMap: MapLibreMap?) :
+    private class LoadStyleFileTask internal constructor(context: Context, trackasiaMap: TrackasiaMap?) :
         AsyncTask<Void?, Void?, String>() {
         private val context: WeakReference<Context>
-        private val trackasiaMap: WeakReference<MapLibreMap?>
+        private val trackasiaMap: WeakReference<TrackasiaMap?>
         protected override fun doInBackground(vararg p0: Void?): String? {
             var styleJson = ""
             try {
@@ -98,11 +98,11 @@ class StyleFileActivity : AppCompatActivity() {
      */
     private class CreateStyleFileTask internal constructor(
         context: Context,
-        trackasiaMap: MapLibreMap?
+        trackasiaMap: TrackasiaMap?
     ) : AsyncTask<Void?, Int?, Long>() {
         private lateinit var cacheStyleFile: File
         private val context: WeakReference<Context>
-        private val trackasiaMap: WeakReference<MapLibreMap?>
+        private val trackasiaMap: WeakReference<TrackasiaMap?>
         protected override fun doInBackground(vararg p0: Void?): Long? {
             try {
                 cacheStyleFile = File.createTempFile("my-", ".style.json")

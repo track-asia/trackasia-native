@@ -14,7 +14,7 @@ import androidx.core.view.MenuItemCompat
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -29,7 +29,7 @@ import java.util.*
  * Test activity showcasing adding a large amount of Markers.
  */
 class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private lateinit var mapView: MapView
     private var locations: List<LatLng>? = null
     private var progressDialog: ProgressDialog? = null
@@ -38,10 +38,10 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
         setContentView(R.layout.activity_marker_bulk)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: MapLibreMap -> initMap(trackasiaMap) })
+        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: TrackasiaMap -> initMap(trackasiaMap) })
     }
 
-    private fun initMap(trackasiaMap: MapLibreMap) {
+    private fun initMap(trackasiaMap: TrackasiaMap) {
         this.trackasiaMap = trackasiaMap
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
     }

@@ -10,7 +10,7 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression.within
 import com.trackasia.android.style.layers.CircleLayer
@@ -28,7 +28,7 @@ import com.trackasia.android.testapp.databinding.ActivityWithinExpressionBinding
  */
 class WithinExpressionActivity : AppCompatActivity() {
 
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private lateinit var binding: ActivityWithinExpressionBinding
     private lateinit var mapView: MapView
 

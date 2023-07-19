@@ -12,7 +12,7 @@ import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.CircleLayer
@@ -24,7 +24,7 @@ import com.trackasia.android.testapp.R
  */
 class QuerySourceFeaturesActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_query_source_features)
@@ -32,7 +32,7 @@ class QuerySourceFeaturesActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { map: MapLibreMap? ->
+        mapView.getMapAsync { map: TrackasiaMap? ->
             if (map != null) {
                 trackasiaMap = map
             }

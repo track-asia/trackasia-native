@@ -11,7 +11,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.offline.OfflineManager
 import com.trackasia.android.offline.OfflineManager.ListOfflineRegionsCallback
 import com.trackasia.android.offline.OfflineRegion
@@ -75,7 +75,7 @@ class UpdateMetadataActivity :
         container.removeAllViews()
         container.addView(MapView(view.context).also { mapView = it })
         mapView.onCreate(null)
-        mapView.getMapAsync { map: MapLibreMap ->
+        mapView.getMapAsync { map: TrackasiaMap ->
             map.setOfflineRegionDefinition(
                 adapter!!.getItem(position).definition
             )

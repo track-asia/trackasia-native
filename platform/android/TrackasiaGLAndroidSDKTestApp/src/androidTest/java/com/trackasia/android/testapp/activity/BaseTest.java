@@ -10,7 +10,7 @@ import androidx.test.rule.GrantPermissionRule;
 import com.trackasia.android.AppCenter;
 import com.trackasia.android.Trackasia;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.testapp.R;
 
 import org.junit.After;
@@ -43,7 +43,7 @@ public abstract class BaseTest extends AppCenter {
   public GrantPermissionRule grantLocationPermissionRule = GrantPermissionRule
           .grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-  protected MapLibreMap trackasiaMap;
+  protected TrackasiaMap trackasiaMap;
   protected MapView mapView;
   private final CountDownLatch latch = new CountDownLatch(1);
 
@@ -62,7 +62,7 @@ public abstract class BaseTest extends AppCenter {
 
   @UiThread
   @CallSuper
-  protected void initMap(MapLibreMap trackasiaMap) {
+  protected void initMap(TrackasiaMap trackasiaMap) {
     this.trackasiaMap = trackasiaMap;
     trackasiaMap.getStyle(style -> latch.countDown());
   }
@@ -72,7 +72,7 @@ public abstract class BaseTest extends AppCenter {
       Timber.e("Not connected to the internet while running test");
     }
     assertNotNull("MapView isn't initialised", mapView);
-    assertNotNull("MapLibreMap isn't initialised", trackasiaMap);
+    assertNotNull("TrackasiaMap isn't initialised", trackasiaMap);
     assertNotNull("Style isn't initialised", trackasiaMap.getStyle());
     assertTrue("Style isn't fully loaded", trackasiaMap.getStyle().isFullyLoaded());
   }

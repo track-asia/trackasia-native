@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import com.trackasia.android.BuildConfig;
-import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.http.HttpIdentifier;
 import com.trackasia.android.http.HttpLogger;
 import com.trackasia.android.http.HttpRequest;
@@ -66,12 +66,12 @@ public class HttpRequestImpl implements HttpRequest {
         return;
       }
 
-      final String host = httpUrl.host().toLowerCase(MapLibreConstants.trackasia_LOCALE);
+      final String host = httpUrl.host().toLowerCase(TrackasiaConstants.trackasia_LOCALE);
       resourceUrl = HttpRequestUrl.buildResourceUrl(host, resourceUrl, httpUrl.querySize(), offlineUsage);
 
       final Request.Builder builder = new Request.Builder()
         .url(resourceUrl)
-        .tag(resourceUrl.toLowerCase(MapLibreConstants.trackasia_LOCALE))
+        .tag(resourceUrl.toLowerCase(TrackasiaConstants.trackasia_LOCALE))
         .addHeader("User-Agent", userAgentString);
       if (etag.length() > 0) {
         builder.addHeader("If-None-Match", etag);

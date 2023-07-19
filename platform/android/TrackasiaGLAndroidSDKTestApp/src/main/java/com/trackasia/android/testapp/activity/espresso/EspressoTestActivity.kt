@@ -3,7 +3,7 @@ package com.trackasia.android.testapp.activity.espresso
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.R
 
 /**
@@ -11,7 +11,7 @@ import com.trackasia.android.testapp.R
  */
 class EspressoTestActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    protected lateinit var trackasiaMap: MapLibreMap
+    protected lateinit var trackasiaMap: TrackasiaMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_espresso_test)

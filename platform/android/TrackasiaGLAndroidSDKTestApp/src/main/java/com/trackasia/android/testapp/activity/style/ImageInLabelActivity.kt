@@ -7,7 +7,7 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -31,7 +31,7 @@ class ImageInLabelActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(trackasiaMap: MapLibreMap) {
+    override fun onMapReady(trackasiaMap: TrackasiaMap) {
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
             val us = BitmapUtils.getBitmapFromDrawable(
                 resources.getDrawable(R.drawable.ic_us)

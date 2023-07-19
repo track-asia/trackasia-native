@@ -11,7 +11,7 @@ import com.trackasia.android.R
 import com.trackasia.android.camera.CameraPosition.Builder
 import com.trackasia.android.camera.CameraUpdateFactory.CameraPositionUpdate
 import com.trackasia.android.camera.CameraUpdateFactory.ZoomUpdate
-import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.constants.TrackasiaConstants
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.utils.MathUtils
 import java.util.Arrays
@@ -291,14 +291,14 @@ class CameraPosition
          * Set the tilt of the camera in degrees
          *
          *
-         * value is clamped to [MapLibreConstants.MINIMUM_TILT] and [MapLibreConstants.MAXIMUM_TILT].
+         * value is clamped to [TrackasiaConstants.MINIMUM_TILT] and [TrackasiaConstants.MAXIMUM_TILT].
          *
          *
          * @param tilt Tilt value of the camera
          * @return this
          */
-        fun tilt(@FloatRange(from = MapLibreConstants.MINIMUM_TILT, to = MapLibreConstants.MAXIMUM_TILT) tilt: Double): Builder {
-            this.tilt = MathUtils.clamp(tilt, MapLibreConstants.MINIMUM_TILT, MapLibreConstants.MAXIMUM_TILT)
+        fun tilt(@FloatRange(from = TrackasiaConstants.MINIMUM_TILT, to = TrackasiaConstants.MAXIMUM_TILT) tilt: Double): Builder {
+            this.tilt = MathUtils.clamp(tilt, TrackasiaConstants.MINIMUM_TILT, TrackasiaConstants.MAXIMUM_TILT)
             return this
         }
 
@@ -306,13 +306,13 @@ class CameraPosition
          * Set the zoom of the camera
          *
          *
-         * Zoom ranges from [MapLibreConstants.MINIMUM_ZOOM] to [MapLibreConstants.MAXIMUM_ZOOM]
+         * Zoom ranges from [TrackasiaConstants.MINIMUM_ZOOM] to [TrackasiaConstants.MAXIMUM_ZOOM]
          *
          *
          * @param zoom Zoom value of the camera
          * @return this
          */
-        fun zoom(@FloatRange(from = MapLibreConstants.MINIMUM_ZOOM.toDouble(), to = MapLibreConstants.MAXIMUM_ZOOM.toDouble()) zoom: Double): Builder {
+        fun zoom(@FloatRange(from = TrackasiaConstants.MINIMUM_ZOOM.toDouble(), to = TrackasiaConstants.MAXIMUM_ZOOM.toDouble()) zoom: Double): Builder {
             this.zoom = zoom
             return this
         }

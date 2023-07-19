@@ -8,9 +8,9 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
-import com.trackasia.android.maps.MapLibreMap.CancelableCallback
-import com.trackasia.android.maps.MapLibreMap.OnCameraIdleListener
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.CancelableCallback
+import com.trackasia.android.maps.TrackasiaMap.OnCameraIdleListener
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -45,7 +45,7 @@ class CameraAnimationTypeActivity : AppCompatActivity(), OnMapReadyCallback {
                     .show()
             }
         }
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private lateinit var mapView: MapView
     private var cameraState = false
     private val cameraIdleListener = OnCameraIdleListener {
@@ -62,7 +62,7 @@ class CameraAnimationTypeActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
+    override fun onMapReady(map: TrackasiaMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Streets")))
         trackasiaMap.uiSettings.isAttributionEnabled = false

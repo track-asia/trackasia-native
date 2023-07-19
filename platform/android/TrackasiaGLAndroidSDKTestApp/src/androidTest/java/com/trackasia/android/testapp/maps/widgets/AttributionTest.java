@@ -13,7 +13,7 @@ import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.intent.Intents;
 
-import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.style.sources.Source;
 import com.trackasia.android.testapp.R;
 import com.trackasia.android.testapp.activity.EspressoTest;
@@ -134,7 +134,7 @@ public class AttributionTest extends EspressoTest {
   }
 
   private void buildUrlSpans() {
-    onView(withId(R.id.mapView)).perform(new MapLibreMapAction((uiController, view) -> {
+    onView(withId(R.id.mapView)).perform(new TrackasiaMapAction((uiController, view) -> {
       for (Source source : trackasiaMap.getStyle().getSources()) {
         String attributionSource = source.getAttribution();
         if (!TextUtils.isEmpty(attributionSource)) {
@@ -147,9 +147,9 @@ public class AttributionTest extends EspressoTest {
 
   private class DisableAction implements ViewAction {
 
-    private MapLibreMap trackasiaMap;
+    private TrackasiaMap trackasiaMap;
 
-    DisableAction(MapLibreMap map) {
+    DisableAction(TrackasiaMap map) {
       trackasiaMap = map;
     }
 
@@ -169,11 +169,11 @@ public class AttributionTest extends EspressoTest {
     }
   }
 
-  private class MapLibreMapAction implements ViewAction {
+  private class TrackasiaMapAction implements ViewAction {
 
     private InvokeViewAction invokeViewAction;
 
-    MapLibreMapAction(InvokeViewAction invokeViewAction) {
+    TrackasiaMapAction(InvokeViewAction invokeViewAction) {
       this.invokeViewAction = invokeViewAction;
     }
 

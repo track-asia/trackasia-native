@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Point
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression.distance
 import com.trackasia.android.style.expressions.Expression.lt
@@ -26,7 +26,7 @@ import com.mapbox.turf.TurfTransformation
 class DistanceExpressionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWithinExpressionBinding
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
 
     private val lat = 37.78794572301525
     private val lon = -122.40752220153807

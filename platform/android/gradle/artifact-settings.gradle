@@ -1,13 +1,13 @@
 ext {
-    mapLibreArtifactGroupId = 'com.trackasia.gl'
-    mapLibreArtifactId = 'android-sdk'
-    mapLibreArtifactTitle = 'Trackasia Maps SDK for Android'
-    mapLibreArtifactDescription = 'Trackasia Maps SDK for Android'
-    mapLibreDeveloperName = 'Trackasia'
-    mapLibreDeveloperId = 'trackasia'
-    mapLibreArtifactUrl = 'https://github.com/track-asia/trackasia-native'
-    mapLibreArtifactScmUrl = 'scm:git@github.com:trackasia/trackasia-native.git'
-    mapLibreArtifactLicenseName = 'BSD'
-    mapLibreArtifactLicenseUrl = 'https://opensource.org/licenses/BSD-2-Clause'
+    trackasiaArtifactGroupId = 'com.trackasia.gl'
+    trackasiaArtifactId = 'android-sdk'
+    trackasiaArtifactTitle = 'Trackasia Maps SDK for Android'
+    trackasiaArtifactDescription = 'Trackasia Maps SDK for Android'
+    trackasiaDeveloperName = 'Trackasia'
+    trackasiaDeveloperId = 'trackasia'
+    trackasiaArtifactUrl = 'https://github.com/track-asia/trackasia-native'
+    trackasiaArtifactScmUrl = 'scm:git@github.com:trackasia/trackasia-native.git'
+    trackasiaArtifactLicenseName = 'BSD'
+    trackasiaArtifactLicenseUrl = 'https://opensource.org/licenses/BSD-2-Clause'
     versionName = project.hasProperty('VERSION_NAME') ? project.property('VERSION_NAME') : System.getenv('VERSION_NAME')
 }

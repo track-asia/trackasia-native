@@ -22,7 +22,7 @@ import com.mapbox.android.gestures.ShoveGestureDetector;
 import com.mapbox.android.gestures.StandardGestureDetector;
 import com.mapbox.android.gestures.StandardScaleGestureDetector;
 import com.trackasia.android.R;
-import com.trackasia.android.constants.MapLibreConstants;
+import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.utils.MathUtils;
 
 import java.util.ArrayList;
@@ -31,14 +31,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static com.trackasia.android.constants.MapLibreConstants.MAXIMUM_ANGULAR_VELOCITY;
-import static com.trackasia.android.constants.MapLibreConstants.MAX_ABSOLUTE_SCALE_VELOCITY_CHANGE;
-import static com.trackasia.android.constants.MapLibreConstants.QUICK_ZOOM_MAX_ZOOM_CHANGE;
-import static com.trackasia.android.constants.MapLibreConstants.ROTATE_VELOCITY_RATIO_THRESHOLD;
-import static com.trackasia.android.constants.MapLibreConstants.SCALE_VELOCITY_ANIMATION_DURATION_MULTIPLIER;
-import static com.trackasia.android.constants.MapLibreConstants.SCALE_VELOCITY_RATIO_THRESHOLD;
-import static com.trackasia.android.constants.MapLibreConstants.ZOOM_RATE;
-import static com.trackasia.android.maps.MapLibreMap.OnCameraMoveStartedListener.REASON_API_GESTURE;
+import static com.trackasia.android.constants.TrackasiaConstants.MAXIMUM_ANGULAR_VELOCITY;
+import static com.trackasia.android.constants.TrackasiaConstants.MAX_ABSOLUTE_SCALE_VELOCITY_CHANGE;
+import static com.trackasia.android.constants.TrackasiaConstants.QUICK_ZOOM_MAX_ZOOM_CHANGE;
+import static com.trackasia.android.constants.TrackasiaConstants.ROTATE_VELOCITY_RATIO_THRESHOLD;
+import static com.trackasia.android.constants.TrackasiaConstants.SCALE_VELOCITY_ANIMATION_DURATION_MULTIPLIER;
+import static com.trackasia.android.constants.TrackasiaConstants.SCALE_VELOCITY_RATIO_THRESHOLD;
+import static com.trackasia.android.constants.TrackasiaConstants.ZOOM_RATE;
+import static com.trackasia.android.maps.TrackasiaMap.OnCameraMoveStartedListener.REASON_API_GESTURE;
 import static com.trackasia.android.utils.MathUtils.normalize;
 
 import timber.log.Timber;
@@ -55,25 +55,25 @@ final class MapGestureDetector {
   private final CameraChangeDispatcher cameraChangeDispatcher;
 
   // new map touch API
-  private final CopyOnWriteArrayList<MapLibreMap.OnMapClickListener> onMapClickListenerList
+  private final CopyOnWriteArrayList<TrackasiaMap.OnMapClickListener> onMapClickListenerList
     = new CopyOnWriteArrayList<>();
 
-  private final CopyOnWriteArrayList<MapLibreMap.OnMapLongClickListener> onMapLongClickListenerList
+  private final CopyOnWriteArrayList<TrackasiaMap.OnMapLongClickListener> onMapLongClickListenerList
     = new CopyOnWriteArrayList<>();
 
-  private final CopyOnWriteArrayList<MapLibreMap.OnFlingListener> onFlingListenerList
+  private final CopyOnWriteArrayList<TrackasiaMap.OnFlingListener> onFlingListenerList
     = new CopyOnWriteArrayList<>();
 
-  private final CopyOnWriteArrayList<MapLibreMap.OnMoveListener> onMoveListenerList
+  private final CopyOnWriteArrayList<TrackasiaMap.OnMoveListener> onMoveListenerList
     = new CopyOnWriteArrayList<>();
 
-  private final CopyOnWriteArrayList<MapLibreMap.OnRotateListener> onRotateListenerList
+  private final CopyOnWriteArrayList<TrackasiaMap.OnRotateListener> onRotateListenerList
     = new CopyOnWriteArrayList<>();
 
-  private final CopyOnWriteArrayList<MapLibreMap.OnScaleListener> onScaleListenerList
+  private final CopyOnWriteArrayList<TrackasiaMap.OnScaleListener> onScaleListenerList
     = new CopyOnWriteArrayList<>();
 
-  private final CopyOnWriteArrayList<MapLibreMap.OnShoveListener> onShoveListenerList
+  private final CopyOnWriteArrayList<TrackasiaMap.OnShoveListener> onShoveListenerList
     = new CopyOnWriteArrayList<>();
 
   /**
@@ -93,7 +93,7 @@ final class MapGestureDetector {
 
   /**
    * Cancels scheduled velocity animations if user doesn't lift fingers within
-   * {@link MapLibreConstants#SCHEDULED_ANIMATION_TIMEOUT}
+   * {@link TrackasiaConstants#SCHEDULED_ANIMATION_TIMEOUT}
    */
   @NonNull
   private Handler animationsTimeoutHandler = new Handler();
@@ -284,7 +284,7 @@ final class MapGestureDetector {
   private void scheduleAnimator(Animator animator) {
     scheduledAnimators.add(animator);
     animationsTimeoutHandler.removeCallbacksAndMessages(null);
-    animationsTimeoutHandler.postDelayed(cancelAnimatorsRunnable, MapLibreConstants.SCHEDULED_ANIMATION_TIMEOUT);
+    animationsTimeoutHandler.postDelayed(cancelAnimatorsRunnable, TrackasiaConstants.SCHEDULED_ANIMATION_TIMEOUT);
   }
 
   /**
@@ -441,7 +441,7 @@ final class MapGestureDetector {
       if (!uiSettings.isHorizontalScrollGesturesEnabled()) {
         // determine if angle of fling is valid for performing a vertical fling
         double angle = Math.abs(Math.toDegrees(Math.atan(offsetX / offsetY)));
-        if (angle > MapLibreConstants.ANGLE_THRESHOLD_IGNORE_VERTICAL_FLING) {
+        if (angle > TrackasiaConstants.ANGLE_THRESHOLD_IGNORE_VERTICAL_FLING) {
           return false;
         }
         offsetX = 0.0;
@@ -856,8 +856,8 @@ final class MapGestureDetector {
 
       // Get tilt value (scale and clamp)
       double pitch = transform.getTilt();
-      pitch -= MapLibreConstants.SHOVE_PIXEL_CHANGE_FACTOR * deltaPixelsSinceLast;
-      pitch = MathUtils.clamp(pitch, MapLibreConstants.MINIMUM_TILT, MapLibreConstants.MAXIMUM_TILT);
+      pitch -= TrackasiaConstants.SHOVE_PIXEL_CHANGE_FACTOR * deltaPixelsSinceLast;
+      pitch = MathUtils.clamp(pitch, TrackasiaConstants.MINIMUM_TILT, TrackasiaConstants.MAXIMUM_TILT);
 
       // Tilt the map
       transform.setTilt(pitch);
@@ -969,7 +969,7 @@ final class MapGestureDetector {
       currentZoom,
       zoomIn ? 1 : -1,
       zoomFocalPoint,
-      MapLibreConstants.ANIMATION_DURATION);
+      TrackasiaConstants.ANIMATION_DURATION);
     if (runImmediately) {
       scaleAnimator.start();
     } else {
@@ -1002,7 +1002,7 @@ final class MapGestureDetector {
   }
 
   void notifyOnMapClickListeners(@NonNull PointF tapPoint) {
-    for (MapLibreMap.OnMapClickListener listener : onMapClickListenerList) {
+    for (TrackasiaMap.OnMapClickListener listener : onMapClickListenerList) {
       if (listener.onMapClick(projection.fromScreenLocation(tapPoint))) {
         return;
       }
@@ -1010,7 +1010,7 @@ final class MapGestureDetector {
   }
 
   void notifyOnMapLongClickListeners(@NonNull PointF longClickPoint) {
-    for (MapLibreMap.OnMapLongClickListener listener : onMapLongClickListenerList) {
+    for (TrackasiaMap.OnMapLongClickListener listener : onMapLongClickListenerList) {
       if (listener.onMapLongClick(projection.fromScreenLocation(longClickPoint))) {
         return;
       }
@@ -1018,136 +1018,136 @@ final class MapGestureDetector {
   }
 
   void notifyOnFlingListeners() {
-    for (MapLibreMap.OnFlingListener listener : onFlingListenerList) {
+    for (TrackasiaMap.OnFlingListener listener : onFlingListenerList) {
       listener.onFling();
     }
   }
 
   void notifyOnMoveBeginListeners(@NonNull MoveGestureDetector detector) {
-    for (MapLibreMap.OnMoveListener listener : onMoveListenerList) {
+    for (TrackasiaMap.OnMoveListener listener : onMoveListenerList) {
       listener.onMoveBegin(detector);
     }
   }
 
   void notifyOnMoveListeners(@NonNull MoveGestureDetector detector) {
-    for (MapLibreMap.OnMoveListener listener : onMoveListenerList) {
+    for (TrackasiaMap.OnMoveListener listener : onMoveListenerList) {
       listener.onMove(detector);
     }
   }
 
   void notifyOnMoveEndListeners(@NonNull MoveGestureDetector detector) {
-    for (MapLibreMap.OnMoveListener listener : onMoveListenerList) {
+    for (TrackasiaMap.OnMoveListener listener : onMoveListenerList) {
       listener.onMoveEnd(detector);
     }
   }
 
   void notifyOnRotateBeginListeners(@NonNull RotateGestureDetector detector) {
-    for (MapLibreMap.OnRotateListener listener : onRotateListenerList) {
+    for (TrackasiaMap.OnRotateListener listener : onRotateListenerList) {
       listener.onRotateBegin(detector);
     }
   }
 
   void notifyOnRotateListeners(@NonNull RotateGestureDetector detector) {
-    for (MapLibreMap.OnRotateListener listener : onRotateListenerList) {
+    for (TrackasiaMap.OnRotateListener listener : onRotateListenerList) {
       listener.onRotate(detector);
     }
   }
 
   void notifyOnRotateEndListeners(@NonNull RotateGestureDetector detector) {
-    for (MapLibreMap.OnRotateListener listener : onRotateListenerList) {
+    for (TrackasiaMap.OnRotateListener listener : onRotateListenerList) {
       listener.onRotateEnd(detector);
     }
   }
 
   void notifyOnScaleBeginListeners(@NonNull StandardScaleGestureDetector detector) {
-    for (MapLibreMap.OnScaleListener listener : onScaleListenerList) {
+    for (TrackasiaMap.OnScaleListener listener : onScaleListenerList) {
       listener.onScaleBegin(detector);
     }
   }
 
   void notifyOnScaleListeners(@NonNull StandardScaleGestureDetector detector) {
-    for (MapLibreMap.OnScaleListener listener : onScaleListenerList) {
+    for (TrackasiaMap.OnScaleListener listener : onScaleListenerList) {
       listener.onScale(detector);
     }
   }
 
   void notifyOnScaleEndListeners(@NonNull StandardScaleGestureDetector detector) {
-    for (MapLibreMap.OnScaleListener listener : onScaleListenerList) {
+    for (TrackasiaMap.OnScaleListener listener : onScaleListenerList) {
       listener.onScaleEnd(detector);
     }
   }
 
   void notifyOnShoveBeginListeners(@NonNull ShoveGestureDetector detector) {
-    for (MapLibreMap.OnShoveListener listener : onShoveListenerList) {
+    for (TrackasiaMap.OnShoveListener listener : onShoveListenerList) {
       listener.onShoveBegin(detector);
     }
   }
 
   void notifyOnShoveListeners(@NonNull ShoveGestureDetector detector) {
-    for (MapLibreMap.OnShoveListener listener : onShoveListenerList) {
+    for (TrackasiaMap.OnShoveListener listener : onShoveListenerList) {
       listener.onShove(detector);
     }
   }
 
   void notifyOnShoveEndListeners(@NonNull ShoveGestureDetector detector) {
-    for (MapLibreMap.OnShoveListener listener : onShoveListenerList) {
+    for (TrackasiaMap.OnShoveListener listener : onShoveListenerList) {
       listener.onShoveEnd(detector);
     }
   }
 
-  void addOnMapClickListener(MapLibreMap.OnMapClickListener onMapClickListener) {
+  void addOnMapClickListener(TrackasiaMap.OnMapClickListener onMapClickListener) {
     onMapClickListenerList.add(onMapClickListener);
   }
 
-  void removeOnMapClickListener(MapLibreMap.OnMapClickListener onMapClickListener) {
+  void removeOnMapClickListener(TrackasiaMap.OnMapClickListener onMapClickListener) {
     onMapClickListenerList.remove(onMapClickListener);
   }
 
-  void addOnMapLongClickListener(MapLibreMap.OnMapLongClickListener onMapLongClickListener) {
+  void addOnMapLongClickListener(TrackasiaMap.OnMapLongClickListener onMapLongClickListener) {
     onMapLongClickListenerList.add(onMapLongClickListener);
   }
 
-  void removeOnMapLongClickListener(MapLibreMap.OnMapLongClickListener onMapLongClickListener) {
+  void removeOnMapLongClickListener(TrackasiaMap.OnMapLongClickListener onMapLongClickListener) {
     onMapLongClickListenerList.remove(onMapLongClickListener);
   }
 
-  void addOnFlingListener(MapLibreMap.OnFlingListener onFlingListener) {
+  void addOnFlingListener(TrackasiaMap.OnFlingListener onFlingListener) {
     onFlingListenerList.add(onFlingListener);
   }
 
-  void removeOnFlingListener(MapLibreMap.OnFlingListener onFlingListener) {
+  void removeOnFlingListener(TrackasiaMap.OnFlingListener onFlingListener) {
     onFlingListenerList.remove(onFlingListener);
   }
 
-  void addOnMoveListener(MapLibreMap.OnMoveListener listener) {
+  void addOnMoveListener(TrackasiaMap.OnMoveListener listener) {
     onMoveListenerList.add(listener);
   }
 
-  void removeOnMoveListener(MapLibreMap.OnMoveListener listener) {
+  void removeOnMoveListener(TrackasiaMap.OnMoveListener listener) {
     onMoveListenerList.remove(listener);
   }
 
-  void addOnRotateListener(MapLibreMap.OnRotateListener listener) {
+  void addOnRotateListener(TrackasiaMap.OnRotateListener listener) {
     onRotateListenerList.add(listener);
   }
 
-  void removeOnRotateListener(MapLibreMap.OnRotateListener listener) {
+  void removeOnRotateListener(TrackasiaMap.OnRotateListener listener) {
     onRotateListenerList.remove(listener);
   }
 
-  void addOnScaleListener(MapLibreMap.OnScaleListener listener) {
+  void addOnScaleListener(TrackasiaMap.OnScaleListener listener) {
     onScaleListenerList.add(listener);
   }
 
-  void removeOnScaleListener(MapLibreMap.OnScaleListener listener) {
+  void removeOnScaleListener(TrackasiaMap.OnScaleListener listener) {
     onScaleListenerList.remove(listener);
   }
 
-  void addShoveListener(MapLibreMap.OnShoveListener listener) {
+  void addShoveListener(TrackasiaMap.OnShoveListener listener) {
     onShoveListenerList.add(listener);
   }
 
-  void removeShoveListener(MapLibreMap.OnShoveListener listener) {
+  void removeShoveListener(TrackasiaMap.OnShoveListener listener) {
     onShoveListenerList.remove(listener);
   }
 

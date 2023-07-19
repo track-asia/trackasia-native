@@ -66,6 +66,7 @@ dependencies {
     implementation project(':TrackasiaGLAndroidSDK')
 
     implementation dependenciesList.mapboxJavaTurf
+//    implementation files('libs/services-turf.jar')
 
     implementation dependenciesList.supportAppcompatV7
     implementation dependenciesList.supportRecyclerView

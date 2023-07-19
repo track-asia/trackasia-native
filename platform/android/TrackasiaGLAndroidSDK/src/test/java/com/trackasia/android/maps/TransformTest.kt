@@ -42,10 +42,10 @@ class TransformTest {
 
     @Test
     fun testMoveCamera() {
-        val trackasiaMap = mockk<MapLibreMap>()
+        val trackasiaMap = mockk<TrackasiaMap>()
         every { trackasiaMap.cameraPosition } answers { CameraPosition.DEFAULT }
 
-        val callback = mockk<MapLibreMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         every { callback.onFinish() } answers {}
 
         val target = LatLng(1.0, 2.0)
@@ -64,10 +64,10 @@ class TransformTest {
 
     @Test
     fun testMoveCameraToSamePosition() {
-        val trackasiaMap = mockk<MapLibreMap>()
+        val trackasiaMap = mockk<TrackasiaMap>()
         every { trackasiaMap.cameraPosition } answers { CameraPosition.DEFAULT }
 
-        val callback = mockk<MapLibreMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         every { callback.onFinish() } answers {}
 
         val expected = CameraPosition.DEFAULT
@@ -82,13 +82,13 @@ class TransformTest {
 
     @Test
     fun testEaseCamera() {
-        val trackasiaMap = mockk<MapLibreMap>()
+        val trackasiaMap = mockk<TrackasiaMap>()
         every { trackasiaMap.cameraPosition } answers { CameraPosition.DEFAULT }
 
         every { mapView.addOnCameraDidChangeListener(any()) } answers { transform.onCameraDidChange(true) }
         every { mapView.removeOnCameraDidChangeListener(any()) } answers {}
 
-        val callback = mockk<MapLibreMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         every { callback.onFinish() } answers {}
 
         val target = LatLng(1.0, 2.0)
@@ -104,10 +104,10 @@ class TransformTest {
 
     @Test
     fun testEaseCameraToSamePosition() {
-        val trackasiaMap = mockk<MapLibreMap>()
+        val trackasiaMap = mockk<TrackasiaMap>()
         every { trackasiaMap.cameraPosition } answers { CameraPosition.DEFAULT }
 
-        val callback = mockk<MapLibreMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         every { callback.onFinish() } answers {}
 
         val expected = CameraPosition.DEFAULT
@@ -122,13 +122,13 @@ class TransformTest {
 
     @Test
     fun testAnimateCamera() {
-        val trackasiaMap = mockk<MapLibreMap>()
+        val trackasiaMap = mockk<TrackasiaMap>()
         every { trackasiaMap.cameraPosition } answers { CameraPosition.DEFAULT }
 
         every { mapView.addOnCameraDidChangeListener(any()) } answers { transform.onCameraDidChange(true) }
         every { mapView.removeOnCameraDidChangeListener(any()) } answers {}
 
-        val callback = mockk<MapLibreMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         every { callback.onFinish() } answers {}
 
         val target = LatLng(1.0, 2.0)
@@ -144,10 +144,10 @@ class TransformTest {
 
     @Test
     fun testAnimateCameraToSamePosition() {
-        val trackasiaMap = mockk<MapLibreMap>()
+        val trackasiaMap = mockk<TrackasiaMap>()
         every { trackasiaMap.cameraPosition } answers { CameraPosition.DEFAULT }
 
-        val callback = mockk<MapLibreMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         every { callback.onFinish() } answers {}
 
         val expected = CameraPosition.DEFAULT
@@ -190,13 +190,13 @@ class TransformTest {
         every { mapView.addOnCameraDidChangeListener(capture(slot)) } answers { slot.captured.onCameraDidChange(true) }
         every { mapView.removeOnCameraDidChangeListener(any()) } answers {}
         // regression test for https://github.com/mapbox/mapbox-gl-native/issues/13735
-        val trackasiaMap = mockk<MapLibreMap>()
+        val trackasiaMap = mockk<TrackasiaMap>()
         every { trackasiaMap.cameraPosition } answers { CameraPosition.DEFAULT }
 
         val target = LatLng(1.0, 2.0)
         val expected = CameraPosition.Builder().target(target).build()
 
-        val callback = object : MapLibreMap.CancelableCallback {
+        val callback = object : TrackasiaMap.CancelableCallback {
             override fun onCancel() {
                 throw IllegalStateException("onCancel shouldn't be called from onFinish")
             }

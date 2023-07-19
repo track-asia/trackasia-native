@@ -16,7 +16,7 @@ import com.trackasia.android.location.modes.RenderMode
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -101,7 +101,7 @@ class ManualLocationUpdatesActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     @SuppressLint("MissingPermission")
-    override fun onMapReady(trackasiaMap: MapLibreMap) {
+    override fun onMapReady(trackasiaMap: TrackasiaMap) {
         trackasiaMap.setStyle(
             Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
         ) { style: Style? ->

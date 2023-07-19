@@ -1,7 +1,7 @@
 package com.trackasia.android.testapp.activity
 
 import androidx.annotation.UiThread
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
 
@@ -18,7 +18,7 @@ open class EspressoTest : BaseTest() {
     }
 
     @UiThread
-    override fun initMap(trackasiaMap: MapLibreMap) {
+    override fun initMap(trackasiaMap: TrackasiaMap) {
         trackasiaMap.setStyle(Style.Builder().fromUri("asset://streets.json"))
         super.initMap(trackasiaMap)
     }

@@ -1,7 +1,7 @@
 package com.trackasia.android.location.utils
 
 import androidx.test.espresso.IdlingResource
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 
 /**
@@ -31,7 +31,7 @@ class StyleChangeIdlingResource : IdlingResource {
         callback?.onTransitionToIdle()
     }
 
-    fun waitForStyle(trackasiaMap: MapLibreMap, styleUrl: String) {
+    fun waitForStyle(trackasiaMap: TrackasiaMap, styleUrl: String) {
         isIdle = false
         trackasiaMap.setStyle(Style.Builder().fromUri(styleUrl)) {
             setIdle()

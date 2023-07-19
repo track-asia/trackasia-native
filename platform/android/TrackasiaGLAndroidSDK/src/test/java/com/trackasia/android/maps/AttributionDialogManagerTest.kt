@@ -17,7 +17,7 @@ class AttributionDialogManagerTest {
     )
 
     @InjectMocks
-    var trackasiaMap = Mockito.mock(MapLibreMap::class.java)
+    var trackasiaMap = Mockito.mock(TrackasiaMap::class.java)
 
     @InjectMocks
     var style = Mockito.mock(

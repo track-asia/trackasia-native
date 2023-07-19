@@ -11,7 +11,7 @@ import com.trackasia.android.annotations.Polyline
 import com.trackasia.android.annotations.PolylineOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -28,7 +28,7 @@ class PolylineActivity : AppCompatActivity() {
     private var polylines: MutableList<Polyline>? = null
     private var polylineOptions: ArrayList<PolylineOptions?>? = ArrayList()
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private var fullAlpha = true
     private var showPolylines = true
     private var width = true
@@ -44,7 +44,7 @@ class PolylineActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
+            OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
                 this@PolylineActivity.trackasiaMap = trackasiaMap
                 trackasiaMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
                 trackasiaMap.setOnPolylineClickListener { polyline: Polyline ->

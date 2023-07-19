@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.maps.*
-import com.trackasia.android.maps.MapLibreMap.OnCameraMoveListener
-import com.trackasia.android.maps.MapLibreMap.OnFpsChangedListener
+import com.trackasia.android.maps.TrackasiaMap.OnCameraMoveListener
+import com.trackasia.android.maps.TrackasiaMap.OnFpsChangedListener
 import com.trackasia.android.style.layers.Layer
 import com.trackasia.android.style.layers.Property
 import com.trackasia.android.style.layers.PropertyFactory
@@ -23,7 +23,7 @@ import java.util.*
  */
 open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsChangedListener {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private var cameraMoveListener: OnCameraMoveListener? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var currentStyleIndex = 0
@@ -70,11 +70,11 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
         mapView.addOnDidFinishLoadingStyleListener { Timber.d("Style loaded") }
     }
 
-    protected open fun setupMapboxMapOptions(): MapLibreMapOptions {
-        return MapLibreMapOptions.createFromAttributes(this, null)
+    protected open fun setupMapboxMapOptions(): TrackasiaMapOptions {
+        return TrackasiaMapOptions.createFromAttributes(this, null)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
+    override fun onMapReady(map: TrackasiaMap) {
         trackasiaMap = map
         trackasiaMap.setStyle(
             Style.Builder().fromUri(STYLES[currentStyleIndex])

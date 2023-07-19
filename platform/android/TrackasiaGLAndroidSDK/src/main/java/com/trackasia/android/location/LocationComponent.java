@@ -25,14 +25,14 @@ import com.trackasia.android.location.engine.LocationEngineRequest;
 import com.trackasia.android.location.engine.LocationEngineResult;
 import com.trackasia.android.location.modes.CameraMode;
 import com.trackasia.android.location.modes.RenderMode;
-import com.trackasia.android.location.engine.MapLibreFusedLocationEngineImpl;
+import com.trackasia.android.location.engine.TrackasiaFusedLocationEngineImpl;
 import com.trackasia.android.location.permissions.PermissionsManager;
 import com.trackasia.android.log.Logger;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapLibreMap;
-import com.trackasia.android.maps.MapLibreMap.OnCameraIdleListener;
-import com.trackasia.android.maps.MapLibreMap.OnCameraMoveListener;
-import com.trackasia.android.maps.MapLibreMap.OnMapClickListener;
+import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.TrackasiaMap.OnCameraIdleListener;
+import com.trackasia.android.maps.TrackasiaMap.OnCameraMoveListener;
+import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.maps.Transform;
 import com.trackasia.android.style.layers.SymbolLayer;
@@ -68,7 +68,7 @@ import static com.trackasia.android.location.modes.RenderMode.GPS;
  * mode set with {@link LocationComponent#setCameraMode(int)}.
  * <p>
  * <strong>
- * To get the component object use {@link MapLibreMap#getLocationComponent()} and activate it with
+ * To get the component object use {@link TrackasiaMap#getLocationComponent()} and activate it with
  * {@link #activateLocationComponent(LocationComponentActivationOptions)}.
  * Then, manage its visibility with {@link #setLocationComponentEnabled(boolean)}.
  * The component will not process location updates right after activation, but only after being enabled.
@@ -80,7 +80,7 @@ import static com.trackasia.android.location.modes.RenderMode.GPS;
  * this component to work as expected.
  * <p>
  * This component offers a default, built-in {@link LocationEngine} called
- * {@link MapLibreFusedLocationEngineImpl}.
+ * {@link TrackasiaFusedLocationEngineImpl}.
  * If you'd like to utilize the previously available Google Play Services for more precise location updates,
  * refer to the migration guide of 10.0.0 in the changelog.
  * After a custom engine is passed to the component, or the built-in is initialized,
@@ -101,7 +101,7 @@ public final class LocationComponent {
   private static final String TAG = "Mbgl-LocationComponent";
 
   @NonNull
-  private final MapLibreMap trackasiaMap;
+  private final TrackasiaMap trackasiaMap;
   @NonNull
   private final Transform transform;
   private Style style;
@@ -189,11 +189,11 @@ public final class LocationComponent {
   /**
    * Internal use.
    * <p>
-   * To get the component object use {@link MapLibreMap#getLocationComponent()}.
+   * To get the component object use {@link TrackasiaMap#getLocationComponent()}.
    */
-  public LocationComponent(@NonNull MapLibreMap trackasiaMap,
+  public LocationComponent(@NonNull TrackasiaMap trackasiaMap,
                            @NonNull Transform transform,
-                           @NonNull List<MapLibreMap.OnDeveloperAnimationListener> developerAnimationListeners) {
+                           @NonNull List<TrackasiaMap.OnDeveloperAnimationListener> developerAnimationListeners) {
     this.trackasiaMap = trackasiaMap;
     this.transform = transform;
     developerAnimationListeners.add(developerAnimationListener);
@@ -207,9 +207,9 @@ public final class LocationComponent {
   }
 
   @VisibleForTesting
-  LocationComponent(@NonNull MapLibreMap trackasiaMap,
+  LocationComponent(@NonNull TrackasiaMap trackasiaMap,
                     @NonNull Transform transform,
-                    @NonNull List<MapLibreMap.OnDeveloperAnimationListener> developerAnimationListeners,
+                    @NonNull List<TrackasiaMap.OnDeveloperAnimationListener> developerAnimationListeners,
                     @NonNull LocationEngineCallback<LocationEngineResult> currentListener,
                     @NonNull LocationEngineCallback<LocationEngineResult> lastListener,
                     @NonNull LocationLayerController locationLayerController,
@@ -526,8 +526,8 @@ public final class LocationComponent {
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
+   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -538,7 +538,7 @@ public final class LocationComponent {
    * @param callback          The callback with finish/cancel information
    */
   public void zoomWhileTracking(double zoomLevel, long animationDuration,
-                                @Nullable MapLibreMap.CancelableCallback callback) {
+                                @Nullable TrackasiaMap.CancelableCallback callback) {
     checkActivationState();
     if (!isLayerReady) {
       notifyUnsuccessfulCameraOperation(callback, null);
@@ -562,8 +562,8 @@ public final class LocationComponent {
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
+   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -581,8 +581,8 @@ public final class LocationComponent {
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
+   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -596,7 +596,7 @@ public final class LocationComponent {
   }
 
   /**
-   * Cancels animation started by {@link #zoomWhileTracking(double, long, MapLibreMap.CancelableCallback)}.
+   * Cancels animation started by {@link #zoomWhileTracking(double, long, TrackasiaMap.CancelableCallback)}.
    */
   public void cancelZoomWhileTrackingAnimation() {
     checkActivationState();
@@ -607,8 +607,8 @@ public final class LocationComponent {
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
+   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -619,7 +619,7 @@ public final class LocationComponent {
    * @param callback          The callback with finish/cancel information
    */
   public void tiltWhileTracking(double tilt, long animationDuration,
-                                @Nullable MapLibreMap.CancelableCallback callback) {
+                                @Nullable TrackasiaMap.CancelableCallback callback) {
     checkActivationState();
     if (!isLayerReady) {
       notifyUnsuccessfulCameraOperation(callback, null);
@@ -641,8 +641,8 @@ public final class LocationComponent {
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
+   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -660,8 +660,8 @@ public final class LocationComponent {
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
+   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -675,7 +675,7 @@ public final class LocationComponent {
   }
 
   /**
-   * Cancels animation started by {@link #tiltWhileTracking(double, long, MapLibreMap.CancelableCallback)}.
+   * Cancels animation started by {@link #tiltWhileTracking(double, long, TrackasiaMap.CancelableCallback)}.
    */
   public void cancelTiltWhileTrackingAnimation() {
     checkActivationState();
@@ -723,7 +723,7 @@ public final class LocationComponent {
    * Set max FPS at which location animators can output updates. The throttling will only impact the location puck
    * and camera tracking smooth animations.
    * <p>
-   * Setting this <b>will not impact</b> any other animations schedule with {@link MapLibreMap}, gesture animations or
+   * Setting this <b>will not impact</b> any other animations schedule with {@link TrackasiaMap}, gesture animations or
    * {@link #zoomWhileTracking(double)}/{@link #tiltWhileTracking(double)}.
    * <p>
    * Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on
@@ -868,7 +868,7 @@ public final class LocationComponent {
    * <p>
    * If there are registered location click listeners and the location is clicked,
    * only {@link OnLocationClickListener#onLocationComponentClick()} is going to be delivered,
-   * {@link MapLibreMap.OnMapClickListener#onMapClick(LatLng)} is going to be consumed
+   * {@link TrackasiaMap.OnMapClickListener#onMapClick(LatLng)} is going to be consumed
    * and not pushed to the listeners registered after the component's activation.
    *
    * @param listener The location click listener that is invoked when the
@@ -892,7 +892,7 @@ public final class LocationComponent {
    * <p>
    * If there are registered location long click listeners and the location is long clicked,
    * only {@link OnLocationLongClickListener#onLocationComponentLongClick()} is going to be delivered,
-   * {@link MapLibreMap.OnMapLongClickListener#onMapLongClick(LatLng)} is going to be consumed
+   * {@link TrackasiaMap.OnMapLongClickListener#onMapLongClick(LatLng)} is going to be consumed
    * and not pushed to the listeners registered after the component's activation.
    *
    * @param listener The location click listener that is invoked when the
@@ -1101,8 +1101,8 @@ public final class LocationComponent {
 
     locationAnimatorCoordinator = new LocationAnimatorCoordinator(
       trackasiaMap.getProjection(),
-      MapLibreAnimatorSetProvider.getInstance(),
-      MapLibreAnimatorProvider.getInstance()
+      TrackasiaAnimatorSetProvider.getInstance(),
+      TrackasiaAnimatorProvider.getInstance()
     );
     locationAnimatorCoordinator.setTrackingAnimationDurationMultiplier(options
       .trackingAnimationDurationMultiplier());
@@ -1339,7 +1339,7 @@ public final class LocationComponent {
   };
 
   @NonNull
-  private MapLibreMap.OnMapLongClickListener onMapLongClickListener = new MapLibreMap.OnMapLongClickListener() {
+  private TrackasiaMap.OnMapLongClickListener onMapLongClickListener = new TrackasiaMap.OnMapLongClickListener() {
     @Override
     public boolean onMapLongClick(@NonNull LatLng point) {
       if (!onLocationLongClickListeners.isEmpty() && locationLayerController.onMapClick(point)) {
@@ -1463,8 +1463,8 @@ public final class LocationComponent {
   };
 
   @NonNull
-  private final MapLibreMap.OnDeveloperAnimationListener developerAnimationListener =
-    new MapLibreMap.OnDeveloperAnimationListener() {
+  private final TrackasiaMap.OnDeveloperAnimationListener developerAnimationListener =
+    new TrackasiaMap.OnDeveloperAnimationListener() {
       @Override
       public void onDeveloperAnimationStarted() {
         if (isComponentInitialized && isEnabled) {
@@ -1479,7 +1479,7 @@ public final class LocationComponent {
     }
   }
 
-  private void notifyUnsuccessfulCameraOperation(@Nullable MapLibreMap.CancelableCallback callback,
+  private void notifyUnsuccessfulCameraOperation(@Nullable TrackasiaMap.CancelableCallback callback,
                                                  @Nullable String msg) {
     if (msg != null) {
       Logger.e(TAG, msg);

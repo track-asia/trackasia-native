@@ -3,7 +3,7 @@ package com.trackasia.android.testapp.activity.fragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.SupportMapFragment
@@ -29,6 +29,6 @@ class MultiMapActivity : AppCompatActivity() {
         styleId: String
     ) {
         (fragmentManager.findFragmentById(fragmentId) as SupportMapFragment?)
-            ?.getMapAsync(OnMapReadyCallback { trackasiaMap: MapLibreMap -> trackasiaMap.setStyle(styleId) })
+            ?.getMapAsync(OnMapReadyCallback { trackasiaMap: TrackasiaMap -> trackasiaMap.setStyle(styleId) })
     }
 }

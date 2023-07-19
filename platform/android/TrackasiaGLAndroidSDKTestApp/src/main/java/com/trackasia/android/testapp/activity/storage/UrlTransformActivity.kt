@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.storage.FileSource
 import com.trackasia.android.storage.FileSource.ResourceTransformCallback
@@ -42,7 +42,7 @@ class UrlTransformActivity : AppCompatActivity() {
 
         // Get a handle to the file source and set the resource transform
         FileSource.getInstance(this@UrlTransformActivity).setResourceTransform(Transform())
-        mapView.getMapAsync { map: MapLibreMap ->
+        mapView.getMapAsync { map: TrackasiaMap ->
             Timber.i("Map loaded")
             map.setStyle(Style.getPredefinedStyle("Streets"))
         }

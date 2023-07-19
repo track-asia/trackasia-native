@@ -6,7 +6,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.trackasia.android.geometry.LatLng;
-import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +103,7 @@ public final class Polygon extends BasePointCollection {
 
   @Override
   void update() {
-    MapLibreMap trackasiaMap = getMapboxMap();
+    TrackasiaMap trackasiaMap = getMapboxMap();
     if (trackasiaMap != null) {
       trackasiaMap.updatePolygon(this);
     }

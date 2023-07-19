@@ -56,7 +56,7 @@ class UiSettingsTest {
         FrameLayout.LayoutParams::class.java
     )
     private var uiSettings: UiSettings? = null
-    private val trackasiaMapOptions: MapLibreMapOptions? = null
+    private val trackasiaMapOptions: TrackasiaMapOptions? = null
 
     @Before
     fun beforeTest() {

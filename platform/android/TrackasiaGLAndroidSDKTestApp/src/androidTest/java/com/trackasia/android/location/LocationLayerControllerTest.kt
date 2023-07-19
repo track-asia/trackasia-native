@@ -19,9 +19,9 @@ import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.location.LocationComponentConstants.*
 import com.trackasia.android.location.modes.RenderMode
 import com.trackasia.android.location.utils.*
-import com.trackasia.android.location.utils.MapLibreTestingUtils.Companion.MAPBOX_HEAVY_STYLE
-import com.trackasia.android.location.utils.MapLibreTestingUtils.Companion.pushSourceUpdates
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.location.utils.TrackasiaTestingUtils.Companion.MAPBOX_HEAVY_STYLE
+import com.trackasia.android.location.utils.TrackasiaTestingUtils.Companion.pushSourceUpdates
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
@@ -73,7 +73,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -103,7 +103,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -135,7 +135,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -174,7 +174,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -205,7 +205,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -236,7 +236,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -262,7 +262,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -304,7 +304,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -346,7 +346,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -377,7 +377,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -409,7 +409,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -442,7 +442,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -481,7 +481,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -520,7 +520,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -556,7 +556,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -586,7 +586,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -619,7 +619,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -652,7 +652,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -699,7 +699,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context
@@ -745,7 +745,7 @@ class LocationLayerControllerTest : EspressoTest() {
         val componentAction = object : LocationComponentAction.OnPerformLocationComponentAction {
             override fun onLocationComponentAction(
                 component: LocationComponent,
-                trackasiaMap: MapLibreMap,
+                trackasiaMap: TrackasiaMap,
                 style: Style,
                 uiController: UiController,
                 context: Context

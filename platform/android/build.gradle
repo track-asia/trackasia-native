@@ -11,19 +11,21 @@ buildscript {
         classpath dependenciesList.licensesPlugin
         classpath dependenciesList.kotlinPlugin
         // classpath dependenciesList.jacocoPlugin
-        classpath dependenciesList.gradleNexus
+//        classpath dependenciesList.gradleNexus
     }
 }
 
 plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("org.jmailen.kotlinter") version "3.13.0" apply false
+    id("maven-publish")
 }
 
 allprojects {
     repositories {
         mavenCentral()
         google()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -32,15 +34,27 @@ subprojects {
 }
 
 apply from: "${rootDir}/gradle/publish-root.gradle"
-// Set up Sonatype repository
-nexusPublishing {
+publishing {
     repositories {
-        sonatype {
-            stagingProfileId = sonatypeStagingProfileId
-            username = ossrhUsername
-            password = ossrhPassword
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/track-asia/trackasia-native")
+            credentials {
+                username = "sunny0092"//project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = "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"//project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
         }
     }
 }
+// Set up Sonatype repository
+//nexusPublishing {
+//    repositories {
+//        sonatype {
+//            stagingProfileId = sonatypeStagingProfileId
+//            username = ossrhUsername
+//            password = ossrhPassword
+//            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+//            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+//        }
+//    }
+//}

@@ -11,7 +11,7 @@ task androidNitpick {
         println "Running android nitpick script"
 
         println "Verify vendor submodule pins"
-        // Will enter a task to re-evaluate and restore if needed verifyVendorSubmodulePin(MAPBOX_JAVA_DIR, MAPBOX_JAVA_TAG_PREFIX, versions.mapLibreServices)
+        // Will enter a task to re-evaluate and restore if needed verifyVendorSubmodulePin(MAPBOX_JAVA_DIR, MAPBOX_JAVA_TAG_PREFIX, versions.trackasiaServices)
         verifyVendorSubmodulePin(MAPBOX_GESTURES_DIR, MAPBOX_GESTURES_TAG_PREFIX, versions.mapboxGestures)
 
         verifyLicenseGeneration()

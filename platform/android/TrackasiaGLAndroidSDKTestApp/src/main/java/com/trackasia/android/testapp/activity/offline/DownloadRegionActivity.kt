@@ -9,7 +9,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.constants.TrackasiaConstants
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.maps.Style
@@ -243,7 +243,7 @@ class DownloadRegionActivity : AppCompatActivity(), OfflineRegion.OfflineRegionO
     }
 
     private fun initSeekbars() {
-        val maxZoom = MapLibreConstants.MAXIMUM_ZOOM.toInt()
+        val maxZoom = TrackasiaConstants.MAXIMUM_ZOOM.toInt()
         binding.seekbarMinZoom.max = maxZoom
         binding.seekbarMinZoom.progress = 1
         binding.seekbarMaxZoom.max = maxZoom

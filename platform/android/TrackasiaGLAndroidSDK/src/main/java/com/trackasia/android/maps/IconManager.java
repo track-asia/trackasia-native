@@ -115,7 +115,7 @@ class IconManager {
     }
   }
 
-  void ensureIconLoaded(@NonNull Marker marker, @NonNull MapLibreMap trackasiaMap) {
+  void ensureIconLoaded(@NonNull Marker marker, @NonNull TrackasiaMap trackasiaMap) {
     Icon icon = marker.getIcon();
     if (icon == null) {
       icon = loadDefaultIconForMarker(marker);
@@ -124,7 +124,7 @@ class IconManager {
     setTopOffsetPixels(marker, trackasiaMap, icon);
   }
 
-  private void setTopOffsetPixels(Marker marker, @NonNull MapLibreMap trackasiaMap, @NonNull Icon icon) {
+  private void setTopOffsetPixels(Marker marker, @NonNull TrackasiaMap trackasiaMap, @NonNull Icon icon) {
     // this seems to be a costly operation according to the profiler so I'm trying to save some calls
     Marker previousMarker = marker.getId() != -1 ? (Marker) trackasiaMap.getAnnotation(marker.getId()) : null;
     if (previousMarker == null || previousMarker.getIcon() == null || previousMarker.getIcon() != marker.getIcon()) {

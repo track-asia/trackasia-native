@@ -14,7 +14,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.trackasia.android.MapStrictMode
 import com.trackasia.android.Trackasia
-import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.constants.TrackasiaConstants
 import com.trackasia.android.module.http.HttpRequestUtil
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
@@ -42,8 +42,8 @@ class TileLoadingMeasurementUtils {
 
         private val isTileLoadingMeasurementOn: Boolean
             private get() = isBooleanMetaDataValueOn(
-                MapLibreConstants.KEY_META_DATA_MEASURE_TILE_DOWNLOAD_ON,
-                MapLibreConstants.DEFAULT_MEASURE_TILE_DOWNLOAD_ON
+                TrackasiaConstants.KEY_META_DATA_MEASURE_TILE_DOWNLOAD_ON,
+                TrackasiaConstants.DEFAULT_MEASURE_TILE_DOWNLOAD_ON
             )
 
         private fun isBooleanMetaDataValueOn(propKey: String, defaultValue: Boolean): Boolean {

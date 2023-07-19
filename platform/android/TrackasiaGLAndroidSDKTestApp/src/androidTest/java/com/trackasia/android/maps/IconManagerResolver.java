@@ -12,9 +12,9 @@ public class IconManagerResolver {
 
   private IconManager iconManager;
 
-  public IconManagerResolver(MapLibreMap trackasiaMap) {
+  public IconManagerResolver(TrackasiaMap trackasiaMap) {
     try {
-      Field annotationManagerField = MapLibreMap.class.getDeclaredField("annotationManager");
+      Field annotationManagerField = TrackasiaMap.class.getDeclaredField("annotationManager");
       annotationManagerField.setAccessible(true);
       AnnotationManager annotationManager = (AnnotationManager) annotationManagerField.get(trackasiaMap);
 

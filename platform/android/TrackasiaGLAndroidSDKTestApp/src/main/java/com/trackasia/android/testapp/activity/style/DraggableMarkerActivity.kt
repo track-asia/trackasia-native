@@ -16,7 +16,7 @@ import com.trackasia.android.annotations.IconFactory
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.PropertyFactory.*
 import com.trackasia.android.style.layers.SymbolLayer
@@ -47,7 +47,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDraggableMarkerBinding
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private val featureCollection = FeatureCollection.fromFeatures(mutableListOf())
     private val source = GeoJsonSource(sourceId, featureCollection)
     private val layer = SymbolLayer(layerId, sourceId)
@@ -188,7 +188,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
      */
     class DraggableSymbolsManager(
         mapView: MapView,
-        private val trackasiaMap: MapLibreMap,
+        private val trackasiaMap: TrackasiaMap,
         private val symbolsCollection: FeatureCollection,
         private val symbolsSource: GeoJsonSource,
         private val symbolsLayerId: String,
@@ -341,6 +341,6 @@ class DraggableMarkerActivity : AppCompatActivity() {
     }
 }
 
-private fun MapLibreMap.queryRenderedSymbols(latLng: LatLng, layerId: String): List<Feature> {
+private fun TrackasiaMap.queryRenderedSymbols(latLng: LatLng, layerId: String): List<Feature> {
     return this.queryRenderedFeatures(this.projection.toScreenLocation(latLng), layerId)
 }

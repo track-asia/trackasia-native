@@ -29,7 +29,7 @@ class MarkerContainer implements Markers {
   }
 
   @Override
-  public Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull MapLibreMap trackasiaMap) {
+  public Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull TrackasiaMap trackasiaMap) {
     Marker marker = prepareMarker(markerOptions);
     long id = nativeMapView != null ? nativeMapView.addMarker(marker) : 0;
     marker.setMapboxMap(trackasiaMap);
@@ -40,7 +40,7 @@ class MarkerContainer implements Markers {
 
   @NonNull
   @Override
-  public List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull MapLibreMap
+  public List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull TrackasiaMap
       trackasiaMap) {
     int count = markerOptionsList.size();
     List<Marker> markers = new ArrayList<>(count);
@@ -67,7 +67,7 @@ class MarkerContainer implements Markers {
   }
 
   @Override
-  public void update(@NonNull Marker updatedMarker, @NonNull MapLibreMap trackasiaMap) {
+  public void update(@NonNull Marker updatedMarker, @NonNull TrackasiaMap trackasiaMap) {
     ensureIconLoaded(updatedMarker, trackasiaMap);
     nativeMapView.updateMarker(updatedMarker);
     annotations.setValueAt(annotations.indexOfKey(updatedMarker.getId()), updatedMarker);
@@ -132,7 +132,7 @@ class MarkerContainer implements Markers {
     return marker;
   }
 
-  private void ensureIconLoaded(Marker marker, @NonNull MapLibreMap trackasiaMap) {
+  private void ensureIconLoaded(Marker marker, @NonNull TrackasiaMap trackasiaMap) {
     iconManager.ensureIconLoaded(marker, trackasiaMap);
   }
 

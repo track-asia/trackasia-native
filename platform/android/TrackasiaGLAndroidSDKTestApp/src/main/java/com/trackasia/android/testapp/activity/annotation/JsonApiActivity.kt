@@ -20,7 +20,7 @@ import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.MapView
 import com.trackasia.android.testapp.R
 import java.io.IOException
@@ -34,7 +34,7 @@ class JsonApiActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
 
     // Declare a variable for MapboxMap
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     /* ANCHOR_END: top */
 
     override fun onCreate(savedInstanceState: Bundle?) {

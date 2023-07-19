@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.FeatureCollection
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -34,7 +34,7 @@ import java.lang.ref.WeakReference
  */
 class SymbolGeneratorActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_symbol_generator)
@@ -43,7 +43,7 @@ class SymbolGeneratorActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
+    override fun onMapReady(map: TrackasiaMap) {
         trackasiaMap = map
         map.setStyle(Style.getPredefinedStyle("Outdoor")) { style: Style? ->
             addSymbolClickListener()
@@ -301,7 +301,7 @@ class SymbolGeneratorActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private class GenerateSymbolTask internal constructor(
-        private val trackasiaMap: MapLibreMap?,
+        private val trackasiaMap: TrackasiaMap?,
         context: Context
     ) : AsyncTask<FeatureCollection?, Void?, HashMap<String, Bitmap>>() {
         private val context: WeakReference<Context>

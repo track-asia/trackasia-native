@@ -14,6 +14,8 @@ dependencies {
     lintChecks project(':TrackasiaGLAndroidSDKLint')
     api dependenciesList.mapboxJavaGeoJSON
     api dependenciesList.mapboxAndroidGestures
+//    implementation files('libs/services-geojson.jar')
+//    implementation files('libs/services-turf.jar')
 
     implementation dependenciesList.mapboxJavaTurf
     implementation dependenciesList.supportAnnotations

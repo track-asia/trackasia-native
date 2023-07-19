@@ -7,7 +7,7 @@ import com.trackasia.android.AppCenter
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
@@ -28,7 +28,7 @@ class RemoveUnusedImagesTest : AppCenter() {
     var rule = ActivityTestRule(EspressoTestActivity::class.java)
 
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private val latch = CountDownLatch(1)
 
     @Before

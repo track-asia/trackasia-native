@@ -113,7 +113,7 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(trackasiaMap: MapLibreMap) {
+        override fun onMapReady(trackasiaMap: TrackasiaMap) {
             trackasiaMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
@@ -182,7 +182,7 @@ class BottomSheetActivity : AppCompatActivity() {
                 val bundle = Bundle()
                 bundle.putInt("mapcounter", mapCounter)
                 mapFragment.arguments = bundle
-                val trackasiaMapOptions = MapLibreMapOptions.createFromAttributes(context!!)
+                val trackasiaMapOptions = TrackasiaMapOptions.createFromAttributes(context!!)
                 mapFragment.arguments = MapFragmentUtils.createFragmentArgs(trackasiaMapOptions)
                 return mapFragment
             }
@@ -209,7 +209,7 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(trackasiaMap: MapLibreMap) {
+        override fun onMapReady(trackasiaMap: TrackasiaMap) {
             trackasiaMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
@@ -257,7 +257,7 @@ class BottomSheetActivity : AppCompatActivity() {
         companion object {
             fun newInstance(context: Context?): BottomSheetFragment {
                 val mapFragment = BottomSheetFragment()
-                val trackasiaMapOptions = MapLibreMapOptions.createFromAttributes(context!!)
+                val trackasiaMapOptions = TrackasiaMapOptions.createFromAttributes(context!!)
                 trackasiaMapOptions.renderSurfaceOnTop(true)
                 mapFragment.arguments = MapFragmentUtils.createFragmentArgs(trackasiaMapOptions)
                 return mapFragment

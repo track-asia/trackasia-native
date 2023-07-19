@@ -3,10 +3,10 @@ package com.trackasia.android.testapp.style
 import android.view.View
 import androidx.test.espresso.UiController
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
-import com.trackasia.android.testapp.action.MapLibreMapAction
+import com.trackasia.android.testapp.action.TrackasiaMapAction
 import com.trackasia.android.testapp.activity.EspressoTest
 import com.trackasia.android.testapp.utils.ResourceUtils.readRawResource
 import org.junit.Assert
@@ -20,9 +20,9 @@ class StyleLoaderTest : EspressoTest() {
     @Test
     fun testSetGetStyleJsonString() {
         validateTestSetup()
-        MapLibreMapAction.invoke(
+        TrackasiaMapAction.invoke(
             trackasiaMap
-        ) { uiController: UiController?, trackasiaMap: MapLibreMap ->
+        ) { uiController: UiController?, trackasiaMap: TrackasiaMap ->
             try {
                 val expected =
                     readRawResource(
@@ -41,9 +41,9 @@ class StyleLoaderTest : EspressoTest() {
     @Test
     fun testDefaultStyleLoadWithActivityLifecycleChange() {
         validateTestSetup()
-        MapLibreMapAction.invoke(
+        TrackasiaMapAction.invoke(
             trackasiaMap
-        ) { uiController: UiController?, trackasiaMap: MapLibreMap ->
+        ) { uiController: UiController?, trackasiaMap: TrackasiaMap ->
             try {
                 val expected =
                     readRawResource(

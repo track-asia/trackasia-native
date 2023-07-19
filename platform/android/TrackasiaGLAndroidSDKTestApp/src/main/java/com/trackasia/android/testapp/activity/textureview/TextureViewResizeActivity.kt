@@ -32,10 +32,10 @@ class TextureViewResizeActivity : AppCompatActivity() {
     private fun setupMapView(savedInstanceState: Bundle?) {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: MapLibreMap -> setupMap(trackasiaMap) })
+        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: TrackasiaMap -> setupMap(trackasiaMap) })
     }
 
-    private fun setupMap(trackasiaMap: MapLibreMap) {
+    private fun setupMap(trackasiaMap: TrackasiaMap) {
         trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
     }
 

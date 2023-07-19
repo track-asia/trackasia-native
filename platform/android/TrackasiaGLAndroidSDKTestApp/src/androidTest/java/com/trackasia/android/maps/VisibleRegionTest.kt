@@ -5,7 +5,7 @@ import androidx.test.espresso.UiController
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.testapp.action.MapLibreMapAction.invoke
+import com.trackasia.android.testapp.action.TrackasiaMapAction.invoke
 import com.trackasia.android.testapp.activity.BaseTest
 import com.trackasia.android.testapp.activity.espresso.PixelTestActivity
 import org.junit.Assert.assertFalse
@@ -27,7 +27,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -48,7 +48,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedVisibleRegionTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -79,7 +79,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedLeftVisibleRegionTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -105,7 +105,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedTopVisibleRegionTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -131,7 +131,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedRightVisibleRegionTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -157,7 +157,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedBottomVisibleRegionTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -183,7 +183,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -207,7 +207,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -238,7 +238,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedLeftVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -267,7 +267,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedTopVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { ui: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { ui: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             ui.loopMainThreadForAtLeast(5000)
             val latLngs = listOf(
@@ -297,7 +297,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedRightVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -326,7 +326,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedBottomVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -355,7 +355,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRotatedRegionTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val d = Math.min(trackasiaMap.width, trackasiaMap.height) / 4
             val latLngs = listOf(
@@ -377,7 +377,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRotatedRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val d = Math.min(trackasiaMap.width, trackasiaMap.height) / 4
             val latLngs = listOf(
@@ -400,7 +400,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionWithBoundsEqualTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -425,7 +425,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionBoundsOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
@@ -451,7 +451,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionBoundsOverDatelineLatitudeZeroTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val shift = trackasiaMap.getLatLngFromScreenCoords(0f, 0f)
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(0.0, 180.0 - shift.longitude)))
@@ -467,7 +467,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRotatedRegionBoundEqualTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val d = Math.min(trackasiaMap.width, trackasiaMap.height) / 4
             val latLngs = listOf(
@@ -493,7 +493,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRotatedRegionBoundsOverDatelineTest() {
         validateTestSetup()
-        invoke(trackasiaMap) { _: UiController, trackasiaMap: MapLibreMap ->
+        invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackasiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 179.0), 8.0))
             val d = Math.min(trackasiaMap.width, trackasiaMap.height) / 4
             val latLngs = listOf(
@@ -514,7 +514,7 @@ class VisibleRegionTest : BaseTest() {
         }
     }
 
-    private fun MapLibreMap.getLatLngFromScreenCoords(x: Float, y: Float): LatLng {
+    private fun TrackasiaMap.getLatLngFromScreenCoords(x: Float, y: Float): LatLng {
         return this.projection.fromScreenLocation(PointF(x, y))
     }
 }

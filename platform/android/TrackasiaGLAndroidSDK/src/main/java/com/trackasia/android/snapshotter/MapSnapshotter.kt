@@ -16,7 +16,7 @@ import com.trackasia.android.attribution.AttributionLayout
 import com.trackasia.android.attribution.AttributionMeasure
 import com.trackasia.android.attribution.AttributionParser
 import com.trackasia.android.camera.CameraPosition
-import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.constants.TrackasiaConstants
 import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.log.Logger
 import com.trackasia.android.maps.Image
@@ -133,9 +133,9 @@ open class MapSnapshotter(context: Context, options: Options) {
 
         /**
          * @return the font family used for locally generating ideographs,
-         * Default font for local ideograph font family is [MapLibreConstants.DEFAULT_FONT].
+         * Default font for local ideograph font family is [TrackasiaConstants.DEFAULT_FONT].
          */
-        var localIdeographFontFamily = MapLibreConstants.DEFAULT_FONT
+        var localIdeographFontFamily = TrackasiaConstants.DEFAULT_FONT
             private set
 
         /**
@@ -237,7 +237,7 @@ open class MapSnapshotter(context: Context, options: Options) {
          *
          * The font family argument is passed to [android.graphics.Typeface.create].
          * Default system fonts are defined in &#x27;/system/etc/fonts.xml&#x27;
-         * Default font for local ideograph font family is [MapLibreConstants.DEFAULT_FONT].
+         * Default font for local ideograph font family is [TrackasiaConstants.DEFAULT_FONT].
          *
          *
          * @param fontFamily font family for local ideograph generation.
@@ -255,7 +255,7 @@ open class MapSnapshotter(context: Context, options: Options) {
          *
          * The font families are checked against the default system fonts defined in
          * &#x27;/system/etc/fonts.xml&#x27;. Default font for local ideograph font family is
-         * [MapLibreConstants.DEFAULT_FONT].
+         * [TrackasiaConstants.DEFAULT_FONT].
          *
          *
          * @param fontFamilies font families for local ideograph generation.
@@ -663,7 +663,7 @@ open class MapSnapshotter(context: Context, options: Options) {
                     } else if (layerWrapper is LayerBelowWrapper) {
                         addLayerBelow(layerWrapper.getLayer(), layerWrapper.belowLayer)
                     } else {
-                        addLayerBelow(layerWrapper.layer, MapLibreConstants.LAYER_ID_ANNOTATIONS)
+                        addLayerBelow(layerWrapper.layer, TrackasiaConstants.LAYER_ID_ANNOTATIONS)
                     }
                 }
                 for (image in builder.images) {

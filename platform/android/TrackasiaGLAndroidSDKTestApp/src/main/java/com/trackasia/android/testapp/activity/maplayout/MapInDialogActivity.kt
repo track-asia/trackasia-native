@@ -40,7 +40,7 @@ class MapInDialogActivity : AppCompatActivity() {
             mapView = view.findViewById(R.id.mapView)
             mapView.onCreate(savedInstanceState)
             mapView.getMapAsync(
-                OnMapReadyCallback { trackasiaMap: MapLibreMap ->
+                OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
                     trackasiaMap.setStyle(
                         Style.getPredefinedStyle("Outdoor")
                     )

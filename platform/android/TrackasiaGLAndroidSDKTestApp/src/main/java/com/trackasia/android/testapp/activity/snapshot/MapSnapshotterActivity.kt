@@ -13,7 +13,7 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.trackasia.android.camera.CameraPosition
-import com.trackasia.android.constants.MapLibreConstants
+import com.trackasia.android.constants.TrackasiaConstants
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.maps.Style
@@ -83,7 +83,7 @@ class MapSnapshotterActivity : AppCompatActivity() {
             grid.measuredHeight / grid.rowCount
         ) // Optionally the pixel ratio
             .withPixelRatio(1f)
-            .withLocalIdeographFontFamily(MapLibreConstants.DEFAULT_FONT)
+            .withLocalIdeographFontFamily(TrackasiaConstants.DEFAULT_FONT)
 
         // Optionally the visible region
         if (row % 2 == 0) {

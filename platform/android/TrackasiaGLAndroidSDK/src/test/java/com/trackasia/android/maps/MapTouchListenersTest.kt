@@ -6,7 +6,7 @@ import com.mapbox.android.gestures.RotateGestureDetector
 import com.mapbox.android.gestures.ShoveGestureDetector
 import com.mapbox.android.gestures.StandardScaleGestureDetector
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.MapLibreMap.*
+import com.trackasia.android.maps.TrackasiaMap.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito

@@ -87,7 +87,7 @@ class MapChangeActivity : AppCompatActivity() {
         mapView.addOnWillStartRenderingMapListener(OnWillStartRenderingMapListener { Timber.v("OnWillStartRenderingMap") })
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
+            OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
                 trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
                 trackasiaMap.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(

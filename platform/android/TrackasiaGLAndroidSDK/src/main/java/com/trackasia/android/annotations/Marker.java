@@ -9,13 +9,13 @@ import androidx.annotation.Nullable;
 import com.trackasia.android.R;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
 /**
  * Marker is an annotation that shows an icon image at a geographical location. The default marker
  * uses a provided icon. This icon can be customized using {@link IconFactory} to generate an
  * {@link Icon} using a provided image. Markers are added to the map by first giving a
- * {@link LatLng} and using {@link MapLibreMap#addMarker(MarkerOptions)}. The marker icon will be
+ * {@link LatLng} and using {@link TrackasiaMap#addMarker(MarkerOptions)}. The marker icon will be
  * centered at this position so it is common to add padding to the icon image before usage.
  * <p>
  * Markers are designed to be interactive. They receive click events by default, and are often used
@@ -123,7 +123,7 @@ public class Marker extends Annotation {
    */
   public void setPosition(LatLng position) {
     this.position = position;
-    MapLibreMap map = getMapboxMap();
+    TrackasiaMap map = getMapboxMap();
     if (map != null) {
       map.updateMarker(this);
     }
@@ -148,7 +148,7 @@ public class Marker extends Annotation {
   public void setIcon(@Nullable Icon icon) {
     this.icon = icon;
     this.iconId = icon != null ? icon.getId() : null;
-    MapLibreMap map = getMapboxMap();
+    TrackasiaMap map = getMapboxMap();
     if (map != null) {
       map.updateMarker(this);
     }
@@ -196,7 +196,7 @@ public class Marker extends Annotation {
       if (mapView.getContext() != null) {
         infoWindow.adaptDefaultMarker(this, trackasiaMap, mapView);
       }
-      MapLibreMap map = getMapboxMap();
+      TrackasiaMap map = getMapboxMap();
       if (map != null) {
         map.updateMarker(this);
       }
@@ -205,7 +205,7 @@ public class Marker extends Annotation {
   }
 
   /**
-   * Do not use this method, used internally by the SDK. Use {@link MapLibreMap#selectMarker(Marker)}
+   * Do not use this method, used internally by the SDK. Use {@link TrackasiaMap#selectMarker(Marker)}
    * if you want to programmatically display the markers info window.
    *
    * @param trackasiaMap The hosting mapbox map.
@@ -213,10 +213,10 @@ public class Marker extends Annotation {
    * @return The info window that was shown.
    */
   @Nullable
-  public InfoWindow showInfoWindow(@NonNull MapLibreMap trackasiaMap, @NonNull MapView mapView) {
+  public InfoWindow showInfoWindow(@NonNull TrackasiaMap trackasiaMap, @NonNull MapView mapView) {
     setMapboxMap(trackasiaMap);
     setMapView(mapView);
-    MapLibreMap.InfoWindowAdapter infoWindowAdapter = getMapboxMap().getInfoWindowAdapter();
+    TrackasiaMap.InfoWindowAdapter infoWindowAdapter = getMapboxMap().getInfoWindowAdapter();
     if (infoWindowAdapter != null) {
       // end developer is using a custom InfoWindowAdapter
       View content = infoWindowAdapter.getInfoWindow(this);

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
 /**
  * Annotation is an overlay on top of a Map.
@@ -29,7 +29,7 @@ public abstract class Annotation implements Comparable<Annotation> {
    * Internal C++ id is stored as unsigned int.
    */
   private long id = -1; // -1 unless added to a MapView
-  protected MapLibreMap trackasiaMap;
+  protected TrackasiaMap trackasiaMap;
   protected MapView mapView;
 
   protected Annotation() {
@@ -72,7 +72,7 @@ public abstract class Annotation implements Comparable<Annotation> {
    *
    * @param trackasiaMap the hosting mapbox map
    */
-  public void setMapboxMap(MapLibreMap trackasiaMap) {
+  public void setMapboxMap(TrackasiaMap trackasiaMap) {
     this.trackasiaMap = trackasiaMap;
   }
 
@@ -81,7 +81,7 @@ public abstract class Annotation implements Comparable<Annotation> {
    *
    * @return the MapboxMap
    */
-  protected MapLibreMap getMapboxMap() {
+  protected TrackasiaMap getMapboxMap() {
     return trackasiaMap;
   }
 

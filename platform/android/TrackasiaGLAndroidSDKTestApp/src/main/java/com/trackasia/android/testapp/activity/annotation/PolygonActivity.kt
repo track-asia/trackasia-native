@@ -23,7 +23,7 @@ import java.util.ArrayList
  */
 class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: MapLibreMap
+    private lateinit var trackasiaMap: TrackasiaMap
     private var polygon: Polygon? = null
     private var fullAlpha = true
     private var polygonIsVisible = true
@@ -34,7 +34,7 @@ class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
 
         // configure inital map state
-        val options = MapLibreMapOptions.createFromAttributes(this, null)
+        val options = TrackasiaMapOptions.createFromAttributes(this, null)
             .attributionTintColor(Config.RED_COLOR)
             .compassFadesWhenFacingNorth(false)
             .camera(
@@ -53,7 +53,7 @@ class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(mapView)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
+    override fun onMapReady(map: TrackasiaMap) {
         trackasiaMap = map
         map.setStyle(Style.getPredefinedStyle("Streets"))
         map.setOnPolygonClickListener { polygon: Polygon ->

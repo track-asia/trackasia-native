@@ -7,8 +7,8 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.trackasia.android.AppCenter
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapLibreMapOptions
-import com.trackasia.android.maps.renderer.glsurfaceview.MapLibreGLSurfaceView
+import com.trackasia.android.maps.TrackasiaMapOptions
+import com.trackasia.android.maps.renderer.glsurfaceview.TrackasiaGLSurfaceView
 import com.trackasia.android.testapp.activity.FeatureOverviewActivity
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -34,7 +34,7 @@ class RenderViewGetterTest : AppCenter() {
         rootView = rule.activity.findViewById(android.R.id.content)
         mapView = MapView(rule.activity)
         assertNotNull(mapView.renderView)
-        assertTrue(mapView.renderView is MapLibreGLSurfaceView)
+        assertTrue(mapView.renderView is TrackasiaGLSurfaceView)
     }
 
     @Test
@@ -43,7 +43,7 @@ class RenderViewGetterTest : AppCenter() {
         rootView = rule.activity.findViewById(android.R.id.content)
         mapView = MapView(
             rule.activity,
-            MapLibreMapOptions.createFromAttributes(rule.activity, null)
+            TrackasiaMapOptions.createFromAttributes(rule.activity, null)
                 .textureMode(true)
         )
         assertNotNull(mapView.renderView)

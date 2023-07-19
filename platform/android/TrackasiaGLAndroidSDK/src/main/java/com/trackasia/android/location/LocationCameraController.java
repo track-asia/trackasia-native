@@ -14,7 +14,7 @@ import com.mapbox.android.gestures.AndroidGesturesManager;
 import com.mapbox.android.gestures.MoveGestureDetector;
 import com.mapbox.android.gestures.RotateGestureDetector;
 import com.trackasia.android.location.modes.CameraMode;
-import com.trackasia.android.maps.MapLibreMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Transform;
 
 import java.util.HashSet;
@@ -32,7 +32,7 @@ final class LocationCameraController {
   @CameraMode.Mode
   private int cameraMode;
 
-  private final MapLibreMap trackasiaMap;
+  private final TrackasiaMap trackasiaMap;
   private final Transform transform;
   private final OnCameraTrackingChangedListener internalCameraTrackingChangedListener;
   private LocationComponentOptions options;
@@ -49,7 +49,7 @@ final class LocationCameraController {
 
   LocationCameraController(
     Context context,
-    MapLibreMap trackasiaMap,
+    TrackasiaMap trackasiaMap,
     Transform transform,
     OnCameraTrackingChangedListener internalCameraTrackingChangedListener,
     @NonNull LocationComponentOptions options,
@@ -70,7 +70,7 @@ final class LocationCameraController {
   }
 
   // Package private for testing purposes
-  LocationCameraController(MapLibreMap trackasiaMap,
+  LocationCameraController(TrackasiaMap trackasiaMap,
                            Transform transform,
                            MoveGestureDetector moveGestureDetector,
                            OnCameraTrackingChangedListener internalCameraTrackingChangedListener,
@@ -155,7 +155,7 @@ final class LocationCameraController {
       }
 
       CameraUpdate update = CameraUpdateFactory.newCameraPosition(builder.build());
-      MapLibreMap.CancelableCallback callback = new MapLibreMap.CancelableCallback() {
+      TrackasiaMap.CancelableCallback callback = new TrackasiaMap.CancelableCallback() {
         @Override
         public void onCancel() {
           isTransitioning = false;
@@ -233,16 +233,16 @@ final class LocationCameraController {
     onCameraMoveInvalidateListener.onInvalidateCameraMove();
   }
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<LatLng> latLngValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<LatLng>() {
+  private final TrackasiaAnimator.AnimationsValueChangeListener<LatLng> latLngValueListener =
+    new TrackasiaAnimator.AnimationsValueChangeListener<LatLng>() {
       @Override
       public void onNewAnimationValue(LatLng value) {
         setLatLng(value);
       }
     };
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<Float> gpsBearingValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
+  private final TrackasiaAnimator.AnimationsValueChangeListener<Float> gpsBearingValueListener =
+    new TrackasiaAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         boolean trackingNorth = cameraMode == CameraMode.TRACKING_GPS_NORTH
@@ -254,8 +254,8 @@ final class LocationCameraController {
       }
     };
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<Float> compassBearingValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
+  private final TrackasiaAnimator.AnimationsValueChangeListener<Float> compassBearingValueListener =
+    new TrackasiaAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         if (cameraMode == CameraMode.TRACKING_COMPASS
@@ -265,16 +265,16 @@ final class LocationCameraController {
       }
     };
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<Float> zoomValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
+  private final TrackasiaAnimator.AnimationsValueChangeListener<Float> zoomValueListener =
+    new TrackasiaAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         setZoom(value);
       }
     };
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<Float> tiltValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
+  private final TrackasiaAnimator.AnimationsValueChangeListener<Float> tiltValueListener =
+    new TrackasiaAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         setTilt(value);
@@ -284,21 +284,21 @@ final class LocationCameraController {
   Set<AnimatorListenerHolder> getAnimationListeners() {
     Set<AnimatorListenerHolder> holders = new HashSet<>();
     if (isLocationTracking()) {
-      holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_CAMERA_LATLNG, latLngValueListener));
+      holders.add(new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_CAMERA_LATLNG, latLngValueListener));
     }
 
     if (isLocationBearingTracking()) {
-      holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_CAMERA_GPS_BEARING, gpsBearingValueListener));
+      holders.add(new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_CAMERA_GPS_BEARING, gpsBearingValueListener));
     }
 
     if (isConsumingCompass()) {
       holders.add(new AnimatorListenerHolder(
-        MapLibreAnimator.ANIMATOR_CAMERA_COMPASS_BEARING,
+        TrackasiaAnimator.ANIMATOR_CAMERA_COMPASS_BEARING,
         compassBearingValueListener));
     }
 
-    holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_ZOOM, zoomValueListener));
-    holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_TILT, tiltValueListener));
+    holders.add(new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_ZOOM, zoomValueListener));
+    holders.add(new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_TILT, tiltValueListener));
     return holders;
   }
 
@@ -355,7 +355,7 @@ final class LocationCameraController {
     }
   }
 
-  private MapLibreMap.OnCameraMoveListener onCameraMoveListener = new MapLibreMap.OnCameraMoveListener() {
+  private TrackasiaMap.OnCameraMoveListener onCameraMoveListener = new TrackasiaMap.OnCameraMoveListener() {
 
     @Override
     public void onCameraMove() {
@@ -368,7 +368,7 @@ final class LocationCameraController {
 
   @NonNull
   @VisibleForTesting
-  MapLibreMap.OnMoveListener onMoveListener = new MapLibreMap.OnMoveListener() {
+  TrackasiaMap.OnMoveListener onMoveListener = new TrackasiaMap.OnMoveListener() {
     private boolean interrupt;
 
     @Override
@@ -434,7 +434,7 @@ final class LocationCameraController {
   };
 
   @NonNull
-  private MapLibreMap.OnRotateListener onRotateListener = new MapLibreMap.OnRotateListener() {
+  private TrackasiaMap.OnRotateListener onRotateListener = new TrackasiaMap.OnRotateListener() {
     @Override
     public void onRotateBegin(@NonNull RotateGestureDetector detector) {
       if (isBearingTracking()) {
@@ -454,7 +454,7 @@ final class LocationCameraController {
   };
 
   @NonNull
-  private MapLibreMap.OnFlingListener onFlingListener = new MapLibreMap.OnFlingListener() {
+  private TrackasiaMap.OnFlingListener onFlingListener = new TrackasiaMap.OnFlingListener() {
     @Override
     public void onFling() {
       setCameraMode(CameraMode.NONE);

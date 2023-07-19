@@ -18,7 +18,7 @@ class SimpleMapActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: MapLibreMap ->
+            OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
                 val styles = Style.getPredefinedStyles()
                 if (styles != null && styles.size > 0) {
                     val styleUrl = styles[0].url
