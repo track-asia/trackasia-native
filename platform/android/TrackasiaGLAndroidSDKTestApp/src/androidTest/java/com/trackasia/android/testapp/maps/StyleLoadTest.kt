@@ -2,8 +2,8 @@ package com.trackasia.android.testapp.maps
 
 import androidx.test.espresso.UiController
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.action.TrackasiaMapAction

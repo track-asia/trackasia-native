@@ -11,8 +11,8 @@ import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKIN
 import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_ZOOM_ANIM_DURATION
 import com.trackasia.android.location.TrackasiaAnimator.*
 import com.trackasia.android.location.modes.RenderMode
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Projection
+import com.trackasia.android.maps.TrackasiaMap
 import io.mockk.*
 import org.junit.Assert.*
 import org.junit.Before

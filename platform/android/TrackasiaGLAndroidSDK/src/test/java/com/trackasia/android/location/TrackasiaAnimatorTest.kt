@@ -21,7 +21,9 @@ class TrackasiaAnimatorTest {
             floatArrayOf(
                 0f,
                 10f
-            ).toTypedArray(), listener, Int.MAX_VALUE
+            ).toTypedArray(),
+            listener,
+            Int.MAX_VALUE
         )
 
         for (i in 0 until 5)
@@ -40,7 +42,9 @@ class TrackasiaAnimatorTest {
             floatArrayOf(
                 0f,
                 10f
-            ).toTypedArray(), listener, 5
+            ).toTypedArray(),
+            listener,
+            5
         )
 
         for (i in 0 until 5) {

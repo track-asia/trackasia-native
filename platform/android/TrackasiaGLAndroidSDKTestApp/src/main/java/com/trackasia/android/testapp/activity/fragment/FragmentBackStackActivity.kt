@@ -2,9 +2,9 @@ package com.trackasia.android.testapp.activity.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.SupportMapFragment
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityBackstackFragmentBinding
 import com.trackasia.android.testapp.utils.NavUtils

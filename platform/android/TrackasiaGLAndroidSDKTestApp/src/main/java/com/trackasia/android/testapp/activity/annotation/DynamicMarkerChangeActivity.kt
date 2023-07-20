@@ -10,9 +10,9 @@ import com.trackasia.android.annotations.Marker
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.utils.IconUtils
 

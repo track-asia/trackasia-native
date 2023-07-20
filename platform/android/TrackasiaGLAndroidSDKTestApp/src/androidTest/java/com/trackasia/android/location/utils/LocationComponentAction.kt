@@ -6,8 +6,8 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import com.trackasia.android.location.LocationComponent
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import org.hamcrest.Matcher
 
 class LocationComponentAction(

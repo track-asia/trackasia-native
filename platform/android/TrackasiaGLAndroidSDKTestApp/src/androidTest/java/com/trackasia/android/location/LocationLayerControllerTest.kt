@@ -21,8 +21,8 @@ import com.trackasia.android.location.modes.RenderMode
 import com.trackasia.android.location.utils.*
 import com.trackasia.android.location.utils.TrackasiaTestingUtils.Companion.MAPBOX_HEAVY_STYLE
 import com.trackasia.android.location.utils.TrackasiaTestingUtils.Companion.pushSourceUpdates
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.activity.EspressoTest

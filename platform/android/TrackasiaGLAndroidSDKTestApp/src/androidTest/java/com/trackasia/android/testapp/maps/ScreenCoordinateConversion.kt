@@ -3,12 +3,12 @@ package com.trackasia.android.testapp.maps
 import android.graphics.PointF
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import org.junit.Assert.assertArrayEquals
 import com.trackasia.android.AppCenter
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.activity.espresso.DeviceIndependentTestActivity
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before

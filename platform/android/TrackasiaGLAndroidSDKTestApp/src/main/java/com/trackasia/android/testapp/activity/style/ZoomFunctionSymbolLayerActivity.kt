@@ -9,10 +9,10 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.Property
 import com.trackasia.android.style.layers.PropertyFactory

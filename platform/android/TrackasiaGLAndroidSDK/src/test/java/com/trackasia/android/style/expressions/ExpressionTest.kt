@@ -3,6 +3,7 @@ package com.mapbox.mapboxsdk.style.expressions
 import android.graphics.Color
 import com.mapbox.geojson.Point
 import com.mapbox.geojson.Polygon
+import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.expressions.Expression.FormatOption
 import com.trackasia.android.style.layers.PropertyFactory
 import com.trackasia.android.style.layers.PropertyValue
@@ -10,7 +11,6 @@ import com.trackasia.android.utils.ColorUtils
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import com.trackasia.android.style.expressions.Expression
 import org.robolectric.RobolectricTestRunner
 import java.util.*
 
@@ -465,7 +465,6 @@ class ExpressionTest {
                 .toArray()
         Assert.assertTrue("expression should match", Arrays.deepEquals(expected, actual))
     }
-
 
     @Test
     @Throws(Exception::class)

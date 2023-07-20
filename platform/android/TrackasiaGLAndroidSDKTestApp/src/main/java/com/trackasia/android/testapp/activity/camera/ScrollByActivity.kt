@@ -12,9 +12,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.R
 
 /**

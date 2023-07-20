@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.utils.ResourceUtils
 import timber.log.Timber

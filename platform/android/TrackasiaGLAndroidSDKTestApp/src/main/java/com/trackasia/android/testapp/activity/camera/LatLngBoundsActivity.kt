@@ -10,8 +10,8 @@ import com.mapbox.geojson.FeatureCollection.fromJson
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.style.layers.Property.ICON_ANCHOR_CENTER
 import com.trackasia.android.style.layers.PropertyFactory.*
 import com.trackasia.android.style.layers.SymbolLayer

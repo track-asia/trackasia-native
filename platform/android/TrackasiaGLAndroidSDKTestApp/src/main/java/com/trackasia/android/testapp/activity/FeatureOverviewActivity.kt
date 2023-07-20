@@ -8,7 +8,6 @@ import android.content.res.Resources.NotFoundException
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes

@@ -14,10 +14,10 @@ import com.mapbox.geojson.Polygon
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.CancelableCallback
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.CancelableCallback
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.CircleLayer
 import com.trackasia.android.style.layers.FillLayer

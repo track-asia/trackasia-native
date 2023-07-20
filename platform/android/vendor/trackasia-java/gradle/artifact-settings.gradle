@@ -1,0 +1,40 @@
+ext {
+    trackasiaArtifactGroupId = 'com.tracksia.gl'
+    trackasiaArtifactId = project.hasProperty('POM_ARTIFACT_ID') ? project.property('POM_ARTIFACT_ID') : System.getenv('POM_ARTIFACT_ID')
+    trackasiaArtifactTitle = 'Trackasia Android SDK'
+    trackasiaArtifactDescription = project.hasProperty('POM_DESCRIPTION') ? project.property('POM_DESCRIPTION') : System.getenv('POM_DESCRIPTION')
+    trackasiaDeveloperName = 'Trackasia'
+    trackasiaDeveloperEmail = 'trackasia@track-asia.com'
+    trackasiaDeveloperOrganization = 'Trackasia'
+    trackasiaDeveloperOrganizationUrl = 'http://www.track-asia.com'
+    trackasiaDeveloperId = 'trackasia'
+    trackasiaArtifactUrl = 'https://github.com/trackasia/trackasia-java'
+    trackasiaArtifactVcsUrl = 'https://github.com/trackasia/trackasia-java.git'
+    trackasiaArtifactScmUrl = 'scm:git@github.com:trackasia/trackasia-java.git'
+    trackasiaArtifactLicenseName = 'The Apache Software License, Version 2.0'
+    trackasiaArtifactLicenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    versionName = getVersionName()
+}
+
+def getVersionName() {
+    def cmd = "git describe --tag --abbrev=0"
+    def version = cmd.execute().text.trim()
+    return isSnapshot() ? getSnapshotVersion(version) : getReleaseVersion(version)
+}
+
+def isSnapshot() {
+    return project.hasProperty("snapshot")
+            ? project.property("snapshot").toBoolean()
+            : false
+}
+
+private static def getReleaseVersion(String version) {
+    return version.substring(1)
+}
+
+private static def getSnapshotVersion(String version) {
+    def matcher = version =~ /^[v|V](\d+).(\d+)?.*/
+    def major = (matcher[0][1] as Integer)
+    def minor = (matcher[0][2] as Integer) + 1
+    return "${major}.${minor}.0-SNAPSHOT"
+}

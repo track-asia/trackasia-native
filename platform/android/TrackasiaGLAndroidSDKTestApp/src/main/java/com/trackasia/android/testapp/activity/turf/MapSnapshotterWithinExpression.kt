@@ -9,8 +9,8 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.snapshotter.MapSnapshot
 import com.trackasia.android.snapshotter.MapSnapshotter
 import com.trackasia.android.style.expressions.Expression.within

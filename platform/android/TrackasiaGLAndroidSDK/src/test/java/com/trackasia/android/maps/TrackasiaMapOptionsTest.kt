@@ -16,7 +16,8 @@ import java.util.*
 class TrackasiaMapOptionsTest {
     @Test
     fun testSanity() {
-        Assert.assertNotNull("should not be null",
+        Assert.assertNotNull(
+            "should not be null",
             TrackasiaMapOptions()
         )
     }

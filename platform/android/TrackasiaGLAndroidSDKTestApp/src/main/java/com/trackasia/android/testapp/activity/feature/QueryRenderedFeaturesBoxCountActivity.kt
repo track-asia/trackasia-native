@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Feature
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.utils.NavUtils
 import timber.log.Timber

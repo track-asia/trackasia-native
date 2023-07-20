@@ -20,10 +20,10 @@ import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.constants.GeometryConstants
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.*
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.*
 import com.trackasia.android.testapp.R
 import timber.log.Timber
 

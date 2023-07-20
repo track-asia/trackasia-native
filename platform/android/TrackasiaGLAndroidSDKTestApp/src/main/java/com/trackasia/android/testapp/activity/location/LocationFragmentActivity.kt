@@ -16,8 +16,8 @@ import com.trackasia.android.location.engine.LocationEngineResult
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityLocationLayerFragmentBinding
 

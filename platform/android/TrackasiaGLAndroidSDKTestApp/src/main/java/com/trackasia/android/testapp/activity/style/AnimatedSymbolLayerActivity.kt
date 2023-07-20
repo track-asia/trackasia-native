@@ -15,17 +15,17 @@ import com.google.gson.JsonObject
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
+import com.mapbox.turf.TurfMeasurement
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.PropertyFactory
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
-import com.mapbox.turf.TurfMeasurement
 import java.util.*
 
 /**

@@ -1,7 +1,7 @@
 package com.trackasia.android.testapp.activity.textureview
 
-import com.trackasia.android.maps.TrackasiaMapOptions
 import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.TrackasiaMapOptions
 import com.trackasia.android.testapp.activity.maplayout.DebugModeActivity
 import com.trackasia.android.testapp.utils.NavUtils
 

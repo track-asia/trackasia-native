@@ -1,8 +1,8 @@
 package com.trackasia.android.location.utils
 
 import androidx.test.espresso.IdlingResource
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 
 /**
  * Resource, that's idling until the provided style is loaded.

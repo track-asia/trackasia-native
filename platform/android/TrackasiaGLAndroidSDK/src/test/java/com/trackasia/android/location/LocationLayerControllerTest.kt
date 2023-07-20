@@ -6,8 +6,8 @@ import com.mapbox.geojson.Feature
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.location.TrackasiaAnimator.AnimationsValueChangeListener
 import com.trackasia.android.location.modes.RenderMode
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.style.layers.Layer
 import com.trackasia.android.style.sources.GeoJsonSource
 import org.junit.Assert
