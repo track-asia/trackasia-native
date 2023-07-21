@@ -10,7 +10,7 @@ namespace android {
 class RasterSource : public Source {
 public:
     using SuperTag = Source;
-    static constexpr auto Name() { return "org/track-asia/android/style/sources/RasterSource"; };
+    static constexpr auto Name() { return "com/trackasia/android/style/sources/RasterSource"; };
 
     static void registerNative(jni::JNIEnv&);
 

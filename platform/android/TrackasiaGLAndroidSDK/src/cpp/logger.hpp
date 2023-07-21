@@ -9,7 +9,7 @@ namespace android {
 
 class Logger {
 public:
-    static constexpr auto Name() { return "org/track-asia/android/log/Logger"; };
+    static constexpr auto Name() { return "com/trackasia/android/log/Logger"; };
     static void registerNative(jni::JNIEnv &);
 
     static void log(jni::JNIEnv &, EventSeverity severity, const std::string &msg);

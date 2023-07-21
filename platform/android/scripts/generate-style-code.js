@@ -403,21 +403,21 @@ global.supportsPropertyFunction = function (property) {
 // Template processing //
 
 // Java + JNI Light (Peer model)
-const lightJava = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/style/light/light.java.ejs', 'utf8'), {strict: true});
-const lightJavaUnitTests = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDKTestApp/src/androidTest/java/org/track-asia/android/testapp/style/light.junit.ejs', 'utf8'), {strict: true});
-writeIfModified(`TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/style/light/Light.java`, lightJava({properties: lightProperties}));
-writeIfModified(`TrackasiaGLAndroidSDKTestApp/src/androidTest/java/org/track-asia/android/testapp/style/LightTest.java`, lightJavaUnitTests({properties: lightProperties}));
+const lightJava = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/style/light/light.java.ejs', 'utf8'), {strict: true});
+const lightJavaUnitTests = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDKTestApp/src/androidTest/java/com/trackasia/android/testapp/style/light.junit.ejs', 'utf8'), {strict: true});
+writeIfModified(`TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/style/light/Light.java`, lightJava({properties: lightProperties}));
+writeIfModified(`TrackasiaGLAndroidSDKTestApp/src/androidTest/java/com/trackasia/android/testapp/style/LightTest.java`, lightJavaUnitTests({properties: lightProperties}));
 
 // Java
-const layerJava = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/style/layers/layer.java.ejs', 'utf8'), {strict: true});
-const layerJavaUnitTests = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDKTestApp/src/androidTest/java/org/track-asia/android/testapp/style/layer.junit.ejs', 'utf8'), {strict: true});
+const layerJava = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/style/layers/layer.java.ejs', 'utf8'), {strict: true});
+const layerJavaUnitTests = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDKTestApp/src/androidTest/java/com/trackasia/android/testapp/style/layer.junit.ejs', 'utf8'), {strict: true});
 
 for (const layer of layers) {
-  var srcDir = 'TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/style/layers/'
-  var testDir = 'TrackasiaGLAndroidSDKTestApp/src/androidTest/java/org/track-asia/android/testapp/style/'
+  var srcDir = 'TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/style/layers/'
+  var testDir = 'TrackasiaGLAndroidSDKTestApp/src/androidTest/java/com/trackasia/android/testapp/style/'
   if (layer.type === 'location-indicator') {
-    srcDir = 'TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/location/'
-    testDir = 'TrackasiaGLAndroidSDKTestApp/src/androidTest/java/org/track-asia/android/location/'
+    srcDir = 'TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/location/'
+    testDir = 'TrackasiaGLAndroidSDKTestApp/src/androidTest/java/com/trackasia/android/location/'
   }
 
   writeIfModified(srcDir + `${camelize(layer.type)}Layer.java`, layerJava(layer));
@@ -436,23 +436,23 @@ for (const layer of layers) {
 }
 
 // Java PropertyFactory
-const propertyFactoryTemplate = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/style/layers/property_factory.java.ejs', 'utf8'), {strict: true});
+const propertyFactoryTemplate = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/style/layers/property_factory.java.ejs', 'utf8'), {strict: true});
 
-var propertyFactorySrcDir = 'TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/style/layers/PropertyFactory.java'
+var propertyFactorySrcDir = 'TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/style/layers/PropertyFactory.java'
 writeIfModified(
     propertyFactorySrcDir,
     propertyFactoryTemplate({layoutProperties: layoutProperties, paintProperties: paintProperties, locationIndicator: false})
 );
 
-var locationPropertyFactorySrcDir = 'TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/location/LocationPropertyFactory.java'
+var locationPropertyFactorySrcDir = 'TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/location/LocationPropertyFactory.java'
 writeIfModified(
     locationPropertyFactorySrcDir,
     propertyFactoryTemplate({layoutProperties: locationLayoutProperties, paintProperties: locationPaintProperties, locationIndicator: true})
 );
 
 // Java Property
-const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/style/layers/property.java.ejs', 'utf8'), {strict: true});
+const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync('TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/style/layers/property.java.ejs', 'utf8'), {strict: true});
 writeIfModified(
-    `TrackasiaGLAndroidSDK/src/main/java/org/track-asia/android/style/layers/Property.java`,
+    `TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/style/layers/Property.java`,
     enumPropertyJavaTemplate({properties: enumProperties})
 );

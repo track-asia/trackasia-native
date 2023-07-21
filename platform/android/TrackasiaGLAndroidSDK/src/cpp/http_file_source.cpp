@@ -37,7 +37,7 @@ private:
 
 class HTTPRequest : public AsyncRequest {
 public:
-    static constexpr auto Name() { return "org/track-asia/android/http/NativeHttpRequest"; };
+    static constexpr auto Name() { return "com/trackasia/android/http/NativeHttpRequest"; };
 
     HTTPRequest(jni::JNIEnv&, const Resource&, FileSource::Callback);
     ~HTTPRequest();

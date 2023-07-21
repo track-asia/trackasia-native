@@ -40,7 +40,7 @@ class MapRenderer;
 
 class NativeMapView : public MapObserver {
 public:
-    static constexpr auto Name() { return "org/track-asia/android/maps/NativeMapView"; };
+    static constexpr auto Name() { return "com/trackasia/android/maps/NativeMapView"; };
 
     static void registerNative(jni::JNIEnv&);
 

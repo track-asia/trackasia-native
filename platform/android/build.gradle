@@ -37,7 +37,7 @@ apply from: "${rootDir}/gradle/publish-root.gradle"
 publishing {
     publications {
         bar(MavenPublication) {
-            groupId 'com.track-asia' // Replace with group ID
+            groupId 'com.trackasia' // Replace with group ID
             artifactId 'android-sdk'
             version '1.0.0'
             artifact("$buildDir/outputs/aar/TrackasiaGLAndroidSDK-release.aar")

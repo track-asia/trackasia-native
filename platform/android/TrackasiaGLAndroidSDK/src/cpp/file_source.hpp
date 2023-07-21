@@ -24,11 +24,11 @@ namespace android {
  */
 class FileSource {
 public:
-    static constexpr auto Name() { return "org/track-asia/android/storage/FileSource"; };
+    static constexpr auto Name() { return "com/trackasia/android/storage/FileSource"; };
 
     struct ResourceTransformCallback {
         static constexpr auto Name() {
-            return "org/track-asia/android/storage/"
+            return "com/trackasia/android/storage/"
                    "FileSource$ResourceTransformCallback";
         }
 
@@ -40,7 +40,7 @@ public:
 
     struct ResourcesCachePathChangeCallback {
         static constexpr auto Name() {
-            return "org/track-asia/android/storage/"
+            return "com/trackasia/android/storage/"
                    "FileSource$ResourcesCachePathChangeCallback";
         }
 
