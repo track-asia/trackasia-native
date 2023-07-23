@@ -8,6 +8,19 @@
   <packaging>pom</packaging>
   <name>trackasia-native</name>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.track-asia</groupId>
+        <artifactId>android</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+  </dependencyManagement>
+
+  <modules>
+    <module>platform/android</module>
+  </modules>
+
   <distributionManagement>
     <repository>
       <id>trackasia</id>
