@@ -6,7 +6,7 @@
   <artifactId>trackasia</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
-  <name>trackasia-native</name>
+  <name>trackasia-android</name>
 
   <distributionManagement>
     <repository>
