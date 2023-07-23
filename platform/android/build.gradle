@@ -49,7 +49,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/track-asia/trackasia-native")
             credentials {
                 username = "sunny0092"//project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = "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"//project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+                password = "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"//project.findProperty("gpr.key") ?: System.getenv("TOKEN")
             }
         }
     }
