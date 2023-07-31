@@ -66,7 +66,6 @@ dependencies {
     implementation project(':TrackasiaGLAndroidSDK')
 
     implementation dependenciesList.mapboxJavaTurf
-//    implementation files('libs/services-turf.jar')
 
     implementation dependenciesList.supportAppcompatV7
     implementation dependenciesList.supportRecyclerView
@@ -79,7 +78,7 @@ dependencies {
 
     implementation dependenciesList.okhttp3
 
-    implementation dependenciesList.leakCanary
+    debugImplementation dependenciesList.leakCanary
 
     androidTestImplementation dependenciesList.supportAnnotations
     androidTestImplementation dependenciesList.testRunner
@@ -89,7 +88,7 @@ dependencies {
     androidTestImplementation dependenciesList.testEspressoContrib
     androidTestImplementation dependenciesList.testUiAutomator
     androidTestImplementation dependenciesList.appCenter
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 }
 
 apply from: "${rootDir}/gradle/gradle-make.gradle"

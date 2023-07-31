@@ -11,12 +11,12 @@
     }
     ```
 
-2. Add the library as a dependency into your module Gradle file (usually `<project>/<app-module>/build.gradle`). Replace `<version>` with the latest Trackasia Native version (e.g.: `com.trackasia.gl:android-sdk:10.0.2`). Visit [https://mvnrepository.com/artifact/com.trackasia.gl/android-sdk](https://mvnrepository.com/artifact/com.trackasia.gl/android-sdk) to view the version history of Trackasia Native for android. 
+2. Add the library as a dependency into your module Gradle file (usually `<project>/<app-module>/build.gradle`). Replace `<version>` with the latest MapLibre Native version (e.g.: `org.maplibre.gl:android-sdk:10.0.2`). Visit [https://mvnrepository.com/artifact/org.maplibre.gl/android-sdk](https://mvnrepository.com/artifact/org.maplibre.gl/android-sdk) to view the version history of MapLibre Native for android. 
 
     ```gradle
     dependencies {
         ...
-        implementation 'com.trackasia.gl:android-sdk:<version>'
+        implementation 'org.maplibre.gl:android-sdk:<version>'
         ...
     }
     ```
@@ -27,7 +27,7 @@
 
     ```xml
     ...
-    <com.trackasia.android.maps.MapView
+    <org.maplibre.android.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,11 +41,11 @@
     import androidx.appcompat.app.AppCompatActivity
     import android.os.Bundle
     import android.view.LayoutInflater
-    import com.trackasia.android.Trackasia
-    import com.trackasia.android.camera.CameraPosition
-    import com.trackasia.android.geometry.LatLng
-    import com.trackasia.android.maps.MapView
-    import com.trackasia.android.testapp.R
+    import org.maplibre.android.Maplibre
+    import org.maplibre.android.camera.CameraPosition
+    import org.maplibre.android.geometry.LatLng
+    import org.maplibre.android.maps.MapView
+    import org.maplibre.android.testapp.R
 
     class MainActivity : AppCompatActivity() {
 
@@ -55,8 +55,8 @@
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
-            // Init Trackasia
-            Trackasia.getInstance(this)
+            // Init MapLibre
+            MapLibre.getInstance(this)
 
             // Init layout view
             val inflater = LayoutInflater.from(this)
@@ -66,7 +66,7 @@
             // Init the MapView
             mapView = rootView.findViewById(R.id.mapView)
             mapView.getMapAsync { map ->
-                map.setStyle("https://demotiles.track-asia.com/style.json")
+                map.setStyle("https://demotiles.maplibre.org/style.json")
                 map.cameraPosition = CameraPosition.Builder().target(LatLng(0.0,0.0)).zoom(1.0).build()
             }
         }

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.trackasia.android.WellKnownTileServer;
-import com.trackasia.android.exceptions.TrackasiaConfigurationException;
+import com.trackasia.android.exceptions.MapLibreConfigurationException;
 
 /**
  * Tile server options - baseUrl and similar properties
@@ -80,7 +80,7 @@ public class TileServerOptions implements Parcelable {
    * Construct a new TileServerOptions given string arguments
    *
    * @param baseURL              tile server base url
-   * @param uriSchemeAlias       scheme alias such as trackasia://
+   * @param uriSchemeAlias       scheme alias such as maplibre://
    * @param sourceTemplate       tile source url template
    * @param sourceDomainName     tile source domain name
    * @param sourceVersionPrefix  tile source version prefix
@@ -393,9 +393,9 @@ public class TileServerOptions implements Parcelable {
       case MapTiler:
         return mapTilerConfiguration();
       case Trackasia:
-        return trackasiaConfiguration();
+        return mapLibreConfiguration();
       default:
-        throw new TrackasiaConfigurationException("Unknown tile server");
+        throw new MapLibreConfigurationException("Unknown tile server");
     }
   }
 
@@ -413,5 +413,5 @@ public class TileServerOptions implements Parcelable {
 
   @Keep
   @NonNull
-  private static native TileServerOptions trackasiaConfiguration();
+  private static native TileServerOptions mapLibreConfiguration();
 }

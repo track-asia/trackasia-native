@@ -3,8 +3,8 @@ package com.trackasia.android.annotations
 import android.graphics.PointF
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Projection
 import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.Projection
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.InjectMocks

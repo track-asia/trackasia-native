@@ -11,10 +11,10 @@ import com.trackasia.android.camera.CameraUpdateFactory.newCameraPosition
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.location.TrackasiaAnimator.AnimationsValueChangeListener
 import com.trackasia.android.location.modes.CameraMode
-import com.trackasia.android.maps.Projection
 import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.TrackasiaMap.CancelableCallback
 import com.trackasia.android.maps.TrackasiaMap.OnCameraMoveListener
+import com.trackasia.android.maps.Projection
 import com.trackasia.android.maps.Transform
 import com.trackasia.android.maps.UiSettings
 import org.junit.Assert

@@ -15,6 +15,10 @@ on:
       - "vendor/**"
       - "CMakeLists.txt"
       - metrics/linux-gcc8-release-style.json
+      - WORKSPACE
+      - BUILD.bazel
+      - .bazelrc
+      - .bazelversion
 
   pull_request:
     branches:
@@ -29,6 +33,10 @@ on:
       - "vendor/**"
       - "CMakeLists.txt"
       - metrics/linux-gcc8-release-style.json
+      - WORKSPACE
+      - BUILD.bazel
+      - .bazelrc
+      - .bazelversion
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -60,9 +68,10 @@ jobs:
             libuv1-dev \
             libjpeg-dev \
             libpng-dev \
-            libglfw3-dev
+            libglfw3-dev \
+            libwebp-dev
 
-      - name: Build Trackasia Native Core
+      - name: Build MapLibre Native Core
         run: |
           cmake --version
           cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Debug -DMLN_WITH_CLANG_TIDY=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DMLN_WITH_COVERAGE=ON
@@ -151,17 +160,18 @@ jobs:
       - run: chmod +x ./mbgl-render-test-runner
 
       - name: Run render test
-        continue-on-error: true
         id: render_test
         run: xvfb-run -a ./mbgl-render-test-runner --manifestPath=metrics/linux-gcc8-release-style.json
 
       - name: Save PR number
+        if: always() && steps.render_test.outcome != 'failure'
         env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
           echo $PR_NUMBER > ./pr_number
 
       - name: Upload render test result
+        if: always() && steps.render_test.outcome != 'failure'
         uses: actions/upload-artifact@v3
         with:
           name: render-test-result
@@ -185,12 +195,14 @@ jobs:
             libuv1-dev \
             libjpeg-dev \
             libpng-dev \
+            libwebp-dev \
             libglfw3-dev \
+            libsqlite3-dev \
             xserver-xorg-video-dummy \
             xinit
 
       - name: Cache Bazel
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           key: ${{ runner.os }}-bazel-${{ hashFiles('.bazelversion', '.bazelrc', 'WORKSPACE', 'WORKSPACE.bazel', 'MODULE.bazel') }}
           restore-keys: |
@@ -204,7 +216,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          bazel coverage --test_output=all --combined_report=lcov --nobuild_runfile_links --local_test_jobs=1 --instrumentation_filter="//:mbgl-core" //test:core //render-test:render-test --//:trackasia_platform=linux --run_under=//platform/linux:startxwrapper
+          bazel coverage --test_output=all --combined_report=lcov --nobuild_runfile_links --local_test_jobs=1 --instrumentation_filter="//:mbgl-core" //test:core //render-test:render-test --//:maplibre_platform=linux --run_under=//platform/linux:startxwrapper
           echo coverage_report=$(bazel info output_path)/_coverage/_coverage_report.dat >> $GITHUB_ENV
 
       - name: Upload coverage report

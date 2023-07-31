@@ -1,8 +1,8 @@
 package com.trackasia.android.testapp.activity
 
 import androidx.annotation.UiThread
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
 
 /**

@@ -6,29 +6,21 @@ import android.graphics.Color;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
-import com.mapbox.geojson.LineString;
-import com.mapbox.geojson.MultiLineString;
-import com.mapbox.geojson.MultiPoint;
-import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
-import com.mapbox.geojson.Polygon;
+
 import com.trackasia.android.maps.BaseLayerTest;
 import org.junit.Before;
 import timber.log.Timber;
 
-import com.trackasia.android.style.expressions.Expression;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.trackasia.android.style.expressions.Expression.*;
 import static org.junit.Assert.*;
 import static com.trackasia.android.style.layers.Property.*;
 import static com.trackasia.android.location.LocationPropertyFactory.*;
 
 import com.trackasia.android.style.layers.TransitionOptions;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

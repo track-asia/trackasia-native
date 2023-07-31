@@ -11,7 +11,7 @@ import androidx.annotation.UiThread;
 import timber.log.Timber;
 
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.exceptions.TrackasiaConfigurationException;
+import com.trackasia.android.exceptions.MapLibreConfigurationException;
 import com.trackasia.android.net.ConnectivityReceiver;
 import com.trackasia.android.storage.FileSource;
 import com.trackasia.android.util.DefaultStyle;
@@ -236,7 +236,7 @@ public final class Trackasia {
    */
   private static void validateMapbox() {
     if (INSTANCE == null) {
-      throw new TrackasiaConfigurationException();
+      throw new MapLibreConfigurationException();
     }
   }
 
@@ -251,7 +251,7 @@ public final class Trackasia {
       return false;
     }
 
-    apiKey = apiKey.trim().toLowerCase(TrackasiaConstants.trackasia_LOCALE);
+    apiKey = apiKey.trim().toLowerCase(TrackasiaConstants.TRACKASIA_LOCALE);
     return apiKey.length() != 0;
   }
 
@@ -260,7 +260,7 @@ public final class Trackasia {
    */
   public static void throwIfApiKeyInvalid(@Nullable String apiKey) {
     if (!isApiKeyValid(apiKey)) {
-      throw new TrackasiaConfigurationException(
+      throw new MapLibreConfigurationException(
               "A valid API key is required, currently provided key is: " + apiKey);
     }
   }

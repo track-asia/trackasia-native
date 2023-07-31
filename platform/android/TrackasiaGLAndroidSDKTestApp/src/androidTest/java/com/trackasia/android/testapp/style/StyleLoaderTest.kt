@@ -3,8 +3,8 @@ package com.trackasia.android.testapp.style
 import android.view.View
 import androidx.test.espresso.UiController
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.action.TrackasiaMapAction
 import com.trackasia.android.testapp.activity.EspressoTest

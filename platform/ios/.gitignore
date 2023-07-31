@@ -37,7 +37,7 @@ test/fixtures/storage/assets.zip
 /vendor/.cache
 buck-out
 .buckd
-Trackasia.xcodeproj
+MapLibre.xcodeproj
 
 # Visual Studio Code
 .vscode

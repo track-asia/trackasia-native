@@ -1,6 +1,6 @@
-echo "Inserting Trackasia API key..."
-token_file=~/.trackasua
-token_file2=~/trackasia
+echo "Inserting MapLibre API key..."
+token_file=~/.maplibre
+token_file2=~/maplibre
 token="$(cat $token_file 2>/dev/null || cat $token_file2 2>/dev/null || echo $MLN_API_KEY)"
 if [ "$token" ]; then
     plutil -replace MLNApiKey -string $token "$TARGET_BUILD_DIR/$INFOPLIST_PATH"

@@ -14,7 +14,7 @@ public class TrackasiaInjector {
 
   public static void inject(@NonNull Context context, @NonNull String apiKey,
                             @NonNull TileServerOptions options) {
-    Trackasia Trackasia = new Trackasia(context, apiKey, options);
+    Trackasia trackasia = new Trackasia(context, apiKey, options);
     try {
       Field instance = Trackasia.class.getDeclaredField(FIELD_INSTANCE);
       instance.setAccessible(true);

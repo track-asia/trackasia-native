@@ -10,12 +10,9 @@ import androidx.annotation.UiThread;
 
 import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.trackasia.android.style.expressions.Expression;
-import com.trackasia.android.style.layers.TransitionOptions;
 import com.trackasia.android.style.types.Formatted;
-import com.trackasia.android.style.types.FormattedSection;
 
 /**
  * An icon or a text label.

@@ -5,7 +5,7 @@ package com.trackasia.android.location;
 import androidx.annotation.ColorInt;
 
 import com.trackasia.android.style.expressions.Expression;
-import com.trackasia.android.style.types.Formatted;
+
 import static com.trackasia.android.utils.ColorUtils.colorToRgbaString;
 import com.trackasia.android.style.layers.LayoutPropertyValue;
 import com.trackasia.android.style.layers.PaintPropertyValue;

@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.log.Logger
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.databinding.ActivitySnapshotBinding
 import timber.log.Timber
 

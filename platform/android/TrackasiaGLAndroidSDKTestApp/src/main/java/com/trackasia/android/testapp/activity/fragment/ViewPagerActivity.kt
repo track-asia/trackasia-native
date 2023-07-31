@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.TrackasiaMapOptions
 import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.SupportMapFragment
-import com.trackasia.android.maps.TrackasiaMapOptions
 import com.trackasia.android.testapp.databinding.ActivityViewpagerBinding
 
 /**

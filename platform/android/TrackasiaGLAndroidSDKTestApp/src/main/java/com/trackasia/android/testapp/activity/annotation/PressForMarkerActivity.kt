@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import java.text.DecimalFormat
 import java.util.ArrayList

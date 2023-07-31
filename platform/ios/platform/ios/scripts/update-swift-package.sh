@@ -16,17 +16,17 @@ step "Creating Swift package…"
 rm -f Package.swift
 cp platform/ios/scripts/swift_package_template.swift Package.swift
 
-export GITHUB_USER=trackasia
-export GITHUB_REPO=trackasia-native
+export GITHUB_USER=maplibre
+export GITHUB_REPO=maplibre-native
 export BUILDTYPE=Release
-export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/track-asia/trackasia-gl-native-distribution
+export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/maplibre/maplibre-gl-native-distribution
 
 VERSION_TAG="ios-v5.11.0"
 PUBLISH_VERSION="5.11.0"
-BINARY_DIRECTORY='/Volumes/Data/Temp/trackasia'
+BINARY_DIRECTORY='/Volumes/Data/Temp/maplibre'
 PUBLISH_PRE_FLAG=''
 S3_DISTRIBUTION=false
-MAPBOX_ZIP_FILE_URL="https://github.com/track-asia/trackasia-native/releases/download/ios-v5.11.0/Mapbox-5.11.0.zip"
+MAPBOX_ZIP_FILE_URL="https://github.com/maplibre/maplibre-native/releases/download/ios-v5.11.0/Mapbox-5.11.0.zip"
 MAPBOX_ZIP_FILE="Mapbox-5.11.0.zip"
 DIST_GITHUB_TOKEN="PUT YOUR TOKEN HERE:"
 

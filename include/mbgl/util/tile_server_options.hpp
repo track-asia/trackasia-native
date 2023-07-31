@@ -286,7 +286,7 @@ public:
     /**
      * @brief Get the tile server options configured for Trackasia.
      */
-    static TileServerOptions TrackasiaConfiguration();
+    static TileServerOptions MapLibreConfiguration();
 
     /**
      * @brief Get the tile server options configured for Mapbox.

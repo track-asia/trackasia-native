@@ -15,7 +15,6 @@ import com.trackasia.android.offline.OfflineRegion
 import com.trackasia.android.offline.OfflineRegion.OfflineRegionDeleteCallback
 import com.trackasia.android.offline.OfflineRegion.OfflineRegionInvalidateCallback
 import com.trackasia.android.testapp.R
-import com.trackasia.android.testapp.activity.offline.DeleteRegionActivity.OfflineRegionAdapter
 import com.trackasia.android.testapp.utils.OfflineUtils
 import java.util.*
 

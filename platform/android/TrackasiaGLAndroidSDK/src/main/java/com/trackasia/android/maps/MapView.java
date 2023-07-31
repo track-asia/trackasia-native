@@ -27,7 +27,7 @@ import com.trackasia.android.R;
 import com.trackasia.android.WellKnownTileServer;
 import com.trackasia.android.annotations.Annotation;
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.exceptions.TrackasiaConfigurationException;
+import com.trackasia.android.exceptions.MapLibreConfigurationException;
 import com.trackasia.android.location.LocationComponent;
 import com.trackasia.android.maps.renderer.MapRenderer;
 import com.trackasia.android.maps.renderer.glsurfaceview.GLSurfaceViewMapRenderer;
@@ -135,7 +135,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
     }
 
     if (!Trackasia.hasInstance()) {
-      throw new TrackasiaConfigurationException();
+      throw new MapLibreConfigurationException();
     }
 
     // hide surface until map is fully loaded #10990

@@ -168,7 +168,7 @@ android-ndk-stack-$1:
 run-android-render-test-$1: $(BUILD_DEPS)
 	-adb uninstall com.trackasia.testapp 2> /dev/null
 	# delete old test results
-	rm -rf build/render-test/track-asia/
+	rm -rf build/render-test/trackasia/
   # copy test definitions & ignore file to test app assets folder, clear old ones first
 	rm -rf TrackasiaGLAndroidSDKTestApp/src/main/assets/integration
 	cp -r metrics/integration TrackasiaGLAndroidSDKTestApp/src/main/assets
@@ -176,7 +176,7 @@ run-android-render-test-$1: $(BUILD_DEPS)
 	# run RenderTest.java to generate static map images
 	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :TrackasiaGLAndroidSDKTestApp:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="com.trackasia.testapp.render.RenderTest"
 	# pull generated images from the device
-	adb pull "`adb shell 'printenv EXTERNAL_STORAGE' | tr -d '\r'`/track-asia/render" build/render-test
+	adb pull "`adb shell 'printenv EXTERNAL_STORAGE' | tr -d '\r'`/trackasia/render" build/render-test
 	# copy expected result and run pixelmatch
 	python scripts/run-render-test.py
 	# remove test definitions from assets

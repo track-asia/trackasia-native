@@ -1,6 +1,6 @@
 package com.mapbox.core.constants;
 
-import com.tracksia.core.BuildConfig;
+import com.trackasia.core.BuildConfig;
 
 import java.util.Locale;
 

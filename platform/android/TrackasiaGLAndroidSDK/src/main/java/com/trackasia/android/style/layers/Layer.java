@@ -9,7 +9,6 @@ import com.trackasia.android.LibraryLoader;
 import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.types.Formatted;
 import com.trackasia.android.utils.ThreadUtils;
-import com.trackasia.android.style.types.Formatted;
 
 /**
  * Base class for the different Layer types

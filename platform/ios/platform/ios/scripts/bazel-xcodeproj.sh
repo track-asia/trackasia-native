@@ -4,7 +4,7 @@ set -euo pipefail
 
 pushd ../../../../../
 
-echo "------ Determining Trackasia version and hash ------"
+echo "------ Determining Maplibre version and hash ------"
 
 sem_version=0.0.0
 hash=$(git log | head -1 | awk '{ print $2 }' | cut -c 1-10) && true
@@ -25,7 +25,7 @@ plutil -replace MLNCommitHash -string "$hash" "$temp_info_static_plist"
 plutil -replace MLNSemanticVersionString -string "$sem_version" "$temp_info_plist"
 plutil -replace MLNCommitHash -string "$hash" "$temp_info_plist"
 
-echo "------ Building Trackasia version: $sem_version hash: $hash ------"
+echo "------ Building Maplibre version: $sem_version hash: $hash ------"
 
 bazel run //platform/ios:xcodeproj
 

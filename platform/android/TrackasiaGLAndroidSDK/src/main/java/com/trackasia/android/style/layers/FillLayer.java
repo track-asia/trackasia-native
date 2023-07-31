@@ -10,10 +10,8 @@ import androidx.annotation.UiThread;
 
 import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.trackasia.android.style.expressions.Expression;
-import com.trackasia.android.style.layers.TransitionOptions;
 
 /**
  * A filled polygon with an optional stroked border.

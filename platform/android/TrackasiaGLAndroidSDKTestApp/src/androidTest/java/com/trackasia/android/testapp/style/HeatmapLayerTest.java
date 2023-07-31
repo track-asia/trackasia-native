@@ -2,7 +2,6 @@
 
 package com.trackasia.android.testapp.style;
 
-import android.graphics.Color;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 

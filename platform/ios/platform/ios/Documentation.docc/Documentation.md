@@ -1,5 +1,5 @@
 # ``Mapbox``
 
 @Metadata {
-    @DisplayName("Trackasia Native")
+    @DisplayName("MapLibre Native")
 }

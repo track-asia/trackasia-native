@@ -14,7 +14,6 @@ import com.trackasia.android.log.Logger
 import com.trackasia.android.offline.OfflineManager
 import com.trackasia.android.offline.OfflineRegion
 import com.trackasia.android.storage.FileSource
-import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityChangeResourcesCachePathBinding
 import java.io.File
 

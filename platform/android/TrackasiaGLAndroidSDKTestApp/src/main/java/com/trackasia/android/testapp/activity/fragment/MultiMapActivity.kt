@@ -3,10 +3,10 @@ package com.trackasia.android.testapp.activity.fragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.SupportMapFragment
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.testapp.R
 
 /**

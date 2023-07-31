@@ -5,15 +5,9 @@ package com.trackasia.android.style.layers;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
 import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.trackasia.android.style.expressions.Expression;
-import com.trackasia.android.style.layers.TransitionOptions;
 
 /**
  * The background color or pattern of the map.

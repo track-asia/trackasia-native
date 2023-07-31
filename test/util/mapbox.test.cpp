@@ -13,7 +13,7 @@ using SourceType = mbgl::style::SourceType;
 
 namespace mapboxFixture {
 const TileServerOptions mapboxTileServerOptions = TileServerOptions::MapboxConfiguration();
-const TileServerOptions trackasiaTileServerOptions = TileServerOptions::TrackasiaConfiguration();
+const TileServerOptions trackasiaTileServerOptions = TileServerOptions::MapLibreConfiguration();
 const TileServerOptions mapTilerTileServerOptions = TileServerOptions::MapTilerConfiguration();
 } // namespace mapboxFixture
 
@@ -308,9 +308,9 @@ TEST(Trackasia, CanonicalURL) {
     EXPECT_EQ(
         "https://demotiles.track-asia.com/style.json",
         mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::trackasiaTileServerOptions, "trackasia://maps/style", ""));
-    EXPECT_EQ(
-        "https://demotiles.track-asia.com/tiles/tiles.json",
-        mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::trackasiaTileServerOptions, "trackasia://tiles/tiles", ""));
+    EXPECT_EQ("https://demotiles.track-asia.com/tiles/tiles.json",
+              mbgl::util::mapbox::normalizeSourceURL(
+                  mapboxFixture::trackasiaTileServerOptions, "trackasia://tiles/tiles", ""));
     EXPECT_EQ("https://demotiles.track-asia.com/font/{fontstack}/{start}-{end}.pbf",
               mbgl::util::mapbox::normalizeGlyphsURL(
                   mapboxFixture::trackasiaTileServerOptions, "trackasia://fonts/{fontstack}/{start}-{end}.pbf", ""));

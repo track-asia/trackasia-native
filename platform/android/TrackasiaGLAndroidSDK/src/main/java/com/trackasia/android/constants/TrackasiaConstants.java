@@ -10,12 +10,12 @@ public class TrackasiaConstants {
   /**
    * Default Locale for data processing (ex: String.toLowerCase(MAPBOX_LOCALE, "foo"))
    */
-  public static final Locale trackasia_LOCALE = Locale.US;
+  public static final Locale TRACKASIA_LOCALE = Locale.US;
 
   /**
    * The name of the desired preferences file for Android's SharedPreferences.
    */
-  public static final String trackasia_SHARED_PREFERENCES = "MapboxSharedPreferences";
+  public static final String TRACKASIA_SHARED_PREFERENCES = "MapboxSharedPreferences";
 
   /**
    * Key used to switch storage to external in AndroidManifest.xml
@@ -192,7 +192,7 @@ public class TrackasiaConstants {
   /**
    * Fragment Argument Key for MapboxMapOptions
    */
-  public static final String FRAG_ARG_TrackasiaMapOPTIONS = "MapboxMapOptions";
+  public static final String FRAG_ARG_TRACKASIAMAPOPTIONS = "MapboxMapOptions";
 
   /**
    * Layer Id of annotations layer

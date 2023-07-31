@@ -6,9 +6,9 @@ import android.os.Parcelable
 import androidx.annotation.FloatRange
 import androidx.annotation.Keep
 import com.mapbox.geojson.Point
+import com.trackasia.android.constants.GeometryConstants
 import com.mapbox.turf.TurfConstants
 import com.mapbox.turf.TurfMeasurement
-import com.trackasia.android.constants.GeometryConstants
 import kotlin.math.abs
 
 /**

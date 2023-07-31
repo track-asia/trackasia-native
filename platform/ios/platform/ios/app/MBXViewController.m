@@ -1426,7 +1426,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
         { 37.936, -71.516 },
         { 46.437, -71.516 } };
 
-    MLNImageSource *imageSource = [[MLNImageSource alloc] initWithIdentifier:@"style-image-source-id" coordinateQuad:coordinateQuad URL:[NSURL URLWithString:@"https://track-asia.com/trackasia-gl-js-docs/assets/radar0.gif"]];
+    MLNImageSource *imageSource = [[MLNImageSource alloc] initWithIdentifier:@"style-image-source-id" coordinateQuad:coordinateQuad URL:[NSURL URLWithString:@"https://maplibre.org/maplibre-gl-js-docs/assets/radar0.gif"]];
 
     [self.mapView.style addSource:imageSource];
     
@@ -1444,7 +1444,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
 - (void)updateAnimatedImageSource:(NSTimer *)timer {
     static int radarSuffix = 0;
     MLNImageSource *imageSource = (MLNImageSource *)timer.userInfo;
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://track-asia.com/trackasia-gl-js-docs/assets/radar%d.gif", radarSuffix++]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://maplibre.org/maplibre-gl-js-docs/assets/radar%d.gif", radarSuffix++]];
     [imageSource setValue:url forKey:@"URL"];
     if (radarSuffix > 3) {
         radarSuffix = 0;
@@ -1906,10 +1906,10 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
     self.styleURLs = [NSMutableArray array];
     
     /// Style that does not require an `apiKey` nor any further configuration
-    [self.styleNames addObject:@"Trackasia Basic"];
-    [self.styleURLs addObject:[NSURL URLWithString:@"https://demotiles.track-asia.com/style.json"]];
+    [self.styleNames addObject:@"MapLibre Basic"];
+    [self.styleURLs addObject:[NSURL URLWithString:@"https://demotiles.maplibre.org/style.json"]];
 
-    /// Add Trackasia Styles if an `apiKey` exists
+    /// Add MapLibre Styles if an `apiKey` exists
     NSString* apiKey = [MLNSettings apiKey];
     if (apiKey.length)
     {
@@ -2189,7 +2189,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
 
 - (void)mapView:(MLNMapView *)mapView didFinishLoadingStyle:(MLNStyle *)style
 {
-    // Default Trackasia styles use {name_en} as their label language, which means
+    // Default MapLibre styles use {name_en} as their label language, which means
     // that a device with an English-language locale is already effectively
     // using locale-based country labels.
     _localizingLabels = [[self bestLanguageForUser] isEqualToString:@"en"];
@@ -2335,7 +2335,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
 }
 
 - (void)alertAccuracyChanges {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Trackasia works best with your precise location."
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"MapLibre works best with your precise location."
                                    message:@"You'll get turn-by-turn directions."
                                    preferredStyle:UIAlertControllerStyleAlert];
 

@@ -4,9 +4,9 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.trackasia.android.style.sources.CustomGeometrySource.Companion.THREAD_POOL_LIMIT
 import com.trackasia.android.style.sources.CustomGeometrySource.Companion.THREAD_PREFIX
+import com.trackasia.android.testapp.action.TrackasiaMapAction.invoke
 import com.trackasia.android.testapp.action.OrientationAction.orientationLandscape
 import com.trackasia.android.testapp.action.OrientationAction.orientationPortrait
-import com.trackasia.android.testapp.action.TrackasiaMapAction.invoke
 import com.trackasia.android.testapp.action.WaitAction
 import com.trackasia.android.testapp.activity.BaseTest
 import com.trackasia.android.testapp.activity.style.GridSourceActivity

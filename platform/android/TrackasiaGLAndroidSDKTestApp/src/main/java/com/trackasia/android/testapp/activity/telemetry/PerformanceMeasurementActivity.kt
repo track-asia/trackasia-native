@@ -10,9 +10,9 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.trackasia.android.Trackasia
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.module.http.HttpRequestUtil
 import com.trackasia.android.testapp.R
 import okhttp3.Call

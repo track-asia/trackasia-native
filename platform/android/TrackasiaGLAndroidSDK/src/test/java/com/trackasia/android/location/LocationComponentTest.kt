@@ -9,9 +9,9 @@ import com.trackasia.android.location.engine.LocationEngine
 import com.trackasia.android.location.engine.LocationEngineRequest
 import com.trackasia.android.location.modes.CameraMode
 import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Projection
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Transform
 import org.junit.Assert
 import org.junit.Before

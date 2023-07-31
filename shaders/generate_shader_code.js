@@ -128,7 +128,7 @@ const strip = (source) => {
 // Parse command line
 const args = (() => {
     const parser = new ArgumentParser({
-        description: "Trackasia Shader Tools"
+        description: "MapLibre Shader Tools"
     });
     parser.add_argument("--input", "--i", {
         help: "Input folder location containing shaders and the manifest JSON (Must be named 'manifest.json')",

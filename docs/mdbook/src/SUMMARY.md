@@ -1,4 +1,4 @@
-# Trackasia Native Documentation
+# MapLibre Native Documentation
 
 [Introduction](./introduction.md)
 
@@ -10,7 +10,7 @@
     - [Android Map Rendering Data Flow](design/android-map-rendering-data-flow.md)
     - [Geometry Tile Worker](design/geometry-tile-worker.md)
 
-- [Trackasia Native for Android](./android/README.md)
+- [MapLibre Native for Android](./android/README.md)
     - [Quickstart](./android/getting-started-guide.md)
     - [Annotation: Marker](./android/annotation-guide.md)
     - [Location Component](./android/location-component-guide.md)

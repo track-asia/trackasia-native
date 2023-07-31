@@ -6,7 +6,6 @@ import android.os.PersistableBundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Point
-import com.mapbox.turf.TurfTransformation
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.Style
@@ -15,6 +14,7 @@ import com.trackasia.android.style.layers.FillLayer
 import com.trackasia.android.style.layers.PropertyFactory.fillColor
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.databinding.ActivityPhysicalCircleBinding
+import com.mapbox.turf.TurfTransformation
 
 /**
  * An Activity that showcases how to create a Circle with radius expressed in physical units using a FillLayer.

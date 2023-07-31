@@ -14,9 +14,9 @@ typedef NS_ENUM(NSUInteger, MLNWellKnownTileServer) {
      */
     MLNMapTiler,
     /**
-     Trackasia
+     MapLibre
      */
-    MLNTrackasia,
+    MLNMapLibre,
     /**
      Mapbox
      */

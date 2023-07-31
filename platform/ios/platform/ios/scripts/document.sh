@@ -45,9 +45,9 @@ jazzy \
     --module-version ${SHORT_VERSION} \
     --readme ${README} \
     --documentation="platform/{darwin,ios}/docs/guides/*.md" \
-    --root-url https://track-asia.com/trackasia-native/ios/api/ \
+    --root-url https://maplibre.org/maplibre-native/ios/api/ \
     --theme ${THEME} \
     --head "${CUSTOM_HEAD}" \
     --output ${OUTPUT} \
-    --title "Trackasia Native for iOS" \
+    --title "MapLibre Native for iOS" \
     --module-version ${SHORT_VERSION}

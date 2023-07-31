@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Point
-import com.mapbox.turf.TurfConstants
-import com.mapbox.turf.TurfTransformation
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression.distance
 import com.trackasia.android.style.expressions.Expression.lt
 import com.trackasia.android.style.layers.FillLayer
@@ -19,6 +17,8 @@ import com.trackasia.android.style.layers.PropertyFactory.*
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.databinding.ActivityWithinExpressionBinding
+import com.mapbox.turf.TurfConstants
+import com.mapbox.turf.TurfTransformation
 
 /**
  * An Activity that showcases the within expression to filter features outside a geometry

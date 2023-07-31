@@ -1,17 +1,17 @@
 # Ten Thousand Foot View
 
 ![](media/ten-thousand-foot-view-diagram.png)    
-*Figure 1: Trackasia Native Components – Ten Thousand Foot view*
+*Figure 1: MapLibre Native Components – Ten Thousand Foot view*
 
-From ten thousand foot, Trackasia Native is composed of *Map View* and a
-*Renderer*. Trackasia Native supports iOS, Android, Linux, QT, MacOS,
+From ten thousand foot, MapLibre Native is composed of *Map View* and a
+*Renderer*. MapLibre Native supports iOS, Android, Linux, QT, MacOS,
 and nodeJS at the time of writing. Each of these *platforms* have their
 own *Map View* and *Map Renderer* component. A *Map Renderer* talks to a
 shared codebase that renders map by using device GPU. This shared piece
 of code at the time of writing supports OpenGL as its choice of
 rendering API.
 
-Apart from the platform code, *Trackasia Native* offers shared
+Apart from the platform code, *MapLibre Native* offers shared
 implementation for *Style, Layers, Text, Glyphs*, and *Tiles*.
 
 To summarize:
@@ -68,7 +68,7 @@ map center change, viewport size change, zoom, and pitch change.
 
 ### Style
 
-Style component embodies a *Trackasia Style Document*. A style document
+Style component embodies a *MapLibre Style Document*. A style document
 is a JSON object that defines the visual appearance of a map through the
 order to draw it in, what to draw, and how to style the data while
 drawing it. Style sub-component is composed of classes and functions
@@ -85,7 +85,7 @@ map, style with source and layers, and observers.*
 
 ### Layer
 
-*Layer* is an overloaded terminology in the Trackasia Native's
+*Layer* is an overloaded terminology in the MapLibre Native's
 context. *Layer* can mean any of the following:
 
 1.  From the point of view of data that needs to be rendered on map,
@@ -129,8 +129,8 @@ When it does, we will dive more into *glyph* rendering.
 
 ### Actor Framework
 
-Trackasia Native is used in mobile platforms. To be performant in
-underpowered environments, Trackasia Native tries to leverage message
+MapLibre Native is used in mobile platforms. To be performant in
+underpowered environments, MapLibre Native tries to leverage message
 passing across threads to render frames asynchronously. The threading
 architecture in implementation realizes this using the Actor
 interface[^6]. In reality the messages are raw pointers. This ranges
@@ -147,10 +147,10 @@ rendering events that render layers, sources, and subsequently tiles. An
 
 A *Map Renderer* translates geospatial features in a vector or raster
 tile to rendered or rasterized map tiles shown in a *slippy map.*
-Trackasia Native uses a *Renderer* component to translate map tiles
+MapLibre Native uses a *Renderer* component to translate map tiles
 fetched from a tile server to a rendered map.
 
-Trackasia Native uses a pool of *workers*. These workers are
+MapLibre Native uses a pool of *workers*. These workers are
 responsible for background tile generation. A render thread continuously
 renders the current state of the map with available tiles at the time of
 rendering. In Javascript and iOS, the render thread is the same as the
@@ -161,29 +161,29 @@ processing. The platforms also include worker threads for processing for
 platform-specific tasks such as running HTTP requests in the background.
 But the core code is agnostic about where those tasks get performed.
 Each platform is required to provide its own implementation of
-concurrency/threading primitives for Trackasia Native core to use. The
+concurrency/threading primitives for MapLibre Native core to use. The
 platform code is also free to use its own threading model. For example,
 Android uses a *GLSurfaceView* with a *GLThread* where the iOS SDK uses
 *Grand Central Dispatch* for running asynchronous tasks.
 
 ### Tile Worker
 
-We have noted early in this document that Trackasia Native uses message
+We have noted early in this document that MapLibre Native uses message
 passing to communicate with the renderer. These messages are *immutable*
 by design and the render loops checks for these in each iteration. To
 simplify, there is only one thread allocated for rendering loop,
 background or foreground[^7]. A *Tile Worker* is a thread that prepares
 a tile of a specific type. Geometry Tile Worker by the name of it,
 prepares a tile for rendering tiles that contains vector geometry.
-Following that same trend, Trackasia Native offers tile worker for
+Following that same trend, MapLibre Native offers tile worker for
 raster tiles and elevation tiles. Messages sent to a tile worker can be
 processed by any thread, with the assumption that only one thread at a
 time will work with a tile worker instance.
 
 Tile workers are not based on a common interface or base class. Tiles
-are. Trackasia Native offers a base Tile class. Raster, Geometry, and
+are. MapLibre Native offers a base Tile class. Raster, Geometry, and
 Elevation tile instances are inherited from Tile base class. Through
-this inheritance Trackasia Native maintains the association of Tile
+this inheritance MapLibre Native maintains the association of Tile
 types and tile workers. Any Tile Worker is an actor that accepts
 messages of a specific Tile type. For a Geometry Tile Worker, the type
 is a Geometry Tile.
@@ -214,7 +214,7 @@ ______________
     called alternates. On the other hand, a single glyph can represent
     multiple characters. These are called ligatures.
 
-[^6]: In the Javascript counterpart, Trackasia GL JS, this is achieved
+[^6]: In the Javascript counterpart, MapLibre GL JS, this is achieved
     through usage of webworkers.
 
 [^7]: In iOS, the render thread runs on UI thread, as in it's a

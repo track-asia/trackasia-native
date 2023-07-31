@@ -3,12 +3,8 @@ package com.trackasia.android.testapp.offline
 import android.content.Context
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import com.trackasia.android.AppCenter
-import com.trackasia.android.offline.OfflineManager
-import com.trackasia.android.offline.OfflineRegion
-import com.trackasia.android.storage.FileSource
-import com.trackasia.android.testapp.activity.FeatureOverviewActivity
-import com.trackasia.android.testapp.utils.FileUtils
+import java.io.IOException
+import java.util.concurrent.CountDownLatch
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -17,8 +13,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
-import java.io.IOException
-import java.util.concurrent.CountDownLatch
+import com.trackasia.android.AppCenter
+import com.trackasia.android.offline.OfflineManager
+import com.trackasia.android.offline.OfflineRegion
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.testapp.activity.FeatureOverviewActivity
+import com.trackasia.android.testapp.utils.FileUtils
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4ClassRunner::class)
@@ -52,6 +52,7 @@ class OfflineManagerTest : AppCenter() {
 
     @Test(timeout = 30_000)
     fun combinedTest() {
+
         lateinit var mergedRegion: OfflineRegion
 
         // Copy file from assets

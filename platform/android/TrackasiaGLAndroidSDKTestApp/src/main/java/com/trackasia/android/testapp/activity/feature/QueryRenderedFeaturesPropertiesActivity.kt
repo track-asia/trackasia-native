@@ -12,10 +12,10 @@ import com.mapbox.geojson.Feature
 import com.trackasia.android.annotations.BaseMarkerOptions
 import com.trackasia.android.annotations.Marker
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.TrackasiaMap.InfoWindowAdapter
 import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import timber.log.Timber
 

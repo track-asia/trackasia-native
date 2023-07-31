@@ -9,7 +9,7 @@ ext {
     androidSdkVersions = [
             buildToolsVersion: '31.0.0',
             ndkVersion       : '25.1.8937393',
-            cmakeVersion     : '3.22.1',
+            cmakeVersion     : '3.18.1+',
     ]
 
     versions = [

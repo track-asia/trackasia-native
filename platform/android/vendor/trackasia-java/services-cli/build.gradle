@@ -44,12 +44,12 @@ dependencies {
 }
 
 buildConfig {
-    packageName = 'com.tracksia.services.cli'
+    packageName = 'com.trackasia.services.cli'
     buildConfigField 'String', 'MAPBOX_ACCESS_TOKEN', System.getenv("MAPBOX_ACCESS_TOKEN")
 }
 
 application {
-    mainClassName = 'com.tracksia.services.cli.MapboxJavaCli'
+    mainClassName = 'com.trackasia.services.cli.MapboxJavaCli'
 }
 
 jar {

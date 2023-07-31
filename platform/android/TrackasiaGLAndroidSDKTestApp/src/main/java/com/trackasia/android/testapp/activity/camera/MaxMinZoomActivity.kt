@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
 import com.trackasia.android.maps.MapView.OnDidFinishLoadingStyleListener
-import com.trackasia.android.maps.OnMapReadyCallback
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import timber.log.Timber
 

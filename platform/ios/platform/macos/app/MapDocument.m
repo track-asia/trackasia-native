@@ -330,7 +330,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 - (IBAction)chooseCustomStyle:(id)sender {
     NSAlert *alert = [[NSAlert alloc] init];
     alert.messageText = @"Apply custom style";
-    alert.informativeText = @"Enter the URL to a JSON file that conforms to the Trackasia Style Spec, such as a style designed in Mapbox Studio:";
+    alert.informativeText = @"Enter the URL to a JSON file that conforms to the MapLibre Style Spec, such as a style designed in Mapbox Studio:";
     NSTextField *textField = [[NSTextField alloc] initWithFrame:NSZeroRect];
     [textField sizeToFit];
     NSRect textFieldFrame = textField.frame;
@@ -1032,7 +1032,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         [self.mapView.style addLayer:ohioLayer];
     }
 
-    NSURL *imageURL = [NSURL URLWithString:@"https://track-asia.com/trackasia-gl-js-docs/assets/radar.gif"];
+    NSURL *imageURL = [NSURL URLWithString:@"https://maplibre.org/maplibre-gl-js-docs/assets/radar.gif"];
     MLNCoordinateQuad quad = { {46.437, -80.425},
       {37.936, -80.425},
       {37.936, -71.516},

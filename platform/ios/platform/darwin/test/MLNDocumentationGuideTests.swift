@@ -1,5 +1,5 @@
 import XCTest
-import Mapbox
+import MapLibre
 
 /**
  Test cases that ensure the inline examples in the jazzy guides compile.
@@ -263,7 +263,7 @@ class MLNDocumentationGuideTests: XCTestCase, MLNMapViewDelegate {
         let yellow = NSExpression(forConstantValue: UIColor.yellow)
 
 
-        XCTExpectFailure("Awaiting unit test refactoring for https://github.com/track-asia/trackasia-native/issues/331")
+        XCTExpectFailure("Awaiting unit test refactoring for https://github.com/maplibre/maplibre-native/issues/331")
         layer.circleColor = NSExpression(forMLNMatchingKey: type,
                                          in: [earthquake:orange, explosion:red, quarryBlast:yellow],
                                          default: defaultColor)

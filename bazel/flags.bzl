@@ -11,6 +11,7 @@ WARNING_FLAGS = [
     "-Wno-unused-parameter",
     "-Wno-unused-variable",
     "-Wno-variadic-macros",
+    "-Wno-unknown-pragmas",
 ] + select({
     "//:ios": [
         "-Wno-newline-eof",
@@ -34,13 +35,14 @@ CPP_FLAGS = WARNING_FLAGS + [
     "-std=c++17",
 ]
 """
-Compilation flags related to the Trackasia codebase. Relevant for all .cpp .mm and .m code
+Compilation flags related to the Maplibre codebase. Relevant for all .cpp .mm and .m code
  - src/*
  - include/*
  - platform/*
 Not important for any vendors that are imported.
 """
-_FLAGS = [
+
+MAPLIBRE_FLAGS = [
     "-DMBGL_USE_GLES2=1",
     "-DMBGL_RENDER_BACKEND_OPENGL=1",
     "-DGLES_SILENCE_DEPRECATION",

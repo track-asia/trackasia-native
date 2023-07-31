@@ -88,7 +88,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     int[] numConfigs = new int[1];
     if (!egl.eglChooseConfig(display, configAttributes, null, 0, numConfigs)) {
       Logger.e(TAG, String.format(
-        TrackasiaConstants.trackasia_LOCALE, "eglChooseConfig(NULL) returned error %d", egl.eglGetError())
+        TrackasiaConstants.TRACKASIA_LOCALE, "eglChooseConfig(NULL) returned error %d", egl.eglGetError())
       );
     }
     return numConfigs;
@@ -100,7 +100,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     EGLConfig[] configs = new EGLConfig[numConfigs[0]];
     if (!egl.eglChooseConfig(display, configAttributes, configs, numConfigs[0], numConfigs)) {
       Logger.e(TAG, String.format(
-        TrackasiaConstants.trackasia_LOCALE, "eglChooseConfig() returned error %d", egl.eglGetError())
+        TrackasiaConstants.TRACKASIA_LOCALE, "eglChooseConfig() returned error %d", egl.eglGetError())
       );
     }
     return configs;
@@ -258,7 +258,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     int[] attributevalue = new int[1];
     if (!egl.eglGetConfigAttrib(display, config, attributeName, attributevalue)) {
       Logger.e(TAG, String.format(
-        TrackasiaConstants.trackasia_LOCALE, "eglGetConfigAttrib(%d) returned error %d", attributeName, egl.eglGetError())
+        TrackasiaConstants.TRACKASIA_LOCALE, "eglGetConfigAttrib(%d) returned error %d", attributeName, egl.eglGetError())
       );
     }
     return attributevalue[0];

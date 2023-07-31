@@ -133,11 +133,11 @@ jobs:
       - name: Copy developer config with API key for UI tests
         if: github.ref == 'refs/heads/main'
         run: |
-          TRACKASIA_DEVELOPER_CONFIG_XML='${{ secrets.TRACASIA_DEVELOPER_CONFIG_XML }}'
-          if [ -n "${TRACKASIA_DEVELOPER_CONFIG_XML}" ]; then
-            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > TrackasiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
+          MAPLIBRE_DEVELOPER_CONFIG_XML='${{ secrets.MAPLIBRE_DEVELOPER_CONFIG_XML }}'
+          if [ -n "${MAPLIBRE_DEVELOPER_CONFIG_XML}" ]; then
+            echo "${MAPLIBRE_DEVELOPER_CONFIG_XML}" > MapboxGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
           else
-            echo "No secrets.TRACKASIA_DEVELOPER_CONFIG_XML variable set, not copying..."
+            echo "No secrets.MAPLIBRE_DEVELOPER_CONFIG_XML variable set, not copying..."
           fi
     
       - name: Build UI tests
@@ -161,7 +161,7 @@ jobs:
         id: upload-android-app
         with:
           project_arn: ${{ vars.AWS_DEVICE_FARM_PROJECT_ARN }}
-          name: TrackasiaGLAndroidSDKTestApp-debug.apk
+          name: MapboxGLAndroidSDKTestApp-debug.apk
           type: ANDROID_APP
 
       - name: Create upload
@@ -170,14 +170,14 @@ jobs:
         id: upload-android-test
         with:
           project_arn: ${{ vars.AWS_DEVICE_FARM_PROJECT_ARN }}
-          name: TrackasiaGLAndroidSDKTestApp-debug-androidTest.apk
+          name: MapboxGLAndroidSDKTestApp-debug-androidTest.apk
           type: INSTRUMENTATION_TEST_PACKAGE
 
       - name: Upload Android UI test
         if: github.ref == 'refs/heads/main'
         run: |
-          curl -T TrackasiaGLAndroidSDKTestApp/build/outputs/apk/debug/TrackasiaGLAndroidSDKTestApp-debug.apk '${{ steps.upload-android-app.outputs.url }}'
-          curl -T TrackasiaGLAndroidSDKTestApp/build/outputs/apk/androidTest/debug/TrackasiaGLAndroidSDKTestApp-debug-androidTest.apk '${{ steps.upload-android-test.outputs.url }}'
+          curl -T MapboxGLAndroidSDKTestApp/build/outputs/apk/debug/MapboxGLAndroidSDKTestApp-debug.apk '${{ steps.upload-android-app.outputs.url }}'
+          curl -T MapboxGLAndroidSDKTestApp/build/outputs/apk/androidTest/debug/MapboxGLAndroidSDKTestApp-debug-androidTest.apk '${{ steps.upload-android-test.outputs.url }}'
 
       - name: Write uploads.env
         if: github.ref == 'refs/heads/main'
@@ -197,13 +197,13 @@ jobs:
         with:
           name: debug-artifacts
           path: |
-            TrackasiaGLAndroidSDKTestApp/build/outputs/apk/debug
-            TrackasiaGLAndroidSDK/build/reports/lint-results.html
-            TrackasiaGLAndroidSDK/lint-baseline.xml
-            TrackasiaGLAndroidSDKTestApp/build/reports/lint-results.html
-            TrackasiaGLAndroidSDKTestApp/build/reports/lint-results.xml
-            TrackasiaGLAndroidSDKTestApp/lint-baseline.xml
-            TrackasiaGLAndroidSDK/build/intermediates/cmake/debug/obj
+            MapboxGLAndroidSDKTestApp/build/outputs/apk/debug
+            MapboxGLAndroidSDK/build/reports/lint-results.html
+            MapboxGLAndroidSDK/lint-baseline.xml
+            MapboxGLAndroidSDKTestApp/build/reports/lint-results.html
+            MapboxGLAndroidSDKTestApp/build/reports/lint-results.xml
+            MapboxGLAndroidSDKTestApp/lint-baseline.xml
+            MapboxGLAndroidSDK/build/intermediates/cmake/debug/obj
 
   instrumentation-test:
     needs: build
@@ -231,7 +231,7 @@ jobs:
       - name: Schedule test run
         uses: realm/aws-devicefarm/test-application@master
         with:
-          name: Trackasia Native Android Instrumentation Test
+          name: MapLibre Native Android Instrumentation Test
           project_arn: ${{ vars.AWS_DEVICE_FARM_PROJECT_ARN }}
           device_pool_arn: ${{ vars.AWS_DEVICE_FARM_DEVICE_POOL_ARN }}
           app_arn: ${{ env.ANDROID_APP_ARN }}

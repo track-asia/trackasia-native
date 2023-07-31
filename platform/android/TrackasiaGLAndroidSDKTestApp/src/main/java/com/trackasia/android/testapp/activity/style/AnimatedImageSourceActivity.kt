@@ -9,9 +9,9 @@ import com.trackasia.android.Trackasia
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngQuad
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.style.layers.RasterLayer
 import com.trackasia.android.style.sources.ImageSource
 import com.trackasia.android.testapp.R

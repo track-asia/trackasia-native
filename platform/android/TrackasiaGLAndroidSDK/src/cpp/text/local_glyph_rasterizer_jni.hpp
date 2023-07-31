@@ -6,7 +6,7 @@
 
 /*
     android::LocalGlyphRasterizer is the JNI wrapper of
-    com/trackasia/android/text/LocalGlyphRasterizer
+    org/trackasia/android/text/LocalGlyphRasterizer
 
     mbgl::LocalGlyphRasterizer is the portable interface
     Both implementations are in local_glyph_rasterizer.cpp

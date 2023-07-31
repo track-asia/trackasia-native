@@ -12,9 +12,9 @@ import com.mapbox.geojson.Point
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.style.layers.Layer
 import com.trackasia.android.style.layers.PropertyFactory
 import com.trackasia.android.style.layers.SymbolLayer
