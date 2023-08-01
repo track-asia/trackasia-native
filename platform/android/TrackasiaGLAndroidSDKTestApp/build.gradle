@@ -63,7 +63,10 @@ android {
 
 dependencies {
     implementation dependenciesList.kotlinLib
-    implementation project(':TrackasiaGLAndroidSDK')
+//    implementation project(':TrackasiaGLAndroidSDK')
+    implementation files('libs/android-1.0.0-sdk.aar')
+//    implementation 'com.github.track-asia:trackasia-android-sdk:1.0.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-gestures:0.7.0'
 
     implementation dependenciesList.mapboxJavaTurf
 

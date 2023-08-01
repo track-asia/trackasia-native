@@ -30,7 +30,7 @@ Trackasia welcomes participation and contributions from everyone. Please read [`
 
 ### ⛵ Dependencies
 
-## 10.1.0 - May 9, 2023
+## 1.0.0 - 1 - 8, 2023
 
 ### ✨ Features and improvements
 

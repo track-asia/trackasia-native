@@ -6,7 +6,7 @@ android {
     buildToolsVersion androidSdkVersions.buildToolsVersion
 
     defaultConfig {
-        applicationId = 'com.mapbox.mapboxsdk.maps.benchmark_runner'
+        applicationId = 'com.trackasia.trackasiasdk.maps.benchmark_runner'
         minSdkVersion 21
         targetSdkVersion 33
         def abi = 'all'
