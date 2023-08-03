@@ -71,7 +71,7 @@ jobs:
             libglfw3-dev \
             libwebp-dev
 
-      - name: Build MapLibre Native Core
+      - name: Build Trackasia Native Core
         run: |
           cmake --version
           cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Debug -DMLN_WITH_CLANG_TIDY=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DMLN_WITH_COVERAGE=ON

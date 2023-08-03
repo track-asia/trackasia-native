@@ -1,4 +1,4 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS", "WARNING_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS", "WARNING_FLAGS")
 load("@build_bazel_rules_apple//apple:ios.bzl", "ios_unit_test")
 load(
     "@build_bazel_rules_swift//swift:swift.bzl",
@@ -32,7 +32,7 @@ objc_library(
         ],
         allow_empty = False,
     ),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + WARNING_FLAGS,
+    copts = CPP_FLAGS + TRACKASIA_FLAGS + WARNING_FLAGS,
     deps = [
         "//platform/ios:sdk",
     ],

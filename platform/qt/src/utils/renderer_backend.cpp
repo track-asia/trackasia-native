@@ -45,7 +45,7 @@ void RendererBackend::updateFramebuffer(quint32 fbo, const mbgl::Size& newSize) 
 
 /*!
     Initializes an OpenGL extension function such as Vertex Array Objects
-   (VAOs), required by MapLibre Native engine.
+   (VAOs), required by Trackasia Native engine.
 */
 mbgl::gl::ProcAddress RendererBackend::getExtensionFunctionPointer(const char* name) {
     QOpenGLContext* thisContext = QOpenGLContext::currentContext();

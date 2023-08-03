@@ -1,4 +1,4 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS")
 load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 
 # This is defined by both
@@ -21,7 +21,7 @@ cc_library(
         ],
         allow_empty = False,
     ),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + TRACKASIA_FLAGS,
     includes = [
         "include",
         "src",

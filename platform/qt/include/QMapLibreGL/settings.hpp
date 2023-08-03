@@ -1,5 +1,5 @@
-#ifndef QMAPLIBREGL_SETTINGS_H
-#define QMAPLIBREGL_SETTINGS_H
+#ifndef QTRACKASIAGL_SETTINGS_H
+#define QTRACKASIAGL_SETTINGS_H
 
 #include <QImage>
 #include <QString>
@@ -17,7 +17,7 @@ class TileServerOptions;
 
 namespace QMapLibreGL {
 
-class Q_MAPLIBREGL_EXPORT Settings {
+class Q_TRACKASIAGL_EXPORT Settings {
 public:
     Settings();
 
@@ -114,4 +114,4 @@ private:
 
 } // namespace QMapLibreGL
 
-#endif // QMAPLIBREGL_SETTINGS_H
+#endif // QTRACKASIAGL_SETTINGS_H

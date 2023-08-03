@@ -1,5 +1,5 @@
-#ifndef QMAPLIBREGL_TYPES_H
-#define QMAPLIBREGL_TYPES_H
+#ifndef QTRACKASIAGL_TYPES_H
+#define QTRACKASIAGL_TYPES_H
 
 #include <QColor>
 #include <QPair>
@@ -20,7 +20,7 @@ typedef QVector<Coordinates> CoordinatesCollection;
 
 typedef QVector<CoordinatesCollection> CoordinatesCollections;
 
-struct Q_MAPLIBREGL_EXPORT Feature {
+struct Q_TRACKASIAGL_EXPORT Feature {
     enum Type {
         PointType = 1,
         LineStringType,
@@ -43,7 +43,7 @@ struct Q_MAPLIBREGL_EXPORT Feature {
     QVariant id;
 };
 
-struct Q_MAPLIBREGL_EXPORT ShapeAnnotationGeometry {
+struct Q_TRACKASIAGL_EXPORT ShapeAnnotationGeometry {
     enum Type {
         LineStringType = 1,
         PolygonType,
@@ -61,12 +61,12 @@ struct Q_MAPLIBREGL_EXPORT ShapeAnnotationGeometry {
     CoordinatesCollections geometry;
 };
 
-struct Q_MAPLIBREGL_EXPORT SymbolAnnotation {
+struct Q_TRACKASIAGL_EXPORT SymbolAnnotation {
     Coordinate geometry;
     QString icon;
 };
 
-struct Q_MAPLIBREGL_EXPORT LineAnnotation {
+struct Q_TRACKASIAGL_EXPORT LineAnnotation {
     /*! Class constructor. */
     LineAnnotation(const ShapeAnnotationGeometry& geometry_ = ShapeAnnotationGeometry(),
                    float opacity_ = 1.0f,
@@ -83,7 +83,7 @@ struct Q_MAPLIBREGL_EXPORT LineAnnotation {
     QColor color;
 };
 
-struct Q_MAPLIBREGL_EXPORT FillAnnotation {
+struct Q_TRACKASIAGL_EXPORT FillAnnotation {
     /*! Class constructor. */
     FillAnnotation(const ShapeAnnotationGeometry& geometry_ = ShapeAnnotationGeometry(),
                    float opacity_ = 1.0f,
@@ -104,7 +104,7 @@ typedef QVariant Annotation;
 typedef quint32 AnnotationID;
 typedef QVector<AnnotationID> AnnotationIDs;
 
-struct Q_MAPLIBREGL_EXPORT CameraOptions {
+struct Q_TRACKASIAGL_EXPORT CameraOptions {
     QVariant center;  // Coordinate
     QVariant anchor;  // QPointF
     QVariant zoom;    // double
@@ -113,7 +113,7 @@ struct Q_MAPLIBREGL_EXPORT CameraOptions {
 };
 
 // This struct is a 1:1 copy of mbgl::CustomLayerRenderParameters.
-struct Q_MAPLIBREGL_EXPORT CustomLayerRenderParameters {
+struct Q_TRACKASIAGL_EXPORT CustomLayerRenderParameters {
     double width;
     double height;
     double latitude;
@@ -124,7 +124,7 @@ struct Q_MAPLIBREGL_EXPORT CustomLayerRenderParameters {
     double fieldOfView;
 };
 
-class Q_MAPLIBREGL_EXPORT CustomLayerHostInterface {
+class Q_TRACKASIAGL_EXPORT CustomLayerHostInterface {
 public:
     virtual ~CustomLayerHostInterface() = default;
     virtual void initialize() = 0;
@@ -145,4 +145,4 @@ Q_DECLARE_METATYPE(QMapLibreGL::ShapeAnnotationGeometry);
 Q_DECLARE_METATYPE(QMapLibreGL::LineAnnotation);
 Q_DECLARE_METATYPE(QMapLibreGL::FillAnnotation);
 
-#endif // QMAPLIBREGL_TYPES_H
+#endif // QTRACKASIAGL_TYPES_H

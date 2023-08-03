@@ -1,6 +1,6 @@
 # Linux
 
-This guide explains how to get started building and running MapLibre Native on Linux. The guide focusses on **Debian 11**, but should be adaptible to other distributions. The build process should give you a set of `.a` files that you can use to include MapLibre Native in other C++ projects, as well as a set of executables that you can run to render map tile images and test the project.
+This guide explains how to get started building and running Trackasia Native on Linux. The guide focusses on **Debian 11**, but should be adaptible to other distributions. The build process should give you a set of `.a` files that you can use to include Trackasia Native in other C++ projects, as well as a set of executables that you can run to render map tile images and test the project.
 
 ## Prerequisites
 
@@ -25,8 +25,8 @@ apt install g++ git cmake ccache ninja-build pkg-config
 First, clone the repository. This repository uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), that are required to build the project.
 
 ```bash
-git clone --recurse-submodules -j8 https://github.com/maplibre/maplibre-native.git
-cd maplibre-native
+git clone --recurse-submodules -j8 https://github.com/track-asia/trackasia-native.git
+cd trackasia-native
 ```
 
 To create the build, run the following commands from the root of the project.
@@ -41,20 +41,20 @@ cmake --build build -j $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null)
 If all went well, there should now be a `./build/bin/mbgl-render` binary that you can run to generate map tile images. To test that it is working properly, run the following command.
 
 ```bash
-./build/bin/mbgl-render --style https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json --output out.png
+./build/bin/mbgl-render --style https://raw.githubusercontent.com/track-asia/demotiles/gh-pages/style.json --output out.png
 ```
 
 > I get an error `Error: Failed to open X display.` when I run this command.
 
-If you're setting up MapLibre Native on a headless server (i.e. one without a display), you'll need to simulate an X server to do any rendering. Install `xvfb` and `xauth` and run the following command:
+If you're setting up Trackasia Native on a headless server (i.e. one without a display), you'll need to simulate an X server to do any rendering. Install `xvfb` and `xauth` and run the following command:
 
 ```bash
-xvfb-run -a ./build/bin/mbgl-render --style https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json --output out.png
+xvfb-run -a ./build/bin/mbgl-render --style https://raw.githubusercontent.com/track-asia/demotiles/gh-pages/style.json --output out.png
 ```
 
-This should produce an `out.png` map tile image with the default MapLibre styling from [the MapLibre demo](https://maplibre.org/).
+This should produce an `out.png` map tile image with the default Trackasia styling from [the Trackasia demo](https://track-asia.com/).
 
-![Sample image of world from mbgl-render command](/misc/sample-maplibre-style-mbgl-render-out.png)
+![Sample image of world from mbgl-render command](/misc/sample-Trackasia-style-mbgl-render-out.png)
 
 ### Using your own style/tiles 
 

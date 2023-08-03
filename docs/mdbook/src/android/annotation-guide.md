@@ -3,7 +3,7 @@
 This guide will show you how to add Markers in the map.
 
 `Annotation` is an overlay on top of a Map. In package
-`org.maplibre.android.annotations`, it has the following subclasses:
+`org.Trackasia.android.annotations`, it has the following subclasses:
 1. [Marker]
 2. [Polyline]
 3. [Polygon]
@@ -41,7 +41,7 @@ Then add markers to the map with GeoJSON:
    It is used to add annotations to the map instance.
 
 ```kotlin
-{{#include ../../../../platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/maplibre/android/testapp/activity/annotation/JsonApiActivity.kt:top}}
+{{#include ../../../../platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia/android/testapp/activity/annotation/JsonApiActivity.kt:top}}
 ```
 
 4. Call `mapview.getMapSync()` in order to get a `MapboxMap` object.
@@ -49,14 +49,14 @@ Then add markers to the map with GeoJSON:
    to make a HTTP request and transform data into the map annotations.
 
 ```kotlin
-{{#include ../../../../platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/maplibre/android/testapp/activity/annotation/JsonApiActivity.kt:mapAsync}}
+{{#include ../../../../platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia/android/testapp/activity/annotation/JsonApiActivity.kt:mapAsync}}
 ```
 
 5. Define a function `getEarthQuakeDataFromUSGS()` to fetch GeoJSON data from a public API.
    If we successfully get the response, call `addMarkersToMap()` on the UI thread.
 
 ```kotlin
-{{#include ../../../../platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/maplibre/android/testapp/activity/annotation/JsonApiActivity.kt:getEarthquakes}}
+{{#include ../../../../platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia/android/testapp/activity/annotation/JsonApiActivity.kt:getEarthquakes}}
 ```
 
 6. Now it is time to add markers into the map.
@@ -66,24 +66,24 @@ Then add markers to the map with GeoJSON:
    - Finally, move the camera to the bounds of the newly added markers
 
 ```kotlin
-{{#include ../../../../platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/maplibre/android/testapp/activity/annotation/JsonApiActivity.kt:addMarkers}}
+{{#include ../../../../platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia/android/testapp/activity/annotation/JsonApiActivity.kt:addMarkers}}
 ```
 
 7. Here is the final result. For the full contents of `JsonApiActivity`, please visit source code of [Test APP]
 
 <div style="align: center">
-  <img src="https://github.com/maplibre/maplibre-native/assets/19887090/00446249-9b19-4a48-8a46-00d4c5a2f981" alt="Screenshot with the map in demotile style">
+  <img src="https://github.com/track-asia/trackasia-native/assets/19887090/00446249-9b19-4a48-8a46-00d4c5a2f981" alt="Screenshot with the map in demotile style">
 </div>
 
-[Marker]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker/index.html
-[provided image]: https://github.com/maplibre/maplibre-native/blob/main/platform/android/MapboxGLAndroidSDK/src/main/res/drawable-xxxhdpi/maplibre_marker_icon_default.png
-[Polyline]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polyline/index.html
-[Polygon]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polygon/index.html
-[marker image]: https://raw.githubusercontent.com/maplibre/maplibre-native/main/test/fixtures/sprites/default_marker.png
-[IconFactory]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-icon-factory/index.html
-[Icon]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-icon/index.html
+[Marker]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker/index.html
+[provided image]: https://github.com/track-asia/trackasia-native/blob/main/platform/android/MapboxGLAndroidSDK/src/main/res/drawable-xxxhdpi/maplibre_marker_icon_default.png
+[Polyline]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polyline/index.html
+[Polygon]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polygon/index.html
+[marker image]: https://raw.githubusercontent.com/track-asia/trackasia-native/main/test/fixtures/sprites/default_marker.png
+[IconFactory]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-icon-factory/index.html
+[Icon]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-icon/index.html
 [Quickstart]: ./getting-started-guide.md
-[mvn]: https://mvnrepository.com/artifact/org.maplibre.gl/android-plugin-annotation-v9
+[mvn]: https://mvnrepository.com/artifact/org.Trackasia.gl/android-plugin-annotation-v9
 [Android Developer Documentation]: https://developer.android.com/topic/libraries/architecture/coroutines
-[MarkerOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker-options/index.html
-[Test App]: https://github.com/maplibre/maplibre-native/tree/main/platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/maplibre/android/testapp/activity/annotation/JsonApiActivity.kt
+[MarkerOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker-options/index.html
+[Test App]: https://github.com/track-asia/trackasia-native/tree/main/platform/android/MapboxGLAndroidSDKTestApp/src/main/java/org/track-asia/android/testapp/activity/annotation/JsonApiActivity.kt

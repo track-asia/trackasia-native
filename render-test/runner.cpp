@@ -816,7 +816,7 @@ void TestRunner::run(TestMetadata& metadata) {
                     });
 
 // TODO: remove usage of std::codecvt_utf8
-// https://github.com/trackasia/trackasia-native/issues/1269
+// https://github.com/track-asia/trackasia-native/issues/1269
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
                     static std::wstring_convert<std::codecvt_utf8<char16_t>, char16_t> cv;

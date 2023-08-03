@@ -6,10 +6,10 @@ set(MLN_QT_VERSION_COMPATIBILITY 2.0.0)
 message(STATUS "Version ${MLN_QT_VERSION}")
 
 option(MLN_QT_LIBRARY_ONLY "Build only libraries" OFF)
-option(MLN_QT_STATIC "Build MapLibre Native Qt bindings staticly" OFF)
+option(MLN_QT_STATIC "Build Trackasia Native Qt bindings staticly" OFF)
 option(MLN_QT_INSIDE_PLUGIN "Build QMapLibreGL as OBJECT library, so it can be bundled into separate single plugin lib." OFF)
-option(MLN_QT_WITH_HEADLESS "Build MapLibre Native Qt with headless support" ON)
-option(MLN_QT_WITH_INTERNAL_SQLITE "Build MapLibre Native Qt bindings with internal sqlite" OFF)
+option(MLN_QT_WITH_HEADLESS "Build Trackasia Native Qt with headless support" ON)
+option(MLN_QT_WITH_INTERNAL_SQLITE "Build Trackasia Native Qt bindings with internal sqlite" OFF)
 option(MLN_QT_DEPLOYMENT "Autogenerate files necessary for deployment" OFF)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
@@ -35,7 +35,7 @@ endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     find_package(Threads REQUIRED)
 
-    option(MLN_QT_WITH_INTERNAL_ICU "Build MapLibre Native Qt bindings with internal ICU" OFF)
+    option(MLN_QT_WITH_INTERNAL_ICU "Build Trackasia Native Qt bindings with internal ICU" OFF)
     if(NOT MLN_QT_WITH_INTERNAL_ICU)
        find_package(ICU COMPONENTS uc REQUIRED)
     else()
@@ -209,7 +209,7 @@ if (APPLE AND NOT MLN_QT_STATIC AND NOT MLN_QT_INSIDE_PLUGIN)
         qmaplibregl PROPERTIES
         FRAMEWORK ON
         FRAMEWORK_VERSION A
-        MACOSX_FRAMEWORK_IDENTIFIER org.maplibre.QMapLibreGL
+        MACOSX_FRAMEWORK_IDENTIFIER org.Trackasia.QMapLibreGL
         MACOSX_FRAMEWORK_BUNDLE_VERSION ${MLN_QT_VERSION}
         MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${MLN_QT_VERSION}
     )
@@ -268,7 +268,7 @@ target_include_directories(
 target_compile_definitions(
     qmaplibregl
     PRIVATE
-    QT_BUILD_MAPLIBREGL_LIB
+    QT_BUILD_TRACKASIAGL_LIB
 )
 
 target_link_libraries(
@@ -300,7 +300,7 @@ if (MLN_QT_STATIC OR MLN_QT_INSIDE_PLUGIN)
     # single Qt plugin lib.
     target_compile_definitions(
         qmaplibregl
-        PUBLIC QT_MAPLIBREGL_STATIC
+        PUBLIC QT_TRACKASIAGL_STATIC
     )
 endif()
 

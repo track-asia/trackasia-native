@@ -1,5 +1,5 @@
 ext {
-    trackasiaArtifactGroupId = 'com.trackasia.gl'
+    trackasiaArtifactGroupId = 'io.github.track-asia'
     trackasiaArtifactId = project.hasProperty('POM_ARTIFACT_ID') ? project.property('POM_ARTIFACT_ID') : System.getenv('POM_ARTIFACT_ID')
     trackasiaArtifactTitle = 'Trackasia Android SDK'
     trackasiaArtifactDescription = project.hasProperty('POM_DESCRIPTION') ? project.property('POM_DESCRIPTION') : System.getenv('POM_DESCRIPTION')
@@ -8,8 +8,8 @@ ext {
     trackasiaDeveloperOrganization = 'Trackasia'
     trackasiaDeveloperOrganizationUrl = 'http://www.track-asia.com'
     trackasiaDeveloperId = 'trackasia'
-    trackasiaArtifactUrl = 'https://github.com/trackasia/trackasia-java'
-    trackasiaArtifactVcsUrl = 'https://github.com/trackasia/trackasia-java.git'
+    trackasiaArtifactUrl = 'https://github.com/track-asia/trackasia-java'
+    trackasiaArtifactVcsUrl = 'https://github.com/track-asia/trackasia-java.git'
     trackasiaArtifactScmUrl = 'scm:git@github.com:track-asia/trackasia-java.git'
     trackasiaArtifactLicenseName = 'The Apache Software License, Version 2.0'
     trackasiaArtifactLicenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'

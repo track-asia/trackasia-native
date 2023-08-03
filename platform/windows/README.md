@@ -6,7 +6,7 @@ The files produced by building mbgl-core target can be reused as libraries in ot
 
 ## Prerequisites
 
-The Windows port, for while, relies on `Microsoft Visual Studio` to build MapLibre Native, either using `Ninja` or `Microsoft Visual Studio`. The build was tested with `Microsoft Visual Studio 2022 Community Edition`. Other 2022 editions might work as well. Earlier versions are not guaranteed to work, but `Microsoft Visual Studio 2019` might work.
+The Windows port, for while, relies on `Microsoft Visual Studio` to build Trackasia Native, either using `Ninja` or `Microsoft Visual Studio`. The build was tested with `Microsoft Visual Studio 2022 Community Edition`. Other 2022 editions might work as well. Earlier versions are not guaranteed to work, but `Microsoft Visual Studio 2019` might work.
 
 To install the required Visual Studio components, open Visual Studio Installer and check `Desktop Development with C++` option. Make sure `C++ CMake tools for Windows` is selected in the right pane. If `git` is not already installed, select `Git for Windows` option in `Individual Components`. When Visual Studio finishes the install process, everything is ready to start.
 
@@ -15,8 +15,8 @@ To install the required Visual Studio components, open Visual Studio Installer a
 Open `x64 Native Tools Command Prompt for VS 2022` and then clone the repository:
 
 ```cmd
-git clone --recurse-submodules -j8 https://github.com/maplibre/maplibre-native.git
-cd maplibre-native
+git clone --recurse-submodules -j8 https://github.com/track-asia/trackasia-native.git
+cd trackasia-native
 ```
 
 ## Configuring
@@ -27,7 +27,7 @@ Configure the build with the following command:
 cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 ```
 
-It will take some time to build and install all components on which Maplibre depends.
+It will take some time to build and install all components on which Trackasia depends.
 
 ## Alternative configure commands
 
@@ -75,15 +75,15 @@ Once configure is done, open the file `build\Mapbox GL Native.sln`. Build the ta
 
 ## Testing
 
-If all went well and target `mbgl-render` or `ALL_BUILD` was chosen, there should now be a `maplibre-native\build\bin\mbgl-render.exe` binary that you can run to generate map tile images. To test that it is working properly, run the following command.
+If all went well and target `mbgl-render` or `ALL_BUILD` was chosen, there should now be a `trackasia-native\build\bin\mbgl-render.exe` binary that you can run to generate map tile images. To test that it is working properly, run the following command.
 
 ```cmd
-.\build\bin\mbgl-render.exe --style https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json --output out.png
+.\build\bin\mbgl-render.exe --style https://raw.githubusercontent.com/track-asia/demotiles/gh-pages/style.json --output out.png
 ```
 
-This should produce an `out.png` map tile image with the default MapLibre styling from [the MapLibre demo](https://maplibre.org/).
+This should produce an `out.png` map tile image with the default Trackasia styling from [the Trackasia demo](https://track-asia.com/).
 
-![Sample image of world from mbgl-render command](/misc/sample-maplibre-style-mbgl-render-out.png)
+![Sample image of world from mbgl-render command](/misc/sample-Trackasia-style-mbgl-render-out.png)
 
 ### Using your own style/tiles 
 
@@ -172,7 +172,7 @@ For the purposes of this exercise, you can use the `zurich_switzerland.mbtiles` 
 
 Note that this style is totally inadequate for any real use beyond testing your custom setup. Don't forget to replace the source URL `"mbtiles:///path/to/zurich_switzerland.mbtiles"` with the actual path to your mbtiles file.
 
-From your `maplibre-native/` dir, run the following command.
+From your `trackasia-native/` dir, run the following command.
 
 ```cmd
 .\build\bin\mbgl-render --style path\to\style.json --output out.png

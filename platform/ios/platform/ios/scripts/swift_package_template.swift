@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "MapLibre Native",
+    name: "Trackasia Native",
     products: [
         .library(
             name: "Mapbox",

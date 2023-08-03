@@ -1,4 +1,4 @@
-declare module '@maplibre/maplibre-gl-native' {
+declare module '@Trackasia/Trackasia-gl-native' {
   const enum ResourceKind {
     Unknown = 0,
     Style = 1,

@@ -1,4 +1,4 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS", "WARNING_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS", "WARNING_FLAGS")
 load(
     "@build_bazel_rules_swift//swift:swift.bzl",
     "swift_library",
@@ -24,7 +24,7 @@ objc_library(
         ],
         allow_empty = False,
     ),
-    copts = MAPLIBRE_FLAGS + WARNING_FLAGS,
+    copts = TRACKASIA_FLAGS + WARNING_FLAGS,
     data = glob(
         [
             "Media.xcassets/**",
@@ -55,7 +55,7 @@ objc_library(
             "MLNOfflineStorageTests.mm",
         ],
     ),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + WARNING_FLAGS + ["-Wno-deprecated-declarations"],
+    copts = CPP_FLAGS + TRACKASIA_FLAGS + WARNING_FLAGS + ["-Wno-deprecated-declarations"],
     visibility = [
         "//platform/ios/platform/ios/test:__pkg__",
     ],

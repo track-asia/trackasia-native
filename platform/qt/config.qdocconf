@@ -4,10 +4,10 @@ include($QT_INSTALL_DOCS/global/compat.qdocconf)
 include($QT_INSTALL_DOCS/global/fileextensions.qdocconf)
 include($QT_INSTALL_DOCS/global/qt-html-templates-online.qdocconf)
 
-Cpp.ignoretokens = Q_MAPLIBRE_EXPORT
+Cpp.ignoretokens = Q_TRACKASIA_EXPORT
 
 project     = QMapLibreGL
-description = MapLibre Native SDK for Qt
+description = Trackasia Native SDK for Qt
 language    = Cpp
 
 outputdir   = docs

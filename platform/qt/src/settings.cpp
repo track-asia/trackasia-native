@@ -58,7 +58,7 @@ namespace QMapLibreGL {
     \brief The Settings class stores the initial configuration for
    QMapLibreGL::Map.
 
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
     Settings is used to configure QMapLibreGL::Map at the moment of its
    creation. Once created, the Settings of a QMapLibreGL::Map can no longer be
@@ -397,7 +397,7 @@ void Settings::setResourceTransform(const std::function<std::string(const std::s
 /*!
     Reset all settings based on the given template.
 
-    MapLibre can support servers with different resource path structure.
+    Trackasia can support servers with different resource path structure.
     Some of the most common servers like Maptiler and Mapbox are defined
     in the library. This function will re-initialise all settings based
     on the default values of specific service provider defaults.

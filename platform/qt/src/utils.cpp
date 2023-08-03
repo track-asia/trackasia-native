@@ -37,7 +37,7 @@ NetworkMode networkMode() {
 /*!
     \fn void QMapLibreGL::setNetworkMode(QMapLibreGL::NetworkMode mode)
 
-    Forwards the network status \a mode to MapLibre Native engine.
+    Forwards the network status \a mode to Trackasia Native engine.
 
     File source requests uses the available network when \a mode is set to \b
     Online, otherwise scoped to the local cache.

@@ -1,26 +1,26 @@
 # Changelog for Mapbox Maps SDK for macOS
 
-MapLibre welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/maplibre/maplibre-native/blob/main/CONTRIBUTING.md) to get started.
+Trackasia welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-native/blob/main/CONTRIBUTING.md) to get started.
 
 ## 0.19.1 - September 06, 2021
 
 ### Bug Fixes
 
-* Invalid tile url template for MapLibre style [#107](https://github.com/maplibre/maplibre-native/pull/107)
-* Adjust local glyphs [#122](https://github.com/maplibre/maplibre-native/pull/122)
-* Return correct Mapbox TileServerOptions [#132](https://github.com/maplibre/maplibre-native/pull/132)
+* Invalid tile url template for Trackasia style [#107](https://github.com/track-asia/trackasia-native/pull/107)
+* Adjust local glyphs [#122](https://github.com/track-asia/trackasia-native/pull/122)
+* Return correct Mapbox TileServerOptions [#132](https://github.com/track-asia/trackasia-native/pull/132)
 
 ### Other
 
-* Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/maplibre/maplibre-native/pull/129)
-* Upgrade to newest protozero [#148](https://github.com/maplibre/maplibre-native/pull/148)
-* Fix build for Xcode 12.5 & 13-beta. [#153](https://github.com/maplibre/maplibre-native/pull/153)
+* Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/track-asia/trackasia-native/pull/129)
+* Upgrade to newest protozero [#148](https://github.com/track-asia/trackasia-native/pull/148)
+* Fix build for Xcode 12.5 & 13-beta. [#153](https://github.com/track-asia/trackasia-native/pull/153)
 
 ## 0.19.0 - June 29, 2021
 
 ### Features
 
-* Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/maplibre/maplibre-native/pull/90)
+* Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/track-asia/trackasia-native/pull/90)
 
 ## 0.18.0 - March 12, 2021
 
@@ -30,8 +30,8 @@ MapLibre welcomes participation and contributions from everyone. Please read [`C
 
 ### Other
 
-* mapbox-gl-js submodule has been replaced with maplibre-gl-js
-* Removed Mapbox Mobile Events and Telemetry [#7](https://github.com/maplibre/maplibre-native/pull/7)
+* mapbox-gl-js submodule has been replaced with Trackasia-gl-js
+* Removed Mapbox Mobile Events and Telemetry [#7](https://github.com/track-asia/trackasia-native/pull/7)
 
 ## 0.17.0 - January 6, 2021
 

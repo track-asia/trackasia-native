@@ -17,9 +17,9 @@ namespace QMapLibreGL {
 
 /*!
     \namespace QMapLibreGL
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
-    Contains miscellaneous MapLibre types and utilities used throughout QMapLibreGLGL.
+    Contains miscellaneous Trackasia types and utilities used throughout QMapLibreGLGL.
 */
 
 /*!
@@ -67,7 +67,7 @@ namespace QMapLibreGL {
 /*!
     \class QMapLibreGL::Feature
 
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
     Represents \l {https://www.mapbox.com/help/define-features/}{map features}
     via its \a type (PointType, LineStringType or PolygonType), \a geometry, \a
@@ -89,7 +89,7 @@ namespace QMapLibreGL {
 /*!
     \class QMapLibreGL::ShapeAnnotationGeometry
 
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
     Represents a shape annotation geometry.
 */
@@ -108,7 +108,7 @@ namespace QMapLibreGL {
 /*!
     \class QMapLibreGL::SymbolAnnotation
 
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
     A symbol annotation comprises of its geometry and an icon identifier.
 */
@@ -116,7 +116,7 @@ namespace QMapLibreGL {
 /*!
     \class QMapLibreGL::LineAnnotation
 
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
     Represents a line annotation object, along with its properties.
 
@@ -127,7 +127,7 @@ namespace QMapLibreGL {
 /*!
     \class QMapLibreGL::FillAnnotation
 
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
     Represents a fill annotation object, along with its properties.
 
@@ -157,7 +157,7 @@ namespace QMapLibreGL {
 
 /*!
     \class QMapLibreGL::CameraOptions
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
     QMapLibreGL::CameraOptions provides camera options to the renderer.
 */
@@ -173,7 +173,7 @@ namespace QMapLibreGL {
 
 /*!
     \class QMapLibreGL::CustomLayerRenderParameters
-    \inmodule MapLibre Maps SDK for Qt
+    \inmodule Trackasia Maps SDK for Qt
 
     QMapLibreGL::CustomLayerRenderParameters provides the data passed on each
    render pass for a custom layer.

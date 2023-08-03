@@ -1,11 +1,11 @@
 ext {
-    trackasiaArtifactGroupId = 'com.trackasia.gl'
+    trackasiaArtifactGroupId = 'io.github.track-asia'
     trackasiaArtifactId = 'android-sdk'
     trackasiaArtifactTitle = 'Trackasia Maps SDK for Android'
     trackasiaArtifactDescription = 'Trackasia Maps SDK for Android'
     trackasiaDeveloperName = 'Trackasia'
     trackasiaDeveloperId = 'trackasia'
-    trackasiaArtifactUrl = 'https://github.com/trackasia/trackasia-native'
+    trackasiaArtifactUrl = 'https://github.com/track-asia/trackasia-native'
     trackasiaArtifactScmUrl = 'scm:git@github.com:track-asia/trackasia-native.git'
     trackasiaArtifactLicenseName = 'BSD'
     trackasiaArtifactLicenseUrl = 'https://opensource.org/licenses/BSD-2-Clause'

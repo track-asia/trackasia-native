@@ -82,13 +82,13 @@ NSDate* const currentDate = [NSDate date];
     NSString *dateString = [formatter stringFromDate:currentDate];
     
     // Set the log file name
-    NSString* filename = [NSString stringWithFormat: @"MapLibre-bench-%@-%@-%@.log", name, DeviceMode, dateString];
+    NSString* filename = [NSString stringWithFormat: @"Trackasia-bench-%@-%@-%@.log", name, DeviceMode, dateString];
 
     // Set log file path
     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [allPaths objectAtIndex:0];
     NSString *pathForLog = [documentsDirectory stringByAppendingPathComponent: filename];
-    NSLog(@"Writing MapLibre Bench log.  To open in Console, use the CLI command");
+    NSLog(@"Writing Trackasia Bench log.  To open in Console, use the CLI command");
     NSLog(@"  open \"%@\"", pathForLog);
 
     [self redirectLogToDocuments :pathForLog];

@@ -1093,7 +1093,7 @@
 		DA17BE2F1CC4BAC300402C41 /* MLNMapView_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLNMapView_Private.h; sourceTree = "<group>"; };
 		DA1AC01B1E5B8774006DF1D6 /* lt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = lt; path = lt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA1AC0201E5B8917006DF1D6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Foundation.stringsdict; sourceTree = "<group>"; };
-		DA1DC94A1CB6C1C2006E619F /* MapLibre Native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MapLibre Native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA1DC94A1CB6C1C2006E619F /* Trackasia Native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trackasia Native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA1DC9501CB6C1C2006E619F /* MBXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBXAppDelegate.h; sourceTree = "<group>"; };
 		DA1DC9531CB6C1C2006E619F /* MBXViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBXViewController.h; sourceTree = "<group>"; };
 		DA1DC95E1CB6C1C2006E619F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1799,7 +1799,7 @@
 		DA1DC94B1CB6C1C2006E619F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA1DC94A1CB6C1C2006E619F /* MapLibre Native.app */,
+				DA1DC94A1CB6C1C2006E619F /* Trackasia Native.app */,
 				DABCABA81CB80692000A7C39 /* Bench GL.app */,
 				DA8847D21CBAF91600AB86E3 /* Mapbox.framework */,
 				DAA4E4131CBB71D400178DFB /* libMapbox.a */,
@@ -2684,7 +2684,7 @@
 			);
 			name = iosapp;
 			productName = iosapp;
-			productReference = DA1DC94A1CB6C1C2006E619F /* MapLibre Native.app */;
+			productReference = DA1DC94A1CB6C1C2006E619F /* Trackasia Native.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DA2E88501CC036F400F24E7B /* test */ = {
@@ -3743,8 +3743,8 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.maplibre.maplibregl;
-				PRODUCT_NAME = "MapLibre Native";
+				PRODUCT_BUNDLE_IDENTIFIER = org.Trackasia.maplibregl;
+				PRODUCT_NAME = "Trackasia Native";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = RelWithDebInfo;
@@ -3774,9 +3774,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.maplibre.bench;
+				PRODUCT_BUNDLE_IDENTIFIER = org.Trackasia.bench;
 				PRODUCT_NAME = "Bench GL";
-				PROVISIONING_PROFILE_SPECIFIER = "MapLibre Native Bench Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Trackasia Native Bench Development";
 			};
 			name = RelWithDebInfo;
 		};
@@ -3982,7 +3982,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.maplibre.iosapp-UITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.Trackasia.iosapp-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4035,7 +4035,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.maplibre.iosapp-UITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.Trackasia.iosapp-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4086,7 +4086,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.maplibre.iosapp-UITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.Trackasia.iosapp-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4140,7 +4140,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.maplibre.bench-UITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.Trackasia.bench-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4193,7 +4193,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.maplibre.bench-UITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.Trackasia.bench-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4244,7 +4244,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.maplibre.bench-UITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.Trackasia.bench-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4323,8 +4323,8 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.maplibre.maplibregl;
-				PRODUCT_NAME = "MapLibre Native";
+				PRODUCT_BUNDLE_IDENTIFIER = org.Trackasia.maplibregl;
+				PRODUCT_NAME = "Trackasia Native";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -4343,8 +4343,8 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.maplibre.maplibregl;
-				PRODUCT_NAME = "MapLibre Native";
+				PRODUCT_BUNDLE_IDENTIFIER = org.Trackasia.maplibregl;
+				PRODUCT_NAME = "Trackasia Native";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
@@ -4583,9 +4583,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.maplibre.bench;
+				PRODUCT_BUNDLE_IDENTIFIER = org.Trackasia.bench;
 				PRODUCT_NAME = "Bench GL";
-				PROVISIONING_PROFILE_SPECIFIER = "MapLibre Native Bench Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Trackasia Native Bench Development";
 			};
 			name = Debug;
 		};
@@ -4614,9 +4614,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.maplibre.bench;
+				PRODUCT_BUNDLE_IDENTIFIER = org.Trackasia.bench;
 				PRODUCT_NAME = "Bench GL";
-				PROVISIONING_PROFILE_SPECIFIER = "MapLibre Native Bench Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Trackasia Native Bench Development";
 			};
 			name = Release;
 		};
@@ -4663,8 +4663,8 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.maplibre.maplibregl;
-				PRODUCT_NAME = "MapLibre Native";
+				PRODUCT_BUNDLE_IDENTIFIER = org.Trackasia.maplibregl;
+				PRODUCT_NAME = "Trackasia Native";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = MinSizeRel;
@@ -4694,9 +4694,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.maplibre.bench;
+				PRODUCT_BUNDLE_IDENTIFIER = org.Trackasia.bench;
 				PRODUCT_NAME = "Bench GL";
-				PROVISIONING_PROFILE_SPECIFIER = "MapLibre Native Bench Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Trackasia Native Bench Development";
 			};
 			name = MinSizeRel;
 		};
@@ -4905,7 +4905,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.maplibre.iosapp-UITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.Trackasia.iosapp-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4956,7 +4956,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.maplibre.bench-UITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.Trackasia.bench-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

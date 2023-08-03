@@ -59,9 +59,9 @@ fi
 
 step "Recording library version…"
 VERSION="${OUTPUT}"/version.txt
-echo -n "https://github.com/maplibre/maplibre-native/commit/" > ${VERSION}
+echo -n "https://github.com/track-asia/trackasia-native/commit/" > ${VERSION}
 HASH=`git log | head -1 | awk '{ print $2 }' | cut -c 1-10` && true
-echo -n "maplibre-gl-native-ios "
+echo -n "Trackasia-gl-native-ios "
 echo ${HASH}
 echo ${HASH} >> ${VERSION}
 

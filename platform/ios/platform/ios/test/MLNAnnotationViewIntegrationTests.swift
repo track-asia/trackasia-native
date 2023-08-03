@@ -1,5 +1,5 @@
 import XCTest
-import MapLibre
+import Trackasia
 
 class CustomAnnotationView: MLNAnnotationView {
     

@@ -1,5 +1,5 @@
-#ifndef QMAPLIBREGL_MAP_H
-#define QMAPLIBREGL_MAP_H
+#ifndef QTRACKASIAGL_MAP_H
+#define QTRACKASIAGL_MAP_H
 
 #include <QMapLibreGL/Settings>
 #include <QMapLibreGL/Types>
@@ -21,7 +21,7 @@ class MapPrivate;
 
 // This header follows the Qt coding style: https://wiki.qt.io/Qt_Coding_Style
 
-class Q_MAPLIBREGL_EXPORT Map : public QObject {
+class Q_TRACKASIAGL_EXPORT Map : public QObject {
     Q_OBJECT
     Q_PROPERTY(double latitude READ latitude WRITE setLatitude)
     Q_PROPERTY(double longitude READ longitude WRITE setLongitude)
@@ -194,4 +194,4 @@ private:
 Q_DECLARE_METATYPE(QMapLibreGL::Map::MapChange);
 Q_DECLARE_METATYPE(QMapLibreGL::Map::MapLoadingFailure);
 
-#endif // QMAPLIBREGL_MAP_H
+#endif // QTRACKASIAGL_MAP_H

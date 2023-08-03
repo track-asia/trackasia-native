@@ -76,8 +76,8 @@ publish() {
     fi
 }
 
-export GITHUB_USER=maplibre
-export GITHUB_REPO=maplibre-native
+export GITHUB_USER=Trackasia
+export GITHUB_REPO=trackasia-native
 export BUILDTYPE=Release
 
 

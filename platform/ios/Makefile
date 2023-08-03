@@ -7,7 +7,7 @@ export DEV_TEAM ?= ""
 # When only the dependencies in the package.json are installed
 # Node.js will error when running a script from the root scripts directory
 # Getting rid of the duplicate package.json file is an open issue
-# https://github.com/maplibre/maplibre-native/issues/657
+# https://github.com/track-asia/trackasia-native/issues/657
 
 export NODE_PATH = ../../node_modules
 
@@ -135,7 +135,7 @@ iproj: $(IOS_PROJ_PATH) style-code
 	@#   Check if Xcode should run in headless mode
 	@#     If CI=1, then just perform `make iproj`
 	@#       else, use `xed` to open the XCworkspace
-	@if [ $(CI) == 1 ]; then echo "make iproj CI=1.  Running in headless mode, skip opening .xcworkspace in Xcode.  To open Xcode use 'xed $(IOS_WORK_PATH)'"; else echo "make iproj. Opening MapLibre in Xcode using:  'xed $(IOS_WORK_PATH)'.  To skip opening Xcode, use 'make iproj CI=1'"; xed $(IOS_WORK_PATH);  fi;
+	@if [ $(CI) == 1 ]; then echo "make iproj CI=1.  Running in headless mode, skip opening .xcworkspace in Xcode.  To open Xcode use 'xed $(IOS_WORK_PATH)'"; else echo "make iproj. Opening Trackasia in Xcode using:  'xed $(IOS_WORK_PATH)'.  To skip opening Xcode, use 'make iproj CI=1'"; xed $(IOS_WORK_PATH);  fi;
 	@echo "## Xcode dependencies"
 	@xcodebuild -version
 	@uname -a

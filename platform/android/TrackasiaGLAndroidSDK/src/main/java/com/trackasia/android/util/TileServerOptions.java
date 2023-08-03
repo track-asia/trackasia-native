@@ -80,7 +80,7 @@ public class TileServerOptions implements Parcelable {
    * Construct a new TileServerOptions given string arguments
    *
    * @param baseURL              tile server base url
-   * @param uriSchemeAlias       scheme alias such as maplibre://
+   * @param uriSchemeAlias       scheme alias such as Trackasia://
    * @param sourceTemplate       tile source url template
    * @param sourceDomainName     tile source domain name
    * @param sourceVersionPrefix  tile source version prefix

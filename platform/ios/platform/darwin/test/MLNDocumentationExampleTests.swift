@@ -1,5 +1,5 @@
 import XCTest
-import MapLibre
+import Trackasia
 
 /**
  Test cases that ensure the inline examples in the project documentation
@@ -181,7 +181,7 @@ class MLNDocumentationExampleTests: XCTestCase, MLNMapViewDelegate {
         // We want to use mapbox.terrain-rgb in the example, but using a mapbox:
         // URL requires setting an access token. So this identically named
         // subclass of MLNRasterDEMSource swaps in a nonexistent URL.
-        class MLNRasterDEMSource: MapLibre.MLNRasterDEMSource {
+        class MLNRasterDEMSource: Trackasia.MLNRasterDEMSource {
             override init(identifier: String, configurationURL: URL, tileSize: CGFloat = 256) {
                 let bogusURL = URL(string: "https://example.com/raster-rgb.json")!
                 super.init(identifier: identifier, configurationURL: bogusURL, tileSize: tileSize)
@@ -231,7 +231,7 @@ class MLNDocumentationExampleTests: XCTestCase, MLNMapViewDelegate {
           bottomLeft: CLLocationCoordinate2D(latitude: 37.936, longitude: -80.425),
           bottomRight: CLLocationCoordinate2D(latitude: 37.936, longitude: -71.516),
           topRight: CLLocationCoordinate2D(latitude: 46.437, longitude: -71.516))
-        let source = MLNImageSource(identifier: "radar", coordinateQuad: coordinates, url: URL(string: "https://maplibre.org/maplibre-gl-js-docs/assets/radar.gif")!)
+        let source = MLNImageSource(identifier: "radar", coordinateQuad: coordinates, url: URL(string: "https://track-asia.com/Trackasia-gl-js-docs/assets/radar.gif")!)
         mapView.style?.addSource(source)
         //#-end-example-code
 

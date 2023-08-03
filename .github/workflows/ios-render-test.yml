@@ -23,8 +23,8 @@ jobs:
         id: generate_token
         uses: tibdex/github-app-token@v1
         with:
-          app_id: ${{ secrets.MAPLIBRE_NATIVE_BOT_APP_ID }}
-          private_key: ${{ secrets.MAPLIBRE_NATIVE_BOT_PRIVATE_KEY }}
+          app_id: ${{ secrets.TRACKASIA_NATIVE_BOT_APP_ID }}
+          private_key: ${{ secrets.TRACKASIA_NATIVE_BOT_PRIVATE_KEY }}
 
       - uses: LouisBrunner/checks-action@v1.6.1
         id: create_check
@@ -68,7 +68,7 @@ jobs:
       - name: Schedule test run
         uses: realm/aws-devicefarm/test-application@master
         with:
-          name: MapLibre Native iOS Render Test
+          name: Trackasia Native iOS Render Test
           project_arn: ${{ vars.AWS_DEVICE_FARM_PROJECT_ARN }}
           device_pool_arn: "arn:aws:devicefarm:us-west-2:373521797162:devicepool:20687d72-0e46-403e-8f03-0941850665bc/d84a2883-0000-44b5-afc4-af22084caf85"
           app_arn: ${{ steps.upload-ios-app.outputs.arn }}

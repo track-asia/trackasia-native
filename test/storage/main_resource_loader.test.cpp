@@ -717,7 +717,7 @@ TEST(MainResourceLoader, TEST_REQUIRES_SERVER(RespondToStaleMustRevalidate)) {
 // Test that requests for expired resources have lower priority than requests for new resources
 TEST(MainResourceLoader, TEST_REQUIRES_SERVER(CachedResourceLowPriority)) {
     GTEST_SKIP() << "Skipping MainResourceLoader.CachedResourceLowPriority. "
-                 << "See https://github.com/trackasia/trackasia-native/issues/1071";
+                 << "See https://github.com/track-asia/trackasia-native/issues/1071";
     util::RunLoop loop;
     MainResourceLoader fs(ResourceOptions{}, ClientOptions{});
 
