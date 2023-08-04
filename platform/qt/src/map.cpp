@@ -1,5 +1,5 @@
-#include <QMapLibreGL/Map>
-#include <QMapLibreGL/Utils>
+#include <QTrackasiaGL/Map>
+#include <QTrackasiaGL/Utils>
 
 #include "map_p.hpp"
 
@@ -67,16 +67,16 @@
 #endif
 
 // mbgl::NorthOrientation
-static_assert(mbgl::underlying_type(QMapLibreGL::Map::NorthUpwards) ==
+static_assert(mbgl::underlying_type(QTrackasiaGL::Map::NorthUpwards) ==
                   mbgl::underlying_type(mbgl::NorthOrientation::Upwards),
               "error");
-static_assert(mbgl::underlying_type(QMapLibreGL::Map::NorthRightwards) ==
+static_assert(mbgl::underlying_type(QTrackasiaGL::Map::NorthRightwards) ==
                   mbgl::underlying_type(mbgl::NorthOrientation::Rightwards),
               "error");
-static_assert(mbgl::underlying_type(QMapLibreGL::Map::NorthDownwards) ==
+static_assert(mbgl::underlying_type(QTrackasiaGL::Map::NorthDownwards) ==
                   mbgl::underlying_type(mbgl::NorthOrientation::Downwards),
               "error");
-static_assert(mbgl::underlying_type(QMapLibreGL::Map::NorthLeftwards) ==
+static_assert(mbgl::underlying_type(QTrackasiaGL::Map::NorthLeftwards) ==
                   mbgl::underlying_type(mbgl::NorthOrientation::Leftwards),
               "error");
 
@@ -115,7 +115,7 @@ std::unique_ptr<mbgl::style::Image> toStyleImage(const QString &id, const QImage
         1.0);
 }
 
-mbgl::MapOptions mapOptionsFromSettings(const QMapLibreGL::Settings &settings, const QSize &size, qreal pixelRatio) {
+mbgl::MapOptions mapOptionsFromSettings(const QTrackasiaGL::Settings &settings, const QSize &size, qreal pixelRatio) {
     return std::move(mbgl::MapOptions()
                          .withSize(sanitizedSize(size))
                          .withPixelRatio(pixelRatio)
@@ -124,7 +124,7 @@ mbgl::MapOptions mapOptionsFromSettings(const QMapLibreGL::Settings &settings, c
                          .withViewportMode(static_cast<mbgl::ViewportMode>(settings.viewportMode())));
 }
 
-mbgl::ResourceOptions resourceOptionsFromSettings(const QMapLibreGL::Settings &settings) {
+mbgl::ResourceOptions resourceOptionsFromSettings(const QTrackasiaGL::Settings &settings) {
     return std::move(mbgl::ResourceOptions()
                          .withApiKey(settings.apiKey().toStdString())
                          .withAssetPath(settings.assetPath().toStdString())
@@ -133,44 +133,44 @@ mbgl::ResourceOptions resourceOptionsFromSettings(const QMapLibreGL::Settings &s
                          .withMaximumCacheSize(settings.cacheDatabaseMaximumSize()));
 }
 
-mbgl::ClientOptions clientOptionsFromSettings(const QMapLibreGL::Settings &settings) {
+mbgl::ClientOptions clientOptionsFromSettings(const QTrackasiaGL::Settings &settings) {
     return std::move(mbgl::ClientOptions()
                          .withName(settings.clientName().toStdString())
                          .withVersion(settings.clientVersion().toStdString()));
 }
 
-std::optional<mbgl::Annotation> asAnnotation(const QMapLibreGL::Annotation &annotation) {
-    auto asGeometry = [](const QMapLibreGL::ShapeAnnotationGeometry &geometry) {
+std::optional<mbgl::Annotation> asAnnotation(const QTrackasiaGL::Annotation &annotation) {
+    auto asGeometry = [](const QTrackasiaGL::ShapeAnnotationGeometry &geometry) {
         mbgl::ShapeAnnotationGeometry result;
         switch (geometry.type) {
-            case QMapLibreGL::ShapeAnnotationGeometry::LineStringType:
-                result = QMapLibreGL::GeoJSON::asLineString(geometry.geometry.first().first());
+            case QTrackasiaGL::ShapeAnnotationGeometry::LineStringType:
+                result = QTrackasiaGL::GeoJSON::asLineString(geometry.geometry.first().first());
                 break;
-            case QMapLibreGL::ShapeAnnotationGeometry::PolygonType:
-                result = QMapLibreGL::GeoJSON::asPolygon(geometry.geometry.first());
+            case QTrackasiaGL::ShapeAnnotationGeometry::PolygonType:
+                result = QTrackasiaGL::GeoJSON::asPolygon(geometry.geometry.first());
                 break;
-            case QMapLibreGL::ShapeAnnotationGeometry::MultiLineStringType:
-                result = QMapLibreGL::GeoJSON::asMultiLineString(geometry.geometry.first());
+            case QTrackasiaGL::ShapeAnnotationGeometry::MultiLineStringType:
+                result = QTrackasiaGL::GeoJSON::asMultiLineString(geometry.geometry.first());
                 break;
-            case QMapLibreGL::ShapeAnnotationGeometry::MultiPolygonType:
-                result = QMapLibreGL::GeoJSON::asMultiPolygon(geometry.geometry);
+            case QTrackasiaGL::ShapeAnnotationGeometry::MultiPolygonType:
+                result = QTrackasiaGL::GeoJSON::asMultiPolygon(geometry.geometry);
                 break;
         }
         return result;
     };
 
-    if (annotation.canConvert<QMapLibreGL::SymbolAnnotation>()) {
-        QMapLibreGL::SymbolAnnotation symbolAnnotation = annotation.value<QMapLibreGL::SymbolAnnotation>();
-        QMapLibreGL::Coordinate &pair = symbolAnnotation.geometry;
+    if (annotation.canConvert<QTrackasiaGL::SymbolAnnotation>()) {
+        QTrackasiaGL::SymbolAnnotation symbolAnnotation = annotation.value<QTrackasiaGL::SymbolAnnotation>();
+        QTrackasiaGL::Coordinate &pair = symbolAnnotation.geometry;
         return {
             mbgl::SymbolAnnotation(mbgl::Point<double>{pair.second, pair.first}, symbolAnnotation.icon.toStdString())};
-    } else if (annotation.canConvert<QMapLibreGL::LineAnnotation>()) {
-        QMapLibreGL::LineAnnotation lineAnnotation = annotation.value<QMapLibreGL::LineAnnotation>();
+    } else if (annotation.canConvert<QTrackasiaGL::LineAnnotation>()) {
+        QTrackasiaGL::LineAnnotation lineAnnotation = annotation.value<QTrackasiaGL::LineAnnotation>();
         auto color = mbgl::Color::parse(mbgl::style::conversion::convertColor(lineAnnotation.color));
         return {mbgl::LineAnnotation(
             asGeometry(lineAnnotation.geometry), lineAnnotation.opacity, lineAnnotation.width, {*color})};
-    } else if (annotation.canConvert<QMapLibreGL::FillAnnotation>()) {
-        QMapLibreGL::FillAnnotation fillAnnotation = annotation.value<QMapLibreGL::FillAnnotation>();
+    } else if (annotation.canConvert<QTrackasiaGL::FillAnnotation>()) {
+        QTrackasiaGL::FillAnnotation fillAnnotation = annotation.value<QTrackasiaGL::FillAnnotation>();
         auto color = mbgl::Color::parse(mbgl::style::conversion::convertColor(fillAnnotation.color));
         if (fillAnnotation.outlineColor.canConvert<QColor>()) {
             auto outlineColor = mbgl::Color::parse(
@@ -188,25 +188,25 @@ std::optional<mbgl::Annotation> asAnnotation(const QMapLibreGL::Annotation &anno
 
 } // namespace
 
-namespace QMapLibreGL {
+namespace QTrackasiaGL {
 
 /*!
-    \class QMapLibreGL::Map
-    \brief The QMapLibreGL::Map class is a Qt wrapper for the Trackasia Native engine.
+    \class QTrackasiaGL::Map
+    \brief The QTrackasiaGL::Map class is a Qt wrapper for the Trackasia Native engine.
 
     \inmodule Trackasia Maps SDK for Qt
 
-    QMapLibreGL::Map is a Qt friendly version the Trackasia Native engine using Qt types
-    and deep integration with Qt event loop. QMapLibreGL::Map relies as much as possible
+    QTrackasiaGL::Map is a Qt friendly version the Trackasia Native engine using Qt types
+    and deep integration with Qt event loop. QTrackasiaGL::Map relies as much as possible
     on Qt, trying to minimize the external dependencies. For instance it will use
     QNetworkAccessManager for HTTP requests and QString for UTF-8 manipulation.
 
-    QMapLibreGL::Map is not thread-safe and it is assumed that it will be accessed from
+    QTrackasiaGL::Map is not thread-safe and it is assumed that it will be accessed from
     the same thread as the thread where the OpenGL context lives.
 */
 
 /*!
-    \enum QMapLibreGL::Map::MapChange
+    \enum QTrackasiaGL::Map::MapChange
 
     This enum represents the last changed occurred to the map state.
 
@@ -214,7 +214,7 @@ namespace QMapLibreGL {
    will change, like when resizing the map.
 
     \value MapChangeRegionWillChangeAnimated              Not in use by
-   QMapLibreGL::Map.
+   QTrackasiaGL::Map.
 
     \value MapChangeRegionIsChanging                      A region of the map is
    changing.
@@ -223,10 +223,10 @@ namespace QMapLibreGL {
    finished changing.
 
     \value MapChangeRegionDidChangeAnimated               Not in use by
-   QMapLibreGL::Map.
+   QTrackasiaGL::Map.
 
     \value MapChangeWillStartLoadingMap                   The map is getting
-   loaded. This state is set only once right after QMapLibreGL::Map is created
+   loaded. This state is set only once right after QTrackasiaGL::Map is created
    and a style is set.
 
     \value MapChangeDidFinishLoadingMap                   All the resources were
@@ -253,7 +253,7 @@ namespace QMapLibreGL {
    is about to get rendered for the first time.
 
     \value MapChangeDidFinishRenderingMap                 Not in use by
-   QMapLibreGL::Map.
+   QTrackasiaGL::Map.
 
     \value MapChangeDidFinishRenderingMapFullyRendered    Map is fully loaded
    and rendered.
@@ -266,7 +266,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \enum QMapLibreGL::Map::MapLoadingFailure
+    \enum QTrackasiaGL::Map::MapLoadingFailure
 
     This enum represents map loading failure type.
 
@@ -280,7 +280,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \enum QMapLibreGL::Map::NorthOrientation
+    \enum QTrackasiaGL::Map::NorthOrientation
 
     This enum sets the orientation of the north bearing. It will directly affect
    bearing when resetting the north (i.e. setting bearing to 0).
@@ -299,7 +299,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    Constructs a QMapLibreGL::Map object with \a settings and sets \a parent_ as
+    Constructs a QTrackasiaGL::Map object with \a settings and sets \a parent_ as
    the parent object. The \a settings cannot be changed after the object is
    constructed. The \a size represents the size of the viewport and the \a
    pixelRatio the initial pixel density of the screen.
@@ -308,7 +308,7 @@ Map::Map(QObject *parent_, const Settings &settings, const QSize &size, qreal pi
     : QObject(parent_) {
     assert(!size.isEmpty());
 
-    // Multiple QMapLibreGL::Map running on the same thread
+    // Multiple QTrackasiaGL::Map running on the same thread
     // will share the same mbgl::util::RunLoop
     if (!loop.hasLocalData()) {
         loop.setLocalData(std::make_shared<mbgl::util::RunLoop>());
@@ -318,14 +318,14 @@ Map::Map(QObject *parent_, const Settings &settings, const QSize &size, qreal pi
 }
 
 /*!
-    Destroys this QMapLibreGL::Map.
+    Destroys this QTrackasiaGL::Map.
 */
 Map::~Map() {
     delete d_ptr;
 }
 
 /*!
-    \property QMapLibreGL::Map::styleJson
+    \property QTrackasiaGL::Map::styleJson
     \brief the map style JSON.
 
     Sets a new \a style from a JSON that must conform to the
@@ -333,7 +333,7 @@ Map::~Map() {
     {Trackasia Style spec}.
 
     \note In case of a invalid style it will trigger a mapChanged
-    signal with QMapLibreGL::Map::MapChangeDidFailLoadingMap as argument.
+    signal with QTrackasiaGL::Map::MapChangeDidFailLoadingMap as argument.
 */
 QString Map::styleJson() const {
     return QString::fromStdString(d_ptr->mapObj->getStyle().getJSON());
@@ -344,7 +344,7 @@ void Map::setStyleJson(const QString &style) {
 }
 
 /*!
-    \property QMapLibreGL::Map::styleUrl
+    \property QTrackasiaGL::Map::styleUrl
     \brief the map style URL.
 
     Sets a URL for fetching a JSON that will be later fed to
@@ -356,7 +356,7 @@ void Map::setStyleJson(const QString &style) {
     from anything that QNetworkAccessManager can handle.
 
     \note In case of a invalid style it will trigger a mapChanged
-    signal with QMapLibreGL::Map::MapChangeDidFailLoadingMap as argument.
+    signal with QTrackasiaGL::Map::MapChangeDidFailLoadingMap as argument.
 */
 QString Map::styleUrl() const {
     return QString::fromStdString(d_ptr->mapObj->getStyle().getURL());
@@ -367,10 +367,10 @@ void Map::setStyleUrl(const QString &url) {
 }
 
 /*!
-    \property QMapLibreGL::Map::latitude
+    \property QTrackasiaGL::Map::latitude
     \brief the map's current latitude in degrees.
 
-    Setting a latitude doesn't necessarily mean it will be accepted since QMapLibreGL::Map
+    Setting a latitude doesn't necessarily mean it will be accepted since QTrackasiaGL::Map
     might constrain it within the limits of the Web Mercator projection.
 */
 double Map::latitude() const {
@@ -383,7 +383,7 @@ void Map::setLatitude(double latitude_) {
 }
 
 /*!
-    \property QMapLibreGL::Map::longitude
+    \property QTrackasiaGL::Map::longitude
     \brief the map current longitude in degrees.
 
     Setting a longitude beyond the limits of the Web Mercator projection will
@@ -400,7 +400,7 @@ void Map::setLongitude(double longitude_) {
 }
 
 /*!
-    \property QMapLibreGL::Map::scale
+    \property QTrackasiaGL::Map::scale
     \brief the map scale factor.
 
     This property is used to zoom the map. When \a center is defined, the map will
@@ -422,7 +422,7 @@ void Map::setScale(double scale_, const QPointF &center) {
 }
 
 /*!
-    \property QMapLibreGL::Map::zoom
+    \property QTrackasiaGL::Map::zoom
     \brief the map zoom factor.
 
     This property is used to zoom the map. When \a center is defined, the map
@@ -458,7 +458,7 @@ double Map::maximumZoom() const {
 }
 
 /*!
-    \property QMapLibreGL::Map::coordinate
+    \property QTrackasiaGL::Map::coordinate
     \brief the map center \a coordinate.
 
     Centers the map at a geographic coordinate respecting the margins, if set.
@@ -477,7 +477,7 @@ void Map::setCoordinate(const Coordinate &coordinate_) {
 }
 
 /*!
-    \fn QMapLibreGL::Map::setCoordinateZoom(const Coordinate &coordinate, double zoom)
+    \fn QTrackasiaGL::Map::setCoordinateZoom(const Coordinate &coordinate, double zoom)
 
     Convenience method for setting the \a coordinate and \a zoom simultaneously.
 
@@ -523,7 +523,7 @@ void Map::jumpTo(const CameraOptions &camera) {
 }
 
 /*!
-    \property QMapLibreGL::Map::bearing
+    \property QTrackasiaGL::Map::bearing
     \brief the map bearing in degrees.
 
     Set the angle in degrees. Negative values and values over 360 are
@@ -548,7 +548,7 @@ void Map::setBearing(double degrees, const QPointF &center) {
 }
 
 /*!
-    \property QMapLibreGL::Map::pitch
+    \property QTrackasiaGL::Map::pitch
     \brief the map pitch in degrees.
 
     Pitch toward the horizon measured in degrees, with 0 resulting in a
@@ -757,7 +757,7 @@ void Map::moveBy(const QPointF &offset) {
 }
 
 /*!
-    \fn QMapLibreGL::Map::scaleBy(double scale, const QPointF &center)
+    \fn QTrackasiaGL::Map::scaleBy(double scale, const QPointF &center)
 
     Scale the map by \a scale in the direction of the \a center. This function
     can be used for implementing a pinch gesture.
@@ -806,7 +806,7 @@ void Map::addAnnotationIcon(const QString &name, const QImage &icon) {
 }
 
 /*!
-    \fn QMapLibreGL::Map::pixelForCoordinate(const Coordinate &coordinate) const
+    \fn QTrackasiaGL::Map::pixelForCoordinate(const Coordinate &coordinate) const
 
     Returns the offset in pixels for \a coordinate. The origin pixel coordinate is
     located at the top left corner of the map view.
@@ -860,7 +860,7 @@ CoordinateZoom Map::coordinateZoomForBounds(const Coordinate &sw,
 }
 
 /*!
-    \property QMapLibreGL::Map::margins
+    \property QTrackasiaGL::Map::margins
     \brief the map margins in pixels from the corners of the map.
 
     This property sets a new reference center for the map.
@@ -1209,7 +1209,7 @@ void Map::destroyRenderer() {
     Start a static rendering of the current state of the map. This
     should only be called when the map is initialized in static mode.
 
-    \sa QMapLibreGL::Settings::MapMode
+    \sa QTrackasiaGL::Settings::MapMode
 */
 void Map::startStaticRender() {
     d_ptr->mapObj->renderStill([this](std::exception_ptr err) {
@@ -1270,7 +1270,7 @@ const QVector<QPair<QString, QString>> &Map::defaultStyles() const {
 }
 
 /*!
-    \fn void QMapLibreGL::Map::needsRendering()
+    \fn void QTrackasiaGL::Map::needsRendering()
 
     This signal is emitted when the visual contents of the map have changed
     and a redraw is needed in order to keep the map visually consistent
@@ -1280,7 +1280,7 @@ const QVector<QPair<QString, QString>> &Map::defaultStyles() const {
 */
 
 /*!
-    \fn void QMapLibreGL::Map::staticRenderFinished(const QString &error)
+    \fn void QTrackasiaGL::Map::staticRenderFinished(const QString &error)
 
     This signal is emitted when a static map is fully drawn. Usually the next
     step is to extract the map from a framebuffer into a container like a
@@ -1290,7 +1290,7 @@ const QVector<QPair<QString, QString>> &Map::defaultStyles() const {
 */
 
 /*!
-    \fn void QMapLibreGL::Map::mapChanged(QMapLibreGL::Map::MapChange change)
+    \fn void QTrackasiaGL::Map::mapChanged(QTrackasiaGL::Map::MapChange change)
 
     This signal is emitted when the state of the map has changed. This signal
     may be used for detecting errors when loading a style or detecting when
@@ -1298,7 +1298,7 @@ const QVector<QPair<QString, QString>> &Map::defaultStyles() const {
 */
 
 /*!
-    \fn void QMapLibreGL::Map::mapLoadingFailed(QMapLibreGL::Map::MapLoadingFailure
+    \fn void QTrackasiaGL::Map::mapLoadingFailed(QTrackasiaGL::Map::MapLoadingFailure
    type, const QString &description)
 
     This signal is emitted when a map loading failure happens. Details of the
@@ -1306,7 +1306,7 @@ const QVector<QPair<QString, QString>> &Map::defaultStyles() const {
 */
 
 /*!
-    \fn void QMapLibreGL::Map::copyrightsChanged(const QString &copyrightsHtml);
+    \fn void QTrackasiaGL::Map::copyrightsChanged(const QString &copyrightsHtml);
 
     This signal is emitted when the copyrights of the current content of the map
     have changed. This can be caused by a style change or adding a new source.
@@ -1487,4 +1487,4 @@ bool MapPrivate::setProperty(const PropertySetter &setter,
     return true;
 }
 
-} // namespace QMapLibreGL
+} // namespace QTrackasiaGL

@@ -1,8 +1,8 @@
 #ifndef MAPWINDOW_H
 #define MAPWINDOW_H
 
-#include <QMapLibreGL/Map>
-#include <QMapLibreGL/Settings>
+#include <QTrackasiaGL/Map>
+#include <QTrackasiaGL/Settings>
 
 #include <QtGlobal>
 #include <QOpenGLWidget>
@@ -22,7 +22,7 @@ class MapWindow : public QOpenGLWidget {
     Q_OBJECT
 
 public:
-    MapWindow(const QMapLibreGL::Settings &);
+    MapWindow(const QTrackasiaGL::Settings &);
     ~MapWindow();
 
     void selfTest();
@@ -47,8 +47,8 @@ private:
 
     QPointF m_lastPos;
 
-    QMapLibreGL::Settings m_settings;
-    std::unique_ptr<QMapLibreGL::Map> m_map{};
+    QTrackasiaGL::Settings m_settings;
+    std::unique_ptr<QTrackasiaGL::Map> m_map{};
 
     QPropertyAnimation *m_bearingAnimation{};
     QPropertyAnimation *m_zoomAnimation{};

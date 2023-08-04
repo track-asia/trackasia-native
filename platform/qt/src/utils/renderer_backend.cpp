@@ -6,7 +6,7 @@
 #include <QtGlobal>
 #include <QOpenGLContext>
 
-namespace QMapLibreGL {
+namespace QTrackasiaGL {
 
 class RenderableResource final : public mbgl::gl::RenderableResource {
 public:
@@ -52,4 +52,4 @@ mbgl::gl::ProcAddress RendererBackend::getExtensionFunctionPointer(const char* n
     return thisContext->getProcAddress(name);
 }
 
-} // namespace QMapLibreGL
+} // namespace QTrackasiaGL

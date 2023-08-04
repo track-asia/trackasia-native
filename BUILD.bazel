@@ -64,24 +64,24 @@ genrule(
 # they are needed until rules_apple has platforms support
 # https://github.com/bazelbuild/rules_apple/issues/1658
 # Allows passing a command line flag to set the Platform
-# bazel build [target] --//:maplibre_platform=ios
+# bazel build [target] --//:trackasia_platform=ios
 
 string_flag(
-    name = "maplibre_platform",
+    name = "trackasia_platform",
     build_setting_default = "ios",
 )
 
 config_setting(
     name = "linux",
     flag_values = {
-        ":maplibre_platform": "linux",
+        ":trackasia_platform": "linux",
     },
 )
 
 config_setting(
     name = "ios",
     flag_values = {
-        ":maplibre_platform": "ios",
+        ":trackasia_platform": "ios",
     },
 )
 

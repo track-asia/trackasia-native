@@ -2,7 +2,7 @@
 
 # Trackasia Native
 
-[![codecov](https://codecov.io/github/track-asia/trackasia-native/branch/main/graph/badge.svg?token=8ZQRRY56ZA)](https://codecov.io/github/track-asia/trackasia-native) [![](https://img.shields.io/badge/Slack-%23maplibre--native-2EB67D?logo=slack)](https://slack.openstreetmap.us/)
+[![codecov](https://codecov.io/github/track-asia/trackasia-native/branch/main/graph/badge.svg?token=8ZQRRY56ZA)](https://codecov.io/github/track-asia/trackasia-native) [![](https://img.shields.io/badge/Slack-%23trackasia--native-2EB67D?logo=slack)](https://slack.openstreetmap.us/)
 
 Trackasia Native is a free and open-source library for publishing maps in your apps and desktop applications on various platforms. Fast displaying of maps is possible thanks to GPU-accelerated vector tile rendering.
 

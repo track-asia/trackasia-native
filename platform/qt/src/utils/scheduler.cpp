@@ -4,7 +4,7 @@
 
 #include <cassert>
 
-namespace QMapLibreGL {
+namespace QTrackasiaGL {
 
 Scheduler::Scheduler() {}
 
@@ -35,4 +35,4 @@ void Scheduler::processEvents() {
     }
 }
 
-} // namespace QMapLibreGL
+} // namespace QTrackasiaGL

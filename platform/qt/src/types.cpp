@@ -1,71 +1,72 @@
-#include <QMapLibreGL/Types>
+#include <QTrackasiaGL/Types>
 
 #include "mbgl/util/geometry.hpp"
 #include "mbgl/util/traits.hpp"
 
 // mbgl::FeatureType
-static_assert(mbgl::underlying_type(QMapLibreGL::Feature::PointType) == mbgl::underlying_type(mbgl::FeatureType::Point),
+static_assert(mbgl::underlying_type(QTrackasiaGL::Feature::PointType) ==
+                  mbgl::underlying_type(mbgl::FeatureType::Point),
               "error");
-static_assert(mbgl::underlying_type(QMapLibreGL::Feature::LineStringType) ==
+static_assert(mbgl::underlying_type(QTrackasiaGL::Feature::LineStringType) ==
                   mbgl::underlying_type(mbgl::FeatureType::LineString),
               "error");
-static_assert(mbgl::underlying_type(QMapLibreGL::Feature::PolygonType) ==
+static_assert(mbgl::underlying_type(QTrackasiaGL::Feature::PolygonType) ==
                   mbgl::underlying_type(mbgl::FeatureType::Polygon),
               "error");
 
-namespace QMapLibreGL {
+namespace QTrackasiaGL {
 
 /*!
-    \namespace QMapLibreGL
+    \namespace QTrackasiaGL
     \inmodule Trackasia Maps SDK for Qt
 
-    Contains miscellaneous Trackasia types and utilities used throughout QMapLibreGLGL.
+    Contains miscellaneous Trackasia types and utilities used throughout QTrackasiaGLGL.
 */
 
 /*!
-    \typedef QMapLibreGL::Coordinate
+    \typedef QTrackasiaGL::Coordinate
 
     Alias for QPair<double, double>.
     Representation for geographical coordinates - latitude and longitude, respectively.
 */
 
 /*!
-    \typedef QMapLibreGL::CoordinateZoom
+    \typedef QTrackasiaGL::CoordinateZoom
 
     Alias for QPair<Coordinate, double>.
-    Used as return value in QMapLibreGLGL::coordinateZoomForBounds.
+    Used as return value in QTrackasiaGLGL::coordinateZoomForBounds.
 */
 
 /*!
-    \typedef QMapLibreGL::ProjectedMeters
+    \typedef QTrackasiaGL::ProjectedMeters
 
     Alias for QPair<double, double>.
     Representation for projected meters - northing and easting, respectively.
 */
 
 /*!
-    \typedef QMapLibreGL::Coordinates
+    \typedef QTrackasiaGL::Coordinates
 
-    Alias for QVector<QMapLibreGL::Coordinate>.
-    A list of QMapLibreGL::Coordinate objects.
+    Alias for QVector<QTrackasiaGL::Coordinate>.
+    A list of QTrackasiaGL::Coordinate objects.
 */
 
 /*!
-    \typedef QMapLibreGL::CoordinatesCollection
+    \typedef QTrackasiaGL::CoordinatesCollection
 
-    Alias for QVector<QMapLibreGL::Coordinates>.
-    A list of QMapLibreGL::Coordinates objects.
+    Alias for QVector<QTrackasiaGL::Coordinates>.
+    A list of QTrackasiaGL::Coordinates objects.
 */
 
 /*!
-    \typedef QMapLibreGL::CoordinatesCollections
+    \typedef QTrackasiaGL::CoordinatesCollections
 
-    Alias for QVector<QMapLibreGL::CoordinatesCollection>.
-    A list of QMapLibreGL::CoordinatesCollection objects.
+    Alias for QVector<QTrackasiaGL::CoordinatesCollection>.
+    A list of QTrackasiaGL::CoordinatesCollection objects.
 */
 
 /*!
-    \class QMapLibreGL::Feature
+    \class QTrackasiaGL::Feature
 
     \inmodule Trackasia Maps SDK for Qt
 
@@ -75,10 +76,10 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \enum QMapLibreGL::Feature::Type
+    \enum QTrackasiaGL::Feature::Type
 
     This enum is used as basis for geometry disambiguation in
-   QMapLibreGL::Feature.
+   QTrackasiaGL::Feature.
 
     \value PointType      A point geometry type. Means a single or a collection
    of points. \value LineStringType A line string geometry type. Means a single
@@ -87,7 +88,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \class QMapLibreGL::ShapeAnnotationGeometry
+    \class QTrackasiaGL::ShapeAnnotationGeometry
 
     \inmodule Trackasia Maps SDK for Qt
 
@@ -95,7 +96,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \enum QMapLibreGL::ShapeAnnotationGeometry::Type
+    \enum QTrackasiaGL::ShapeAnnotationGeometry::Type
 
     This enum is used as basis for shape annotation geometry disambiguation.
 
@@ -106,7 +107,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \class QMapLibreGL::SymbolAnnotation
+    \class QTrackasiaGL::SymbolAnnotation
 
     \inmodule Trackasia Maps SDK for Qt
 
@@ -114,7 +115,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \class QMapLibreGL::LineAnnotation
+    \class QTrackasiaGL::LineAnnotation
 
     \inmodule Trackasia Maps SDK for Qt
 
@@ -125,7 +126,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \class QMapLibreGL::FillAnnotation
+    \class QTrackasiaGL::FillAnnotation
 
     \inmodule Trackasia Maps SDK for Qt
 
@@ -136,7 +137,7 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \typedef QMapLibreGL::Annotation
+    \typedef QTrackasiaGL::Annotation
 
     Alias for QVariant.
     Container that encapsulates either a symbol, a line, a fill or a style
@@ -144,26 +145,26 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \typedef QMapLibreGL::AnnotationID
+    \typedef QTrackasiaGL::AnnotationID
 
     Alias for quint32 representing an annotation identifier.
 */
 
 /*!
-    \typedef QMapLibreGL::AnnotationIDs
+    \typedef QTrackasiaGL::AnnotationIDs
 
     Alias for QVector<quint32> representing a container of annotation identifiers.
 */
 
 /*!
-    \class QMapLibreGL::CameraOptions
+    \class QTrackasiaGL::CameraOptions
     \inmodule Trackasia Maps SDK for Qt
 
-    QMapLibreGL::CameraOptions provides camera options to the renderer.
+    QTrackasiaGL::CameraOptions provides camera options to the renderer.
 */
 
 /*!
-    \class QMapLibreGL::CustomLayerHostInterface
+    \class QTrackasiaGL::CustomLayerHostInterface
 
     Represents a host interface to be implemented for rendering custom layers.
 
@@ -172,11 +173,11 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \class QMapLibreGL::CustomLayerRenderParameters
+    \class QTrackasiaGL::CustomLayerRenderParameters
     \inmodule Trackasia Maps SDK for Qt
 
-    QMapLibreGL::CustomLayerRenderParameters provides the data passed on each
+    QTrackasiaGL::CustomLayerRenderParameters provides the data passed on each
    render pass for a custom layer.
 */
 
-} // namespace QMapLibreGL
+} // namespace QTrackasiaGL

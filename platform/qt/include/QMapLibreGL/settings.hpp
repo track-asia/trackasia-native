@@ -15,7 +15,7 @@ namespace mbgl {
 class TileServerOptions;
 }
 
-namespace QMapLibreGL {
+namespace QTrackasiaGL {
 
 class Q_TRACKASIAGL_EXPORT Settings {
 public:
@@ -112,6 +112,6 @@ private:
     mbgl::TileServerOptions *m_tileServerOptionsInternal{};
 };
 
-} // namespace QMapLibreGL
+} // namespace QTrackasiaGL
 
 #endif // QTRACKASIAGL_SETTINGS_H

@@ -9,7 +9,7 @@
 
 #include "export.hpp"
 
-namespace QMapLibreGL {
+namespace QTrackasiaGL {
 
 typedef QPair<double, double> Coordinate;
 typedef QPair<Coordinate, double> CoordinateZoom;
@@ -132,17 +132,17 @@ public:
     virtual void deinitialize() = 0;
 };
 
-} // namespace QMapLibreGL
+} // namespace QTrackasiaGL
 
-Q_DECLARE_METATYPE(QMapLibreGL::Coordinate);
-Q_DECLARE_METATYPE(QMapLibreGL::Coordinates);
-Q_DECLARE_METATYPE(QMapLibreGL::CoordinatesCollection);
-Q_DECLARE_METATYPE(QMapLibreGL::CoordinatesCollections);
-Q_DECLARE_METATYPE(QMapLibreGL::Feature);
+Q_DECLARE_METATYPE(QTrackasiaGL::Coordinate);
+Q_DECLARE_METATYPE(QTrackasiaGL::Coordinates);
+Q_DECLARE_METATYPE(QTrackasiaGL::CoordinatesCollection);
+Q_DECLARE_METATYPE(QTrackasiaGL::CoordinatesCollections);
+Q_DECLARE_METATYPE(QTrackasiaGL::Feature);
 
-Q_DECLARE_METATYPE(QMapLibreGL::SymbolAnnotation);
-Q_DECLARE_METATYPE(QMapLibreGL::ShapeAnnotationGeometry);
-Q_DECLARE_METATYPE(QMapLibreGL::LineAnnotation);
-Q_DECLARE_METATYPE(QMapLibreGL::FillAnnotation);
+Q_DECLARE_METATYPE(QTrackasiaGL::SymbolAnnotation);
+Q_DECLARE_METATYPE(QTrackasiaGL::ShapeAnnotationGeometry);
+Q_DECLARE_METATYPE(QTrackasiaGL::LineAnnotation);
+Q_DECLARE_METATYPE(QTrackasiaGL::FillAnnotation);
 
 #endif // QTRACKASIAGL_TYPES_H

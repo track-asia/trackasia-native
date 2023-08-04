@@ -22,5 +22,5 @@
 ### ✨ New features
 
 - Full Qt5 and Qt6 support for macOS, Linux, Windows, iOS and Android.
-- Rename to `QMapLibreGL` ([#338](https://github.com/track-asia/trackasia-native/pull/338)).
+- Rename to `QTrackasiaGL` ([#338](https://github.com/track-asia/trackasia-native/pull/338)).
 - Build user agent based on `ClientOptions`, if available ([#365](https://github.com/track-asia/trackasia-native/pull/365)).

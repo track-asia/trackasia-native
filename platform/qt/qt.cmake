@@ -7,7 +7,7 @@ message(STATUS "Version ${MLN_QT_VERSION}")
 
 option(MLN_QT_LIBRARY_ONLY "Build only libraries" OFF)
 option(MLN_QT_STATIC "Build Trackasia Native Qt bindings staticly" OFF)
-option(MLN_QT_INSIDE_PLUGIN "Build QMapLibreGL as OBJECT library, so it can be bundled into separate single plugin lib." OFF)
+option(MLN_QT_INSIDE_PLUGIN "Build QTrackasiaGL as OBJECT library, so it can be bundled into separate single plugin lib." OFF)
 option(MLN_QT_WITH_HEADLESS "Build Trackasia Native Qt with headless support" ON)
 option(MLN_QT_WITH_INTERNAL_SQLITE "Build Trackasia Native Qt bindings with internal sqlite" OFF)
 option(MLN_QT_DEPLOYMENT "Autogenerate files necessary for deployment" OFF)
@@ -147,31 +147,31 @@ target_link_libraries(
         mbgl-vendor-nunicode
 )
 
-set(qmaplibregl_headers
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/QMapLibreGL
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/export.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/map.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/Map
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/settings.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/Settings
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/types.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/Types
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/utils.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QMapLibreGL/Utils
+set(qtrackasiagl_headers
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/QTrackasiaGL
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/export.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/map.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Map
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/settings.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Settings
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/types.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Types
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/utils.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Utils
 )
 
 if (MLN_QT_INSIDE_PLUGIN)
-    add_library(qmaplibregl OBJECT)
+    add_library(qtrackasiagl OBJECT)
 elseif(MLN_QT_STATIC)
-    add_library(qmaplibregl STATIC)
+    add_library(qtrackasiagl STATIC)
 else()
-    add_library(qmaplibregl SHARED)
+    add_library(qtrackasiagl SHARED)
 endif()
 
 target_sources(
-    qmaplibregl
+    qtrackasiagl
     PRIVATE
-    ${qmaplibregl_headers}
+    ${qtrackasiagl_headers}
     ${PROJECT_SOURCE_DIR}/platform/qt/src/map.cpp
     ${PROJECT_SOURCE_DIR}/platform/qt/src/map_p.hpp
     ${PROJECT_SOURCE_DIR}/platform/qt/src/settings.cpp
@@ -193,56 +193,56 @@ target_sources(
 
 # Linux/Mac: Set framework, version and headers
 set_target_properties(
-    qmaplibregl PROPERTIES
+    qtrackasiagl PROPERTIES
     AUTOMOC ON
-    EXPORT_NAME QMapLibreGL
-    OUTPUT_NAME QMapLibreGL
+    EXPORT_NAME QTrackasiaGL
+    OUTPUT_NAME QTrackasiaGL
     VERSION ${MLN_QT_VERSION}
     SOVERSION ${MLN_QT_VERSION_COMPATIBILITY}
-    PUBLIC_HEADER "${qmaplibregl_headers}"
+    PUBLIC_HEADER "${qtrackasiagl_headers}"
 )
 if (Qt6_FOUND AND COMMAND qt_enable_autogen_tool)
-    qt_enable_autogen_tool(qmaplibregl "moc" ON)
+    qt_enable_autogen_tool(qtrackasiagl "moc" ON)
 endif()
 if (APPLE AND NOT MLN_QT_STATIC AND NOT MLN_QT_INSIDE_PLUGIN)
     set_target_properties(
-        qmaplibregl PROPERTIES
+        qtrackasiagl PROPERTIES
         FRAMEWORK ON
         FRAMEWORK_VERSION A
-        MACOSX_FRAMEWORK_IDENTIFIER org.Trackasia.QMapLibreGL
+        MACOSX_FRAMEWORK_IDENTIFIER org.Trackasia.QTrackasiaGL
         MACOSX_FRAMEWORK_BUNDLE_VERSION ${MLN_QT_VERSION}
         MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${MLN_QT_VERSION}
     )
     target_include_directories(
-        qmaplibregl
+        qtrackasiagl
         INTERFACE
-            $<INSTALL_INTERFACE:lib/QMapLibreGL.framework>
+            $<INSTALL_INTERFACE:lib/QTrackasiaGL.framework>
     )
 endif()
 
 include(CMakePackageConfigHelpers)
-set(CMAKECONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/QMapLibreGL/)
+set(CMAKECONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/QTrackasiaeGL/)
 
 configure_package_config_file(
-    "platform/qt/QMapLibreGLConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/QMapLibreGLConfig.cmake"
+    "platform/qt/QTrackasiaGLConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfig.cmake"
     INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     PATH_VARS CMAKE_INSTALL_PREFIX CMAKE_INSTALL_INCLUDEDIR
     CMAKE_INSTALL_LIBDIR NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/QMapLibreGLConfigVersion.cmake
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfigVersion.cmake
     VERSION ${MLN_QT_VERSION}
     COMPATIBILITY AnyNewerVersion)
 
-install(EXPORT QMapLibreGLTargets
+install(EXPORT QTrackasiaGLTargets
     DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     COMPONENT development)
 
-export(EXPORT QMapLibreGLTargets)
+export(EXPORT QTrackasiaGLTargets)
 
 install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/QMapLibreGLConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/QMapLibreGLConfigVersion.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfigVersion.cmake"
     DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     COMPONENT development)
 
@@ -259,20 +259,20 @@ endif()
 
 # FIXME: Because of rapidjson conversion
 target_include_directories(
-    qmaplibregl
+    qtrackasiagl
     PRIVATE
         ${PROJECT_SOURCE_DIR}/src
         ${PROJECT_SOURCE_DIR}/platform/qt/include
 )
 
 target_compile_definitions(
-    qmaplibregl
+    qtrackasiagl
     PRIVATE
     QT_BUILD_TRACKASIAGL_LIB
 )
 
 target_link_libraries(
-    qmaplibregl
+    qtrackasiagl
     PUBLIC
         Qt${QT_VERSION_MAJOR}::Core
         Qt${QT_VERSION_MAJOR}::Gui
@@ -287,7 +287,7 @@ target_link_libraries(
 # Do not use generator expressions for cleaner output
 if (MLN_QT_STATIC AND NOT MLN_QT_INSIDE_PLUGIN)
     target_link_libraries(
-        qmaplibregl
+        qtrackasiagl
         PUBLIC
             $<$<NOT:$<BOOL:${MLN_QT_WITH_INTERNAL_SQLITE}>>:Qt${QT_VERSION_MAJOR}::Sql>
             $<$<NOT:$<OR:$<PLATFORM_ID:Windows>,$<PLATFORM_ID:Emscripten>>>:z>
@@ -299,21 +299,21 @@ if (MLN_QT_STATIC OR MLN_QT_INSIDE_PLUGIN)
     # In case on MLN_QT_INSIDE_PLUGIN it's always OBJECT library and bundled into one
     # single Qt plugin lib.
     target_compile_definitions(
-        qmaplibregl
+        qtrackasiagl
         PUBLIC QT_TRACKASIAGL_STATIC
     )
 endif()
 
 
-install(TARGETS qmaplibregl
-        EXPORT QMapLibreGLTargets
+install(TARGETS qtrackasiagl
+        EXPORT QTrackasiaGLTargets
         # Explicit set of DESTINATION is needed for older CMake versions.
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
         FRAMEWORK DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/QMapLibreGL"
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/QTrackasiaGL"
 )
 
 if(NOT MLN_QT_LIBRARY_ONLY)
@@ -340,7 +340,7 @@ if(NOT MLN_QT_LIBRARY_ONLY)
             Qt${QT_VERSION_MAJOR}::Gui
             $<$<BOOL:${Qt6_FOUND}>:Qt${QT_VERSION_MAJOR}::OpenGLWidgets>
             mbgl-compiler-options
-            qmaplibregl
+            qtrackasiagl
     )
 
     target_include_directories(

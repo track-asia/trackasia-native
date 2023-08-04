@@ -76,7 +76,7 @@ Then add markers to the map with GeoJSON:
 </div>
 
 [Marker]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-marker/index.html
-[provided image]: https://github.com/track-asia/trackasia-native/blob/main/platform/android/MapboxGLAndroidSDK/src/main/res/drawable-xxxhdpi/maplibre_marker_icon_default.png
+[provided image]: https://github.com/track-asia/trackasia-native/blob/main/platform/android/MapboxGLAndroidSDK/src/main/res/drawable-xxxhdpi/trackasia_marker_icon_default.png
 [Polyline]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polyline/index.html
 [Polygon]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.annotations/-polygon/index.html
 [marker image]: https://raw.githubusercontent.com/track-asia/trackasia-native/main/test/fixtures/sprites/default_marker.png

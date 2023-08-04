@@ -1,4 +1,4 @@
-#include <QMapLibreGL/Utils>
+#include <QTrackasiaGL/Utils>
 
 #include <mbgl/storage/network_status.hpp>
 #include <mbgl/util/geometry.hpp>
@@ -8,16 +8,16 @@
 #include <QOpenGLContext>
 
 // mbgl::NetworkStatus::Status
-static_assert(mbgl::underlying_type(QMapLibreGL::Online) == mbgl::underlying_type(mbgl::NetworkStatus::Status::Online),
+static_assert(mbgl::underlying_type(QTrackasiaGL::Online) == mbgl::underlying_type(mbgl::NetworkStatus::Status::Online),
               "error");
-static_assert(mbgl::underlying_type(QMapLibreGL::Offline) ==
+static_assert(mbgl::underlying_type(QTrackasiaGL::Offline) ==
                   mbgl::underlying_type(mbgl::NetworkStatus::Status::Offline),
               "error");
 
-namespace QMapLibreGL {
+namespace QTrackasiaGL {
 
 /*!
-    \enum QMapLibreGL::NetworkMode
+    \enum QTrackasiaGL::NetworkMode
 
     This enum represents whether server requests can be performed via network.
 
@@ -26,16 +26,16 @@ namespace QMapLibreGL {
 */
 
 /*!
-    \fn QMapLibreGL::NetworkMode QMapLibreGL::networkMode()
+    \fn QTrackasiaGL::NetworkMode QTrackasiaGL::networkMode()
 
-    Returns the current QMapLibreGL::NetworkMode.
+    Returns the current QTrackasiaGL::NetworkMode.
 */
 NetworkMode networkMode() {
     return static_cast<NetworkMode>(mbgl::NetworkStatus::Get());
 }
 
 /*!
-    \fn void QMapLibreGL::setNetworkMode(QMapLibreGL::NetworkMode mode)
+    \fn void QTrackasiaGL::setNetworkMode(QTrackasiaGL::NetworkMode mode)
 
     Forwards the network status \a mode to Trackasia Native engine.
 
@@ -71,4 +71,4 @@ Coordinate coordinateForProjectedMeters(const ProjectedMeters &projectedMeters) 
     return Coordinate(latLng.latitude(), latLng.longitude());
 }
 
-} // namespace QMapLibreGL
+} // namespace QTrackasiaGL

@@ -1,7 +1,7 @@
-# minimal CMakeLists.txt for QMapLibreGL usage
+# minimal CMakeLists.txt for QTrackasiaGL usage
 cmake_minimum_required(VERSION 3.16)
 
-project(hellomaplibre VERSION 1.0.0 LANGUAGES CXX)
+project(hellotrackasia VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,19 +12,19 @@ endif()
 find_package(Qt6 REQUIRED COMPONENTS Core Gui OpenGLWidgets Widgets)
 qt_standard_project_setup()
 
-find_package(QMapLibreGL REQUIRED)
+find_package(QTrackasiaGL REQUIRED)
 
-add_executable(hellomaplibre
+add_executable(hellotrackasia
     main.cpp
     mapwindow.cpp
     mapwindow.hpp
 )
 
-target_link_libraries(hellomaplibre
+target_link_libraries(hellotrackasia
     PRIVATE
         Qt6::Core
         Qt6::Gui
         Qt6::OpenGLWidgets
         Qt6::Widgets
-        QMapLibreGL
+        QTrackasiaGL
 )

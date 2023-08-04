@@ -6,7 +6,7 @@ include($QT_INSTALL_DOCS/global/qt-html-templates-online.qdocconf)
 
 Cpp.ignoretokens = Q_TRACKASIA_EXPORT
 
-project     = QMapLibreGL
+project     = QTrackasiaGL
 description = Trackasia Native SDK for Qt
 language    = Cpp
 

@@ -46,8 +46,8 @@ ext {
     ]
     
     dependenciesList = [
-            mapboxJavaGeoJSON      : "com.github.track-asia.trackasia-java:android-sdk-geojson:${versions.trackasiaServices}",
-            mapboxJavaTurf         : "com.github.track-asia.trackasia-java:android-sdk-turf:${versions.trackasiaServices}",
+            mapboxJavaGeoJSON      : "io.github.track-asia:android-sdk-geojson:${versions.trackasiaServices}",
+            mapboxJavaTurf         : "io.github.track-asia:android-sdk-turf:${versions.trackasiaServices}",
             mapboxAndroidGestures  : "com.mapbox.mapboxsdk:mapbox-android-gestures:${versions.mapboxGestures}",
 
             junit                  : "junit:junit:${versions.junit}",
