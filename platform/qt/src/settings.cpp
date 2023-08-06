@@ -405,8 +405,8 @@ void Settings::setResourceTransform(const std::function<std::string(const std::s
 void Settings::resetToTemplate(SettingsTemplate settings_template) {
     if (m_tileServerOptionsInternal) delete m_tileServerOptionsInternal;
 
-    if (settings_template == MapLibreSettings) {
-        m_tileServerOptionsInternal = new mbgl::TileServerOptions(mbgl::TileServerOptions::MapLibreConfiguration());
+    if (settings_template == TrackasiaSettings) {
+        m_tileServerOptionsInternal = new mbgl::TileServerOptions(mbgl::TileServerOptions::TrackasiaConfiguration());
     } else if (settings_template == MapTilerSettings) {
         m_tileServerOptionsInternal = new mbgl::TileServerOptions(mbgl::TileServerOptions::MapTilerConfiguration());
     } else if (settings_template == MapboxSettings) {

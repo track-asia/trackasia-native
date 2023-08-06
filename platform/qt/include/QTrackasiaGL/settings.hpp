@@ -44,7 +44,7 @@ public:
 
     enum SettingsTemplate {
         DefaultSettings = 0,
-        MapLibreSettings,
+        TrackasiaSettings,
         MapTilerSettings,
         MapboxSettings
     };

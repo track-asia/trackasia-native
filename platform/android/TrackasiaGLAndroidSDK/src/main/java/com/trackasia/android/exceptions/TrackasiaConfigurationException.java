@@ -16,12 +16,12 @@ import androidx.annotation.NonNull;
  *
  * @see Trackasia#getInstance(Context, String,  WellKnownTileServer)
  */
-public class MapLibreConfigurationException extends RuntimeException {
+public class TrackasiaConfigurationException extends RuntimeException {
 
   /**
    * Creates a Trackasia configuration exception thrown by MapboxMap when the SDK hasn't been properly initialised.
    */
-  public MapLibreConfigurationException() {
+  public TrackasiaConfigurationException() {
     super("\nUsing MapView requires calling Trackasia.getInstance(Context context, String apiKey, "
             + "WellKnownTileServer wellKnownTileServer) before inflating or creating the view.");
   }
@@ -29,7 +29,7 @@ public class MapLibreConfigurationException extends RuntimeException {
   /**
    * Creates a Trackasia configuration exception thrown by MapboxMap when the SDK hasn't been properly initialised.
    */
-  public MapLibreConfigurationException(@NonNull String message) {
+  public TrackasiaConfigurationException(@NonNull String message) {
     super(message);
   }
 }

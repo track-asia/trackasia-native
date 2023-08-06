@@ -211,10 +211,10 @@ const std::string& TileServerOptions::defaultStyle() const {
 }
 
 TileServerOptions TileServerOptions::DefaultConfiguration() {
-    return MapLibreConfiguration();
+    return TrackasiaConfiguration();
 }
 
-TileServerOptions TileServerOptions::MapLibreConfiguration() {
+TileServerOptions TileServerOptions::TrackasiaConfiguration() {
     std::vector<mbgl::util::DefaultStyle> styles{// https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public
                                                  mbgl::util::DefaultStyle("trackasia://maps/style", "Basic", 1)};
 

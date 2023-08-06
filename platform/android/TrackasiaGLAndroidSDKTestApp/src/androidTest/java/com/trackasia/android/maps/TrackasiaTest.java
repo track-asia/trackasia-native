@@ -10,7 +10,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import com.trackasia.android.AppCenter;
 import com.trackasia.android.Trackasia;
-import com.trackasia.android.exceptions.MapLibreConfigurationException;
+import com.trackasia.android.exceptions.TrackasiaConfigurationException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -58,7 +58,7 @@ public class TrackasiaTest extends AppCenter {
   @Test
   @UiThreadTest
   public void setNullApiKey() {
-    assertThrows(MapLibreConfigurationException.class, () -> Trackasia.setApiKey(null));
+    assertThrows(TrackasiaConfigurationException.class, () -> Trackasia.setApiKey(null));
   }
 
   @After

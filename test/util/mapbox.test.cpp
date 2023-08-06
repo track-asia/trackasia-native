@@ -13,7 +13,7 @@ using SourceType = mbgl::style::SourceType;
 
 namespace mapboxFixture {
 const TileServerOptions mapboxTileServerOptions = TileServerOptions::MapboxConfiguration();
-const TileServerOptions trackasiaTileServerOptions = TileServerOptions::MapLibreConfiguration();
+const TileServerOptions trackasiaTileServerOptions = TileServerOptions::TrackasiaConfiguration();
 const TileServerOptions mapTilerTileServerOptions = TileServerOptions::MapTilerConfiguration();
 } // namespace mapboxFixture
 

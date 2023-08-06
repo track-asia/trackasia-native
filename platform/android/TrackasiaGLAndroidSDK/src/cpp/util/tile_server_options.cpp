@@ -89,9 +89,9 @@ jni::Local<jni::Object<TileServerOptions>> TileServerOptions::MapTilerConfigurat
     return TileServerOptions::New(env, options);
 }
 
-jni::Local<jni::Object<TileServerOptions>> TileServerOptions::MapLibreConfiguration(
+jni::Local<jni::Object<TileServerOptions>> TileServerOptions::TrackasiaConfiguration(
     jni::JNIEnv& env, const jni::Class<TileServerOptions>& jOptions) {
-    auto options = mbgl::TileServerOptions::MapLibreConfiguration();
+    auto options = mbgl::TileServerOptions::TrackasiaConfiguration();
     return TileServerOptions::New(env, options);
 }
 
@@ -198,8 +198,8 @@ void TileServerOptions::registerNative(jni::JNIEnv& env) {
                                                &TileServerOptions::MapboxConfiguration>("mapboxConfiguration"),
                          jni::MakeNativeMethod<decltype(&TileServerOptions::MapTilerConfiguration),
                                                &TileServerOptions::MapTilerConfiguration>("mapTilerConfiguration"),
-                         jni::MakeNativeMethod<decltype(&TileServerOptions::MapLibreConfiguration),
-                                               &TileServerOptions::MapLibreConfiguration>("mapLibreConfiguration"));
+                         jni::MakeNativeMethod<decltype(&TileServerOptions::TrackasiaConfiguration),
+                                               &TileServerOptions::TrackasiaConfiguration>("trackasiaConfiguration"));
 }
 
 } // namespace android
