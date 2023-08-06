@@ -1907,7 +1907,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
     
     /// Style that does not require an `apiKey` nor any further configuration
     [self.styleNames addObject:@"Trackasia Basic"];
-    [self.styleURLs addObject:[NSURL URLWithString:@"https://demotiles.track-asia.com/style.json"]];
+    [self.styleURLs addObject:[NSURL URLWithString:@"https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public"]];
 
     /// Add Trackasia Styles if an `apiKey` exists
     NSString* apiKey = [MLNSettings apiKey];

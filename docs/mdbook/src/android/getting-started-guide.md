@@ -66,7 +66,7 @@
             // Init the MapView
             mapView = rootView.findViewById(R.id.mapView)
             mapView.getMapAsync { map ->
-                map.setStyle("https://demotiles.track-asia.com/style.json")
+                map.setStyle("https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public")
                 map.cameraPosition = CameraPosition.Builder().target(LatLng(0.0,0.0)).zoom(1.0).build()
             }
         }

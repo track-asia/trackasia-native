@@ -92,7 +92,7 @@ val locationComponentOptions =
 [onMapReadyCallback]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.maps/-on-map-ready-callback/index.html
 [PermissionManager]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.permissions/-permissions-manager/index.html
 [LocationComponentOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component-options/index.html
-[demotiles]: https://demotiles.track-asia.com/style.json
+[demotiles]: https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public
 [predefined styles]: https://github.com/track-asia/trackasia-native/tree/main/src/mbgl/util/tile_server_options.cpp
 [LocationComponentActivationOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location/-location-component-activation-options/index.html
 [LocationEngine]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20for%20-android/com.mapbox.mapboxsdk.location.engine/-location-engine/index.html

@@ -215,7 +215,7 @@ TileServerOptions TileServerOptions::DefaultConfiguration() {
 }
 
 TileServerOptions TileServerOptions::MapLibreConfiguration() {
-    std::vector<mbgl::util::DefaultStyle> styles{// https://demotiles.track-asia.com/style.json
+    std::vector<mbgl::util::DefaultStyle> styles{// https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public
                                                  mbgl::util::DefaultStyle("trackasia://maps/style", "Basic", 1)};
 
     TileServerOptions options = TileServerOptions()

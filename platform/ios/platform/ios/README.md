@@ -35,7 +35,7 @@ struct ContentView_Previews: PreviewProvider {
 struct MapView: UIViewRepresentable {
     func makeUIView(context: Context) -> MGLMapView {
         // Build the style URL
-        let styleURL = URL(string: "https://demotiles.track-asia.com/style.json")
+        let styleURL = URL(string: "https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public")
         
         // Create the map view
         let mapView = MGLMapView(frame: .zero, styleURL: styleURL)
