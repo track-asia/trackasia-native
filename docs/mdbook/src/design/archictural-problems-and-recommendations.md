@@ -30,7 +30,7 @@ customers.
 Trackasia Native supports Web Mercator (EPSG:3857) as its only
 supported projection. This fulfills most of the web and device map
 needs. At the time of writing, modern map renderers such as Google Maps
-and Mapbox GL offers 3D globe, conic, and rectangular projections too.
+and Trackasia GL offers 3D globe, conic, and rectangular projections too.
 At the time of writing, Trackasia Native renderer component does not
 have an architectural separation for supporting multiple projections and
 coordinate reference systems.

@@ -150,7 +150,7 @@ ParseError)JS")
  */
 
 /**
- * Mapbox GL object: this object loads stylesheets and renders them into
+ * Trackasia GL object: this object loads stylesheets and renders them into
  * images.
  *
  * @class

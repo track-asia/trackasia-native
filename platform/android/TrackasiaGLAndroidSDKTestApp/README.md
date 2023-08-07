@@ -1,4 +1,4 @@
-# Mapbox GL Test App
+# Trackasia GL Test App
 
 ## Building
 

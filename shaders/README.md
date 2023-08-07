@@ -1,6 +1,6 @@
-# Mapbox GL Shaders
+# Trackasia GL Shaders
 
-This repository contains GL shaders which are shared by [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js) and [Mapbox GL Native](https://github.com/mapbox/mapbox-gl-native).
+This repository contains GL shaders which are shared by [Trackasia GL JS](https://github.com/mapbox/mapbox-gl-js) and [Trackasia GL Native](https://github.com/mapbox/mapbox-gl-native).
 
 ## Pragmas
 

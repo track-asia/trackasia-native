@@ -146,7 +146,7 @@ To add or update text that the user may see in the iOS maps SDK:
 > **Warning**
 > This section is outdated.
 
-Translations of all the Mapbox GL Native SDKs are managed [in Transifex](https://www.transifex.com/mapbox/mapbox-gl-native/). If your language already has a translation, feel free to complete or proofread it. Otherwise, please [request your language](https://www.transifex.com/mapbox/mapbox-gl-native/languages/). Note that we’re primarily interested in languages that iOS supports as system languages.
+Translations of all the Trackasia GL Native SDKs are managed [in Transifex](https://www.transifex.com/mapbox/mapbox-gl-native/). If your language already has a translation, feel free to complete or proofread it. Otherwise, please [request your language](https://www.transifex.com/mapbox/mapbox-gl-native/languages/). Note that we’re primarily interested in languages that iOS supports as system languages.
 
 Once you’ve finished translating the SDK into a new language in Transifex, perform these steps to make Xcode aware of the translation:
 

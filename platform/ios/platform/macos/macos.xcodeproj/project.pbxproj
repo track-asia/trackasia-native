@@ -547,7 +547,7 @@
 		DA7DC9821DED647F0027472F /* MLNRasterTileSource_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLNRasterTileSource_Private.h; sourceTree = "<group>"; };
 		DA80E95D1FE84A300065FC9B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA80E95F1FE84A540065FC9B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Foundation.stringsdict; sourceTree = "<group>"; };
-		DA839E921CC2E3400062CAFB /* Mapbox GL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mapbox GL.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA839E921CC2E3400062CAFB /* Trackasia GL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trackasia GL.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA839E951CC2E3400062CAFB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA839E961CC2E3400062CAFB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DA839E991CC2E3400062CAFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -932,7 +932,7 @@
 		DA839E931CC2E3400062CAFB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA839E921CC2E3400062CAFB /* Mapbox GL.app */,
+				DA839E921CC2E3400062CAFB /* Trackasia GL.app */,
 				DAE6C3281CC30DB200DB3429 /* Mapbox.framework */,
 				DAE6C3311CC30DB200DB3429 /* test.xctest */,
 			);
@@ -1511,7 +1511,7 @@
 			);
 			name = macosapp;
 			productName = macosapp;
-			productReference = DA839E921CC2E3400062CAFB /* Mapbox GL.app */;
+			productReference = DA839E921CC2E3400062CAFB /* Trackasia GL.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAE6C3271CC30DB200DB3429 /* dynamic */ = {
@@ -1562,6 +1562,7 @@
 				TargetAttributes = {
 					DA839E911CC2E3400062CAFB = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 5D4AWXSX65;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Manual;
 					};
@@ -2126,12 +2127,13 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 5D4AWXSX65;
 				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.MapboxGL;
-				PRODUCT_NAME = "Mapbox GL";
+				PRODUCT_NAME = "Trackasia GL";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2148,13 +2150,14 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 5D4AWXSX65;
 				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.MapboxGL;
-				PRODUCT_NAME = "Mapbox GL";
+				PRODUCT_NAME = "Trackasia GL";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 			};

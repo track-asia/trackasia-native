@@ -393,7 +393,7 @@ bool allowsIdeographicBreaking(char16_t chr) {
             isInVerticalForms(chr) || isInYiRadicals(chr) || isInYiSyllables(chr));
 
     // The following blocks also allow ideographic breaking; however, for other
-    // reasons, Mapbox GL lacks support for codepoints beyond U+FFFF.
+    // reasons, Trackasia GL lacks support for codepoints beyond U+FFFF.
     // https://github.com/mapbox/mapbox-gl/issues/29
     // return (isInTangut(chr)
     //        || isInTangutComponents(chr)

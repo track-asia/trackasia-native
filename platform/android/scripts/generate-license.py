@@ -47,7 +47,7 @@ with open(path + "/LICENSE.md", 'w') as licenseFile:
                 licenseName = license["license"]
                 licenseUrl = license["license_url"]
 
-            licenseFile.write("Mapbox GL uses portions of %s.  \n" % projectName +
+            licenseFile.write("Trackasia GL uses portions of %s.  \n" % projectName +
                               ("URL: [%s](%s)  \n" % (projectUrl, projectUrl) if projectUrl is not None else "") +
                               "License: [%s](%s)" % (licenseName, licenseUrl) +
                               "\n\n===========================================================================\n\n")

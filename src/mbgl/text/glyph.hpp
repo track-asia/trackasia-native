@@ -38,7 +38,7 @@ inline bool operator==(const GlyphMetrics& lhs, const GlyphMetrics& rhs) {
 
 class Glyph {
 public:
-    // We're using this value throughout the Mapbox GL ecosystem. If this is
+    // We're using this value throughout the Trackasia GL ecosystem. If this is
     // different, the glyphs also need to be reencoded.
     static constexpr const uint8_t borderSize = 3;
 

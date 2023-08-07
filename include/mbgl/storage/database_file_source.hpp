@@ -78,7 +78,7 @@ public:
     /**
      * Forces revalidation of the ambient cache.
      *
-     * Forces Mapbox GL Native to revalidate resources stored in the ambient
+     * Forces Trackasia GL Native to revalidate resources stored in the ambient
      * cache with the tile server before using them, making sure they
      * are the latest version. This is more efficient than cleaning the
      * cache because if the resource is considered valid after the server
@@ -223,7 +223,7 @@ public:
     virtual void deleteOfflineRegion(const OfflineRegion&, std::function<void(std::exception_ptr)>);
 
     /**
-     * Invalidate all the tiles from an offline region forcing Mapbox GL to
+     * Invalidate all the tiles from an offline region forcing Trackasia GL to
      * revalidate the tiles with the server before using. This is more efficient
      * than deleting the offline region and downloading it again because if the
      * data on the cache matches the server, no new data gets transmitted.

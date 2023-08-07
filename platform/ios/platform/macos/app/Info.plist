@@ -12,7 +12,7 @@
 				<string>mbx</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Mapbox GL Map</string>
+			<string>Trackasia GL Map</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>NSDocumentClass</key>

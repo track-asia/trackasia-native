@@ -114,7 +114,7 @@ static NSString * const MBXOfflinePacksTableViewActiveCellReuseIdentifier = @"Ac
 
         [[MLNOfflineStorage sharedOfflineStorage] addPackForRegion:region withContext:context completionHandler:^(MLNOfflinePack *pack, NSError *error) {
             if (error) {
-                NSString *message = [NSString stringWithFormat:@"Mapbox GL was unable to add the offline pack “%@”.", name];
+                NSString *message = [NSString stringWithFormat:@"Trackasia GL was unable to add the offline pack “%@”.", name];
                 UIAlertController *errorAlertController = [UIAlertController alertControllerWithTitle:@"Can’t Add Offline Pack" message:message preferredStyle:UIAlertControllerStyleAlert];
                 [errorAlertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
                 [self presentViewController:errorAlertController animated:YES completion:nil];
@@ -263,7 +263,7 @@ static NSString * const MBXOfflinePacksTableViewActiveCellReuseIdentifier = @"Ac
     NSError *error = notification.userInfo[MLNOfflinePackUserInfoKeyError];
     NSAssert([error isKindOfClass:[NSError class]], @"MLNOfflineStorage notification has a non-error error.");
 
-    NSString *message = [NSString stringWithFormat:@"Mapbox GL encountered an error while downloading the offline pack “%@”: %@", pack.name, error.localizedFailureReason];
+    NSString *message = [NSString stringWithFormat:@"Trackasia GL encountered an error while downloading the offline pack “%@”: %@", pack.name, error.localizedFailureReason];
     if (error.code == MLNErrorCodeConnectionFailed) {
         NSLog(@"%@", message);
     } else {

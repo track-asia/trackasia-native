@@ -1,6 +1,6 @@
 # Contributing to the Mapbox Maps SDK for macOS
 
-This document explains how to build the Mapbox Maps SDK for macOS from source. It is intended for advanced developers who wish to contribute to Mapbox GL and the Mapbox Maps SDK for iOS.
+This document explains how to build the Mapbox Maps SDK for macOS from source. It is intended for advanced developers who wish to contribute to Trackasia GL and the Mapbox Maps SDK for iOS.
 
 ## Requirements
 
@@ -77,7 +77,7 @@ To add or update text that the user may see in the macOS maps SDK:
 
 ### Adding a localization
 
-Translations of all the Mapbox GL Native SDKs are managed [in Transifex](https://www.transifex.com/mapbox/mapbox-gl-native/). If your language already has a translation, feel free to complete or proofread it. Otherwise, please [request your language](https://www.transifex.com/mapbox/mapbox-gl-native/languages/). Note that we’re primarily interested in languages that macOS supports as system languages.
+Translations of all the Trackasia GL Native SDKs are managed [in Transifex](https://www.transifex.com/mapbox/mapbox-gl-native/). If your language already has a translation, feel free to complete or proofread it. Otherwise, please [request your language](https://www.transifex.com/mapbox/mapbox-gl-native/languages/). Note that we’re primarily interested in languages that macOS supports as system languages.
 
 Once you’ve finished translating the SDK into a new language in Transifex, perform these steps to make Xcode aware of the translation:
 
@@ -135,6 +135,6 @@ The demo applications use Mapbox vector tiles, which require a Mapbox account an
 
 ## Using macosapp
 
-Through the macOS maps SDK, the demo application supports a variety of standard gestures and keyboard shortcuts. For more details, open Mapbox GL Help from the Help menu.
+Through the macOS maps SDK, the demo application supports a variety of standard gestures and keyboard shortcuts. For more details, open Trackasia GL Help from the Help menu.
 
 You can also [integrate the Mapbox Maps SDK for macOS into your own Cocoa application](INSTALL.md).

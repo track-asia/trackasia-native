@@ -50,7 +50,7 @@ public:
     // Return value is (inserted, stored size)
     std::pair<bool, uint64_t> put(const Resource&, const Response&);
 
-    // Force Mapbox GL Native to revalidate tiles stored in the ambient
+    // Force Trackasia GL Native to revalidate tiles stored in the ambient
     // cache with the tile server before using them, making sure they
     // are the latest version. This is more efficient than cleaning the
     // cache because if the tile is considered valid after the server

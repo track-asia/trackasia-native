@@ -255,7 +255,7 @@ const MLNExpressionInterpolationMode MLNExpressionInterpolationModeCubicBezier =
  */
 - (id)MLN_FUNCTION:(id)firstArgument, ... {
     [NSException raise:NSInvalidArgumentException
-                format:@"Mapbox GL function expressions lack underlying Objective-C implementations."];
+                format:@"Trackasia GL function expressions lack underlying Objective-C implementations."];
     return nil;
 }
 

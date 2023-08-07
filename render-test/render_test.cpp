@@ -51,7 +51,7 @@ ArgumentsTuple parseArguments(int argc, char** argv) {
         {"metrics", TestRunner::UpdateResults::METRICS},
         {"rebaseline", TestRunner::UpdateResults::REBASELINE}};
 
-    args::ArgumentParser argumentParser("Mapbox GL Test Runner");
+    args::ArgumentParser argumentParser("Trackasia GL Test Runner");
 
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
 

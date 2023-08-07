@@ -51,6 +51,6 @@ make
 
 These are the applications targeted to upgrade to this library:
 
-* [Mapbox GL Native](https://github.com/mapbox/mapbox-gl-native)
+* [Trackasia GL Native](https://github.com/mapbox/mapbox-gl-native)
 * [Mapnik Vector Tile](https://github.com/mapbox/mapnik-vector-tile)
 * [Tippecanoe](https://github.com/mapbox/tippecanoe)

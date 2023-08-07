@@ -71,7 +71,7 @@ or
 cmake . -B build -DMLN_WITH_OSMESA=ON
 ```
 
-Once configure is done, open the file `build\Mapbox GL Native.sln`. Build the target `ALL_BUILD` to build all targets, or pick a specific target. Don't forget to pick a build configuration (`Release`, `RelWithDebInfo`, `MinSizeRel` or `Debug`), otherwise the project will be built with default configuration (`Debug`).
+Once configure is done, open the file `build\Trackasia GL Native.sln`. Build the target `ALL_BUILD` to build all targets, or pick a specific target. Don't forget to pick a build configuration (`Release`, `RelWithDebInfo`, `MinSizeRel` or `Debug`), otherwise the project will be built with default configuration (`Debug`).
 
 ## Testing
 

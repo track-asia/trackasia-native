@@ -1,12 +1,12 @@
 # Modern C++ support
 
-Mapbox GL Native supports the C++14 standard, and encourages contributions to
+Trackasia GL Native supports the C++14 standard, and encourages contributions to
 the source code using modern C++ idioms like return type deductions, generic
 lambdas, `std::optional` and alike. However, we do not support all the features
 from the final draft of the C++14 standard - we had to sacrifice support for
 these features in order to support GCC from version 4.9 onwards.
 
-The following C++14 features are **not supported** in Mapbox GL Native:
+The following C++14 features are **not supported** in Trackasia GL Native:
 
 ## [C++14 variable templates](https://isocpp.org/wiki/faq/cpp14-language#variable-templates)
 

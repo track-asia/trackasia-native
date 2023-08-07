@@ -30,7 +30,7 @@ ext.nativeBuild = { nativeTargets ->
             }
         }
 
-        // Allow determining the C++ STL we're using when building Mapbox GL.
+        // Allow determining the C++ STL we're using when building Trackasia GL.
         def stl = 'c++_static'
         if (project.hasProperty("mapbox.stl")) {
             stl = project.getProperty("mapbox.stl")

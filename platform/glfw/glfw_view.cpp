@@ -176,7 +176,7 @@ GLFWView::GLFWView(bool fullscreen_,
     glfwWindowHint(GLFW_STENCIL_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 16);
 
-    window = glfwCreateWindow(width, height, "Mapbox GL", monitor, nullptr);
+    window = glfwCreateWindow(width, height, "Trackasia GL", monitor, nullptr);
     if (!window) {
         glfwTerminate();
         mbgl::Log::Error(mbgl::Event::OpenGL, "failed to initialize window");
@@ -1030,7 +1030,7 @@ void GLFWView::setShouldClose() {
 }
 
 void GLFWView::setWindowTitle(const std::string &title) {
-    glfwSetWindowTitle(window, (std::string{"Mapbox GL: "} + title).c_str());
+    glfwSetWindowTitle(window, (std::string{"Trackasia GL: "} + title).c_str());
 }
 
 void GLFWView::onDidFinishLoadingStyle() {

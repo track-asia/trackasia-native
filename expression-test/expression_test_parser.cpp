@@ -310,7 +310,7 @@ bool parseInputs(const JSValue& inputsValue, TestData& data) {
 } // namespace
 
 std::tuple<filesystem::path, std::vector<filesystem::path>, bool, uint32_t> parseArguments(int argc, char** argv) {
-    args::ArgumentParser argumentParser("Mapbox GL Expression Test Runner");
+    args::ArgumentParser argumentParser("Trackasia GL Expression Test Runner");
 
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
     args::Flag shuffleFlag(argumentParser, "shuffle", "Toggle shuffling the tests order", {'s', "shuffle"});

@@ -73,7 +73,7 @@ std::ostream& operator<<(std::ostream& os, mbgl::Response::Error::Reason r) {
 }
 
 int main(int argc, char* argv[]) {
-    args::ArgumentParser argumentParser("Mapbox GL offline tool");
+    args::ArgumentParser argumentParser("Trackasia GL offline tool");
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
 
     args::ValueFlag<std::string> tokenValue(argumentParser, "key", "API Key", {'t', "token"});

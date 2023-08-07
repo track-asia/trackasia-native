@@ -156,5 +156,5 @@ evaluation result will result in a new style load in the rendering loop.
 
 ___________________
 
-[^17]: Sourced from Mapbox GL Native wiki:
+[^17]: Sourced from Trackasia GL Native wiki:
     <https://github.com/mapbox/mapbox-gl-native/wiki/Expression-Architecture>
