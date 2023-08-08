@@ -67,7 +67,7 @@ git tag
 # 2.  Set a convenience variable with the desired TAG
 # TAG=android-v9.4.2
 # TAG=android-v9.5.2
-TAG=ios-v5.12.0
+TAG=ios-v1.0.0
 # TAG=ios-v5.12.0-pre.1
 
 # 3.  Check out a particular TAG

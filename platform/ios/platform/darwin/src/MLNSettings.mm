@@ -184,24 +184,53 @@
         
         retVal.sourceTemplate = [NSString stringWithUTF8String:cppOpts->sourceTemplate().c_str()];
         retVal.sourceDomainName = [NSString stringWithUTF8String:cppOpts->sourceDomainName().c_str()];
-        retVal.sourceVersionPrefix = cppOpts->sourceVersionPrefix().has_value() ? [NSString stringWithUTF8String:cppOpts->sourceVersionPrefix().value().c_str()] : nil;
-        
+        retVal.sourceVersionPrefix = [NSString stringWithUTF8String:cppOpts->sourceVersionPrefix().value_or("").c_str()];
+        // #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120000
+        //     NSString *sourceVersionPrefixValue = cppOpts->sourceVersionPrefix().value_or("").c_str();
+        // #else
+        //     NSString *sourceVersionPrefixValue = [NSString stringWithUTF8String:cppOpts->sourceVersionPrefix().c_str()];
+        // #endif
+        // retVal.sourceVersionPrefix = cppOpts->sourceVersionPrefix().has_value() ? sourceVersionPrefixValue : nil;
         retVal.styleTemplate = [NSString stringWithUTF8String:cppOpts->styleTemplate().c_str()];
         retVal.styleDomainName = [NSString stringWithUTF8String:cppOpts->styleDomainName().c_str()];
-        retVal.styleVersionPrefix = cppOpts->styleVersionPrefix().has_value() ? [NSString stringWithUTF8String:cppOpts->styleVersionPrefix().value().c_str()] : nil;
+        retVal.styleVersionPrefix = [NSString stringWithUTF8String:cppOpts->styleVersionPrefix().value_or("").c_str()];
+        // #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120000
+        //     NSString *styleVersionPrefixValue = cppOpts->styleVersionPrefix().value_or("").c_str();
+        // #else
+        //     NSString *styleVersionPrefixValue = [NSString stringWithUTF8String:cppOpts->styleVersionPrefix().c_str()];
+        // #endif
+        // retVal.styleVersionPrefix = cppOpts->styleVersionPrefix().has_value() ? styleVersionPrefixValue : nil;
 
         retVal.spritesTemplate = [NSString stringWithUTF8String:cppOpts->spritesTemplate().c_str()];
         retVal.spritesDomainName = [NSString stringWithUTF8String:cppOpts->spritesDomainName().c_str()];
-        retVal.spritesVersionPrefix = cppOpts->styleVersionPrefix().has_value() ? [NSString stringWithUTF8String:cppOpts->spritesVersionPrefix().value().c_str()] : nil;
+        retVal.spritesVersionPrefix = [NSString stringWithUTF8String:cppOpts->spritesVersionPrefix().value_or("").c_str()];
+        // #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120000
+        //     NSString *spritesVersionPrefixValue = cppOpts->spritesVersionPrefix().value_or("").c_str();
+        // #else
+        //     NSString *spritesVersionPrefixValue = [NSString stringWithUTF8String:cppOpts->spritesVersionPrefix().c_str()];
+        // #endif
+        // retVal.spritesVersionPrefix = cppOpts->spritesVersionPrefix().has_value() ? spritesVersionPrefixValue : nil;
 
         retVal.glyphsTemplate = [NSString stringWithUTF8String:cppOpts->glyphsTemplate().c_str()];
         retVal.glyphsDomainName = [NSString stringWithUTF8String:cppOpts->glyphsDomainName().c_str()];
-        retVal.glyphsVersionPrefix = cppOpts->styleVersionPrefix().has_value() ? [NSString stringWithUTF8String:cppOpts->glyphsVersionPrefix().value().c_str()] : nil;
- 
+        retVal.glyphsVersionPrefix =[NSString stringWithUTF8String:cppOpts->glyphsVersionPrefix().value_or("").c_str()];
+        // #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120000
+        //     NSString *glyphsVersionPrefixValue = cppOpts->glyphsVersionPrefix().value_or("").c_str();
+        // #else
+        //     NSString *glyphsVersionPrefixValue = [NSString stringWithUTF8String:cppOpts->glyphsVersionPrefix().c_str()];
+        // #endif
+        // retVal.glyphsVersionPrefix = cppOpts->glyphsVersionPrefix().has_value() ? glyphsVersionPrefixValue : nil;
+
         retVal.tileTemplate = [NSString stringWithUTF8String:cppOpts->tileTemplate().c_str()];
         retVal.tileDomainName = [NSString stringWithUTF8String:cppOpts->tileDomainName().c_str()];
-        retVal.tileVersionPrefix = cppOpts->styleVersionPrefix().has_value() ? [NSString stringWithUTF8String:cppOpts->tileVersionPrefix().value().c_str()] : nil;
-      
+        retVal.tileVersionPrefix = [NSString stringWithUTF8String:cppOpts->tileVersionPrefix().value_or("").c_str()];
+        // #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120000
+        //     NSString *tileVersionPrefixValue = cppOpts->tileVersionPrefix().value_or("").c_str();
+        // #else
+        //     NSString *tileVersionPrefixValue = [NSString stringWithUTF8String:cppOpts->tileVersionPrefix().c_str()];
+        // #endif
+        // retVal.tileVersionPrefix = cppOpts->tileVersionPrefix().has_value() ? tileVersionPrefixValue : nil;
+
         std::vector<mbgl::util::DefaultStyle> cppDefaultStyles = cppOpts->defaultStyles();
         
         
