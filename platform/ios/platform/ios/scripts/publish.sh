@@ -53,12 +53,12 @@ fi
 
 step "Uploading ${BINARY_ARTIFACT_ZIP_FILE} to s3… ${DRYRUN}"
 
-aws s3 cp ${BINARY_ARTIFACT_ZIP_FILE} s3://mapbox-gl-native/ios/builds --acl public-read ${PROGRESS} ${DRYRUN}
-BINARY_ARTIFACT_URL=https://mapbox-gl-native.s3.us-east-2.amazonaws.com/ios/builds/${BINARY_ARTIFACT_ZIP_FILE}
+aws s3 cp ${BINARY_ARTIFACT_ZIP_FILE} s3://trackasia-gl-native/ios/builds --acl public-read ${PROGRESS} ${DRYRUN}
+BINARY_ARTIFACT_URL=https://trackasia-gl-native.s3.us-east-2.amazonaws.com/ios/builds/${BINARY_ARTIFACT_ZIP_FILE}
 export BINARY_ARTIFACT_URL
 export BINARY_ARTIFACT_ZIP_FILE
 echo "URL: ${BINARY_ARTIFACT_URL}"
-echo "mapbox-gl-native is currently hardcoded"
+echo "trackasia-gl-native is currently hardcoded"
 
 #
 # upload & update snapshot
