@@ -51,9 +51,9 @@ include(${PROJECT_SOURCE_DIR}/vendor/boost.cmake)
 target_link_libraries(
     mbgl-render-test
     PRIVATE
-        Trackasia::Base::Extras::args
-        Trackasia::Base::Extras::filesystem
-        Trackasia::Base::pixelmatch-cpp
+        Mapbox::Base::Extras::args
+        Mapbox::Base::Extras::filesystem
+        Mapbox::Base::pixelmatch-cpp
         mbgl-compiler-options
         mbgl-vendor-boost
     PUBLIC mbgl-core

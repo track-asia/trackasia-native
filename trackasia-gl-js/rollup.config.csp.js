@@ -7,7 +7,7 @@ import banner from './build/banner';
 const config = (input, file, format) => ({
     input,
     output: {
-        name: 'TrackAsiaGL',
+        name: 'mapboxgl',
         file,
         format,
         sourcemap: true,

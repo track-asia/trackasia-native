@@ -60,11 +60,11 @@ publish() {
             --file "${BINARY_DIRECTORY}/${file_name}" > /dev/null
     fi
     if [ ${app} ]; then
-        file_name="TrackAsia GL.app.zip"
+        file_name="Trackasia GL.app.zip"
         step "Compressing ${file_name}…"
         cd build/macos/app
         rm -f "${file_name}"
-        zip -yr "../deploy/${file_name}" 'TrackAsia GL.app'
+        zip -yr "../deploy/${file_name}" 'Trackasia GL.app'
         cd -
         if [[ "${GITHUB_RELEASE}" == true ]]; then
             echo "Uploading ${file_name} to GitHub"

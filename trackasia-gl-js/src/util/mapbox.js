@@ -181,9 +181,9 @@ export class RequestManager {
 
         accessToken = accessToken || config.ACCESS_TOKEN;
         if (!accessToken)
-            throw new Error(`An API access token is required to use TrackAsia GL. ${help}`);
+            throw new Error(`An API access token is required to use Trackasia GL. ${help}`);
         if (accessToken[0] === 's')
-            throw new Error(`Use a public access token (pk.*) with TrackAsia GL, not a secret access token (sk.*). ${help}`);
+            throw new Error(`Use a public access token (pk.*) with Trackasia GL, not a secret access token (sk.*). ${help}`);
 
         urlObject.params = urlObject.params.filter((d) => d.indexOf('access_token') === -1);
         urlObject.params.push(`access_token=${accessToken}`);

@@ -14,7 +14,7 @@ public:
     void SetUp(const ::benchmark::State&) override {
         using namespace std::chrono_literals;
 
-        db.setOfflineTrackasiaTileCountLimit(100000);
+        db.setOfflineMapboxTileCountLimit(100000);
 
         response.data = std::make_shared<std::string>(50 * 1024, 0);
         response.mustRevalidate = false;

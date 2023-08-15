@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTrackAsiaGL/Types>
+#include <QTrackasiaGL/Types>
 
 #include <mapbox/geojson.hpp>
 #include <mbgl/util/geometry.hpp>
@@ -10,7 +10,7 @@
 
 #include <string>
 
-namespace QTrackAsiaGL::GeoJSON {
+namespace QTrackasiaGL::GeoJSON {
 
 mbgl::Point<double> asPoint(const Coordinate &coordinate);
 mbgl::MultiPoint<double> asMultiPoint(const Coordinates &multiPoint);
@@ -22,4 +22,4 @@ mbgl::Value asPropertyValue(const QVariant &value);
 mbgl::FeatureIdentifier asFeatureIdentifier(const QVariant &id);
 mbgl::GeoJSONFeature asFeature(const Feature &feature);
 
-} // namespace QTrackAsiaGL::GeoJSON
+} // namespace QTrackasiaGL::GeoJSON

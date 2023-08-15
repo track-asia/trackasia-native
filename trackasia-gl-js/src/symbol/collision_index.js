@@ -6,7 +6,7 @@ import * as intersectionTests from '../util/intersection_tests';
 import Grid from './grid_index';
 import {mat4} from 'gl-matrix';
 
-import * as projection from '../symbol/projection';
+import * as projection from './projection';
 
 import type Transform from '../geo/transform';
 import type {SingleCollisionBox} from '../data/bucket/symbol_bucket';

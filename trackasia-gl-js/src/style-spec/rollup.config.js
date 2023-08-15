@@ -17,7 +17,7 @@ const transforms = {
 const config = [{
     input: `${__dirname}/style-spec.js`,
     output: {
-        name: 'TrackAsiaGLStyleSpecification',
+        name: 'mapboxGlStyleSpecification',
         file: `${__dirname}/dist/${esm ? 'index.es.js' : 'index.js'}`,
         format: esm ? 'esm' : 'umd',
         sourcemap: true

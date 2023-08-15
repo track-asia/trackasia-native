@@ -128,7 +128,7 @@ jobs:
         run: |
           TRACKASIA_DEVELOPER_CONFIG_XML='${{ secrets.TRACKASIA_DEVELOPER_CONFIG_XML }}'
           if [ -n "${TRACKASIA_DEVELOPER_CONFIG_XML}" ]; then
-            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > TrackAsiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
+            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > MapboxGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
             make android-ui-test-arm-v8
           else
             echo "No secrets.TRACKASIA_DEVELOPER_CONFIG_XML variable set, skipping apk build..."
@@ -154,8 +154,8 @@ jobs:
           if [[ -n "${GLCLOUD_SERVICE_JSON}" ]]; then
             gcloud firebase test android models list
             gcloud firebase test android run --type instrumentation \
-              --app TrackAsiaGLAndroidSDKTestApp/build/outputs/apk/debug/TrackAsiaGLAndroidSDKTestApp-debug.apk \
-              --test TrackAsiaGLAndroidSDKTestApp/build/outputs/apk/androidTest/debug/TrackAsiaGLAndroidSDKTestApp-debug-androidTest.apk \
+              --app MapboxGLAndroidSDKTestApp/build/outputs/apk/debug/MapboxGLAndroidSDKTestApp-debug.apk \
+              --test MapboxGLAndroidSDKTestApp/build/outputs/apk/androidTest/debug/MapboxGLAndroidSDKTestApp-debug-androidTest.apk \
               --device-ids sailfish --os-version-ids 26 --locales en --orientations portrait --timeout 20m \
               --environment-variables coverage=true,coverageFile="/sdcard/coverage.ec" --directories-to-pull /sdcard --results-dir trackasia-android-sdk-${{ github.run_number }}
           else
@@ -168,10 +168,10 @@ jobs:
         with:
           name: debug-artifacts
           path: |
-            TrackAsiaGLAndroidSDKTestApp/build/outputs/apk/debug
-            TrackAsiaGLAndroidSDK/build/reports/lint-results.html
-            TrackAsiaGLAndroidSDK/lint-baseline.xml
-            TrackAsiaGLAndroidSDKTestApp/build/reports/lint-results.html
-            TrackAsiaGLAndroidSDKTestApp/build/reports/lint-results.xml
-            TrackAsiaGLAndroidSDKTestApp/lint-baseline.xml
-            TrackAsiaGLAndroidSDK/build/intermediates/cmake/debug/obj
+            MapboxGLAndroidSDKTestApp/build/outputs/apk/debug
+            MapboxGLAndroidSDK/build/reports/lint-results.html
+            MapboxGLAndroidSDK/lint-baseline.xml
+            MapboxGLAndroidSDKTestApp/build/reports/lint-results.html
+            MapboxGLAndroidSDKTestApp/build/reports/lint-results.xml
+            MapboxGLAndroidSDKTestApp/lint-baseline.xml
+            MapboxGLAndroidSDK/build/intermediates/cmake/debug/obj

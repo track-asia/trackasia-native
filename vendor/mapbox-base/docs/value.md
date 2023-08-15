@@ -6,7 +6,7 @@
 
 A mapbox::base::Value holds a value of a type. Supported types are `int`, `uint`, `bool`, `double`, `array`, `object` and `string`. The type and the value of a mapbox::base::Value [can change](#Type).
 
-Values are used widely in Trackasia libraries, for instance when working with geometries or data in JSON format. They can be nested to create complex structures.
+Values are used widely in Mapbox libraries, for instance when working with geometries or data in JSON format. They can be nested to create complex structures.
 
 - [mapbox::base::Value](#Value)
 - [mapbox::base::ValueArray](#ValueArray)
@@ -335,4 +335,4 @@ results in:
 ]
 ```
 
-See https://docs.mapbox.com/mapbox-gl-js/example/line-gradient/ to learn more about line gradients in Trackasia SDKs.
+See https://docs.mapbox.com/mapbox-gl-js/example/line-gradient/ to learn more about line gradients in Mapbox SDKs.

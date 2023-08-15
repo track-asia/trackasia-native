@@ -28,10 +28,10 @@ import type Painter from './painter';
 import type SourceCache from '../source/source_cache';
 import type SymbolStyleLayer from '../style/style_layer/symbol_style_layer';
 import type SymbolBucket, {SymbolBuffers} from '../data/bucket/symbol_bucket';
-import type Texture from '../render/texture';
+import type Texture from './texture';
 import type {OverscaledTileID} from '../source/tile_id';
 import type {UniformValues} from './uniform_binding';
-import type {SymbolSDFUniformsType} from '../render/program/symbol_program';
+import type {SymbolSDFUniformsType} from './program/symbol_program';
 import type {CrossTileID, VariableOffset} from '../symbol/placement';
 
 export default drawSymbols;

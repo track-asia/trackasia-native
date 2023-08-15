@@ -156,12 +156,12 @@ const defaultOptions = {
  * and fires events as users interact with it.
  *
  * You create a `Map` by specifying a `container` and other options.
- * Then TrackAsia GL JS initializes the map on the page and returns your `Map`
+ * Then Trackasia GL JS initializes the map on the page and returns your `Map`
  * object.
  *
  * @extends Evented
  * @param {Object} options
- * @param {HTMLElement|string} options.container The HTML element in which TrackAsia GL JS will render the map, or the element's string `id`. The specified element must have no children.
+ * @param {HTMLElement|string} options.container The HTML element in which Trackasia GL JS will render the map, or the element's string `id`. The specified element must have no children.
  * @param {number} [options.minZoom=0] The minimum zoom level of the map (0-24).
  * @param {number} [options.maxZoom=22] The maximum zoom level of the map (0-24).
  * @param {number} [options.minPitch=0] The minimum pitch of the map (0-60).
@@ -216,10 +216,10 @@ const defaultOptions = {
  * @param {boolean} [options.doubleClickZoom=true] If `true`, the "double click to zoom" interaction is enabled (see {@link DoubleClickZoomHandler}).
  * @param {boolean|Object} [options.touchZoomRotate=true] If `true`, the "pinch to rotate and zoom" interaction is enabled. An `Object` value is passed as options to {@link TouchZoomRotateHandler#enable}.
  * @param {boolean} [options.trackResize=true]  If `true`, the map will automatically resize when the browser window resizes.
- * @param {LngLatLike} [options.center=[0, 0]] The inital geographical centerpoint of the map. If `center` is not specified in the constructor options, TrackAsia GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `[0, 0]` Note: TrackAsia GL uses longitude, latitude coordinate order (as opposed to latitude, longitude) to match GeoJSON.
- * @param {number} [options.zoom=0] The initial zoom level of the map. If `zoom` is not specified in the constructor options, TrackAsia GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
- * @param {number} [options.bearing=0] The initial bearing (rotation) of the map, measured in degrees counter-clockwise from north. If `bearing` is not specified in the constructor options, TrackAsia GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
- * @param {number} [options.pitch=0] The initial pitch (tilt) of the map, measured in degrees away from the plane of the screen (0-60). If `pitch` is not specified in the constructor options, TrackAsia GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
+ * @param {LngLatLike} [options.center=[0, 0]] The inital geographical centerpoint of the map. If `center` is not specified in the constructor options, Trackasia GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `[0, 0]` Note: Trackasia GL uses longitude, latitude coordinate order (as opposed to latitude, longitude) to match GeoJSON.
+ * @param {number} [options.zoom=0] The initial zoom level of the map. If `zoom` is not specified in the constructor options, Trackasia GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
+ * @param {number} [options.bearing=0] The initial bearing (rotation) of the map, measured in degrees counter-clockwise from north. If `bearing` is not specified in the constructor options, Trackasia GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
+ * @param {number} [options.pitch=0] The initial pitch (tilt) of the map, measured in degrees away from the plane of the screen (0-60). If `pitch` is not specified in the constructor options, Trackasia GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
  * @param {LngLatBoundsLike} [options.bounds] The initial bounds of the map. If `bounds` is specified, it overrides `center` and `zoom` constructor options.
  * @param {Object} [options.fitBoundsOptions] A [`fitBounds`](#map#fitbounds) options object to use _only_ when fitting the initial `bounds` provided above.
  * @param {boolean} [options.renderWorldCopies=true]  If `true`, multiple copies of the world will be rendered side by side beyond -180 and 180 degrees longitude. If set to `false`:
@@ -238,10 +238,10 @@ const defaultOptions = {
  * @param {boolean} [options.collectResourceTiming=false] If `true`, Resource Timing API information will be collected for requests made by GeoJSON and Vector Tile web workers (this information is normally inaccessible from the main Javascript thread). Information will be returned in a `resourceTiming` property of relevant `data` events.
  * @param {number} [options.fadeDuration=300] Controls the duration of the fade-in/fade-out animation for label collisions, in milliseconds. This setting affects all symbol layers. This setting does not affect the duration of runtime styling transitions or raster tile cross-fading.
  * @param {boolean} [options.crossSourceCollisions=true] If `true`, symbols from multiple sources can collide with each other during collision detection. If `false`, collision detection is run separately for the symbols in each source.
- * @param {string} [options.accessToken=null] If specified, map will use this token instead of the one defined in TrackAsiaGL.accessToken.
+ * @param {string} [options.accessToken=null] If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
  * @param {string} [options.locale=null] A patch to apply to the default localization table for UI strings, e.g. control tooltips. The `locale` object maps namespaced UI string IDs to translated strings in the target language; see `src/ui/default_locale.js` for an example with all supported string IDs. The object may specify all UI strings (thereby adding support for a new translation) or only a subset of strings (thereby patching the default translation table).
  * @example
- * var map = new TrackAsiaGL.Map({
+ * var map = new mapboxgl.Map({
  *   container: 'map',
  *   center: [-122.420679, 37.772537],
  *   zoom: 13,
@@ -487,7 +487,7 @@ class Map extends Camera {
      * @returns {Map} `this`
      * @example
      * // Add zoom and rotation controls to the map.
-     * map.addControl(new TrackAsiaGL.NavigationControl());
+     * map.addControl(new mapboxgl.NavigationControl());
      * @see [Display map navigation controls](https://www.mapbox.com/mapbox-gl-js/example/navigation/)
      */
     addControl(control: IControl, position?: ControlPosition) {
@@ -520,7 +520,7 @@ class Map extends Camera {
      * @returns {Map} `this`
      * @example
      * // Define a new navigation control.
-     * var navigation = new TrackAsiaGL.NavigationControl();
+     * var navigation = new mapboxgl.NavigationControl();
      * // Add zoom and rotation controls to the map.
      * map.addControl(navigation);
      * // Remove zoom and rotation controls from the map.
@@ -1062,7 +1062,7 @@ class Map extends Camera {
      *   Only features within these layers will be returned. If this parameter is undefined, all layers will be checked.
      * @param {Array} [options.filter] A [filter](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#filter)
      *   to limit query results.
-     * @param {boolean} [options.validate=true] Whether to check if the [options.filter] conforms to the TrackAsia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+     * @param {boolean} [options.validate=true] Whether to check if the [options.filter] conforms to the Trackasia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
      *
      * @returns {Array<Object>} An array of [GeoJSON](http://geojson.org/)
      * [feature objects](https://tools.ietf.org/html/rfc7946#section-3.2).
@@ -1171,7 +1171,7 @@ class Map extends Camera {
      *   to query. *For vector tile sources, this parameter is required.* For GeoJSON sources, it is ignored.
      * @param {Array} [parameters.filter] A [filter](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#filter)
      *   to limit query results.
-     * @param {boolean} [parameters.validate=true] Whether to check if the [parameters.filter] conforms to the TrackAsia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+     * @param {boolean} [parameters.validate=true] Whether to check if the [parameters.filter] conforms to the Trackasia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
      *
      * @returns {Array<Object>} An array of [GeoJSON](http://geojson.org/)
      * [Feature objects](https://tools.ietf.org/html/rfc7946#section-3.2).
@@ -1784,7 +1784,7 @@ class Map extends Camera {
      * @param {Array | null | undefined} filter The filter, conforming to the Mapbox Style Specification's
      *   [filter definition](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#filter).  If `null` or `undefined` is provided, the function removes any existing filter from the layer.
      * @param {Object} [options] Options object.
-     * @param {boolean} [options.validate=true] Whether to check if the filter conforms to the TrackAsia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+     * @param {boolean} [options.validate=true] Whether to check if the filter conforms to the Trackasia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
      *
      * @returns {Map} `this`
      * @example
@@ -1817,7 +1817,7 @@ class Map extends Camera {
      * @param {*} value The value of the paint property to set.
      *   Must be of a type appropriate for the property, as defined in the [Mapbox Style Specification](https://www.mapbox.com/mapbox-gl-style-spec/).
      * @param {Object} [options] Options object.
-     * @param {boolean} [options.validate=true] Whether to check if `value` conforms to the TrackAsia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+     * @param {boolean} [options.validate=true] Whether to check if `value` conforms to the Trackasia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
      * @returns {Map} `this`
      * @example
      * map.setPaintProperty('my-layer', 'fill-color', '#faafee');
@@ -1848,7 +1848,7 @@ class Map extends Camera {
      * @param {string} name The name of the layout property to set.
      * @param {*} value The value of the layout property. Must be of a type appropriate for the property, as defined in the [Mapbox Style Specification](https://www.mapbox.com/mapbox-gl-style-spec/).
      * @param {Object} [options] Options object.
-     * @param {boolean} [options.validate=true] Whether to check if `value` conforms to the TrackAsia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+     * @param {boolean} [options.validate=true] Whether to check if `value` conforms to the Trackasia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
      * @returns {Map} `this`
      * @example
      * map.setLayoutProperty('my-layer', 'visibility', 'none');
@@ -1874,7 +1874,7 @@ class Map extends Camera {
      *
      * @param light Light properties to set. Must conform to the [Mapbox Style Specification](https://www.mapbox.com/mapbox-gl-style-spec/#light).
      * @param {Object} [options] Options object.
-     * @param {boolean} [options.validate=true] Whether to check if the filter conforms to the TrackAsia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+     * @param {boolean} [options.validate=true] Whether to check if the filter conforms to the Trackasia GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
      * @returns {Map} `this`
      */
     setLight(light: LightSpecification, options: StyleSetterOptions = {}) {
@@ -2010,7 +2010,7 @@ class Map extends Camera {
         const computedColor = window.getComputedStyle(this._missingCSSCanary).getPropertyValue('background-color');
         if (computedColor !== 'rgb(250, 128, 114)') {
             warnOnce('This page appears to be missing CSS declarations for ' +
-                'TrackAsia GL JS, which may cause the map to display incorrectly. ' +
+                'Trackasia GL JS, which may cause the map to display incorrectly. ' +
                 'Please ensure your page includes mapbox-gl.css, as described ' +
                 'in https://www.mapbox.com/mapbox-gl-js/api/.');
         }
@@ -2018,18 +2018,18 @@ class Map extends Camera {
 
     _setupContainer() {
         const container = this._container;
-        container.classList.add('TrackAsiaGL-map');
+        container.classList.add('mapboxgl-map');
 
-        const missingCSSCanary = this._missingCSSCanary = DOM.create('div', 'TrackAsiaGL-canary', container);
+        const missingCSSCanary = this._missingCSSCanary = DOM.create('div', 'mapboxgl-canary', container);
         missingCSSCanary.style.visibility = 'hidden';
         this._detectMissingCSS();
 
-        const canvasContainer = this._canvasContainer = DOM.create('div', 'TrackAsiaGL-canvas-container', container);
+        const canvasContainer = this._canvasContainer = DOM.create('div', 'mapboxgl-canvas-container', container);
         if (this._interactive) {
-            canvasContainer.classList.add('TrackAsiaGL-interactive');
+            canvasContainer.classList.add('mapboxgl-interactive');
         }
 
-        this._canvas = DOM.create('canvas', 'TrackAsiaGL-canvas', canvasContainer);
+        this._canvas = DOM.create('canvas', 'mapboxgl-canvas', canvasContainer);
         this._canvas.addEventListener('webglcontextlost', this._contextLost, false);
         this._canvas.addEventListener('webglcontextrestored', this._contextRestored, false);
         this._canvas.setAttribute('tabindex', '0');
@@ -2038,10 +2038,10 @@ class Map extends Camera {
         const dimensions = this._containerDimensions();
         this._resizeCanvas(dimensions[0], dimensions[1]);
 
-        const controlContainer = this._controlContainer = DOM.create('div', 'TrackAsiaGL-control-container', container);
+        const controlContainer = this._controlContainer = DOM.create('div', 'mapboxgl-control-container', container);
         const positions = this._controlPositions = {};
         ['top-left', 'top-right', 'bottom-left', 'bottom-right'].forEach((positionName) => {
-            positions[positionName] = DOM.create('div', `TrackAsiaGL-ctrl-${positionName}`, controlContainer);
+            positions[positionName] = DOM.create('div', `mapboxgl-ctrl-${positionName}`, controlContainer);
         });
     }
 
@@ -2311,7 +2311,7 @@ class Map extends Camera {
         removeNode(this._canvasContainer);
         removeNode(this._controlContainer);
         removeNode(this._missingCSSCanary);
-        this._container.classList.remove('TrackAsiaGL-map');
+        this._container.classList.remove('mapboxgl-map');
 
         PerformanceUtils.clearMetrics();
         this.fire(new Event('remove'));
@@ -2448,7 +2448,7 @@ class Map extends Camera {
     }
 
     /**
-     * The version of TrackAsia GL JS in use as specified in package.json, CHANGELOG.md, and the GitHub release.
+     * The version of Trackasia GL JS in use as specified in package.json, CHANGELOG.md, and the GitHub release.
      *
      * @name version
      * @instance
@@ -2473,8 +2473,8 @@ function removeNode(node) {
  * an exported method or class.
  *
  * Controls must implement `onAdd` and `onRemove`, and must own an
- * element, which is often a `div` element. To use TrackAsia GL JS's
- * default control styling, add the `TrackAsiaGL-ctrl` class to your control's
+ * element, which is often a `div` element. To use Trackasia GL JS's
+ * default control styling, add the `mapboxgl-ctrl` class to your control's
  * node.
  *
  * @interface IControl
@@ -2484,7 +2484,7 @@ function removeNode(node) {
  *     onAdd(map) {
  *         this._map = map;
  *         this._container = document.createElement('div');
- *         this._container.className = 'TrackAsiaGL-ctrl';
+ *         this._container.className = 'mapboxgl-ctrl';
  *         this._container.textContent = 'Hello, world';
  *         return this._container;
  *     }
@@ -2501,7 +2501,7 @@ function removeNode(node) {
  * HelloWorldControl.prototype.onAdd = function(map) {
  *     this._map = map;
  *     this._container = document.createElement('div');
- *     this._container.className = 'TrackAsiaGL-ctrl';
+ *     this._container.className = 'mapboxgl-ctrl';
  *     this._container.textContent = 'Hello, world';
  *     return this._container;
  * };

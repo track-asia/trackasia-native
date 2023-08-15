@@ -15,7 +15,7 @@ target_sources(
 
 target_link_libraries(
     mbgl-vendor-csscolorparser
-    PRIVATE Trackasia::Base::optional mbgl-compiler-options
+    PRIVATE Mapbox::Base::optional mbgl-compiler-options
 )
 
 target_include_directories(

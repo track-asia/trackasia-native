@@ -43,7 +43,7 @@ test('LogoControl appears in bottom-left by default', (t) => {
     const map = createMap(t);
     map.on('load', () => {
         t.equal(map.getContainer().querySelectorAll(
-            '.TrackAsiaGL-ctrl-bottom-left .TrackAsiaGL-ctrl-logo'
+            '.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl-logo'
         ).length, 1);
         t.end();
     });
@@ -53,7 +53,7 @@ test('LogoControl appears in the position specified by the position option', (t)
     const map = createMap(t, 'top-left');
     map.on('load', () => {
         t.equal(map.getContainer().querySelectorAll(
-            '.TrackAsiaGL-ctrl-top-left .TrackAsiaGL-ctrl-logo'
+            '.mapboxgl-ctrl-top-left .mapboxgl-ctrl-logo'
         ).length, 1);
         t.end();
     });
@@ -62,7 +62,7 @@ test('LogoControl appears in the position specified by the position option', (t)
 test('LogoControl is not displayed when the mapbox_logo property is false', (t) => {
     const map = createMap(t, 'top-left', false);
     map.on('load', () => {
-        t.equal(map.getContainer().querySelectorAll('.TrackAsiaGL-ctrl-top-left > .TrackAsiaGL-ctrl')[0].style.display, 'none');
+        t.equal(map.getContainer().querySelectorAll('.mapboxgl-ctrl-top-left > .mapboxgl-ctrl')[0].style.display, 'none');
         t.end();
     });
 });
@@ -77,11 +77,11 @@ test('LogoControl is not added more than once', (t) => {
         ]
     });
     map.on('load', () => {
-        t.equal(map.getContainer().querySelectorAll('.TrackAsiaGL-ctrl-logo').length, 1, 'first LogoControl');
+        t.equal(map.getContainer().querySelectorAll('.mapboxgl-ctrl-logo').length, 1, 'first LogoControl');
         map.addSource('source2', source);
         map.on('sourcedata', (e) => {
             if (e.isSourceLoaded && e.sourceId === 'source2' && e.sourceDataType === 'metadata') {
-                t.equal(map.getContainer().querySelectorAll('.TrackAsiaGL-ctrl-logo').length, 1, 'only one LogoControl is added with multiple sources');
+                t.equal(map.getContainer().querySelectorAll('.mapboxgl-ctrl-logo').length, 1, 'only one LogoControl is added with multiple sources');
                 t.end();
             }
         });
@@ -94,11 +94,11 @@ test('LogoControl appears in compact mode if container is less then 250 pixel wi
 
     Object.defineProperty(map.getCanvasContainer(), 'offsetWidth', {value: 255, configurable: true});
     map.resize();
-    t.equal(container.querySelectorAll('.TrackAsiaGL-ctrl-logo:not(.TrackAsiaGL-compact)').length, 1);
+    t.equal(container.querySelectorAll('.mapboxgl-ctrl-logo:not(.mapboxgl-compact)').length, 1);
 
     Object.defineProperty(map.getCanvasContainer(), 'offsetWidth', {value: 245, configurable: true});
     map.resize();
-    t.equal(container.querySelectorAll('.TrackAsiaGL-ctrl-logo.TrackAsiaGL-compact').length, 1);
+    t.equal(container.querySelectorAll('.mapboxgl-ctrl-logo.mapboxgl-compact').length, 1);
 
     t.end();
 });
@@ -108,7 +108,7 @@ test('LogoControl has `rel` nooper and nofollow', (t) => {
 
     map.on('load', () => {
         const container = map.getContainer();
-        const logo = container.querySelector('.TrackAsiaGL-ctrl-logo');
+        const logo = container.querySelector('.mapboxgl-ctrl-logo');
 
         t.equal(logo.rel, 'noopener nofollow');
 

@@ -42,5 +42,5 @@ target_include_directories(
 
 export(TARGETS
     mbgl-vendor-nunicode
-    APPEND FILE TrackasiaCoreTargets.cmake
+    APPEND FILE MapboxCoreTargets.cmake
 )

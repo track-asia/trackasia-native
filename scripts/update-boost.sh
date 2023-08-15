@@ -17,7 +17,7 @@ mkdir -p vendor/boost/include
 
 pushd vendor/boost
 VERSION=$(sed -n 's/^#define BOOST_LIB_VERSION "\([^"]*\)"$/\1/p' include/boost/version.hpp)
-echo "libboost ${VERSION/_/.} for TrackAsia GL Native" > README.md
+echo "libboost ${VERSION/_/.} for Trackasia GL Native" > README.md
 git add README.md include
 popd
 

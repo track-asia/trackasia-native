@@ -4,7 +4,7 @@ import {v8} from './style-spec';
 import readStyle from './read_style';
 
 /**
- * Validate a TrackAsia GL style against the style specification.
+ * Validate a Trackasia GL style against the style specification.
  *
  * @private
  * @alias validate

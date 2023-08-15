@@ -137,7 +137,7 @@ void OfflineDatabase::handleError(const char* action) {
         handleError(ex, action);
     } catch (const util::IOException& ex) {
         handleError(ex, action);
-    } catch (const TrackasiaTileLimitExceededException&) {
+    } catch (const MapboxTileLimitExceededException&) {
         throw; // This is ours and must be handled on client side.
     } catch (const std::runtime_error& ex) {
         handleError(ex, action);
@@ -866,7 +866,7 @@ OfflineDatabase::mergeDatabase(const std::string& sideDatabasePath) {
             throw std::runtime_error("Merge database has incorrect user_version");
         }
 
-        auto currentTileCount = getOfflineTrackasiaTileCount();
+        auto currentTileCount = getOfflineMapboxTileCount();
         // clang-format off
          mapbox::sqlite::Query queryTiles{ getStatement(
             "SELECT COUNT(DISTINCT st.id) "
@@ -884,8 +884,8 @@ OfflineDatabase::mergeDatabase(const std::string& sideDatabasePath) {
         queryTiles.bind(1, tileServerOptions.uriSchemeAlias() + "://");
         queryTiles.run();
         auto countOfTilesToMerge = queryTiles.get<int64_t>(0);
-        if ((countOfTilesToMerge + currentTileCount) > offlineTrackasiaTileCountLimit) {
-            throw TrackasiaTileLimitExceededException();
+        if ((countOfTilesToMerge + currentTileCount) > offlineMapboxTileCountLimit) {
+            throw MapboxTileLimitExceededException();
         }
         queryTiles.reset();
 
@@ -955,7 +955,7 @@ std::exception_ptr OfflineDatabase::deleteRegion(OfflineRegion&& region) try {
     updateAmbientCacheSize(stats);
 
     // Ensure that the cached offlineTileCount value is recalculated.
-    offlineTrackasiaTileCount = nullopt;
+    offlineMapboxTileCount = nullopt;
     return nullptr;
 } catch (...) {
     handleError("delete region");
@@ -1022,7 +1022,7 @@ void OfflineDatabase::putRegionResources(int64_t regionID,
                 completedTileCount += 1;
                 completedTileSize += resourceSize;
             }
-        } catch (const TrackasiaTileLimitExceededException&) {
+        } catch (const MapboxTileLimitExceededException&) {
             // Commit the rest of the batch and rethrow
             transaction.commit();
             throw;
@@ -1046,15 +1046,15 @@ uint64_t OfflineDatabase::putRegionResourceInternal(int64_t regionID, const Reso
     uint64_t size = putInternal(resource, response, false).second;
     bool previouslyUnused = markUsed(regionID, resource);
 
-    if (previouslyUnused && exceedsOfflineTrackasiaTileCountLimit(resource)) {
-        throw TrackasiaTileLimitExceededException();
+    if (previouslyUnused && exceedsOfflineMapboxTileCountLimit(resource)) {
+        throw MapboxTileLimitExceededException();
     }
 
-    if (offlineTrackasiaTileCount
+    if (offlineMapboxTileCount
         && resource.kind == Resource::Kind::Tile
         && util::mapbox::isCanonicalURL(tileServerOptions, resource.url)
         && previouslyUnused) {
-        *offlineTrackasiaTileCount += 1;
+        *offlineMapboxTileCount += 1;
     }
 
     return size;
@@ -1369,26 +1369,26 @@ std::exception_ptr OfflineDatabase::setMaximumAmbientCacheSize(uint64_t size) {
     }
 }
 
-void OfflineDatabase::setOfflineTrackasiaTileCountLimit(uint64_t limit) {
-    offlineTrackasiaTileCountLimit = limit;
+void OfflineDatabase::setOfflineMapboxTileCountLimit(uint64_t limit) {
+    offlineMapboxTileCountLimit = limit;
 }
 
-uint64_t OfflineDatabase::getOfflineTrackasiaTileCountLimit() {
-    return offlineTrackasiaTileCountLimit;
+uint64_t OfflineDatabase::getOfflineMapboxTileCountLimit() {
+    return offlineMapboxTileCountLimit;
 }
 
-bool OfflineDatabase::offlineTrackasiaTileCountLimitExceeded() {
-    return getOfflineTrackasiaTileCount() >= offlineTrackasiaTileCountLimit;
+bool OfflineDatabase::offlineMapboxTileCountLimitExceeded() {
+    return getOfflineMapboxTileCount() >= offlineMapboxTileCountLimit;
 }
 
-uint64_t OfflineDatabase::getOfflineTrackasiaTileCount() try {
+uint64_t OfflineDatabase::getOfflineMapboxTileCount() try {
     // Calculating this on every call would be much simpler than caching and
     // manually updating the value, but it would make offline downloads an O(n²)
     // operation, because the database query below involves an index scan of
     // region_tiles.
 
-    if (offlineTrackasiaTileCount) {
-        return *offlineTrackasiaTileCount;
+    if (offlineMapboxTileCount) {
+        return *offlineMapboxTileCount;
     }
 
     // clang-format off
@@ -1401,17 +1401,17 @@ uint64_t OfflineDatabase::getOfflineTrackasiaTileCount() try {
     query.bind(1, tileServerOptions.uriSchemeAlias() + "://");
     query.run();
 
-    offlineTrackasiaTileCount = query.get<int64_t>(0);
-    return *offlineTrackasiaTileCount;
+    offlineMapboxTileCount = query.get<int64_t>(0);
+    return *offlineMapboxTileCount;
 } catch (...) {
-    handleError("get offline Trackasia tile count");
+    handleError("get offline Mapbox tile count");
     return std::numeric_limits<uint64_t>::max();
 }
 
-bool OfflineDatabase::exceedsOfflineTrackasiaTileCountLimit(const Resource& resource) {
+bool OfflineDatabase::exceedsOfflineMapboxTileCountLimit(const Resource& resource) {
     return resource.kind == Resource::Kind::Tile
         && util::mapbox::isCanonicalURL(tileServerOptions, resource.url)
-        && offlineTrackasiaTileCountLimitExceeded();
+        && offlineMapboxTileCountLimitExceeded();
 }
 
 void OfflineDatabase::markUsedResources(int64_t regionID, const std::list<Resource>& resources) try {

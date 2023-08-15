@@ -4,7 +4,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId = 'com.trackasia.android.maps.benchmark_runner'
+        applicationId = 'com.mapbox.mapboxsdk.maps.benchmark_runner'
         minSdkVersion 21
         targetSdkVersion 33
         def abi = 'all'

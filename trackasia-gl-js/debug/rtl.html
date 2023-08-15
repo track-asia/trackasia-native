@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TrackAsia GL JS debug page</title>
+    <title>Trackasia GL JS debug page</title>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel='stylesheet' href='/dist/mapbox-gl.css' />
@@ -31,7 +31,7 @@
 <script src='/debug/access_token_generated.js'></script>
 <script>
 var pluginURL = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js';
-var map = window.map = new TrackAsiaGL.Map({
+var map = window.map = new mapboxgl.Map({
     container: 'map',
     zoom: 16.5,
     center: [44.355435, 33.258814],
@@ -40,11 +40,11 @@ var map = window.map = new TrackAsiaGL.Map({
 });
 
 document.getElementById('loadSync').onclick = function() {
-    TrackAsiaGL.setRTLTextPlugin(pluginURL);
+    mapboxgl.setRTLTextPlugin(pluginURL);
 };
 
 document.getElementById('loadAsync').onclick = function() {
-    TrackAsiaGL.setRTLTextPlugin(pluginURL, function(err) {
+    mapboxgl.setRTLTextPlugin(pluginURL, function(err) {
         if (err) {
             throw err;
         } else {
@@ -54,7 +54,7 @@ document.getElementById('loadAsync').onclick = function() {
 };
 
 setInterval(function() {
-    document.getElementById('pluginStatus').innerHTML = TrackAsiaGL.getRTLTextPluginStatus();
+    document.getElementById('pluginStatus').innerHTML = mapboxgl.getRTLTextPluginStatus();
 }, 400);
 </script>
 </body>

@@ -2,8 +2,8 @@
 /* eslint-disable prefer-arrow-callback,prefer-template */
 /* eslint no-loop-func: "off" */
 /* eslint camelcase: "off" */
-/* global TrackAsiaGL */
-/* global TrackAsiaGLVersions */
+/* global mapboxgl */
+/* global mapboxglVersions */
 
 const pages = {
     "geojson-markers": {
@@ -68,8 +68,8 @@ const versions = {
     'latest': {}
 };
 
-Object.keys(TrackAsiaGLVersions).forEach(function(version) {
-    versions[version] = TrackAsiaGLVersions[version];
+Object.keys(mapboxglVersions).forEach(function(version) {
+    versions[version] = mapboxglVersions[version];
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -105,8 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     if (!params.access_token) {
-        if (TrackAsiaGL.accessToken) {
-            params.access_token = TrackAsiaGL.accessToken;
+        if (mapboxgl.accessToken) {
+            params.access_token = mapboxgl.accessToken;
         } else {
             params.access_token = prompt("Access Token");
         }
@@ -205,11 +205,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 '<!DOCTYPE html>',
                 '<html>',
                 '<head>',
-                '    <title>TrackAsia GL JS debug page</title>',
+                '    <title>Trackasia GL JS debug page</title>',
                 '    <meta charset="utf-8">',
                 '    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">',
                 '    <script src="' + js + '"><\/script>',
-                '    <script>TrackAsiaGL.accessToken = "' + params.access_token + '";<\/script>',
+                '    <script>mapboxgl.accessToken = "' + params.access_token + '";<\/script>',
                 '    <link rel="stylesheet" href="' + css + '" />',
                 '    <style>',
                 '        body { margin: 0; padding: 0; }',
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (version !== 'latest') {
             hash += '&version=' + version;
         }
-        if (!TrackAsiaGL.accessToken) {
+        if (!mapboxgl.accessToken) {
             hash += '&access_token=' + params.access_token;
         }
         location.hash = hash;

@@ -4,7 +4,7 @@
 * Reduce size of line atlas by removing unused channels ([#9232](https://github.com/mapbox/mapbox-gl-js/pull/9232))
 * Prevent empty buffers from being created for debug data when unused ([#9237](https://github.com/mapbox/mapbox-gl-js/pull/9237))
 * Add space between distance and unit in scale control ([#9276](https://github.com/mapbox/mapbox-gl-js/pull/9276)) (h/t [gely](https://api.github.com/users/gely)) and ([#9284](https://github.com/mapbox/mapbox-gl-js/pull/9284)) (h/t [pakastin](https://api.github.com/users/pakastin))
-* Add a `showAccuracyCircle` option to GeolocateControl that shows the accuracy of the user's location as a transparent circle. TrackAsia GL JS will show this circle by default. ([#9253](https://github.com/mapbox/mapbox-gl-js/pull/9253)) (h/t [Meekohi](https://api.github.com/users/Meekohi))
+* Add a `showAccuracyCircle` option to GeolocateControl that shows the accuracy of the user's location as a transparent circle. Trackasia GL JS will show this circle by default. ([#9253](https://github.com/mapbox/mapbox-gl-js/pull/9253)) (h/t [Meekohi](https://api.github.com/users/Meekohi))
 * Implemented a new tile coverage algorithm to enable level-of-detail support in a future release ([#8975](https://github.com/mapbox/mapbox-gl-js/pull/8975))
 
 ### 🐞 Bug fixes
@@ -24,7 +24,7 @@
 
 ### ✨ Features
 * Add `promoteId` option to use a feature property as ID for feature state ([#8987](https://github.com/mapbox/mapbox-gl-js/pull/8987))
-* Add a new constructor option to `TrackAsiaGL.Popup`, `closeOnMove`, that closes the popup when the map's position changes ([#9163](https://github.com/mapbox/mapbox-gl-js/pull/9163))
+* Add a new constructor option to `mapboxgl.Popup`, `closeOnMove`, that closes the popup when the map's position changes ([#9163](https://github.com/mapbox/mapbox-gl-js/pull/9163))
 * Allow creating a map without a style (an empty one will be created automatically) ( h/t @stepankuzmin ) ([#8924](https://github.com/mapbox/mapbox-gl-js/pull/8924))
 * `map.once()` now allows specifying a layer id as a third parameter making it consistent with `map.on()` ([#8875](https://github.com/mapbox/mapbox-gl-js/pull/8875))
 
@@ -101,7 +101,7 @@ This patch introduces two workarounds that address longstanding issues related t
 ### ✨ Features
 * Add disabled icon to GeolocateControl if user denies geolocation permission. [#8871](https://github.com/mapbox/mapbox-gl-js/pull/8871))
 * Add `outofmaxbounds` event to GeolocateControl, which is emitted when the user is outside of `map.maxBounds` ([#8756](https://github.com/mapbox/mapbox-gl-js/pull/8756)) (h/t [MoradiDavijani](https://github.com/MoradiDavijani))
-* Add `TrackAsiaGL.getRTLTextPluginStatus()` to query the current status of the `rtl-text-plugin` to make it easier to allow clearing the plugin when necessary. (ref. [#7869](https://github.com/mapbox/mapbox-gl-js/issues/7869)) ([#8864](https://github.com/mapbox/mapbox-gl-js/pull/8864))
+* Add `mapboxgl.getRTLTextPluginStatus()` to query the current status of the `rtl-text-plugin` to make it easier to allow clearing the plugin when necessary. (ref. [#7869](https://github.com/mapbox/mapbox-gl-js/issues/7869)) ([#8864](https://github.com/mapbox/mapbox-gl-js/pull/8864))
 * Allow `hash` Map option to be set as a string, which sets the map hash in the url to a custom query parameter. ([#8603](https://github.com/mapbox/mapbox-gl-js/pull/8603)) (h/t [SebCorbin](https://github.com/SebCorbin))
 
 ### 🍏 Improvements
@@ -271,7 +271,7 @@ This change allows us to implement a more standardized and predictable method of
 **What is changing?**
 - Add SKU token to Mapbox API requests [#8276](https://github.com/mapbox/mapbox-gl-js/pull/8276)
 
-When (and only when) loading tiles from a Mapbox API with a Mapbox access token set (`TrackAsiaGL.accessToken`), a query parameter named `sku` will be added to all requests for vector, raster and raster-dem tiles. Every map instance uses a unique `sku` value, which is refreshed every 12 hours. The token itself is comprised of a token version (always “1”), a sku ID (always “01”) and a random 10-digit base-62 number. The purpose of the token is to allow for metering of map sessions on the server-side. A session lasts from a new map instantiation until the map is destroyed or 12 hours passes, whichever comes first.
+When (and only when) loading tiles from a Mapbox API with a Mapbox access token set (`mapboxgl.accessToken`), a query parameter named `sku` will be added to all requests for vector, raster and raster-dem tiles. Every map instance uses a unique `sku` value, which is refreshed every 12 hours. The token itself is comprised of a token version (always “1”), a sku ID (always “01”) and a random 10-digit base-62 number. The purpose of the token is to allow for metering of map sessions on the server-side. A session lasts from a new map instantiation until the map is destroyed or 12 hours passes, whichever comes first.
 
 For further information on the pricing changes, you can read our [blog post](https://blog.mapbox.com/new-pricing-46b7c26166e7) and check out our new [pricing page](https://www.mapbox.com/pricing), which has a price calculator. As always, you can also contact our team at [https://support.mapbox.com](https://support.mapbox.com).
 
@@ -559,7 +559,7 @@ August 16, 2018
 * Remove ignored usage of gl.lineWidth ([#5541](https://github.com/mapbox/mapbox-gl-js/pull/5541))
 * Split new bounds calculation out of fitBounds into new method ([#6683](https://github.com/mapbox/mapbox-gl-js/pull/6683))
 * Allow integration tests to be organized in an arbitrarily deep directory structure ([#3920](https://github.com/mapbox/mapbox-gl-js/issues/3920))
-* Make "Missing TrackAsia GL JS CSS" a console warning ([#5786](https://github.com/mapbox/mapbox-gl-js/issues/5786))
+* Make "Missing Trackasia GL JS CSS" a console warning ([#5786](https://github.com/mapbox/mapbox-gl-js/issues/5786))
 * Add rel="noopener" to Mapbox attribution link. ([#6729](https://github.com/mapbox/mapbox-gl-js/pull/6729)) (h/t [gorbypark](https://github.com/gorbypark))
 * Update to deep equality check in example code ([#6599](https://github.com/mapbox/mapbox-gl-js/pull/6599)) (h/t [jonsadka](https://github.com/jonsadka))
 * Upgrades!
@@ -744,7 +744,7 @@ August 16, 2018
 
 ### 🐛 Bug fixes
 
-- Add box-sizing to the "TrackAsiaGL-ctrl-scale"-class [#5715](https://github.com/mapbox/mapbox-gl-js/pull/5715)
+- Add box-sizing to the "mapboxgl-ctrl-scale"-class [#5715](https://github.com/mapbox/mapbox-gl-js/pull/5715)
 - Fix rendering in Safari [#5712](https://github.com/mapbox/mapbox-gl-js/issues/5712)
 - Fix "Cannot read property 'hasTransition' of undefined" error [#5714](https://github.com/mapbox/mapbox-gl-js/issues/5714)
 - Fix misplaced raster tiles [#5713](https://github.com/mapbox/mapbox-gl-js/issues/5713)
@@ -1044,7 +1044,7 @@ August 16, 2018
 #### Development workflow improvements :computer:
 
 - Add flowtype interfaces and definitions @vicapow
-- Add stylelinting to ensure `TrackAsiaGL-` prefix on all classes #4584 @asantos3026
+- Add stylelinting to ensure `mapboxgl-` prefix on all classes #4584 @asantos3026
 
 ## 0.36.0 (April 19, 2017)
 
@@ -1133,7 +1133,7 @@ August 16, 2018
 - Automatically add Mapbox wordmark when required by Mapbox TOS #3933
 - Increase default `maxZoom` from 20 to 22 #4333
 - Deprecate `tiledata` and `tiledataloading` events in favor of `sourcedata` and `sourcedataloading`. #4347
-- `TrackAsiaGL.util` is no longer exported #1408
+- `mapboxgl.util` is no longer exported #1408
 - `"type": "categorical"` is now required for all categorical functions. Previously, some forms of "implicitly" categorical functions worked, and others did not. #3717
 
 #### :white_check_mark: New features
@@ -1158,7 +1158,7 @@ August 16, 2018
 - Fix a memory leak when using the RTL Text plugin #4248
 
 #### Dev workflow changes
-- Merged the [TrackAsia GL style specification](https://github.com/mapbox/mapbox-gl-style-spec) repo to this one (now under `src/style-spec` and `test/unit/style-spec`).
+- Merged the [Trackasia GL style specification](https://github.com/mapbox/mapbox-gl-style-spec) repo to this one (now under `src/style-spec` and `test/unit/style-spec`).
 
 ## 0.32.1 (Jan 26, 2017)
 
@@ -1170,7 +1170,7 @@ August 16, 2018
 
 #### Deprecation Notices
 
-- [Style classes](https://www.mapbox.com/mapbox-gl-style-spec/#layer-paint.*) are deprecated and will be removed in an upcoming release of TrackAsia GL JS.
+- [Style classes](https://www.mapbox.com/mapbox-gl-style-spec/#layer-paint.*) are deprecated and will be removed in an upcoming release of Trackasia GL JS.
 
 #### New Features
 
@@ -1292,16 +1292,16 @@ August 16, 2018
 
 - Replace `fill-extrude-height` and `fill-extrude-base` properties of `fill` render type with a separate `fill-extrusion` type (with corresponding `fill-extrusion-height` and `fill-extrusion-base` properties), solving problems with render parity and runtime switching between flat and extruded fills. https://github.com/mapbox/mapbox-gl-style-spec/issues/554
 - Change the units for extrusion height properties (`fill-extrusion-height`, `fill-extrusion-base`) from "magic numbers" to meters. #3509
-- Remove `TrackAsiaGL.Control` class and change the way custom controls should be implemented. #3497
-- Remove `TrackAsiaGL.util` functions: `inherit`, `extendAll`, `debounce`, `coalesce`, `startsWith`, `supportsGeolocation`. #3441 #3571
-- **`TrackAsiaGL.util` is deprecated** and will be removed in the next release. #1408
+- Remove `mapboxgl.Control` class and change the way custom controls should be implemented. #3497
+- Remove `mapboxgl.util` functions: `inherit`, `extendAll`, `debounce`, `coalesce`, `startsWith`, `supportsGeolocation`. #3441 #3571
+- **`mapboxgl.util` is deprecated** and will be removed in the next release. #1408
 
 #### New features and improvements
 
 - Tons of **performance improvements** that combined make rendering **up to 3 times faster**, especially for complex styles. #3485 #3489 #3490 #3491 #3498 #3499 #3501 #3510 #3514 #3515 #3486 #3527 #3574 ⚡️⚡️⚡️
 - 🈯 Added **vertical text writing mode** for languages that support it. #3438
 - 🈯 Improved **line breaking of Chinese and Japanese text** in point-placed labels. #3420
-- Reduce the default number of worker threads (`TrackAsiaGL.workerCount`) for better performance. #3565
+- Reduce the default number of worker threads (`mapboxgl.workerCount`) for better performance. #3565
 - Automatically use `categorical` style function type when input values are strings. #3384
 - Improve control buttons accessibility. #3492
 - Remove geolocation button if geolocation is disabled (e.g. the page is not served through `https`). #3571
@@ -1507,7 +1507,7 @@ August 16, 2018
  * Fix event data object not being passed for double click events #2814
  * Fix multipolygons disappearing from map at certain zoom levels #2704
  * Fix exceptions caused by `queryRenderedFeatures` in Safari and Firefox #2822
- * Fix `TrackAsiaGL#supported()` returning `true` in old versions of IE11 mapbox/mapbox-gl-supported#1
+ * Fix `mapboxgl#supported()` returning `true` in old versions of IE11 mapbox/mapbox-gl-supported#1
 
 ## 0.20.1 (June 21 2016)
 
@@ -1523,7 +1523,7 @@ August 16, 2018
  * Add `workerCount` constructor option #2666
  * Improve performance of `locationPoint` and `pointLocation` #2690
  * Remove "Not using VertexArrayObject extension" warning messages #2707
- * Add `version` property to TrackAsiaGL #2660
+ * Add `version` property to mapboxgl #2660
  * Support property functions in `circle-opacity` and `circle-blur` #2693
 
 #### Bugfixes
@@ -1626,7 +1626,7 @@ August 16, 2018
 * Add touch events (#2195)
 * Add `map.queryRenderedFeatures` to query the styled and rendered representations of features (#2224)
 * Add `map.querySourceFeatures` to get features directly from vector tiles, independent of the style (#2224)
-* Add `TrackAsiaGL.Geolocate` control (#1939)
+* Add `mapboxgl.Geolocate` control (#1939)
 * Make background patterns render seamlessly across tile boundaries (#2305)
 
 #### Bugfixes
@@ -1711,7 +1711,7 @@ August 16, 2018
 
 #### Bugfixes
 
-* Fixed bug causing WebGL contexts to be "used up" by calling `TrackAsiaGL.supported()` (#2018)
+* Fixed bug causing WebGL contexts to be "used up" by calling `mapboxgl.supported()` (#2018)
 * Fixed non-deterministic symbol z-order sorting (#2023)
 * Fixed garbled labels while zooming (#2012)
 * Fixed icon jumping when touching trackpad with two fingers (#1990)
@@ -1982,7 +1982,7 @@ August 16, 2018
 * Expose `geojson-vt` options for GeoJSON sources (#1271)
 * bearing snaps to "North" within a tolerance of 7 degrees (#1059)
 * Now you can directly mutate the minzoom and maxzoom layer properties with `map.setLayerZoomRange(layerId, minzoom, maxzoom)`
-* Exposed `TrackAsiaGL.Control`, a base class used by all UI controls
+* Exposed `mapboxgl.Control`, a base class used by all UI controls
 * Refactored handlers to be individually included in Map options, or enable/disable them individually at runtime, e.g. `map.scrollZoom.disable()`.
 * New feature: Batch operations can now be done at once, improving performance for calling multiple style functions: (#1352)
 
@@ -2028,11 +2028,11 @@ August 16, 2018
   map.easeTo([40, -74.50], 9, null, {duration: 400}); // 0.7.0 or earlier
   map.easeTo({center: [40, -74.50], zoom: 9, duration: 400}); // now
   ```
-* `TrackAsiaGL.Source` is no longer exported. Use `map.addSource()` instead. See the
+* `mapboxgl.Source` is no longer exported. Use `map.addSource()` instead. See the
   [GeoJSON line](https://www.mapbox.com/mapbox-gl-js/example/geojson-line/) or
   [GeoJSON markers](https://www.mapbox.com/mapbox-gl-js/example/geojson-markers/)
   examples.
-* `TrackAsiaGL.util.supported()` moved to [`TrackAsiaGL.supported()`](https://www.mapbox.com/mapbox-gl-js/api/#TrackAsiaGL/supported).
+* `mapboxgl.util.supported()` moved to [`mapboxgl.supported()`](https://www.mapbox.com/mapbox-gl-js/api/#mapboxgl/supported).
 
 #### UX improvements
 
@@ -2297,7 +2297,7 @@ if you need to rotate around a point other than the map center.
 
 - Changed `Navigation` control signature: now it doesn't need `map` in constructor
 and gets added with `map.addControl(nav)` or `nav.addTo(map)`.
-- Updated CSS classes to have consistent naming prefixed with `TrackAsiaGL-`.
+- Updated CSS classes to have consistent naming prefixed with `mapboxgl-`.
 
 #### Improvements
 

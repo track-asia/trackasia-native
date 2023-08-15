@@ -14,7 +14,7 @@ namespace mbgl {
 class Tileset {
 public:
     enum class Scheme : bool { XYZ, TMS };
-    enum class DEMEncoding : bool { Trackasia, Terrarium };
+    enum class DEMEncoding : bool { Mapbox, Terrarium };
 
     std::vector<std::string> tiles;
     Range<uint8_t> zoomRange;
@@ -28,7 +28,7 @@ public:
             Range<uint8_t> zoomRange_ = {0, util::DEFAULT_MAX_ZOOM},
             std::string attribution_ = {},
             Scheme scheme_ = Scheme::XYZ,
-            DEMEncoding encoding_ = DEMEncoding::Trackasia)
+            DEMEncoding encoding_ = DEMEncoding::Mapbox)
         : tiles(std::move(tiles_)),
           zoomRange(zoomRange_),
           attribution(std::move(attribution_)),

@@ -291,7 +291,7 @@ jobs:
           make
 
   release:
-    name: Release QTrackAsiaGL
+    name: Release QTrackasiaGL
     if: github.ref_type == 'tag'
     runs-on: ubuntu-22.04
     needs: test-tarball
@@ -315,11 +315,11 @@ jobs:
         TAG_PLATFORM: ${{ matrix.name }}
         QT_VERSION: ${{ matrix.qt_version }}
       run: |
-        mv trackasia-gl-native_${TAG_PLATFORM}_Qt${QT_VERSION}.tar.bz2 QTrackAsiaGL_${TAG_NAME//qt-/}_Qt${QT_VERSION}_${TAG_PLATFORM}.tar.bz2
+        mv trackasia-gl-native_${TAG_PLATFORM}_Qt${QT_VERSION}.tar.bz2 QTrackasiaGL_${TAG_NAME//qt-/}_Qt${QT_VERSION}_${TAG_PLATFORM}.tar.bz2
 
     - name: Release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: QTrackAsiaGL_*.tar.bz2
+        artifacts: QTrackasiaGL_*.tar.bz2
         allowUpdates: true
         draft: true

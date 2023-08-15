@@ -6,8 +6,8 @@ import {BooleanType, ColorType, NumberType, StringType, ValueType} from '../type
 import {Color, toString as valueToString, validateRGBA} from '../values';
 import RuntimeError from '../runtime_error';
 import Formatted from '../types/formatted';
-import FormatExpression from '../definitions/format';
-import ImageExpression from '../definitions/image';
+import FormatExpression from './format';
+import ImageExpression from './image';
 import ResolvedImage from '../types/resolved_image';
 
 import type {Expression} from '../expression';

@@ -50,7 +50,7 @@ async function getMapCanvas(url) {
         }
     });
 
-    return browser.driver.findElement(By.className('TrackAsiaGL-canvas'));
+    return browser.driver.findElement(By.className('mapboxgl-canvas'));
 }
 
 let server = null;

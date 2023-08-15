@@ -4,7 +4,7 @@ import assert from 'assert';
 import type {Expression} from '../expression';
 import type EvaluationContext from '../evaluation_context';
 import type {Type} from '../types';
-import type {ZoomConstantExpression} from '../../expression';
+import type {ZoomConstantExpression} from '..';
 import {NullType} from '../types';
 import {PossiblyEvaluatedPropertyValue} from '../../../style/properties';
 import {register} from '../../../util/web_worker_transfer';

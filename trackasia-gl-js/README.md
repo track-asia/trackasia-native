@@ -1,11 +1,11 @@
 [<img width="400" alt="Mapbox" src="https://raw.githubusercontent.com/mapbox/mapbox-gl-js-docs/publisher-production/docs/pages/assets/logo.png">](https://www.mapbox.com/)
 
-**TrackAsia GL JS** is a JavaScript library for interactive, customizable vector maps on the web. It takes map styles that conform to the
+**Trackasia GL JS** is a JavaScript library for interactive, customizable vector maps on the web. It takes map styles that conform to the
 [Mapbox Style Specification](https://docs.mapbox.com/mapbox-gl-js/style-spec/), applies them to vector tiles that
 conform to the [Mapbox Vector Tile Specification](https://github.com/mapbox/vector-tile-spec), and renders them using
 WebGL.
 
-TrackAsia GL JS is part of the [cross-platform TrackAsia GL ecosystem](https://www.mapbox.com/maps/), which also includes
+Trackasia GL JS is part of the [cross-platform Trackasia GL ecosystem](https://www.mapbox.com/maps/), which also includes
 compatible native SDKs for applications on [Android](https://docs.mapbox.com/android/maps/overview/),
 [iOS](https://docs.mapbox.com/ios/maps/overview/), [macOS](http://mapbox.github.io/mapbox-gl-native/macos),
 [Qt](https://github.com/mapbox/mapbox-gl-native/tree/master/platform/qt), and [React Native](https://github.com/mapbox/react-native-mapbox-gl/). Mapbox provides building blocks to add location features like maps, search, and navigation into any experience you
@@ -16,7 +16,7 @@ In addition to GL JS, this repository contains code, issues, and test fixtures t
 native SDKs. For code and issues specific to the native SDKs, see the
 [mapbox/mapbox-gl-native](https://github.com/mapbox/mapbox-gl-native/) repository.
 
-- [Getting started with TrackAsia GL JS](https://docs.mapbox.com/mapbox-gl-js/overview/)
+- [Getting started with Trackasia GL JS](https://docs.mapbox.com/mapbox-gl-js/overview/)
 - [Tutorials](https://docs.mapbox.com/help/tutorials/#web-apps)
 - [API documentation](https://docs.mapbox.com/mapbox-gl-js/api/)
 - [Examples](https://docs.mapbox.com/mapbox-gl-js/examples/)
@@ -24,11 +24,11 @@ native SDKs. For code and issues specific to the native SDKs, see the
 - [Open source styles](https://github.com/mapbox/mapbox-gl-styles)
 - [Contributor documentation](https://github.com/mapbox/mapbox-gl-js/blob/master/CONTRIBUTING.md)
 
-[<img width="981" alt="TrackAsia GL gallery" src="https://raw.githubusercontent.com/mapbox/mapbox-gl-js-docs/publisher-production/docs/pages/assets/gallery.png">](https://www.mapbox.com/gallery/)
+[<img width="981" alt="Trackasia GL gallery" src="https://raw.githubusercontent.com/mapbox/mapbox-gl-js-docs/publisher-production/docs/pages/assets/gallery.png">](https://www.mapbox.com/gallery/)
 
 ## License
 
-TrackAsia GL JS is licensed under the [3-Clause BSD license](https://github.com/mapbox/mapbox-gl-js/blob/master/LICENSE.txt).
+Trackasia GL JS is licensed under the [3-Clause BSD license](https://github.com/mapbox/mapbox-gl-js/blob/master/LICENSE.txt).
 The licenses of its dependencies are tracked via [FOSSA](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmapbox%2Fmapbox-gl-js):
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmapbox%2Fmapbox-gl-js.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmapbox%2Fmapbox-gl-js?ref=badge_large)

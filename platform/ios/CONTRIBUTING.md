@@ -1,6 +1,6 @@
 # Contributing
 
-If you have a usage question for a product built on TrackAsia GL (such as our iOS or Android SDKs), please visit https://www.mapbox.com/help/.
+If you have a usage question for a product built on Trackasia GL (such as our iOS or Android SDKs), please visit https://www.mapbox.com/help/.
 
 If you want to contribute code:
 

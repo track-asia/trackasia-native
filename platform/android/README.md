@@ -1,6 +1,6 @@
-# TrackAsia Maps SDK for Android
+# Trackasia Maps SDK for Android
 
-The TrackAsia Maps SDK for Android is a library based on TrackAsia GL Native for embedding interactive map views with scalable, customizable vector maps onto Android devices.
+The Trackasia Maps SDK for Android is a library based on Trackasia GL Native for embedding interactive map views with scalable, customizable vector maps onto Android devices.
 
 ## Getting Started
 
@@ -89,17 +89,17 @@ Mapbox uses specific IDE settings related to code and check style.
 See [checkstyle guide](https://github.com/mapbox/mapbox-gl-native-android/wiki/Setting-up-Mapbox-checkstyle) for configuration details.
 
 #### Resolving duplicate file entries
-With buck build support, Android Studio can complain about duplicate source files. To remove this warning, open `TrackAsiaGLAndroidSDK.iml` find the list of `excludeFolder` entries and add `<excludeFolder url="file://$MODULE_DIR$/../../../misc/" />` line.
+With buck build support, Android Studio can complain about duplicate source files. To remove this warning, open `MapboxGLAndroidSDK.iml` find the list of `excludeFolder` entries and add `<excludeFolder url="file://$MODULE_DIR$/../../../misc/" />` line.
 
 ##### Setting API Key
 
 _The test application (used for development purposes) uses MapTiler vector tiles, which require a MapTiler account and API key._
 
-With the first gradle invocation, gradle will take the value of the `MGL_API_KEY` environment variable and save it to `TrackAsiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml`. If the environment variable wasn't set, you can edit `developer-config.xml` manually and add your api key to the `api_key` resource.  
+With the first gradle invocation, gradle will take the value of the `MLN_API_KEY` environment variable and save it to `MapboxGLAndroidSDKTestApp/src/main/res/values/developer-config.xml`. If the environment variable wasn't set, you can edit `developer-config.xml` manually and add your api key to the `api_key` resource.  
 
 ### Running project
 
-Run the configuration for the `TrackAsiaGLAndroidSDKTestApp` module and select a device or emulator to deploy on. Based on the selected device, the c++ code will be compiled for the related processor architecture. You can see the project compiling in the `View > Tool Windows > Gradle Console`.
+Run the configuration for the `MapboxGLAndroidSDKTestApp` module and select a device or emulator to deploy on. Based on the selected device, the c++ code will be compiled for the related processor architecture. You can see the project compiling in the `View > Tool Windows > Gradle Console`.
 
 More information about building and distributing this project in [DISTRIBUTE.md](DISTRIBUTE.md).
 
@@ -111,7 +111,7 @@ Instead of using the latest stable release of the Maps SDK for Android, you can 
 
 ```java
 // Mapbox SDK dependency
-implementation 'com.trackasia.android:mapbox-android-sdk:9.1.0-SNAPSHOT'
+implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.1.0-SNAPSHOT'
 ```
 
 You also need to have the section below in your build.gradle root folder to be able to resolve the SNAPSHOT dependencies:

@@ -113,7 +113,7 @@
 ## 13.1.1
 
 ### 🐛 Bug fixes
-* Fix broken module import in TrackAsiaGL-style-spec (v13.0.1) ([#6984](https://github.com/mapbox/mapbox-gl-js/issues/6984), fixed by [#6997](https://api.github.com/repos/mapbox/mapbox-gl-js/pulls/6997))
+* Fix broken module import in mapboxgl-style-spec (v13.0.1) ([#6984](https://github.com/mapbox/mapbox-gl-js/issues/6984), fixed by [#6997](https://api.github.com/repos/mapbox/mapbox-gl-js/pulls/6997))
 
 ### ✨ Features and improvements
 * Improve formatting for style output ([#7029](https://github.com/mapbox/mapbox-gl-js/pull/7029))
@@ -219,7 +219,7 @@ Malformed package published to NPM.
 
 ## 10.0.0
 
-* Add expression and heatmap layer support. See TrackAsia GL JS v0.40.1 changelog entry for details.
+* Add expression and heatmap layer support. See Trackasia GL JS v0.40.1 changelog entry for details.
 
 ## 9.0.1
 
@@ -336,7 +336,7 @@ v8.0.0 styles are fully compatible with v8.2.0.
 * Create minified style specs with `doc` and `example` properties removed.
 * `validate` now validates against minified style spec.
 * `format` now accepts `space` option to use with `JSON.stringify`.
-* Remove `gl-style-spritify`. TrackAsia GL sprites are now created automatically by
+* Remove `gl-style-spritify`. Trackasia GL sprites are now created automatically by
   the Mapbox style APIs, or for hand-crafted styles, by [spritezero-cli](https://github.com/mapbox/spritezero-cli).
 
 ## 8.1.0
@@ -353,7 +353,7 @@ v8.0.0 styles are fully compatible with v8.1.0.
 
 ## 8.0.0
 
-Introduction of TrackAsia GL style specification v8. To migrate a v7 style to v8,
+Introduction of Trackasia GL style specification v8. To migrate a v7 style to v8,
 use the `gl-style-migrate` script as described in the README.
 
 * [BREAKING] The value of the `text-font` property is now an array of
@@ -390,7 +390,7 @@ use the `gl-style-migrate` script as described in the README.
 
 ## 7.0.0
 
-Introduction of TrackAsia GL style specification v7.
+Introduction of Trackasia GL style specification v7.
 
 * [BREAKING] Improve dashed lines (#234)
 * [BREAKING] Remove prerendered layers (#232)
@@ -399,7 +399,7 @@ Introduction of TrackAsia GL style specification v7.
 
 ## 6.0.0 (Style spec v6)
 
-Introduction of TrackAsia GL style specification v6.
+Introduction of Trackasia GL style specification v6.
 
 * [BREAKING] New filter syntax (#178)
 * [BREAKING] Line gap property (#131)

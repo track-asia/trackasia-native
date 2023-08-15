@@ -12,7 +12,7 @@
 				<string>mbx</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>TrackAsia GL Map</string>
+			<string>Trackasia GL Map</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>NSDocumentClass</key>
@@ -40,7 +40,7 @@
 			<string>${PRODUCT_NAME}</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>TrackAsiaGL</string>
+				<string>mapboxgl</string>
 			</array>
 		</dict>
 			<dict>

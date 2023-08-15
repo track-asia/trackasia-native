@@ -21,7 +21,7 @@ export default [{
     // sources as strings, etc.
     input: ['src/index.js', 'src/source/worker.js'],
     output: {
-        dir: 'rollup/build/TrackAsiaGL',
+        dir: 'rollup/build/mapboxgl',
         format: 'amd',
         sourcemap: 'inline',
         indent: false,
@@ -32,10 +32,10 @@ export default [{
 }, {
     // Next, bundle together the three "chunks" produced in the previous pass
     // into a single, final bundle. See rollup/bundle_prelude.js and
-    // rollup/TrackAsiaGL.js for details.
-    input: 'rollup/TrackAsiaGL.js',
+    // rollup/mapboxgl.js for details.
+    input: 'rollup/mapboxgl.js',
     output: {
-        name: 'TrackAsiaGL',
+        name: 'mapboxgl',
         file: outputFile,
         format: 'umd',
         sourcemap: production ? true : 'inline',

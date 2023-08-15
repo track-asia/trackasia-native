@@ -1,14 +1,14 @@
 # Linux
 
-A simple executable and test suite for Linux based on [TrackAsia GL Native](../../README.md).
+A simple executable and test suite for Linux based on [Trackasia GL Native](../../README.md).
 
 This guide focuses on Debian and Ubuntu distributions.
 
-The build process should give you a set of `.a` files that you can use to include TrackAsia GL Native in other C++ projects, as well as a set of executables that you can run to render map tile images and test the project.
+The build process should give you a set of `.a` files that you can use to include Trackasia GL Native in other C++ projects, as well as a set of executables that you can run to render map tile images and test the project.
 
 ## Prerequisites
 
-The following dependencies are required to build TrackAsia GL Native on Debian 11.
+The following dependencies are required to build Trackasia GL Native on Debian 11.
 
 ```bash
 apt install ccache cmake ninja-build pkg-config xvfb libcurl4-openssl-dev libglfw3-dev libuv1-dev g++-10 libc++-9-dev libc++abi-9-dev libpng-dev libgl1-mesa-dev libgl1-mesa-dri
@@ -53,13 +53,13 @@ If all went well, there should now be a `trackasia-gl-native/build/bin/mbgl-rend
 
 > I get an error `Error: Failed to open X display.` when I run this command.
 
-If you're setting up TrackAsia GL Native on a headless server (i.e. one without a display), you'll need to simulate an X server to do any rendering.
+If you're setting up Trackasia GL Native on a headless server (i.e. one without a display), you'll need to simulate an X server to do any rendering.
 
 ```bash
 xvfb-run -a ./build/bin/mbgl-render --style https://raw.githubusercontent.com/track-asia/demotiles/gh-pages/style.json --output out.png
 ```
 
-This should produce an `out.png` map tile image with the default TrackAsia styling from [the TrackAsia demo](https://track-asia.com/).
+This should produce an `out.png` map tile image with the default Trackasia styling from [the Trackasia demo](https://track-asia.com/).
 
 ![Sample image of world from mbgl-render command](/misc/sample-trackasia-style-mbgl-render-out.png)
 

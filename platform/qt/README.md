@@ -1,6 +1,6 @@
-# TrackAsia Maps SDK for Qt
+# Trackasia Maps SDK for Qt
 
-This is a community maintained TrackAsia SDK for usage in Qt apps.
+This is a community maintained Trackasia SDK for usage in Qt apps.
 Both Qt5 (minimal 5.6) and Qt6 are supported.
 Note that only OpenGL rendering is supported at the moment.
 

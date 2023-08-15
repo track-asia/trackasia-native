@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TrackAsia GL JS debug page</title>
+    <title>Trackasia GL JS debug page</title>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel='stylesheet' href='../dist/mapbox-gl.css' />
@@ -19,7 +19,7 @@
 <script src='../debug/access_token_generated.js'></script>
 <script>
 
-var map = window.map = new TrackAsiaGL.Map({
+var map = window.map = new mapboxgl.Map({
     container: 'map',
     zoom: 12.5,
     center: [-77.01866, 38.888],
@@ -39,13 +39,13 @@ const spinningMarkers = [];
         var lng = w + (e - w) * (i / 3);
         var lat = s + (n - s) * (j / 3);
 
-        var popup = new TrackAsiaGL.Popup().setHTML(`Pitch Alignment: ${pitchAlignment}<br>Rotation Alignment: ${rotationAlignment}`);
+        var popup = new mapboxgl.Popup().setHTML(`Pitch Alignment: ${pitchAlignment}<br>Rotation Alignment: ${rotationAlignment}`);
 
         var r = Math.round(Math.random() * 255);
         var g = Math.round(Math.random() * 255);
         var b = Math.round(Math.random() * 255);
 
-        var marker = new TrackAsiaGL.Marker({
+        var marker = new mapboxgl.Marker({
             color: `rgb(${r}, ${g}, ${b})`,
             draggable: true,
             rotationAlignment,
@@ -81,7 +81,7 @@ function spinMarkers() {
 }
 window.requestAnimationFrame(spinMarkers);
 
-map.addControl(new TrackAsiaGL.NavigationControl());
+map.addControl(new mapboxgl.NavigationControl());
 
 </script>
 

@@ -36,7 +36,7 @@ void quit_handler(int) {
 }
 
 int main(int argc, char *argv[]) {
-    args::ArgumentParser argumentParser("TrackAsia GL GLFW example");
+    args::ArgumentParser argumentParser("Trackasia GL GLFW example");
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
 
     args::Flag fullscreenFlag(argumentParser, "fullscreen", "Toggle fullscreen", {'f', "fullscreen"});
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Set access token if present
-    const char* apikeyEnv = getenv("MGL_API_KEY");
+    const char* apikeyEnv = getenv("MLN_API_KEY");
     const std::string apikey = apikeyValue ? args::get(apikeyValue) : (apikeyEnv ? apikeyEnv : std::string());
 
     auto mapTilerConfiguration = mbgl::TileServerOptions::MapTilerConfiguration();

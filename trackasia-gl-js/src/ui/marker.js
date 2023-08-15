@@ -38,7 +38,7 @@ type Options = {
  * @param {string} [options.pitchAlignment='auto'] `map` aligns the `Marker` to the plane of the map. `viewport` aligns the `Marker` to the plane of the viewport. `auto` automatically matches the value of `rotationAlignment`.
  * @param {string} [options.rotationAlignment='auto'] `map` aligns the `Marker`'s rotation relative to the map, maintaining a bearing as the map rotates. `viewport` aligns the `Marker`'s rotation relative to the viewport, agnostic to map rotations. `auto` is equivalent to `viewport`.
  * @example
- * var marker = new TrackAsiaGL.Marker()
+ * var marker = new mapboxgl.Marker()
  *   .setLngLat([30.5, 50.5])
  *   .addTo(map);
  * @see [Add custom icons with Markers](https://www.mapbox.com/mapbox-gl-js/example/custom-marker-icons/)
@@ -196,7 +196,7 @@ export default class Marker extends Evented {
             this._offset = Point.convert(options && options.offset || [0, 0]);
         }
 
-        this._element.classList.add('TrackAsiaGL-marker');
+        this._element.classList.add('mapboxgl-marker');
         this._element.addEventListener('dragstart', (e: DragEvent) => {
             e.preventDefault();
         });
@@ -217,7 +217,7 @@ export default class Marker extends Evented {
 
     /**
      * Attaches the marker to a map
-     * @param {Map} map The TrackAsia GL JS map to add the marker to.
+     * @param {Map} map The Trackasia GL JS map to add the marker to.
      * @returns {Marker} `this`
      */
     addTo(map: Map) {
@@ -240,7 +240,7 @@ export default class Marker extends Evented {
     /**
      * Removes the marker from a map
      * @example
-     * var marker = new TrackAsiaGL.Marker().addTo(map);
+     * var marker = new mapboxgl.Marker().addTo(map);
      * marker.remove();
      * @returns {Marker} `this`
      */

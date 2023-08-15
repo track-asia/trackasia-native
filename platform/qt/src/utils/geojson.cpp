@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-namespace QTrackAsiaGL::GeoJSON {
+namespace QTrackasiaGL::GeoJSON {
 
 mbgl::Point<double> asPoint(const Coordinate &coordinate) {
     return mbgl::Point<double> { coordinate.second, coordinate.first };
@@ -159,4 +159,4 @@ mbgl::GeoJSONFeature asFeature(const Feature &feature) {
     }
 };
 
-} // namespace QTrackAsiaGL::GeoJSON
+} // namespace QTrackasiaGL::GeoJSON

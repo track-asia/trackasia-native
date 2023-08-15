@@ -8,7 +8,7 @@
 #include <random>
 
 Manifest::Manifest() {
-    const char* envApiKey = getenv("MGL_API_KEY");
+    const char* envApiKey = getenv("MLN_API_KEY");
     if (envApiKey != nullptr) {
         apiKey = envApiKey;
     }

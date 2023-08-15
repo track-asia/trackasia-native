@@ -3,11 +3,11 @@ import migrateToV8 from './migrate/v8';
 import migrateToExpressions from './migrate/expressions';
 
 /**
- * Migrate a TrackAsia GL Style to the latest version.
+ * Migrate a Trackasia GL Style to the latest version.
  *
  * @private
  * @alias migrate
- * @param {object} style a TrackAsia GL Style
+ * @param {object} style a Trackasia GL Style
  * @returns {Object} a migrated style
  * @example
  * var fs = require('fs');

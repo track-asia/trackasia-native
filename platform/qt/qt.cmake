@@ -6,10 +6,10 @@ set(MBGL_QT_VERSION_COMPATIBILITY 2.0.0)
 message(STATUS "Version ${MBGL_QT_VERSION}")
 
 option(MBGL_QT_LIBRARY_ONLY "Build only libraries" OFF)
-option(MBGL_QT_STATIC "Build TrackAsia GL Qt bindings staticly" OFF)
-option(MBGL_QT_INSIDE_PLUGIN "Build QTrackAsiaGL as OBJECT library, so it can be bundled into separate single plugin lib." OFF)
-option(MBGL_QT_WITH_HEADLESS "Build TrackAsia GL Qt with headless support" ON)
-option(MBGL_QT_WITH_INTERNAL_SQLITE "Build TrackAsia GL Qt bindings with internal sqlite" OFF)
+option(MBGL_QT_STATIC "Build Trackasia GL Qt bindings staticly" OFF)
+option(MBGL_QT_INSIDE_PLUGIN "Build QTrackasiaGL as OBJECT library, so it can be bundled into separate single plugin lib." OFF)
+option(MBGL_QT_WITH_HEADLESS "Build Trackasia GL Qt with headless support" ON)
+option(MBGL_QT_WITH_INTERNAL_SQLITE "Build Trackasia GL Qt bindings with internal sqlite" OFF)
 option(MBGL_QT_DEPLOYMENT "Autogenerate files necessary for deployment" OFF)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
@@ -33,7 +33,7 @@ else()
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    option(MBGL_QT_WITH_INTERNAL_ICU "Build TrackAsia GL Qt bindings with internal ICU" OFF)
+    option(MBGL_QT_WITH_INTERNAL_ICU "Build Trackasia GL Qt bindings with internal ICU" OFF)
     if(NOT MBGL_QT_WITH_INTERNAL_ICU)
        find_package(ICU COMPONENTS uc REQUIRED)
     else()
@@ -148,16 +148,16 @@ target_link_libraries(
 )
 
 set(qtrackasiagl_headers
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/QTrackAsiaGL
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/export.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/map.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/Map
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/settings.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/Settings
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/types.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/Types
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/utils.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/Utils
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/QTrackasiaGL
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/export.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/map.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Map
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/settings.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Settings
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/types.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Types
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/utils.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Utils
 )
 
 if (MBGL_QT_INSIDE_PLUGIN)
@@ -195,8 +195,8 @@ target_sources(
 set_target_properties(
     qtrackasiagl PROPERTIES
     AUTOMOC ON
-    EXPORT_NAME QTrackAsiaGL
-    OUTPUT_NAME QTrackAsiaGL
+    EXPORT_NAME QTrackasiaGL
+    OUTPUT_NAME QTrackasiaGL
     VERSION ${MBGL_QT_VERSION}
     SOVERSION ${MBGL_QT_VERSION_COMPATIBILITY}
     PUBLIC_HEADER "${qtrackasiagl_headers}"
@@ -206,40 +206,40 @@ if (APPLE AND NOT MBGL_QT_STATIC AND NOT MBGL_QT_INSIDE_PLUGIN)
         qtrackasiagl PROPERTIES
         FRAMEWORK ON
         FRAMEWORK_VERSION A
-        MACOSX_FRAMEWORK_IDENTIFIER com.trackasia.QTrackAsiaGL
+        MACOSX_FRAMEWORK_IDENTIFIER com.trackasia.QTrackasiaGL
         MACOSX_FRAMEWORK_BUNDLE_VERSION ${MBGL_QT_VERSION}
         MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${MBGL_QT_VERSION}
     )
     target_include_directories(
         qtrackasiagl
         INTERFACE
-            $<INSTALL_INTERFACE:lib/QTrackAsiaGL.framework>
+            $<INSTALL_INTERFACE:lib/QTrackasiaGL.framework>
     )
 endif()
 
 include(CMakePackageConfigHelpers)
-set(CMAKECONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/QTrackAsiaGL/)
+set(CMAKECONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/QTrackasiaGL/)
 
 configure_package_config_file(
-    "platform/qt/QTrackAsiaGLConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/QTrackAsiaGLConfig.cmake"
+    "platform/qt/QTrackasiaGLConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfig.cmake"
     INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     PATH_VARS CMAKE_INSTALL_PREFIX CMAKE_INSTALL_INCLUDEDIR
     CMAKE_INSTALL_LIBDIR NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/QTrackAsiaGLConfigVersion.cmake
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfigVersion.cmake
     VERSION ${MBGL_QT_VERSION}
     COMPATIBILITY AnyNewerVersion)
 
-install(EXPORT QTrackAsiaGLTargets
+install(EXPORT QTrackasiaGLTargets
     DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     COMPONENT development)
 
-export(EXPORT QTrackAsiaGLTargets)
+export(EXPORT QTrackasiaGLTargets)
 
 install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/QTrackAsiaGLConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/QTrackAsiaGLConfigVersion.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfigVersion.cmake"
     DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     COMPONENT development)
 
@@ -303,14 +303,14 @@ endif()
 
 
 install(TARGETS qtrackasiagl
-        EXPORT QTrackAsiaGLTargets
+        EXPORT QTrackasiaGLTargets
         # Explicit set of DESTINATION is needed for older CMake versions.
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
         FRAMEWORK DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/QTrackAsiaGL"
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/QTrackasiaGL"
 )
 
 if(NOT MBGL_QT_LIBRARY_ONLY)

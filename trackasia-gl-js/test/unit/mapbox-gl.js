@@ -1,14 +1,14 @@
 import {test} from '../util/test';
-import TrackAsiaGL from '../../src';
+import mapboxgl from '../../src';
 
-test('TrackAsiaGL', (t) => {
+test('mapboxgl', (t) => {
     t.test('version', (t) => {
-        t.ok(TrackAsiaGL.version);
+        t.ok(mapboxgl.version);
         t.end();
     });
 
     t.test('workerCount', (t) => {
-        t.ok(typeof TrackAsiaGL.workerCount === 'number');
+        t.ok(typeof mapboxgl.workerCount === 'number');
         t.end();
     });
     t.end();

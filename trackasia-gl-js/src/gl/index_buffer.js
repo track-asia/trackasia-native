@@ -3,7 +3,7 @@ import assert from 'assert';
 
 import type {StructArray} from '../util/struct_array';
 import type {TriangleIndexArray, LineIndexArray, LineStripIndexArray} from '../data/index_array_type';
-import type Context from '../gl/context';
+import type Context from './context';
 
 class IndexBuffer {
     context: Context;

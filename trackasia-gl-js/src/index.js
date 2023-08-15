@@ -53,7 +53,7 @@ const exported = {
      * @var {string} accessToken
      * @returns {string} The currently set access token.
      * @example
-     * TrackAsiaGL.accessToken = myAccessToken;
+     * mapboxgl.accessToken = myAccessToken;
      * @see [Display a map](https://www.mapbox.com/mapbox-gl-js/examples/)
      */
     get accessToken(): ?string {
@@ -70,7 +70,7 @@ const exported = {
      * @var {string} baseApiUrl
      * @returns {string} The current base API URL.
      * @example
-     * TrackAsiaGL.baseApiUrl = 'https://api.mapbox.com';
+     * mapboxgl.baseApiUrl = 'https://api.mapbox.com';
      */
     get baseApiUrl(): ?string {
         return config.API_URL;
@@ -88,7 +88,7 @@ const exported = {
      * @var {string} workerCount
      * @returns {number} Number of workers currently configured.
      * @example
-     * TrackAsiaGL.workerCount = 2;
+     * mapboxgl.workerCount = 2;
      */
     get workerCount(): number {
         return WorkerPool.workerCount;
@@ -105,7 +105,7 @@ const exported = {
      * @var {string} maxParallelImageRequests
      * @returns {number} Number of parallel requests currently configured.
      * @example
-     * TrackAsiaGL.maxParallelImageRequests = 10;
+     * mapboxgl.maxParallelImageRequests = 10;
      */
     get maxParallelImageRequests(): number {
         return config.MAX_PARALLEL_IMAGE_REQUESTS;
@@ -141,23 +141,23 @@ const exported = {
 Debug.extend(exported, {isSafari, getPerformanceMetrics: PerformanceUtils.getPerformanceMetrics});
 
 /**
- * The version of TrackAsia GL JS in use as specified in `package.json`,
+ * The version of Trackasia GL JS in use as specified in `package.json`,
  * `CHANGELOG.md`, and the GitHub release.
  *
  * @var {string} version
  */
 
 /**
- * Test whether the browser [supports TrackAsia GL JS](https://www.mapbox.com/help/mapbox-browser-support/#mapbox-gl-js).
+ * Test whether the browser [supports Trackasia GL JS](https://www.mapbox.com/help/mapbox-browser-support/#mapbox-gl-js).
  *
  * @function supported
  * @param {Object} [options]
  * @param {boolean} [options.failIfMajorPerformanceCaveat=false] If `true`,
- *   the function will return `false` if the performance of TrackAsia GL JS would
+ *   the function will return `false` if the performance of Trackasia GL JS would
  *   be dramatically worse than expected (e.g. a software WebGL renderer would be used).
  * @return {boolean}
  * @example
- * TrackAsiaGL.supported() // = true
+ * mapboxgl.supported() // = true
  * @see [Check for browser support](https://www.mapbox.com/mapbox-gl-js/example/check-for-support/)
  */
 
@@ -168,10 +168,10 @@ Debug.extend(exported, {isSafari, getPerformanceMetrics: PerformanceUtils.getPer
  * @function setRTLTextPlugin
  * @param {string} pluginURL URL pointing to the Mapbox RTL text plugin source.
  * @param {Function} callback Called with an error argument if there is an error.
- * @param {boolean} lazy If set to `true`, TrackAsiaGL will defer loading the plugin until rtl text is encountered,
+ * @param {boolean} lazy If set to `true`, mapboxgl will defer loading the plugin until rtl text is encountered,
  *    rtl text will then be rendered only after the plugin finishes loading.
  * @example
- * TrackAsiaGL.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
+ * mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
  * @see [Add support for right-to-left scripts](https://www.mapbox.com/mapbox-gl-js/example/mapbox-gl-rtl-text/)
  */
 
@@ -182,7 +182,7 @@ Debug.extend(exported, {isSafari, getPerformanceMetrics: PerformanceUtils.getPer
   *
   * @function getRTLTextPluginStatus
   * @example
-  * const pluginStatus = TrackAsiaGL.getRTLTextPluginStatus();
+  * const pluginStatus = mapboxgl.getRTLTextPluginStatus();
   */
 
 export default exported;

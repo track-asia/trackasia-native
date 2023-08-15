@@ -1,7 +1,7 @@
 // @flow
 
-import LngLat, {earthRadius} from '../geo/lng_lat';
-import type {LngLatLike} from '../geo/lng_lat';
+import LngLat, {earthRadius} from './lng_lat';
+import type {LngLatLike} from './lng_lat';
 
 /*
  * The average circumference of the world in meters.
@@ -72,7 +72,7 @@ export function mercatorScale(lat: number) {
  * @param {number} y The y component of the position.
  * @param {number} z The z component of the position.
  * @example
- * var nullIsland = new TrackAsiaGL.MercatorCoordinate(0.5, 0.5, 0);
+ * var nullIsland = new mapboxgl.MercatorCoordinate(0.5, 0.5, 0);
  *
  * @see [Add a custom style layer](https://www.mapbox.com/mapbox-gl-js/example/custom-style-layer/)
  */
@@ -94,7 +94,7 @@ class MercatorCoordinate {
      * @param {number} altitude The altitude in meters of the position.
      * @returns {MercatorCoordinate} The projected mercator coordinate.
      * @example
-     * var coord = TrackAsiaGL.MercatorCoordinate.fromLngLat({ lng: 0, lat: 0}, 0);
+     * var coord = mapboxgl.MercatorCoordinate.fromLngLat({ lng: 0, lat: 0}, 0);
      * coord; // MercatorCoordinate(0.5, 0.5, 0)
      */
     static fromLngLat(lngLatLike: LngLatLike, altitude: number = 0) {
@@ -111,7 +111,7 @@ class MercatorCoordinate {
      *
      * @returns {LngLat} The `LngLat` object.
      * @example
-     * var coord = new TrackAsiaGL.MercatorCoordinate(0.5, 0.5, 0);
+     * var coord = new mapboxgl.MercatorCoordinate(0.5, 0.5, 0);
      * var latLng = coord.toLngLat(); // LngLat(0, 0)
      */
     toLngLat() {
@@ -125,7 +125,7 @@ class MercatorCoordinate {
      *
      * @returns {number} The altitude in meters.
      * @example
-     * var coord = new TrackAsiaGL.MercatorCoordinate(0, 0, 0.02);
+     * var coord = new mapboxgl.MercatorCoordinate(0, 0, 0.02);
      * coord.toAltitude(); // 6914.281956295339
      */
     toAltitude() {

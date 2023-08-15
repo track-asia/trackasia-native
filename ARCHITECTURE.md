@@ -21,7 +21,7 @@ Code and build scripts belonging to platform SDKs are contained in the `platform
 - `platform/android` - Android SDK, forked from https://github.com/mapbox/mapbox-gl-native-android/commit/4c12fb2c.
 - `platform/glfw` - [GLFW](https://www.glfw.org) is library to support OpenGL development on the desktop. The code in this directory builds an executable application `mbgl-glfw` for demo/dev/local testing purposes.
 
-## Trackasia-gl-js
+## Maplibre-gl-js
 
 `trackasia-gl-js` is added to this repostiory as a top-level submodule to provide
 
@@ -36,7 +36,7 @@ Code and build scripts belonging to platform SDKs are contained in the `platform
   - iOS SDK runs benchmark test through a separate app named `BenchmarkApp`.
   - Android SDK does not have benchmark test.
 - `bin` contains the code for tools like `mbgl-cache`, `mbgl-offline`, and `mbgl-render`.
-- `expression-test` contains tests for the expression feature in the map style (see more details about expression [here](https://track-asia.com/trackasia-gl-js-docs/style-spec/expressions/).
+- `expression-test` contains tests for the expression feature in the map style (see more details about expression [here](https://trackasia.org/trackasia-gl-js-docs/style-spec/expressions/).
 - `metrics` contains test manifest files and ground truth for graphic comparison based render test.
 - `misc` contains protobuf for style, vector tile, and glyphs. It also icons and pictures used in documents.
 - `render-test` contains image diff based render tests. These tests verify if the rendering results match with expectations by capturing the rendering results and compare with the groundtruth images in the `metrics` directory.
@@ -104,7 +104,7 @@ Immutability is an alternative to several other strategies for safe intra-thread
 
 Immutability is implemented by the `Immutable<T>` template, which acts as a non-nullable shared reference to a `const T`. It has behavior similar to `std::shared_ptr<const T>`, but indicates its intent as an immutable reference that is safe to share between threads.
 
-Immutability is core to the implementation, and yet one of the defining features of TrackAsia GL is the ability to manipulate and mutate the style freely at runtime. How can this be possible if everything is immutable? The answer turns on the distinction mentioned in the previous section between public classes such as `Layer` and private implementations such as `Layer::Impl`. In TrackAsia GL the following private implementations are immutable, whereas their public counterparts are not:
+Immutability is core to the implementation, and yet one of the defining features of Trackasia GL is the ability to manipulate and mutate the style freely at runtime. How can this be possible if everything is immutable? The answer turns on the distinction mentioned in the previous section between public classes such as `Layer` and private implementations such as `Layer::Impl`. In Trackasia GL the following private implementations are immutable, whereas their public counterparts are not:
 
 * **Mutable objects**: `Layer`, `Source`, `Image`, `Light`
 * **Immutable objects**: `Layer::Impl`, `Source::Impl`, `Image::Impl`, `Light::Impl`
@@ -120,7 +120,7 @@ Two things to note about this process:
 * No existing Impls are modified -- only the newly created copy.
 * Only one existing reference to an Impl is modified -- the one held by the `Layer` instance being mutated. Any references to the previous Impl held by other threads remain unchanged. They go on using the previous value for radius until notified by some other means that there has been a change.
 
-So how do things that are holding references to the previous Impl get notified? The answer is **style diffing**. This is the process by which we determine, from one frame to the next, what parts of the style have changed and therefore what needs to be recalculated in response to those changes in order to draw an updated frame. In parallel to style objects such as `Style`, `Layer`, `Source` and so on, TrackAsia GL maintains render objects such as `RenderStyle`, `RenderLayer`, `RenderSource` and so on. These render objects:
+So how do things that are holding references to the previous Impl get notified? The answer is **style diffing**. This is the process by which we determine, from one frame to the next, what parts of the style have changed and therefore what needs to be recalculated in response to those changes in order to draw an updated frame. In parallel to style objects such as `Style`, `Layer`, `Source` and so on, Trackasia GL maintains render objects such as `RenderStyle`, `RenderLayer`, `RenderSource` and so on. These render objects:
 
 * are mutable
 * may live on either the main thread or an independent rendering thread, depending on the SDK

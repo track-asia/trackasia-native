@@ -8,7 +8,7 @@ import type {
 } from '../util/struct_array';
 
 import type Program from '../render/program';
-import type Context from '../gl/context';
+import type Context from './context';
 
 /**
  * @enum {string} AttributeType

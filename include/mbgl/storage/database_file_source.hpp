@@ -190,7 +190,7 @@ public:
      * Only resources and tiles that belong to a region will be copied over. Identical
      * regions will be flattened into a single new region in the main database.
      *
-     * Invokes the callback with a `TrackasiaOfflineTileCountExceededException` error if
+     * Invokes the callback with a `MapboxOfflineTileCountExceededException` error if
      * the merge operation would result in the offline tile count limit being exceeded.
      *
      * Merged regions may not be in a completed status if the secondary database
@@ -228,10 +228,10 @@ public:
     virtual void invalidateOfflineRegion(const OfflineRegion&, std::function<void(std::exception_ptr)>);
 
     /*
-     * Changing or bypassing this limit without permission from Trackasia is prohibited
-     * by the Trackasia Terms of Service.
+     * Changing or bypassing this limit without permission from Mapbox is prohibited
+     * by the Mapbox Terms of Service.
      */
-    virtual void setOfflineTrackasiaTileCountLimit(uint64_t) const;
+    virtual void setOfflineMapboxTileCountLimit(uint64_t) const;
 
     void setResourceOptions(ResourceOptions) override;
     ResourceOptions getResourceOptions() override;

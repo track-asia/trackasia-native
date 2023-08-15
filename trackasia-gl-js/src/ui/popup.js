@@ -71,7 +71,7 @@ export type PopupOptions = {
  *  'left': [markerRadius, (markerHeight - markerRadius) * -1],
  *  'right': [-markerRadius, (markerHeight - markerRadius) * -1]
  *  };
- * var popup = new TrackAsiaGL.Popup({offset: popupOffsets, className: 'my-class'})
+ * var popup = new mapboxgl.Popup({offset: popupOffsets, className: 'my-class'})
  *   .setLngLat(e.lngLat)
  *   .setHTML("<h1>Hello World!</h1>")
  *   .setMaxWidth("300px")
@@ -101,7 +101,7 @@ export default class Popup extends Evented {
     /**
      * Adds the popup to a map.
      *
-     * @param {Map} map The TrackAsia GL JS map to add the popup to.
+     * @param {Map} map The Trackasia GL JS map to add the popup to.
      * @returns {Popup} `this`
      */
     addTo(map: Map) {
@@ -121,9 +121,9 @@ export default class Popup extends Evented {
             this._map.on('mousemove', (e) => { this._update(e.point); });
             this._map.on('mouseup', (e) => { this._update(e.point); });
             if (this._container) {
-                this._container.classList.add('TrackAsiaGL-popup-track-pointer');
+                this._container.classList.add('mapboxgl-popup-track-pointer');
             }
-            this._map._canvasContainer.classList.add('TrackAsiaGL-track-pointer');
+            this._map._canvasContainer.classList.add('mapboxgl-track-pointer');
         } else {
             this._map.on('move', this._update);
         }
@@ -153,7 +153,7 @@ export default class Popup extends Evented {
      * Removes the popup from the map it has been added to.
      *
      * @example
-     * var popup = new TrackAsiaGL.Popup().addTo(map);
+     * var popup = new mapboxgl.Popup().addTo(map);
      * popup.remove();
      * @returns {Popup} `this`
      */
@@ -221,9 +221,9 @@ export default class Popup extends Evented {
             this._map.on('move', this._update);
             this._map.off('mousemove');
             if (this._container) {
-                this._container.classList.remove('TrackAsiaGL-popup-track-pointer');
+                this._container.classList.remove('mapboxgl-popup-track-pointer');
             }
-            this._map._canvasContainer.classList.remove('TrackAsiaGL-track-pointer');
+            this._map._canvasContainer.classList.remove('mapboxgl-track-pointer');
         }
 
         return this;
@@ -243,9 +243,9 @@ export default class Popup extends Evented {
             this._map.on('mousemove', (e) => { this._update(e.point); });
             this._map.on('drag', (e) => { this._update(e.point); });
             if (this._container) {
-                this._container.classList.add('TrackAsiaGL-popup-track-pointer');
+                this._container.classList.add('mapboxgl-popup-track-pointer');
             }
-            this._map._canvasContainer.classList.add('TrackAsiaGL-track-pointer');
+            this._map._canvasContainer.classList.add('mapboxgl-track-pointer');
         }
 
         return this;
@@ -270,7 +270,7 @@ export default class Popup extends Evented {
      * @param text Textual content for the popup.
      * @returns {Popup} `this`
      * @example
-     * var popup = new TrackAsiaGL.Popup()
+     * var popup = new mapboxgl.Popup()
      *   .setLngLat(e.lngLat)
      *   .setText('Hello, world!')
      *   .addTo(map);
@@ -334,7 +334,7 @@ export default class Popup extends Evented {
      * // create an element with the popup content
      * var div = window.document.createElement('div');
      * div.innerHTML = 'Hello, world!';
-     * var popup = new TrackAsiaGL.Popup()
+     * var popup = new mapboxgl.Popup()
      *   .setLngLat(e.lngLat)
      *   .setDOMContent(div)
      *   .addTo(map);
@@ -352,7 +352,7 @@ export default class Popup extends Evented {
      * @param {string} className Non-empty string with CSS class name to add to popup container
      *
      * @example
-     * let popup = new TrackAsiaGL.Popup()
+     * let popup = new mapboxgl.Popup()
      * popup.addClassName('some-class')
      */
     addClassName(className: string) {
@@ -365,7 +365,7 @@ export default class Popup extends Evented {
      * @param {string} className Non-empty string with CSS class name to remove from popup container
      *
      * @example
-     * let popup = new TrackAsiaGL.Popup()
+     * let popup = new mapboxgl.Popup()
      * popup.removeClassName('some-class')
      */
     removeClassName(className: string) {
@@ -380,7 +380,7 @@ export default class Popup extends Evented {
      * @returns {boolean} if the class was removed return false, if class was added, then return true
      *
      * @example
-     * let popup = new TrackAsiaGL.Popup()
+     * let popup = new mapboxgl.Popup()
      * popup.toggleClassName('toggleClass')
      */
     toggleClassName(className: string) {
@@ -392,9 +392,9 @@ export default class Popup extends Evented {
             DOM.remove(this._content);
         }
 
-        this._content = DOM.create('div', 'TrackAsiaGL-popup-content', this._container);
+        this._content = DOM.create('div', 'mapboxgl-popup-content', this._container);
         if (this.options.closeButton) {
-            this._closeButton = DOM.create('button', 'TrackAsiaGL-popup-close-button', this._content);
+            this._closeButton = DOM.create('button', 'mapboxgl-popup-close-button', this._content);
             this._closeButton.type = 'button';
             this._closeButton.setAttribute('aria-label', 'Close popup');
             this._closeButton.innerHTML = '&#215;';
@@ -409,8 +409,8 @@ export default class Popup extends Evented {
         if (!this._map || !hasPosition || !this._content) { return; }
 
         if (!this._container) {
-            this._container = DOM.create('div', 'TrackAsiaGL-popup', this._map.getContainer());
-            this._tip       = DOM.create('div', 'TrackAsiaGL-popup-tip', this._container);
+            this._container = DOM.create('div', 'mapboxgl-popup', this._map.getContainer());
+            this._tip       = DOM.create('div', 'mapboxgl-popup-tip', this._container);
             this._container.appendChild(this._content);
             if (this.options.className) {
                 this.options.className.split(' ').forEach(name =>
@@ -418,7 +418,7 @@ export default class Popup extends Evented {
             }
 
             if (this._trackPointer) {
-                this._container.classList.add('TrackAsiaGL-popup-track-pointer');
+                this._container.classList.add('mapboxgl-popup-track-pointer');
             }
         }
 

@@ -67,7 +67,7 @@ BUILD_DOCS ?= true
 ifeq ($(HOST_PLATFORM), macos)
 
 IOS_OUTPUT_PATH = build/ios
-IOS_PROJ_PATH = $(IOS_OUTPUT_PATH)/TrackAsia\ GL\ Native.xcodeproj
+IOS_PROJ_PATH = $(IOS_OUTPUT_PATH)/Mapbox\ GL\ Native.xcodeproj
 IOS_WORK_PATH = platform/ios/ios.xcworkspace
 IOS_USER_DATA_PATH = $(IOS_WORK_PATH)/xcuserdata/$(USER).xcuserdatad
 
@@ -153,7 +153,7 @@ iproj: $(IOS_PROJ_PATH)
 	@#   Check if Xcode should run in headless mode
 	@#     If CI=1, then just perform `make iproj`
 	@#       else, use `xed` to open the XCworkspace
-	@if [ $(CI) == 1 ]; then echo "make iproj CI=1.  Running in headless mode, skip opening .xcworkspace in Xcode.  To open Xcode use 'xed $(IOS_WORK_PATH)'"; else echo "make iproj. Opening TrackAsia in Xcode using:  'xed $(IOS_WORK_PATH)'.  To skip opening Xcode, use 'make iproj CI=1'"; xed $(IOS_WORK_PATH);  fi;
+	@if [ $(CI) == 1 ]; then echo "make iproj CI=1.  Running in headless mode, skip opening .xcworkspace in Xcode.  To open Xcode use 'xed $(IOS_WORK_PATH)'"; else echo "make iproj. Opening Trackasia in Xcode using:  'xed $(IOS_WORK_PATH)'.  To skip opening Xcode, use 'make iproj CI=1'"; xed $(IOS_WORK_PATH);  fi;
 	@echo "## Xcode dependencies"
 	@xcodebuild -version
 	@uname -a
@@ -256,7 +256,7 @@ endif
 ifeq ($(HOST_PLATFORM), macos)
 
 MACOS_OUTPUT_PATH = build/macos
-MACOS_PROJ_PATH = $(MACOS_OUTPUT_PATH)/TrackAsia\ GL\ Native.xcodeproj
+MACOS_PROJ_PATH = $(MACOS_OUTPUT_PATH)/Mapbox\ GL\ Native.xcodeproj
 MACOS_WORK_PATH = platform/macos/macos.xcworkspace
 MACOS_USER_DATA_PATH = $(MACOS_WORK_PATH)/xcuserdata/$(USER).xcuserdatad
 

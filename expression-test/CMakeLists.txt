@@ -25,9 +25,9 @@ target_include_directories(
 target_link_libraries(
     mbgl-expression-test
     PRIVATE
-        Trackasia::Base
-        Trackasia::Base::Extras::args
-        Trackasia::Base::Extras::filesystem
+        Mapbox::Base
+        Mapbox::Base::Extras::args
+        Mapbox::Base::Extras::filesystem
         mbgl-core
 )
 

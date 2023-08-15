@@ -17,7 +17,7 @@ function createMap(t, options) {
     return globalCreateMap(t, {container});
 }
 
-test('Popup#getElement returns a .TrackAsiaGL-popup element', (t) => {
+test('Popup#getElement returns a .mapboxgl-popup element', (t) => {
     const map = createMap(t);
     const popup = new Popup()
         .setText('Test')
@@ -25,11 +25,11 @@ test('Popup#getElement returns a .TrackAsiaGL-popup element', (t) => {
         .addTo(map);
 
     t.ok(popup.isOpen());
-    t.ok(popup.getElement().classList.contains('TrackAsiaGL-popup'));
+    t.ok(popup.getElement().classList.contains('mapboxgl-popup'));
     t.end();
 });
 
-test('Popup#addTo adds a .TrackAsiaGL-popup element', (t) => {
+test('Popup#addTo adds a .mapboxgl-popup element', (t) => {
     const map = createMap(t);
     const popup = new Popup()
         .setText('Test')
@@ -37,7 +37,7 @@ test('Popup#addTo adds a .TrackAsiaGL-popup element', (t) => {
         .addTo(map);
 
     t.ok(popup.isOpen());
-    t.equal(map.getContainer().querySelectorAll('.TrackAsiaGL-popup').length, 1);
+    t.equal(map.getContainer().querySelectorAll('.mapboxgl-popup').length, 1);
     t.end();
 });
 
@@ -74,7 +74,7 @@ test('Popup closes on close button click events', (t) => {
         .setLngLat([0, 0])
         .addTo(map);
 
-    simulate.click(map.getContainer().querySelector('.TrackAsiaGL-popup-close-button'));
+    simulate.click(map.getContainer().querySelector('.mapboxgl-popup-close-button'));
 
     t.ok(!popup.isOpen());
     t.end();
@@ -88,7 +88,7 @@ test('Popup has no close button if closeButton option is false', (t) => {
         .setLngLat([0, 0])
         .addTo(map);
 
-    t.equal(popup.getElement().querySelectorAll('.TrackAsiaGL-popup-close-button').length, 0);
+    t.equal(popup.getElement().querySelectorAll('.mapboxgl-popup-close-button').length, 0);
     t.end();
 });
 
@@ -167,7 +167,7 @@ test('Popup content can be set via setHTML', (t) => {
         .addTo(map)
         .setHTML("<span>Test</span>");
 
-    t.equal(popup.getElement().querySelector('.TrackAsiaGL-popup-content').innerHTML, "<span>Test</span>");
+    t.equal(popup.getElement().querySelector('.mapboxgl-popup-content').innerHTML, "<span>Test</span>");
     t.end();
 });
 
@@ -217,7 +217,7 @@ test('Popup content can be set via setDOMContent', (t) => {
         .addTo(map)
         .setDOMContent(content);
 
-    t.equal(popup.getElement().querySelector('.TrackAsiaGL-popup-content').firstChild, content);
+    t.equal(popup.getElement().querySelector('.mapboxgl-popup-content').firstChild, content);
     t.end();
 });
 
@@ -369,7 +369,7 @@ test('Popup anchors as specified by the anchor option', (t) => {
         .setText('Test')
         .addTo(map);
 
-    t.ok(popup.getElement().classList.contains('TrackAsiaGL-popup-anchor-top-left'));
+    t.ok(popup.getElement().classList.contains('mapboxgl-popup-anchor-top-left'));
     t.end();
 });
 
@@ -401,7 +401,7 @@ test('Popup anchors as specified by the anchor option', (t) => {
         t.stub(map, 'project').returns(point);
         popup.setLngLat([0, 0]);
 
-        t.ok(popup.getElement().classList.contains(`TrackAsiaGL-popup-anchor-${anchor}`));
+        t.ok(popup.getElement().classList.contains(`mapboxgl-popup-anchor-${anchor}`));
         t.end();
     });
 
@@ -437,7 +437,7 @@ test('Popup automatically anchors to top if its bottom offset would push it off-
     t.stub(map, 'project').returns(point);
     popup.setLngLat([0, 0]);
 
-    t.ok(popup.getElement().classList.contains('TrackAsiaGL-popup-anchor-top'));
+    t.ok(popup.getElement().classList.contains('mapboxgl-popup-anchor-top'));
     t.end();
 });
 
@@ -490,7 +490,7 @@ test('Popup can be removed and added again (#1477)', (t) => {
         .remove()
         .addTo(map);
 
-    t.equal(map.getContainer().querySelectorAll('.TrackAsiaGL-popup').length, 1);
+    t.equal(map.getContainer().querySelectorAll('.mapboxgl-popup').length, 1);
     t.end();
 });
 
@@ -503,7 +503,7 @@ test('Popup#addTo is idempotent (#1811)', (t) => {
         .addTo(map)
         .addTo(map);
 
-    t.equal(popup.getElement().querySelector('.TrackAsiaGL-popup-content').textContent, 'Test');
+    t.equal(popup.getElement().querySelector('.mapboxgl-popup-content').textContent, 'Test');
     t.end();
 });
 
@@ -517,7 +517,7 @@ test('Popup#remove is idempotent (#2395)', (t) => {
         .remove()
         .remove();
 
-    t.equal(map.getContainer().querySelectorAll('.TrackAsiaGL-popup').length, 0);
+    t.equal(map.getContainer().querySelectorAll('.mapboxgl-popup').length, 0);
     t.end();
 });
 
@@ -574,7 +574,7 @@ test('Pointer-tracked popup is tagged with right class', (t) => {
         .trackPointer()
         .addTo(map);
 
-    t.equal(popup._container.classList.value.includes('TrackAsiaGL-popup-track-pointer'), true);
+    t.equal(popup._container.classList.value.includes('mapboxgl-popup-track-pointer'), true);
     t.end();
 });
 
@@ -586,7 +586,7 @@ test('Pointer-tracked popup with content set later is tagged with right class ',
 
     popup.setText("Test");
 
-    t.equal(popup._container.classList.value.includes('TrackAsiaGL-popup-track-pointer'), true);
+    t.equal(popup._container.classList.value.includes('mapboxgl-popup-track-pointer'), true);
     t.end();
 });
 
@@ -598,7 +598,7 @@ test('Pointer-tracked popup that is set afterwards is tagged with right class ',
     popup.setText("Test");
     popup.trackPointer();
 
-    t.equal(popup._container.classList.value.includes('TrackAsiaGL-popup-track-pointer'), true);
+    t.equal(popup._container.classList.value.includes('mapboxgl-popup-track-pointer'), true);
     t.end();
 });
 
@@ -611,7 +611,7 @@ test('Pointer-tracked popup can be repositioned with setLngLat', (t) => {
         .addTo(map);
 
     t.deepEqual(popup._pos, map.project([0, 0]));
-    t.equal(popup._container.classList.value.includes('TrackAsiaGL-popup-track-pointer'), false);
+    t.equal(popup._container.classList.value.includes('mapboxgl-popup-track-pointer'), false);
     t.end();
 });
 
@@ -622,7 +622,7 @@ test('Positioned popup lacks pointer-tracking class', (t) => {
         .setLngLat([0, 0])
         .addTo(map);
 
-    t.equal(popup._container.classList.value.includes('TrackAsiaGL-popup-track-pointer'), false);
+    t.equal(popup._container.classList.value.includes('mapboxgl-popup-track-pointer'), false);
     t.end();
 });
 

@@ -12,7 +12,7 @@
     variant/extension/privateuse/grandfathered information in a BCP 47 tag.
 
     Why implement this?
-        Trackasia Style Spec specifies locales with BCP 47
+        Mapbox Style Spec specifies locales with BCP 47
         Android and Intl.Collator implementations speak BCP 47 out of the box
         Darwin implementation requires translation to "Language Identifier"
         We're OK with not supporting extensions, but we want to succesfully

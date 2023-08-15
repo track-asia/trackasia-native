@@ -216,8 +216,8 @@ target_link_libraries(
     mbgl-test
     PRIVATE
         ${MBGL_CORE_PRIVATE_LIBRARIES}
-        Trackasia::Base::Extras::args
-        Trackasia::Base::pixelmatch-cpp
+        Mapbox::Base::Extras::args
+        Mapbox::Base::pixelmatch-cpp
         mbgl-compiler-options
         mbgl-vendor-cpp-httplib
     PUBLIC mbgl-core

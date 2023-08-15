@@ -57,7 +57,7 @@ TEST(RasterDEMTile, onError) {
 TEST(RasterDEMTile, onParsed) {
     RasterDEMTileTest test;
     RasterDEMTile tile(OverscaledTileID(0, 0, 0), test.tileParameters, test.tileset);
-    tile.onParsed(std::make_unique<HillshadeBucket>(PremultipliedImage({16, 16}), Tileset::DEMEncoding::Trackasia), 0);
+    tile.onParsed(std::make_unique<HillshadeBucket>(PremultipliedImage({16, 16}), Tileset::DEMEncoding::Mapbox), 0);
     EXPECT_TRUE(tile.isRenderable());
     EXPECT_TRUE(tile.isLoaded());
     EXPECT_TRUE(tile.isComplete());

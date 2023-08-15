@@ -4,7 +4,7 @@
 // Tests running in the browser need to be able to persist files to disk in certain situations.
 // our test server (server.js) actually handles the file-io and listens for POST request to /write-file
 // This is a helper method to send that POST request.
-// filepath: relative filepath from the root of the TrackAsiaGL repo
+// filepath: relative filepath from the root of the mapboxgl repo
 // data: base64 encoded string of the data to be persisted to disk
 module.exports = function(filepath, data, callback) {
     const xhttp = new XMLHttpRequest();

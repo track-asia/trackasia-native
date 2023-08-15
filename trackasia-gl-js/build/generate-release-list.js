@@ -17,5 +17,5 @@ octokit
         });
 
         fs.writeFileSync('dist/versions.json', JSON.stringify(list, null, 4) + '\n');
-        fs.writeFileSync('dist/versions.jsonp', 'const TrackAsiaGLVersions = ' + JSON.stringify(list, null, 4) + ';\n');
+        fs.writeFileSync('dist/versions.jsonp', 'const mapboxglVersions = ' + JSON.stringify(list, null, 4) + ';\n');
     });

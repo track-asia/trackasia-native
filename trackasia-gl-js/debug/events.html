@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TrackAsia GL JS debug page</title>
+<title>Trackasia GL JS debug page</title>
 <meta charset='utf-8'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <link rel='stylesheet' href='../dist/mapbox-gl.css' />
@@ -37,7 +37,7 @@ html, body, #map {
     transition-duration: 200ms;
 }
 
-#map.blur .TrackAsiaGL-canvas-container {
+#map.blur .mapboxgl-canvas-container {
     opacity: 0.6;
     -webkit-filter: blur(2px);
     filter: blur(2px);
@@ -98,7 +98,7 @@ html, body, #map {
 <script src='../debug/access_token_generated.js'></script>
 
 <script>
-var map = window.map = new TrackAsiaGL.Map({
+var map = window.map = new mapboxgl.Map({
     container: 'map',
     zoom: 12.5,
     center: [-77.01866, 38.888],
@@ -106,7 +106,7 @@ var map = window.map = new TrackAsiaGL.Map({
     hash: true
 });
 
-map.addControl(new TrackAsiaGL.NavigationControl());
+map.addControl(new mapboxgl.NavigationControl());
 
 var consoleContainer = document.querySelector('#console');
 ['info', 'log', 'warn', 'error'].forEach(function (verb) {

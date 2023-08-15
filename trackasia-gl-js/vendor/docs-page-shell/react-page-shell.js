@@ -284,7 +284,7 @@ var nonMobile = {
       }]
     },
     links: [{
-      name: 'TrackAsia GL JS',
+      name: 'Trackasia GL JS',
       to: 'https://docs.mapbox.com/mapbox-gl-js/'
     }, {
       name: 'Mapbox Studio',

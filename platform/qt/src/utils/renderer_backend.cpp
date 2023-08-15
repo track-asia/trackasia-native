@@ -6,7 +6,7 @@
 #include <QtGlobal>
 #include <QOpenGLContext>
 
-namespace QTrackAsiaGL {
+namespace QTrackasiaGL {
 
 class RenderableResource final : public mbgl::gl::RenderableResource {
 public:
@@ -46,11 +46,11 @@ void RendererBackend::updateFramebuffer(quint32 fbo, const mbgl::Size& newSize) 
 
 /*!
     Initializes an OpenGL extension function such as Vertex Array Objects (VAOs),
-    required by TrackAsia GL Native engine.
+    required by Trackasia GL Native engine.
 */
 mbgl::gl::ProcAddress RendererBackend::getExtensionFunctionPointer(const char* name) {
     QOpenGLContext* thisContext = QOpenGLContext::currentContext();
     return thisContext->getProcAddress(name);
 }
 
-} // namespace QTrackAsiaGL
+} // namespace QTrackasiaGL

@@ -1,5 +1,5 @@
 // @flow
 /* eslint-disable */
-import TrackAsiaGL from '../../..';
-const Map = TrackAsiaGL.Map;
+import mapboxgl from '../../..';
+const Map = mapboxgl.Map;
 const map = new Map({});

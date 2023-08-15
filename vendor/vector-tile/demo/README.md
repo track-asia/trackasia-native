@@ -1,8 +1,8 @@
 ## Vector Tile Library Demonstration
 
-This is a command line program that shows how to decode a Trackasia Vector Tile in C++.
+This is a command line program that shows how to decode a Mapbox Vector Tile in C++.
 
-It uses the Trackasia C++ Vector Tile library inside the `include/` directory.
+It uses the Mapbox C++ Vector Tile library inside the `include/` directory.
 
 ## Depends
 
@@ -31,4 +31,4 @@ make
 
  - Look inside `decode.cpp` for examples of how to decode tiles.
  - For more usage details see the tests at https://github.com/mapbox/vector-tile/blob/master/test/unit/vector_tile.test.cpp
- - For more details about available Trackasia Vector tiles see: https://www.mapbox.com/vector-tiles/
+ - For more details about available Mapbox Vector tiles see: https://www.mapbox.com/vector-tiles/

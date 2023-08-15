@@ -27,7 +27,7 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "supercluster.hpp"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/supercluster.hpp"
-        INTERFACE_MAPBOX_AUTHOR "Trackasia"
+        INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/mapbox-base/deps/supercluster.hpp/LICENSE
 )
 
@@ -36,7 +36,7 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "shelf-pack-cpp"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/shelf-pack-cpp"
-        INTERFACE_MAPBOX_AUTHOR "Trackasia"
+        INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/mapbox-base/deps/shelf-pack-cpp/LICENSE.md
 )
 
@@ -45,7 +45,7 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "geojson-vt-cpp"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/geojson-vt-cpp"
-        INTERFACE_MAPBOX_AUTHOR "Trackasia"
+        INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/mapbox-base/deps/geojson-vt-cpp/LICENSE
 )
 
@@ -63,7 +63,7 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "geojson.hpp"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/geojson-cpp"
-        INTERFACE_MAPBOX_AUTHOR "Trackasia"
+        INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/mapbox-base/deps/geojson.hpp/LICENSE
 )
 
@@ -72,7 +72,7 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "geometry.hpp"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/geometry.hpp"
-        INTERFACE_MAPBOX_AUTHOR "Trackasia"
+        INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/mapbox-base/deps/geometry.hpp/LICENSE
 )
 
@@ -90,7 +90,7 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "mapbox-base"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/mapbox-base"
-        INTERFACE_MAPBOX_AUTHOR "Trackasia"
+        INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/mapbox-base/LICENSE
 )
 
@@ -99,7 +99,7 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "variant"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/variant"
-        INTERFACE_MAPBOX_AUTHOR "Trackasia"
+        INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/mapbox-base/deps/variant/LICENSE
 )
 
@@ -108,6 +108,6 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "cheap-ruler-cpp"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/cheap-ruler-cpp"
-        INTERFACE_MAPBOX_AUTHOR "Trackasia"
+        INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/mapbox-base/deps/cheap-ruler-cpp/LICENSE
 )

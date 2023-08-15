@@ -569,7 +569,7 @@ TEST(Source, RasterTileAttribution) {
     Immutable<LayerProperties> layerProperties = makeMutable<RasterLayerProperties>(staticImmutableCast<RasterLayer::Impl>(layer.baseImpl));
     std::vector<Immutable<LayerProperties>> layers { layerProperties };
 
-    std::string mapboxOSM = ("<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Trackasia</a> "
+    std::string mapboxOSM = ("<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox</a> "
                              "<a href='http://www.openstreetmap.org/about/' target='_blank'>©️ OpenStreetMap</a>");
 
     test.fileSource->tileResponse = [&] (const Resource&) {
@@ -610,7 +610,7 @@ TEST(Source, RasterDEMTileAttribution) {
     Immutable<LayerProperties> layerProperties = makeMutable<HillshadeLayerProperties>(staticImmutableCast<HillshadeLayer::Impl>(layer.baseImpl));
     std::vector<Immutable<LayerProperties>> layers { layerProperties };
 
-    std::string mapbox = ("<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Trackasia</a> ");
+    std::string mapbox = ("<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox</a> ");
 
     test.fileSource->tileResponse = [&] (const Resource&) {
         Response response;

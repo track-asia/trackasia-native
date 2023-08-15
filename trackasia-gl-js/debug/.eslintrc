@@ -22,7 +22,7 @@
     "browser": true
   },
   "globals": {
-    "TrackAsiaGL": false,
+    "mapboxgl": false,
     "React": false,
     "ReactDOM": false
   }

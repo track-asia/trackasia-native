@@ -1,13 +1,13 @@
-# Changelog for the TrackAsia Maps SDK for Android
+# Changelog for the Trackasia Maps SDK for Android
 
-TrackAsia welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-gl-native/blob/main/CONTRIBUTING.md) to get started.
+Trackasia welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-gl-native/blob/main/CONTRIBUTING.md) to get started.
 
 ## main
 
 ### ✨ Features and improvements
 
 * Add your pull request...
-* Breaking: Changed resourcePrefix to `trackasia_` from `mapbox_` [647](https://github.com/track-asia/trackasia-gl-native/pull/647) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with TrackAsia logo.
+* Breaking: Changed resourcePrefix to `trackasia_` from `mapbox_` [647](https://github.com/track-asia/trackasia-gl-native/pull/647) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with Trackasia logo.
 * GMS location: Replace new LocationRequest() with LocationRequest.Builder, and LocationRequest.PRIORITY_X with Priority.PRIORITY_X ([620](https://github.com/track-asia/trackasia-gl-native/pull/620)) 
 
 ### 🐞 Bug fixes
@@ -31,12 +31,12 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 * Migrate examples in android TestApp to Kotlin ([#416](https://github.com/track-asia/trackasia-gl-native/pull/416))
 * Add ClientOptions to be able to pass around client name and version ([#365](https://github.com/track-asia/trackasia-gl-native/pull/365))
 * Use trackasia docs for more links ([#354](https://github.com/track-asia/trackasia-gl-native/pull/354))
-* Use the TrackAsia style spec docs website ([#353](https://github.com/track-asia/trackasia-gl-native/pull/353))
+* Use the Trackasia style spec docs website ([#353](https://github.com/track-asia/trackasia-gl-native/pull/353))
 * Refresh iOS & Android build docs ([5f679b55b](https://github.com/track-asia/trackasia-gl-native/commit/5f679b55b))
 * Qt build improvements and documentation ([#277](https://github.com/track-asia/trackasia-gl-native/pull/277))
-* Replace Mapbox with TrackAsia in README titles ([#297](https://github.com/track-asia/trackasia-gl-native/pull/297))
+* Replace Mapbox with Trackasia in README titles ([#297](https://github.com/track-asia/trackasia-gl-native/pull/297))
 * Rename MaptilerFileSource to MBTilesFileSource ([#198](https://github.com/track-asia/trackasia-gl-native/pull/198))
-* Changed missed MapBox reference to TrackAsia ([#253](https://github.com/track-asia/trackasia-gl-native/pull/253))
+* Changed missed MapBox reference to Trackasia ([#253](https://github.com/track-asia/trackasia-gl-native/pull/253))
 * Implement map projection functionality ([#254](https://github.com/track-asia/trackasia-gl-native/pull/254))
 * chore: rename master -> main in CI and scripts ([#246](https://github.com/track-asia/trackasia-gl-native/pull/246))
 * Feature - Bring back node support ([#217](https://github.com/track-asia/trackasia-gl-native/pull/217))
@@ -70,14 +70,14 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 ### Bug Fixes
 
 * raster layers stopped working in Android [#161](https://github.com/track-asia/trackasia-gl-native/pull/161)
-* remove Mapbox's in favor of TrackAsia in attribution dialog [#160](https://github.com/track-asia/trackasia-gl-native/pull/160)
+* remove Mapbox's in favor of Trackasia in attribution dialog [#160](https://github.com/track-asia/trackasia-gl-native/pull/160)
 * queryRenderedFeatures returns wrong results - issue #184, [#147](https://github.com/track-asia/trackasia-gl-native/pull/174)
 
 ## 9.5.1 - September 06, 2021
 
 ### Bug Fixes
 
-* Invalid tile url template for TrackAsia style [#107](https://github.com/track-asia/trackasia-gl-native/pull/107)
+* Invalid tile url template for Trackasia style [#107](https://github.com/track-asia/trackasia-gl-native/pull/107)
 * Crash when inflating view on Android [#130](https://github.com/track-asia/trackasia-gl-native/pull/130)
 
 ### Other
@@ -133,7 +133,7 @@ Switching from mapbox-java libraries to [trackasia fork](https://github.com/trac
 ## 9.2.0 - May 7, 2020
 ### Features
  - Added the `distance` expression for calculating the shortest distance between an evaluated feature and a given GeoJSON object. ([#339](https://github.com/mapbox/mapbox-gl-native-android/pull/339))
- - The [`SymbolLayer.iconTextFit`](https://docs.mapbox.com/android/api/map-sdk/9.2.0-beta.1/com.trackasia.android/style/layers/PropertyFactory.html#iconTextFit-com.trackasia.android.style.expressions.Expression-) property now respects the stretch metadata of any nine-part stretchable image passed into the `style.addImage` method. You can define the stretchable area of an image by configuring the `stretchX`, `stretchY`, `content` options on `Style.addImage` to append the requisite [metadata](https://github.com/mapbox/mapbox-gl-js/issues/8917). ([#314](https://github.com/mapbox/mapbox-gl-native-android/pull/314))
+ - The [`SymbolLayer.iconTextFit`](https://docs.mapbox.com/android/api/map-sdk/9.2.0-beta.1/com/mapbox/mapboxsdk/style/layers/PropertyFactory.html#iconTextFit-com.mapbox.mapboxsdk.style.expressions.Expression-) property now respects the stretch metadata of any nine-part stretchable image passed into the `style.addImage` method. You can define the stretchable area of an image by configuring the `stretchX`, `stretchY`, `content` options on `Style.addImage` to append the requisite [metadata](https://github.com/mapbox/mapbox-gl-js/issues/8917). ([#314](https://github.com/mapbox/mapbox-gl-native-android/pull/314))
  - Added methods to set and get the sort key of features in a `CircleLayer` at runtime. Features with a higher sort key will appear above features with a lower sort key. ([#322](https://github.com/mapbox/mapbox-gl-native-android/pull/322))
  - Introduced `Source.setVolatile` to disable ambient caching of tiles from a source. Use this option on transient sources, such as traffic tilesets, if not showing tiles from a source is preferable to showing outdated tiles should an update request fail. ([#355](https://github.com/mapbox/mapbox-gl-native-android/pull/355))
  - Introduced `Source.minimumTileUpdateInterval` to override the expiration time set via HTTP headers with a longer expiration time on the client. ([#355](https://github.com/mapbox/mapbox-gl-native-android/pull/355))
@@ -587,7 +587,7 @@ This release changes how offline tile requests are billed — they are now bille
  - Fix performance regression by switching back to a more compact line attributes layout [#14851](https://github.com/mapbox/mapbox-gl-native/pull/14851)
  - Fix a bug that restricted camera viewport after camera bounds were reset [#14882](https://github.com/mapbox/mapbox-gl-native/pull/14882)
  - Fix a bug that ignored floating point values during core to platform color conversion [#14954](https://github.com/mapbox/mapbox-gl-native/pull/14954)
- - Implemented asymmetric center of perspective: fixed an issue that caused the focal point to be always based on the view's horizontal center when setting [MapboxMap setPadding](https://docs.mapbox.com/android/api/map-sdk/8.0.0/com.trackasia.android/maps/MapboxMap.html#setPadding-int-int-int-int-). [#14664](https://github.com/mapbox/mapbox-gl-native/pull/14664)
+ - Implemented asymmetric center of perspective: fixed an issue that caused the focal point to be always based on the view's horizontal center when setting [MapboxMap setPadding](https://docs.mapbox.com/android/api/map-sdk/8.0.0/com/mapbox/mapboxsdk/maps/MapboxMap.html#setPadding-int-int-int-int-). [#14664](https://github.com/mapbox/mapbox-gl-native/pull/14664)
 
 ### Minor features and improvements
  - Allow null updates to GeoJsonSource [#14898](https://github.com/mapbox/mapbox-gl-native/pull/14898)

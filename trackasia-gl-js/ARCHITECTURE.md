@@ -1,4 +1,4 @@
-# Architecture of TrackAsia GL JS
+# Architecture of Trackasia GL JS
 
 ## `Map` and its subsystems
 

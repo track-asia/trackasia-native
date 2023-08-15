@@ -12,12 +12,12 @@ using namespace mbgl;
 using SourceType = mbgl::style::SourceType;
 
 namespace mapboxFixture {
-const TileServerOptions mapboxTileServerOptions = TileServerOptions::TrackasiaConfiguration();
-const TileServerOptions trackAsiaTileServerOptions = TileServerOptions::TrackasiaConfiguration();
+const TileServerOptions mapboxTileServerOptions = TileServerOptions::MapboxConfiguration();
+const TileServerOptions trackasiaTileServerOptions = TileServerOptions::TrackasiaConfiguration();
 const TileServerOptions mapTilerTileServerOptions = TileServerOptions::MapTilerConfiguration();
 } // namespace fixture
 
-TEST(Trackasia, SourceURL) {
+TEST(Mapbox, SourceURL) {
     EXPECT_EQ(
         "https://api.mapbox.com/v4/user.map.json?access_token=key&secure",
         mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::mapboxTileServerOptions, "mapbox://user.map", "key"));
@@ -38,7 +38,7 @@ TEST(Trackasia, SourceURL) {
         std::runtime_error);
 }
 
-TEST(Trackasia, GlyphsURL) {
+TEST(Mapbox, GlyphsURL) {
     EXPECT_EQ(
         "https://api.mapbox.com/fonts/v1/boxmap/Comic%20Sans/0-255.pbf?access_token=key",
         mbgl::util::mapbox::normalizeGlyphsURL(mapboxFixture::mapboxTileServerOptions, "mapbox://fonts/boxmap/Comic%20Sans/0-255.pbf", "key"));
@@ -56,7 +56,7 @@ TEST(Trackasia, GlyphsURL) {
         mbgl::util::mapbox::normalizeGlyphsURL(mapboxFixture::mapboxTileServerOptions, "mapbox://path", "key"));
 }
 
-TEST(Trackasia, StyleURL) {
+TEST(Mapbox, StyleURL) {
     EXPECT_EQ(
         "mapbox://foo",
         mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::mapboxTileServerOptions, "mapbox://foo", "key"));
@@ -80,7 +80,7 @@ TEST(Trackasia, StyleURL) {
         mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::mapboxTileServerOptions, "http://path", "key"));
 }
 
-TEST(Trackasia, SpriteURL) {
+TEST(Mapbox, SpriteURL) {
     EXPECT_EQ(
         "map/box/sprites@2x.json",
         mbgl::util::mapbox::normalizeSpriteURL(mapboxFixture::mapboxTileServerOptions, "map/box/sprites@2x.json", "key"));
@@ -107,7 +107,7 @@ TEST(Trackasia, SpriteURL) {
     EXPECT_EQ("mapbox://////", mbgl::util::mapbox::normalizeSpriteURL(mapboxFixture::mapboxTileServerOptions, "mapbox://////", "key"));
 }
 
-TEST(Trackasia, TileURL) {
+TEST(Mapbox, TileURL) {
     EXPECT_EQ(
         "https://api.mapbox.com/v4/a.b/0/0/0.pbf?access_token=key",
         mbgl::util::mapbox::normalizeTileURL(mapboxFixture::mapboxTileServerOptions, "mapbox://tiles/a.b/0/0/0.pbf", "key"));
@@ -134,7 +134,7 @@ TEST(Trackasia, TileURL) {
         mbgl::util::mapbox::normalizeSpriteURL(mapboxFixture::mapboxTileServerOptions, "http://path", "key"));
 }
 
-TEST(Trackasia, CanonicalURL) {
+TEST(Mapbox, CanonicalURL) {
     EXPECT_EQ(
         "mapbox://tiles/a.b/{z}/{x}/{y}.vector.pbf",
         mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::mapboxTileServerOptions, "http://a.tiles.mapbox.com/v4/a.b/{z}/{x}/{y}.vector.pbf", SourceType::Vector, 512));
@@ -205,7 +205,7 @@ TEST(Trackasia, CanonicalURL) {
         mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::mapboxTileServerOptions, "http://api.mapbox.com/v4/a.b/{z}/{x}/{y}/.", SourceType::Raster, 256));
 }
 
-TEST(Trackasia, CanonicalizeRasterTileset) {
+TEST(Mapbox, CanonicalizeRasterTileset) {
     mbgl::Tileset tileset;
     tileset.tiles = {
         "http://a.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=key"
@@ -216,7 +216,7 @@ TEST(Trackasia, CanonicalizeRasterTileset) {
     EXPECT_EQ("mapbox://tiles/mapbox.satellite/{z}/{x}/{y}{ratio}.png", tileset.tiles[0]);
 }
 
-TEST(Trackasia, CanonicalizeVectorTileset) {
+TEST(Mapbox, CanonicalizeVectorTileset) {
     mbgl::Tileset tileset;
     tileset.tiles = {
         "http://a.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.vector.pbf?access_token=key"
@@ -230,18 +230,18 @@ TEST(Trackasia, CanonicalizeVectorTileset) {
 // Trackasia tests
 TEST(Trackasia, CanonicalURL) {
     EXPECT_EQ(
-        "https://demotiles.track-asia.com/style.json",
-        mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://maps/style", ""));
+        "https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public",
+        mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::trackasiaTileServerOptions, "trackasia://maps/style", ""));
     EXPECT_EQ(
         "https://demotiles.track-asia.com/tiles/tiles.json",
-        mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://tiles/tiles", ""));
+        mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::trackasiaTileServerOptions, "trackasia://tiles/tiles", ""));
     EXPECT_EQ(
         "https://demotiles.track-asia.com/font/{fontstack}/{start}-{end}.pbf",
-        mbgl::util::mapbox::normalizeGlyphsURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://fonts/{fontstack}/{start}-{end}.pbf", ""));
+        mbgl::util::mapbox::normalizeGlyphsURL(mapboxFixture::trackasiaTileServerOptions, "trackasia://fonts/{fontstack}/{start}-{end}.pbf", ""));
 
     EXPECT_EQ(
         "trackasia://tiles/tiles/{z}/{x}/{y}.pbf",
-        mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::trackAsiaTileServerOptions, "https://demotiles.track-asia.com/tiles/{z}/{x}/{y}.pbf", SourceType::Vector, 512));
+        mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::trackasiaTileServerOptions, "https://demotiles.track-asia.com/tiles/{z}/{x}/{y}.pbf", SourceType::Vector, 512));
 }
 
 // MapTiler tests

@@ -1,9 +1,9 @@
 [book]
-authors = ["TrackAsia Contributors"]
+authors = ["Trackasia Contributors"]
 language = "en"
 multilingual = false
 src = "src"
-title = "TrackAsia GL Native Documentation"
+title = "Trackasia GL Native Documentation"
 
 [output.html]
 additional-css = ["diff.css"]

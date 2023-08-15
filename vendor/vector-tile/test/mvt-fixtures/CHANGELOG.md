@@ -2,7 +2,7 @@
 
 - Rename project to `mvt-fixtures`
 - Break fixtures into `valid` and `invalid` directories
-- Match version with that of the Trackasia Vector Tile Specification
+- Match version with that of the Mapbox Vector Tile Specification
 - Include more valid fixtures: TODO
 
 ## 1.0.0

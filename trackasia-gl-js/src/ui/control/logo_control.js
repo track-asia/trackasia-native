@@ -26,8 +26,8 @@ class LogoControl {
 
     onAdd(map: Map) {
         this._map = map;
-        this._container = DOM.create('div', 'TrackAsiaGL-ctrl');
-        const anchor = DOM.create('a', 'TrackAsiaGL-ctrl-logo');
+        this._container = DOM.create('div', 'mapboxgl-ctrl');
+        const anchor = DOM.create('a', 'mapboxgl-ctrl-logo');
         anchor.target = "_blank";
         anchor.rel = "noopener nofollow";
         anchor.href = "https://www.mapbox.com/";
@@ -80,9 +80,9 @@ class LogoControl {
         if (containerChildren.length) {
             const anchor = containerChildren[0];
             if (this._map.getCanvasContainer().offsetWidth < 250) {
-                anchor.classList.add('TrackAsiaGL-compact');
+                anchor.classList.add('mapboxgl-compact');
             } else {
-                anchor.classList.remove('TrackAsiaGL-compact');
+                anchor.classList.remove('mapboxgl-compact');
             }
         }
     }

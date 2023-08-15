@@ -19,7 +19,7 @@ std::string normalizeSpriteURL(const TileServerOptions& tileServerOptions, const
 std::string normalizeGlyphsURL(const TileServerOptions& tileServerOptions, const std::string& str, const std::string& apiKey);
 std::string normalizeTileURL(const TileServerOptions& tileServerOptions, const std::string& str, const std::string& apiKey);
 
-// Return a "mapbox://tiles/..." URL (suitable for normalizeTileURL) for the given Trackasia tile URL.
+// Return a "mapbox://tiles/..." URL (suitable for normalizeTileURL) for the given Mapbox tile URL.
 std::string canonicalizeTileURL(const TileServerOptions& tileServerOptions, const std::string& str, style::SourceType, uint16_t tileSize);
 std::string canonicalizeSourceURL(const TileServerOptions& tileServerOptions, const std::string& url);
 std::string canonicalizeSpriteURL(const TileServerOptions& tileServerOptions, const std::string& url);

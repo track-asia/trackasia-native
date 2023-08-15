@@ -1,7 +1,7 @@
 //
 // Our custom intro provides a specialized "define()" function, called by the
 // AMD modules below, that sets up the worker blob URL and then executes the
-// main module, storing its exported value as 'TrackAsiaGL'
+// main module, storing its exported value as 'mapboxgl'
 
 // The three "chunks" imported here are produced by a first Rollup pass,
 // which outputs them as AMD modules.
@@ -14,7 +14,7 @@ define(['exports'], function (exports) {
     // names rewritten to avoid collisions, etc.)
 })
 */
-import './build/TrackAsiaGL/shared';
+import './build/mapboxgl/shared';
 
 // Worker and its unique dependencies, i.e.:
 /*
@@ -29,7 +29,7 @@ define(['./shared.js'], function (__shared__js) {
 // it gets stringified, together with the shared wrapper (using
 // Function.toString()), and the resulting string of code is made into a
 // Blob URL that gets used by the main module to create the web workers.
-import './build/TrackAsiaGL/worker';
+import './build/mapboxgl/worker';
 
 // Main module and its unique dependencies
 /*
@@ -39,9 +39,9 @@ define(['./shared.js'], function (__shared__js) {
     //  since all references to common deps look like, e.g.,
     //  __shared__js.shapeText().
     //
-    //  Returns the actual TrackAsiaGL (i.e. src/index.js)
+    //  Returns the actual mapboxgl (i.e. src/index.js)
 });
 */
-import './build/TrackAsiaGL/index';
+import './build/mapboxgl/index';
 
-export default TrackAsiaGL;
+export default mapboxgl;

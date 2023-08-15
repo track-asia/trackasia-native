@@ -1,6 +1,6 @@
 'use strict';
 
-TrackAsiaGL.accessToken = getAccessToken();
+mapboxgl.accessToken = getAccessToken();
 
 function getAccessToken() {
     var accessToken = (

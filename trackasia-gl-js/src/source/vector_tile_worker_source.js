@@ -13,7 +13,7 @@ import type {
     WorkerTileParameters,
     WorkerTileCallback,
     TileParameters
-} from '../source/worker_source';
+} from './worker_source';
 
 import type Actor from '../util/actor';
 import type StyleLayerIndex from '../style/style_layer_index';

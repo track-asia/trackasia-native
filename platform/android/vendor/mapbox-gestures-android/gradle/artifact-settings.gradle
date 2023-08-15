@@ -1,5 +1,5 @@
 ext {
-    mapboxArtifactGroupId = 'com.trackasia.android'
+    mapboxArtifactGroupId = 'com.mapbox.mapboxsdk'
     mapboxArtifactId = 'mapbox-android-gestures'
     mapboxArtifactTitle = 'Mapbox Android Gestures Library'
     mapboxArtifactDescription = 'Mapbox Android Gestures Library'

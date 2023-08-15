@@ -1,6 +1,6 @@
 ## Filter
 
-Filter expressions are used to target specific data in a layer. This library implements the semantics specified by the [TrackAsia GL JS spec](https://www.mapbox.com/mapbox-gl-style-spec/#filter).
+Filter expressions are used to target specific data in a layer. This library implements the semantics specified by the [Trackasia GL JS spec](https://www.mapbox.com/mapbox-gl-style-spec/#filter).
 
 ### API
 

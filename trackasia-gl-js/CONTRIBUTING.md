@@ -1,4 +1,4 @@
-Hi, and thanks in advance for contributing to TrackAsia GL. Here's how we work. Please follow these conventions when submitting an issue or pull request.
+Hi, and thanks in advance for contributing to Trackasia GL. Here's how we work. Please follow these conventions when submitting an issue or pull request.
 
 ## Preparing your Development Environment
 

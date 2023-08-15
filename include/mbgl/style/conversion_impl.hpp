@@ -25,7 +25,7 @@ namespace conversion {
 
 /*
    The `conversion` namespace defines conversions from JSON structures conforming to the schema defined by
-   the Trackasia Style Specification, to the various C++ types that form the C++ model of that domain:
+   the Mapbox Style Specification, to the various C++ types that form the C++ model of that domain:
 
        * `std::unique_ptr<Source>`
        * `std::unique_ptr<Layer>`

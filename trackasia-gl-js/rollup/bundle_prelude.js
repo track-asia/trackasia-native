@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-var shared, worker, TrackAsiaGL;
+var shared, worker, mapboxgl;
 // define gets called three times: one for each chunk. we rely on the order
 // they're imported to know which is which
 function define(_, chunk) {
@@ -13,7 +13,7 @@ if (!shared) {
 
     var sharedChunk = {};
     shared(sharedChunk);
-    TrackAsiaGL = chunk(sharedChunk);
-    TrackAsiaGL.workerUrl = window.URL.createObjectURL(new Blob([workerBundleString], { type: 'text/javascript' }));
+    mapboxgl = chunk(sharedChunk);
+    mapboxgl.workerUrl = window.URL.createObjectURL(new Blob([workerBundleString], { type: 'text/javascript' }));
 }
 }

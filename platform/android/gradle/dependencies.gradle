@@ -7,7 +7,7 @@ ext {
     ]
 
     versions = [
-            trackAsiaServices: '1.0.0',
+            trackasiaServices: '1.0.0',
             mapboxCore      : '2.0.1',
             mapboxGestures  : '0.7.0',
             appCompat       : '1.5.1',
@@ -41,9 +41,9 @@ ext {
     ]
     
     dependenciesList = [
-            mapboxJavaGeoJSON      : "io.github.track-asia:android-sdk-geojson:${versions.trackAsiaServices}",
+            mapboxJavaGeoJSON      : "io.github.track-asia:android-sdk-geojson:${versions.trackasiaServices}",
             mapboxAndroidGestures  : "com.mapbox.mapboxsdk:mapbox-android-gestures:${versions.mapboxGestures}",
-            mapboxJavaTurf         : "io.github.track-asia:android-sdk-turf:${versions.trackAsiaServices}",
+            mapboxJavaTurf         : "io.github.track-asia:android-sdk-turf:${versions.trackasiaServices}",
 
             junit                  : "junit:junit:${versions.junit}",
             amdroidxJunit          : "androidx.test.ext:junit:1.1.4",

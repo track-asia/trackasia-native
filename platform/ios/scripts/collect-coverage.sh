@@ -66,7 +66,7 @@ genhtml \
     --keep-descriptions \
     --function-coverage \
     --no-branch-coverage \
-    --title "TrackAsia GL Native" \
+    --title "Trackasia GL Native" \
     --num-spaces 4 \
     --sort \
     --demangle-cpp \

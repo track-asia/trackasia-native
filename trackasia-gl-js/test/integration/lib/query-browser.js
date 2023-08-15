@@ -1,5 +1,5 @@
 /* eslint-env browser */
-/* global tape:readonly, TrackAsiaGL:readonly */
+/* global tape:readonly, mapboxgl:readonly */
 /* eslint-disable import/no-unresolved */
 // fixtures.json is automatically generated before this file gets built
 // refer testem.js#before_tests()
@@ -36,7 +36,7 @@ function testFunc(t) {
     document.body.appendChild(container);
 
     //2. Initialize the Map
-    const map = new TrackAsiaGL.Map({
+    const map = new mapboxgl.Map({
         container,
         style,
         classes: options.classes,

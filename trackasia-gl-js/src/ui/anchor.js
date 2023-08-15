@@ -26,7 +26,7 @@ export const anchorTranslate: {[_: Anchor]: string} = {
 export function applyAnchorClass(element: HTMLElement, anchor: Anchor, prefix: string) {
     const classList = element.classList;
     for (const key in anchorTranslate) {
-        classList.remove(`TrackAsiaGL-${prefix}-anchor-${key}`);
+        classList.remove(`mapboxgl-${prefix}-anchor-${key}`);
     }
-    classList.add(`TrackAsiaGL-${prefix}-anchor-${anchor}`);
+    classList.add(`mapboxgl-${prefix}-anchor-${anchor}`);
 }

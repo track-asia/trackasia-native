@@ -52,7 +52,7 @@ if [[ -e ${PRODUCTS}/${NAME}.framework.dSYM ]]; then
     cp -r ${PRODUCTS}/${NAME}.framework.dSYM "${OUTPUT}"
 fi
 
-step "Building and archiving TrackAsia GL.app (build ${PROJ_VERSION}, version ${SEM_VERSION})…"
+step "Building and archiving Trackasia GL.app (build ${PROJ_VERSION}, version ${SEM_VERSION})…"
 if [[ ${BUILDTYPE} == Release ]]; then
     mkdir -p ${APP_OUTPUT}
     xcodebuild \
@@ -93,7 +93,7 @@ if [[ ${BUILDTYPE} == Release && ${ENABLE_APP_PUBLISH} = "YES" ]]; then
         "${OUTPUT}/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME}" \
         "${OUTPUT}/${NAME}.framework/${NAME}"
     
-    step "Exporting TrackAsia GL.app"
+    step "Exporting Trackasia GL.app"
     xcodebuild \
         ${CI_XCCONFIG} \
         -exportArchive \

@@ -124,7 +124,7 @@ public:
         }
     }
 
-    void setOfflineTrackasiaTileCountLimit(uint64_t limit) { db->setOfflineTrackasiaTileCountLimit(limit); }
+    void setOfflineMapboxTileCountLimit(uint64_t limit) { db->setOfflineMapboxTileCountLimit(limit); }
 
     void reopenDatabaseReadOnly(bool readOnly) { db->reopenDatabaseReadOnly(readOnly); }
 
@@ -308,8 +308,8 @@ void DatabaseFileSource::getOfflineRegionStatus(
     impl->actor().invoke(&DatabaseFileSourceThread::getRegionStatus, region.getID(), std::move(callback));
 }
 
-void DatabaseFileSource::setOfflineTrackasiaTileCountLimit(uint64_t limit) const {
-    impl->actor().invoke(&DatabaseFileSourceThread::setOfflineTrackasiaTileCountLimit, limit);
+void DatabaseFileSource::setOfflineMapboxTileCountLimit(uint64_t limit) const {
+    impl->actor().invoke(&DatabaseFileSourceThread::setOfflineMapboxTileCountLimit, limit);
 }
 
 void DatabaseFileSource::setProperty(const std::string& key, const mapbox::base::Value& value) {

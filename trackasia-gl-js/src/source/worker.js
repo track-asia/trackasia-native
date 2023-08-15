@@ -17,7 +17,7 @@ import type {
     WorkerTileCallback,
     WorkerDEMTileCallback,
     TileParameters
-} from '../source/worker_source';
+} from './worker_source';
 
 import type {WorkerGlobalScopeInterface} from '../util/web_worker';
 import type {Callback} from '../types/callback';

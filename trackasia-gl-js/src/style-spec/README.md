@@ -1,10 +1,10 @@
-# TrackAsia GL style specification & utilities
+# Trackasia GL style specification & utilities
 
-This directory contains code and reference files that define the TrackAsia GL style specification and provides some utilities for working with Mapbox styles.
+This directory contains code and reference files that define the Trackasia GL style specification and provides some utilities for working with Mapbox styles.
 
 ## npm package
 
-The TrackAsia GL style specification and utilities are published as a seperate npm
+The Trackasia GL style specification and utilities are published as a seperate npm
 package so that they can be installed without the bulk of GL JS.
 
     npm install @mapbox/mapbox-gl-style-spec

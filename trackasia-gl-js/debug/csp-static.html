@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TrackAsia GL JS debug page</title>
+    <title>Trackasia GL JS debug page</title>
     <meta charset='utf-8'>
 
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'nonce-app-js'; style-src 'self' 'nonce-app-css'; img-src data: blob: ; connect-src https://*.mapbox.com">
@@ -21,9 +21,9 @@
 <script src='../debug/access_token_generated.js'></script>
 <script nonce="app-js">
 
-TrackAsiaGL.workerUrl = '/dist/mapbox-gl-csp-worker.js';
+mapboxgl.workerUrl = '/dist/mapbox-gl-csp-worker.js';
 
-var map = window.map = new TrackAsiaGL.Map({
+var map = window.map = new mapboxgl.Map({
     container: 'map',
     zoom: 12.5,
     center: [-77.01866, 38.888],

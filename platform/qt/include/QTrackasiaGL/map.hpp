@@ -1,8 +1,8 @@
 #ifndef QTRACKASIAGL_MAP_H
 #define QTRACKASIAGL_MAP_H
 
-#include <QTrackAsiaGL/Settings>
-#include <QTrackAsiaGL/Types>
+#include <QTrackasiaGL/Settings>
+#include <QTrackasiaGL/Types>
 
 #include <QImage>
 #include <QMargins>
@@ -15,7 +15,7 @@
 #include <functional>
 #include <memory>
 
-namespace QTrackAsiaGL {
+namespace QTrackasiaGL {
 
 class MapPrivate;
 
@@ -32,7 +32,7 @@ class Q_TRACKASIAGL_EXPORT Map : public QObject
     Q_PROPERTY(QString styleJson READ styleJson WRITE setStyleJson)
     Q_PROPERTY(QString styleUrl READ styleUrl WRITE setStyleUrl)
     Q_PROPERTY(double scale READ scale WRITE setScale)
-    Q_PROPERTY(QTrackAsiaGL::Coordinate coordinate READ coordinate WRITE setCoordinate)
+    Q_PROPERTY(QTrackasiaGL::Coordinate coordinate READ coordinate WRITE setCoordinate)
     Q_PROPERTY(QMargins margins READ margins WRITE setMargins)
 
 public:
@@ -196,9 +196,9 @@ private:
     MapPrivate *d_ptr;
 };
 
-} // namespace QTrackAsiaGL
+} // namespace QTrackasiaGL
 
-Q_DECLARE_METATYPE(QTrackAsiaGL::Map::MapChange);
-Q_DECLARE_METATYPE(QTrackAsiaGL::Map::MapLoadingFailure);
+Q_DECLARE_METATYPE(QTrackasiaGL::Map::MapChange);
+Q_DECLARE_METATYPE(QTrackasiaGL::Map::MapLoadingFailure);
 
 #endif // QTRACKASIAGL_MAP_H

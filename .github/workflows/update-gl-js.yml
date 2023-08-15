@@ -26,7 +26,7 @@ jobs:
         git config --global user.name "GitHub Action"
         git checkout -b update-gl-js-to-${{ github.event.inputs.commit }}
     
-    - name: Checkout TrackAsia GL JS
+    - name: Checkout Trackasia GL JS
       working-directory: trackasia-gl-js
       run: |
         git checkout ${{ github.event.inputs.commit }}
@@ -47,7 +47,7 @@ jobs:
     - name: Commit and push changes
       run: |
         git add -u
-        git commit -m "Update TrackAsia GL JS to ${{ github.event.inputs.commit }}"
+        git commit -m "Update Trackasia GL JS to ${{ github.event.inputs.commit }}"
         git push --set-upstream origin update-gl-js-to-${{ github.event.inputs.commit }}
 
     - name: Create pull request

@@ -25,7 +25,7 @@ import type {StyleGlyph} from '../style/style_glyph';
 import type {
     WorkerTileParameters,
     WorkerTileCallback,
-} from '../source/worker_source';
+} from './worker_source';
 import type {PromoteIdSpecification} from '../style-spec/types';
 
 class WorkerTile {

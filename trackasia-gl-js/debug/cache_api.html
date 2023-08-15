@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TrackAsia GL JS debug page</title>
+    <title>Trackasia GL JS debug page</title>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel='stylesheet' href='../dist/mapbox-gl.css' />
@@ -86,7 +86,7 @@ async function start(done) {
 }
 
 function storageClearedTest(callback) {
-    TrackAsiaGL.clearStorage(function() {
+    mapboxgl.clearStorage(function() {
         const message = 'Clears cache storage.';
         caches.open(CACHE_NAME).catch(catchError).then(cache_ => {
             cache = cache_;
@@ -100,7 +100,7 @@ function storageClearedTest(callback) {
 
 function initialize(zoom, onLoad) {
     if (map) map.remove();
-    map = window.map = new TrackAsiaGL.Map({
+    map = window.map = new mapboxgl.Map({
         container: 'map',
         zoom,
         center: [-77.01866, 38.888],
@@ -252,7 +252,7 @@ function testThirdView(done) {
 
 function initializeRaster(done) {
     if (map) map.remove();
-    map = new TrackAsiaGL.Map({
+    map = new mapboxgl.Map({
         container: 'map',
         zoom: 0,
         center: [137.9150899566626, 36.25956997955441],

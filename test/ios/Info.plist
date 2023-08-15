@@ -29,7 +29,7 @@
   <key>CSResourcesFileMapped</key>
   <true/>
   <key>NSHumanReadableCopyright</key>
-  <string>© 2014–2020 Trackasia</string>
+  <string>© 2014–2020 Mapbox</string>
   <key>LSMinimumSystemVersion</key>
   <string>${MACOSX_DEPLOYMENT_TARGET}</string>
   <key>LSRequiresIPhoneOS</key>

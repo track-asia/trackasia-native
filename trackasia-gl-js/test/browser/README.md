@@ -1,4 +1,4 @@
-This folder contains files for automated testing of TrackAsia GL in real browsers using [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver).
+This folder contains files for automated testing of Trackasia GL in real browsers using [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver).
 
 ## Prerequisites
 

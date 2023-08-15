@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTrackAsiaGL/Types>
+#include <QTrackasiaGL/Types>
 
 #include "geojson.hpp"
 
@@ -48,10 +48,10 @@ public:
         return value.canConvert(QVariant::Map)
             || value.type() == QVariant::ByteArray
 #endif
-            || QString(value.typeName()) == QStringLiteral("QTrackAsiaGL::Feature")
-            || value.userType() == qMetaTypeId<QVector<QTrackAsiaGL::Feature>>()
-            || value.userType() == qMetaTypeId<QList<QTrackAsiaGL::Feature>>()
-            || value.userType() == qMetaTypeId<std::list<QTrackAsiaGL::Feature>>();
+            || QString(value.typeName()) == QStringLiteral("QTrackasiaGL::Feature")
+            || value.userType() == qMetaTypeId<QVector<QTrackasiaGL::Feature>>()
+            || value.userType() == qMetaTypeId<QList<QTrackasiaGL::Feature>>()
+            || value.userType() == qMetaTypeId<std::list<QTrackasiaGL::Feature>>();
     }
 
     static optional<QVariant> objectMember(const QVariant& value, const char* key) {
@@ -171,14 +171,14 @@ public:
     }
 
     static optional<GeoJSON> toGeoJSON(const QVariant& value, Error& error) {
-        if (value.typeName() == QStringLiteral("QTrackAsiaGL::Feature")) {
-            return GeoJSON { QTrackAsiaGL::GeoJSON::asFeature(value.value<QTrackAsiaGL::Feature>()) };
-        } else if (value.userType() == qMetaTypeId<QVector<QTrackAsiaGL::Feature>>()) {
-            return featureCollectionToGeoJSON(value.value<QVector<QTrackAsiaGL::Feature>>());
-        } else if (value.userType() == qMetaTypeId<QList<QTrackAsiaGL::Feature>>()) {
-            return featureCollectionToGeoJSON(value.value<QList<QTrackAsiaGL::Feature>>());
-        } else if (value.userType() == qMetaTypeId<std::list<QTrackAsiaGL::Feature>>()) {
-            return featureCollectionToGeoJSON(value.value<std::list<QTrackAsiaGL::Feature>>());
+        if (value.typeName() == QStringLiteral("QTrackasiaGL::Feature")) {
+            return GeoJSON { QTrackasiaGL::GeoJSON::asFeature(value.value<QTrackasiaGL::Feature>()) };
+        } else if (value.userType() == qMetaTypeId<QVector<QTrackasiaGL::Feature>>()) {
+            return featureCollectionToGeoJSON(value.value<QVector<QTrackasiaGL::Feature>>());
+        } else if (value.userType() == qMetaTypeId<QList<QTrackasiaGL::Feature>>()) {
+            return featureCollectionToGeoJSON(value.value<QList<QTrackasiaGL::Feature>>());
+        } else if (value.userType() == qMetaTypeId<std::list<QTrackasiaGL::Feature>>()) {
+            return featureCollectionToGeoJSON(value.value<std::list<QTrackasiaGL::Feature>>());
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         } else if (value.typeId() != QMetaType::QByteArray) {
 #else
@@ -198,7 +198,7 @@ private:
         mapbox::feature::feature_collection<double> collection;
         collection.reserve(static_cast<std::size_t>(features.size()));
         for (const auto &feature : features) {
-            collection.push_back(QTrackAsiaGL::GeoJSON::asFeature(feature));
+            collection.push_back(QTrackasiaGL::GeoJSON::asFeature(feature));
         }
         return GeoJSON { std::move(collection) };
     }

@@ -114,7 +114,7 @@ _Note: Leave out `HEADER_ONLY` if the package is a [precompiled library](https:/
 
 ## Configuration
 
-By default Mason publishes packages to a Trackasia-managed S3 bucket. If you want to publish to a different bucket we recommend taking the following steps:
+By default Mason publishes packages to a Mapbox-managed S3 bucket. If you want to publish to a different bucket we recommend taking the following steps:
 
 1. Fork Mason and rename it to `mason-{your_org}`
 2. Set [`MASON_BUCKET`](https://github.com/mapbox/mason/blob/2765e4ab50ca2c1865048e8403ef28b696228f7b/mason.sh#L6) to your own S3 bucket

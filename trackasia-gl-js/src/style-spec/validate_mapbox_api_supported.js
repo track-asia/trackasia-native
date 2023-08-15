@@ -143,7 +143,7 @@ function getRootErrors(style: Object, specKeys: Array<any>): Array<?ValidationEr
 }
 
 /**
- * Validate a TrackAsia GL style against the style specification and check for
+ * Validate a Trackasia GL style against the style specification and check for
  * compatibility with the Mapbox Styles API.
  *
  * @param {Object} style The style to be validated.

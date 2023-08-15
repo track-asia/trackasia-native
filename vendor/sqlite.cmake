@@ -30,5 +30,5 @@ target_include_directories(
 
 export(TARGETS
     mbgl-vendor-sqlite
-    APPEND FILE TrackasiaCoreTargets.cmake
+    APPEND FILE MapboxCoreTargets.cmake
 )

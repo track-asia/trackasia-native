@@ -30,7 +30,7 @@ ext {
     dependenciesList = [
 
             // mapbox
-            mapboxSdk          : "com.trackasia.android:mapbox-android-sdk:${version.mapboxSdkVersion}",
+            mapboxSdk          : "com.mapbox.mapboxsdk:mapbox-android-sdk:${version.mapboxSdkVersion}",
 
             // support
             supportAppcompatV7 : "androidx.appcompat:appcompat:${version.appCompat}",

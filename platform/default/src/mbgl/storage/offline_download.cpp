@@ -405,8 +405,8 @@ bool OfflineDownload::flushResourcesBuffer() {
         buffer.clear();
         observer->statusChanged(status);
         return true;
-    } catch (const TrackasiaTileLimitExceededException&) {
-        onTrackasiaTileCountLimitExceeded();
+    } catch (const MapboxTileLimitExceededException&) {
+        onMapboxTileCountLimitExceeded();
         return false;
     }
 }
@@ -482,8 +482,8 @@ void OfflineDownload::ensureResource(Resource&& resource,
             return;
         }
 
-        if (offlineDatabase.exceedsOfflineTrackasiaTileCountLimit(resource)) {
-            onTrackasiaTileCountLimitExceeded();
+        if (offlineDatabase.exceedsOfflineMapboxTileCountLimit(resource)) {
+            onMapboxTileCountLimitExceeded();
             return;
         }
 
@@ -515,8 +515,8 @@ void OfflineDownload::ensureResource(Resource&& resource,
             // TODO: Simplify the tile count limit check code path!
             if ((buffer.size() == kResourcesBatchSize || resourcesRemaining.empty()) && !flushResourcesBuffer()) return;
 
-            if (offlineDatabase.exceedsOfflineTrackasiaTileCountLimit(resource)) {
-                onTrackasiaTileCountLimitExceeded();
+            if (offlineDatabase.exceedsOfflineMapboxTileCountLimit(resource)) {
+                onMapboxTileCountLimitExceeded();
                 return;
             }
 
@@ -525,8 +525,8 @@ void OfflineDownload::ensureResource(Resource&& resource,
     });
 }
 
-void OfflineDownload::onTrackasiaTileCountLimitExceeded() {
-    observer->mapboxTileCountLimitExceeded(offlineDatabase.getOfflineTrackasiaTileCountLimit());
+void OfflineDownload::onMapboxTileCountLimitExceeded() {
+    observer->mapboxTileCountLimitExceeded(offlineDatabase.getOfflineMapboxTileCountLimit());
     setState(OfflineRegionDownloadState::Inactive);
 }
 

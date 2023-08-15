@@ -774,13 +774,13 @@ TEST(OfflineDatabase, TEST_REQUIRES_WRITE(Pack)) {
     EXPECT_EQ(0u, log.uncheckedCount());
 }
 
-TEST(OfflineDatabase, TrackasiaTileLimitExceeded) {
+TEST(OfflineDatabase, MapboxTileLimitExceeded) {
     FixtureLog log;
 
     uint64_t limit = 60;
 
     OfflineDatabase db(":memory:", fixture::tileServerOptions);
-    db.setOfflineTrackasiaTileCountLimit(limit);
+    db.setOfflineMapboxTileCountLimit(limit);
 
     Response response;
     response.data = randomString(4096);
@@ -809,25 +809,25 @@ TEST(OfflineDatabase, TrackasiaTileLimitExceeded) {
         insertAmbientTile(i);
     }
 
-    ASSERT_EQ(db.getOfflineTrackasiaTileCount(), 0);
+    ASSERT_EQ(db.getOfflineMapboxTileCount(), 0);
 
     // Fine because this region is under the tile limit.
     for (uint64_t i = 0; i < limit - 10; ++i) {
         insertRegionTile(region1->getID(), i);
     }
 
-    ASSERT_EQ(db.getOfflineTrackasiaTileCount(), limit - 10);
+    ASSERT_EQ(db.getOfflineMapboxTileCount(), limit - 10);
 
     // Fine because this region + the previous is at the limit.
     for (uint64_t i = limit; i < limit + 10; ++i) {
         insertRegionTile(region2->getID(), i);
     }
 
-    ASSERT_EQ(db.getOfflineTrackasiaTileCount(), limit);
+    ASSERT_EQ(db.getOfflineMapboxTileCount(), limit);
 
     // Full.
-    ASSERT_THROW(insertRegionTile(region1->getID(), 200), TrackasiaTileLimitExceededException);
-    ASSERT_THROW(insertRegionTile(region2->getID(), 201), TrackasiaTileLimitExceededException);
+    ASSERT_THROW(insertRegionTile(region1->getID(), 200), MapboxTileLimitExceededException);
+    ASSERT_THROW(insertRegionTile(region2->getID(), 201), MapboxTileLimitExceededException);
 
     // These tiles are already on respective
     // regions.
@@ -837,9 +837,9 @@ TEST(OfflineDatabase, TrackasiaTileLimitExceeded) {
     // Should be fine, ambient tile.
     insertAmbientTile(333);
 
-    // Also fine, not Trackasia.
-    const Resource notTrackasiaTile = Resource::tile("foobar://region_tile", 1, 0, 0, 0, Tileset::Scheme::XYZ);
-    db.putRegionResource(region1->getID(), notTrackasiaTile, response);
+    // Also fine, not Mapbox.
+    const Resource notMapboxTile = Resource::tile("foobar://region_tile", 1, 0, 0, 0, Tileset::Scheme::XYZ);
+    db.putRegionResource(region1->getID(), notMapboxTile, response);
 
     // These tiles are not on the region they are
     // being added to, but exist on another region,
@@ -847,13 +847,13 @@ TEST(OfflineDatabase, TrackasiaTileLimitExceeded) {
     insertRegionTile(region2->getID(), 0);
     insertRegionTile(region1->getID(), 60);
 
-    ASSERT_EQ(db.getOfflineTrackasiaTileCount(), limit);
+    ASSERT_EQ(db.getOfflineMapboxTileCount(), limit);
 
     // The tile 1 belongs to two regions and will
     // still count as resource.
     db.deleteRegion(std::move(*region2));
 
-    ASSERT_EQ(db.getOfflineTrackasiaTileCount(), 51);
+    ASSERT_EQ(db.getOfflineMapboxTileCount(), 51);
 
     // Add new tiles to the region 1. We are adding
     // 10, which would blow up the limit if it wasn't
@@ -864,7 +864,7 @@ TEST(OfflineDatabase, TrackasiaTileLimitExceeded) {
     }
 
     // Full again.
-    ASSERT_THROW(insertRegionTile(region1->getID(), 202), TrackasiaTileLimitExceededException);
+    ASSERT_THROW(insertRegionTile(region1->getID(), 202), MapboxTileLimitExceededException);
 
     db.deleteRegion(std::move(*region1));
 
@@ -1263,7 +1263,7 @@ TEST(OfflineDatabase, HasRegionResourceTile) {
 
 }
 
-TEST(OfflineDatabase, OfflineTrackasiaTileCount) {
+TEST(OfflineDatabase, OfflineMapboxTileCount) {
     FixtureLog log;
     OfflineDatabase db(":memory:", fixture::tileServerOptions);
     OfflineTilePyramidRegionDefinition definition { "http://example.com/style", LatLngBounds::hull({1, 2}, {3, 4}), 5, 6, 2.0 , true};
@@ -1274,7 +1274,7 @@ TEST(OfflineDatabase, OfflineTrackasiaTileCount) {
     auto region2 = db.createRegion(definition, metadata);
     ASSERT_TRUE(region2);
 
-    Resource nonTrackasiaTile = Resource::tile("http://example.com/", 1.0, 0, 0, 0, Tileset::Scheme::XYZ);
+    Resource nonMapboxTile = Resource::tile("http://example.com/", 1.0, 0, 0, 0, Tileset::Scheme::XYZ);
     Resource mapboxTile1 = Resource::tile("maptiler://tiles/tiles/1", 1.0, 0, 0, 0, Tileset::Scheme::XYZ);
     Resource mapboxTile2 = Resource::tile("maptiler://tiles/tiles/2", 1.0, 0, 0, 1, Tileset::Scheme::XYZ);
 
@@ -1282,43 +1282,43 @@ TEST(OfflineDatabase, OfflineTrackasiaTileCount) {
     response.data = std::make_shared<std::string>("data");
 
     // Count is initially zero.
-    EXPECT_EQ(0u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(0u, db.getOfflineMapboxTileCount());
 
     // Count stays the same after putting a non-tile resource.
     db.putRegionResource(region1->getID(), Resource::style("http://example.com/"), response);
-    EXPECT_EQ(0u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(0u, db.getOfflineMapboxTileCount());
 
-    // Count stays the same after putting a non-Trackasia tile.
-    db.putRegionResource(region1->getID(), nonTrackasiaTile, response);
-    EXPECT_EQ(0u, db.getOfflineTrackasiaTileCount());
+    // Count stays the same after putting a non-Mapbox tile.
+    db.putRegionResource(region1->getID(), nonMapboxTile, response);
+    EXPECT_EQ(0u, db.getOfflineMapboxTileCount());
 
-    // Count increases after putting a Trackasia tile not used by another region.
+    // Count increases after putting a Mapbox tile not used by another region.
     db.putRegionResource(region1->getID(), mapboxTile1, response);
-    EXPECT_EQ(1u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
-    // Count stays the same after putting a Trackasia tile used by another region.
+    // Count stays the same after putting a Mapbox tile used by another region.
     db.putRegionResource(region2->getID(), mapboxTile1, response);
-    EXPECT_EQ(1u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
-    // Count stays the same after putting a Trackasia tile used by the same region.
+    // Count stays the same after putting a Mapbox tile used by the same region.
     db.putRegionResource(region2->getID(), mapboxTile1, response);
-    EXPECT_EQ(1u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
     // Count stays the same after deleting a region when the tile is still used by another region.
     db.deleteRegion(std::move(*region2));
-    EXPECT_EQ(1u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
-    // Count stays the same after the putting a non-offline Trackasia tile.
+    // Count stays the same after the putting a non-offline Mapbox tile.
     db.put(mapboxTile2, response);
-    EXPECT_EQ(1u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
-    // Count increases after putting a pre-existing, but non-offline Trackasia tile.
+    // Count increases after putting a pre-existing, but non-offline Mapbox tile.
     db.putRegionResource(region1->getID(), mapboxTile2, response);
-    EXPECT_EQ(2u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(2u, db.getOfflineMapboxTileCount());
 
     // Count decreases after deleting a region when the tiles are not used by other regions.
     db.deleteRegion(std::move(*region1));
-    EXPECT_EQ(0u, db.getOfflineTrackasiaTileCount());
+    EXPECT_EQ(0u, db.getOfflineMapboxTileCount());
 
     EXPECT_EQ(0u, log.uncheckedCount());
 }
@@ -1351,10 +1351,10 @@ TEST(OfflineDatabase, BatchInsertion) {
     EXPECT_EQ(0u, log.uncheckedCount());
 }
 
-TEST(OfflineDatabase, BatchInsertionTrackasiaTileCountExceeded) {
+TEST(OfflineDatabase, BatchInsertionMapboxTileCountExceeded) {
     FixtureLog log;
     OfflineDatabase db(":memory:", fixture::tileServerOptions);
-    db.setOfflineTrackasiaTileCountLimit(1);
+    db.setOfflineMapboxTileCountLimit(1);
     db.setMaximumAmbientCacheSize(1024 * 100);
 
     OfflineTilePyramidRegionDefinition definition { "", LatLngBounds::world(), 0, INFINITY, 1.0, false };
@@ -1373,7 +1373,7 @@ TEST(OfflineDatabase, BatchInsertionTrackasiaTileCountExceeded) {
     try {
         db.putRegionResources(region->getID(), resources, status);
         EXPECT_FALSE(true);
-    } catch (const TrackasiaTileLimitExceededException&) {
+    } catch (const MapboxTileLimitExceededException&) {
         // Expected
     }
 
@@ -1667,8 +1667,8 @@ TEST(OfflineDatabase, TEST_REQUIRES_WRITE(DisallowedIO)) {
     EXPECT_EQ(1u, log.count(warning(ResultCode::Auth, "Can't delete region: authorization denied")));
     EXPECT_EQ(0u, log.uncheckedCount());
 
-    EXPECT_EQ(std::numeric_limits<uint64_t>::max(), db.getOfflineTrackasiaTileCount());
-    EXPECT_EQ(1u, log.count(warning(ResultCode::Auth, "Can't get offline Trackasia tile count: authorization denied")));
+    EXPECT_EQ(std::numeric_limits<uint64_t>::max(), db.getOfflineMapboxTileCount());
+    EXPECT_EQ(1u, log.count(warning(ResultCode::Auth, "Can't get offline Mapbox tile count: authorization denied")));
     EXPECT_EQ(0u, log.uncheckedCount());
 
     fs.reset();
@@ -1838,11 +1838,11 @@ TEST(OfflineDatabase, MergeDatabaseWithSingleRegionTooManyNewTiles) {
     util::copyFile(filename_sideload, "test/fixtures/offline_database/sideload_sat_multiple.db");
 
     OfflineDatabase db(":memory:", fixture::tileServerOptions);
-    db.setOfflineTrackasiaTileCountLimit(1);
+    db.setOfflineMapboxTileCountLimit(1);
 
     auto result = db.mergeDatabase(filename_sideload);
     EXPECT_FALSE(result);
-    EXPECT_EQ(1u, log.count({ EventSeverity::Error, Event::Database, -1, "Trackasia tile limit exceeded" }));
+    EXPECT_EQ(1u, log.count({ EventSeverity::Error, Event::Database, -1, "Mapbox tile limit exceeded" }));
     EXPECT_EQ(0u, log.uncheckedCount());
 }
 
@@ -1854,12 +1854,12 @@ TEST(OfflineDatabase, MergeDatabaseWithSingleRegionTooManyExistingTiles) {
     util::copyFile(filename_sideload, "test/fixtures/offline_database/satellite_test.db");
 
     OfflineDatabase db(filename, fixture::tileServerOptions);
-    db.setOfflineTrackasiaTileCountLimit(2);
+    db.setOfflineMapboxTileCountLimit(2);
 
     auto result = db.mergeDatabase(filename_sideload);
-    EXPECT_THROW(std::rethrow_exception(result.error()), TrackasiaTileLimitExceededException);
+    EXPECT_THROW(std::rethrow_exception(result.error()), MapboxTileLimitExceededException);
 
-    EXPECT_EQ(1u, log.count({ EventSeverity::Error, Event::Database, -1, "Trackasia tile limit exceeded" }));
+    EXPECT_EQ(1u, log.count({ EventSeverity::Error, Event::Database, -1, "Mapbox tile limit exceeded" }));
     EXPECT_EQ(0u, log.uncheckedCount());
 }
 

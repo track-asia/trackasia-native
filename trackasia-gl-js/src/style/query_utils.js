@@ -3,7 +3,7 @@
 import Point from '@mapbox/point-geometry';
 
 import type {PossiblyEvaluatedPropertyValue} from "./properties";
-import type StyleLayer from '../style/style_layer';
+import type StyleLayer from './style_layer';
 import type CircleBucket from '../data/bucket/circle_bucket';
 import type LineBucket from '../data/bucket/line_bucket';
 

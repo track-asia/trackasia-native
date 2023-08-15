@@ -1,7 +1,7 @@
 {
   "name": "@mapbox/mapbox-gl-native",
   "version": "5.0.0",
-  "description": "Renders map tiles with TrackAsia GL",
+  "description": "Renders map tiles with Trackasia GL",
   "keywords": [
     "mapbox",
     "gl"

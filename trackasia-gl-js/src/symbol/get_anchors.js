@@ -2,7 +2,7 @@
 
 import {number as interpolate} from '../style-spec/util/interpolate';
 
-import Anchor from '../symbol/anchor';
+import Anchor from './anchor';
 import checkMaxAngle from './check_max_angle';
 
 import type Point from '@mapbox/point-geometry';

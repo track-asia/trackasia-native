@@ -139,10 +139,10 @@ jobs:
         with:
           name: debug-artifacts
           path: |
-            TrackAsiaGLAndroidSDKTestApp/build/outputs/apk/debug
-            TrackAsiaGLAndroidSDK/build/reports/lint-results.html
-            TrackAsiaGLAndroidSDK/lint-baseline.xml
-            TrackAsiaGLAndroidSDKTestApp/build/reports/lint-results.html
-            TrackAsiaGLAndroidSDKTestApp/build/reports/lint-results.xml
-            TrackAsiaGLAndroidSDKTestApp/lint-baseline.xml
-            TrackAsiaGLAndroidSDK/build/intermediates/cmake/debug/obj
+            MapboxGLAndroidSDKTestApp/build/outputs/apk/debug
+            MapboxGLAndroidSDK/build/reports/lint-results.html
+            MapboxGLAndroidSDK/lint-baseline.xml
+            MapboxGLAndroidSDKTestApp/build/reports/lint-results.html
+            MapboxGLAndroidSDKTestApp/build/reports/lint-results.xml
+            MapboxGLAndroidSDKTestApp/lint-baseline.xml
+            MapboxGLAndroidSDK/build/intermediates/cmake/debug/obj

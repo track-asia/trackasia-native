@@ -78,7 +78,7 @@ std::ostream& operator<<(std::ostream& os, mbgl::Response::Error::Reason r) {
 }
 
 int main(int argc, char *argv[]) {
-    args::ArgumentParser argumentParser("TrackAsia GL offline tool");
+    args::ArgumentParser argumentParser("Trackasia GL offline tool");
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
 
     args::ValueFlag<std::string> tokenValue(argumentParser, "key", "API Key", {'t', "token"});
@@ -160,7 +160,7 @@ int main(int argc, char *argv[]) {
         }
     }();
 
-    const char* apiEnv = getenv("MGL_API_KEY");
+    const char* apiEnv = getenv("MLN_API_KEY");
     const std::string apiKey = tokenValue ? args::get(tokenValue) : (apiEnv ? apiEnv : std::string());
     
     if (apiBaseValue) {

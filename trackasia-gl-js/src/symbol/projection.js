@@ -14,7 +14,7 @@ import type {
     SymbolLineVertexArray,
     SymbolDynamicLayoutArray
 } from '../data/array_types';
-import {WritingMode} from '../symbol/shaping';
+import {WritingMode} from './shaping';
 
 export {updateLineLabels, hideGlyphs, getLabelPlaneMatrix, getGlCoordMatrix, project, placeFirstAndLastGlyph, xyTransformMat4};
 

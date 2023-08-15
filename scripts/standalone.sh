@@ -48,7 +48,7 @@ rsync -rR $(git ls-files \
     "platform/android/mbgl" \
     "platform/android/src" \
     "platform/linux/src" \
-    "platform/android/TrackAsiaGLAndroidSDK/src/main" \
+    "platform/android/MapboxGLAndroidSDK/src/main" \
 ) "$TARGET"
 
 echo ">> Copying vendored files..."

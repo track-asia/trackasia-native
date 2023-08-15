@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TrackAsia GL JS debug page</title>
+    <title>Trackasia GL JS debug page</title>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel='stylesheet' href='../dist/mapbox-gl.css' />
@@ -9,7 +9,7 @@
         body { margin: 0; padding: 0; }
         html, body, #map { height: 100%; }
 
-        .TrackAsiaGL-marker {
+        .mapboxgl-marker {
             width: 10px;
             height: 10px;
             background: red;
@@ -28,7 +28,7 @@
 <script src='../debug/access_token_generated.js'></script>
 <script>
 
-var map = window.map = new TrackAsiaGL.Map({
+var map = window.map = new mapboxgl.Map({
     container: 'map',
     zoom: 12.5,
     center: [-70.751953125, 43.38904828677382],
@@ -36,7 +36,7 @@ var map = window.map = new TrackAsiaGL.Map({
     hash: true
 });
 
-map.addControl(new TrackAsiaGL.NavigationControl());
+map.addControl(new mapboxgl.NavigationControl());
 
 map.on('load', function () {
     map.addSource("points", {

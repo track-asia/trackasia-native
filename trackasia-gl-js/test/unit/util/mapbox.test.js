@@ -125,14 +125,14 @@ test("mapbox", (t) => {
 
             t.test('throws an error if no access token is provided', (t) => {
                 config.ACCESS_TOKEN = null;
-                t.throws(() => { manager.normalizeSourceURL('mapbox://user.map'); }, 'An API access token is required to use TrackAsia GL.');
+                t.throws(() => { manager.normalizeSourceURL('mapbox://user.map'); }, 'An API access token is required to use Trackasia GL.');
                 config.ACCESS_TOKEN = 'key';
                 t.end();
             });
 
             t.test('throws an error if a secret access token is provided', (t) => {
                 config.ACCESS_TOKEN = 'sk.abc.123';
-                t.throws(() => { manager.normalizeSourceURL('mapbox://user.map'); }, 'Use a public access token (pk.*) with TrackAsia GL JS.');
+                t.throws(() => { manager.normalizeSourceURL('mapbox://user.map'); }, 'Use a public access token (pk.*) with Trackasia GL JS.');
                 config.ACCESS_TOKEN = 'key';
                 t.end();
             });
@@ -436,7 +436,7 @@ test("mapbox", (t) => {
             t.end();
         });
 
-        t.test('does not POST when TrackAsiaGL.ACCESS_TOKEN is not set', (t) => {
+        t.test('does not POST when mapboxgl.ACCESS_TOKEN is not set', (t) => {
             config.ACCESS_TOKEN = null;
 
             event.postTurnstileEvent(mapboxTileURLs);
@@ -773,7 +773,7 @@ test("mapbox", (t) => {
             t.end();
         });
 
-        t.test('does not POST when TrackAsiaGL.ACCESS_TOKEN is not set', (t) => {
+        t.test('does not POST when mapboxgl.ACCESS_TOKEN is not set', (t) => {
             config.ACCESS_TOKEN = null;
 
             event.postMapLoadEvent(mapboxTileURLs, 1, skuToken);

@@ -5,7 +5,7 @@
 
 First you must configure your development environment per [`../CONTRIBUTING.md`](https://github.com/mapbox/mapbox-gl-js/blob/master/CONTRIBUTING.md)
 
-There are two test suites associated with TrackAsia GL JS
+There are two test suites associated with Trackasia GL JS
 
  - `yarn test` runs quick unit tests
  - `yarn run test-suite` runs slower integration tests

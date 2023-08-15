@@ -208,7 +208,7 @@ namespace mbgl {
 
     TileServerOptions TileServerOptions::TrackasiaConfiguration() {
         std::vector<mbgl::util::DefaultStyle> styles {
-                // https://demotiles.track-asia.com/style.json
+                // https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public
                 mbgl::util::DefaultStyle("trackasia://maps/style", "Basic", 1)
         };
 
@@ -229,7 +229,7 @@ namespace mbgl {
 
     //
 
-    TileServerOptions TileServerOptions::TrackasiaConfiguration() {
+    TileServerOptions TileServerOptions::MapboxConfiguration() {
         std::vector<mbgl::util::DefaultStyle> styles {
                 mbgl::util::DefaultStyle("mapbox://styles/mapbox/streets-v11", "Streets", 11),
                 mbgl::util::DefaultStyle("mapbox://styles/mapbox/outdoors-v11", "Outdoors", 11),

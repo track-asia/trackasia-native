@@ -19,7 +19,7 @@ type Options = {
  * @param {HTMLElement} [options.container] `container` is the [compatible DOM element](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen#Compatible_elements) which should be made full screen. By default, the map container element will be made full screen.
  *
  * @example
- * map.addControl(new TrackAsiaGL.FullscreenControl({container: document.querySelector('body')}));
+ * map.addControl(new mapboxgl.FullscreenControl({container: document.querySelector('body')}));
  * @see [View a fullscreen map](https://www.mapbox.com/mapbox-gl-js/example/fullscreen/)
  */
 
@@ -58,7 +58,7 @@ class FullscreenControl {
     onAdd(map: Map) {
         this._map = map;
         if (!this._container) this._container = this._map.getContainer();
-        this._controlContainer = DOM.create('div', `TrackAsiaGL-ctrl TrackAsiaGL-ctrl-group`);
+        this._controlContainer = DOM.create('div', `mapboxgl-ctrl mapboxgl-ctrl-group`);
         if (this._checkFullscreenSupport()) {
             this._setupUI();
         } else {
@@ -84,8 +84,8 @@ class FullscreenControl {
     }
 
     _setupUI() {
-        const button = this._fullscreenButton = DOM.create('button', (`TrackAsiaGL-ctrl-fullscreen`), this._controlContainer);
-        DOM.create('span', `TrackAsiaGL-ctrl-icon`, button).setAttribute('aria-hidden', true);
+        const button = this._fullscreenButton = DOM.create('button', (`mapboxgl-ctrl-fullscreen`), this._controlContainer);
+        DOM.create('span', `mapboxgl-ctrl-icon`, button).setAttribute('aria-hidden', true);
         button.type = 'button';
         this._updateTitle();
         this._fullscreenButton.addEventListener('click', this._onClickFullscreen);
@@ -115,8 +115,8 @@ class FullscreenControl {
 
         if ((fullscreenElement === this._container) !== this._fullscreen) {
             this._fullscreen = !this._fullscreen;
-            this._fullscreenButton.classList.toggle(`TrackAsiaGL-ctrl-shrink`);
-            this._fullscreenButton.classList.toggle(`TrackAsiaGL-ctrl-fullscreen`);
+            this._fullscreenButton.classList.toggle(`mapboxgl-ctrl-shrink`);
+            this._fullscreenButton.classList.toggle(`mapboxgl-ctrl-fullscreen`);
             this._updateTitle();
         }
     }

@@ -271,9 +271,9 @@ namespace mbgl {
         static TileServerOptions TrackasiaConfiguration();
 
         /**
-         * @brief Get the tile server options configured for Trackasia.
+         * @brief Get the tile server options configured for Mapbox.
          */
-        static TileServerOptions TrackasiaConfiguration();
+        static TileServerOptions MapboxConfiguration();
 
         /**
          * @brief Get the tile server options configured for MapTiler.

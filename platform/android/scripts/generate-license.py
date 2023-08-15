@@ -21,7 +21,7 @@ with open(path + "/LICENSE.md", 'w') as licenseFile:
     "NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY "
     "OF SUCH DAMAGE.")
     licenseFile.write("\n\n===========================================================================\n\n")
-    with open(path + "/TrackAsiaGLAndroidSDK/build/reports/licenses/licenseReleaseReport.json", 'r') as dataFile:
+    with open(path + "/MapboxGLAndroidSDK/build/reports/licenses/licenseReleaseReport.json", 'r') as dataFile:
         data = json.load(dataFile)
 
         gradleLicensePlugin ="""
@@ -47,7 +47,7 @@ with open(path + "/LICENSE.md", 'w') as licenseFile:
                 licenseName = license["license"]
                 licenseUrl = license["license_url"]
 
-            licenseFile.write("TrackAsia GL uses portions of %s.  \n" % projectName +
+            licenseFile.write("Trackasia GL uses portions of %s.  \n" % projectName +
                               ("URL: [%s](%s)  \n" % (projectUrl, projectUrl) if projectUrl is not None else "") +
                               "License: [%s](%s)" % (licenseName, licenseUrl) +
                               "\n\n===========================================================================\n\n")
