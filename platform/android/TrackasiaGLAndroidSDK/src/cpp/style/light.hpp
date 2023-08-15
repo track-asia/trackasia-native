@@ -16,7 +16,8 @@ using namespace style;
 
 class Light : private mbgl::util::noncopyable {
 public:
-    static constexpr auto Name() { return "com/trackasia/android/style/light/Light"; };
+
+    static constexpr auto Name() { return "com.trackasia.android/style/light/Light"; };
 
     static void registerNative(jni::JNIEnv&);
 
@@ -41,6 +42,7 @@ public:
     jni::Local<jni::Object<Light>> createJavaPeer(jni::JNIEnv&);
 
 protected:
+
     // Raw reference to the light
     mbgl::style::Light& light;
 

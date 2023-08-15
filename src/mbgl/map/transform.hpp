@@ -8,11 +8,11 @@
 #include <mbgl/util/chrono.hpp>
 #include <mbgl/util/geo.hpp>
 #include <mbgl/util/noncopyable.hpp>
+#include <mbgl/util/optional.hpp>
 
 #include <cstdint>
 #include <cmath>
 #include <functional>
-#include <optional>
 
 namespace mbgl {
 
@@ -22,16 +22,14 @@ public:
               ConstrainMode = ConstrainMode::HeightOnly,
               ViewportMode = ViewportMode::Default);
 
-    Transform(const TransformState& state_)
-        : observer(MapObserver::nullObserver()),
-          state(state_) {}
+    Transform(const TransformState &state_) : observer(MapObserver::nullObserver()), state(state_) {}
 
     // Map view
     void resize(Size size);
 
     // Camera
     /** Returns the current camera options. */
-    CameraOptions getCameraOptions(const std::optional<EdgeInsets>&) const;
+    CameraOptions getCameraOptions(const optional<EdgeInsets>&) const;
 
     /** Instantaneously, synchronously applies the given camera options. */
     void jumpTo(const CameraOptions&);
@@ -128,7 +126,7 @@ private:
                          const Duration&);
 
     // We don't want to show horizon: limit max pitch based on edge insets.
-    double getMaxPitchForEdgeInsets(const EdgeInsets& insets) const;
+    double getMaxPitchForEdgeInsets(const EdgeInsets &insets) const;
 
     TimePoint transitionStart;
     Duration transitionDuration;

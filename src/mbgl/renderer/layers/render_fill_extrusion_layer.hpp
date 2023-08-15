@@ -7,9 +7,6 @@
 
 namespace mbgl {
 
-class FillExtrusionProgram;
-class FillExtrusionPatternProgram;
-
 class RenderFillExtrusionLayer final : public RenderLayer {
 public:
     explicit RenderFillExtrusionLayer(Immutable<style::FillExtrusionLayer::Impl>);
@@ -33,10 +30,6 @@ private:
 
     // Paint properties
     style::FillExtrusionPaintProperties::Unevaluated unevaluated;
-
-    // Programs
-    std::shared_ptr<FillExtrusionProgram> fillExtrusionProgram;
-    std::shared_ptr<FillExtrusionPatternProgram> fillExtrusionPatternProgram;
 
     std::unique_ptr<gfx::OffscreenTexture> renderTexture;
 };

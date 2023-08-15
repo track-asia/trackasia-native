@@ -1,17 +1,10 @@
-import org.jetbrains.dokka.gradle.DokkaTask
-
-plugins {
-    id 'org.jmailen.kotlinter'
-    id 'org.jetbrains.dokka' version '1.7.20'
-}
-
 apply plugin: 'com.android.library'
 apply plugin: "com.jaredsburrows.license"
 apply plugin: 'kotlin-android'
 apply from: "${rootDir}/gradle/native-build.gradle"
 
 dependencies {
-    lintChecks project(':TrackasiaGLAndroidSDKLint')
+    lintChecks project(":TrackAsiaGLAndroidSDKLint")
     api dependenciesList.mapboxJavaGeoJSON
     api dependenciesList.mapboxAndroidGestures
 
@@ -19,6 +12,7 @@ dependencies {
     implementation dependenciesList.supportAnnotations
     implementation dependenciesList.supportFragmentV4
     implementation dependenciesList.okhttp3
+    implementation dependenciesList.gmsLocation
     implementation dependenciesList.timber
     implementation dependenciesList.interpolator
 
@@ -34,20 +28,8 @@ dependencies {
     androidTestImplementation dependenciesList.testRules
 }
 
-tasks.withType(DokkaTask.class) {
-    moduleName.set("Trackasia Native for Android")
-
-    dokkaSourceSets {
-
-        configureEach {
-            includes.from("README.md")
-        }
-    } 
-}
-
 android {
     compileSdkVersion androidVersions.compileSdkVersion
-    buildToolsVersion androidSdkVersions.buildToolsVersion
 
     defaultConfig {
         minSdkVersion androidVersions.minSdkVersion

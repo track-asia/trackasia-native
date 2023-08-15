@@ -64,9 +64,9 @@ public:
      Creates a new rasterizer with the given font names as a fallback.
      
      The fallback font names can also be specified in the style as a font stack
-     or in the `MLNIdeographicFontFamilyName` key of
+     or in the `MGLIdeographicFontFamilyName` key of
      `NSUserDefaults.standardUserDefaults`. The font stack takes precedence,
-     followed by the `MLNIdeographicFontFamilyName` user default, then finally
+     followed by the `MGLIdeographicFontFamilyName` user default, then finally
      the `fallbackFontNames_` parameter as a last resort.
      
      @param fallbackFontNames_ A list of font names, one per line. Each font
@@ -75,9 +75,9 @@ public:
         glyph rasterization globally. The system font is a good default value to
         pass into this constructor.
      */
-    Impl(const std::optional<std::string> fallbackFontNames_)
+    Impl(const optional<std::string> fallbackFontNames_)
     {
-        fallbackFontNames = [[NSUserDefaults standardUserDefaults] stringArrayForKey:@"MLNIdeographicFontFamilyName"];
+        fallbackFontNames = [[NSUserDefaults standardUserDefaults] stringArrayForKey:@"MGLIdeographicFontFamilyName"];
         if (fallbackFontNames_) {
             fallbackFontNames = [fallbackFontNames ?: @[] arrayByAddingObjectsFromArray:[@(fallbackFontNames_->c_str()) componentsSeparatedByString:@"\n"]];
         }
@@ -105,7 +105,7 @@ public:
     CTFontDescriptorRef createFontDescriptor(const FontStack& fontStack) {
         NSMutableArray *fontNames = [NSMutableArray arrayWithCapacity:fontStack.size() + fallbackFontNames.count];
         for (auto& fontName : fontStack) {
-            // Per the Trackasia Style Spec, the text-font property comes
+            // Per the Mapbox Style Specification, the text-font property comes
             // with these last resort fonts by default, but they shouldn’t take
             // precedence over any application or system fallback font that may
             // be more appropriate to the current device.
@@ -162,7 +162,7 @@ private:
     NSArray<NSString *> *fallbackFontNames;
 };
 
-LocalGlyphRasterizer::LocalGlyphRasterizer(const std::optional<std::string>& fontFamily)
+LocalGlyphRasterizer::LocalGlyphRasterizer(const optional<std::string>& fontFamily)
     : impl(std::make_unique<Impl>(fontFamily))
 {}
 
@@ -242,7 +242,6 @@ PremultipliedImage drawGlyphBitmap(GlyphID glyphID, CTFontRef font, GlyphMetrics
         bitsPerComponent,
         bytesPerRow,
         *colorSpace,
-        // NOLINTNEXTLINE(bugprone-suspicious-enum-usage)
         kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast));
     if (!context) {
         throw std::runtime_error("CGBitmapContextCreate failed");

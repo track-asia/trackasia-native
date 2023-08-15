@@ -5,76 +5,25 @@ set -o pipefail
 set -u
 
 NAME=Mapbox
-OUTPUT=build/ios/pkg
-DERIVED_DATA=build/ios
-PRODUCTS=${DERIVED_DATA}
-LOG_PATH=build/xcodebuild-$(date +"%Y-%m-%d_%H%M%S").log
+OUTPUT=build/macos/pkg
+APP_OUTPUT=build/macos/app
+DERIVED_DATA=build/macos
+ENABLE_APP_PUBLISH=${ENABLE_APP_PUBLISH:-NO}
 
-BUILD_FOR_DEVICE=${BUILD_DEVICE:-true}
-BUILD_DOCS=${BUILD_DOCS:-true}
+BUILDTYPE=${BUILDTYPE:-Release}
 SYMBOLS=${SYMBOLS:-YES}
-
-BUILDTYPE=${BUILDTYPE:-Debug}
-if [[ ${SYMBOLS} == YES && ${BUILDTYPE} == Release ]]; then
-    BUILDTYPE='RelWithDebInfo'
-fi
-
-FORMAT=${FORMAT:-dynamic}
-BUILD_DYNAMIC=true
-BUILD_STATIC=false
-INCLUDE_EVENTS_IN_PACKAGE=false
-if [[ ${FORMAT} == "static" ]]; then
-    BUILD_STATIC=true
-    BUILD_DYNAMIC=false
-elif [[ ${FORMAT} == "dynamic-with-events" ]]; then
-    INCLUDE_EVENTS_IN_PACKAGE=true
-elif [[ ${FORMAT} == "stripped-dynamic" ]]; then
-    echo "Packaging for stripped-dynamic"
-elif [[ ${FORMAT} != "dynamic" ]]; then
-    echo "Error: FORMAT must be dynamic or static."
-    exit 1
-fi
+PRODUCTS=${DERIVED_DATA}/${BUILDTYPE}
 
 function step { >&2 echo -e "\033[1m\033[36m* $@\033[0m"; }
 function finish { >&2 echo -en "\033[0m"; }
 trap finish EXIT
 
-SDK=iphonesimulator
-if [[ ${BUILD_FOR_DEVICE} == true ]]; then
-    SDK=iphoneos
-fi
-IOS_SDK_VERSION=`xcrun --sdk ${SDK} --show-sdk-version`
+rm -rf ${OUTPUT} ${APP_OUTPUT}
 
-step "Configuring ${FORMAT} framework for ${SDK} ${IOS_SDK_VERSION} (symbols: ${SYMBOLS}, buildtype: ${BUILDTYPE}, include events:${INCLUDE_EVENTS_IN_PACKAGE})"
-
-xcodebuild -version
-
-rm -rf ${OUTPUT}
-if [[ ${BUILD_STATIC} == true ]]; then
-    mkdir -p "${OUTPUT}"/static
-fi
-if [[ ${BUILD_DYNAMIC} == true ]]; then
-    mkdir -p "${OUTPUT}"/dynamic
-fi
-
-step "Recording library version…"
-VERSION="${OUTPUT}"/version.txt
-echo -n "https://github.com/track-asia/trackasia-native/commit/" > ${VERSION}
 HASH=`git log | head -1 | awk '{ print $2 }' | cut -c 1-10` && true
-echo -n "trackasia-gl-native-ios "
-echo ${HASH}
-echo ${HASH} >> ${VERSION}
-
 PROJ_VERSION=$(git rev-list --count HEAD)
-SEM_VERSION=$( git describe --tags --match=ios-v*.*.* --abbrev=0 | sed 's/^ios-v//' )
+SEM_VERSION=$( git describe --tags --match=macos-v*.*.* --abbrev=0 | sed 's/^macos-v//' )
 SHORT_VERSION=${SEM_VERSION%-*}
-
-step "Building targets (build ${PROJ_VERSION}, version ${SEM_VERSION})"
-
-SCHEME='dynamic'
-if [[ ${BUILD_STATIC} == true ]]; then
-    SCHEME='static'
-fi
 
 CI_XCCONFIG=''
 if [[ ! -z "${CI:=}" ]]; then
@@ -83,117 +32,45 @@ if [[ ! -z "${CI:=}" ]]; then
     CI_XCCONFIG="-xcconfig ./${xcconfig}"
 fi
 
-step "Building ${FORMAT} framework for iOS Simulator using ${SCHEME} scheme"
+step "Building dynamic framework (build ${PROJ_VERSION}, version ${SEM_VERSION})…"
 xcodebuild \
     CURRENT_SEMANTIC_VERSION=${SEM_VERSION} \
     CURRENT_COMMIT_HASH=${HASH} \
-    ONLY_ACTIVE_ARCH=NO \
     ${CI_XCCONFIG} \
     -derivedDataPath ${DERIVED_DATA} \
-    -workspace ./platform/ios/ios.xcworkspace \
-    -scheme ${SCHEME} \
+    -archivePath "${APP_OUTPUT}/macosapp.xcarchive" \
+    -workspace ./platform/macos/macos.xcworkspace \
+    -scheme dynamic \
     -configuration ${BUILDTYPE} \
-    -sdk iphonesimulator \
-    -jobs ${JOBS} | tee ${LOG_PATH} | xcpretty
+    -jobs ${JOBS} \
+    build | xcpretty
 
-if [[ ${BUILD_FOR_DEVICE} == true ]]; then
-    step "Building ${FORMAT} framework for iOS devices using ${SCHEME} scheme"
+step "Copying dynamic framework into place"
+mkdir -p "${OUTPUT}/${NAME}.framework"
+ditto ${PRODUCTS}/${NAME}.framework "${OUTPUT}/${NAME}.framework"
+if [[ -e ${PRODUCTS}/${NAME}.framework.dSYM ]]; then
+    cp -r ${PRODUCTS}/${NAME}.framework.dSYM "${OUTPUT}"
+fi
+
+step "Building and archiving TrackAsia GL.app (build ${PROJ_VERSION}, version ${SEM_VERSION})…"
+if [[ ${BUILDTYPE} == Release ]]; then
+    mkdir -p ${APP_OUTPUT}
     xcodebuild \
         CURRENT_SEMANTIC_VERSION=${SEM_VERSION} \
         CURRENT_COMMIT_HASH=${HASH} \
-        ONLY_ACTIVE_ARCH=NO \
         ${CI_XCCONFIG} \
         -derivedDataPath ${DERIVED_DATA} \
-        -workspace ./platform/ios/ios.xcworkspace \
-        -scheme ${SCHEME} \
+        -archivePath "${APP_OUTPUT}/macosapp.xcarchive" \
+        -workspace ./platform/macos/macos.xcworkspace \
+        -scheme macosapp \
         -configuration ${BUILDTYPE} \
-        -sdk iphoneos \
-        -jobs ${JOBS} | tee ${LOG_PATH} | xcpretty
+        -jobs ${JOBS} \
+        archive | xcpretty
 fi
 
-LIBS=(Mapbox.a)
-
-
-function copyAndMakeFatFramework {
-    local NAME=$1
-
-    step "Copying ${NAME} dynamic framework into place for iOS devices"
-    cp -r \
-        ${PRODUCTS}/${BUILDTYPE}-iphoneos/${NAME}.framework \
-        ${OUTPUT}/dynamic/
-
-    if [[ -e ${PRODUCTS}/${BUILDTYPE}-iphoneos/${NAME}.framework.dSYM ]]; then
-        step "Copying ${NAME} dSYM"
-        cp -r ${PRODUCTS}/${BUILDTYPE}-iphoneos/${NAME}.framework.dSYM \
-              ${OUTPUT}/dynamic/
-        if [[ -e ${PRODUCTS}/${BUILDTYPE}-iphonesimulator/${NAME}.framework.dSYM ]]; then
-            step "Merging device and simulator dSYMs…"
-            lipo \
-                ${PRODUCTS}/${BUILDTYPE}-iphoneos/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME} \
-                ${PRODUCTS}/${BUILDTYPE}-iphonesimulator/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME} \
-                -create -output ${OUTPUT}/dynamic/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME}
-            lipo -info ${OUTPUT}/dynamic/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME}
-        fi
-    fi
-
-    step "Merging ${NAME} simulator dynamic library into device dynamic library…"
-    lipo \
-        ${PRODUCTS}/${BUILDTYPE}-iphoneos/${NAME}.framework/${NAME} \
-        ${PRODUCTS}/${BUILDTYPE}-iphonesimulator/${NAME}.framework/${NAME} \
-        -create -output ${OUTPUT}/dynamic/${NAME}.framework/${NAME} | echo
-}
-
-
-# https://medium.com/@syshen/create-an-ios-universal-framework-148eb130a46c
-if [[ ${BUILD_FOR_DEVICE} == true ]]; then
-    if [[ ${BUILD_STATIC} == true ]]; then
-        step "Assembling static framework for iOS Simulator and devices…"
-        mkdir -p ${OUTPUT}/static/${NAME}.framework
-        libtool -static -no_warning_for_no_symbols \
-            -o ${OUTPUT}/static/${NAME}.framework/${NAME} \
-            ${LIBS[@]/#/${PRODUCTS}/${BUILDTYPE}-iphoneos/lib} \
-            ${LIBS[@]/#/${PRODUCTS}/${BUILDTYPE}-iphonesimulator/lib} \
-            `cmake -LA -N ${DERIVED_DATA} | grep MASON_PACKAGE_icu_LIBRARIES | cut -d= -f2`
-
-        cp -rv ${PRODUCTS}/${BUILDTYPE}-iphoneos/${NAME}.bundle ${OUTPUT}/static
-    fi
-
-    if [[ ${BUILD_DYNAMIC} == true ]]; then
-        copyAndMakeFatFramework "${NAME}"
-
-        if [[ ${INCLUDE_EVENTS_IN_PACKAGE} == true ]]; then
-            copyAndMakeFatFramework "MapboxMobileEvents"
-        fi
-
-        # Bundling mapbox-events-ios
-    fi
-    
-    cp -rv platform/ios/app/Settings.bundle ${OUTPUT}
-else
-    if [[ ${BUILD_STATIC} == true ]]; then
-        step "Assembling static library for iOS Simulator…"
-        mkdir -p ${OUTPUT}/static/${NAME}.framework
-        libtool -static -no_warning_for_no_symbols \
-            -o ${OUTPUT}/static/${NAME}.framework/${NAME} \
-            ${LIBS[@]/#/${PRODUCTS}/${BUILDTYPE}-iphonesimulator/lib} \
-            `cmake -LA -N ${DERIVED_DATA} | grep MASON_PACKAGE_icu_LIBRARIES | cut -d= -f2`
-
-        cp -rv ${PRODUCTS}/${BUILDTYPE}-iphonesimulator/${NAME}.bundle ${OUTPUT}/static
-    fi
-
-    if [[ ${BUILD_DYNAMIC} == true ]]; then
-        step "Copying dynamic framework into place for iOS Simulator…"
-        cp -r \
-            ${PRODUCTS}/${BUILDTYPE}-iphonesimulator/${NAME}.framework \
-            ${OUTPUT}/dynamic/${NAME}.framework
-        if [[ -e ${PRODUCTS}/${BUILDTYPE}-iphonesimulator/${NAME}.framework.dSYM ]]; then
-            step "Copying dSYM"
-            cp -r ${PRODUCTS}/${BUILDTYPE}-iphonesimulator/${NAME}.framework.dSYM \
-                ${OUTPUT}/dynamic/
-        fi
-    fi
-    
-    cp -rv platform/ios/app/Settings.bundle ${OUTPUT}
+if [[ ${SYMBOLS} = NO ]]; then
+    step "Stripping symbols from binaries"
+    strip -Sx "${OUTPUT}/${NAME}.framework/${NAME}"
 fi
 
 function get_comparable_uuid {
@@ -211,65 +88,40 @@ function validate_dsym {
     fi
 }
 
-function removeSimulatorSlice {
-    local NAME=$1
-
+if [[ ${BUILDTYPE} == Release && ${ENABLE_APP_PUBLISH} = "YES" ]]; then
     validate_dsym \
-    "${OUTPUT}/dynamic/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME}" \
-    "${OUTPUT}/dynamic/${NAME}.framework/${NAME}"
+        "${OUTPUT}/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME}" \
+        "${OUTPUT}/${NAME}.framework/${NAME}"
+    
+    step "Exporting TrackAsia GL.app"
+    xcodebuild \
+        ${CI_XCCONFIG} \
+        -exportArchive \
+        -archivePath "${APP_OUTPUT}/macosapp.xcarchive" \
+        -exportPath "${APP_OUTPUT}" \
+        -exportOptionsPlist platform/macos/ExportOptions.plist
+fi
 
-    step "Removing i386 slice from ${NAME} dSYM"
-    lipo -remove i386 "${OUTPUT}/dynamic/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME}" -o "${OUTPUT}/dynamic/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME}"
-    lipo -info "${OUTPUT}/dynamic/${NAME}.framework.dSYM/Contents/Resources/DWARF/${NAME}"
+function create_podspec {
+    step "Creating local podspec…"
+    [[ $SYMBOLS = YES ]] && POD_SUFFIX="-symbols" || POD_SUFFIX=""
+    POD_SOURCE_PATH='    :path => ".",'
+    POD_FRAMEWORKS="  m.vendored_frameworks = '"${NAME}".framework'"
+    INPUT_PODSPEC=platform/macos/${NAME}-macOS-SDK${POD_SUFFIX}.podspec
+    OUTPUT_PODSPEC=${OUTPUT}/${NAME}-macOS-SDK${POD_SUFFIX}.podspec
+    sed "s/.*:http.*/${POD_SOURCE_PATH}/" ${INPUT_PODSPEC} > ${OUTPUT_PODSPEC}
+    sed -i '' "s/.*vendored_frameworks.*/${POD_FRAMEWORKS}/" ${OUTPUT_PODSPEC}
 }
 
-
-if [[ ${BUILD_DYNAMIC} == true && ${BUILDTYPE} == Release ]]; then
-    removeSimulatorSlice "${NAME}"
-
-    if [[ ${INCLUDE_EVENTS_IN_PACKAGE} == true ]]; then
-        removeSimulatorSlice MapboxMobileEvents
-    fi
-fi
-
-if [[ ${BUILD_STATIC} == true ]]; then
-    step "Copying static library headers…"
-    cp -rv "${PRODUCTS}/${BUILDTYPE}-${SDK}/Headers" "${OUTPUT}/static/${NAME}.framework/Headers"
-    cat platform/ios/framework/Mapbox-static.h > "${OUTPUT}/static/${NAME}.framework/Headers/Mapbox.h"
-    cat "${PRODUCTS}/${BUILDTYPE}-${SDK}/Headers/Mapbox.h" >> "${OUTPUT}/static/${NAME}.framework/Headers/Mapbox.h"
-fi
+create_podspec
 
 step "Copying library resources…"
-cp -pv LICENSE.md ${OUTPUT}
-if [[ ${BUILD_STATIC} == true ]]; then
-    cp -pv "${OUTPUT}/static/${NAME}.bundle/Info.plist" "${OUTPUT}/static/${NAME}.framework/Info.plist"
-    plutil -replace CFBundlePackageType -string FMWK "${OUTPUT}/static/${NAME}.framework/Info.plist"
-    mkdir "${OUTPUT}/static/${NAME}.framework/Modules"
-    cp -pv platform/ios/framework/modulemap "${OUTPUT}/static/${NAME}.framework/Modules/module.modulemap"
-fi
-if [[ ${BUILD_DYNAMIC} == true && ${BUILD_FOR_DEVICE} == true ]]; then
-    step "Copying bitcode symbol maps…"
-    find "${PRODUCTS}/${BUILDTYPE}-iphoneos" -name '*.bcsymbolmap' -type f -exec cp -pv {} "${OUTPUT}/dynamic/" \;
-fi
-sed -n -e '/^## /,$p' platform/ios/CHANGELOG.md > "${OUTPUT}/CHANGELOG.md"
+cp -pv LICENSE.md "${OUTPUT}"
+cp -pv platform/macos/docs/pod-README.md "${OUTPUT}/README.md"
+sed -n -e '/^## /,$p' platform/macos/CHANGELOG.md > "${OUTPUT}/CHANGELOG.md"
 
-rm -rf /tmp/mbgl
-mkdir -p /tmp/mbgl/
-README=/tmp/mbgl/README.md
-cp platform/ios/docs/pod-README.md "${README}"
-if [[ ${BUILD_DYNAMIC} == false ]]; then
-    sed -i '' -e '/{{DYNAMIC}}/,/{{\/DYNAMIC}}/d' "${README}"
-fi
-if [[ ${BUILD_STATIC} == false ]]; then
-    sed -i '' -e '/{{STATIC}}/,/{{\/STATIC}}/d' "${README}"
-fi
-sed -i '' \
-    -e '/{{DYNAMIC}}/d' -e '/{{\/DYNAMIC}}/d' \
-    -e '/{{STATIC}}/d' -e '/{{\/STATIC}}/d' \
-    "${README}"
-cp ${README} "${OUTPUT}"
+step "Generating API documentation…"
+make xdocument OUTPUT="${OUTPUT}/documentation"
 
-if [ ${BUILD_DOCS} == true ]; then
-    step "Generating API documentation for ${BUILDTYPE} Build…"
-    make idocument OUTPUT="${OUTPUT}/documentation"
-fi
+step "Checking that all public symbols are exported…"
+node platform/darwin/scripts/check-public-symbols.js macOS

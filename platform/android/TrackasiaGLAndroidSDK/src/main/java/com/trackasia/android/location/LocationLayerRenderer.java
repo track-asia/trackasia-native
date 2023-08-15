@@ -4,10 +4,10 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
 
+import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.location.modes.RenderMode;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.style.expressions.Expression;
-import com.trackasia.android.geometry.LatLng;
 
 interface LocationLayerRenderer {
   void initializeComponents(Style style);

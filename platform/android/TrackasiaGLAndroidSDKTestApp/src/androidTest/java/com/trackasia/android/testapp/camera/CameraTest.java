@@ -5,7 +5,7 @@ import com.trackasia.android.camera.CameraUpdate;
 import com.trackasia.android.camera.CameraUpdateFactory;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.geometry.LatLngBounds;
-import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.MapboxMap;
 import com.trackasia.android.testapp.activity.BaseTest;
 import com.trackasia.android.testapp.activity.espresso.DeviceIndependentTestActivity;
 import com.trackasia.android.testapp.utils.TestConstants;
@@ -16,7 +16,7 @@ import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
+import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -38,7 +38,7 @@ public abstract class CameraTest extends BaseTest {
   @Test
   public void testToCameraPositionTarget() throws InterruptedException {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       float zoom = 1.0f;
       LatLng moveTarget = new LatLng(1, 1);
       CameraPosition initialPosition = new CameraPosition.Builder().target(
@@ -46,7 +46,7 @@ public abstract class CameraTest extends BaseTest {
       CameraPosition cameraPosition = mapboxMap.getCameraPosition();
       assertEquals("Default camera position should match default", cameraPosition, initialPosition);
 
-      executeCameraMovement(CameraUpdateFactory.newLatLng(moveTarget), new TrackasiaMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.newLatLng(moveTarget), new MapboxMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, moveTarget, zoom, 0, 0, new double[4]);
@@ -69,12 +69,12 @@ public abstract class CameraTest extends BaseTest {
   @Test
   public void testToCameraPositionTargetZoom() throws InterruptedException {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       final float moveZoom = 15.5f;
       final LatLng moveTarget = new LatLng(1.0000000001, 1.0000000003);
 
       executeCameraMovement(CameraUpdateFactory.newLatLngZoom(moveTarget, moveZoom),
-        new TrackasiaMap.CancelableCallback() {
+        new MapboxMap.CancelableCallback() {
           @Override
           public void onCancel() {
             verifyCameraPosition(mapboxMap, moveTarget, moveZoom, 0, 0, new double[4]);
@@ -97,7 +97,7 @@ public abstract class CameraTest extends BaseTest {
   @Test
   public void testToCameraPosition() throws InterruptedException {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       final LatLng moveTarget = new LatLng(1.0000000001, 1.0000000003);
       final float moveZoom = 15.5f;
       final float moveTilt = 45.5f;
@@ -112,7 +112,7 @@ public abstract class CameraTest extends BaseTest {
           .bearing(moveBearing)
           .padding(movePadding)
           .build()),
-        new TrackasiaMap.CancelableCallback() {
+        new MapboxMap.CancelableCallback() {
           @Override
           public void onCancel() {
             verifyCameraPosition(mapboxMap, moveTarget, moveZoom, moveBearing, moveTilt, movePadding);
@@ -135,7 +135,7 @@ public abstract class CameraTest extends BaseTest {
   @Test
   public void testToBounds() throws InterruptedException {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       final LatLng centerBounds = new LatLng(1, 1);
       LatLng cornerOne = new LatLng();
       LatLng cornerTwo = new LatLng(2, 2);
@@ -144,7 +144,7 @@ public abstract class CameraTest extends BaseTest {
       builder.include(cornerTwo);
 
       executeCameraMovement(CameraUpdateFactory.newLatLngBounds(builder.build(), 0),
-        new TrackasiaMap.CancelableCallback() {
+        new MapboxMap.CancelableCallback() {
           @Override
           public void onCancel() {
             verifyCameraPosition(mapboxMap, centerBounds, mapboxMap.getCameraPosition().zoom, 0, 0, new double[4]);
@@ -167,10 +167,10 @@ public abstract class CameraTest extends BaseTest {
   @Test
   public void testToZoomIn() throws InterruptedException {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       float zoom = 1.0f;
 
-      executeCameraMovement(CameraUpdateFactory.zoomIn(), new TrackasiaMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.zoomIn(), new MapboxMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom + 1, 0, 0, new double[4]);
@@ -194,22 +194,21 @@ public abstract class CameraTest extends BaseTest {
   public void testToZoomOut() throws InterruptedException {
     float zoom = 10.0f;
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) ->
-      executeCameraMovement(CameraUpdateFactory.newLatLngZoom(new LatLng(), zoom),
-        new TrackasiaMap.CancelableCallback() {
-          @Override
-          public void onCancel() {
-            verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom, 0, 0, new double[4]);
-            latch.countDown();
-          }
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
+      executeCameraMovement(CameraUpdateFactory.newLatLngZoom(new LatLng(), zoom), new MapboxMap.CancelableCallback() {
+        @Override
+        public void onCancel() {
+          verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom, 0, 0, new double[4]);
+          latch.countDown();
+        }
 
-          @Override
-          public void onFinish() {
-            verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom, 0, 0, new double[4]);
-            latch.countDown();
-          }
-        })
-    );
+        @Override
+        public void onFinish() {
+          verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom, 0, 0, new double[4]);
+          latch.countDown();
+        }
+      });
+    });
 
     if (!latch.await(10, TimeUnit.SECONDS)) {
       Assert.fail("timeout");
@@ -217,8 +216,8 @@ public abstract class CameraTest extends BaseTest {
 
     latch = new CountDownLatch(1);
 
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
-      executeCameraMovement(CameraUpdateFactory.zoomOut(), new TrackasiaMap.CancelableCallback() {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
+      executeCameraMovement(CameraUpdateFactory.zoomOut(), new MapboxMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom - 1, 0, 0, new double[4]);
@@ -241,11 +240,11 @@ public abstract class CameraTest extends BaseTest {
   @Test
   public void testToZoomBy() throws InterruptedException {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       float zoom = 1.0f;
       final float zoomBy = 2.45f;
 
-      executeCameraMovement(CameraUpdateFactory.zoomBy(zoomBy), new TrackasiaMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.zoomBy(zoomBy), new MapboxMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom + zoomBy, 0, 0, new double[4]);
@@ -268,10 +267,10 @@ public abstract class CameraTest extends BaseTest {
   @Test
   public void testToZoomTo() throws InterruptedException {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       final float zoomTo = 2.45f;
 
-      executeCameraMovement(CameraUpdateFactory.zoomTo(zoomTo), new TrackasiaMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.zoomTo(zoomTo), new MapboxMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoomTo, 0, 0, new double[4]);
@@ -291,11 +290,11 @@ public abstract class CameraTest extends BaseTest {
     }
   }
 
-  abstract void executeCameraMovement(CameraUpdate cameraUpdate, TrackasiaMap.CancelableCallback callback);
+  abstract void executeCameraMovement(CameraUpdate cameraUpdate, MapboxMap.CancelableCallback callback);
 
-  private void verifyCameraPosition(TrackasiaMap trackasiaMap, LatLng moveTarget, double moveZoom, double moveBearing,
+  private void verifyCameraPosition(MapboxMap mapboxMap, LatLng moveTarget, double moveZoom, double moveBearing,
                                     double moveTilt, double[] padding) {
-    CameraPosition cameraPosition = trackasiaMap.getCameraPosition();
+    CameraPosition cameraPosition = mapboxMap.getCameraPosition();
     assertEquals("Moved camera position latitude should match", cameraPosition.target.getLatitude(),
       moveTarget.getLatitude(), TestConstants.LAT_LNG_DELTA);
     assertEquals("Moved camera position longitude should match", cameraPosition.target.getLongitude(),

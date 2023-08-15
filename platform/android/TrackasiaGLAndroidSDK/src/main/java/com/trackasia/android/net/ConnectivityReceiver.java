@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
-import com.trackasia.android.Trackasia;
 import com.trackasia.android.log.Logger;
 
 import java.util.List;
@@ -101,7 +100,7 @@ public class ConnectivityReceiver extends BroadcastReceiver {
   }
 
   /**
-   * Overwrites system connectivity state. To set, use {@link Trackasia#setConnected(Boolean)}.
+   * Overwrites system connectivity state. To set, use {@link com.trackasia.android.Mapbox#setConnected(Boolean)}.
    *
    * @param connected flag to determine the connectivity state, true for connected, false for
    *                  disconnected, and null for ConnectivityManager to determine.

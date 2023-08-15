@@ -1,4 +1,4 @@
-#include <QTrackasiaGL/Utils>
+#include <QTrackAsiaGL/Utils>
 
 #include <mbgl/storage/network_status.hpp>
 #include <mbgl/util/geometry.hpp>
@@ -8,16 +8,13 @@
 #include <QOpenGLContext>
 
 // mbgl::NetworkStatus::Status
-static_assert(mbgl::underlying_type(QTrackasiaGL::Online) == mbgl::underlying_type(mbgl::NetworkStatus::Status::Online),
-              "error");
-static_assert(mbgl::underlying_type(QTrackasiaGL::Offline) ==
-                  mbgl::underlying_type(mbgl::NetworkStatus::Status::Offline),
-              "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Online) == mbgl::underlying_type(mbgl::NetworkStatus::Status::Online), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Offline) == mbgl::underlying_type(mbgl::NetworkStatus::Status::Offline), "error");
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 /*!
-    \enum QTrackasiaGL::NetworkMode
+    \enum QTrackAsiaGL::NetworkMode
 
     This enum represents whether server requests can be performed via network.
 
@@ -26,49 +23,52 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \fn QTrackasiaGL::NetworkMode QTrackasiaGL::networkMode()
+    \fn QTrackAsiaGL::NetworkMode QTrackAsiaGL::networkMode()
 
-    Returns the current QTrackasiaGL::NetworkMode.
+    Returns the current QTrackAsiaGL::NetworkMode.
 */
-NetworkMode networkMode() {
+NetworkMode networkMode()
+{
     return static_cast<NetworkMode>(mbgl::NetworkStatus::Get());
 }
 
 /*!
-    \fn void QTrackasiaGL::setNetworkMode(QTrackasiaGL::NetworkMode mode)
+    \fn void QTrackAsiaGL::setNetworkMode(QTrackAsiaGL::NetworkMode mode)
 
-    Forwards the network status \a mode to Trackasia Native engine.
+    Forwards the network status \a mode to TrackAsia GL Native engine.
 
     File source requests uses the available network when \a mode is set to \b
     Online, otherwise scoped to the local cache.
 */
-void setNetworkMode(NetworkMode mode) {
+void setNetworkMode(NetworkMode mode)
+{
     mbgl::NetworkStatus::Set(static_cast<mbgl::NetworkStatus::Status>(mode));
 }
 
 /*!
     Returns the amount of meters per pixel from a given \a latitude and \a zoom.
 */
-double metersPerPixelAtLatitude(double latitude, double zoom) {
+double metersPerPixelAtLatitude(double latitude, double zoom)
+{
     return mbgl::Projection::getMetersPerPixelAtLatitude(latitude, zoom);
 }
 
 /*!
     Return the projected meters for a given \a coordinate object.
 */
-ProjectedMeters projectedMetersForCoordinate(const Coordinate &coordinate) {
-    auto projectedMeters = mbgl::Projection::projectedMetersForLatLng(
-        mbgl::LatLng{coordinate.first, coordinate.second});
+ProjectedMeters projectedMetersForCoordinate(const Coordinate &coordinate)
+{
+    auto projectedMeters = mbgl::Projection::projectedMetersForLatLng(mbgl::LatLng { coordinate.first, coordinate.second });
     return ProjectedMeters(projectedMeters.northing(), projectedMeters.easting());
 }
 
 /*!
     Returns the coordinate for a given \a projectedMeters object.
 */
-Coordinate coordinateForProjectedMeters(const ProjectedMeters &projectedMeters) {
-    auto latLng = mbgl::Projection::latLngForProjectedMeters(
-        mbgl::ProjectedMeters{projectedMeters.first, projectedMeters.second});
+Coordinate coordinateForProjectedMeters(const ProjectedMeters &projectedMeters)
+{
+    auto latLng = mbgl::Projection::latLngForProjectedMeters(mbgl::ProjectedMeters { projectedMeters.first, projectedMeters.second });
     return Coordinate(latLng.latitude(), latLng.longitude());
 }
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

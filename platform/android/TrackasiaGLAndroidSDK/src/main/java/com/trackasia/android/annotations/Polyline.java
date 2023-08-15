@@ -4,13 +4,13 @@ import android.graphics.Color;
 
 import androidx.annotation.Keep;
 
-import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.MapboxMap;
 
 /**
  * Polyline is a geometry feature with an unclosed list of coordinates drawn as a line
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   Trackasia Annotation Plugin</a> instead
+ *   Mapbox Annotation Plugin</a> instead
  */
 @Deprecated
 public final class Polyline extends BasePointCollection {
@@ -64,9 +64,9 @@ public final class Polyline extends BasePointCollection {
 
   @Override
   void update() {
-    TrackasiaMap trackasiaMap = getMapboxMap();
-    if (trackasiaMap != null) {
-      trackasiaMap.updatePolyline(this);
+    MapboxMap mapboxMap = getMapboxMap();
+    if (mapboxMap != null) {
+      mapboxMap.updatePolyline(this);
     }
   }
 }

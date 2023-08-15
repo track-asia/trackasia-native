@@ -1,9 +1,0 @@
-[book]
-authors = ["Trackasia Contributors"]
-language = "en"
-multilingual = false
-src = "src"
-title = "Trackasia Native Documentation"
-
-[output.html]
-additional-css = ["diff.css"]

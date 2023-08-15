@@ -13,24 +13,28 @@ namespace style {
 // {icon,text}-specific paint-property packs for use in the symbol Programs.
 // Since each program deals either with icons or text, using a smaller property set
 // lets us avoid unnecessarily binding attributes for properties the program wouldn't use.
-class IconPaintProperties : public Properties<IconOpacity,
-                                              IconColor,
-                                              IconHaloColor,
-                                              IconHaloWidth,
-                                              IconHaloBlur,
-                                              IconTranslate,
-                                              IconTranslateAnchor> {};
+class IconPaintProperties : public Properties<
+        IconOpacity,
+        IconColor,
+        IconHaloColor,
+        IconHaloWidth,
+        IconHaloBlur,
+        IconTranslate,
+        IconTranslateAnchor
+> {};
 
-class TextPaintProperties : public Properties<TextOpacity,
-                                              TextColor,
-                                              TextHaloColor,
-                                              TextHaloWidth,
-                                              TextHaloBlur,
-                                              TextTranslate,
-                                              TextTranslateAnchor> {};
+class TextPaintProperties : public Properties<
+        TextOpacity,
+        TextColor,
+        TextHaloColor,
+        TextHaloWidth,
+        TextHaloBlur,
+        TextTranslate,
+        TextTranslateAnchor
+> {};
 
-// Repackaging evaluated values from SymbolLayoutProperties +
-// SymbolPaintProperties for genericity over icons vs. text.
+// Repackaging evaluated values from SymbolLayoutProperties + SymbolPaintProperties
+// for genericity over icons vs. text.
 class SymbolPropertyValues {
 public:
     // Layout
@@ -54,32 +58,13 @@ enum class SymbolType : uint8_t {
 
 } // namespace style
 
-class SymbolIconProgram;
-class SymbolSDFIconProgram;
-class SymbolSDFTextProgram;
-class SymbolTextAndIconProgram;
-class CollisionBoxProgram;
-class CollisionCircleProgram;
-
-class RenderSymbolLayer final : public RenderLayer {
-public:
-    struct Programs {
-        std::shared_ptr<SymbolIconProgram> symbolIconProgram;
-        std::shared_ptr<SymbolSDFIconProgram> symbolSDFIconProgram;
-        std::shared_ptr<SymbolSDFTextProgram> symbolSDFTextProgram;
-        std::shared_ptr<SymbolTextAndIconProgram> symbolTextAndIconProgram;
-        std::shared_ptr<CollisionBoxProgram> collisionBoxProgram;
-        std::shared_ptr<CollisionCircleProgram> collisionCircleProgram;
-    };
-
+class RenderSymbolLayer final: public RenderLayer {
 public:
     explicit RenderSymbolLayer(Immutable<style::SymbolLayer::Impl>);
     ~RenderSymbolLayer() override;
 
-    static style::IconPaintProperties::PossiblyEvaluated iconPaintProperties(
-        const style::SymbolPaintProperties::PossiblyEvaluated&);
-    static style::TextPaintProperties::PossiblyEvaluated textPaintProperties(
-        const style::SymbolPaintProperties::PossiblyEvaluated&);
+    static style::IconPaintProperties::PossiblyEvaluated iconPaintProperties(const style::SymbolPaintProperties::PossiblyEvaluated&);
+    static style::TextPaintProperties::PossiblyEvaluated textPaintProperties(const style::SymbolPaintProperties::PossiblyEvaluated&);
 
 private:
     void transition(const TransitionParameters&) override;
@@ -96,9 +81,6 @@ private:
     float textSize = 16.0f;
 
     bool hasFormatSectionOverrides = false;
-
-    // Programs
-    Programs programs;
 };
 
 } // namespace mbgl

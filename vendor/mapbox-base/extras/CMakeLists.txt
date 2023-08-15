@@ -8,7 +8,7 @@ function(mapbox_base_extras_add_library name include_path)
     endif()
 
     add_library(mapbox-base-extras-${name} INTERFACE)
-    add_library(Mapbox::Base::Extras::${name} ALIAS mapbox-base-extras-${name})
+    add_library(Trackasia::Base::Extras::${name} ALIAS mapbox-base-extras-${name})
 
     target_include_directories(mapbox-base-extras-${name} SYSTEM INTERFACE
         ${include_path}
@@ -18,7 +18,7 @@ function(mapbox_base_extras_add_library name include_path)
 endfunction()
 
 add_library(mapbox-base-extras INTERFACE)
-add_library(Mapbox::Base::Extras ALIAS mapbox-base-extras)
+add_library(Trackasia::Base::Extras ALIAS mapbox-base-extras)
 
 execute_process(
     COMMAND git submodule update --init .

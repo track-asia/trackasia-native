@@ -2,7 +2,7 @@
 //  bench_UITests.swift
 //  bench UITests
 //
-//  Copyright © 2021 Trackasia. All rights reserved.
+//  Copyright © 2021 TrackAsia. All rights reserved.
 //
 
 import XCTest
@@ -26,7 +26,11 @@ class bench_UITests: XCTestCase {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
-        app.activate()
-        _ = app.wait(for: .notRunning, timeout: 1000)
+        
+        // Give the app enough time to run
+        sleep(100)
+
+        // Use recording to get started writing UI tests.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 }

@@ -9,7 +9,7 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.*
@@ -28,8 +28,8 @@ class FillExtrusionActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
-                trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
+            OnMapReadyCallback { mapboxMap: MapboxMap ->
+                mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
                     val lngLats = listOf(
                         Arrays.asList(
                             Point.fromLngLat(5.12112557888031, 52.09071040847704),
@@ -50,7 +50,7 @@ class FillExtrusionActivity : AppCompatActivity() {
                                 PropertyFactory.fillExtrusionColor(Color.RED)
                             )
                     )
-                    trackasiaMap.animateCamera(
+                    mapboxMap.animateCamera(
                         CameraUpdateFactory.newCameraPosition(
                             CameraPosition.Builder()
                                 .target(LatLng(52.09071040847704, 5.12112557888031))
@@ -67,36 +67,36 @@ class FillExtrusionActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     public override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 }

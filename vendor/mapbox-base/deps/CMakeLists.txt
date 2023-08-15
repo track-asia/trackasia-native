@@ -4,7 +4,7 @@ function(mapbox_base_add_library name include_path)
     endif()
 
     add_library(mapbox-base-${name} INTERFACE)
-    add_library(Mapbox::Base::${name} ALIAS mapbox-base-${name})
+    add_library(Trackasia::Base::${name} ALIAS mapbox-base-${name})
 
     target_include_directories(mapbox-base-${name} SYSTEM INTERFACE
         ${include_path}

@@ -16,7 +16,7 @@ import com.trackasia.android.testapp.R
  */
 class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restricted_bounds)
@@ -25,11 +25,11 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(trackasiaMap: TrackasiaMap) {
-        this.trackasiaMap = trackasiaMap
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
-        trackasiaMap.setMinZoomPreference(2.0)
-        trackasiaMap.uiSettings.isFlingVelocityAnimationEnabled = false
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this.mapboxMap = mapboxMap
+        mapboxMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
+        mapboxMap.setMinZoomPreference(2.0)
+        mapboxMap.uiSettings.isFlingVelocityAnimationEnabled = false
         showCrosshair()
         setupBounds(ICELAND_BOUNDS)
     }
@@ -58,12 +58,12 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setupBounds(bounds: LatLngBounds?) {
-        trackasiaMap.setLatLngBoundsForCameraTarget(bounds)
+        mapboxMap!!.setLatLngBoundsForCameraTarget(bounds)
         showBoundsArea(bounds)
     }
 
     private fun showBoundsArea(bounds: LatLngBounds?) {
-        trackasiaMap.clear()
+        mapboxMap!!.clear()
         if (bounds != null) {
             val boundsArea = PolygonOptions()
                 .add(bounds.northWest)
@@ -72,7 +72,7 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
                 .add(bounds.southWest)
             boundsArea.alpha(0.25f)
             boundsArea.fillColor(Color.RED)
-            trackasiaMap.addPolygon(boundsArea)
+            mapboxMap!!.addPolygon(boundsArea)
         }
     }
 
@@ -80,42 +80,42 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
         val crosshair = View(this)
         crosshair.layoutParams = FrameLayout.LayoutParams(10, 10, Gravity.CENTER)
         crosshair.setBackgroundColor(Color.BLUE)
-        mapView.addView(crosshair)
+        mapView!!.addView(crosshair)
     }
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     companion object {

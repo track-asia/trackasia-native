@@ -22,8 +22,8 @@ class MapFragmentActivity :
     OnMapViewReadyCallback,
     OnMapReadyCallback,
     OnDidFinishRenderingFrameListener {
-    private lateinit var trackasiaMap: TrackasiaMap
-    private lateinit var mapView: MapView
+    private var mapboxMap: MapboxMap? = null
+    private var mapView: MapView? = null
     private var initialCameraAnimation = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +41,8 @@ class MapFragmentActivity :
         mapFragment.getMapAsync(this)
     }
 
-    private fun createFragmentOptions(): TrackasiaMapOptions {
-        val options = TrackasiaMapOptions.createFromAttributes(this, null)
+    private fun createFragmentOptions(): MapboxMapOptions {
+        val options = MapboxMapOptions.createFromAttributes(this, null)
         options.scrollGesturesEnabled(false)
         options.zoomGesturesEnabled(false)
         options.tiltGesturesEnabled(false)
@@ -62,24 +62,24 @@ class MapFragmentActivity :
 
     override fun onMapViewReady(map: MapView) {
         mapView = map
-        mapView.addOnDidFinishRenderingFrameListener(this)
+        mapView!!.addOnDidFinishRenderingFrameListener(this)
     }
 
-    override fun onMapReady(map: TrackasiaMap) {
-        trackasiaMap = map
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Outdoor"))
+    override fun onMapReady(map: MapboxMap) {
+        mapboxMap = map
+        mapboxMap!!.setStyle(Style.getPredefinedStyle("Outdoor"))
     }
 
     override fun onDestroy() {
         super.onDestroy()
         if (mapView != null) {
-            mapView.removeOnDidFinishRenderingFrameListener(this)
+            mapView!!.removeOnDidFinishRenderingFrameListener(this)
         }
     }
 
     override fun onDidFinishRenderingFrame(fully: Boolean) {
-        if (initialCameraAnimation && fully && trackasiaMap != null) {
-            trackasiaMap.animateCamera(
+        if (initialCameraAnimation && fully && mapboxMap != null) {
+            mapboxMap!!.animateCamera(
                 CameraUpdateFactory.newCameraPosition(CameraPosition.Builder().tilt(45.0).build()),
                 5000
             )

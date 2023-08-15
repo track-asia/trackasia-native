@@ -13,7 +13,7 @@ import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.intent.Intents;
 
-import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.MapboxMap;
 import com.trackasia.android.style.sources.Source;
 import com.trackasia.android.testapp.R;
 import com.trackasia.android.testapp.activity.EspressoTest;
@@ -60,7 +60,7 @@ public class AttributionTest extends EspressoTest {
 
     // Disabled
     onView(withTagValue(is("attrView")))
-      .perform(new DisableAction(trackasiaMap))
+      .perform(new DisableAction(mapboxMap))
       .check(matches(not(isDisplayed())));
   }
 
@@ -134,8 +134,8 @@ public class AttributionTest extends EspressoTest {
   }
 
   private void buildUrlSpans() {
-    onView(withId(R.id.mapView)).perform(new TrackasiaMapAction((uiController, view) -> {
-      for (Source source : trackasiaMap.getStyle().getSources()) {
+    onView(withId(R.id.mapView)).perform(new MapboxMapAction((uiController, view) -> {
+      for (Source source : mapboxMap.getStyle().getSources()) {
         String attributionSource = source.getAttribution();
         if (!TextUtils.isEmpty(attributionSource)) {
           SpannableStringBuilder htmlBuilder = (SpannableStringBuilder) Html.fromHtml(attributionSource);
@@ -147,10 +147,10 @@ public class AttributionTest extends EspressoTest {
 
   private class DisableAction implements ViewAction {
 
-    private TrackasiaMap trackasiaMap;
+    private MapboxMap mapboxMap;
 
-    DisableAction(TrackasiaMap map) {
-      trackasiaMap = map;
+    DisableAction(MapboxMap map) {
+      mapboxMap = map;
     }
 
     @Override
@@ -165,15 +165,15 @@ public class AttributionTest extends EspressoTest {
 
     @Override
     public void perform(UiController uiController, View view) {
-      trackasiaMap.getUiSettings().setAttributionEnabled(false);
+      mapboxMap.getUiSettings().setAttributionEnabled(false);
     }
   }
 
-  private class TrackasiaMapAction implements ViewAction {
+  private class MapboxMapAction implements ViewAction {
 
     private InvokeViewAction invokeViewAction;
 
-    TrackasiaMapAction(InvokeViewAction invokeViewAction) {
+    MapboxMapAction(InvokeViewAction invokeViewAction) {
       this.invokeViewAction = invokeViewAction;
     }
 

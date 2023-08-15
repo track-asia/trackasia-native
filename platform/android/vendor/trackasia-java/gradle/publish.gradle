@@ -8,8 +8,8 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                groupId project.ext.trackasiaArtifactGroupId
-                artifactId project.ext.trackasiaArtifactId
+                groupId project.ext.trackAsiaArtifactGroupId
+                artifactId project.ext.trackAsiaArtifactId
 
                 from components.java
 
@@ -24,26 +24,26 @@ afterEvaluate {
                 }
 
                  pom {
-                    name = project.ext.trackasiaArtifactTitle
-                    description = project.ext.trackasiaArtifactTitle
-                    url = project.ext.trackasiaArtifactUrl
+                    name = project.ext.trackAsiaArtifactTitle
+                    description = project.ext.trackAsiaArtifactTitle
+                    url = project.ext.trackAsiaArtifactUrl
                     licenses {
                         license {
-                            name = project.ext.trackasiaArtifactLicenseName
-                            url = project.ext.trackasiaArtifactLicenseUrl
+                            name = project.ext.trackAsiaArtifactLicenseName
+                            url = project.ext.trackAsiaArtifactLicenseUrl
                         }
                     }
                     developers {
                         developer {
-                            id = project.ext.trackasiaDeveloperId
-                            name = project.ext.trackasiaDeveloperName
+                            id = project.ext.trackAsiaDeveloperId
+                            name = project.ext.trackAsiaDeveloperName
                             email = 'trackasia@track-asia.com'
                         }
                     }
                     scm {
-                        connection = project.ext.trackasiaArtifactScmUrl
-                        developerConnection = project.ext.trackasiaArtifactScmUrl
-                        url = project.ext.trackasiaArtifactUrl
+                        connection = project.ext.trackAsiaArtifactScmUrl
+                        developerConnection = project.ext.trackAsiaArtifactScmUrl
+                        url = project.ext.trackAsiaArtifactUrl
                     }
                 }
             }

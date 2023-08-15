@@ -1,6 +1,6 @@
 BSD 2-Clause License
 
-Copyright (c) 2021 Trackasia contributors
+Copyright (c) 2021 TrackAsia contributors
 
 Copyright (c) 2018-2021 MapTiler.com
 

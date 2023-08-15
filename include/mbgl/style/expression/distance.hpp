@@ -2,8 +2,8 @@
 
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable : 4244)
-#pragma warning(disable : 4267)
+#pragma warning(disable: 4244)
+#pragma warning(disable: 4267)
 #endif
 
 #include <mapbox/cheap_ruler.hpp>
@@ -33,7 +33,7 @@ public:
 
     bool operator==(const Expression& e) const override;
 
-    std::vector<std::optional<Value>> possibleOutputs() const override;
+    std::vector<optional<Value>> possibleOutputs() const override;
 
     mbgl::Value serialize() const override;
     std::string getOperator() const override;

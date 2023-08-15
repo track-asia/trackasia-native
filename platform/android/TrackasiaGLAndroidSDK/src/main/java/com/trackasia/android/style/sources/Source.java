@@ -174,11 +174,13 @@ public abstract class Source {
   @Keep
   protected native Integer nativeGetPrefetchZoomDelta();
 
+  @NonNull
   @Keep
-  protected native void nativeSetPrefetchZoomDelta(@Nullable  Integer delta);
+  protected native void nativeSetPrefetchZoomDelta(Integer delta);
 
+  @NonNull
   @Keep
-  protected native void nativeSetMaxOverscaleFactorForParentTiles(@Nullable Integer maxOverscaleFactor);
+  protected native void nativeSetMaxOverscaleFactorForParentTiles(Integer maxOverscaleFactor);
 
   @NonNull
   @Keep
@@ -188,11 +190,13 @@ public abstract class Source {
   @Keep
   protected native Boolean nativeIsVolatile();
 
+  @NonNull
   @Keep
-  protected native void nativeSetVolatile(@NonNull Boolean value);
+  protected native void nativeSetVolatile(Boolean value);
 
+  @NonNull
   @Keep
-  protected native void nativeSetMinimumTileUpdateInterval(@NonNull Long interval);
+  protected native void nativeSetMinimumTileUpdateInterval(Long interval);
 
   @NonNull
   @Keep

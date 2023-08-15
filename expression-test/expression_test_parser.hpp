@@ -4,6 +4,7 @@
 
 #include <mbgl/style/expression/expression.hpp>
 #include <mbgl/util/feature.hpp>
+#include <mbgl/util/optional.hpp>
 #include <mbgl/util/rapidjson.hpp>
 
 #include <set>
@@ -13,9 +14,9 @@
 using namespace mbgl;
 
 struct Input {
-    Input(std::optional<float> zoom_,
-          std::optional<double> heatmapDensity_,
-          std::optional<CanonicalTileID> canonical_,
+    Input(optional<float> zoom_,
+          optional<double> heatmapDensity_,
+          optional<CanonicalTileID> canonical_,
           std::set<std::string> availableImages_,
           Feature feature_)
         : zoom(std::move(zoom_)),
@@ -23,17 +24,19 @@ struct Input {
           canonical(std::move(canonical_)),
           availableImages(std::move(availableImages_)),
           feature(std::move(feature_)) {}
-    std::optional<float> zoom;
-    std::optional<double> heatmapDensity;
-    std::optional<CanonicalTileID> canonical;
+    optional<float> zoom;
+    optional<double> heatmapDensity;
+    optional<CanonicalTileID> canonical;
     std::set<std::string> availableImages;
     Feature feature;
 };
 
 struct Compiled {
     bool operator==(const Compiled& other) const {
-        bool typeEqual = success == other.success && isFeatureConstant == other.isFeatureConstant &&
-                         isZoomConstant == other.isZoomConstant && serializedType == other.serializedType &&
+        bool typeEqual = success == other.success &&
+                         isFeatureConstant == other.isFeatureConstant &&
+                         isZoomConstant == other.isZoomConstant &&
+                         serializedType == other.serializedType &&
                          errors == other.errors;
         return typeEqual;
     }
@@ -47,9 +50,9 @@ struct Compiled {
 
 struct TestResult {
     Compiled compiled;
-    std::optional<Value> expression;
-    std::optional<Value> outputs;
-    std::optional<Value> serialized;
+    optional<Value> expression;
+    optional<Value> outputs;
+    optional<Value> serialized;
 };
 
 struct PropertySpec {
@@ -57,7 +60,7 @@ struct PropertySpec {
     std::string value;
     std::size_t length = 0;
     bool isDataDriven = false;
-    std::optional<Value> expression;
+    optional<Value> expression;
 };
 
 class TestData {
@@ -66,7 +69,7 @@ public:
     TestResult expected;
     TestResult result;
     TestResult recompiled;
-    std::optional<PropertySpec> spec;
+    optional<PropertySpec> spec;
     JSDocument document;
 };
 
@@ -84,16 +87,17 @@ Arguments parseArguments(int argc, char** argv);
 
 using Ignores = std::vector<Ignore>;
 Ignores parseExpressionIgnores();
-std::optional<TestData> parseTestData(const filesystem::path&);
+optional<TestData> parseTestData(const filesystem::path&);
 
 std::string toJSON(const Value& value, unsigned indent = 0, bool singleLine = false);
 JSDocument toDocument(const Value&);
 Value toValue(const Compiled&);
-std::optional<Value> toValue(const style::expression::Value&);
+optional<Value> toValue(const style::expression::Value&);
 
 std::unique_ptr<style::expression::Expression> parseExpression(const JSValue&,
-                                                               std::optional<PropertySpec>&,
+                                                               optional<PropertySpec>&,
                                                                TestResult&);
-std::unique_ptr<style::expression::Expression> parseExpression(const std::optional<Value>&,
-                                                               std::optional<PropertySpec>&,
+std::unique_ptr<style::expression::Expression> parseExpression(const optional<Value>&,
+                                                               optional<PropertySpec>&,
                                                                TestResult&);
+

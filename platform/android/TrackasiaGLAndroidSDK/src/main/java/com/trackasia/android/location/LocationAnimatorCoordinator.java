@@ -12,8 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.VisibleForTesting;
 
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.log.Logger;
-import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.MapboxMap;
 import com.trackasia.android.maps.Projection;
 
 import java.util.ArrayList;
@@ -24,29 +26,26 @@ import static com.trackasia.android.location.LocationComponentConstants.ACCURACY
 import static com.trackasia.android.location.LocationComponentConstants.COMPASS_UPDATE_RATE_MS;
 import static com.trackasia.android.location.LocationComponentConstants.MAX_ANIMATION_DURATION_MS;
 import static com.trackasia.android.location.LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_CAMERA_COMPASS_BEARING;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_CAMERA_GPS_BEARING;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_CAMERA_LATLNG;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_LAYER_ACCURACY;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_LAYER_COMPASS_BEARING;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_LAYER_GPS_BEARING;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_LAYER_LATLNG;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_PULSING_CIRCLE;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_TILT;
-import static com.trackasia.android.location.TrackasiaAnimator.ANIMATOR_ZOOM;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_CAMERA_COMPASS_BEARING;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_CAMERA_GPS_BEARING;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_CAMERA_LATLNG;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_LAYER_ACCURACY;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_LAYER_COMPASS_BEARING;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_LAYER_GPS_BEARING;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_LAYER_LATLNG;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_PULSING_CIRCLE;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_TILT;
+import static com.trackasia.android.location.MapboxAnimator.ANIMATOR_ZOOM;
 import static com.trackasia.android.location.Utils.immediateAnimation;
 import static com.trackasia.android.location.Utils.normalize;
 import static com.trackasia.android.location.Utils.shortestRotation;
-
-import com.trackasia.android.camera.CameraPosition;
-import com.trackasia.android.geometry.LatLng;
 
 final class LocationAnimatorCoordinator {
 
   private static final String TAG = "Mbgl-LocationAnimatorCoordinator";
 
   @VisibleForTesting
-  final SparseArray<TrackasiaAnimator> animatorArray = new SparseArray<>();
+  final SparseArray<MapboxAnimator> animatorArray = new SparseArray<>();
 
   private final Projection projection;
   private Location previousLocation;
@@ -54,8 +53,8 @@ final class LocationAnimatorCoordinator {
   private float previousCompassBearing = -1;
   private long locationUpdateTimestamp = -1;
   private float durationMultiplier;
-  private final TrackasiaAnimatorProvider animatorProvider;
-  private final TrackasiaAnimatorSetProvider animatorSetProvider;
+  private final MapboxAnimatorProvider animatorProvider;
+  private final MapboxAnimatorSetProvider animatorSetProvider;
   private boolean compassAnimationEnabled;
   private boolean accuracyAnimationEnabled;
 
@@ -63,10 +62,10 @@ final class LocationAnimatorCoordinator {
   int maxAnimationFps = Integer.MAX_VALUE;
 
   @VisibleForTesting
-  final SparseArray<TrackasiaAnimator.AnimationsValueChangeListener> listeners = new SparseArray<>();
+  final SparseArray<MapboxAnimator.AnimationsValueChangeListener> listeners = new SparseArray<>();
 
-  LocationAnimatorCoordinator(@NonNull Projection projection, @NonNull TrackasiaAnimatorSetProvider animatorSetProvider,
-                              @NonNull TrackasiaAnimatorProvider animatorProvider) {
+  LocationAnimatorCoordinator(@NonNull Projection projection, @NonNull MapboxAnimatorSetProvider animatorSetProvider,
+                              @NonNull MapboxAnimatorProvider animatorProvider) {
     this.projection = projection;
     this.animatorProvider = animatorProvider;
     this.animatorSetProvider = animatorSetProvider;
@@ -79,9 +78,9 @@ final class LocationAnimatorCoordinator {
     }
 
     for (int i = 0; i < animatorArray.size(); i++) {
-      @TrackasiaAnimator.Type int animatorType = animatorArray.keyAt(i);
+      @MapboxAnimator.Type int animatorType = animatorArray.keyAt(i);
       if (listeners.get(animatorType) == null) {
-        TrackasiaAnimator animator = animatorArray.get(animatorType);
+        MapboxAnimator animator = animatorArray.get(animatorType);
         if (animator != null) {
           animator.makeInvalid();
         }
@@ -190,7 +189,7 @@ final class LocationAnimatorCoordinator {
   }
 
   /**
-   * Initializes the {@link PulsingLocationCircleAnimator}, which is a type of {@link TrackasiaAnimator}.
+   * Initializes the {@link PulsingLocationCircleAnimator}, which is a type of {@link MapboxAnimator}.
    * This method also adds the animator to this class' animator array.
    *
    * @param options the {@link LocationComponentOptions} passed to this class upstream from the
@@ -198,7 +197,7 @@ final class LocationAnimatorCoordinator {
    */
   void startLocationComponentCirclePulsing(LocationComponentOptions options) {
     cancelAnimator(ANIMATOR_PULSING_CIRCLE);
-    TrackasiaAnimator.AnimationsValueChangeListener listener = listeners.get(ANIMATOR_PULSING_CIRCLE);
+    MapboxAnimator.AnimationsValueChangeListener listener = listeners.get(ANIMATOR_PULSING_CIRCLE);
     if (listener != null) {
       PulsingLocationCircleAnimator pulsingLocationCircleAnimator = animatorProvider.pulsingCircleAnimator(
         listener,
@@ -212,20 +211,20 @@ final class LocationAnimatorCoordinator {
   }
 
   void feedNewZoomLevel(double targetZoomLevel, @NonNull CameraPosition currentCameraPosition, long animationDuration,
-                        @Nullable TrackasiaMap.CancelableCallback callback) {
+                        @Nullable MapboxMap.CancelableCallback callback) {
     updateZoomAnimator((float) targetZoomLevel, (float) currentCameraPosition.zoom, callback);
     playAnimators(animationDuration, ANIMATOR_ZOOM);
   }
 
   void feedNewTilt(double targetTilt, @NonNull CameraPosition currentCameraPosition, long animationDuration,
-                   @Nullable TrackasiaMap.CancelableCallback callback) {
+                   @Nullable MapboxMap.CancelableCallback callback) {
     updateTiltAnimator((float) targetTilt, (float) currentCameraPosition.tilt, callback);
     playAnimators(animationDuration, ANIMATOR_TILT);
   }
 
   private LatLng getPreviousLayerLatLng() {
     LatLng previousLatLng;
-    TrackasiaAnimator latLngAnimator = animatorArray.get(ANIMATOR_LAYER_LATLNG);
+    MapboxAnimator latLngAnimator = animatorArray.get(ANIMATOR_LAYER_LATLNG);
     if (latLngAnimator != null) {
       previousLatLng = (LatLng) latLngAnimator.getAnimatedValue();
     } else {
@@ -235,7 +234,7 @@ final class LocationAnimatorCoordinator {
   }
 
   private float getPreviousLayerGpsBearing() {
-    TrackasiaFloatAnimator animator = (TrackasiaFloatAnimator) animatorArray.get(ANIMATOR_LAYER_GPS_BEARING);
+    MapboxFloatAnimator animator = (MapboxFloatAnimator) animatorArray.get(ANIMATOR_LAYER_GPS_BEARING);
     float previousBearing;
     if (animator != null) {
       previousBearing = (float) animator.getAnimatedValue();
@@ -246,7 +245,7 @@ final class LocationAnimatorCoordinator {
   }
 
   private float getPreviousLayerCompassBearing() {
-    TrackasiaFloatAnimator animator = (TrackasiaFloatAnimator) animatorArray.get(ANIMATOR_LAYER_COMPASS_BEARING);
+    MapboxFloatAnimator animator = (MapboxFloatAnimator) animatorArray.get(ANIMATOR_LAYER_COMPASS_BEARING);
 
     float previousBearing;
     if (animator != null) {
@@ -258,7 +257,7 @@ final class LocationAnimatorCoordinator {
   }
 
   private float getPreviousAccuracyRadius() {
-    TrackasiaAnimator animator = animatorArray.get(ANIMATOR_LAYER_ACCURACY);
+    MapboxAnimator animator = animatorArray.get(ANIMATOR_LAYER_ACCURACY);
     float previousRadius;
     if (animator != null) {
       previousRadius = (float) animator.getAnimatedValue();
@@ -313,44 +312,44 @@ final class LocationAnimatorCoordinator {
   }
 
   private void updateZoomAnimator(float targetZoomLevel, float previousZoomLevel,
-                                  @Nullable TrackasiaMap.CancelableCallback cancelableCallback) {
+                                  @Nullable MapboxMap.CancelableCallback cancelableCallback) {
     createNewCameraAdapterAnimator(ANIMATOR_ZOOM, new Float[] {previousZoomLevel, targetZoomLevel}, cancelableCallback);
   }
 
   private void updateTiltAnimator(float targetTilt, float previousTiltLevel,
-                                  @Nullable TrackasiaMap.CancelableCallback cancelableCallback) {
+                                  @Nullable MapboxMap.CancelableCallback cancelableCallback) {
     createNewCameraAdapterAnimator(ANIMATOR_TILT, new Float[] {previousTiltLevel, targetTilt}, cancelableCallback);
   }
 
-  private void createNewLatLngAnimator(@TrackasiaAnimator.Type int animatorType, LatLng previous, LatLng target) {
+  private void createNewLatLngAnimator(@MapboxAnimator.Type int animatorType, LatLng previous, LatLng target) {
     createNewLatLngAnimator(animatorType, new LatLng[] {previous, target});
   }
 
-  private void createNewLatLngAnimator(@TrackasiaAnimator.Type int animatorType, LatLng[] values) {
+  private void createNewLatLngAnimator(@MapboxAnimator.Type int animatorType, LatLng[] values) {
     cancelAnimator(animatorType);
-    TrackasiaAnimator.AnimationsValueChangeListener listener = listeners.get(animatorType);
+    MapboxAnimator.AnimationsValueChangeListener listener = listeners.get(animatorType);
     if (listener != null) {
       animatorArray.put(animatorType, animatorProvider.latLngAnimator(values, listener, maxAnimationFps));
     }
   }
 
-  private void createNewFloatAnimator(@TrackasiaAnimator.Type int animatorType, float previous, float target) {
+  private void createNewFloatAnimator(@MapboxAnimator.Type int animatorType, float previous, float target) {
     createNewFloatAnimator(animatorType, new Float[] {previous, target});
   }
 
-  private void createNewFloatAnimator(@TrackasiaAnimator.Type int animatorType, @NonNull @Size(min = 2) Float[] values) {
+  private void createNewFloatAnimator(@MapboxAnimator.Type int animatorType, @NonNull @Size(min = 2) Float[] values) {
     cancelAnimator(animatorType);
-    TrackasiaAnimator.AnimationsValueChangeListener listener = listeners.get(animatorType);
+    MapboxAnimator.AnimationsValueChangeListener listener = listeners.get(animatorType);
     if (listener != null) {
       animatorArray.put(animatorType, animatorProvider.floatAnimator(values, listener, maxAnimationFps));
     }
   }
 
-  private void createNewCameraAdapterAnimator(@TrackasiaAnimator.Type int animatorType,
+  private void createNewCameraAdapterAnimator(@MapboxAnimator.Type int animatorType,
                                               @NonNull @Size(min = 2) Float[] values,
-                                              @Nullable TrackasiaMap.CancelableCallback cancelableCallback) {
+                                              @Nullable MapboxMap.CancelableCallback cancelableCallback) {
     cancelAnimator(animatorType);
-    TrackasiaAnimator.AnimationsValueChangeListener listener = listeners.get(animatorType);
+    MapboxAnimator.AnimationsValueChangeListener listener = listeners.get(animatorType);
     if (listener != null) {
       animatorArray.put(animatorType, animatorProvider.cameraAnimator(values, listener, cancelableCallback));
     }
@@ -363,9 +362,9 @@ final class LocationAnimatorCoordinator {
     return targetCameraBearing;
   }
 
-  private void playAnimators(long duration, @TrackasiaAnimator.Type int... animatorTypes) {
+  private void playAnimators(long duration, @MapboxAnimator.Type int... animatorTypes) {
     List<Animator> animators = new ArrayList<>();
-    for (@TrackasiaAnimator.Type int animatorType : animatorTypes) {
+    for (@MapboxAnimator.Type int animatorType : animatorTypes) {
       Animator animator = animatorArray.get(animatorType);
       if (animator != null) {
         animators.add(animator);
@@ -377,7 +376,7 @@ final class LocationAnimatorCoordinator {
   /**
    * Starts the {@link PulsingLocationCircleAnimator} in the animator array. This method is separate
    * from {@link #playAnimators(long, int...)} because the MapboxAnimatorSetProvider has many more
-   * customizable animation parameters than the other {@link TrackasiaAnimator}s.
+   * customizable animation parameters than the other {@link MapboxAnimator}s.
    */
   private void playPulsingAnimator() {
     Animator animator = animatorArray.get(ANIMATOR_PULSING_CIRCLE);
@@ -401,7 +400,7 @@ final class LocationAnimatorCoordinator {
   }
 
   private boolean resetCameraLatLngAnimation(@NonNull CameraPosition currentCameraPosition) {
-    TrackasiaLatLngAnimator animator = (TrackasiaLatLngAnimator) animatorArray.get(ANIMATOR_CAMERA_LATLNG);
+    MapboxLatLngAnimator animator = (MapboxLatLngAnimator) animatorArray.get(ANIMATOR_CAMERA_LATLNG);
     if (animator == null) {
       return false;
     }
@@ -414,7 +413,7 @@ final class LocationAnimatorCoordinator {
   }
 
   private void resetCameraGpsBearingAnimation(@NonNull CameraPosition currentCameraPosition, boolean isGpsNorth) {
-    TrackasiaFloatAnimator animator = (TrackasiaFloatAnimator) animatorArray.get(ANIMATOR_CAMERA_GPS_BEARING);
+    MapboxFloatAnimator animator = (MapboxFloatAnimator) animatorArray.get(ANIMATOR_CAMERA_GPS_BEARING);
     if (animator == null) {
       return;
     }
@@ -427,8 +426,8 @@ final class LocationAnimatorCoordinator {
   }
 
   private void resetCameraCompassAnimation(@NonNull CameraPosition currentCameraPosition) {
-    TrackasiaFloatAnimator animator =
-      (TrackasiaFloatAnimator) animatorArray.get(ANIMATOR_CAMERA_COMPASS_BEARING);
+    MapboxFloatAnimator animator =
+      (MapboxFloatAnimator) animatorArray.get(ANIMATOR_CAMERA_COMPASS_BEARING);
     if (animator == null) {
       return;
     }
@@ -440,12 +439,12 @@ final class LocationAnimatorCoordinator {
   }
 
   void resetAllLayerAnimations() {
-    TrackasiaLatLngAnimator latLngAnimator = (TrackasiaLatLngAnimator) animatorArray.get(ANIMATOR_LAYER_LATLNG);
-    TrackasiaFloatAnimator gpsBearingAnimator = (TrackasiaFloatAnimator) animatorArray.get(ANIMATOR_LAYER_GPS_BEARING);
-    TrackasiaFloatAnimator compassBearingAnimator =
-      (TrackasiaFloatAnimator) animatorArray.get(ANIMATOR_LAYER_COMPASS_BEARING);
-    TrackasiaFloatAnimator accuracyAnimator =
-      (TrackasiaFloatAnimator) animatorArray.get(ANIMATOR_LAYER_ACCURACY);
+    MapboxLatLngAnimator latLngAnimator = (MapboxLatLngAnimator) animatorArray.get(ANIMATOR_LAYER_LATLNG);
+    MapboxFloatAnimator gpsBearingAnimator = (MapboxFloatAnimator) animatorArray.get(ANIMATOR_LAYER_GPS_BEARING);
+    MapboxFloatAnimator compassBearingAnimator =
+      (MapboxFloatAnimator) animatorArray.get(ANIMATOR_LAYER_COMPASS_BEARING);
+    MapboxFloatAnimator accuracyAnimator =
+      (MapboxFloatAnimator) animatorArray.get(ANIMATOR_LAYER_ACCURACY);
 
     if (latLngAnimator != null && gpsBearingAnimator != null) {
       LatLng currentLatLng = (LatLng) latLngAnimator.getAnimatedValue();
@@ -497,13 +496,13 @@ final class LocationAnimatorCoordinator {
 
   void cancelAllAnimations() {
     for (int i = 0; i < animatorArray.size(); i++) {
-      @TrackasiaAnimator.Type int animatorType = animatorArray.keyAt(i);
+      @MapboxAnimator.Type int animatorType = animatorArray.keyAt(i);
       cancelAnimator(animatorType);
     }
   }
 
-  private void cancelAnimator(@TrackasiaAnimator.Type int animatorType) {
-    TrackasiaAnimator animator = animatorArray.get(animatorType);
+  private void cancelAnimator(@MapboxAnimator.Type int animatorType) {
+    MapboxAnimator animator = animatorArray.get(animatorType);
     if (animator != null) {
       animator.cancel();
       animator.removeAllUpdateListeners();

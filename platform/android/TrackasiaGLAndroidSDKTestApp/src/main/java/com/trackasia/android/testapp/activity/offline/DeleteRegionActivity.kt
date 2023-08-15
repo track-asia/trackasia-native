@@ -15,6 +15,7 @@ import com.trackasia.android.offline.OfflineRegion
 import com.trackasia.android.offline.OfflineRegion.OfflineRegionDeleteCallback
 import com.trackasia.android.offline.OfflineRegion.OfflineRegionInvalidateCallback
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.offline.DeleteRegionActivity.OfflineRegionAdapter
 import com.trackasia.android.testapp.utils.OfflineUtils
 import java.util.*
 
@@ -100,8 +101,8 @@ class DeleteRegionActivity :
 
     private fun loadOfflineRegions() {
         OfflineManager.getInstance(this).listOfflineRegions(object : ListOfflineRegionsCallback {
-            override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                if (offlineRegions != null && offlineRegions.isNotEmpty()) {
+            override fun onList(offlineRegions: Array<OfflineRegion>) {
+                if (offlineRegions != null && offlineRegions.size > 0) {
                     adapter!!.setOfflineRegions(Arrays.asList(*offlineRegions))
                 }
             }
@@ -136,7 +137,7 @@ class DeleteRegionActivity :
             return position.toLong()
         }
 
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        override fun getView(position: Int, convertView: View, parent: ViewGroup): View {
             var convertView = convertView
             val holder: ViewHolder
             if (convertView == null) {
@@ -149,7 +150,7 @@ class DeleteRegionActivity :
                 holder = convertView.tag as ViewHolder
             }
             holder.text!!.text = OfflineUtils.convertRegionName(getItem(position).metadata)
-            return convertView!!
+            return convertView
         }
 
         internal class ViewHolder {

@@ -3,8 +3,8 @@ package com.trackasia.android.maps
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ShapeDrawable
-import com.trackasia.android.TrackasiaInjector
-import com.trackasia.android.constants.TrackasiaConstants
+import com.trackasia.android.MapboxInjector
+import com.trackasia.android.constants.MapboxConstants
 import com.trackasia.android.style.layers.CannotAddLayerException
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.layers.TransitionOptions
@@ -26,7 +26,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class StyleTest {
 
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
 
     private lateinit var nativeMapView: NativeMap
 
@@ -39,39 +39,31 @@ class StyleTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        TrackasiaInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
+        MapboxInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
         nativeMapView = mockk(relaxed = true)
-        trackasiaMap = TrackasiaMap(
-            nativeMapView,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
+        mapboxMap = MapboxMap(nativeMapView, null, null, null, null, null, null)
         every { nativeMapView.isDestroyed } returns false
-        trackasiaMap.injectLocationComponent(spyk())
+        mapboxMap.injectLocationComponent(spyk())
     }
 
     @Test
     fun testFromUrl() {
         val builder = Style.Builder().fromUrl(Style.getPredefinedStyle("Streets"))
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
     }
 
     @Test
     fun testFromJson() {
         val builder = Style.Builder().fromJson("{}")
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleJson = "{}" }
     }
 
     @Test
     fun testEmptyBuilder() {
         val builder = Style.Builder()
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleJson = Style.EMPTY_JSON }
     }
 
@@ -80,12 +72,12 @@ class StyleTest {
         val layer = mockk<SymbolLayer>()
         every { layer.id } returns "1"
         val builder = Style.Builder().withLayer(layer)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.onFinishLoadingStyle()
+        mapboxMap.setStyle(builder)
+        mapboxMap.onFinishLoadingStyle()
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                TrackasiaConstants.LAYER_ID_ANNOTATIONS
+                MapboxConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }
@@ -95,8 +87,8 @@ class StyleTest {
         val layer = mockk<SymbolLayer>()
         every { layer.id } returns "1"
         val builder = Style.Builder().withLayerAbove(layer, "id")
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.onFinishLoadingStyle()
+        mapboxMap.setStyle(builder)
+        mapboxMap.onFinishLoadingStyle()
         verify(exactly = 1) { nativeMapView.addLayerAbove(layer, "id") }
     }
 
@@ -105,8 +97,8 @@ class StyleTest {
         val layer = mockk<SymbolLayer>()
         every { layer.id } returns "1"
         val builder = Style.Builder().withLayerBelow(layer, "id")
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.onFinishLoadingStyle()
+        mapboxMap.setStyle(builder)
+        mapboxMap.onFinishLoadingStyle()
         verify(exactly = 1) { nativeMapView.addLayerBelow(layer, "id") }
     }
 
@@ -115,8 +107,8 @@ class StyleTest {
         val layer = mockk<SymbolLayer>()
         every { layer.id } returns "1"
         val builder = Style.Builder().withLayerAt(layer, 1)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.onFinishLoadingStyle()
+        mapboxMap.setStyle(builder)
+        mapboxMap.onFinishLoadingStyle()
         verify(exactly = 1) { nativeMapView.addLayerAt(layer, 1) }
     }
 
@@ -125,8 +117,8 @@ class StyleTest {
         val source = mockk<GeoJsonSource>()
         every { source.id } returns "1"
         val builder = Style.Builder().withSource(source)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.onFinishLoadingStyle()
+        mapboxMap.setStyle(builder)
+        mapboxMap.onFinishLoadingStyle()
         verify(exactly = 1) { nativeMapView.addSource(source) }
     }
 
@@ -134,8 +126,8 @@ class StyleTest {
     fun testWithTransitionOptions() {
         val transitionOptions = TransitionOptions(100, 200)
         val builder = Style.Builder().withTransition(transitionOptions)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.onFinishLoadingStyle()
+        mapboxMap.setStyle(builder)
+        mapboxMap.onFinishLoadingStyle()
         verify(exactly = 1) { nativeMapView.transitionOptions = transitionOptions }
     }
 
@@ -145,9 +137,9 @@ class StyleTest {
         every { source.id } returns "1"
         val builder =
             Style.Builder().fromUrl(Style.getPredefinedStyle("Streets")).withSource(source)
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { nativeMapView.addSource(source) }
     }
 
@@ -156,13 +148,13 @@ class StyleTest {
         val layer = mockk<SymbolLayer>()
         every { layer.id } returns "1"
         val builder = Style.Builder().fromUrl(Style.getPredefinedStyle("Streets")).withLayer(layer)
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                TrackasiaConstants.LAYER_ID_ANNOTATIONS
+                MapboxConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }
@@ -173,9 +165,9 @@ class StyleTest {
         every { layer.id } returns "1"
         val builder =
             Style.Builder().fromUrl(Style.getPredefinedStyle("Streets")).withLayerAt(layer, 1)
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { nativeMapView.addLayerAt(layer, 1) }
     }
 
@@ -185,9 +177,9 @@ class StyleTest {
         every { layer.id } returns "1"
         val builder = Style.Builder().fromUrl(Style.getPredefinedStyle("Streets"))
             .withLayerBelow(layer, "below")
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { nativeMapView.addLayerBelow(layer, "below") }
     }
 
@@ -197,9 +189,9 @@ class StyleTest {
         every { layer.id } returns "1"
         val builder = Style.Builder().fromUrl(Style.getPredefinedStyle("Streets"))
             .withLayerBelow(layer, "below")
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { nativeMapView.addLayerBelow(layer, "below") }
     }
 
@@ -208,9 +200,9 @@ class StyleTest {
         val transitionOptions = TransitionOptions(100, 200)
         val builder = Style.Builder().fromUrl(Style.getPredefinedStyle("Streets"))
             .withTransition(transitionOptions)
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { nativeMapView.transitionOptions = transitionOptions }
     }
 
@@ -219,9 +211,9 @@ class StyleTest {
         val callback = mockk<Style.OnStyleLoaded>()
         every { callback.onStyleLoaded(any()) } answers {}
         val builder = Style.Builder().fromUrl(Style.getPredefinedStyle("Streets"))
-        trackasiaMap.setStyle(builder, callback)
+        mapboxMap.setStyle(builder, callback)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { callback.onStyleLoaded(any()) }
     }
 
@@ -232,8 +224,8 @@ class StyleTest {
         val source = mockk<GeoJsonSource>()
         every { source.id } returns "1"
         val builder = Style.Builder().withSource(source)
-        trackasiaMap.setStyle(builder, callback)
-        trackasiaMap.onFinishLoadingStyle()
+        mapboxMap.setStyle(builder, callback)
+        mapboxMap.onFinishLoadingStyle()
         verify(exactly = 1) { nativeMapView.addSource(source) }
         verify(exactly = 1) { callback.onStyleLoaded(any()) }
     }
@@ -242,12 +234,12 @@ class StyleTest {
     fun testGetAsyncWith() {
         val callback = mockk<Style.OnStyleLoaded>()
         every { callback.onStyleLoaded(any()) } answers {}
-        trackasiaMap.getStyle(callback)
+        mapboxMap.getStyle(callback)
         val source = mockk<GeoJsonSource>()
         every { source.id } returns "1"
         val builder = Style.Builder().withSource(source)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.onFinishLoadingStyle()
+        mapboxMap.setStyle(builder)
+        mapboxMap.onFinishLoadingStyle()
         verify(exactly = 1) { nativeMapView.addSource(source) }
         verify(exactly = 1) { callback.onStyleLoaded(any()) }
     }
@@ -256,13 +248,13 @@ class StyleTest {
     fun testGetAsyncFrom() {
         val callback = mockk<Style.OnStyleLoaded>()
         every { callback.onStyleLoaded(any()) } answers {}
-        trackasiaMap.getStyle(callback)
+        mapboxMap.getStyle(callback)
         val source = mockk<GeoJsonSource>()
         every { source.id } returns "1"
         val builder = Style.Builder().fromJson("{}")
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleJson = "{}" }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { callback.onStyleLoaded(any()) }
     }
 
@@ -270,21 +262,21 @@ class StyleTest {
     fun testGetAsyncWithFrom() {
         val callback = mockk<Style.OnStyleLoaded>()
         every { callback.onStyleLoaded(any()) } answers {}
-        trackasiaMap.getStyle(callback)
+        mapboxMap.getStyle(callback)
         val source = mockk<GeoJsonSource>()
         every { source.id } returns "1"
         val builder =
             Style.Builder().fromUrl(Style.getPredefinedStyle("Streets")).withSource(source)
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { nativeMapView.addSource(source) }
         verify(exactly = 1) { callback.onStyleLoaded(any()) }
     }
 
     @Test
     fun testGetNullStyle() {
-        Assert.assertNull(trackasiaMap.style)
+        Assert.assertNull(mapboxMap.style)
     }
 
     @Test
@@ -292,34 +284,34 @@ class StyleTest {
         val transitionOptions = TransitionOptions(100, 200)
         val builder = Style.Builder().fromUrl(Style.getPredefinedStyle("Streets"))
             .withTransition(transitionOptions)
-        trackasiaMap.setStyle(builder)
-        Assert.assertNull(trackasiaMap.style)
-        trackasiaMap.notifyStyleLoaded()
-        Assert.assertNotNull(trackasiaMap.style)
+        mapboxMap.setStyle(builder)
+        Assert.assertNull(mapboxMap.style)
+        mapboxMap.notifyStyleLoaded()
+        Assert.assertNotNull(mapboxMap.style)
     }
 
     @Test
     fun testNotReinvokeSameListener() {
         val callback = mockk<Style.OnStyleLoaded>()
         every { callback.onStyleLoaded(any()) } answers {}
-        trackasiaMap.getStyle(callback)
+        mapboxMap.getStyle(callback)
         val source = mockk<GeoJsonSource>()
         every { source.id } returns "1"
         val builder = Style.Builder().fromJson("{}")
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleJson = "{}" }
-        trackasiaMap.notifyStyleLoaded()
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
+        mapboxMap.notifyStyleLoaded()
+        mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
         verify(exactly = 1) { callback.onStyleLoaded(any()) }
     }
 
     @Test(expected = IllegalStateException::class)
     fun testIllegalStateExceptionWithStyleReload() {
         val builder = Style.Builder().fromUrl(Style.getPredefinedStyle("Streets"))
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.notifyStyleLoaded()
-        val style = trackasiaMap.style
-        trackasiaMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Bright")))
+        mapboxMap.setStyle(builder)
+        mapboxMap.notifyStyleLoaded()
+        val style = mapboxMap.style
+        mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Bright")))
         style!!.addLayer(mockk<SymbolLayer>())
     }
 
@@ -328,10 +320,10 @@ class StyleTest {
         val bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
         val builder =
             Style.Builder().fromUrl(Style.getPredefinedStyle("Satellite Hybrid")).withImage("id", bitmap)
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Satellite Hybrid") }
         verify(exactly = 0) { nativeMapView.addImages(any()) }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { nativeMapView.addImages(any()) }
     }
 
@@ -342,10 +334,10 @@ class StyleTest {
         drawable.intrinsicWidth = 10
         val builder =
             Style.Builder().fromUrl(Style.getPredefinedStyle("Satellite Hybrid")).withImage("id", drawable)
-        trackasiaMap.setStyle(builder)
+        mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Satellite Hybrid") }
         verify(exactly = 0) { nativeMapView.addImages(any()) }
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.notifyStyleLoaded()
         verify(exactly = 1) { nativeMapView.addImages(any()) }
     }
 
@@ -357,18 +349,18 @@ class StyleTest {
         every { source2.id } returns "source1" // same ID
 
         val builder = Style.Builder().withSource(source1)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.setStyle(builder)
+        mapboxMap.notifyStyleLoaded()
 
         every { nativeMapView.addSource(any()) } throws CannotAddSourceException("Duplicate ID")
 
         try {
-            trackasiaMap.style!!.addSource(source2)
+            mapboxMap.style!!.addSource(source2)
         } catch (ex: Exception) {
             Assert.assertEquals(
                 "Source that failed to be added shouldn't be cached",
                 source1,
-                trackasiaMap.style!!.getSource("source1")
+                mapboxMap.style!!.getSource("source1")
             )
         }
     }
@@ -381,18 +373,18 @@ class StyleTest {
         every { layer2.id } returns "layer1" // same ID
 
         val builder = Style.Builder().withLayer(layer1)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.setStyle(builder)
+        mapboxMap.notifyStyleLoaded()
 
         every { nativeMapView.addLayer(any()) } throws CannotAddLayerException("Duplicate ID")
 
         try {
-            trackasiaMap.style!!.addLayer(layer2)
+            mapboxMap.style!!.addLayer(layer2)
         } catch (ex: Exception) {
             Assert.assertEquals(
                 "Layer that failed to be added shouldn't be cached",
                 layer1,
-                trackasiaMap.style!!.getLayer("layer1")
+                mapboxMap.style!!.getLayer("layer1")
             )
         }
     }
@@ -405,8 +397,8 @@ class StyleTest {
         every { layer2.id } returns "layer1" // same ID
 
         val builder = Style.Builder().withLayer(layer1)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.setStyle(builder)
+        mapboxMap.notifyStyleLoaded()
 
         every {
             nativeMapView.addLayerBelow(
@@ -416,12 +408,12 @@ class StyleTest {
         } throws CannotAddLayerException("Duplicate ID")
 
         try {
-            trackasiaMap.style!!.addLayerBelow(layer2, "")
+            mapboxMap.style!!.addLayerBelow(layer2, "")
         } catch (ex: Exception) {
             Assert.assertEquals(
                 "Layer that failed to be added shouldn't be cached",
                 layer1,
-                trackasiaMap.style!!.getLayer("layer1")
+                mapboxMap.style!!.getLayer("layer1")
             )
         }
     }
@@ -434,8 +426,8 @@ class StyleTest {
         every { layer2.id } returns "layer1" // same ID
 
         val builder = Style.Builder().withLayer(layer1)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.setStyle(builder)
+        mapboxMap.notifyStyleLoaded()
 
         every {
             nativeMapView.addLayerAbove(
@@ -445,12 +437,12 @@ class StyleTest {
         } throws CannotAddLayerException("Duplicate ID")
 
         try {
-            trackasiaMap.style!!.addLayerAbove(layer2, "")
+            mapboxMap.style!!.addLayerAbove(layer2, "")
         } catch (ex: Exception) {
             Assert.assertEquals(
                 "Layer that failed to be added shouldn't be cached",
                 layer1,
-                trackasiaMap.style!!.getLayer("layer1")
+                mapboxMap.style!!.getLayer("layer1")
             )
         }
     }
@@ -463,18 +455,18 @@ class StyleTest {
         every { layer2.id } returns "layer1" // same ID
 
         val builder = Style.Builder().withLayer(layer1)
-        trackasiaMap.setStyle(builder)
-        trackasiaMap.notifyStyleLoaded()
+        mapboxMap.setStyle(builder)
+        mapboxMap.notifyStyleLoaded()
 
         every { nativeMapView.addLayerAt(any(), 5) } throws CannotAddLayerException("Duplicate ID")
 
         try {
-            trackasiaMap.style!!.addLayerAt(layer2, 5)
+            mapboxMap.style!!.addLayerAt(layer2, 5)
         } catch (ex: Exception) {
             Assert.assertEquals(
                 "Layer that failed to be added shouldn't be cached",
                 layer1,
-                trackasiaMap.style!!.getLayer("layer1")
+                mapboxMap.style!!.getLayer("layer1")
             )
         }
     }

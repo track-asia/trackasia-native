@@ -20,22 +20,20 @@ import com.trackasia.android.camera.CameraUpdate;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.location.engine.LocationEngine;
 import com.trackasia.android.location.engine.LocationEngineCallback;
-import com.trackasia.android.location.engine.LocationEngineDefault;
+import com.trackasia.android.location.engine.LocationEngineProvider;
 import com.trackasia.android.location.engine.LocationEngineRequest;
 import com.trackasia.android.location.engine.LocationEngineResult;
 import com.trackasia.android.location.modes.CameraMode;
 import com.trackasia.android.location.modes.RenderMode;
-import com.trackasia.android.location.engine.TrackasiaFusedLocationEngineImpl;
 import com.trackasia.android.location.permissions.PermissionsManager;
 import com.trackasia.android.log.Logger;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.TrackasiaMap;
-import com.trackasia.android.maps.TrackasiaMap.OnCameraIdleListener;
-import com.trackasia.android.maps.TrackasiaMap.OnCameraMoveListener;
-import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener;
+import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.MapboxMap.OnCameraIdleListener;
+import com.trackasia.android.maps.MapboxMap.OnCameraMoveListener;
+import com.trackasia.android.maps.MapboxMap.OnMapClickListener;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.maps.Transform;
-import com.trackasia.android.style.layers.SymbolLayer;
 
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
@@ -52,7 +50,6 @@ import static com.trackasia.android.location.LocationComponentConstants.DEFAULT_
 import static com.trackasia.android.location.LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS;
 import static com.trackasia.android.location.modes.RenderMode.GPS;
 
-
 /**
  * The Location Component provides location awareness to your mobile application. Enabling this
  * component provides a contextual experience to your users by showing an icon representing the users
@@ -68,8 +65,8 @@ import static com.trackasia.android.location.modes.RenderMode.GPS;
  * mode set with {@link LocationComponent#setCameraMode(int)}.
  * <p>
  * <strong>
- * To get the component object use {@link TrackasiaMap#getLocationComponent()} and activate it with
- * {@link #activateLocationComponent(LocationComponentActivationOptions)}.
+ * To get the component object use {@link MapboxMap#getLocationComponent()} and activate it with
+ * {@link #activateLocationComponent(Context, Style)} or one of the overloads.
  * Then, manage its visibility with {@link #setLocationComponentEnabled(boolean)}.
  * The component will not process location updates right after activation, but only after being enabled.
  * </strong>
@@ -79,17 +76,19 @@ import static com.trackasia.android.location.modes.RenderMode.GPS;
  * {@code ACCESS_COARSE_LOCATION} or {@code ACCESS_FINE_LOCATION} permissions can be requested for
  * this component to work as expected.
  * <p>
- * This component offers a default, built-in {@link LocationEngine} called
- * {@link TrackasiaFusedLocationEngineImpl}.
- * If you'd like to utilize the previously available Google Play Services for more precise location updates,
- * refer to the migration guide of 10.0.0 in the changelog.
+ * This component offers a default, built-in {@link LocationEngine} with some of the activation methods.
+ * This engine will be obtained by {@link LocationEngineProvider#getBestLocationEngine(Context, boolean)} which defaults
+ * to the {@link com.trackasia.android.location.engine.MapboxFusedLocationEngineImpl}. If you'd like to utilize Google
+ * Play Services
+ * for more precise location updates, simply add the Google Play Location Services dependency in your build script.
+ * This will make the default engine the {@link com.trackasia.android.location.engine.GoogleLocationEngineImpl} instead.
  * After a custom engine is passed to the component, or the built-in is initialized,
  * the location updates are going to be requested with the {@link LocationEngineRequest}, either a default one,
  * or the one passed during the activation.
  * When using any engine, requesting/removing the location updates is going to be managed internally.
  * <p>
  * You can also push location updates to the component without any internal engine management.
- * To achieve that, set `useDefaultLocationEngine` in {@link LocationComponentActivationOptions} to false.
+ * To achieve that, use {@link #activateLocationComponent(Context, Style, boolean)} with false.
  * No engine is going to be initialized and you can push location updates with {@link #forceLocationUpdate(Location)}.
  * <p>
  * For location puck animation purposes, like navigation,
@@ -101,11 +100,13 @@ public final class LocationComponent {
   private static final String TAG = "Mbgl-LocationComponent";
 
   @NonNull
-  private final TrackasiaMap trackasiaMap;
+  private final MapboxMap mapboxMap;
   @NonNull
   private final Transform transform;
   private Style style;
   private LocationComponentOptions options;
+  @NonNull
+  private InternalLocationEngineProvider internalLocationEngineProvider = new InternalLocationEngineProvider();
   @Nullable
   private LocationEngine locationEngine;
   @NonNull
@@ -141,27 +142,27 @@ public final class LocationComponent {
   private boolean isComponentInitialized;
 
   /**
-   * Indicates whether we're using the {@link LocationIndicatorLayer}
-   * or the stack of {@link SymbolLayer}s.
+   * Indicates whether we're using the {@link com.trackasia.android.location.LocationIndicatorLayer}
+   * or the stack of {@link com.trackasia.android.style.layers.SymbolLayer}s.
    */
   private boolean useSpecializedLocationLayer;
 
   /**
-   * Indicates that the component is enabled and should be displaying location if Trackasia components are available and
+   * Indicates that the component is enabled and should be displaying location if Mapbox components are available and
    * the lifecycle is in a started state.
    */
   private boolean isEnabled;
 
   /**
    * Indicated that component's lifecycle {@link #onStart()} method has been called.
-   * This allows Trackasia components enter started state and display data, and adds state safety for methods like
+   * This allows Mapbox components enter started state and display data, and adds state safety for methods like
    * {@link #setLocationComponentEnabled(boolean)}
    */
   private boolean isComponentStarted;
 
   /**
-   * Indicates if Trackasia components are ready to be interacted with. This can differ from {@link #isComponentStarted}
-   * if the Trackasia style is being reloaded.
+   * Indicates if Mapbox components are ready to be interacted with. This can differ from {@link #isComponentStarted}
+   * if the Mapbox style is being reloaded.
    */
   private boolean isLayerReady;
 
@@ -189,12 +190,12 @@ public final class LocationComponent {
   /**
    * Internal use.
    * <p>
-   * To get the component object use {@link TrackasiaMap#getLocationComponent()}.
+   * To get the component object use {@link MapboxMap#getLocationComponent()}.
    */
-  public LocationComponent(@NonNull TrackasiaMap trackasiaMap,
+  public LocationComponent(@NonNull MapboxMap mapboxMap,
                            @NonNull Transform transform,
-                           @NonNull List<TrackasiaMap.OnDeveloperAnimationListener> developerAnimationListeners) {
-    this.trackasiaMap = trackasiaMap;
+                           @NonNull List<MapboxMap.OnDeveloperAnimationListener> developerAnimationListeners) {
+    this.mapboxMap = mapboxMap;
     this.transform = transform;
     developerAnimationListeners.add(developerAnimationListener);
   }
@@ -202,14 +203,14 @@ public final class LocationComponent {
   // used for creating a spy
   LocationComponent() {
     //noinspection ConstantConditions
-    trackasiaMap = null;
+    mapboxMap = null;
     transform = null;
   }
 
   @VisibleForTesting
-  LocationComponent(@NonNull TrackasiaMap trackasiaMap,
+  LocationComponent(@NonNull MapboxMap mapboxMap,
                     @NonNull Transform transform,
-                    @NonNull List<TrackasiaMap.OnDeveloperAnimationListener> developerAnimationListeners,
+                    @NonNull List<MapboxMap.OnDeveloperAnimationListener> developerAnimationListeners,
                     @NonNull LocationEngineCallback<LocationEngineResult> currentListener,
                     @NonNull LocationEngineCallback<LocationEngineResult> lastListener,
                     @NonNull LocationLayerController locationLayerController,
@@ -217,8 +218,9 @@ public final class LocationComponent {
                     @NonNull LocationAnimatorCoordinator locationAnimatorCoordinator,
                     @NonNull StaleStateManager staleStateManager,
                     @NonNull CompassEngine compassEngine,
+                    @NonNull InternalLocationEngineProvider internalLocationEngineProvider,
                     boolean useSpecializedLocationLayer) {
-    this.trackasiaMap = trackasiaMap;
+    this.mapboxMap = mapboxMap;
     this.transform = transform;
     developerAnimationListeners.add(developerAnimationListener);
     this.currentLocationEngineListener = currentListener;
@@ -228,8 +230,240 @@ public final class LocationComponent {
     this.locationAnimatorCoordinator = locationAnimatorCoordinator;
     this.staleStateManager = staleStateManager;
     this.compassEngine = compassEngine;
+    this.internalLocationEngineProvider = internalLocationEngineProvider;
     this.useSpecializedLocationLayer = useSpecializedLocationLayer;
     isComponentInitialized = true;
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   * <p>
+   * <strong>Note</strong>: This method will initialize and use an internal {@link LocationEngine} when enabled.
+   *
+   * @param context the context
+   * @param style   the proxy object for current map style. More info at {@link Style}
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style) {
+    activateLocationComponent(context, style,
+      LocationComponentOptions.createFromAttributes(context, R.style.trackasia_LocationComponent));
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   *
+   * @param context                  the context
+   * @param style                    the proxy object for current map style. More info at {@link Style}
+   * @param useDefaultLocationEngine true if you want to initialize and use the built-in location engine or false if
+   *                                 there should be no location engine initialized
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        boolean useDefaultLocationEngine) {
+    if (useDefaultLocationEngine) {
+      activateLocationComponent(context, style, R.style.trackasia_LocationComponent);
+    } else {
+      activateLocationComponent(context, style, null, R.style.trackasia_LocationComponent);
+    }
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   *
+   * @param context                  the context
+   * @param style                    the proxy object for current map style. More info at {@link Style}
+   * @param useDefaultLocationEngine true if you want to initialize and use the built-in location engine or false if
+   *                                 there should be no location engine initialized
+   * @param locationEngineRequest    the location request
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        boolean useDefaultLocationEngine,
+                                        @NonNull LocationEngineRequest locationEngineRequest) {
+    setLocationEngineRequest(locationEngineRequest);
+    if (useDefaultLocationEngine) {
+      activateLocationComponent(context, style, R.style.trackasia_LocationComponent);
+    } else {
+      activateLocationComponent(context, style, null, R.style.trackasia_LocationComponent);
+    }
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   *
+   * @param context                  the context
+   * @param style                    the proxy object for current map style. More info at {@link Style}
+   * @param useDefaultLocationEngine true if you want to initialize and use the built-in location engine or false if
+   *                                 there should be no location engine initialized
+   * @param locationEngineRequest    the location request
+   * @param options                  the options
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        boolean useDefaultLocationEngine,
+                                        @NonNull LocationEngineRequest locationEngineRequest,
+                                        @NonNull LocationComponentOptions options) {
+    setLocationEngineRequest(locationEngineRequest);
+    if (useDefaultLocationEngine) {
+      activateLocationComponent(context, style, options);
+    } else {
+      activateLocationComponent(context, style, null, options);
+    }
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   * <p>
+   * <strong>Note</strong>: This method will initialize and use an internal {@link LocationEngine} when enabled.
+   *
+   * @param context  the context
+   * @param style    the proxy object for current map style. More info at {@link Style}
+   * @param styleRes the LocationComponent style res
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style, @StyleRes int styleRes) {
+    activateLocationComponent(context, style, LocationComponentOptions.createFromAttributes(context, styleRes));
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   * <p>
+   * <strong>Note</strong>: This method will initialize and use an internal {@link LocationEngine} when enabled.
+   * </p>
+   *
+   * @param context the context
+   * @param style   the proxy object for current map style. More info at {@link Style}
+   * @param options the options
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        @NonNull LocationComponentOptions options) {
+    initialize(context, style, false, options);
+    initializeLocationEngine(context);
+    applyStyle(options);
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   *
+   * @param context        the context
+   * @param style          the proxy object for current map style. More info at {@link Style}
+   * @param locationEngine the engine, or null if you'd like to only force location updates
+   * @param styleRes       the LocationComponent style res
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        @Nullable LocationEngine locationEngine, @StyleRes int styleRes) {
+    activateLocationComponent(context, style, locationEngine,
+      LocationComponentOptions.createFromAttributes(context, styleRes));
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   *
+   * @param context               the context
+   * @param style                 the proxy object for current map style. More info at {@link Style}
+   * @param locationEngine        the engine, or null if you'd like to only force location updates
+   * @param locationEngineRequest the location request
+   * @param styleRes              the LocationComponent style res
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        @Nullable LocationEngine locationEngine,
+                                        @NonNull LocationEngineRequest locationEngineRequest, @StyleRes int styleRes) {
+    activateLocationComponent(context, style, locationEngine, locationEngineRequest,
+      LocationComponentOptions.createFromAttributes(context, styleRes));
+  }
+
+  /**
+   * This method will show the location icon and enable the camera tracking the location.
+   *
+   * @param context        the context
+   * @param style          the proxy object for current map style. More info at {@link Style}
+   * @param locationEngine the engine
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        @Nullable LocationEngine locationEngine) {
+    activateLocationComponent(context, style, locationEngine, R.style.trackasia_LocationComponent);
+  }
+
+  /**
+   * This method will show the location icon and enable the camera tracking the location.
+   *
+   * @param context               the context
+   * @param style                 the proxy object for current map style. More info at {@link Style}
+   * @param locationEngine        the engine
+   * @param locationEngineRequest the location request
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        @Nullable LocationEngine locationEngine,
+                                        @NonNull LocationEngineRequest locationEngineRequest) {
+    activateLocationComponent(
+            context,
+            style,
+            locationEngine,
+            locationEngineRequest,
+            R.style.trackasia_LocationComponent);
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   *
+   * @param locationEngine the engine, or null if you'd like to only force location updates
+   * @param style          the proxy object for current map style. More info at {@link Style}
+   * @param options        the options
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        @Nullable LocationEngine locationEngine,
+                                        @NonNull LocationComponentOptions options) {
+    initialize(context, style, false, options);
+    setLocationEngine(locationEngine);
+    applyStyle(options);
+  }
+
+  /**
+   * This method initializes the component and needs to be called before any other operations are performed.
+   * Afterwards, you can manage component's visibility by {@link #setLocationComponentEnabled(boolean)}.
+   *
+   * @param context               the context
+   * @param style                 the proxy object for current map style. More info at {@link Style}
+   * @param locationEngine        the engine, or null if you'd like to only force location updates
+   * @param locationEngineRequest the location request
+   * @param options               the options
+   * @deprecated use {@link LocationComponentActivationOptions.Builder} instead
+   */
+  @Deprecated
+  public void activateLocationComponent(@NonNull Context context, @NonNull Style style,
+                                        @Nullable LocationEngine locationEngine,
+                                        @NonNull LocationEngineRequest locationEngineRequest,
+                                        @NonNull LocationComponentOptions options) {
+    initialize(context, style, false, options);
+    setLocationEngineRequest(locationEngineRequest);
+    setLocationEngine(locationEngine);
+    applyStyle(options);
   }
 
   /**
@@ -269,7 +503,7 @@ public final class LocationComponent {
       setLocationEngine(locationEngine);
     } else {
       if (activationOptions.useDefaultLocationEngine()) {
-        setLocationEngine(LocationEngineDefault.INSTANCE.getDefaultLocationEngine(activationOptions.context()));
+        initializeLocationEngine(activationOptions.context());
       } else {
         setLocationEngine(null);
       }
@@ -417,7 +651,7 @@ public final class LocationComponent {
     }
 
     private void reset(@CameraMode.Mode int cameraMode) {
-      locationAnimatorCoordinator.resetAllCameraAnimations(trackasiaMap.getCameraPosition(),
+      locationAnimatorCoordinator.resetAllCameraAnimations(mapboxMap.getCameraPosition(),
         cameraMode == CameraMode.TRACKING_GPS_NORTH);
     }
   }
@@ -495,7 +729,7 @@ public final class LocationComponent {
   public void applyStyle(@NonNull final LocationComponentOptions options) {
     checkActivationState();
     LocationComponent.this.options = options;
-    if (trackasiaMap.getStyle() != null) {
+    if (mapboxMap.getStyle() != null) {
       locationLayerController.applyStyle(options);
       locationCameraController.initializeOptions(options);
       staleStateManager.setEnabled(options.enableStaleState());
@@ -526,8 +760,8 @@ public final class LocationComponent {
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
-   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapboxMap#moveCamera(CameraUpdate)},
+   * {@link MapboxMap#easeCamera(CameraUpdate)} or {@link MapboxMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -538,7 +772,7 @@ public final class LocationComponent {
    * @param callback          The callback with finish/cancel information
    */
   public void zoomWhileTracking(double zoomLevel, long animationDuration,
-                                @Nullable TrackasiaMap.CancelableCallback callback) {
+                                @Nullable MapboxMap.CancelableCallback callback) {
     checkActivationState();
     if (!isLayerReady) {
       notifyUnsuccessfulCameraOperation(callback, null);
@@ -553,17 +787,15 @@ public final class LocationComponent {
         "LocationComponent#zoomWhileTracking method call is ignored because the camera mode is transitioning");
       return;
     }
-    locationAnimatorCoordinator.feedNewZoomLevel(
-      zoomLevel, trackasiaMap.getCameraPosition(), animationDuration, callback
-    );
+    locationAnimatorCoordinator.feedNewZoomLevel(zoomLevel, mapboxMap.getCameraPosition(), animationDuration, callback);
   }
 
   /**
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
-   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapboxMap#moveCamera(CameraUpdate)},
+   * {@link MapboxMap#easeCamera(CameraUpdate)} or {@link MapboxMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -581,8 +813,8 @@ public final class LocationComponent {
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
-   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapboxMap#moveCamera(CameraUpdate)},
+   * {@link MapboxMap#easeCamera(CameraUpdate)} or {@link MapboxMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -596,7 +828,7 @@ public final class LocationComponent {
   }
 
   /**
-   * Cancels animation started by {@link #zoomWhileTracking(double, long, TrackasiaMap.CancelableCallback)}.
+   * Cancels animation started by {@link #zoomWhileTracking(double, long, MapboxMap.CancelableCallback)}.
    */
   public void cancelZoomWhileTrackingAnimation() {
     checkActivationState();
@@ -607,8 +839,8 @@ public final class LocationComponent {
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
-   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapboxMap#moveCamera(CameraUpdate)},
+   * {@link MapboxMap#easeCamera(CameraUpdate)} or {@link MapboxMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -619,7 +851,7 @@ public final class LocationComponent {
    * @param callback          The callback with finish/cancel information
    */
   public void tiltWhileTracking(double tilt, long animationDuration,
-                                @Nullable TrackasiaMap.CancelableCallback callback) {
+                                @Nullable MapboxMap.CancelableCallback callback) {
     checkActivationState();
     if (!isLayerReady) {
       notifyUnsuccessfulCameraOperation(callback, null);
@@ -634,15 +866,15 @@ public final class LocationComponent {
         "LocationComponent#tiltWhileTracking method call is ignored because the camera mode is transitioning");
       return;
     }
-    locationAnimatorCoordinator.feedNewTilt(tilt, trackasiaMap.getCameraPosition(), animationDuration, callback);
+    locationAnimatorCoordinator.feedNewTilt(tilt, mapboxMap.getCameraPosition(), animationDuration, callback);
   }
 
   /**
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
-   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapboxMap#moveCamera(CameraUpdate)},
+   * {@link MapboxMap#easeCamera(CameraUpdate)} or {@link MapboxMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -660,8 +892,8 @@ public final class LocationComponent {
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link TrackasiaMap#moveCamera(CameraUpdate)},
-   * {@link TrackasiaMap#easeCamera(CameraUpdate)} or {@link TrackasiaMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapboxMap#moveCamera(CameraUpdate)},
+   * {@link MapboxMap#easeCamera(CameraUpdate)} or {@link MapboxMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -675,7 +907,7 @@ public final class LocationComponent {
   }
 
   /**
-   * Cancels animation started by {@link #tiltWhileTracking(double, long, TrackasiaMap.CancelableCallback)}.
+   * Cancels animation started by {@link #tiltWhileTracking(double, long, MapboxMap.CancelableCallback)}.
    */
   public void cancelTiltWhileTrackingAnimation() {
     checkActivationState();
@@ -723,7 +955,7 @@ public final class LocationComponent {
    * Set max FPS at which location animators can output updates. The throttling will only impact the location puck
    * and camera tracking smooth animations.
    * <p>
-   * Setting this <b>will not impact</b> any other animations schedule with {@link TrackasiaMap}, gesture animations or
+   * Setting this <b>will not impact</b> any other animations schedule with {@link MapboxMap}, gesture animations or
    * {@link #zoomWhileTracking(double)}/{@link #tiltWhileTracking(double)}.
    * <p>
    * Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on
@@ -868,7 +1100,7 @@ public final class LocationComponent {
    * <p>
    * If there are registered location click listeners and the location is clicked,
    * only {@link OnLocationClickListener#onLocationComponentClick()} is going to be delivered,
-   * {@link TrackasiaMap.OnMapClickListener#onMapClick(LatLng)} is going to be consumed
+   * {@link com.trackasia.android.maps.MapboxMap.OnMapClickListener#onMapClick(LatLng)} is going to be consumed
    * and not pushed to the listeners registered after the component's activation.
    *
    * @param listener The location click listener that is invoked when the
@@ -892,7 +1124,7 @@ public final class LocationComponent {
    * <p>
    * If there are registered location long click listeners and the location is long clicked,
    * only {@link OnLocationLongClickListener#onLocationComponentLongClick()} is going to be delivered,
-   * {@link TrackasiaMap.OnMapLongClickListener#onMapLongClick(LatLng)} is going to be consumed
+   * {@link com.trackasia.android.maps.MapboxMap.OnMapLongClickListener#onMapLongClick(LatLng)} is going to be consumed
    * and not pushed to the listeners registered after the component's activation.
    *
    * @param listener The location click listener that is invoked when the
@@ -1002,7 +1234,7 @@ public final class LocationComponent {
    */
   public void onFinishLoadingStyle() {
     if (isComponentInitialized) {
-      style = trackasiaMap.getStyle();
+      style = mapboxMap.getStyle();
       locationLayerController.initializeComponents(style, options);
       locationCameraController.initializeOptions(options);
       onLocationLayerStart();
@@ -1019,14 +1251,14 @@ public final class LocationComponent {
 
   @SuppressLint("MissingPermission")
   private void onLocationLayerStart() {
-    if (!isComponentInitialized || !isComponentStarted || trackasiaMap.getStyle() == null) {
+    if (!isComponentInitialized || !isComponentStarted || mapboxMap.getStyle() == null) {
       return;
     }
 
     if (!isLayerReady) {
       isLayerReady = true;
-      trackasiaMap.addOnCameraMoveListener(onCameraMoveListener);
-      trackasiaMap.addOnCameraIdleListener(onCameraIdleListener);
+      mapboxMap.addOnCameraMoveListener(onCameraMoveListener);
+      mapboxMap.addOnCameraIdleListener(onCameraIdleListener);
       if (options.enableStaleState()) {
         staleStateManager.onStart();
       }
@@ -1069,8 +1301,8 @@ public final class LocationComponent {
     if (locationEngine != null) {
       locationEngine.removeLocationUpdates(currentLocationEngineListener);
     }
-    trackasiaMap.removeOnCameraMoveListener(onCameraMoveListener);
-    trackasiaMap.removeOnCameraIdleListener(onCameraIdleListener);
+    mapboxMap.removeOnCameraMoveListener(onCameraMoveListener);
+    mapboxMap.removeOnCameraIdleListener(onCameraIdleListener);
   }
 
   private void initialize(@NonNull final Context context, @NonNull Style style, boolean useSpecializedLocationLayer,
@@ -1088,21 +1320,21 @@ public final class LocationComponent {
     this.options = options;
     this.useSpecializedLocationLayer = useSpecializedLocationLayer;
 
-    trackasiaMap.addOnMapClickListener(onMapClickListener);
-    trackasiaMap.addOnMapLongClickListener(onMapLongClickListener);
+    mapboxMap.addOnMapClickListener(onMapClickListener);
+    mapboxMap.addOnMapLongClickListener(onMapLongClickListener);
 
     LayerSourceProvider sourceProvider = new LayerSourceProvider();
     LayerFeatureProvider featureProvider = new LayerFeatureProvider();
     LayerBitmapProvider bitmapProvider = new LayerBitmapProvider(context);
-    locationLayerController = new LocationLayerController(trackasiaMap, style, sourceProvider, featureProvider,
+    locationLayerController = new LocationLayerController(mapboxMap, style, sourceProvider, featureProvider,
       bitmapProvider, options, renderModeChangedListener, useSpecializedLocationLayer);
     locationCameraController = new LocationCameraController(
-      context, trackasiaMap, transform, cameraTrackingChangedListener, options, onCameraMoveInvalidateListener);
+      context, mapboxMap, transform, cameraTrackingChangedListener, options, onCameraMoveInvalidateListener);
 
     locationAnimatorCoordinator = new LocationAnimatorCoordinator(
-      trackasiaMap.getProjection(),
-      TrackasiaAnimatorSetProvider.getInstance(),
-      TrackasiaAnimatorProvider.getInstance()
+      mapboxMap.getProjection(),
+      MapboxAnimatorSetProvider.getInstance(),
+      MapboxAnimatorProvider.getInstance()
     );
     locationAnimatorCoordinator.setTrackingAnimationDurationMultiplier(options
       .trackingAnimationDurationMultiplier());
@@ -1120,6 +1352,13 @@ public final class LocationComponent {
     setCameraMode(CameraMode.NONE);
 
     onLocationLayerStart();
+  }
+
+  private void initializeLocationEngine(@NonNull Context context) {
+    if (this.locationEngine != null) {
+      this.locationEngine.removeLocationUpdates(currentLocationEngineListener);
+    }
+    setLocationEngine(internalLocationEngineProvider.getBestLocationEngine(context, false));
   }
 
   private void updateCompassListenerState(boolean canListen) {
@@ -1168,7 +1407,7 @@ public final class LocationComponent {
   private void updateMapWithOptions(@NonNull LocationComponentOptions options) {
     int[] padding = options.padding();
     if (padding != null) {
-      trackasiaMap.setPadding(
+      mapboxMap.setPadding(
         padding[0], padding[1], padding[2], padding[3]
       );
     }
@@ -1204,7 +1443,7 @@ public final class LocationComponent {
     if (!fromLastLocation) {
       staleStateManager.updateLatestLocationTime();
     }
-    CameraPosition currentCameraPosition = trackasiaMap.getCameraPosition();
+    CameraPosition currentCameraPosition = mapboxMap.getCameraPosition();
     boolean isGpsNorth = getCameraMode() == CameraMode.TRACKING_GPS_NORTH;
     if (intermediatePoints != null) {
       locationAnimatorCoordinator.feedNewLocation(
@@ -1239,7 +1478,7 @@ public final class LocationComponent {
   }
 
   private void updateCompassHeading(float heading) {
-    locationAnimatorCoordinator.feedNewCompassBearing(heading, trackasiaMap.getCameraPosition());
+    locationAnimatorCoordinator.feedNewCompassBearing(heading, mapboxMap.getCameraPosition());
   }
 
   /**
@@ -1265,7 +1504,7 @@ public final class LocationComponent {
       return;
     }
 
-    CameraPosition position = trackasiaMap.getCameraPosition();
+    CameraPosition position = mapboxMap.getCameraPosition();
     if (lastCameraPosition == null || forceUpdate) {
       lastCameraPosition = position;
       locationLayerController.cameraBearingUpdated(position.bearing);
@@ -1293,7 +1532,7 @@ public final class LocationComponent {
     } else if (useSpecializedLocationLayer) {
       radius = location.getAccuracy();
     } else {
-      radius = Utils.calculateZoomLevelRadius(trackasiaMap, location);
+      radius = Utils.calculateZoomLevelRadius(mapboxMap, location);
     }
     locationAnimatorCoordinator.feedNewAccuracyRadius(radius, noAnimation);
   }
@@ -1303,7 +1542,7 @@ public final class LocationComponent {
     animationsValueChangeListeners.addAll(locationLayerController.getAnimationListeners());
     animationsValueChangeListeners.addAll(locationCameraController.getAnimationListeners());
     locationAnimatorCoordinator.updateAnimatorListenerHolders(animationsValueChangeListeners);
-    locationAnimatorCoordinator.resetAllCameraAnimations(trackasiaMap.getCameraPosition(),
+    locationAnimatorCoordinator.resetAllCameraAnimations(mapboxMap.getCameraPosition(),
       locationCameraController.getCameraMode() == CameraMode.TRACKING_GPS_NORTH);
     locationAnimatorCoordinator.resetAllLayerAnimations();
   }
@@ -1339,7 +1578,7 @@ public final class LocationComponent {
   };
 
   @NonNull
-  private TrackasiaMap.OnMapLongClickListener onMapLongClickListener = new TrackasiaMap.OnMapLongClickListener() {
+  private MapboxMap.OnMapLongClickListener onMapLongClickListener = new MapboxMap.OnMapLongClickListener() {
     @Override
     public boolean onMapLongClick(@NonNull LatLng point) {
       if (!onLocationLongClickListeners.isEmpty() && locationLayerController.onMapClick(point)) {
@@ -1463,8 +1702,8 @@ public final class LocationComponent {
   };
 
   @NonNull
-  private final TrackasiaMap.OnDeveloperAnimationListener developerAnimationListener =
-    new TrackasiaMap.OnDeveloperAnimationListener() {
+  private final MapboxMap.OnDeveloperAnimationListener developerAnimationListener =
+    new MapboxMap.OnDeveloperAnimationListener() {
       @Override
       public void onDeveloperAnimationStarted() {
         if (isComponentInitialized && isEnabled) {
@@ -1473,13 +1712,19 @@ public final class LocationComponent {
       }
     };
 
+  static class InternalLocationEngineProvider {
+    LocationEngine getBestLocationEngine(@NonNull Context context, boolean background) {
+      return LocationEngineProvider.getBestLocationEngine(context, background);
+    }
+  }
+
   private void checkActivationState() {
     if (!isComponentInitialized) {
       throw new LocationComponentNotInitializedException();
     }
   }
 
-  private void notifyUnsuccessfulCameraOperation(@Nullable TrackasiaMap.CancelableCallback callback,
+  private void notifyUnsuccessfulCameraOperation(@Nullable MapboxMap.CancelableCallback callback,
                                                  @Nullable String msg) {
     if (msg != null) {
       Logger.e(TAG, msg);

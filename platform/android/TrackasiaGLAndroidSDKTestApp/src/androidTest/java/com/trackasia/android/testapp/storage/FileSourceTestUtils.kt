@@ -4,7 +4,7 @@ import android.app.Activity
 import androidx.annotation.WorkerThread
 import com.trackasia.android.AppCenter
 import com.trackasia.android.storage.FileSource
-import org.junit.Assert
+import junit.framework.Assert
 import java.io.File
 import java.util.concurrent.CountDownLatch
 

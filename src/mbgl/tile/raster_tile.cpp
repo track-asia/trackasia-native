@@ -14,11 +14,15 @@
 
 namespace mbgl {
 
-RasterTile::RasterTile(const OverscaledTileID& id_, const TileParameters& parameters, const Tileset& tileset)
+RasterTile::RasterTile(const OverscaledTileID& id_,
+                       const TileParameters& parameters,
+                       const Tileset& tileset)
     : Tile(Kind::Raster, id_),
       loader(*this, id_, parameters, tileset),
       mailbox(std::make_shared<Mailbox>(*Scheduler::GetCurrent())),
-      worker(Scheduler::GetBackground(), ActorRef<RasterTile>(*this, mailbox)) {}
+      worker(Scheduler::GetBackground(),
+             ActorRef<RasterTile>(*this, mailbox)) {
+}
 
 RasterTile::~RasterTile() = default;
 
@@ -31,7 +35,7 @@ void RasterTile::setError(std::exception_ptr err) {
     observer->onTileError(*this, std::move(err));
 }
 
-void RasterTile::setMetadata(std::optional<Timestamp> modified_, std::optional<Timestamp> expires_) {
+void RasterTile::setMetadata(optional<Timestamp> modified_, optional<Timestamp> expires_) {
     modified = std::move(modified_);
     expires = std::move(expires_);
 }

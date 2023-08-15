@@ -5,9 +5,10 @@
 
 #include <QtGlobal>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
-class RendererBackend final : public mbgl::gl::RendererBackend, public mbgl::gfx::Renderable {
+class RendererBackend final : public mbgl::gl::RendererBackend,
+                                       public mbgl::gfx::Renderable {
 public:
     RendererBackend(mbgl::gfx::ContextMode);
     ~RendererBackend() override;
@@ -17,7 +18,9 @@ public:
 
     // mbgl::gfx::RendererBackend implementation
 public:
-    mbgl::gfx::Renderable& getDefaultRenderable() override { return *this; }
+    mbgl::gfx::Renderable& getDefaultRenderable() override {
+        return *this;
+    }
 
 protected:
     // No-op, implicit mode.
@@ -35,4 +38,4 @@ private:
     Q_DISABLE_COPY(RendererBackend)
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

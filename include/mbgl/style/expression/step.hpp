@@ -8,7 +8,6 @@
 
 #include <memory>
 #include <map>
-#include <optional>
 
 namespace mbgl {
 namespace style {
@@ -29,7 +28,7 @@ public:
 
     bool operator==(const Expression& e) const override;
 
-    std::vector<std::optional<Value>> possibleOutputs() const override;
+    std::vector<optional<Value>> possibleOutputs() const override;
 
     static ParseResult parse(const mbgl::style::conversion::Convertible& value, ParsingContext& ctx);
 

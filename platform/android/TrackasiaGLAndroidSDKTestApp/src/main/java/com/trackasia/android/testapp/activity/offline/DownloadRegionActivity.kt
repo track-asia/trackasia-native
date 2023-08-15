@@ -9,7 +9,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.trackasia.android.constants.TrackasiaConstants
+import com.trackasia.android.constants.MapboxConstants
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.maps.Style
@@ -89,10 +89,10 @@ class DownloadRegionActivity : AppCompatActivity(), OfflineRegion.OfflineRegionO
             definition,
             byteArrayOf(),
             object : OfflineManager.CreateOfflineRegionCallback {
-                override fun onCreate(offlineRegion: OfflineRegion) {
-                    logMessage("Region with id ${offlineRegion.id} created")
-                    this@DownloadRegionActivity.offlineRegion = offlineRegion
-                    startDownload(offlineRegion)
+                override fun onCreate(region: OfflineRegion) {
+                    logMessage("Region with id ${region.id} created")
+                    offlineRegion = region
+                    startDownload(region)
                     binding.fab.visibility = View.VISIBLE
                 }
 
@@ -181,12 +181,12 @@ class DownloadRegionActivity : AppCompatActivity(), OfflineRegion.OfflineRegionO
 
     fun deleteOldOfflineRegions(onCompleted: () -> Unit) {
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
-            override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val count = offlineRegions?.size ?: 0
+            override fun onList(offlineRegions: Array<out OfflineRegion>) {
+                val count = offlineRegions.size
                 var remainingCount = count
                 if (count > 0) {
                     logMessage("Deleting $count old region...")
-                    offlineRegions?.forEach {
+                    offlineRegions.forEach {
                         it.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
                             override fun onDelete() {
                                 Timber.d("Deleted region with id ${it.id}")
@@ -243,7 +243,7 @@ class DownloadRegionActivity : AppCompatActivity(), OfflineRegion.OfflineRegionO
     }
 
     private fun initSeekbars() {
-        val maxZoom = TrackasiaConstants.MAXIMUM_ZOOM.toInt()
+        val maxZoom = MapboxConstants.MAXIMUM_ZOOM.toInt()
         binding.seekbarMinZoom.max = maxZoom
         binding.seekbarMinZoom.progress = 1
         binding.seekbarMaxZoom.max = maxZoom

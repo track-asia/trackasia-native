@@ -2,6 +2,7 @@
 
 #include <mbgl/style/conversion.hpp>
 #include <mbgl/style/sources/custom_geometry_source.hpp>
+#include <mbgl/util/optional.hpp>
 
 namespace mbgl {
 namespace style {
@@ -9,7 +10,7 @@ namespace conversion {
 
 template <>
 struct Converter<CustomGeometrySource::Options> {
-    std::optional<CustomGeometrySource::Options> operator()(const Convertible& value, Error& error) const;
+    optional<CustomGeometrySource::Options> operator()(const Convertible& value, Error& error) const;
 };
 
 } // namespace conversion

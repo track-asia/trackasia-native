@@ -2,9 +2,9 @@
 
 #include <mbgl/gfx/debug_group.hpp>
 #include <mbgl/util/color.hpp>
+#include <mbgl/util/optional.hpp>
 
 #include <cstdint>
-#include <optional>
 
 namespace mbgl {
 namespace gfx {
@@ -14,9 +14,9 @@ class Renderable;
 class RenderPassDescriptor {
 public:
     Renderable& renderable;
-    std::optional<Color> clearColor;
-    std::optional<float> clearDepth;
-    std::optional<int32_t> clearStencil;
+    optional<Color> clearColor;
+    optional<float> clearDepth;
+    optional<int32_t> clearStencil;
 };
 
 class RenderPass {
@@ -32,7 +32,9 @@ public:
     RenderPass(const RenderPass&) = delete;
     RenderPass& operator=(const RenderPass&) = delete;
 
-    DebugGroup<RenderPass> createDebugGroup(const char* name) { return {*this, name}; }
+    DebugGroup<RenderPass> createDebugGroup(const char* name) {
+        return { *this, name };
+    }
 };
 
 } // namespace gfx

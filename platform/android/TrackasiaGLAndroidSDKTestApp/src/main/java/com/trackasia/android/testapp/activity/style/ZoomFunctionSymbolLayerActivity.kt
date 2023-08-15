@@ -9,8 +9,8 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
+import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.MapboxMap.OnMapClickListener
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -26,20 +26,20 @@ import timber.log.Timber
  */
 class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private var source: GeoJsonSource? = null
     private var layer: SymbolLayer? = null
     private var isInitialPosition = true
     private var isSelected = false
     private var isShowingSymbolLayer = true
     private val mapClickListener = OnMapClickListener { point ->
-        val screenPoint = trackasiaMap.projection.toScreenLocation(point)
-        val featureList = trackasiaMap.queryRenderedFeatures(screenPoint, LAYER_ID)
+        val screenPoint = mapboxMap!!.projection.toScreenLocation(point)
+        val featureList = mapboxMap!!.queryRenderedFeatures(screenPoint, LAYER_ID)
         if (!featureList.isEmpty()) {
             val feature = featureList[0]
             val selectedNow = feature.getBooleanProperty(KEY_PROPERTY_SELECTED)
             isSelected = !selectedNow
-            updateSource(trackasiaMap.style)
+            updateSource(mapboxMap!!.style)
         } else {
             Timber.e("No features found")
         }
@@ -52,8 +52,8 @@ class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: TrackasiaMap ->
-                trackasiaMap = map
+            OnMapReadyCallback { map: MapboxMap ->
+                mapboxMap = map
                 map.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
                     updateSource(style)
                     addLayer(style)
@@ -120,10 +120,10 @@ class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (trackasiaMap != null) {
+        if (mapboxMap != null) {
             if (item.itemId == R.id.menu_action_change_location) {
                 isInitialPosition = !isInitialPosition
-                updateSource(trackasiaMap.style)
+                updateSource(mapboxMap!!.style)
             } else if (item.itemId == R.id.menu_action_toggle_source) {
                 toggleSymbolLayerVisibility()
             }
@@ -133,37 +133,37 @@ class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     public override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     companion object {

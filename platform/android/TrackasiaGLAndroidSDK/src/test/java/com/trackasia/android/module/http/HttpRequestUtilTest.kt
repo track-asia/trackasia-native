@@ -1,10 +1,10 @@
 package com.trackasia.android.module.http
 
-import com.trackasia.android.TrackasiaInjector
+import com.trackasia.android.MapboxInjector
 import com.trackasia.android.utils.ConfigUtils
 import io.mockk.mockk
+import junit.framework.Assert.assertEquals
 import okhttp3.OkHttpClient
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -14,7 +14,7 @@ class HttpRequestUtilTest {
 
     @Test
     fun replaceHttpClient() {
-        TrackasiaInjector.inject(mockk(relaxed = true), "", ConfigUtils.getMockedOptions())
+        MapboxInjector.inject(mockk(relaxed = true), "", ConfigUtils.getMockedOptions())
 
         assertEquals(HttpRequestImpl.DEFAULT_CLIENT, HttpRequestImpl.client)
 
@@ -33,6 +33,6 @@ class HttpRequestUtilTest {
             HttpRequestImpl.client
         )
 
-        TrackasiaInjector.clear()
+        MapboxInjector.clear()
     }
 }

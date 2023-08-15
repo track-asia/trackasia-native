@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.trackasia.android.constants.TrackasiaConstants.DEFAULT_FONT;
+import static com.trackasia.android.constants.MapboxConstants.DEFAULT_FONT;
 
 /**
  * Utility class to select a font from a range of font names based on the availability of fonts on the device.
@@ -41,7 +41,7 @@ public class FontUtils {
    * @return the selected fon
    */
   public static String extractValidFont(String... fontNames) {
-    if (fontNames.length == 0) {
+    if (fontNames == null) {
       return null;
     }
 

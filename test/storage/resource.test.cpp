@@ -19,8 +19,7 @@ TEST(Resource, Source) {
 TEST(Resource, Tile) {
     using namespace mbgl;
 
-    Resource rasterTile = Resource::tile(
-        "http://example.com/{z}/{x}/{y}{ratio}.png", 2.0, 1, 2, 3, Tileset::Scheme::XYZ);
+    Resource rasterTile = Resource::tile("http://example.com/{z}/{x}/{y}{ratio}.png", 2.0, 1, 2, 3, Tileset::Scheme::XYZ);
     EXPECT_EQ(Resource::Kind::Tile, rasterTile.kind);
     EXPECT_EQ("http://example.com/3/1/2@2x.png", rasterTile.url);
     EXPECT_EQ("http://example.com/{z}/{x}/{y}{ratio}.png", rasterTile.tileData->urlTemplate);
@@ -29,8 +28,7 @@ TEST(Resource, Tile) {
     EXPECT_EQ(2, rasterTile.tileData->y);
     EXPECT_EQ(3, rasterTile.tileData->z);
 
-    Resource vectorTile = Resource::tile(
-        "http://example.com/{prefix}/{z}/{x}/{y}.mvt", 2.0, 1, 2, 3, Tileset::Scheme::XYZ);
+    Resource vectorTile = Resource::tile("http://example.com/{prefix}/{z}/{x}/{y}.mvt", 2.0, 1, 2, 3, Tileset::Scheme::XYZ);
     EXPECT_EQ(Resource::Kind::Tile, vectorTile.kind);
     EXPECT_EQ("http://example.com/12/3/1/2.mvt", vectorTile.url);
     EXPECT_EQ("http://example.com/{prefix}/{z}/{x}/{y}.mvt", vectorTile.tileData->urlTemplate);
@@ -88,7 +86,7 @@ TEST(Resource, Tile) {
 
     Resource wmsTile = Resource::tile("http://example.com/?bbox={bbox-epsg-3857}", 2.0, 0, 0, 1, Tileset::Scheme::XYZ);
     EXPECT_EQ(Resource::Kind::Tile, wmsTile.kind);
-    EXPECT_EQ("http://example.com/?bbox=-20037508.342789244,0,0,20037508.342789244", wmsTile.url);
+    EXPECT_EQ("http://example.com/?bbox=-20037508.342789245,0,0,20037508.342789245", wmsTile.url);
     EXPECT_EQ("http://example.com/?bbox={bbox-epsg-3857}", wmsTile.tileData->urlTemplate);
     EXPECT_EQ(1, wmsTile.tileData->pixelRatio);
     EXPECT_EQ(0, wmsTile.tileData->x);

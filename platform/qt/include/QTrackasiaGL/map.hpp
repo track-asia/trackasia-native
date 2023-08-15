@@ -1,8 +1,8 @@
 #ifndef QTRACKASIAGL_MAP_H
 #define QTRACKASIAGL_MAP_H
 
-#include <QTrackasiaGL/Settings>
-#include <QTrackasiaGL/Types>
+#include <QTrackAsiaGL/Settings>
+#include <QTrackAsiaGL/Types>
 
 #include <QImage>
 #include <QMargins>
@@ -15,13 +15,14 @@
 #include <functional>
 #include <memory>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 class MapPrivate;
 
 // This header follows the Qt coding style: https://wiki.qt.io/Qt_Coding_Style
 
-class Q_TRACKASIAGL_EXPORT Map : public QObject {
+class Q_TRACKASIAGL_EXPORT Map : public QObject
+{
     Q_OBJECT
     Q_PROPERTY(double latitude READ latitude WRITE setLatitude)
     Q_PROPERTY(double longitude READ longitude WRITE setLongitude)
@@ -31,7 +32,7 @@ class Q_TRACKASIAGL_EXPORT Map : public QObject {
     Q_PROPERTY(QString styleJson READ styleJson WRITE setStyleJson)
     Q_PROPERTY(QString styleUrl READ styleUrl WRITE setStyleUrl)
     Q_PROPERTY(double scale READ scale WRITE setScale)
-    Q_PROPERTY(QTrackasiaGL::Coordinate coordinate READ coordinate WRITE setCoordinate)
+    Q_PROPERTY(QTrackAsiaGL::Coordinate coordinate READ coordinate WRITE setCoordinate)
     Q_PROPERTY(QMargins margins READ margins WRITE setMargins)
 
 public:
@@ -69,7 +70,10 @@ public:
         NorthLeftwards,
     };
 
-    Map(QObject *parent = 0, const Settings & = Settings(), const QSize &size = QSize(), qreal pixelRatio = 1);
+    Map(QObject* parent = 0,
+        const Settings& = Settings(),
+        const QSize& size = QSize(),
+        qreal pixelRatio = 1);
     virtual ~Map();
 
     QString styleJson() const;
@@ -108,7 +112,7 @@ public:
     void setCoordinate(const Coordinate &);
     void setCoordinateZoom(const Coordinate &, double zoom);
 
-    void jumpTo(const CameraOptions &);
+    void jumpTo(const CameraOptions&);
 
     void setGestureInProgress(bool inProgress);
 
@@ -135,23 +139,26 @@ public:
     Coordinate coordinateForPixel(const QPointF &) const;
 
     CoordinateZoom coordinateZoomForBounds(const Coordinate &sw, const Coordinate &ne) const;
-    CoordinateZoom coordinateZoomForBounds(const Coordinate &sw, const Coordinate &ne, double bearing, double pitch);
+    CoordinateZoom coordinateZoomForBounds(const Coordinate &sw,
+                                           const Coordinate &ne,
+                                           double bearing,
+                                           double pitch);
 
     void setMargins(const QMargins &margins);
     QMargins margins() const;
 
-    void addSource(const QString &sourceID, const QVariantMap &params);
+    void addSource(const QString &sourceID, const QVariantMap& params);
     bool sourceExists(const QString &sourceID);
-    void updateSource(const QString &sourceID, const QVariantMap &params);
+    void updateSource(const QString &sourceID, const QVariantMap& params);
     void removeSource(const QString &sourceID);
 
     void addImage(const QString &name, const QImage &sprite);
     void removeImage(const QString &name);
 
     void addCustomLayer(const QString &id,
-                        std::unique_ptr<CustomLayerHostInterface> host,
-                        const QString &before = QString());
-    void addLayer(const QVariantMap &params, const QString &before = QString());
+        std::unique_ptr<CustomLayerHostInterface> host,
+        const QString &before = QString());
+    void addLayer(const QVariantMap &params, const QString& before = QString());
     bool layerExists(const QString &id);
     void removeLayer(const QString &id);
 
@@ -189,9 +196,9 @@ private:
     MapPrivate *d_ptr;
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL
 
-Q_DECLARE_METATYPE(QTrackasiaGL::Map::MapChange);
-Q_DECLARE_METATYPE(QTrackasiaGL::Map::MapLoadingFailure);
+Q_DECLARE_METATYPE(QTrackAsiaGL::Map::MapChange);
+Q_DECLARE_METATYPE(QTrackAsiaGL::Map::MapLoadingFailure);
 
 #endif // QTRACKASIAGL_MAP_H

@@ -1,39 +1,19 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
-option(MLN_WITH_CORE_ONLY "Build only the core bits, no platform code" OFF)
-option(MLN_WITH_CLANG_TIDY "Build with clang-tidy checks enabled" OFF)
-option(MLN_WITH_COVERAGE "Enable code coverage collection" OFF)
-option(MLN_WITH_QT "Build Trackasia Native Qt bindings" OFF)
-option(MLN_WITH_NODE "Build Trackasia Native Node.js bindings" OFF)
-option(MLN_WITH_SANITIZER "Use [address|thread|undefined] here" OFF)
-option(MLN_WITH_RTTI "Compile with runtime type information" OFF)
-option(MLN_WITH_OPENGL "Build with OpenGL renderer" ON)
-option(MLN_WITH_EGL "Build with EGL renderer" OFF)
-option(MLN_WITH_OSMESA "Build with OSMesa (Software) renderer" OFF)
-option(MLN_WITH_WERROR "Make all compilation warnings errors" ON)
+option(MBGL_WITH_CORE_ONLY "Build only the core bits, no platform code" OFF)
+option(MBGL_WITH_COVERAGE "Enable code coverage collection" OFF)
+option(MBGL_WITH_QT "Build TrackAsia GL Qt bindings" OFF)
+option(MBGL_WITH_SANITIZER "Use [address|thread|undefined] here" OFF)
+option(MBGL_WITH_RTTI "Compile with runtime type information" OFF)
+option(MBGL_WITH_OPENGL "Build with OpenGL renderer" ON)
+option(MBGL_WITH_EGL "Build with EGL renderer" OFF)
+option(MBGL_WITH_WERROR "Make all compilation warnings errors" ON)
 
-if (MLN_WITH_CLANG_TIDY)
-    find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
-    if(NOT CLANG_TIDY_COMMAND)
-        message(FATAL_ERROR "ENABLE_CLANG_TIDY is ON but clang-tidy is not found!")
-    else()
-        message(STATUS "Found clang-tidy at ${CLANG_TIDY_COMMAND}")
-    endif()
-    # TODO: there are options which are only available on GCC(e.g. -Werror=maybe-uninitialized), 
-    # that's why we need to disable this `unknown-warning-option` here. 
-    # We could check if current compiler supports particular flag before enabling it.
-    set(CLANG_TIDY_COMMAND "${CLANG_TIDY_COMMAND};--extra-arg=-Wno-error=unknown-warning-option")
-endif()
-
-if (MLN_WITH_QT AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+if (MBGL_WITH_QT AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
     set(CMAKE_OSX_DEPLOYMENT_TARGET 13.0)
 endif()
 
-if(WIN32 AND NOT MLN_WITH_QT)
-    set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/platform/windows/custom-toolchain.cmake)
-endif()
-
-project("Trackasia GL Native" LANGUAGES CXX C)
+project("TrackAsia GL Native" LANGUAGES CXX C)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER Core)
@@ -58,41 +38,39 @@ set(UBSAN_BLACKLIST ${PROJECT_SOURCE_DIR}/scripts/ubsan.blacklist)
 target_compile_options(
     mbgl-compiler-options
     INTERFACE
-        $<$<BOOL:${MLN_WITH_COVERAGE}>:--coverage>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-DSANITIZE>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-fno-omit-frame-pointer>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-fno-optimize-sibling-calls>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},address>:-fsanitize=address>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},thread>:-fsanitize=thread>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=implicit-conversion,
+        $<$<BOOL:${MBGL_WITH_COVERAGE}>:--coverage>
+        $<$<BOOL:${MBGL_WITH_SANITIZER}>:-DSANITIZE>
+        $<$<BOOL:${MBGL_WITH_SANITIZER}>:-fno-omit-frame-pointer>
+        $<$<BOOL:${MBGL_WITH_SANITIZER}>:-fno-optimize-sibling-calls>
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},address>:-fsanitize=address>
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},thread>:-fsanitize=thread>
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},undefined>:-fsanitize=implicit-conversion,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=undefined,
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},undefined>:-fsanitize=undefined,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=unsigned-integer-overflow,
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},undefined>:-fsanitize=unsigned-integer-overflow,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=nullability,
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},undefined>:-fsanitize=nullability,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=float-divide-by-zero,
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},undefined>:-fsanitize=float-divide-by-zero,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
         $<$<PLATFORM_ID:iOS>:-fembed-bitcode>
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<OR:$<BOOL:${MLN_WITH_RTTI}>,$<CXX_COMPILER_ID:MSVC>>>>:-fno-rtti>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<OR:$<BOOL:${MBGL_WITH_RTTI}>,$<CXX_COMPILER_ID:MSVC>>>>:-fno-rtti>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wall>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wshadow>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wextra>
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<BOOL:${MLN_WITH_WERROR}>>:-Werror>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<BOOL:${MBGL_WITH_WERROR}>>:-Werror>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<PLATFORM_ID:Android>>:-Wno-error=tautological-constant-compare>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=maybe-uninitialized>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=return-type>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=unknown-pragmas>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=deprecated-declarations>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=unused-parameter>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=unused-property-ivar>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MBGL_WITH_QT}>>>:-Wno-error=deprecated-declarations>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MBGL_WITH_QT}>>>:-Wno-error=unused-parameter>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MBGL_WITH_QT}>>>:-Wno-error=unused-property-ivar>
         $<$<CXX_COMPILER_ID:MSVC>:/utf-8>
         $<$<CXX_COMPILER_ID:MSVC>:/WX>      # all warnings as errors
         $<$<CXX_COMPILER_ID:MSVC>:/EHsc>    # exceptions
         $<$<CXX_COMPILER_ID:MSVC>:/wd4068>  # pragma
-        $<$<CXX_COMPILER_ID:MSVC>:/D_USE_MATH_DEFINES>
-        $<$<AND:$<NOT:$<CXX_COMPILER_ID:MSVC>>,$<PLATFORM_ID:Windows>>:-D_USE_MATH_DEFINES>
         $<$<CXX_COMPILER_ID:MSVC>:/D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS>
         $<$<CXX_COMPILER_ID:MSVC>:/D_CRT_SECURE_NO_WARNINGS>
 )
@@ -100,10 +78,10 @@ target_compile_options(
 target_link_libraries(
     mbgl-compiler-options
     INTERFACE
-        $<$<BOOL:${MLN_WITH_COVERAGE}>:--coverage>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},address>:-fsanitize=address>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},thread>:-fsanitize=thread>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=undefined>
+        $<$<BOOL:${MBGL_WITH_COVERAGE}>:--coverage>
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},address>:-fsanitize=address>
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},thread>:-fsanitize=thread>
+        $<$<STREQUAL:${MBGL_WITH_SANITIZER},undefined>:-fsanitize=undefined>
 )
 
 cmake_policy(SET CMP0063 NEW)
@@ -124,13 +102,13 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
-if(MLN_WITH_QT AND ${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.12.0")
+if(MBGL_WITH_QT AND ${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.12.0")
     add_library(mbgl-core OBJECT)
 else()
     add_library(mbgl-core STATIC)
 endif()
-
-list(APPEND INCLUDE_FILES
+target_sources(
+    mbgl-core PRIVATE
     ${PROJECT_SOURCE_DIR}/include/mbgl/actor/actor.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/actor/actor_ref.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/actor/aspiring_actor.hpp
@@ -143,8 +121,6 @@ list(APPEND INCLUDE_FILES
     ${PROJECT_SOURCE_DIR}/include/mbgl/gfx/renderable.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/gfx/renderer_backend.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/gfx/rendering_stats.hpp
-    ${PROJECT_SOURCE_DIR}/include/mbgl/gfx/shader_registry.hpp
-    ${PROJECT_SOURCE_DIR}/include/mbgl/gfx/shader.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/layermanager/background_layer_factory.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/layermanager/circle_layer_factory.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/layermanager/fill_extrusion_layer_factory.hpp
@@ -165,7 +141,6 @@ list(APPEND INCLUDE_FILES
     ${PROJECT_SOURCE_DIR}/include/mbgl/map/map_projection.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/map/mode.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/map/projection_mode.hpp
-    ${PROJECT_SOURCE_DIR}/include/mbgl/math/angles.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/math/clamp.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/math/log2.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/math/minmax.hpp
@@ -230,7 +205,6 @@ list(APPEND INCLUDE_FILES
     ${PROJECT_SOURCE_DIR}/include/mbgl/style/expression/image.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/style/expression/image_expression.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/style/expression/in.hpp
-    ${PROJECT_SOURCE_DIR}/include/mbgl/style/expression/index_of.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/style/expression/interpolate.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/style/expression/interpolator.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/style/expression/is_constant.hpp
@@ -302,6 +276,8 @@ list(APPEND INCLUDE_FILES
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/interpolate.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/logging.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/noncopyable.hpp
+    ${PROJECT_SOURCE_DIR}/include/mbgl/util/optional.hpp
+    ${PROJECT_SOURCE_DIR}/include/mbgl/util/pass_types.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/platform.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/premultiply.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/projection.hpp
@@ -323,8 +299,6 @@ list(APPEND INCLUDE_FILES
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/work_request.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/work_task.hpp
     ${PROJECT_SOURCE_DIR}/include/mbgl/util/work_task_impl.hpp
-)
-list(APPEND SRC_FILES
     ${PROJECT_SOURCE_DIR}/src/mbgl/actor/mailbox.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/actor/scheduler.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/algorithm/update_renderables.hpp
@@ -371,7 +345,6 @@ list(APPEND SRC_FILES
     ${PROJECT_SOURCE_DIR}/src/mbgl/gfx/renderbuffer.hpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/gfx/renderer_backend.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/gfx/rendering_stats.cpp
-    ${PROJECT_SOURCE_DIR}/src/mbgl/gfx/shader_registry.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/gfx/stencil_mode.hpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/gfx/texture.hpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/gfx/types.hpp
@@ -631,7 +604,6 @@ list(APPEND SRC_FILES
     ${PROJECT_SOURCE_DIR}/src/mbgl/style/expression/image.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/style/expression/image_expression.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/style/expression/in.cpp
-    ${PROJECT_SOURCE_DIR}/src/mbgl/style/expression/index_of.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/style/expression/interpolate.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/style/expression/is_constant.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/style/expression/is_expression.cpp
@@ -873,14 +845,15 @@ list(APPEND SRC_FILES
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/work_request.cpp
 )
 
-if(MLN_WITH_OPENGL)
+if(MBGL_WITH_OPENGL)
     message(STATUS "Configuring GL-Native with OpenGL renderer backend")
     target_compile_definitions(
         mbgl-core
         PRIVATE MBGL_RENDER_BACKEND_OPENGL=1
     )
-    list(APPEND 
-        INCLUDE_FILES
+    target_sources(
+        mbgl-core
+        PRIVATE
             ${PROJECT_SOURCE_DIR}/include/mbgl/gfx/backend.hpp
             ${PROJECT_SOURCE_DIR}/include/mbgl/gl/custom_layer.hpp
             ${PROJECT_SOURCE_DIR}/include/mbgl/gl/custom_layer_factory.hpp
@@ -889,38 +862,6 @@ if(MLN_WITH_OPENGL)
             ${PROJECT_SOURCE_DIR}/include/mbgl/layermanager/location_indicator_layer_factory.hpp
             ${PROJECT_SOURCE_DIR}/include/mbgl/platform/gl_functions.hpp
             ${PROJECT_SOURCE_DIR}/include/mbgl/style/layers/location_indicator_layer.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/shader_source.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/shader_manifest.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/prelude.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/background.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/background_pattern.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/circle.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/clipping_mask.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/collision_box.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/collision_circle.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/debug.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/fill_extrusion_pattern.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/fill_extrusion.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/fill_outline_pattern.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/fill_outline.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/fill_pattern.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/fill.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/heatmap_texture.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/heatmap.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/hillshade_prepare.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/hillshade.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/line_gradient.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/line_pattern.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/line_sdf.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/line.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/raster.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/symbol_icon.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/symbol_sdf_text.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/symbol_sdf_icon.hpp
-            ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/gl/symbol_text_and_icon.hpp
-    )
-    list(APPEND 
-        SRC_FILES
             ${PROJECT_SOURCE_DIR}/src/mbgl/gl/attribute.cpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/gl/attribute.hpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/gl/command_encoder.cpp
@@ -966,10 +907,42 @@ if(MLN_WITH_OPENGL)
             ${PROJECT_SOURCE_DIR}/src/mbgl/gl/value.hpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/gl/vertex_array.cpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/gl/vertex_array.hpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/gl/vertex_array_extension.hpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/gl/vertex_buffer_resource.cpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/gl/vertex_buffer_resource.hpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/layermanager/location_indicator_layer_factory.cpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/platform/gl_functions.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/background.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/background_pattern.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/circle.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/clipping_mask.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/collision_box.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/collision_circle.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/debug.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/fill.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/fill_extrusion.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/fill_extrusion_pattern.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/fill_outline.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/fill_outline_pattern.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/fill_pattern.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/heatmap.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/heatmap_texture.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/hillshade.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/hillshade_prepare.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/line.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/line_gradient.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/line_pattern.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/line_sdf.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/preludes.hpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/raster.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/shader_source.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/shader_source.hpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/shaders.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/shaders.hpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/symbol_icon.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/symbol_sdf_icon.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/symbol_sdf_text.cpp
+            ${PROJECT_SOURCE_DIR}/src/mbgl/programs/gl/symbol_text_and_icon.cpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/renderer/layers/render_location_indicator_layer.cpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/renderer/layers/render_location_indicator_layer.hpp
             ${PROJECT_SOURCE_DIR}/src/mbgl/style/layers/location_indicator_layer.cpp
@@ -980,19 +953,6 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-target_sources(
-    mbgl-core PRIVATE
-    ${INCLUDE_FILES}
-    ${SRC_FILES}
-)
-
-if (MLN_WITH_CLANG_TIDY)
-    set_target_properties(mbgl-core PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
-endif()
-
-source_group(TREE ${PROJECT_SOURCE_DIR}/include FILES ${INCLUDE_FILES})
-source_group(TREE ${PROJECT_SOURCE_DIR}/src FILES ${SRC_FILES})
-
 if(EXISTS ${PROJECT_SOURCE_DIR}/.git/HEAD)
     execute_process(
         COMMAND
@@ -1001,18 +961,18 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/.git/HEAD)
             --short=8
             HEAD
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        OUTPUT_VARIABLE MLN_VERSION_REV
+        OUTPUT_VARIABLE MBGL_VERSION_REV
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 else()
-    set(MLN_VERSION_REV 00000000)
+    set(MBGL_VERSION_REV 00000000)
 endif()
 
 set_source_files_properties(
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/version.cpp
     PROPERTIES
     COMPILE_DEFINITIONS
-    MBGL_VERSION_REV="${MLN_VERSION_REV}"
+    MBGL_VERSION_REV="${MBGL_VERSION_REV}"
 )
 
 target_include_directories(
@@ -1062,6 +1022,7 @@ target_link_libraries(
         Mapbox::Base::Extras::rapidjson
         Mapbox::Base::geojson.hpp
         Mapbox::Base::geometry.hpp
+        Mapbox::Base::optional
         Mapbox::Base::variant
 )
 
@@ -1100,8 +1061,8 @@ export(TARGETS
 set_target_properties(
     mbgl-core
     PROPERTIES
-        INTERFACE_MAPBOX_NAME "Trackasia GL Native"
-        INTERFACE_MAPBOX_URL "https://github.com/track-asia/trackasia-native"
+        INTERFACE_MAPBOX_NAME "TrackAsia GL Native"
+        INTERFACE_MAPBOX_URL "https://github.com/track-asia/trackasia-gl-native"
         INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE.md
 )
@@ -1112,13 +1073,21 @@ add_library(
     Mapbox::Map ALIAS mbgl-core
 )
 
-if(MLN_WITH_CORE_ONLY)
+if(MBGL_WITH_PLATFORM_EXTRAS)
+    include(${MBGL_WITH_PLATFORM_EXTRAS})
+endif()
+
+if(MBGL_WITH_CORE_ONLY)
     return()
 endif()
 
 include(${PROJECT_SOURCE_DIR}/scripts/license.cmake)
 
-if(MLN_WITH_QT)
+if(NOT EXISTS ${PROJECT_SOURCE_DIR}/internal/internal.cmake)
+    set(MBGL_PUBLIC_BUILD TRUE)
+endif()
+
+if(MBGL_WITH_QT)
     include(${PROJECT_SOURCE_DIR}/platform/qt/qt.cmake)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Android)
     include(${PROJECT_SOURCE_DIR}/platform/android/android.cmake)
@@ -1128,8 +1097,6 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
     include(${PROJECT_SOURCE_DIR}/platform/linux/linux.cmake)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Darwin)
     include(${PROJECT_SOURCE_DIR}/platform/macos/macos.cmake)
-elseif(WIN32)
-    include(${PROJECT_SOURCE_DIR}/platform/windows/windows.cmake)
 else()
     message(FATAL_ERROR "Unsupported target platform: " ${CMAKE_SYSTEM_NAME})
 endif()
@@ -1137,3 +1104,7 @@ endif()
 add_subdirectory(${PROJECT_SOURCE_DIR}/test)
 add_subdirectory(${PROJECT_SOURCE_DIR}/benchmark)
 add_subdirectory(${PROJECT_SOURCE_DIR}/render-test)
+
+if(EXISTS ${PROJECT_SOURCE_DIR}/internal/internal.cmake)
+    include(${PROJECT_SOURCE_DIR}/internal/internal.cmake)
+endif()

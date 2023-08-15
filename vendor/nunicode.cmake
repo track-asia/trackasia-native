@@ -2,7 +2,7 @@ if(TARGET mbgl-vendor-nunicode)
     return()
 endif()
 
-if(MLN_WITH_QT AND ${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.12.0")
+if(MBGL_WITH_QT AND ${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.12.0")
     add_library(mbgl-vendor-nunicode OBJECT)
 else()
     add_library(mbgl-vendor-nunicode STATIC)
@@ -42,5 +42,5 @@ target_include_directories(
 
 export(TARGETS
     mbgl-vendor-nunicode
-    APPEND FILE MapboxCoreTargets.cmake
+    APPEND FILE TrackasiaCoreTargets.cmake
 )

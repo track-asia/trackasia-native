@@ -11,11 +11,12 @@
 -dontnote com.google.gson.**
 
 # dontnote for keeps the entry point x but not the descriptor class y
--dontnote com.trackasia.android.maps.TrackasiaMap$OnFpsChangedListener
+-dontnote com.trackasia.android.maps.MapboxMap$OnFpsChangedListener
 -dontnote com.trackasia.android.style.layers.PropertyValue
--dontnote com.trackasia.android.maps.TrackasiaMap
--dontnote com.trackasia.android.maps.TrackasiaMapOptions
+-dontnote com.trackasia.android.maps.MapboxMap
+-dontnote com.trackasia.android.maps.MapboxMapOptions
 -dontnote com.trackasia.android.log.LoggerDefinition
+-dontnote com.trackasia.android.location.engine.LocationEnginePriority
 
 # config for okhttp 3.11.0, https://github.com/square/okhttp/pull/3354
 -dontwarn javax.annotation.**

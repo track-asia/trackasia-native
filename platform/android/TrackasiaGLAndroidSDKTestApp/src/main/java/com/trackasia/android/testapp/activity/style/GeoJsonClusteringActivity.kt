@@ -12,7 +12,7 @@ import com.mapbox.geojson.Feature
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -33,7 +33,7 @@ import java.util.Objects
  */
 class GeoJsonClusteringActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private var clusterSource: GeoJsonSource? = null
     private var clickOptionCounter = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,11 +45,9 @@ class GeoJsonClusteringActivity : AppCompatActivity() {
         // noinspection ConstantConditions
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: TrackasiaMap? ->
-                if (map != null) {
-                    trackasiaMap = map
-                }
-                trackasiaMap.animateCamera(
+            OnMapReadyCallback { map: MapboxMap? ->
+                mapboxMap = map
+                mapboxMap!!.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(37.7749, 122.4194),
                         0.0
@@ -75,7 +73,7 @@ class GeoJsonClusteringActivity : AppCompatActivity() {
                     )
                 )
                 try {
-                    trackasiaMap.setStyle(
+                    mapboxMap!!.setStyle(
                         Style.Builder()
                             .fromUri(Style.getPredefinedStyle("Bright"))
                             .withSource(createClusterSource().also { clusterSource = it })
@@ -95,10 +93,10 @@ class GeoJsonClusteringActivity : AppCompatActivity() {
                 } catch (exception: URISyntaxException) {
                     Timber.e(exception)
                 }
-                trackasiaMap.addOnMapClickListener { latLng: LatLng? ->
-                    val point = trackasiaMap.projection.toScreenLocation(latLng!!)
+                mapboxMap!!.addOnMapClickListener { latLng: LatLng? ->
+                    val point = mapboxMap!!.projection.toScreenLocation(latLng!!)
                     val features =
-                        trackasiaMap.queryRenderedFeatures(point, "cluster-0", "cluster-1", "cluster-2")
+                        mapboxMap!!.queryRenderedFeatures(point, "cluster-0", "cluster-1", "cluster-2")
                     if (!features.isEmpty()) {
                         onClusterClick(features[0], Point(point.x.toInt(), point.y.toInt()))
                     }
@@ -115,8 +113,8 @@ class GeoJsonClusteringActivity : AppCompatActivity() {
     private fun onClusterClick(cluster: Feature, clickPoint: Point) {
         if (clickOptionCounter == 0) {
             val nextZoomLevel = clusterSource!!.getClusterExpansionZoom(cluster).toDouble()
-            val zoomDelta = nextZoomLevel - trackasiaMap.cameraPosition.zoom
-            trackasiaMap.animateCamera(
+            val zoomDelta = nextZoomLevel - mapboxMap!!.cameraPosition.zoom
+            mapboxMap!!.animateCamera(
                 CameraUpdateFactory.zoomBy(
                     zoomDelta + CAMERA_ZOOM_DELTA,
                     clickPoint

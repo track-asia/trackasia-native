@@ -4,26 +4,23 @@
 #include <mbgl/style/expression/formatted.hpp>
 #include <mbgl/util/font_stack.hpp>
 
-#include <optional>
-
 namespace mbgl {
 
 struct SectionOptions {
-    SectionOptions(double scale_, FontStack fontStack_, std::optional<Color> textColor_ = std::nullopt)
+    SectionOptions(double scale_, FontStack fontStack_, optional<Color> textColor_ = nullopt)
         : scale(scale_),
           fontStackHash(FontStackHasher()(fontStack_)),
           fontStack(std::move(fontStack_)),
-          textColor(std::move(textColor_)) {}
+          textColor(std::move(textColor_))
+    {}
 
-    explicit SectionOptions(std::string imageID_)
-        : scale(1.0),
-          imageID(std::move(imageID_)) {}
+    explicit SectionOptions(std::string imageID_) : scale(1.0), imageID(std::move(imageID_)) {}
 
     double scale;
     FontStackHash fontStackHash;
     FontStack fontStack;
-    std::optional<Color> textColor;
-    std::optional<std::string> imageID;
+    optional<Color> textColor;
+    optional<std::string> imageID;
 };
 
 /**
@@ -45,54 +42,76 @@ struct TaggedString {
     TaggedString() = default;
 
     TaggedString(std::u16string text_, SectionOptions options)
-        : styledText(std::move(text_), std::vector<uint8_t>(text_.size(), 0)) {
+        : styledText(std::move(text_),
+                     std::vector<uint8_t>(text_.size(), 0)) {
         sections.push_back(std::move(options));
     }
-
+    
     TaggedString(StyledText styledText_, std::vector<SectionOptions> sections_)
-        : styledText(std::move(styledText_)),
-          sections(std::move(sections_)) {}
+        : styledText(std::move(styledText_))
+        , sections(std::move(sections_)) {
+    }
 
-    std::size_t length() const { return styledText.first.length(); }
-
-    std::size_t sectionCount() const { return sections.size(); }
-
-    bool empty() const { return styledText.first.empty(); }
-
-    const SectionOptions& getSection(std::size_t index) const { return sections.at(styledText.second.at(index)); }
-
-    char16_t getCharCodeAt(std::size_t index) const { return styledText.first[index]; }
-
-    const std::u16string& rawText() const { return styledText.first; }
-
-    const StyledText& getStyledText() const { return styledText; }
+    std::size_t length() const {
+        return styledText.first.length();
+    }
+    
+    std::size_t sectionCount() const {
+        return sections.size();
+    }
+    
+    bool empty() const {
+        return styledText.first.empty();
+    }
+    
+    const SectionOptions& getSection(std::size_t index) const {
+        return sections.at(styledText.second.at(index));
+    }
+    
+    char16_t getCharCodeAt(std::size_t index) const {
+        return styledText.first[index];
+    }
+    
+    const std::u16string& rawText() const {
+        return styledText.first;
+    }
+    
+    const StyledText& getStyledText() const {
+        return styledText;
+    }
 
     void addTextSection(const std::u16string& text,
                         double scale,
                         const FontStack& fontStack,
-                        std::optional<Color> textColor_ = std::nullopt);
+                        optional<Color> textColor_ = nullopt);
 
     void addImageSection(const std::string& imageID);
 
-    const SectionOptions& sectionAt(std::size_t index) const { return sections.at(index); }
-
-    const std::vector<SectionOptions>& getSections() const { return sections; }
-
-    uint8_t getSectionIndex(std::size_t characterIndex) const { return styledText.second.at(characterIndex); }
-
+    const SectionOptions& sectionAt(std::size_t index) const {
+        return sections.at(index);
+    }
+    
+    const std::vector<SectionOptions>& getSections() const {
+        return sections;
+    }
+    
+    uint8_t getSectionIndex(std::size_t characterIndex) const {
+        return styledText.second.at(characterIndex);
+    }
+    
     double getMaxScale() const;
     void trim();
-
+    
     void verticalizePunctuation();
     bool allowsVerticalWritingMode();
 
 private:
-    std::optional<char16_t> getNextImageSectionCharCode();
+    optional<char16_t> getNextImageSectionCharCode();
 
 private:
     StyledText styledText;
     std::vector<SectionOptions> sections;
-    std::optional<bool> supportsVerticalWritingMode;
+    optional<bool> supportsVerticalWritingMode;
     // Max number of images within a text is 6400 U+E000–U+F8FF
     // that covers Basic Multilingual Plane Unicode Private Use Area (PUA).
     char16_t imageSectionID = 0u;

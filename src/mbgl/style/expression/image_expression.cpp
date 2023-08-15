@@ -7,8 +7,7 @@ namespace style {
 namespace expression {
 
 ImageExpression::ImageExpression(std::unique_ptr<Expression> imageID_)
-    : Expression(Kind::ImageExpression, type::Image),
-      imageID(std::move(imageID_)) {
+    : Expression(Kind::ImageExpression, type::Image), imageID(std::move(imageID_)) {
     assert(imageID);
 }
 
@@ -55,7 +54,7 @@ EvaluationResult ImageExpression::evaluate(const EvaluationContext& ctx) const {
         return imageIDResult.error();
     }
 
-    std::optional<std::string> evaluatedImageID = toString(*imageIDResult);
+    optional<std::string> evaluatedImageID = toString(*imageIDResult);
     if (!evaluatedImageID) {
         return EvaluationError({"Could not evaluate ID for 'image' expression."});
     }

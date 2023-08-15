@@ -2,14 +2,6 @@ export BUILDTYPE ?= Debug
 export IS_LOCAL_DEVELOPMENT ?= true
 export TARGET_BRANCH ?= main
 export CI ?= 0
-export DEV_TEAM ?= ""
-
-# When only the dependencies in the package.json are installed
-# Node.js will error when running a script from the root scripts directory
-# Getting rid of the duplicate package.json file is an open issue
-# https://github.com/track-asia/trackasia-native/issues/657
-
-export NODE_PATH = ../../node_modules
 
 CMAKE ?= cmake
 
@@ -75,7 +67,7 @@ BUILD_DOCS ?= true
 ifeq ($(HOST_PLATFORM), macos)
 
 IOS_OUTPUT_PATH = build/ios
-IOS_PROJ_PATH = $(IOS_OUTPUT_PATH)/Mapbox\ GL\ Native.xcodeproj
+IOS_PROJ_PATH = $(IOS_OUTPUT_PATH)/TrackAsia\ GL\ Native.xcodeproj
 IOS_WORK_PATH = platform/ios/ios.xcworkspace
 IOS_USER_DATA_PATH = $(IOS_WORK_PATH)/xcuserdata/$(USER).xcuserdatad
 
@@ -88,18 +80,44 @@ IOS_XCODEBUILD_SIM = xcodebuild \
 
 ifneq ($(MORE_SIMULATORS),)
 	IOS_LATEST = true
+	IOS_11 = true
+	IOS_10 = true
+	IOS_9 = true
 endif
 
 ifdef IOS_LATEST
 	IOS_XCODEBUILD_SIM += \
-	-destination 'platform=iOS Simulator,OS=latest,name=iPhone 14 Pro' \
-	-destination 'platform=iOS Simulator,OS=latest,name=iPad (10th generation)'
+	-destination 'platform=iOS Simulator,OS=latest,name=iPhone 8' \
+	-destination 'platform=iOS Simulator,OS=latest,name=iPhone Xs Max' \
+	-destination 'platform=iOS Simulator,OS=latest,name=iPhone Xr' \
+	-destination 'platform=iOS Simulator,OS=latest,name=iPad Pro (11-inch)'
+endif
+
+ifdef IOS_11
+	IOS_XCODEBUILD_SIM += \
+	-destination 'platform=iOS Simulator,OS=11.4,name=iPhone 7' \
+	-destination 'platform=iOS Simulator,OS=11.4,name=iPhone X' \
+	-destination 'platform=iOS Simulator,OS=11.4,name=iPad (5th generation)'
+endif
+
+ifdef IOS_10
+	IOS_XCODEBUILD_SIM += \
+	-destination 'platform=iOS Simulator,OS=10.3.1,name=iPhone SE' \
+	-destination 'platform=iOS Simulator,OS=10.3.1,name=iPhone 7 Plus' \
+	-destination 'platform=iOS Simulator,OS=10.3.1,name=iPad Pro (9.7-inch)'
+endif
+
+ifdef IOS_9
+	IOS_XCODEBUILD_SIM += \
+	-destination 'platform=iOS Simulator,OS=9.3,name=iPhone 6s Plus' \
+	-destination 'platform=iOS Simulator,OS=9.3,name=iPhone 6s' \
+	-destination 'platform=iOS Simulator,OS=9.3,name=iPad Air 2'
 endif
 
 # If IOS_XCODEBUILD_SIM does not contain a simulator destination, add the default.
 ifeq (, $(findstring destination, $(IOS_XCODEBUILD_SIM)))
 	IOS_XCODEBUILD_SIM += \
-	-destination 'platform=iOS Simulator,OS=latest,name=iPhone 14 Pro'
+	-destination 'platform=iOS Simulator,OS=latest,name=iPhone 8'
 else
 	IOS_XCODEBUILD_SIM += -parallel-testing-enabled YES
 endif
@@ -131,11 +149,11 @@ ios: $(IOS_PROJ_PATH)
 
 #  make iproj
 .PHONY: iproj
-iproj: $(IOS_PROJ_PATH) style-code
+iproj: $(IOS_PROJ_PATH)
 	@#   Check if Xcode should run in headless mode
 	@#     If CI=1, then just perform `make iproj`
 	@#       else, use `xed` to open the XCworkspace
-	@if [ $(CI) == 1 ]; then echo "make iproj CI=1.  Running in headless mode, skip opening .xcworkspace in Xcode.  To open Xcode use 'xed $(IOS_WORK_PATH)'"; else echo "make iproj. Opening Trackasia in Xcode using:  'xed $(IOS_WORK_PATH)'.  To skip opening Xcode, use 'make iproj CI=1'"; xed $(IOS_WORK_PATH);  fi;
+	@if [ $(CI) == 1 ]; then echo "make iproj CI=1.  Running in headless mode, skip opening .xcworkspace in Xcode.  To open Xcode use 'xed $(IOS_WORK_PATH)'"; else echo "make iproj. Opening TrackAsia in Xcode using:  'xed $(IOS_WORK_PATH)'.  To skip opening Xcode, use 'make iproj CI=1'"; xed $(IOS_WORK_PATH);  fi;
 	@echo "## Xcode dependencies"
 	@xcodebuild -version
 	@uname -a
@@ -157,11 +175,6 @@ ios-lint: ios-pod-lint
 ios-pod-lint:
 	./platform/ios/scripts/lint-podspecs.js
 
-#  make ios-sizetest
-.PHONY: ios-sizetest
-ios-sizetest:
-	./scripts/size-check.sh ${DEV_TEAM}
-
 #  make ios-uitest
 .PHONY: ios-uitest
 ios-uitest: $(IOS_PROJ_PATH)
@@ -169,7 +182,7 @@ ios-uitest: $(IOS_PROJ_PATH)
 	echo "You can review uitest results:  open $(IOS_OUTPUT_PATH)/Logs/Test"
 
 .PHONY: ios-test
-ios-test: style-code $(IOS_PROJ_PATH)
+ios-test: $(IOS_PROJ_PATH)
 	set -o pipefail && $(IOS_XCODEBUILD_SIM) -scheme 'CI' test $(XCPRETTY)
 
 .PHONY: ios-integration-test
@@ -200,13 +213,13 @@ ipackage%:
 	@echo make ipackage is deprecated — use make iframework.
 
 .PHONY: iframework
-iframework: $(IOS_PROJ_PATH) style-code
+iframework: $(IOS_PROJ_PATH)
 	FORMAT=$(FORMAT) BUILD_DEVICE=$(BUILD_DEVICE) SYMBOLS=$(SYMBOLS) BUILD_DOCS=$(BUILD_DOCS) \
 	./platform/ios/scripts/package.sh
 
 #  make xcframework
 .PHONY: xcframework
-xcframework: $(IOS_PROJ_PATH) style-code
+xcframework: $(IOS_PROJ_PATH)
 	FORMAT=$(FORMAT) SYMBOLS=$(SYMBOLS) BUILD_DOCS=$(BUILD_DOCS) \
 	./platform/ios/scripts/xcpackage.sh
 
@@ -217,8 +230,20 @@ ideploy:
 #  make idocument
 #   open documentation/ 
 .PHONY: idocument
-idocument: style-code
+idocument:
 	OUTPUT=$(OUTPUT) ./platform/ios/scripts/document.sh
+
+#  make darwin-style-code
+.PHONY: darwin-style-code
+darwin-style-code:
+	node platform/darwin/scripts/generate-style-code.js
+	node platform/darwin/scripts/update-examples.js
+style-code: darwin-style-code
+
+# make darwin-update-examples
+.PHONY: darwin-update-examples
+darwin-update-examples:
+	node platform/darwin/scripts/update-examples.js
 
 .PHONY: darwin-check-public-symbols
 darwin-check-public-symbols:
@@ -226,21 +251,12 @@ darwin-check-public-symbols:
 
 endif
 
-ios-docs: $(IOS_PROJ_PATH) style-code
-	npm ci --prefix ../.. --ignore-scripts
-	$(IOS_XCODEBUILD_SIM) docbuild -scheme CI
-
-ios-docs-static: ios-docs
-	$(xcrun --find docc) process-archive transform-for-static-hosting \
-		$(IOS_OUTPUT_PATH)/Debug-iphonesimulator/Mapbox.doccarchive \
-		--output-path $(IOS_OUTPUT_PATH)/static-docs
-
 #### macOS targets ############################################################
 
 ifeq ($(HOST_PLATFORM), macos)
 
 MACOS_OUTPUT_PATH = build/macos
-MACOS_PROJ_PATH = $(MACOS_OUTPUT_PATH)/Mapbox\ GL\ Native.xcodeproj
+MACOS_PROJ_PATH = $(MACOS_OUTPUT_PATH)/TrackAsia\ GL\ Native.xcodeproj
 MACOS_WORK_PATH = platform/macos/macos.xcworkspace
 MACOS_USER_DATA_PATH = $(MACOS_WORK_PATH)/xcuserdata/$(USER).xcuserdatad
 
@@ -268,12 +284,12 @@ macos: $(MACOS_PROJ_PATH)
 	set -o pipefail && $(MACOS_XCODEBUILD) -scheme 'CI' build $(XCPRETTY)
 
 .PHONY: xproj
-xproj: $(MACOS_PROJ_PATH) style-code
+xproj: $(MACOS_PROJ_PATH)
 	xed $(MACOS_WORK_PATH)
 
 #  make macos-test
 .PHONY: macos-test
-macos-test: style-code $(MACOS_PROJ_PATH)
+macos-test: $(MACOS_PROJ_PATH)
 	set -o pipefail && $(MACOS_XCODEBUILD) -scheme 'CI' test $(XCPRETTY)
 
 .PHONY: macos-lint
@@ -305,15 +321,10 @@ endif
 
 #### Miscellaneous targets #####################################################
 
-.PHONY: node-modules
-node-modules:
-	npm ci --prefix ../.. --ignore-scripts
-
 .PHONY: style-code
-style-code: node-modules
-	node ../../scripts/generate-style-code.js
-	node platform/darwin/scripts/generate-style-code.js
-	node platform/darwin/scripts/update-examples.js
+style-code:
+	node scripts/generate-style-code.js
+	node scripts/generate-shaders.js
 
 .PHONY: codestyle
 codestyle:

@@ -10,7 +10,7 @@ import com.trackasia.android.testapp.activity.EspressoTest;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
+import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
 import static org.junit.Assert.assertEquals;
 
 public class PolygonTest extends EspressoTest {
@@ -19,7 +19,7 @@ public class PolygonTest extends EspressoTest {
   @Ignore
   public void addPolygonTest() {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       LatLng latLngOne = new LatLng();
       LatLng latLngTwo = new LatLng(1, 0);
       LatLng latLngThree = new LatLng(1, 1);

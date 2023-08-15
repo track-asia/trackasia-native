@@ -1,29 +1,27 @@
-/mapbox-gl-native-android/TrackasiaGLAndroidSDK/mapbox-gl-native
-/mapbox-gl-native-android/TrackasiaGLAndroidSDKTestApp/mapbox-gl-native
-/platform/android/TrackasiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
+/mapbox-gl-native-android/TrackAsiaGLAndroidSDK/mapbox-gl-native
+/mapbox-gl-native-android/TrackAsiaGLAndroidSDKTestApp/mapbox-gl-native
+/platform/android/TrackAsiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
 /platform/android/local.properties
 /platform/android/gradle/configuration.gradle
 /platform/android/arm64-v8a
 /platform/android/armeabi-v7a
-/platform/android/TrackasiaGLAndroidSDK/.cxx
-/platform/android/TrackasiaGLAndroidSDK/build
-/platform/android/TrackasiaGLAndroidSDKTestApp/.cxx
-/platform/android/TrackasiaGLAndroidSDKTestApp/build
+/platform/android/TrackAsiaGLAndroidSDK/.cxx
+/platform/android/TrackAsiaGLAndroidSDK/build
+/platform/android/TrackAsiaGLAndroidSDKTestApp/.cxx
+/platform/android/TrackAsiaGLAndroidSDKTestApp/build
 /platform/android/.gradle
 /platform/android/x86
 /platform/android/x86_64
 /cmake-build-debug
 /platform/android/build
-/platform/android/TrackasiaGLAndroidSDK/src/main/assets/sdk_versions/com.mapbox.mapboxsdk
+/platform/android/TrackAsiaGLAndroidSDK/src/main/assets/sdk_versions/com.trackasia.android
 /platform/ios/platform/ios/Mapbox.playground/build/
-/platform/windows/vendor/mesa3d/
 *.code-workspace
 
 .DS_Store
-.cache
 /build
 **/.idea
-/platform/android/TrackasiaGLAndroidSDKTestApp/local.properties
+/platform/android/TrackAsiaGLAndroidSDKTestApp/local.properties
 /new_offline.db
 *.gpg
 /.vscode
@@ -42,9 +40,5 @@ node_modules
 /lib
 
 /bazel-*
-CMakeLists.txt.user
-CMakeFiles
 
 .history/
-
-

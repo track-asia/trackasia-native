@@ -11,6 +11,8 @@ import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.*
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.maplayout.BottomSheetActivity.BottomSheetFragment
+import com.trackasia.android.testapp.activity.maplayout.BottomSheetActivity.MainMapFragment
 import com.trackasia.android.utils.MapFragmentUtils
 
 /**
@@ -113,14 +115,14 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(trackasiaMap: TrackasiaMap) {
-            trackasiaMap.moveCamera(
+        override fun onMapReady(mapboxMap: MapboxMap) {
+            mapboxMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
                     15.0
                 )
             )
-            trackasiaMap.setStyle(
+            mapboxMap.setStyle(
                 Style.Builder().fromUri(
                     STYLES[
                         Math.min(
@@ -182,8 +184,8 @@ class BottomSheetActivity : AppCompatActivity() {
                 val bundle = Bundle()
                 bundle.putInt("mapcounter", mapCounter)
                 mapFragment.arguments = bundle
-                val trackasiaMapOptions = TrackasiaMapOptions.createFromAttributes(context!!)
-                mapFragment.arguments = MapFragmentUtils.createFragmentArgs(trackasiaMapOptions)
+                val mapboxMapOptions = MapboxMapOptions.createFromAttributes(context!!)
+                mapFragment.arguments = MapFragmentUtils.createFragmentArgs(mapboxMapOptions)
                 return mapFragment
             }
         }
@@ -209,14 +211,14 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(trackasiaMap: TrackasiaMap) {
-            trackasiaMap.moveCamera(
+        override fun onMapReady(mapboxMap: MapboxMap) {
+            mapboxMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
                     15.0
                 )
             )
-            trackasiaMap.setStyle(Style.getPredefinedStyle("Bright"))
+            mapboxMap.setStyle(Style.getPredefinedStyle("Bright"))
         }
 
         override fun onStart() {
@@ -257,17 +259,17 @@ class BottomSheetActivity : AppCompatActivity() {
         companion object {
             fun newInstance(context: Context?): BottomSheetFragment {
                 val mapFragment = BottomSheetFragment()
-                val trackasiaMapOptions = TrackasiaMapOptions.createFromAttributes(context!!)
-                trackasiaMapOptions.renderSurfaceOnTop(true)
-                mapFragment.arguments = MapFragmentUtils.createFragmentArgs(trackasiaMapOptions)
+                val mapboxMapOptions = MapboxMapOptions.createFromAttributes(context!!)
+                mapboxMapOptions.renderSurfaceOnTop(true)
+                mapFragment.arguments = MapFragmentUtils.createFragmentArgs(mapboxMapOptions)
                 return mapFragment
             }
         }
     }
 
     companion object {
-        private const val TAG_MAIN_FRAGMENT = "com.mapbox.mapboxsdk.fragment.tag.main"
-        private const val TAG_BOTTOM_FRAGMENT = "com.mapbox.mapboxsdk.fragment.tag.bottom"
+        private const val TAG_MAIN_FRAGMENT = "com.trackasia.android.fragment.tag.main"
+        private const val TAG_BOTTOM_FRAGMENT = "com.trackasia.android.fragment.tag.bottom"
         private const val AMOUNT_OF_MAIN_MAP_FRAGMENTS = "Amount of main map fragments: %s"
     }
 }

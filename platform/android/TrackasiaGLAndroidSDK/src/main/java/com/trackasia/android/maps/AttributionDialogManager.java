@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.trackasia.android.MapStrictMode;
-import com.trackasia.android.Trackasia;
+import com.trackasia.android.Mapbox;
 import com.trackasia.android.R;
 import com.trackasia.android.attribution.Attribution;
 import com.trackasia.android.attribution.AttributionParser;
@@ -47,19 +47,19 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
   @NonNull
   private final Context context;
   @NonNull
-  private final TrackasiaMap trackasiaMap;
+  private final MapboxMap mapboxMap;
   private Set<Attribution> attributionSet;
   private AlertDialog dialog;
 
-  public AttributionDialogManager(@NonNull Context context, @NonNull TrackasiaMap trackasiaMap) {
+  public AttributionDialogManager(@NonNull Context context, @NonNull MapboxMap mapboxMap) {
     this.context = context;
-    this.trackasiaMap = trackasiaMap;
+    this.mapboxMap = mapboxMap;
   }
 
   // Called when someone presses the attribution icon on the map
   @Override
   public void onClick(@NonNull View view) {
-    attributionSet = new AttributionBuilder(trackasiaMap, view.getContext()).build();
+    attributionSet = new AttributionBuilder(mapboxMap, view.getContext()).build();
 
     boolean isActivityFinishing = false;
     if (context instanceof Activity) {
@@ -108,7 +108,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
     Attribution[] attributions = attributionSet.toArray(new Attribution[attributionSet.size()]);
     String url = attributions[which].getUrl();
     if (url.contains(MAP_FEEDBACK_URL_OLD) || url.contains(MAP_FEEDBACK_URL)) {
-      url = buildMapFeedbackMapUrl(Trackasia.getApiKey());
+      url = buildMapFeedbackMapUrl(Mapbox.getApiKey());
     }
     showWebPage(url);
   }
@@ -120,7 +120,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
 
     Uri.Builder builder = Uri.parse(MAP_FEEDBACK_URL).buildUpon();
 
-    CameraPosition cameraPosition = trackasiaMap.getCameraPosition();
+    CameraPosition cameraPosition = mapboxMap.getCameraPosition();
     if (cameraPosition != null) {
       builder.encodedFragment(String.format(Locale.getDefault(), MAP_FEEDBACK_URL_LOCATION_FRAGMENT_FORMAT,
               cameraPosition.target.getLongitude(), cameraPosition.target.getLatitude(),
@@ -137,7 +137,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
       builder.appendQueryParameter("access_token", apiKey);
     }
 
-    Style style = trackasiaMap.getStyle();
+    Style style = mapboxMap.getStyle();
     if (style != null) {
       String styleUri = style.getUri();
       Pattern pattern = Pattern.compile(MAP_FEEDBACK_STYLE_URI_REGEX);
@@ -169,12 +169,12 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
 
   private static class AttributionBuilder {
 
-    private final TrackasiaMap trackasiaMap;
+    private final MapboxMap mapboxMap;
     @NonNull
     private final WeakReference<Context> context;
 
-    AttributionBuilder(TrackasiaMap trackasiaMap, Context context) {
-      this.trackasiaMap = trackasiaMap;
+    AttributionBuilder(MapboxMap mapboxMap, Context context) {
+      this.mapboxMap = mapboxMap;
       this.context = new WeakReference<>(context);
     }
 
@@ -187,7 +187,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
       List<String> attributions = new ArrayList<>();
       String attribution;
 
-      Style style = trackasiaMap.getStyle();
+      Style style = mapboxMap.getStyle();
       if (style != null) {
         for (Source source : style.getSources()) {
           attribution = source.getAttribution();

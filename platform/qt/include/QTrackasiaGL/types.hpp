@@ -9,7 +9,7 @@
 
 #include "export.hpp"
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 typedef QPair<double, double> Coordinate;
 typedef QPair<Coordinate, double> CoordinateZoom;
@@ -28,14 +28,9 @@ struct Q_TRACKASIAGL_EXPORT Feature {
     };
 
     /*! Class constructor. */
-    Feature(Type type_ = PointType,
-            const CoordinatesCollections& geometry_ = CoordinatesCollections(),
-            const QVariantMap& properties_ = QVariantMap(),
-            const QVariant& id_ = QVariant())
-        : type(type_),
-          geometry(geometry_),
-          properties(properties_),
-          id(id_) {}
+    Feature(Type type_ = PointType, const CoordinatesCollections& geometry_ = CoordinatesCollections(),
+            const QVariantMap& properties_ = QVariantMap(), const QVariant& id_ = QVariant())
+        : type(type_), geometry(geometry_), properties(properties_), id(id_) {}
 
     Type type;
     CoordinatesCollections geometry;
@@ -52,10 +47,8 @@ struct Q_TRACKASIAGL_EXPORT ShapeAnnotationGeometry {
     };
 
     /*! Class constructor. */
-    ShapeAnnotationGeometry(Type type_ = LineStringType,
-                            const CoordinatesCollections& geometry_ = CoordinatesCollections())
-        : type(type_),
-          geometry(geometry_) {}
+    ShapeAnnotationGeometry(Type type_ = LineStringType, const CoordinatesCollections& geometry_ = CoordinatesCollections())
+        : type(type_), geometry(geometry_) {}
 
     Type type;
     CoordinatesCollections geometry;
@@ -68,14 +61,9 @@ struct Q_TRACKASIAGL_EXPORT SymbolAnnotation {
 
 struct Q_TRACKASIAGL_EXPORT LineAnnotation {
     /*! Class constructor. */
-    LineAnnotation(const ShapeAnnotationGeometry& geometry_ = ShapeAnnotationGeometry(),
-                   float opacity_ = 1.0f,
-                   float width_ = 1.0f,
-                   const QColor& color_ = Qt::black)
-        : geometry(geometry_),
-          opacity(opacity_),
-          width(width_),
-          color(color_) {}
+    LineAnnotation(const ShapeAnnotationGeometry& geometry_ = ShapeAnnotationGeometry(), float opacity_ = 1.0f,
+            float width_ = 1.0f, const QColor& color_ = Qt::black)
+        : geometry(geometry_), opacity(opacity_), width(width_), color(color_) {}
 
     ShapeAnnotationGeometry geometry;
     float opacity;
@@ -85,14 +73,9 @@ struct Q_TRACKASIAGL_EXPORT LineAnnotation {
 
 struct Q_TRACKASIAGL_EXPORT FillAnnotation {
     /*! Class constructor. */
-    FillAnnotation(const ShapeAnnotationGeometry& geometry_ = ShapeAnnotationGeometry(),
-                   float opacity_ = 1.0f,
-                   const QColor& color_ = Qt::black,
-                   const QVariant& outlineColor_ = QVariant())
-        : geometry(geometry_),
-          opacity(opacity_),
-          color(color_),
-          outlineColor(outlineColor_) {}
+    FillAnnotation(const ShapeAnnotationGeometry& geometry_ = ShapeAnnotationGeometry(), float opacity_ = 1.0f,
+            const QColor& color_ = Qt::black, const QVariant& outlineColor_ = QVariant())
+        : geometry(geometry_), opacity(opacity_), color(color_), outlineColor(outlineColor_) {}
 
     ShapeAnnotationGeometry geometry;
     float opacity;
@@ -132,17 +115,17 @@ public:
     virtual void deinitialize() = 0;
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL
 
-Q_DECLARE_METATYPE(QTrackasiaGL::Coordinate);
-Q_DECLARE_METATYPE(QTrackasiaGL::Coordinates);
-Q_DECLARE_METATYPE(QTrackasiaGL::CoordinatesCollection);
-Q_DECLARE_METATYPE(QTrackasiaGL::CoordinatesCollections);
-Q_DECLARE_METATYPE(QTrackasiaGL::Feature);
+Q_DECLARE_METATYPE(QTrackAsiaGL::Coordinate);
+Q_DECLARE_METATYPE(QTrackAsiaGL::Coordinates);
+Q_DECLARE_METATYPE(QTrackAsiaGL::CoordinatesCollection);
+Q_DECLARE_METATYPE(QTrackAsiaGL::CoordinatesCollections);
+Q_DECLARE_METATYPE(QTrackAsiaGL::Feature);
 
-Q_DECLARE_METATYPE(QTrackasiaGL::SymbolAnnotation);
-Q_DECLARE_METATYPE(QTrackasiaGL::ShapeAnnotationGeometry);
-Q_DECLARE_METATYPE(QTrackasiaGL::LineAnnotation);
-Q_DECLARE_METATYPE(QTrackasiaGL::FillAnnotation);
+Q_DECLARE_METATYPE(QTrackAsiaGL::SymbolAnnotation);
+Q_DECLARE_METATYPE(QTrackAsiaGL::ShapeAnnotationGeometry);
+Q_DECLARE_METATYPE(QTrackAsiaGL::LineAnnotation);
+Q_DECLARE_METATYPE(QTrackAsiaGL::FillAnnotation);
 
 #endif // QTRACKASIAGL_TYPES_H

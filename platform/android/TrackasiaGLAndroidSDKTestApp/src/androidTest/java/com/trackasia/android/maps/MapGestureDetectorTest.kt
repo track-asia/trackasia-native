@@ -4,7 +4,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
-import com.trackasia.android.constants.TrackasiaConstants
+import com.trackasia.android.constants.MapboxConstants
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.GesturesUiTestUtils.move
 import com.trackasia.android.maps.GesturesUiTestUtils.quickScale
@@ -32,11 +32,11 @@ class MapGestureDetectorTest : BaseTest() {
         validateTestSetup()
         var initialZoom: Double? = null
         rule.runOnUiThread {
-            initialZoom = trackasiaMap.cameraPosition.zoom
+            initialZoom = mapboxMap.cameraPosition.zoom
         }
         onView(withId(R.id.mapView)).perform(quickScale(maxHeight / 2f, withVelocity = false))
         rule.runOnUiThread {
-            Assert.assertTrue(trackasiaMap.cameraPosition.zoom > initialZoom!!)
+            Assert.assertTrue(mapboxMap.cameraPosition.zoom > initialZoom!!)
         }
     }
 
@@ -47,22 +47,22 @@ class MapGestureDetectorTest : BaseTest() {
         var initialCameraPosition: CameraPosition? = null
         rule.runOnUiThread {
             // zoom in so we can move vertically
-            trackasiaMap.moveCamera(CameraUpdateFactory.zoomTo(4.0))
-            initialCameraPosition = trackasiaMap.cameraPosition
-            trackasiaMap.uiSettings.isQuickZoomGesturesEnabled = false
+            mapboxMap.moveCamera(CameraUpdateFactory.zoomTo(4.0))
+            initialCameraPosition = mapboxMap.cameraPosition
+            mapboxMap.uiSettings.isQuickZoomGesturesEnabled = false
         }
 
         onView(withId(R.id.mapView)).perform(quickScale(maxHeight / 2f))
         rule.runOnUiThread {
             // camera did not move
-            Assert.assertEquals(initialCameraPosition!!, trackasiaMap.cameraPosition)
+            Assert.assertEquals(initialCameraPosition!!, mapboxMap.cameraPosition)
         }
 
         // move to expected target
         onView(withId(R.id.mapView)).perform(move(-maxWidth / 2f, -maxHeight / 2f, withVelocity = false))
         rule.runOnUiThread {
-            Assert.assertNotEquals(initialCameraPosition!!.target!!.latitude, trackasiaMap.cameraPosition.target!!.latitude, 1.0)
-            Assert.assertNotEquals(initialCameraPosition!!.target!!.longitude, trackasiaMap.cameraPosition.target!!.longitude, 1.0)
+            Assert.assertNotEquals(initialCameraPosition!!.target!!.latitude, mapboxMap.cameraPosition.target!!.latitude, 1.0)
+            Assert.assertNotEquals(initialCameraPosition!!.target!!.longitude, mapboxMap.cameraPosition.target!!.longitude, 1.0)
         }
     }
 
@@ -72,14 +72,14 @@ class MapGestureDetectorTest : BaseTest() {
         validateTestSetup()
         var initialTarget: LatLng? = null
         rule.runOnUiThread {
-            initialTarget = trackasiaMap.cameraPosition.target!!
+            initialTarget = mapboxMap.cameraPosition.target!!
         }
 
         onView(withId(R.id.mapView)).perform(quickScale(maxHeight / 2f))
         rule.runOnUiThread {
             // camera did not move
-            Assert.assertEquals(initialTarget!!.latitude, trackasiaMap.cameraPosition.target!!.latitude, 1.0)
-            Assert.assertEquals(initialTarget!!.longitude, trackasiaMap.cameraPosition.target!!.longitude, 1.0)
+            Assert.assertEquals(initialTarget!!.latitude, mapboxMap.cameraPosition.target!!.latitude, 1.0)
+            Assert.assertEquals(initialTarget!!.longitude, mapboxMap.cameraPosition.target!!.longitude, 1.0)
         }
     }
 
@@ -92,16 +92,16 @@ class MapGestureDetectorTest : BaseTest() {
         var initialCameraPosition: CameraPosition? = null
         rule.runOnUiThread {
             // zoom in so we can move vertically
-            trackasiaMap.moveCamera(CameraUpdateFactory.zoomTo(4.0))
-            initialCameraPosition = trackasiaMap.cameraPosition
-            trackasiaMap.uiSettings.isQuickZoomGesturesEnabled = false
+            mapboxMap.moveCamera(CameraUpdateFactory.zoomTo(4.0))
+            initialCameraPosition = mapboxMap.cameraPosition
+            mapboxMap.uiSettings.isQuickZoomGesturesEnabled = false
         }
 
         // move to expected target
         onView(withId(R.id.mapView)).perform(move(-maxWidth / 2f, -maxHeight / 2f, withVelocity = false))
         rule.runOnUiThread {
-            Assert.assertNotEquals(initialCameraPosition!!.target!!.latitude, trackasiaMap.cameraPosition.target!!.latitude, 1.0)
-            Assert.assertNotEquals(initialCameraPosition!!.target!!.longitude, trackasiaMap.cameraPosition.target!!.longitude, 1.0)
+            Assert.assertNotEquals(initialCameraPosition!!.target!!.latitude, mapboxMap.cameraPosition.target!!.latitude, 1.0)
+            Assert.assertNotEquals(initialCameraPosition!!.target!!.longitude, mapboxMap.cameraPosition.target!!.longitude, 1.0)
         }
     }
 
@@ -111,13 +111,13 @@ class MapGestureDetectorTest : BaseTest() {
         validateTestSetup()
         var initialZoom: Double? = null
         rule.runOnUiThread {
-            trackasiaMap.moveCamera(CameraUpdateFactory.zoomTo(2.0))
-            initialZoom = trackasiaMap.cameraPosition.zoom
+            mapboxMap.moveCamera(CameraUpdateFactory.zoomTo(2.0))
+            initialZoom = mapboxMap.cameraPosition.zoom
         }
-        onView(withId(R.id.mapView)).perform(quickScale(-(trackasiaMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold * 2), withVelocity = false, duration = 1000L))
-        R.id.mapView.loopFor(TrackasiaConstants.ANIMATION_DURATION.toLong())
+        onView(withId(R.id.mapView)).perform(quickScale(-(mapboxMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold * 2), withVelocity = false, duration = 1000L))
+        R.id.mapView.loopFor(MapboxConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
-            Assert.assertTrue(trackasiaMap.cameraPosition.zoom < initialZoom!!)
+            Assert.assertTrue(mapboxMap.cameraPosition.zoom < initialZoom!!)
         }
     }
 
@@ -126,12 +126,12 @@ class MapGestureDetectorTest : BaseTest() {
         validateTestSetup()
         var initialZoom: Double? = null
         rule.runOnUiThread {
-            initialZoom = trackasiaMap.cameraPosition.zoom
+            initialZoom = mapboxMap.cameraPosition.zoom
         }
-        onView(withId(R.id.mapView)).perform(quickScale(trackasiaMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold / 2, withVelocity = false, duration = 50L))
-        R.id.mapView.loopFor(TrackasiaConstants.ANIMATION_DURATION.toLong())
+        onView(withId(R.id.mapView)).perform(quickScale(mapboxMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold / 2, withVelocity = false, duration = 50L))
+        R.id.mapView.loopFor(MapboxConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
-            Assert.assertEquals(initialZoom!! + 1, trackasiaMap.cameraPosition.zoom, 0.1)
+            Assert.assertEquals(initialZoom!! + 1, mapboxMap.cameraPosition.zoom, 0.1)
         }
     }
 
@@ -141,13 +141,13 @@ class MapGestureDetectorTest : BaseTest() {
         validateTestSetup()
         var initialZoom: Double? = null
         rule.runOnUiThread {
-            initialZoom = trackasiaMap.cameraPosition.zoom
-            trackasiaMap.uiSettings.isQuickZoomGesturesEnabled = false
+            initialZoom = mapboxMap.cameraPosition.zoom
+            mapboxMap.uiSettings.isQuickZoomGesturesEnabled = false
         }
-        onView(withId(R.id.mapView)).perform(quickScale(trackasiaMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold * 2, withVelocity = false, duration = 50L))
-        R.id.mapView.loopFor(TrackasiaConstants.ANIMATION_DURATION.toLong())
+        onView(withId(R.id.mapView)).perform(quickScale(mapboxMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold * 2, withVelocity = false, duration = 50L))
+        R.id.mapView.loopFor(MapboxConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
-            Assert.assertEquals(initialZoom!!, trackasiaMap.cameraPosition.zoom, 0.01)
+            Assert.assertEquals(initialZoom!!, mapboxMap.cameraPosition.zoom, 0.01)
         }
     }
 
@@ -156,24 +156,24 @@ class MapGestureDetectorTest : BaseTest() {
         validateTestSetup()
 
         rule.runOnUiThread {
-            trackasiaMap.moveCamera(CameraUpdateFactory.zoomTo(4.0))
+            mapboxMap.moveCamera(CameraUpdateFactory.zoomTo(4.0))
         }
 
-        onView(withId(R.id.mapView)).perform(quickScale(trackasiaMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold / 2, withVelocity = false, duration = 50L, interrupt = true))
+        onView(withId(R.id.mapView)).perform(quickScale(mapboxMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold / 2, withVelocity = false, duration = 50L, interrupt = true))
 
         var initialCameraPosition: CameraPosition? = null
         rule.runOnUiThread {
             // zoom in so we can move vertically
-            trackasiaMap.moveCamera(CameraUpdateFactory.zoomTo(4.0))
-            initialCameraPosition = trackasiaMap.cameraPosition
-            trackasiaMap.uiSettings.isQuickZoomGesturesEnabled = false
+            mapboxMap.moveCamera(CameraUpdateFactory.zoomTo(4.0))
+            initialCameraPosition = mapboxMap.cameraPosition
+            mapboxMap.uiSettings.isQuickZoomGesturesEnabled = false
         }
 
         // move to expected target
         onView(withId(R.id.mapView)).perform(move(-maxWidth / 2f, -maxHeight / 2f, withVelocity = false))
         rule.runOnUiThread {
-            Assert.assertNotEquals(initialCameraPosition!!.target!!.latitude, trackasiaMap.cameraPosition.target!!.latitude, 1.0)
-            Assert.assertNotEquals(initialCameraPosition!!.target!!.longitude, trackasiaMap.cameraPosition.target!!.longitude, 1.0)
+            Assert.assertNotEquals(initialCameraPosition!!.target!!.latitude, mapboxMap.cameraPosition.target!!.latitude, 1.0)
+            Assert.assertNotEquals(initialCameraPosition!!.target!!.longitude, mapboxMap.cameraPosition.target!!.longitude, 1.0)
         }
     }
 
@@ -181,13 +181,13 @@ class MapGestureDetectorTest : BaseTest() {
     fun quickZoom_roundTripping() {
         validateTestSetup()
         rule.runOnUiThread {
-            trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(51.0, 16.0), 3.0))
+            mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(51.0, 16.0), 3.0))
         }
         onView(withId(R.id.mapView)).perform(quickScale(300f, withVelocity = false, duration = 750L))
         onView(withId(R.id.mapView)).perform(quickScale(-300f, withVelocity = false, duration = 750L))
 
         rule.runOnUiThread {
-            Assert.assertEquals(3.0, trackasiaMap.cameraPosition.zoom, 0.0001)
+            Assert.assertEquals(3.0, mapboxMap.cameraPosition.zoom, 0.0001)
         }
     }
 }

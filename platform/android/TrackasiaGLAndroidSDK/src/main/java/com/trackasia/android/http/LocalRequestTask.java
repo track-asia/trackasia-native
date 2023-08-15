@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.trackasia.android.MapStrictMode;
-import com.trackasia.android.Trackasia;
+import com.trackasia.android.Mapbox;
 import com.trackasia.android.log.Logger;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ class LocalRequestTask extends AsyncTask<String, Void, byte[]> {
   @Nullable
   @Override
   protected byte[] doInBackground(String... strings) {
-    return loadFile(Trackasia.getApplicationContext().getAssets(),
+    return loadFile(Mapbox.getApplicationContext().getAssets(),
       "integration/" + strings[0]
         .substring(8)
         .replaceAll("%20", " ")

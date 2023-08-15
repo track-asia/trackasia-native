@@ -1,4 +1,4 @@
 /**
- * Contains the Trackasia Maps Android Geometry API classes.
+ * Contains the Mapbox Maps Android Geometry API classes.
  */
 package com.trackasia.android.geometry

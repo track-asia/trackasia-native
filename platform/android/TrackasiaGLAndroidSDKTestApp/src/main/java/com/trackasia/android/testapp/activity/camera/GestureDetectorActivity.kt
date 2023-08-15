@@ -18,8 +18,8 @@ import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.*
+import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.MapboxMap.*
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -31,7 +31,7 @@ import java.lang.annotation.RetentionPolicy
 /** Test activity showcasing APIs around gestures implementation. */
 class GestureDetectorActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var recyclerView: RecyclerView
     private var gestureAlertsAdapter: GestureAlertsAdapter? = null
     private var gesturesManager: AndroidGesturesManager? = null
@@ -43,9 +43,9 @@ class GestureDetectorActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
-                this@GestureDetectorActivity.trackasiaMap = trackasiaMap
-                trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
+            OnMapReadyCallback { mapboxMap: MapboxMap ->
+                this@GestureDetectorActivity.mapboxMap = mapboxMap
+                mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
                 initializeMap()
             }
         )
@@ -57,52 +57,52 @@ class GestureDetectorActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
         gestureAlertsAdapter!!.cancelUpdates()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     private fun initializeMap() {
-        gesturesManager = trackasiaMap.gesturesManager
+        gesturesManager = mapboxMap!!.gesturesManager
         val layoutParams = recyclerView!!.layoutParams as RelativeLayout.LayoutParams
-        layoutParams.height = (mapView.height / 1.75).toInt()
-        layoutParams.width = mapView.width / 3
+        layoutParams.height = (mapView!!.height / 1.75).toInt()
+        layoutParams.width = mapView!!.width / 3
         recyclerView!!.layoutParams = layoutParams
         attachListeners()
-        fixedFocalPointEnabled(trackasiaMap.uiSettings.focalPoint != null)
+        fixedFocalPointEnabled(mapboxMap!!.uiSettings.focalPoint != null)
     }
 
     fun attachListeners() {
-        trackasiaMap.addOnMoveListener(
+        mapboxMap!!.addOnMoveListener(
             object : OnMoveListener {
                 override fun onMoveBegin(detector: MoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
@@ -124,7 +124,7 @@ class GestureDetectorActivity : AppCompatActivity() {
                 }
             }
         )
-        trackasiaMap.addOnRotateListener(
+        mapboxMap!!.addOnRotateListener(
             object : OnRotateListener {
                 override fun onRotateBegin(detector: RotateGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
@@ -146,7 +146,7 @@ class GestureDetectorActivity : AppCompatActivity() {
                 }
             }
         )
-        trackasiaMap.addOnScaleListener(
+        mapboxMap!!.addOnScaleListener(
             object : OnScaleListener {
                 override fun onScaleBegin(detector: StandardScaleGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
@@ -194,7 +194,7 @@ class GestureDetectorActivity : AppCompatActivity() {
                 }
             }
         )
-        trackasiaMap.addOnShoveListener(
+        mapboxMap!!.addOnShoveListener(
             object : OnShoveListener {
                 override fun onShoveBegin(detector: ShoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
@@ -223,7 +223,7 @@ class GestureDetectorActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val uiSettings = trackasiaMap.uiSettings
+        val uiSettings = mapboxMap!!.uiSettings
         when (item.itemId) {
             R.id.menu_gesture_focus_point -> {
                 fixedFocalPointEnabled(focalPointLatLng == null)
@@ -274,8 +274,8 @@ class GestureDetectorActivity : AppCompatActivity() {
     private fun fixedFocalPointEnabled(enabled: Boolean) {
         if (enabled) {
             focalPointLatLng = LatLng(51.50325, -0.12968)
-            marker = trackasiaMap.addMarker(MarkerOptions().position(focalPointLatLng))
-            trackasiaMap.easeCamera(
+            marker = mapboxMap!!.addMarker(MarkerOptions().position(focalPointLatLng))
+            mapboxMap!!.easeCamera(
                 CameraUpdateFactory.newLatLngZoom(focalPointLatLng!!, 16.0),
                 object : CancelableCallback {
                     override fun onCancel() {
@@ -289,18 +289,18 @@ class GestureDetectorActivity : AppCompatActivity() {
             )
         } else {
             if (marker != null) {
-                trackasiaMap.removeMarker(marker!!)
+                mapboxMap!!.removeMarker(marker!!)
                 marker = null
             }
             focalPointLatLng = null
-            trackasiaMap.uiSettings.focalPoint = null
+            mapboxMap!!.uiSettings.focalPoint = null
         }
     }
 
     private fun recalculateFocalPoint() {
         if (focalPointLatLng != null) {
-            trackasiaMap.uiSettings.focalPoint =
-                trackasiaMap.projection.toScreenLocation(focalPointLatLng!!)
+            mapboxMap!!.uiSettings.focalPoint =
+                mapboxMap!!.projection.toScreenLocation(focalPointLatLng!!)
         }
     }
 

@@ -1,4 +1,4 @@
-# minimal CMakeLists.txt for QTrackasiaGL usage
+# minimal CMakeLists.txt for QTrackAsiaGL usage
 cmake_minimum_required(VERSION 3.16)
 
 project(hellotrackasia VERSION 1.0.0 LANGUAGES CXX)
@@ -12,7 +12,7 @@ endif()
 find_package(Qt6 REQUIRED COMPONENTS Core Gui OpenGLWidgets Widgets)
 qt_standard_project_setup()
 
-find_package(QTrackasiaGL REQUIRED)
+find_package(QTrackAsiaGL REQUIRED)
 
 add_executable(hellotrackasia
     main.cpp
@@ -26,5 +26,5 @@ target_link_libraries(hellotrackasia
         Qt6::Gui
         Qt6::OpenGLWidgets
         Qt6::Widgets
-        QTrackasiaGL
+        QTrackAsiaGL
 )

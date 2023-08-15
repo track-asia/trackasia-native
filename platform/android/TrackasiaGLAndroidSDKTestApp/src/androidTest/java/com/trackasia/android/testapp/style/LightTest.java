@@ -1,25 +1,26 @@
 package com.trackasia.android.testapp.style;
 
 import android.graphics.Color;
+import android.view.View;
+
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
-import android.view.View;
 
-import com.trackasia.android.style.light.Light;
 import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.layers.FillExtrusionLayer;
 import com.trackasia.android.style.layers.TransitionOptions;
+import com.trackasia.android.style.light.Light;
 import com.trackasia.android.style.light.Position;
 import com.trackasia.android.testapp.R;
 import com.trackasia.android.testapp.activity.BaseTest;
 import com.trackasia.android.testapp.activity.style.FillExtrusionStyleTestActivity;
 
-import timber.log.Timber;
-
 import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import timber.log.Timber;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -30,10 +31,9 @@ import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionBa
 import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionColor;
 import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionHeight;
 import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionOpacity;
-
-import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class LightTest extends BaseTest {
@@ -45,7 +45,7 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("anchor");
-    invoke(trackasiaMap, (uiController, trackasiaMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       light.setAnchor(ANCHOR_MAP);
@@ -58,7 +58,7 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("positionTransitionOptions");
-    invoke(trackasiaMap, (uiController, trackasiaMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       TransitionOptions options = new TransitionOptions(300, 100);
@@ -72,7 +72,7 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("position");
-    invoke(trackasiaMap,(uiController, trackasiaMap) -> {
+    invoke(mapboxMap,(uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       Position position = new Position(1, 2, 3);
@@ -86,7 +86,7 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("colorTransitionOptions");
-    invoke(trackasiaMap, (uiController, trackasiaMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       TransitionOptions options = new TransitionOptions(300, 100);
@@ -100,7 +100,7 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("color");
-    invoke(trackasiaMap, (uiController, trackasiaMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       light.setColor("rgba(255,128,0,0.7)");
@@ -113,7 +113,7 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("intensityTransitionOptions");
-    invoke(trackasiaMap, (uiController, trackasiaMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       TransitionOptions options = new TransitionOptions(300, 100);
@@ -127,11 +127,11 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("intensity");
-    invoke(trackasiaMap, (uiController, trackasiaMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       light.setIntensity(0.3f);
-      assertEquals("Intensity should match", 0.3f, light.getIntensity(), 0f);
+      assertEquals("Intensity should match", 0.3f, light.getIntensity());
     });
   }
 
@@ -149,7 +149,7 @@ public class LightTest extends BaseTest {
 
       @Override
       public void perform(UiController uiController, View view) {
-        light = trackasiaMap.getStyle().getLight();
+        light = mapboxMap.getStyle().getLight();
         FillExtrusionLayer fillExtrusionLayer = new FillExtrusionLayer("3d-buildings", "composite");
         fillExtrusionLayer.setSourceLayer("building");
         fillExtrusionLayer.setFilter(eq(Expression.get("extrude"), "true"));
@@ -160,7 +160,7 @@ public class LightTest extends BaseTest {
           fillExtrusionBase(Expression.get("min_height")),
           fillExtrusionOpacity(0.6f)
         );
-        trackasiaMap.getStyle().addLayer(fillExtrusionLayer);
+        mapboxMap.getStyle().addLayer(fillExtrusionLayer);
       }
     });
   }

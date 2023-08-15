@@ -33,7 +33,9 @@ public:
         cb();
     }
 
-    void sync(std::promise<void> barrier) { barrier.set_value(); }
+    void sync(std::promise<void> barrier) {
+        barrier.set_value();
+    }
 
 private:
     AsyncTask *async;
@@ -73,9 +75,8 @@ TEST(AsyncTask, DestroyShouldNotRunQueue) {
 TEST(AsyncTask, DestroyAfterSignaling) {
     RunLoop loop;
 
-    // We're creating two tasks and signal both of them; the one that gets fired
-    // first destroys the other one. Make sure that the second one we destroyed
-    // doesn't fire.
+    // We're creating two tasks and signal both of them; the one that gets fired first destroys
+    // the other one. Make sure that the second one we destroyed doesn't fire.
 
     std::unique_ptr<AsyncTask> task1, task2;
 
@@ -141,9 +142,7 @@ TEST(AsyncTask, ThreadSafety) {
 
     for (unsigned i = 0; i < numThreads; ++i) {
         // The callback runs on the worker, thus the atomic type.
-        workerRef.invoke(&TestWorker::runWithCallback, [&] {
-            if (!--completed) loop.stop();
-        });
+        workerRef.invoke(&TestWorker::runWithCallback, [&] { if (!--completed) loop.stop(); });
     }
 
     loop.run();

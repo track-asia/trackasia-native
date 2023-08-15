@@ -7,8 +7,6 @@
 #include <mbgl/style/expression/find_zoom_curve.hpp>
 #include <mbgl/util/range.hpp>
 
-#include <optional>
-
 namespace mbgl {
 namespace style {
 
@@ -23,9 +21,9 @@ public:
     Range<float> getCoveringStops(float, float) const noexcept;
     const expression::Expression& getExpression() const noexcept;
 
-    /// Can be used for aggregating property expressions from multiple
-    /// properties(layers) into single match / case expression. Method may
-    /// be removed if a better way of aggregation is found.
+    // Can be used for aggregating property expressions from multiple
+    // properties(layers) into single match / case expression. Method may
+    // be removed if a better way of aggregation is found.
     std::shared_ptr<const expression::Expression> getSharedExpression() const noexcept;
 
     bool useIntegerZoom = false;
@@ -42,15 +40,15 @@ template <class T>
 class PropertyExpression final : public PropertyExpressionBase {
 public:
     // Second parameter to be used only for conversions from legacy functions.
-    PropertyExpression(std::unique_ptr<expression::Expression> expression_,
-                       std::optional<T> defaultValue_ = std::nullopt)
+    PropertyExpression(std::unique_ptr<expression::Expression> expression_, optional<T> defaultValue_ = nullopt)
         : PropertyExpressionBase(std::move(expression_)),
-          defaultValue(std::move(defaultValue_)) {}
+          defaultValue(std::move(defaultValue_)) {
+    }
 
     T evaluate(const expression::EvaluationContext& context, T finalDefaultValue = T()) const {
         const expression::EvaluationResult result = expression->evaluate(context);
         if (result) {
-            const std::optional<T> typed = expression::fromExpressionValue<T>(*result);
+            const optional<T> typed = expression::fromExpressionValue<T>(*result);
             return typed ? *typed : defaultValue ? *defaultValue : finalDefaultValue;
         }
         return defaultValue ? *defaultValue : finalDefaultValue;
@@ -125,16 +123,17 @@ public:
         return evaluate(expression::EvaluationContext(zoom, &feature, &state), finalDefaultValue);
     }
 
-    std::vector<std::optional<T>> possibleOutputs() const {
+    std::vector<optional<T>> possibleOutputs() const {
         return expression::fromExpressionValues<T>(expression->possibleOutputs());
     }
 
-    friend bool operator==(const PropertyExpression& lhs, const PropertyExpression& rhs) {
+    friend bool operator==(const PropertyExpression& lhs,
+                           const PropertyExpression& rhs) {
         return *lhs.expression == *rhs.expression;
     }
 
 private:
-    std::optional<T> defaultValue;
+    optional<T> defaultValue;
 };
 
 } // namespace style

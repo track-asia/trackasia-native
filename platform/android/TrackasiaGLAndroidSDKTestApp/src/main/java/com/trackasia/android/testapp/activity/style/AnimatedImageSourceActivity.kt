@@ -5,16 +5,17 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.trackasia.android.Trackasia
+import com.trackasia.android.Mapbox
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngQuad
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.RasterLayer
 import com.trackasia.android.style.sources.ImageSource
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.style.AnimatedImageSourceActivity.RefreshImageRunnable
 import com.trackasia.android.utils.BitmapUtils
 
 /**
@@ -37,7 +38,7 @@ class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: TrackasiaMap) {
+    override fun onMapReady(map: MapboxMap) {
         val quad = LatLngQuad(
             LatLng(46.437, -80.425),
             LatLng(46.437, -71.516),
@@ -99,7 +100,7 @@ class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         private val drawables: Array<Bitmap?>
         private var drawableIndex: Int
         fun getBitmap(resourceId: Int): Bitmap? {
-            val context = Trackasia.getApplicationContext()
+            val context = Mapbox.getApplicationContext()
             val drawable = BitmapUtils.getDrawableFromRes(context, resourceId)
             if (drawable is BitmapDrawable) {
                 return drawable.bitmap

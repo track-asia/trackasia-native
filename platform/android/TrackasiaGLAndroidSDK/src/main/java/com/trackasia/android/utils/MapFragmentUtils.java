@@ -6,16 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.maps.MapFragment;
-import com.trackasia.android.maps.SupportMapFragment;
-import com.trackasia.android.maps.TrackasiaMapOptions;
+import com.trackasia.android.constants.MapboxConstants;
+import com.trackasia.android.maps.MapboxMapOptions;
 
 /**
  * MapFragment utility class.
  * <p>
- * Used to extract duplicate code between {@link MapFragment} and
- * {@link SupportMapFragment}.
+ * Used to extract duplicate code between {@link com.trackasia.android.maps.MapFragment} and
+ * {@link com.trackasia.android.maps.SupportMapFragment}.
  * </p>
  */
 public class MapFragmentUtils {
@@ -27,9 +25,9 @@ public class MapFragmentUtils {
    * @return a bundle of converted fragment arguments
    */
   @NonNull
-  public static Bundle createFragmentArgs(TrackasiaMapOptions options) {
+  public static Bundle createFragmentArgs(MapboxMapOptions options) {
     Bundle bundle = new Bundle();
-    bundle.putParcelable(TrackasiaConstants.FRAG_ARG_TRACKASIAMAPOPTIONS, options);
+    bundle.putParcelable(MapboxConstants.FRAG_ARG_MAPBOXMAPOPTIONS, options);
     return bundle;
   }
 
@@ -41,13 +39,13 @@ public class MapFragmentUtils {
    * @return converted MapboxMapOptions
    */
   @Nullable
-  public static TrackasiaMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
-    TrackasiaMapOptions options;
-    if (args != null && args.containsKey(TrackasiaConstants.FRAG_ARG_TRACKASIAMAPOPTIONS)) {
-      options = args.getParcelable(TrackasiaConstants.FRAG_ARG_TRACKASIAMAPOPTIONS);
+  public static MapboxMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
+    MapboxMapOptions options;
+    if (args != null && args.containsKey(MapboxConstants.FRAG_ARG_MAPBOXMAPOPTIONS)) {
+      options = args.getParcelable(MapboxConstants.FRAG_ARG_MAPBOXMAPOPTIONS);
     } else {
       // load default options
-      options = TrackasiaMapOptions.createFromAttributes(context);
+      options = MapboxMapOptions.createFromAttributes(context);
     }
     return options;
   }

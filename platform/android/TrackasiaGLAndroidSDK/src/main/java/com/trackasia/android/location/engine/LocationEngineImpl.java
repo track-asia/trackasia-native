@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
  *
  * @param <T> location listener object type
  */
-public interface LocationEngineImpl<T> {
+interface LocationEngineImpl<T> {
   @NonNull
   T createListener(LocationEngineCallback<LocationEngineResult> callback);
 

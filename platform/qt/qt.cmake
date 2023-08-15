@@ -1,16 +1,16 @@
 message(STATUS "Configuring GL-Native with Qt bindings")
 
-file(READ "${PROJECT_SOURCE_DIR}/platform/qt/VERSION" MLN_QT_VERSION)
-string(REGEX REPLACE "\n" "" MLN_QT_VERSION "${MLN_QT_VERSION}") # get rid of the newline at the end
-set(MLN_QT_VERSION_COMPATIBILITY 2.0.0)
-message(STATUS "Version ${MLN_QT_VERSION}")
+file(READ "${PROJECT_SOURCE_DIR}/platform/qt/VERSION" MBGL_QT_VERSION)
+string(REGEX REPLACE "\n" "" MBGL_QT_VERSION "${MBGL_QT_VERSION}") # get rid of the newline at the end
+set(MBGL_QT_VERSION_COMPATIBILITY 2.0.0)
+message(STATUS "Version ${MBGL_QT_VERSION}")
 
-option(MLN_QT_LIBRARY_ONLY "Build only libraries" OFF)
-option(MLN_QT_STATIC "Build Trackasia Native Qt bindings staticly" OFF)
-option(MLN_QT_INSIDE_PLUGIN "Build QTrackasiaGL as OBJECT library, so it can be bundled into separate single plugin lib." OFF)
-option(MLN_QT_WITH_HEADLESS "Build Trackasia Native Qt with headless support" ON)
-option(MLN_QT_WITH_INTERNAL_SQLITE "Build Trackasia Native Qt bindings with internal sqlite" OFF)
-option(MLN_QT_DEPLOYMENT "Autogenerate files necessary for deployment" OFF)
+option(MBGL_QT_LIBRARY_ONLY "Build only libraries" OFF)
+option(MBGL_QT_STATIC "Build TrackAsia GL Qt bindings staticly" OFF)
+option(MBGL_QT_INSIDE_PLUGIN "Build QTrackAsiaGL as OBJECT library, so it can be bundled into separate single plugin lib." OFF)
+option(MBGL_QT_WITH_HEADLESS "Build TrackAsia GL Qt with headless support" ON)
+option(MBGL_QT_WITH_INTERNAL_SQLITE "Build TrackAsia GL Qt bindings with internal sqlite" OFF)
+option(MBGL_QT_DEPLOYMENT "Autogenerate files necessary for deployment" OFF)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR}
@@ -18,14 +18,14 @@ find_package(Qt${QT_VERSION_MAJOR}
                         Network
              REQUIRED)
 
-if(NOT MLN_QT_LIBRARY_ONLY)
+if(NOT MBGL_QT_LIBRARY_ONLY)
     find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
     if (Qt6_FOUND)
         find_package(Qt${QT_VERSION_MAJOR}OpenGLWidgets REQUIRED)
     endif()
 endif()
 
-if(NOT MLN_QT_WITH_INTERNAL_SQLITE)
+if(NOT MBGL_QT_WITH_INTERNAL_SQLITE)
     find_package(Qt${QT_VERSION_MAJOR}Sql REQUIRED)
 else()
     message(STATUS "Using internal sqlite")
@@ -33,10 +33,8 @@ else()
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    find_package(Threads REQUIRED)
-
-    option(MLN_QT_WITH_INTERNAL_ICU "Build Trackasia Native Qt bindings with internal ICU" OFF)
-    if(NOT MLN_QT_WITH_INTERNAL_ICU)
+    option(MBGL_QT_WITH_INTERNAL_ICU "Build TrackAsia GL Qt bindings with internal ICU" OFF)
+    if(NOT MBGL_QT_WITH_INTERNAL_ICU)
        find_package(ICU COMPONENTS uc REQUIRED)
     else()
        message(STATUS "Using internal ICU")
@@ -44,7 +42,14 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     endif()
 endif()
 
-# Debugging & ccache on Windows
+if(MSVC)
+    add_definitions("/DQT_COMPILING_QIMAGE_COMPAT_CPP")
+    add_definitions("/D_USE_MATH_DEFINES")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    add_definitions("-DQT_COMPILING_QIMAGE_COMPAT_CPP")
+    add_definitions("-D_USE_MATH_DEFINES")
+endif()
+
 if (MSVC)
     foreach(config DEBUG RELWITHDEBINFO)
         foreach(lang C CXX)
@@ -89,18 +94,17 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_database.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_download.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/online_file_source.cpp
-        ${PROJECT_SOURCE_DIR}/platform/$<IF:$<BOOL:${MLN_QT_WITH_INTERNAL_SQLITE}>,default/src/mbgl/storage/sqlite3.cpp,qt/src/mbgl/sqlite3.cpp>
+        ${PROJECT_SOURCE_DIR}/platform/$<IF:$<BOOL:${MBGL_QT_WITH_INTERNAL_SQLITE}>,default/src/mbgl/storage/sqlite3.cpp,qt/src/mbgl/sqlite3.cpp>
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/compression.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/filesystem.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/monotonic_timer.cpp
-        $<$<BOOL:${MLN_QT_WITH_HEADLESS}>:${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/headless_backend_qt.cpp>
+        $<$<BOOL:${MBGL_QT_WITH_HEADLESS}>:${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/headless_backend_qt.cpp>
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/async_task.cpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/async_task_impl.hpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/gl_functions.cpp
-        ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_file_source.cpp
-        ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_file_source.hpp
-        ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_request.cpp
-        ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_request.hpp
+        $<$<BOOL:${MBGL_PUBLIC_BUILD}>:${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_file_source.cpp>
+        $<$<BOOL:${MBGL_PUBLIC_BUILD}>:${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_file_source.hpp>
+        $<$<BOOL:${MBGL_PUBLIC_BUILD}>:${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_request.cpp>
+        $<$<BOOL:${MBGL_PUBLIC_BUILD}>:${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_request.hpp>
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/image.cpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/number_format.cpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/local_glyph_rasterizer.cpp
@@ -118,7 +122,7 @@ target_sources(
 target_compile_definitions(
     mbgl-core
     PRIVATE QT_IMAGE_DECODERS
-    PUBLIC __QT__
+    PUBLIC __QT__ MBGL_USE_GLES2
 )
 
 target_include_directories(
@@ -130,39 +134,35 @@ include(GNUInstallDirs)
 include(${PROJECT_SOURCE_DIR}/vendor/nunicode.cmake)
 
 set_property(TARGET mbgl-core PROPERTY AUTOMOC ON)
-if (Qt6_FOUND AND COMMAND qt_enable_autogen_tool)
-    qt_enable_autogen_tool(mbgl-core "moc" ON)
-endif()
 
 target_link_libraries(
     mbgl-core
     PRIVATE
-        $<$<PLATFORM_ID:Linux>:${CMAKE_THREAD_LIBS_INIT}>
         $<$<NOT:$<OR:$<PLATFORM_ID:Windows>,$<PLATFORM_ID:Emscripten>>>:z>
         Qt${QT_VERSION_MAJOR}::Core
         Qt${QT_VERSION_MAJOR}::Gui
         Qt${QT_VERSION_MAJOR}::Network
-        $<IF:$<BOOL:${MLN_QT_WITH_INTERNAL_SQLITE}>,mbgl-vendor-sqlite,Qt${QT_VERSION_MAJOR}::Sql>
-        $<$<PLATFORM_ID:Linux>:$<IF:$<BOOL:${MLN_QT_WITH_INTERNAL_ICU}>,mbgl-vendor-icu,ICU::uc>>
+        $<IF:$<BOOL:${MBGL_QT_WITH_INTERNAL_SQLITE}>,mbgl-vendor-sqlite,Qt${QT_VERSION_MAJOR}::Sql>
+        $<$<PLATFORM_ID:Linux>:$<IF:$<BOOL:${MBGL_QT_WITH_INTERNAL_ICU}>,mbgl-vendor-icu,ICU::uc>>
         mbgl-vendor-nunicode
 )
 
 set(qtrackasiagl_headers
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/QTrackasiaGL
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/export.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/map.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Map
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/settings.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Settings
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/types.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Types
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/utils.hpp
-    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackasiaGL/Utils
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/QTrackAsiaGL
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/export.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/map.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/Map
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/settings.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/Settings
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/types.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/Types
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/utils.hpp
+    ${PROJECT_SOURCE_DIR}/platform/qt/include/QTrackAsiaGL/Utils
 )
 
-if (MLN_QT_INSIDE_PLUGIN)
+if (MBGL_QT_INSIDE_PLUGIN)
     add_library(qtrackasiagl OBJECT)
-elseif(MLN_QT_STATIC)
+elseif(MBGL_QT_STATIC)
     add_library(qtrackasiagl STATIC)
 else()
     add_library(qtrackasiagl SHARED)
@@ -195,54 +195,51 @@ target_sources(
 set_target_properties(
     qtrackasiagl PROPERTIES
     AUTOMOC ON
-    EXPORT_NAME QTrackasiaGL
-    OUTPUT_NAME QTrackasiaGL
-    VERSION ${MLN_QT_VERSION}
-    SOVERSION ${MLN_QT_VERSION_COMPATIBILITY}
+    EXPORT_NAME QTrackAsiaGL
+    OUTPUT_NAME QTrackAsiaGL
+    VERSION ${MBGL_QT_VERSION}
+    SOVERSION ${MBGL_QT_VERSION_COMPATIBILITY}
     PUBLIC_HEADER "${qtrackasiagl_headers}"
 )
-if (Qt6_FOUND AND COMMAND qt_enable_autogen_tool)
-    qt_enable_autogen_tool(qtrackasiagl "moc" ON)
-endif()
-if (APPLE AND NOT MLN_QT_STATIC AND NOT MLN_QT_INSIDE_PLUGIN)
+if (APPLE AND NOT MBGL_QT_STATIC AND NOT MBGL_QT_INSIDE_PLUGIN)
     set_target_properties(
         qtrackasiagl PROPERTIES
         FRAMEWORK ON
         FRAMEWORK_VERSION A
-        MACOSX_FRAMEWORK_IDENTIFIER org.Trackasia.QTrackasiaGL
-        MACOSX_FRAMEWORK_BUNDLE_VERSION ${MLN_QT_VERSION}
-        MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${MLN_QT_VERSION}
+        MACOSX_FRAMEWORK_IDENTIFIER com.trackasia.QTrackAsiaGL
+        MACOSX_FRAMEWORK_BUNDLE_VERSION ${MBGL_QT_VERSION}
+        MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${MBGL_QT_VERSION}
     )
     target_include_directories(
         qtrackasiagl
         INTERFACE
-            $<INSTALL_INTERFACE:lib/QTrackasiaGL.framework>
+            $<INSTALL_INTERFACE:lib/QTrackAsiaGL.framework>
     )
 endif()
 
 include(CMakePackageConfigHelpers)
-set(CMAKECONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/QTrackasiaeGL/)
+set(CMAKECONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/QTrackAsiaGL/)
 
 configure_package_config_file(
-    "platform/qt/QTrackasiaGLConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfig.cmake"
+    "platform/qt/QTrackAsiaGLConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/QTrackAsiaGLConfig.cmake"
     INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     PATH_VARS CMAKE_INSTALL_PREFIX CMAKE_INSTALL_INCLUDEDIR
     CMAKE_INSTALL_LIBDIR NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfigVersion.cmake
-    VERSION ${MLN_QT_VERSION}
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/QTrackAsiaGLConfigVersion.cmake
+    VERSION ${MBGL_QT_VERSION}
     COMPATIBILITY AnyNewerVersion)
 
-install(EXPORT QTrackasiaGLTargets
+install(EXPORT QTrackAsiaGLTargets
     DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     COMPONENT development)
 
-export(EXPORT QTrackasiaGLTargets)
+export(EXPORT QTrackAsiaGLTargets)
 
 install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/QTrackasiaGLConfigVersion.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/QTrackAsiaGLConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/QTrackAsiaGLConfigVersion.cmake"
     DESTINATION ${CMAKECONFIG_INSTALL_DIR}
     COMPONENT development)
 
@@ -252,7 +249,7 @@ install(
     COMPONENT development
 )
 
-if(MLN_QT_DEPLOYMENT)
+if(MBGL_QT_DEPLOYMENT)
     install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.md
             DESTINATION .)
 endif()
@@ -285,18 +282,18 @@ target_link_libraries(
         $<BUILD_INTERFACE:mbgl-vendor-csscolorparser>
 )
 # Do not use generator expressions for cleaner output
-if (MLN_QT_STATIC AND NOT MLN_QT_INSIDE_PLUGIN)
+if (MBGL_QT_STATIC AND NOT MBGL_QT_INSIDE_PLUGIN)
     target_link_libraries(
         qtrackasiagl
         PUBLIC
-            $<$<NOT:$<BOOL:${MLN_QT_WITH_INTERNAL_SQLITE}>>:Qt${QT_VERSION_MAJOR}::Sql>
+            $<$<NOT:$<BOOL:${MBGL_QT_WITH_INTERNAL_SQLITE}>>:Qt${QT_VERSION_MAJOR}::Sql>
             $<$<NOT:$<OR:$<PLATFORM_ID:Windows>,$<PLATFORM_ID:Emscripten>>>:z>
     )
 endif()
 
-if (MLN_QT_STATIC OR MLN_QT_INSIDE_PLUGIN)
+if (MBGL_QT_STATIC OR MBGL_QT_INSIDE_PLUGIN)
     # Don't add import/export into public header because we don't build shared library.
-    # In case on MLN_QT_INSIDE_PLUGIN it's always OBJECT library and bundled into one
+    # In case on MBGL_QT_INSIDE_PLUGIN it's always OBJECT library and bundled into one
     # single Qt plugin lib.
     target_compile_definitions(
         qtrackasiagl
@@ -306,17 +303,17 @@ endif()
 
 
 install(TARGETS qtrackasiagl
-        EXPORT QTrackasiaGLTargets
+        EXPORT QTrackAsiaGLTargets
         # Explicit set of DESTINATION is needed for older CMake versions.
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
         FRAMEWORK DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/QTrackasiaGL"
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/QTrackAsiaGL"
 )
 
-if(NOT MLN_QT_LIBRARY_ONLY)
+if(NOT MBGL_QT_LIBRARY_ONLY)
     add_executable(
         mbgl-qt
         ${PROJECT_SOURCE_DIR}/platform/qt/app/main.cpp
@@ -360,9 +357,7 @@ if(NOT MLN_QT_LIBRARY_ONLY)
 
     target_compile_definitions(
         mbgl-test-runner
-        PRIVATE
-            WORK_DIRECTORY=${PROJECT_SOURCE_DIR}
-            $<$<PLATFORM_ID:Windows>:MBGL_BUILDING_LIB>
+        PRIVATE WORK_DIRECTORY=${PROJECT_SOURCE_DIR}
     )
 
     target_link_libraries(
@@ -370,12 +365,22 @@ if(NOT MLN_QT_LIBRARY_ONLY)
         PRIVATE
             Qt${QT_VERSION_MAJOR}::Gui
             mbgl-compiler-options
+            $<$<NOT:$<BOOL:MSVC>>:pthread>
     )
 
     if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
         target_link_libraries(
             mbgl-test-runner
             PRIVATE -Wl,-force_load mbgl-test
+        )
+    elseif(MSVC)
+        target_link_options(
+            mbgl-test-runner
+            PRIVATE /WHOLEARCHIVE:mbgl-test.lib
+        )
+        target_link_libraries(
+            mbgl-test-runner
+            PRIVATE mbgl-test
         )
     else()
         target_link_libraries(
@@ -385,21 +390,21 @@ if(NOT MLN_QT_LIBRARY_ONLY)
     endif()
 endif()
 
-find_program(MLN_QDOC NAMES qdoc)
+find_program(MBGL_QDOC NAMES qdoc)
 
-if(MLN_QDOC)
+if(MBGL_QDOC)
     add_custom_target(mbgl-qt-docs)
 
     add_custom_command(
         TARGET mbgl-qt-docs PRE_BUILD
         COMMAND
-            ${MLN_QDOC}
+            ${MBGL_QDOC}
             ${PROJECT_SOURCE_DIR}/platform/qt/config.qdocconf
             -outputdir
             ${CMAKE_BINARY_DIR}/docs
     )
 endif()
 
-if(NOT MLN_QT_LIBRARY_ONLY)
+if(NOT MBGL_QT_LIBRARY_ONLY)
     add_test(NAME mbgl-test-runner COMMAND mbgl-test-runner WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 endif()

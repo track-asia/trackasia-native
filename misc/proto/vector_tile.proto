@@ -1,6 +1,6 @@
 // Protocol Version 1
 
-package mapboxgl.vector;
+package TrackAsiaGL.vector;
 
 option optimize_for = LITE_RUNTIME;
 

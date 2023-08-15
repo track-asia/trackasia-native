@@ -5,7 +5,7 @@
       location = "container:macos.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../../build/macos/Trackasia GL Native.xcodeproj">
+      location = "group:../../build/macos/TrackAsia GL Native.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:test/CI.xctestplan">

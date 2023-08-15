@@ -19,21 +19,22 @@ namespace mbgl {
 class DatabaseFileSourceThread {
 public:
     DatabaseFileSourceThread(std::shared_ptr<FileSource> onlineFileSource_, const std::string& cachePath)
-        : db(std::make_unique<OfflineDatabase>(cachePath, onlineFileSource_->getResourceOptions().tileServerOptions())),
-          onlineFileSource(std::move(onlineFileSource_)) {}
+        : db(std::make_unique<OfflineDatabase>(
+            cachePath,
+            onlineFileSource_->getResourceOptions().tileServerOptions())
+        ), onlineFileSource(std::move(onlineFileSource_)) {}
 
     void request(const Resource& resource, const ActorRef<FileSourceRequest>& req) {
-        std::optional<Response> offlineResponse = (resource.storagePolicy != Resource::StoragePolicy::Volatile)
-                                                      ? db->get(resource)
-                                                      : std::nullopt;
+        optional<Response> offlineResponse =
+            (resource.storagePolicy != Resource::StoragePolicy::Volatile) ? db->get(resource) : nullopt;
         if (!offlineResponse) {
             offlineResponse.emplace();
             offlineResponse->noContent = true;
-            offlineResponse->error = std::make_unique<Response::Error>(Response::Error::Reason::NotFound,
-                                                                       "Not found in offline database");
+            offlineResponse->error =
+                std::make_unique<Response::Error>(Response::Error::Reason::NotFound, "Not found in offline database");
         } else if (!offlineResponse->isUsable()) {
-            offlineResponse->error = std::make_unique<Response::Error>(Response::Error::Reason::NotFound,
-                                                                       "Cached resource is unusable");
+            offlineResponse->error =
+                std::make_unique<Response::Error>(Response::Error::Reason::NotFound, "Cached resource is unusable");
         }
         req.invoke(&FileSourceRequest::setResponse, *offlineResponse);
     }
@@ -123,7 +124,7 @@ public:
         }
     }
 
-    void setOfflineMapboxTileCountLimit(uint64_t limit) { db->setOfflineMapboxTileCountLimit(limit); }
+    void setOfflineTrackasiaTileCountLimit(uint64_t limit) { db->setOfflineTrackasiaTileCountLimit(limit); }
 
     void reopenDatabaseReadOnly(bool readOnly) { db->reopenDatabaseReadOnly(readOnly); }
 
@@ -142,8 +143,8 @@ private:
         if (!definition) {
             return unexpected<std::exception_ptr>(definition.error());
         }
-        auto download = std::make_unique<OfflineDownload>(
-            regionID, std::move(definition.value()), *db, *onlineFileSource);
+        auto download =
+            std::make_unique<OfflineDownload>(regionID, std::move(definition.value()), *db, *onlineFileSource);
         return downloads.emplace(regionID, std::move(download)).first->second.get();
     }
 
@@ -154,16 +155,14 @@ private:
 
 class DatabaseFileSource::Impl {
 public:
-    Impl(std::shared_ptr<FileSource> onlineFileSource,
-         const ResourceOptions& resourceOptions_,
-         const ClientOptions& clientOptions_)
-        : thread(std::make_unique<util::Thread<DatabaseFileSourceThread>>(
+    Impl(std::shared_ptr<FileSource> onlineFileSource, const ResourceOptions& resourceOptions_, const ClientOptions& clientOptions_) :
+        thread(std::make_unique<util::Thread<DatabaseFileSourceThread>>(
               util::makeThreadPrioritySetter(platform::EXPERIMENTAL_THREAD_PRIORITY_DATABASE),
               "DatabaseFileSource",
               std::move(onlineFileSource),
               resourceOptions_.cachePath())),
-          resourceOptions(resourceOptions_.clone()),
-          clientOptions(clientOptions_.clone()) {}
+              resourceOptions(resourceOptions_.clone()),
+              clientOptions(clientOptions_.clone()) {}
 
     ActorRef<DatabaseFileSourceThread> actor() const { return thread->actor(); }
 
@@ -200,9 +199,9 @@ private:
 
 DatabaseFileSource::DatabaseFileSource(const ResourceOptions& resourceOptions, const ClientOptions& clientOptions)
     : impl(std::make_unique<Impl>(
-          FileSourceManager::get()->getFileSource(FileSourceType::Network, resourceOptions, clientOptions),
-          resourceOptions,
-          clientOptions)) {}
+            FileSourceManager::get()->getFileSource(FileSourceType::Network, resourceOptions, clientOptions),
+            resourceOptions,
+            clientOptions)) {}
 
 DatabaseFileSource::~DatabaseFileSource() = default;
 
@@ -309,8 +308,8 @@ void DatabaseFileSource::getOfflineRegionStatus(
     impl->actor().invoke(&DatabaseFileSourceThread::getRegionStatus, region.getID(), std::move(callback));
 }
 
-void DatabaseFileSource::setOfflineMapboxTileCountLimit(uint64_t limit) const {
-    impl->actor().invoke(&DatabaseFileSourceThread::setOfflineMapboxTileCountLimit, limit);
+void DatabaseFileSource::setOfflineTrackasiaTileCountLimit(uint64_t limit) const {
+    impl->actor().invoke(&DatabaseFileSourceThread::setOfflineTrackasiaTileCountLimit, limit);
 }
 
 void DatabaseFileSource::setProperty(const std::string& key, const mapbox::base::Value& value) {

@@ -11,13 +11,16 @@
 // This header follows the Qt coding style: https://wiki.qt.io/Qt_Coding_Style
 
 // TODO: this will be wrapped at some point
-namespace mbgl {
-class TileServerOptions;
+namespace mbgl
+{
+    class TileServerOptions;
 }
 
-namespace QTrackasiaGL {
 
-class Q_TRACKASIAGL_EXPORT Settings {
+namespace QTrackAsiaGL {
+
+class Q_TRACKASIAGL_EXPORT Settings
+{
 public:
     Settings();
 
@@ -44,7 +47,7 @@ public:
 
     enum SettingsTemplate {
         DefaultSettings = 0,
-        TrackasiaSettings,
+        TrackAsiaSettings,
         MapTilerSettings,
         MapboxSettings
     };
@@ -112,6 +115,6 @@ private:
     mbgl::TileServerOptions *m_tileServerOptionsInternal{};
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL
 
 #endif // QTRACKASIAGL_SETTINGS_H

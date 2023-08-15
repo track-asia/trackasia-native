@@ -10,10 +10,10 @@ static CGFloat const tipWidth = 10.0;
 @end
 
 @implementation MBXCustomCalloutView {
-    id <MLNAnnotation> _representedObject;
+    id <MGLAnnotation> _representedObject;
     UIView *_leftAccessoryView;
     UIView *_rightAccessoryView;
-    __weak id <MLNCalloutViewDelegate> _delegate;
+    __weak id <MGLCalloutViewDelegate> _delegate;
 }
 
 @synthesize representedObject = _representedObject;
@@ -37,7 +37,7 @@ static CGFloat const tipWidth = 10.0;
     return self;
 }
 
-// MARK: - API
+#pragma mark - API
 
 - (void)presentCalloutFromRect:(CGRect)rect inView:(nonnull UIView *)view constrainedToRect:(__unused CGRect)constrainedRect animated:(BOOL)animated
 {
@@ -78,7 +78,7 @@ static CGFloat const tipWidth = 10.0;
         [self removeFromSuperview];
 }
 
-// MARK: - internals
+#pragma mark - internals
 
 - (void)drawRect:(CGRect)rect
 {

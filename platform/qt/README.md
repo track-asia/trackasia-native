@@ -1,8 +1,6 @@
-# Trackasia Native for Qt
+# TrackAsia Maps SDK for Qt
 
-[![GitHub Action build status](https://github.com/track-asia/trackasia-native/workflows/qt-ci/badge.svg)](https://github.com/track-asia/trackasia-native/actions/workflows/qt-ci.yml) 
-
-This is a community maintained Trackasia SDK for usage in Qt apps.
+This is a community maintained TrackAsia SDK for usage in Qt apps.
 Both Qt5 (minimal 5.6) and Qt6 are supported.
 Note that only OpenGL rendering is supported at the moment.
 
@@ -29,11 +27,11 @@ A minimal set of commands to build and install is
 
 ```shell
 mkdir build && cd build
-cmake ../trackasia-native/ \
+cmake ../trackasia-gl-native/ \
   -GNinja \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=<installation_prefix> \
-  -DMLN_WITH_QT=ON
+  -DMBGL_WITH_QT=ON
 ninja
 ninja install
 ```

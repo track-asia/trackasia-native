@@ -13,7 +13,7 @@ import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.trackasia.android.camera.CameraPosition
-import com.trackasia.android.constants.TrackasiaConstants
+import com.trackasia.android.constants.MapboxConstants
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.maps.Style
@@ -34,7 +34,7 @@ import java.util.Objects
 import java.util.Random
 
 /**
- * Test activity showing how to use a the [com.mapbox.mapboxsdk.snapshotter.MapSnapshotter]
+ * Test activity showing how to use a the [com.trackasia.android.snapshotter.MapSnapshotter]
  */
 class MapSnapshotterActivity : AppCompatActivity() {
     lateinit var grid: GridLayout
@@ -83,7 +83,7 @@ class MapSnapshotterActivity : AppCompatActivity() {
             grid.measuredHeight / grid.rowCount
         ) // Optionally the pixel ratio
             .withPixelRatio(1f)
-            .withLocalIdeographFontFamily(TrackasiaConstants.DEFAULT_FONT)
+            .withLocalIdeographFontFamily(MapboxConstants.DEFAULT_FONT)
 
         // Optionally the visible region
         if (row % 2 == 0) {
@@ -198,7 +198,6 @@ class MapSnapshotterActivity : AppCompatActivity() {
         }
         options.withStyleBuilder(builder)
         val snapshotter = MapSnapshotter(this@MapSnapshotterActivity, options)
-
         snapshotter.setObserver(object : MapSnapshotter.Observer {
             override fun onDidFinishLoadingStyle() {
                 Timber.i("onDidFinishLoadingStyle")
@@ -210,21 +209,15 @@ class MapSnapshotterActivity : AppCompatActivity() {
                 snapshotter.addImage(imageName, androidIcon!!, false)
             }
         })
-
-        snapshotter.start(
-            object : MapSnapshotter.SnapshotReadyCallback {
-                override fun onSnapshotReady(snapshot: MapSnapshot) {
-                    Timber.i("Got the snapshot")
-                    val imageView = ImageView(this@MapSnapshotterActivity)
-                    imageView.setImageBitmap(snapshot.bitmap)
-                    grid.addView(
-                        imageView,
-                        GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(column))
-                    )
-                }
-            }
-        )
-
+        snapshotter.start { snapshot: MapSnapshot ->
+            Timber.i("Got the snapshot")
+            val imageView = ImageView(this@MapSnapshotterActivity)
+            imageView.setImageBitmap(snapshot.bitmap)
+            grid.addView(
+                imageView,
+                GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(column))
+            )
+        }
         snapshotters.add(snapshotter)
     }
 

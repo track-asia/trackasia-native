@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.MapboxMap;
 
 /**
  * Annotation is an overlay on top of a Map.
@@ -17,7 +17,7 @@ import com.trackasia.android.maps.TrackasiaMap;
  * </p>
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   Trackasia Annotation Plugin</a> instead
+ *   Mapbox Annotation Plugin</a> instead
  */
 @Deprecated
 public abstract class Annotation implements Comparable<Annotation> {
@@ -29,7 +29,7 @@ public abstract class Annotation implements Comparable<Annotation> {
    * Internal C++ id is stored as unsigned int.
    */
   private long id = -1; // -1 unless added to a MapView
-  protected TrackasiaMap trackasiaMap;
+  protected MapboxMap mapboxMap;
   protected MapView mapView;
 
   protected Annotation() {
@@ -52,10 +52,10 @@ public abstract class Annotation implements Comparable<Annotation> {
    * Do not use this method, used internally by the SDK.
    */
   public void remove() {
-    if (trackasiaMap == null) {
+    if (mapboxMap == null) {
       return;
     }
-    trackasiaMap.removeAnnotation(this);
+    mapboxMap.removeAnnotation(this);
   }
 
   /**
@@ -70,10 +70,10 @@ public abstract class Annotation implements Comparable<Annotation> {
   /**
    * Do not use this method, used internally by the SDK.
    *
-   * @param trackasiaMap the hosting mapbox map
+   * @param mapboxMap the hosting mapbox map
    */
-  public void setMapboxMap(TrackasiaMap trackasiaMap) {
-    this.trackasiaMap = trackasiaMap;
+  public void setMapboxMap(MapboxMap mapboxMap) {
+    this.mapboxMap = mapboxMap;
   }
 
   /**
@@ -81,8 +81,8 @@ public abstract class Annotation implements Comparable<Annotation> {
    *
    * @return the MapboxMap
    */
-  protected TrackasiaMap getMapboxMap() {
-    return trackasiaMap;
+  protected MapboxMap getMapboxMap() {
+    return mapboxMap;
   }
 
   /**

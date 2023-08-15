@@ -1,4 +1,4 @@
-#import "Mapbox.h"
+@import Mapbox;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,15 +15,15 @@ FOUNDATION_EXTERN NSString *const MBXReuseQueueStatsEnabled;
 
 @interface MBXState : NSObject <NSSecureCoding>
 
-@property (nonatomic, nullable) MLNMapCamera *camera;
+@property (nonatomic, nullable) MGLMapCamera *camera;
 @property (nonatomic) BOOL showsUserLocation;
-@property (nonatomic) MLNUserTrackingMode userTrackingMode;
+@property (nonatomic) MGLUserTrackingMode userTrackingMode;
 @property (nonatomic) BOOL showsUserHeadingIndicator;
 @property (nonatomic) BOOL showsMapScale;
 @property (nonatomic) BOOL showsZoomLevelOrnament;
 @property (nonatomic) BOOL showsTimeFrameGraph;
 @property (nonatomic) BOOL framerateMeasurementEnabled;
-@property (nonatomic) MLNMapDebugMaskOptions debugMask;
+@property (nonatomic) MGLMapDebugMaskOptions debugMask;
 @property (nonatomic) BOOL reuseQueueStatsEnabled;
 
 @property (nonatomic, readonly) NSString *debugDescription;

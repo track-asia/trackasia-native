@@ -13,7 +13,7 @@
 #include <fstream>
 #include <set>
 
-#if defined(WIN32) && !defined(__clang__)
+#if defined(_MSC_VER) && !defined(__clang__)
 #include <Windows.h>
 #ifdef GetObject
 #undef GetObject
@@ -44,28 +44,29 @@ TEST_P(StyleParserTest, ParseStyle) {
     auto error = parser.parse(util::read_file(base + ".style.json"));
 
     if (error) {
-        Log::Error(Event::ParseStyle, "Failed to parse style: " + util::toString(error));
+        Log::Error(Event::ParseStyle, "Failed to parse style: %s", util::toString(error).c_str());
     }
 
     ASSERT_TRUE(infoDoc.IsObject());
     for (const auto& property : infoDoc.GetObject()) {
-        const std::string name{property.name.GetString(), property.name.GetStringLength()};
-        const JSValue& value = property.value;
+        const std::string name { property.name.GetString(), property.name.GetStringLength() };
+        const JSValue &value = property.value;
         ASSERT_EQ(true, value.IsObject());
 
         if (value.HasMember("log")) {
-            const JSValue& js_log = value["log"];
+            const JSValue &js_log = value["log"];
             ASSERT_EQ(true, js_log.IsArray());
             for (auto& js_entry : js_log.GetArray()) {
                 ASSERT_EQ(true, js_entry.IsArray());
                 ASSERT_GE(4u, js_entry.Size());
 
                 const uint32_t count = js_entry[rapidjson::SizeType(0)].GetUint();
-                const FixtureLogObserver::LogMessage message{
+                const FixtureLogObserver::LogMessage message {
                     *Enum<EventSeverity>::toEnum(js_entry[rapidjson::SizeType(1)].GetString()),
                     *Enum<Event>::toEnum(js_entry[rapidjson::SizeType(2)].GetString()),
                     int64_t(-1),
-                    js_entry[rapidjson::SizeType(3)].GetString()};
+                    js_entry[rapidjson::SizeType(3)].GetString()
+                };
 
 #if defined(WIN32)
                 Sleep(10);
@@ -75,7 +76,7 @@ TEST_P(StyleParserTest, ParseStyle) {
             }
         }
 
-        const auto& unchecked = observer->unchecked();
+        const auto &unchecked = observer->unchecked();
         if (unchecked.size()) {
             std::cerr << "Unchecked Log Messages (" << base << "/" << name << "): " << std::endl << unchecked;
         }
@@ -96,7 +97,7 @@ static void populateNames(std::vector<std::string>& names) {
         }
     };
 
-#if defined(WIN32) && !defined(__clang__)
+#if defined(_MSC_VER) && !defined(__clang__)
     style_directory += "/*";
     WIN32_FIND_DATAA ffd;
     HANDLE hFind = FindFirstFileA(style_directory.c_str(), &ffd);
@@ -108,9 +109,9 @@ static void populateNames(std::vector<std::string>& names) {
         FindClose(hFind);
     }
 #else
-    DIR* dir = opendir(style_directory.c_str());
+    DIR *dir = opendir(style_directory.c_str());
     if (dir != nullptr) {
-        for (dirent* dp = nullptr; (dp = readdir(dir)) != nullptr;) {
+        for (dirent *dp = nullptr; (dp = readdir(dir)) != nullptr;) {
             const std::string name = dp->d_name;
             testName(name);
         }

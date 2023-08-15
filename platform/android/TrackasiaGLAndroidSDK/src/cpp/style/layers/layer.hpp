@@ -15,7 +15,8 @@ namespace android {
 
 class Layer {
 public:
-    static constexpr auto Name() { return "com/trackasia/android/style/layers/Layer"; };
+
+    static constexpr auto Name() { return "com.trackasia.android/style/layers/Layer"; };
 
     static void registerNative(jni::JNIEnv&);
 
@@ -26,7 +27,7 @@ public:
      */
     void setLayer(std::unique_ptr<mbgl::style::Layer>);
 
-    void addToStyle(mbgl::style::Style&, std::optional<std::string>);
+    void addToStyle(mbgl::style::Style&, mbgl::optional<std::string>);
 
     // Release the owned view and return it
     std::unique_ptr<mbgl::style::Layer> releaseCoreLayer();
@@ -105,11 +106,12 @@ public:
 
     /**
      * @brief Get the corresponding layer factory.
-     *
+     * 
      * @return style::LayerFactory* must not be \c nullptr.
      */
     virtual LayerFactory* getLayerFactory() = 0;
 };
+
 
 } // namespace android
 } // namespace mbgl

@@ -4,11 +4,14 @@
 
 #include <cassert>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
-Scheduler::Scheduler() {}
+Scheduler::Scheduler()
+{
+}
 
-Scheduler::~Scheduler() {
+Scheduler::~Scheduler()
+{
     MBGL_VERIFY_THREAD(tid);
 }
 
@@ -21,7 +24,8 @@ void Scheduler::schedule(std::function<void()> function) {
     emit needsProcessing();
 }
 
-void Scheduler::processEvents() {
+void Scheduler::processEvents()
+{
     std::queue<std::function<void()>> taskQueue;
     {
         std::unique_lock<std::mutex> lock(m_taskQueueMutex);
@@ -35,4 +39,4 @@ void Scheduler::processEvents() {
     }
 }
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

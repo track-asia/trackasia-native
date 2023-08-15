@@ -1,17 +1,17 @@
-#include <QTrackasiaGL/Map>
+#include <QTrackAsiaGL/Map>
 
 #include <QGLWidget>
 #include <QGLFramebufferObject>
 
 #include <gtest/gtest.h>
 
-class QTrackasiaGLTest : public QObject, public ::testing::Test {
+class QTrackAsiaGLTest : public QObject, public ::testing::Test {
     Q_OBJECT
 
 public:
-    QTrackasiaGLTest();
+    QTrackAsiaGLTest();
 
-    void runUntil(QTrackasiaGL::MapChange);
+    void runUntil(QTrackAsiaGL::MapChange);
 
 private:
     QGLWidget widget;
@@ -22,9 +22,9 @@ protected:
     Settings settings;
     Map map;
 
-    std::function<void(QTrackasiaGL::MapChange)> changeCallback;
+    std::function<void(QTrackAsiaGL::MapChange)> changeCallback;
 
 private slots:
-    void onMapChanged(QTrackasiaGL::MapChange);
+    void onMapChanged(QTrackAsiaGL::MapChange);
     void onNeedsRendering();
 };

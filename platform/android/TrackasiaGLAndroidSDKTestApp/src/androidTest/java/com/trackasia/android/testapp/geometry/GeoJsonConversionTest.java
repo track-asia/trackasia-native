@@ -11,7 +11,7 @@ import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.layers.PropertyFactory;
 import com.trackasia.android.style.layers.SymbolLayer;
 import com.trackasia.android.style.sources.GeoJsonSource;
-import com.trackasia.android.testapp.action.TrackasiaMapAction;
+import com.trackasia.android.testapp.action.MapboxMapAction;
 import com.trackasia.android.testapp.activity.EspressoTest;
 import com.trackasia.android.testapp.utils.TestingAsyncUtils;
 
@@ -39,91 +39,91 @@ public class GeoJsonConversionTest extends EspressoTest {
   @UiThreadTest
   public void testEmptyFeatureCollection() {
     validateTestSetup();
-    trackasiaMap.getStyle().addSource(
+    mapboxMap.getStyle().addSource(
       new GeoJsonSource("test-id",
         fromFeatures(singletonList(fromGeometry(fromGeometries(emptyList()))))
       )
     );
-    trackasiaMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
+    mapboxMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
   }
 
   @Test
   @UiThreadTest
   public void testPointFeatureCollection() {
     validateTestSetup();
-    trackasiaMap.getStyle().addSource(
+    mapboxMap.getStyle().addSource(
       new GeoJsonSource("test-id",
         fromFeatures(singletonList(fromGeometry(Point.fromLngLat(0.0, 0.0))))
       )
     );
-    trackasiaMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
+    mapboxMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
   }
 
   @Test
   @UiThreadTest
   public void testMultiPointFeatureCollection() {
     validateTestSetup();
-    trackasiaMap.getStyle().addSource(
+    mapboxMap.getStyle().addSource(
       new GeoJsonSource("test-id",
         fromFeatures(singletonList(fromGeometry(fromLngLats(emptyList()))))
       )
     );
-    trackasiaMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
+    mapboxMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
   }
 
   @Test
   @UiThreadTest
   public void testPolygonFeatureCollection() {
     validateTestSetup();
-    trackasiaMap.getStyle().addSource(
+    mapboxMap.getStyle().addSource(
       new GeoJsonSource("test-id",
         fromFeatures(singletonList(fromGeometry(Polygon.fromLngLats(emptyList()))))
       )
     );
-    trackasiaMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
+    mapboxMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
   }
 
   @Test
   @UiThreadTest
   public void testMultiPolygonFeatureCollection() {
     validateTestSetup();
-    trackasiaMap.getStyle().addSource(
+    mapboxMap.getStyle().addSource(
       new GeoJsonSource("test-id",
         fromFeatures(singletonList(fromGeometry(fromPolygon(Polygon.fromLngLats(emptyList())))))
       )
     );
-    trackasiaMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
+    mapboxMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
   }
 
   @Test
   @UiThreadTest
   public void testLineStringFeatureCollection() {
     validateTestSetup();
-    trackasiaMap.getStyle().addSource(
+    mapboxMap.getStyle().addSource(
       new GeoJsonSource("test-id",
         fromFeatures(singletonList(fromGeometry(fromLngLats(emptyList()))))
       )
     );
-    trackasiaMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
+    mapboxMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
   }
 
   @Test
   @UiThreadTest
   public void testMultiLineStringFeatureCollection() {
     validateTestSetup();
-    trackasiaMap.getStyle().addSource(
+    mapboxMap.getStyle().addSource(
       new GeoJsonSource("test-id",
         fromFeatures(singletonList(fromGeometry(fromLineString(fromLngLats(emptyList())))))
       )
     );
-    trackasiaMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
+    mapboxMap.getStyle().addLayer(new SymbolLayer("test-id", "test-id"));
   }
 
 
   @Test
   public void testNegativeNumberPropertyConversion() {
     validateTestSetup();
-    onView(isRoot()).perform(new TrackasiaMapAction((uiController, mapboxMap) -> {
+    onView(isRoot()).perform(new MapboxMapAction((uiController, mapboxMap) -> {
       LatLng latLng = new LatLng();
       Feature feature = Feature.fromGeometry(Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude()));
 
@@ -145,6 +145,6 @@ public class GeoJsonConversionTest extends EspressoTest {
       TestingAsyncUtils.INSTANCE.waitForLayer(uiController, mapView);
 
       assertFalse(mapboxMap.queryRenderedFeatures(mapboxMap.getProjection().toScreenLocation(latLng)).isEmpty());
-    }, trackasiaMap));
+    }, mapboxMap));
   }
 }

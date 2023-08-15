@@ -34,14 +34,14 @@ artifacts {
 project.logger.lifecycle(ext["versionName"])
 
 version = project.ext.versionName
-group = project.ext.trackasiaArtifactGroupId
+group = project.ext.trackAsiaArtifactGroupId
 
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
                 groupId this.group
-                artifactId project.ext.trackasiaArtifactId
+                artifactId project.ext.trackAsiaArtifactId
                 version this.version
                 
                 from components.release
@@ -50,26 +50,26 @@ afterEvaluate {
                 artifact androidJavadocsJar                
 
                 pom {
-                    name = project.ext.trackasiaArtifactTitle
-                    description = project.ext.trackasiaArtifactTitle
-                    url = project.ext.trackasiaArtifactUrl
+                    name = project.ext.trackAsiaArtifactTitle
+                    description = project.ext.trackAsiaArtifactTitle
+                    url = project.ext.trackAsiaArtifactUrl
                     licenses {
                         license {
-                            name = project.ext.trackasiaArtifactLicenseName
-                            url = project.ext.trackasiaArtifactLicenseUrl
+                            name = project.ext.trackAsiaArtifactLicenseName
+                            url = project.ext.trackAsiaArtifactLicenseUrl
                         }
                     }
                     developers {
                         developer {
-                            id = project.ext.trackasiaDeveloperId
-                            name = project.ext.trackasiaDeveloperName
+                            id = project.ext.trackAsiaDeveloperId
+                            name = project.ext.trackAsiaDeveloperName
                             email = 'trackasia@track-asia.com'
                         }
                     }
                     scm {
-                        connection = project.ext.trackasiaArtifactScmUrl
-                        developerConnection = project.ext.trackasiaArtifactScmUrl
-                        url = project.ext.trackasiaArtifactUrl
+                        connection = project.ext.trackAsiaArtifactScmUrl
+                        developerConnection = project.ext.trackAsiaArtifactScmUrl
+                        url = project.ext.trackAsiaArtifactUrl
                     }
                 }
             }

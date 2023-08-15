@@ -23,7 +23,7 @@ import com.trackasia.android.location.modes.CameraMode
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -38,7 +38,7 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
     private lateinit var pulsingCircleColorButton: Button
     private var permissionsManager: PermissionsManager? = null
     private var locationComponent: LocationComponent? = null
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private var currentPulseDuration = 0f
 
     //endregion
@@ -85,10 +85,10 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
     }
 
     @SuppressLint("MissingPermission")
-    override fun onMapReady(trackasiaMap: TrackasiaMap) {
-        this.trackasiaMap = trackasiaMap
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
-            locationComponent = trackasiaMap.locationComponent
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this.mapboxMap = mapboxMap
+        mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
+            locationComponent = mapboxMap.locationComponent
             val locationComponentOptions = buildLocationComponentOptions(
                 LOCATION_CIRCLE_PULSE_COLOR,
                 LOCATION_CIRCLE_PULSE_DURATION
@@ -124,7 +124,7 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
         newPulsingDuration: Float,
         newPulsingColor: Int
     ) {
-        trackasiaMap.getStyle { style: Style? ->
+        mapboxMap!!.getStyle { style: Style? ->
             locationComponent!!.applyStyle(
                 buildLocationComponentOptions(
                     newPulsingColor,
@@ -197,12 +197,12 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
     }
 
     private fun loadNewStyle() {
-        trackasiaMap.setStyle(Style.Builder().fromUri(Utils.nextStyle()))
+        mapboxMap!!.setStyle(Style.Builder().fromUri(Utils.nextStyle()))
     }
 
     private fun checkPermissions() {
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
-            mapView.getMapAsync(this)
+            mapView!!.getMapAsync(this)
         } else {
             permissionsManager = PermissionsManager(object : PermissionsListener {
                 override fun onExplanationNeeded(permissionsToExplain: List<String>) {
@@ -215,7 +215,7 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
 
                 override fun onPermissionResult(granted: Boolean) {
                     if (granted) {
-                        mapView.getMapAsync(this@CustomizedLocationPulsingCircleActivity)
+                        mapView!!.getMapAsync(this@CustomizedLocationPulsingCircleActivity)
                     } else {
                         finish()
                     }
@@ -243,9 +243,9 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
             pulsingCircleDurationButton!!.text = selectedMode
             if (selectedMode.contentEquals(
                     String.format(
-                            "%sms",
-                            DEFAULT_LOCATION_CIRCLE_PULSE_DURATION_MS.toString()
-                        )
+                        "%sms",
+                        DEFAULT_LOCATION_CIRCLE_PULSE_DURATION_MS.toString()
+                    )
                 )
             ) {
                 LOCATION_CIRCLE_PULSE_DURATION = DEFAULT_LOCATION_CIRCLE_PULSE_DURATION_MS
@@ -255,9 +255,9 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
                 )
             } else if (selectedMode.contentEquals(
                     String.format(
-                            "%sms",
-                            SECOND_LOCATION_CIRCLE_PULSE_DURATION_MS.toString()
-                        )
+                        "%sms",
+                        SECOND_LOCATION_CIRCLE_PULSE_DURATION_MS.toString()
+                    )
                 )
             ) {
                 LOCATION_CIRCLE_PULSE_DURATION = SECOND_LOCATION_CIRCLE_PULSE_DURATION_MS
@@ -267,9 +267,9 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
                 )
             } else if (selectedMode.contentEquals(
                     String.format(
-                            "%sms",
-                            THIRD_LOCATION_CIRCLE_PULSE_DURATION_MS.toString()
-                        )
+                        "%sms",
+                        THIRD_LOCATION_CIRCLE_PULSE_DURATION_MS.toString()
+                    )
                 )
             ) {
                 LOCATION_CIRCLE_PULSE_DURATION = THIRD_LOCATION_CIRCLE_PULSE_DURATION_MS
@@ -329,28 +329,28 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     @SuppressLint("MissingPermission")
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
         if (locationComponent != null) {
             outState.putParcelable(SAVED_STATE_LOCATION, locationComponent!!.lastKnownLocation)
             outState.putInt(SAVED_STATE_LOCATION_CIRCLE_PULSE_COLOR, LOCATION_CIRCLE_PULSE_COLOR)
@@ -363,12 +363,12 @@ class CustomizedLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyC
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     companion object {

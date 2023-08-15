@@ -9,7 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.maps.MapView
 import com.trackasia.android.maps.MapView.OnDidFinishLoadingStyleListener
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -32,7 +32,7 @@ import java.net.URISyntaxException
  */
 class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private lateinit var styleFab: FloatingActionButton
     private lateinit var routeFab: FloatingActionButton
     private var layer: CircleLayer? = null
@@ -45,14 +45,12 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: TrackasiaMap? ->
-                if (map != null) {
-                    trackasiaMap = map
-                }
-                trackasiaMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
+            OnMapReadyCallback { map: MapboxMap? ->
+                mapboxMap = map
+                mapboxMap!!.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
                 mapView.addOnDidFinishLoadingStyleListener(
                     OnDidFinishLoadingStyleListener {
-                        val style = trackasiaMap.style
+                        val style = mapboxMap!!.style
                         addBusStopSource(style)
                         addBusStopCircleLayer(style)
                         initFloatingActionButtons()
@@ -107,13 +105,13 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun removeOldSource() {
-        trackasiaMap.style!!.removeSource(SOURCE_ID)
-        trackasiaMap.style!!.removeLayer(LAYER_ID)
+        mapboxMap!!.style!!.removeSource(SOURCE_ID)
+        mapboxMap!!.style!!.removeLayer(LAYER_ID)
     }
 
     private fun addClusteredSource() {
         try {
-            trackasiaMap.style!!.addSource(
+            mapboxMap!!.style!!.addSource(
                 GeoJsonSource(
                     SOURCE_ID_CLUSTER,
                     URI(URL_BUS_ROUTES),
@@ -151,7 +149,7 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
         unclustered.setProperties(
             PropertyFactory.iconImage("bus-15")
         )
-        trackasiaMap.style!!.addLayer(unclustered)
+        mapboxMap!!.style!!.addLayer(unclustered)
         for (i in layers.indices) {
             // Add some nice circles
             val circles = CircleLayer("cluster-$i", SOURCE_ID_CLUSTER)
@@ -190,7 +188,7 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
                     )
                 }
             )
-            trackasiaMap.style!!.addLayer(circles)
+            mapboxMap!!.style!!.addLayer(circles)
         }
 
         // Add the count labels
@@ -202,7 +200,7 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
             PropertyFactory.textIgnorePlacement(true),
             PropertyFactory.textAllowOverlap(true)
         )
-        trackasiaMap.style!!.addLayer(count)
+        mapboxMap!!.style!!.addLayer(count)
     }
 
     private fun removeFabs() {
@@ -217,17 +215,17 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun removeBusStop() {
-        trackasiaMap.style!!.removeLayer(layer!!)
-        trackasiaMap.style!!.removeSource(source!!)
+        mapboxMap!!.style!!.removeLayer(layer!!)
+        mapboxMap!!.style!!.removeSource(source!!)
     }
 
     private fun loadNewStyle() {
-        trackasiaMap.setStyle(Style.Builder().fromUri(nextStyle))
+        mapboxMap!!.setStyle(Style.Builder().fromUri(nextStyle))
     }
 
     private fun addBusStop() {
-        trackasiaMap.style!!.addLayer(layer!!)
-        trackasiaMap.style!!.addSource(source!!)
+        mapboxMap!!.style!!.addLayer(layer!!)
+        mapboxMap!!.style!!.addSource(source!!)
     }
 
     private val nextStyle: String
@@ -241,37 +239,37 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     public override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     private object Data {

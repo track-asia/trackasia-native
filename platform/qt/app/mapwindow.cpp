@@ -11,18 +11,21 @@
 
 int kAnimationDuration = 10000;
 
-MapWindow::MapWindow(const QTrackasiaGL::Settings &settings)
-    : m_settings(settings) {
+MapWindow::MapWindow(const QTrackAsiaGL::Settings &settings)
+    : m_settings(settings)
+{
     setWindowIcon(QIcon(":icon.png"));
 }
 
-MapWindow::~MapWindow() {
+MapWindow::~MapWindow()
+{
     // Make sure we have a valid context so we
-    // can delete the QTrackasiaGL::Map.
+    // can delete the QTrackAsiaGL::Map.
     makeCurrent();
 }
 
-void MapWindow::selfTest() {
+void MapWindow::selfTest()
+{
     if (m_bearingAnimation) {
         m_bearingAnimation->setDuration(kAnimationDuration);
         m_bearingAnimation->setEndValue(m_map->bearing() + 360 * 4);
@@ -40,24 +43,28 @@ qreal MapWindow::pixelRatio() {
     return devicePixelRatioF();
 }
 
-void MapWindow::animationFinished() {
-    qDebug() << "Animation ticks/s: " << m_animationTicks / static_cast<float>(kAnimationDuration) * 1000.;
-    qDebug() << "Frame draws/s: " << m_frameDraws / static_cast<float>(kAnimationDuration) * 1000.;
+
+void MapWindow::animationFinished()
+{
+    qDebug() << "Animation ticks/s: " <<  m_animationTicks / static_cast<float>(kAnimationDuration) * 1000.;
+    qDebug() << "Frame draws/s: " <<  m_frameDraws / static_cast<float>(kAnimationDuration) * 1000.;
 
     qApp->quit();
 }
 
-void MapWindow::animationValueChanged() {
+void MapWindow::animationValueChanged()
+{
     m_animationTicks++;
 }
 
-void MapWindow::changeStyle() {
+void MapWindow::changeStyle()
+{
     static uint8_t currentStyleIndex;
 
-    auto &styles = m_map->defaultStyles();
+    auto& styles = m_map->defaultStyles();
 
     m_map->setStyleUrl(styles[currentStyleIndex].first);
-    setWindowTitle(QString("Trackasia Native: ") + styles[currentStyleIndex].second);
+    setWindowTitle(QString("TrackAsia GL: ") + styles[currentStyleIndex].second);
 
     if (++currentStyleIndex == styles.size()) {
         currentStyleIndex = 0;
@@ -66,12 +73,13 @@ void MapWindow::changeStyle() {
     m_sourceAdded = false;
 }
 
-void MapWindow::keyPressEvent(QKeyEvent *ev) {
+void MapWindow::keyPressEvent(QKeyEvent *ev)
+{
     switch (ev->key()) {
-        case Qt::Key_S:
-            changeStyle();
-            break;
-        case Qt::Key_L: {
+    case Qt::Key_S:
+        changeStyle();
+        break;
+    case Qt::Key_L: {
             if (m_sourceAdded) {
                 return;
             }
@@ -238,92 +246,93 @@ void MapWindow::keyPressEvent(QKeyEvent *ev) {
             extrusionBase["property"] = "min_height";
 
             m_map->setPaintProperty("3d-buildings", "fill-extrusion-base", extrusionBase);
-        } break;
-        case Qt::Key_1: {
+        }
+        break;
+    case Qt::Key_1: {
             if (m_symbolAnnotationId.isNull()) {
-                QTrackasiaGL::Coordinate coordinate = m_map->coordinate();
-                QTrackasiaGL::SymbolAnnotation symbol{coordinate, "default_marker"};
+                QTrackAsiaGL::Coordinate coordinate = m_map->coordinate();
+                QTrackAsiaGL::SymbolAnnotation symbol { coordinate, "default_marker" };
                 m_map->addAnnotationIcon("default_marker", QImage(":default_marker.svg"));
-                m_symbolAnnotationId = m_map->addAnnotation(
-                    QVariant::fromValue<QTrackasiaGL::SymbolAnnotation>(symbol));
+                m_symbolAnnotationId = m_map->addAnnotation(QVariant::fromValue<QTrackAsiaGL::SymbolAnnotation>(symbol));
             } else {
                 m_map->removeAnnotation(m_symbolAnnotationId.toUInt());
                 m_symbolAnnotationId.clear();
             }
-        } break;
-        case Qt::Key_2: {
+        }
+        break;
+    case Qt::Key_2: {
             if (m_lineAnnotationId.isNull()) {
-                QTrackasiaGL::Coordinates coordinates;
-                coordinates.push_back(m_map->coordinateForPixel({0, 0}));
-                coordinates.push_back(m_map->coordinateForPixel({qreal(size().width()), qreal(size().height())}));
+                QTrackAsiaGL::Coordinates coordinates;
+                coordinates.push_back(m_map->coordinateForPixel({ 0, 0 }));
+                coordinates.push_back(m_map->coordinateForPixel({ qreal(size().width()), qreal(size().height()) }));
 
-                QTrackasiaGL::CoordinatesCollection collection;
+                QTrackAsiaGL::CoordinatesCollection collection;
                 collection.push_back(coordinates);
 
-                QTrackasiaGL::CoordinatesCollections lineGeometry;
+                QTrackAsiaGL::CoordinatesCollections lineGeometry;
                 lineGeometry.push_back(collection);
 
-                QTrackasiaGL::ShapeAnnotationGeometry annotationGeometry(
-                    QTrackasiaGL::ShapeAnnotationGeometry::LineStringType, lineGeometry);
+                QTrackAsiaGL::ShapeAnnotationGeometry annotationGeometry(QTrackAsiaGL::ShapeAnnotationGeometry::LineStringType, lineGeometry);
 
-                QTrackasiaGL::LineAnnotation line;
+                QTrackAsiaGL::LineAnnotation line;
                 line.geometry = annotationGeometry;
                 line.opacity = 0.5f;
                 line.width = 1.0f;
                 line.color = Qt::red;
-                m_lineAnnotationId = m_map->addAnnotation(QVariant::fromValue<QTrackasiaGL::LineAnnotation>(line));
+                m_lineAnnotationId = m_map->addAnnotation(QVariant::fromValue<QTrackAsiaGL::LineAnnotation>(line));
             } else {
                 m_map->removeAnnotation(m_lineAnnotationId.toUInt());
                 m_lineAnnotationId.clear();
             }
-        } break;
-        case Qt::Key_3: {
+        }
+        break;
+    case Qt::Key_3: {
             if (m_fillAnnotationId.isNull()) {
-                QTrackasiaGL::Coordinates coordinates;
-                coordinates.push_back(m_map->coordinateForPixel({qreal(size().width()), 0}));
-                coordinates.push_back(m_map->coordinateForPixel({qreal(size().width()), qreal(size().height())}));
-                coordinates.push_back(m_map->coordinateForPixel({0, qreal(size().height())}));
-                coordinates.push_back(m_map->coordinateForPixel({0, 0}));
+                QTrackAsiaGL::Coordinates coordinates;
+                coordinates.push_back(m_map->coordinateForPixel({ qreal(size().width()), 0 }));
+                coordinates.push_back(m_map->coordinateForPixel({ qreal(size().width()), qreal(size().height()) }));
+                coordinates.push_back(m_map->coordinateForPixel({ 0, qreal(size().height()) }));
+                coordinates.push_back(m_map->coordinateForPixel({ 0, 0 }));
 
-                QTrackasiaGL::CoordinatesCollection collection;
+                QTrackAsiaGL::CoordinatesCollection collection;
                 collection.push_back(coordinates);
 
-                QTrackasiaGL::CoordinatesCollections fillGeometry;
+                QTrackAsiaGL::CoordinatesCollections fillGeometry;
                 fillGeometry.push_back(collection);
 
-                QTrackasiaGL::ShapeAnnotationGeometry annotationGeometry(
-                    QTrackasiaGL::ShapeAnnotationGeometry::PolygonType, fillGeometry);
+                QTrackAsiaGL::ShapeAnnotationGeometry annotationGeometry(QTrackAsiaGL::ShapeAnnotationGeometry::PolygonType, fillGeometry);
 
-                QTrackasiaGL::FillAnnotation fill;
+                QTrackAsiaGL::FillAnnotation fill;
                 fill.geometry = annotationGeometry;
                 fill.opacity = 0.5f;
                 fill.color = Qt::green;
                 fill.outlineColor = QVariant::fromValue<QColor>(QColor(Qt::black));
-                m_fillAnnotationId = m_map->addAnnotation(QVariant::fromValue<QTrackasiaGL::FillAnnotation>(fill));
+                m_fillAnnotationId = m_map->addAnnotation(QVariant::fromValue<QTrackAsiaGL::FillAnnotation>(fill));
             } else {
                 m_map->removeAnnotation(m_fillAnnotationId.toUInt());
                 m_fillAnnotationId.clear();
             }
-        } break;
-        case Qt::Key_5: {
+        }
+        break;
+    case Qt::Key_5: {
             if (m_map->layerExists("circleLayer")) {
                 m_map->removeLayer("circleLayer");
                 m_map->removeSource("circleSource");
             } else {
-                QTrackasiaGL::Coordinates coordinates;
+                QTrackAsiaGL::Coordinates coordinates;
                 coordinates.push_back(m_map->coordinate());
 
-                QTrackasiaGL::CoordinatesCollection collection;
+                QTrackAsiaGL::CoordinatesCollection collection;
                 collection.push_back(coordinates);
 
-                QTrackasiaGL::CoordinatesCollections point;
+                QTrackAsiaGL::CoordinatesCollections point;
                 point.push_back(collection);
 
-                QTrackasiaGL::Feature feature(QTrackasiaGL::Feature::PointType, point, {}, {});
+                QTrackAsiaGL::Feature feature(QTrackAsiaGL::Feature::PointType, point, {}, {});
 
                 QVariantMap circleSource;
                 circleSource["type"] = "geojson";
-                circleSource["data"] = QVariant::fromValue<QTrackasiaGL::Feature>(feature);
+                circleSource["data"] = QVariant::fromValue<QTrackAsiaGL::Feature>(feature);
                 m_map->addSource("circleSource", circleSource);
 
                 QVariantMap circle;
@@ -335,37 +344,53 @@ void MapWindow::keyPressEvent(QKeyEvent *ev) {
                 m_map->setPaintProperty("circleLayer", "circle-radius", 10.0);
                 m_map->setPaintProperty("circleLayer", "circle-color", QColor("black"));
             }
-        } break;
-        case Qt::Key_6: {
+        }
+        break;
+    case Qt::Key_6: {
             if (m_map->layerExists("innerCirclesLayer") || m_map->layerExists("outerCirclesLayer")) {
                 m_map->removeLayer("innerCirclesLayer");
                 m_map->removeLayer("outerCirclesLayer");
                 m_map->removeSource("innerCirclesSource");
                 m_map->removeSource("outerCirclesSource");
             } else {
-                auto makePoint = [&](double dx, double dy, const QString &color) {
+                auto makePoint = [&] (double dx, double dy, const QString &color) {
                     auto coordinate = m_map->coordinate();
                     coordinate.first += dx;
                     coordinate.second += dy;
-                    return QTrackasiaGL::Feature{
-                        QTrackasiaGL::Feature::PointType, {{{coordinate}}}, {{"color", color}}, {}};
+                    return QTrackAsiaGL::Feature{QTrackAsiaGL::Feature::PointType,
+                        {{{coordinate}}}, {{"color", color}}, {}};
                 };
 
-                // multiple features by QVector<QTrackasiaGL::Feature>
-                QVector<QTrackasiaGL::Feature> inner{
-                    makePoint(0.001, 0, "red"), makePoint(0, 0.001, "green"), makePoint(0, -0.001, "blue")};
+                // multiple features by QVector<QTrackAsiaGL::Feature>
+                QVector<QTrackAsiaGL::Feature> inner{
+                    makePoint(0.001,  0, "red"),
+                    makePoint(0,  0.001, "green"),
+                    makePoint(0, -0.001, "blue")
+                };
 
-                m_map->addSource("innerCirclesSource", {{"type", "geojson"}, {"data", QVariant::fromValue(inner)}});
-                m_map->addLayer({{"id", "innerCirclesLayer"}, {"type", "circle"}, {"source", "innerCirclesSource"}});
+                m_map->addSource("innerCirclesSource",
+                    {{"type", "geojson"}, {"data", QVariant::fromValue(inner)}});
+                m_map->addLayer({
+                    {"id", "innerCirclesLayer"},
+                    {"type", "circle"},
+                    {"source", "innerCirclesSource"}
+                });
 
-                // multiple features by QList<QTrackasiaGL::Feature>
-                QList<QTrackasiaGL::Feature> outer{makePoint(0.002, 0.002, "cyan"),
-                                                   makePoint(-0.002, 0.002, "magenta"),
-                                                   makePoint(0.002, -0.002, "yellow"),
-                                                   makePoint(-0.002, -0.002, "black")};
+                // multiple features by QList<QTrackAsiaGL::Feature>
+                QList<QTrackAsiaGL::Feature> outer{
+                    makePoint( 0.002,  0.002, "cyan"),
+                    makePoint(-0.002,  0.002, "magenta"),
+                    makePoint( 0.002, -0.002, "yellow"),
+                    makePoint(-0.002, -0.002, "black")
+                };
 
-                m_map->addSource("outerCirclesSource", {{"type", "geojson"}, {"data", QVariant::fromValue(outer)}});
-                m_map->addLayer({{"id", "outerCirclesLayer"}, {"type", "circle"}, {"source", "outerCirclesSource"}});
+                m_map->addSource("outerCirclesSource",
+                    {{"type", "geojson"}, {"data", QVariant::fromValue(outer)}});
+                m_map->addLayer({
+                    {"id", "outerCirclesLayer"},
+                    {"type", "circle"},
+                    {"source", "outerCirclesSource"}
+                });
 
                 QVariantList getColor{"get", "color"};
                 m_map->setPaintProperty("innerCirclesLayer", "circle-radius", 10.0);
@@ -373,15 +398,17 @@ void MapWindow::keyPressEvent(QKeyEvent *ev) {
                 m_map->setPaintProperty("outerCirclesLayer", "circle-radius", 15.0);
                 m_map->setPaintProperty("outerCirclesLayer", "circle-color", getColor);
             }
-        } break;
-        default:
-            break;
+        }
+        break;
+    default:
+        break;
     }
 
     ev->accept();
 }
 
-void MapWindow::mousePressEvent(QMouseEvent *ev) {
+void MapWindow::mousePressEvent(QMouseEvent *ev)
+{
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     m_lastPos = ev->position();
 #else
@@ -405,7 +432,8 @@ void MapWindow::mousePressEvent(QMouseEvent *ev) {
     ev->accept();
 }
 
-void MapWindow::mouseMoveEvent(QMouseEvent *ev) {
+void MapWindow::mouseMoveEvent(QMouseEvent *ev)
+{
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     const QPointF &position = ev->position();
 #else
@@ -427,7 +455,8 @@ void MapWindow::mouseMoveEvent(QMouseEvent *ev) {
     ev->accept();
 }
 
-void MapWindow::wheelEvent(QWheelEvent *ev) {
+void MapWindow::wheelEvent(QWheelEvent *ev)
+{
     if (ev->angleDelta().y() == 0) {
         return;
     }
@@ -445,19 +474,20 @@ void MapWindow::wheelEvent(QWheelEvent *ev) {
     ev->accept();
 }
 
-void MapWindow::initializeGL() {
-    m_map.reset(new QTrackasiaGL::Map(nullptr, m_settings, size(), pixelRatio()));
+void MapWindow::initializeGL()
+{
+    m_map.reset(new QTrackAsiaGL::Map(nullptr, m_settings, size(), pixelRatio()));
     connect(m_map.get(), SIGNAL(needsRendering()), this, SLOT(update()));
 
     // Set default location to Helsinki.
-    m_map->setCoordinateZoom(QTrackasiaGL::Coordinate(60.170448, 24.942046), 5);
+    m_map->setCoordinateZoom(QTrackAsiaGL::Coordinate(60.170448, 24.942046), 5);
 
-    QString styleUrl = qgetenv("MLN_STYLE_URL");
+    QString styleUrl = qgetenv("MGL_STYLE_URL");
     if (styleUrl.isEmpty()) {
         changeStyle();
     } else {
         m_map->setStyleUrl(styleUrl);
-        setWindowTitle(QString("Trackasia Native: ") + styleUrl);
+        setWindowTitle(QString("TrackAsia GL: ") + styleUrl);
     }
 
     m_bearingAnimation = new QPropertyAnimation(m_map.get(), "bearing");
@@ -467,7 +497,8 @@ void MapWindow::initializeGL() {
     connect(m_zoomAnimation, &QPropertyAnimation::valueChanged, this, &MapWindow::animationValueChanged);
 }
 
-void MapWindow::paintGL() {
+void MapWindow::paintGL()
+{
     m_frameDraws++;
     m_map->resize(size());
     m_map->setFramebufferObject(defaultFramebufferObject(), size() * pixelRatio());

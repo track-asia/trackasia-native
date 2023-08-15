@@ -10,7 +10,7 @@ namespace android {
 
 class CameraPosition : private mbgl::util::noncopyable {
 public:
-    static constexpr auto Name() { return "com/trackasia/android/camera/CameraPosition"; };
+    static constexpr auto Name() { return "com.trackasia.android/camera/CameraPosition"; };
 
     static jni::Local<jni::Object<CameraPosition>> New(jni::JNIEnv&, mbgl::CameraOptions, float pixelRatio);
 

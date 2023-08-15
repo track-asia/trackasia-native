@@ -17,7 +17,7 @@ import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -34,7 +34,7 @@ import java.util.*
 class AnimatedSymbolLayerActivity : AppCompatActivity() {
     private val random = Random()
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private var style: Style? = null
     private val randomCars: MutableList<Car> = ArrayList()
     private var randomCarSource: GeoJsonSource? = null
@@ -48,8 +48,8 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: TrackasiaMap ->
-                trackasiaMap = map
+            OnMapReadyCallback { map: MapboxMap ->
+                mapboxMap = map
                 map.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
                     this.style = style
                     setupCars()
@@ -293,7 +293,7 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
 
     private val latLngInBounds: LatLng
         get() {
-            val bounds = trackasiaMap.projection.visibleRegion.latLngBounds
+            val bounds = mapboxMap!!.projection.visibleRegion.latLngBounds
             val generator = Random()
             val randomLat = bounds.latitudeSouth + generator.nextDouble() * bounds.latitudeNorth - bounds.latitudeSouth
             val randomLon = bounds.longitudeWest + generator.nextDouble() * bounds.longitudeEast - bounds.longitudeWest
@@ -347,8 +347,8 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
     private class LatLngEvaluator : TypeEvaluator<LatLng> {
         private val latLng = LatLng()
         override fun evaluate(fraction: Float, startValue: LatLng, endValue: LatLng): LatLng {
-            latLng.latitude = startValue.latitude + (endValue.latitude - startValue.latitude) * fraction
-            latLng.longitude = startValue.longitude + (endValue.longitude - startValue.longitude) * fraction
+            latLng.setLatitude(startValue.latitude + (endValue.latitude - startValue.latitude) * fraction)
+            latLng.setLongitude(startValue.longitude + (endValue.longitude - startValue.longitude) * fraction)
             return latLng
         }
     }

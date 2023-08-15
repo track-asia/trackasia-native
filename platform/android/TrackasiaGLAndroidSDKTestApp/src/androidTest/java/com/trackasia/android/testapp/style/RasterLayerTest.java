@@ -6,23 +6,34 @@ import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import com.mapbox.geojson.Point;
-
 import com.trackasia.android.maps.BaseLayerTest;
-import org.junit.Before;
-import timber.log.Timber;
-
 import com.trackasia.android.style.layers.RasterLayer;
+import com.trackasia.android.style.layers.TransitionOptions;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
-import static com.trackasia.android.style.layers.Property.*;
-import static com.trackasia.android.style.layers.PropertyFactory.*;
-
-import com.trackasia.android.style.layers.TransitionOptions;
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
+
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.RASTER_RESAMPLING_LINEAR;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
+import static com.trackasia.android.style.layers.PropertyFactory.rasterBrightnessMax;
+import static com.trackasia.android.style.layers.PropertyFactory.rasterBrightnessMin;
+import static com.trackasia.android.style.layers.PropertyFactory.rasterContrast;
+import static com.trackasia.android.style.layers.PropertyFactory.rasterFadeDuration;
+import static com.trackasia.android.style.layers.PropertyFactory.rasterHueRotate;
+import static com.trackasia.android.style.layers.PropertyFactory.rasterOpacity;
+import static com.trackasia.android.style.layers.PropertyFactory.rasterResampling;
+import static com.trackasia.android.style.layers.PropertyFactory.rasterSaturation;
+import static com.trackasia.android.style.layers.PropertyFactory.visibility;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Basic smoke tests for RasterLayer

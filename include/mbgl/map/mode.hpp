@@ -1,7 +1,3 @@
-/**
- * @file Contains enumerations for various modes
- */
-
 #pragma once
 
 #include <mbgl/util/util.hpp>
@@ -14,33 +10,33 @@ namespace mbgl {
 using EnumType = uint32_t;
 
 enum class MapMode : EnumType {
-    Continuous, ///< continually updating map
-    Static,     ///< a once-off still image of an arbitrary viewport
-    Tile        ///< a once-off still image of a single tile
+    Continuous, // continually updating map
+    Static, // a once-off still image of an arbitrary viewport
+    Tile // a once-off still image of a single tile
 };
 
-/// We can choose to constrain the map both horizontally or vertically, or only
-/// vertically e.g. while panning.
+// We can choose to constrain the map both horizontally or vertically, or only
+// vertically e.g. while panning.
 enum class ConstrainMode : EnumType {
     None,
     HeightOnly,
     WidthAndHeight,
 };
 
-/// Satisfies embedding platforms that requires the viewport coordinate systems
-/// to be set according to its standards.
+// Satisfies embedding platforms that requires the viewport coordinate systems
+// to be set according to its standards.
 enum class ViewportMode : EnumType {
     Default,
     FlippedY,
 };
 
 enum class MapDebugOptions : EnumType {
-    NoDebug = 0,
+    NoDebug     = 0,
     TileBorders = 1 << 1,
     ParseStatus = 1 << 2,
-    Timestamps = 1 << 3,
-    Collision = 1 << 4,
-    Overdraw = 1 << 5,
+    Timestamps  = 1 << 3,
+    Collision   = 1 << 4,
+    Overdraw    = 1 << 5,
     StencilClip = 1 << 6,
     DepthBuffer = 1 << 7,
 };

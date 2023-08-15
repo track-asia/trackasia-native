@@ -2,7 +2,6 @@
 #include <cassert>
 #include <cmath>
 #include <mbgl/map/camera.hpp>
-#include <mbgl/math/angles.hpp>
 #include <mbgl/math/log2.hpp>
 #include <mbgl/util/constants.hpp>
 #include <mbgl/util/geo.hpp>
@@ -35,7 +34,7 @@ static double mercatorYfromLat(double lat) {
 }
 
 static double latFromMercatorY(double y) {
-    return util::rad2deg(2.0 * std::atan(std::exp(M_PI - y * util::M2PI)) - M_PI_2);
+    return util::RAD2DEG_D * (2.0 * std::atan(std::exp(M_PI - y * util::M2PI)) - M_PI_2);
 }
 
 static double lngFromMercatorX(double x) {
@@ -89,8 +88,7 @@ static void updateTransform(mat4& transform, const vec3& position) {
     getColumn(transform, 3)[2] = position[2];
 }
 
-Camera::Camera()
-    : orientation(Quaternion::identity) {
+Camera::Camera() : orientation(Quaternion::identity) {
     matrix::identity(transform);
 }
 
@@ -115,7 +113,7 @@ mat4 Camera::getWorldToCamera(double scale, bool flippedY) const {
     // cameraToWorld: (flip * cam^-1 * zScale)^-1 => (zScale^-1 * cam * flip^-1)
     const double worldSize = Projection::worldSize(scale);
     const double latitude = latFromMercatorY(getColumn(transform, 3)[1]);
-    const double pixelsPerMeter = worldSize / (std::cos(util::deg2rad(latitude)) * util::M2PI * util::EARTH_RADIUS_M);
+    const double pixelsPerMeter = worldSize / (std::cos(latitude * util::DEG2RAD_D) * util::M2PI * util::EARTH_RADIUS_M);
 
     // Compute inverse of the camera matrix
     mat4 result = orientation.conjugate().toRotationMatrix();
@@ -185,7 +183,7 @@ void Camera::setPosition(const vec3& position) {
     updateTransform(transform, position);
 }
 
-std::optional<Quaternion> Camera::orientationFromFrame(const vec3& forward, const vec3& up) {
+optional<Quaternion> Camera::orientationFromFrame(const vec3& forward, const vec3& up) {
     vec3 upVector = up;
 
     vec2 xyForward = {{forward[0], forward[1]}};
@@ -205,7 +203,7 @@ std::optional<Quaternion> Camera::orientationFromFrame(const vec3& forward, cons
     const vec3 right = vec3Cross(upVector, forward);
 
     if (vec3Length(right) < epsilon) {
-        return std::nullopt;
+        return nullopt;
     }
 
     const double bearing = std::atan2(-right[1], right[0]);
@@ -219,14 +217,14 @@ void FreeCameraOptions::setLocation(const LatLngAltitude& location) {
     position = util::toMercator(location.location, location.altitude);
 }
 
-std::optional<LatLngAltitude> FreeCameraOptions::getLocation() const {
+optional<LatLngAltitude> FreeCameraOptions::getLocation() const {
     if (!position) {
-        return std::nullopt;
+        return nullopt;
     }
 
     const vec3 positionValue = position.value();
     if (positionValue[1] < 0.0 || positionValue[1] > 1.0) {
-        return std::nullopt;
+        return nullopt;
     }
 
     const LatLng location = {util::latFromMercatorY(positionValue[1]), util::lngFromMercatorX(positionValue[0])};
@@ -238,8 +236,8 @@ std::optional<LatLngAltitude> FreeCameraOptions::getLocation() const {
     return LatLngAltitude{location, altitude};
 }
 
-void FreeCameraOptions::lookAtPoint(const LatLng& location, const std::optional<vec3>& upVector) {
-    orientation = std::nullopt;
+void FreeCameraOptions::lookAtPoint(const LatLng& location, const optional<vec3>& upVector) {
+    orientation = nullopt;
     if (!position) {
         return;
     }
@@ -258,7 +256,7 @@ void FreeCameraOptions::lookAtPoint(const LatLng& location, const std::optional<
 }
 
 void FreeCameraOptions::setPitchBearing(double pitch, double bearing) {
-    orientation = util::orientationFromPitchBearing(util::deg2rad(pitch), util::deg2rad(bearing)).m;
+    orientation = util::orientationFromPitchBearing(pitch * util::DEG2RAD_D, bearing * util::DEG2RAD_D).m;
 }
 
 } // namespace mbgl

@@ -1,0 +1,798 @@
+.TrackAsiaGL-map {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    position: relative;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.TrackAsiaGL-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.TrackAsiaGL-map:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+.TrackAsiaGL-canary {
+    background-color: salmon;
+}
+
+.TrackAsiaGL-canvas-container.TrackAsiaGL-interactive,
+.TrackAsiaGL-ctrl-group button.TrackAsiaGL-ctrl-compass {
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.TrackAsiaGL-canvas-container.TrackAsiaGL-interactive.TrackAsiaGL-track-pointer {
+    cursor: pointer;
+}
+
+.TrackAsiaGL-canvas-container.TrackAsiaGL-interactive:active,
+.TrackAsiaGL-ctrl-group button.TrackAsiaGL-ctrl-compass:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+}
+
+.TrackAsiaGL-canvas-container.TrackAsiaGL-touch-zoom-rotate,
+.TrackAsiaGL-canvas-container.TrackAsiaGL-touch-zoom-rotate .TrackAsiaGL-canvas {
+    touch-action: pan-x pan-y;
+}
+
+.TrackAsiaGL-canvas-container.TrackAsiaGL-touch-drag-pan,
+.TrackAsiaGL-canvas-container.TrackAsiaGL-touch-drag-pan .TrackAsiaGL-canvas {
+    touch-action: pinch-zoom;
+}
+
+.TrackAsiaGL-canvas-container.TrackAsiaGL-touch-zoom-rotate.TrackAsiaGL-touch-drag-pan,
+.TrackAsiaGL-canvas-container.TrackAsiaGL-touch-zoom-rotate.TrackAsiaGL-touch-drag-pan .TrackAsiaGL-canvas {
+    touch-action: none;
+}
+
+.TrackAsiaGL-ctrl-top-left,
+.TrackAsiaGL-ctrl-top-right,
+.TrackAsiaGL-ctrl-bottom-left,
+.TrackAsiaGL-ctrl-bottom-right { position: absolute; pointer-events: none; z-index: 2; }
+.TrackAsiaGL-ctrl-top-left     { top: 0; left: 0; }
+.TrackAsiaGL-ctrl-top-right    { top: 0; right: 0; }
+.TrackAsiaGL-ctrl-bottom-left  { bottom: 0; left: 0; }
+.TrackAsiaGL-ctrl-bottom-right { right: 0; bottom: 0; }
+
+.TrackAsiaGL-ctrl {
+    clear: both;
+    pointer-events: auto;
+
+    /* workaround for a Safari bug https://github.com/mapbox/mapbox-gl-js/issues/8185 */
+    transform: translate(0, 0);
+}
+.TrackAsiaGL-ctrl-top-left .TrackAsiaGL-ctrl     { margin: 10px 0 0 10px; float: left; }
+.TrackAsiaGL-ctrl-top-right .TrackAsiaGL-ctrl    { margin: 10px 10px 0 0; float: right; }
+.TrackAsiaGL-ctrl-bottom-left .TrackAsiaGL-ctrl  { margin: 0 0 10px 10px; float: left; }
+.TrackAsiaGL-ctrl-bottom-right .TrackAsiaGL-ctrl { margin: 0 10px 10px 0; float: right; }
+
+.TrackAsiaGL-ctrl-group {
+    border-radius: 4px;
+    background: #fff;
+}
+
+.TrackAsiaGL-ctrl-group:not(:empty) {
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+@media (-ms-high-contrast: active) {
+    .TrackAsiaGL-ctrl-group:not(:empty) {
+        box-shadow: 0 0 0 2px ButtonText;
+    }
+}
+
+.TrackAsiaGL-ctrl-group button {
+    width: 29px;
+    height: 29px;
+    display: block;
+    padding: 0;
+    outline: none;
+    border: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.TrackAsiaGL-ctrl-group button + button {
+    border-top: 1px solid #ddd;
+}
+
+.TrackAsiaGL-ctrl button .TrackAsiaGL-ctrl-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+@media (-ms-high-contrast: active) {
+    .TrackAsiaGL-ctrl-icon {
+        background-color: transparent;
+    }
+
+    .TrackAsiaGL-ctrl-group button + button {
+        border-top: 1px solid ButtonText;
+    }
+}
+
+/* https://bugzilla.mozilla.org/show_bug.cgi?id=140562 */
+.TrackAsiaGL-ctrl button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.TrackAsiaGL-ctrl-group button:focus {
+    box-shadow: 0 0 2px 2px rgba(0, 150, 255, 1);
+}
+
+.TrackAsiaGL-ctrl button:disabled {
+    cursor: not-allowed;
+}
+
+.TrackAsiaGL-ctrl button:disabled .TrackAsiaGL-ctrl-icon {
+    opacity: 0.25;
+}
+
+.TrackAsiaGL-ctrl button:not(:disabled):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.TrackAsiaGL-ctrl-group button:focus:focus-visible {
+    box-shadow: 0 0 2px 2px rgba(0, 150, 255, 1);
+}
+
+.TrackAsiaGL-ctrl-group button:focus:not(:focus-visible) {
+    box-shadow: none;
+}
+
+.TrackAsiaGL-ctrl-group button:focus:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.TrackAsiaGL-ctrl-group button:focus:last-child {
+    border-radius: 0 0 4px 4px;
+}
+
+.TrackAsiaGL-ctrl-group button:focus:only-child {
+    border-radius: inherit;
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-zoom-out .TrackAsiaGL-ctrl-icon {
+    background-image: svg-load('svg/TrackAsiaGL-ctrl-zoom-out.svg', fill: #333);
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-zoom-in .TrackAsiaGL-ctrl-icon {
+    background-image: svg-load('svg/TrackAsiaGL-ctrl-zoom-in.svg', fill: #333);
+}
+
+@media (-ms-high-contrast: active) {
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-zoom-out .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-zoom-out.svg', fill: #fff);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-zoom-in .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-zoom-in.svg', fill: #fff);
+    }
+}
+
+@media (-ms-high-contrast: black-on-white) {
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-zoom-out .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-zoom-out.svg', fill: #000);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-zoom-in .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-zoom-in.svg', fill: #000);
+    }
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-fullscreen .TrackAsiaGL-ctrl-icon {
+    background-image: svg-load('svg/TrackAsiaGL-ctrl-fullscreen.svg', fill: #333);
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-shrink .TrackAsiaGL-ctrl-icon {
+    background-image: svg-load('svg/TrackAsiaGL-ctrl-shrink.svg');
+}
+
+@media (-ms-high-contrast: active) {
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-fullscreen .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-fullscreen.svg', fill: #fff);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-shrink .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-shrink.svg', fill: #fff);
+    }
+}
+
+@media (-ms-high-contrast: black-on-white) {
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-fullscreen .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-fullscreen.svg', fill: #000);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-shrink .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-shrink.svg', fill: #000);
+    }
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-compass .TrackAsiaGL-ctrl-icon {
+    background-image: svg-load('svg/TrackAsiaGL-ctrl-compass.svg', fill: #333);
+}
+
+@media (-ms-high-contrast: active) {
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-compass .TrackAsiaGL-ctrl-icon {
+        @svg-load ctrl-compass-white url(svg/TrackAsiaGL-ctrl-compass.svg) {
+            fill: #fff;
+            #south { fill: #999; }
+        }
+
+        background-image: svg-inline(ctrl-compass-white);
+    }
+}
+
+@media (-ms-high-contrast: black-on-white) {
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-compass .TrackAsiaGL-ctrl-icon {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-compass.svg', fill: #000);
+    }
+}
+
+@svg-load ctrl-geolocate url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #333;
+    #stroke { display: none; }
+}
+
+@svg-load ctrl-geolocate-white url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #fff;
+    #stroke { display: none; }
+}
+
+@svg-load ctrl-geolocate-black url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #000;
+    #stroke { display: none; }
+}
+
+@svg-load ctrl-geolocate-disabled url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #aaa;
+    #stroke { fill: #f00; }
+}
+
+@svg-load ctrl-geolocate-disabled-white url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #999;
+    #stroke { fill: #f00; }
+}
+
+@svg-load ctrl-geolocate-disabled-black url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #666;
+    #stroke { fill: #f00; }
+}
+
+@svg-load ctrl-geolocate-active url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #33b5e5;
+    #stroke { display: none; }
+}
+
+@svg-load ctrl-geolocate-active-error url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #e58978;
+    #stroke { display: none; }
+}
+
+@svg-load ctrl-geolocate-background url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #33b5e5;
+    #stroke { display: none; }
+    #dot { display: none; }
+}
+
+@svg-load ctrl-geolocate-background-error url(svg/TrackAsiaGL-ctrl-geolocate.svg) {
+    fill: #e54e33;
+    #stroke { display: none; }
+    #dot { display: none; }
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate .TrackAsiaGL-ctrl-icon {
+    background-image: svg-inline(ctrl-geolocate);
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate:disabled .TrackAsiaGL-ctrl-icon {
+    background-image: svg-inline(ctrl-geolocate-disabled);
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-active .TrackAsiaGL-ctrl-icon {
+    background-image: svg-inline(ctrl-geolocate-active);
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-active-error .TrackAsiaGL-ctrl-icon {
+    background-image: svg-inline(ctrl-geolocate-active-error);
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-background .TrackAsiaGL-ctrl-icon {
+    background-image: svg-inline(ctrl-geolocate-background);
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-background-error .TrackAsiaGL-ctrl-icon {
+    background-image: svg-inline(ctrl-geolocate-background-error);
+}
+
+.TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-waiting .TrackAsiaGL-ctrl-icon {
+    -webkit-animation: TrackAsiaGL-spin 2s infinite linear;
+    -moz-animation: TrackAsiaGL-spin 2s infinite linear;
+    -o-animation: TrackAsiaGL-spin 2s infinite linear;
+    -ms-animation: TrackAsiaGL-spin 2s infinite linear;
+    animation: TrackAsiaGL-spin 2s infinite linear;
+}
+
+@media (-ms-high-contrast: active) {
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate .TrackAsiaGL-ctrl-icon {
+        background-image: svg-inline(ctrl-geolocate-white);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate:disabled .TrackAsiaGL-ctrl-icon {
+        background-image: svg-inline(ctrl-geolocate-disabled-white);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-active .TrackAsiaGL-ctrl-icon {
+        background-image: svg-inline(ctrl-geolocate-active);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-active-error .TrackAsiaGL-ctrl-icon {
+        background-image: svg-inline(ctrl-geolocate-active-error);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-background .TrackAsiaGL-ctrl-icon {
+        background-image: svg-inline(ctrl-geolocate-background);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate.TrackAsiaGL-ctrl-geolocate-background-error .TrackAsiaGL-ctrl-icon {
+        background-image: svg-inline(ctrl-geolocate-background-error);
+    }
+}
+
+@media (-ms-high-contrast: black-on-white) {
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate .TrackAsiaGL-ctrl-icon {
+        background-image: svg-inline(ctrl-geolocate-black);
+    }
+
+    .TrackAsiaGL-ctrl button.TrackAsiaGL-ctrl-geolocate:disabled .TrackAsiaGL-ctrl-icon {
+        background-image: svg-inline(ctrl-geolocate-disabled-black);
+    }
+}
+
+@-webkit-keyframes TrackAsiaGL-spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes TrackAsiaGL-spin {
+    0% { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(360deg); }
+}
+
+@-o-keyframes TrackAsiaGL-spin {
+    0% { -o-transform: rotate(0deg); }
+    100% { -o-transform: rotate(360deg); }
+}
+
+@-ms-keyframes TrackAsiaGL-spin {
+    0% { -ms-transform: rotate(0deg); }
+    100% { -ms-transform: rotate(360deg); }
+}
+
+@keyframes TrackAsiaGL-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+a.TrackAsiaGL-ctrl-logo {
+    width: 88px;
+    height: 23px;
+    margin: 0 0 -4px -4px;
+    display: block;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    background-image: svg-load('svg/TrackAsiaGL-ctrl-logo.svg');
+}
+
+a.TrackAsiaGL-ctrl-logo.TrackAsiaGL-compact {
+    width: 23px;
+}
+
+@media (-ms-high-contrast: active) {
+    a.TrackAsiaGL-ctrl-logo {
+        @svg-load ctrl-logo-white url(svg/TrackAsiaGL-ctrl-logo.svg) {
+            #outline { opacity: 1; }
+            #fill { opacity: 1; }
+        }
+
+        background-color: transparent;
+        background-image: svg-inline(ctrl-logo-white);
+    }
+}
+
+@media (-ms-high-contrast: black-on-white) {
+    a.TrackAsiaGL-ctrl-logo {
+        @svg-load ctrl-logo-black url(svg/TrackAsiaGL-ctrl-logo.svg) {
+            #outline { opacity: 1; fill: #fff; stroke: #fff; }
+            #fill { opacity: 1; fill: #000; }
+        }
+
+        background-image: svg-inline(ctrl-logo-black);
+    }
+}
+
+.TrackAsiaGL-ctrl.TrackAsiaGL-ctrl-attrib {
+    padding: 0 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+@media screen {
+    .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact {
+        min-height: 20px;
+        padding: 0;
+        margin: 10px;
+        position: relative;
+        background-color: #fff;
+        border-radius: 3px 12px 12px 3px;
+    }
+
+    .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact:hover {
+        padding: 2px 24px 2px 4px;
+        visibility: visible;
+        margin-top: 6px;
+    }
+
+    .TrackAsiaGL-ctrl-top-left > .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact:hover,
+    .TrackAsiaGL-ctrl-bottom-left > .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact:hover {
+        padding: 2px 4px 2px 24px;
+        border-radius: 12px 3px 3px 12px;
+    }
+
+    .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact .TrackAsiaGL-ctrl-attrib-inner {
+        display: none;
+    }
+
+    .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact:hover .TrackAsiaGL-ctrl-attrib-inner {
+        display: block;
+    }
+
+    .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact::after {
+        content: '';
+        cursor: pointer;
+        position: absolute;
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-attrib.svg');
+        background-color: rgba(255, 255, 255, 0.5);
+        width: 24px;
+        height: 24px;
+        box-sizing: border-box;
+        border-radius: 12px;
+    }
+
+    .TrackAsiaGL-ctrl-bottom-right > .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact::after {
+        bottom: 0;
+        right: 0;
+    }
+
+    .TrackAsiaGL-ctrl-top-right > .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact::after {
+        top: 0;
+        right: 0;
+    }
+
+    .TrackAsiaGL-ctrl-top-left > .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact::after {
+        top: 0;
+        left: 0;
+    }
+
+    .TrackAsiaGL-ctrl-bottom-left > .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact::after {
+        bottom: 0;
+        left: 0;
+    }
+}
+
+@media screen and (-ms-high-contrast: active) {
+    .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact::after {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-attrib.svg', fill=#fff);
+    }
+}
+
+@media screen and (-ms-high-contrast: black-on-white) {
+    .TrackAsiaGL-ctrl-attrib.TrackAsiaGL-compact::after {
+        background-image: svg-load('svg/TrackAsiaGL-ctrl-attrib.svg');
+    }
+}
+
+.TrackAsiaGL-ctrl-attrib a {
+    color: rgba(0, 0, 0, 0.75);
+    text-decoration: none;
+}
+
+.TrackAsiaGL-ctrl-attrib a:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.TrackAsiaGL-ctrl-attrib .mapbox-improve-map {
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+.TrackAsiaGL-attrib-empty {
+    display: none;
+}
+
+.TrackAsiaGL-ctrl-scale {
+    background-color: rgba(255, 255, 255, 0.75);
+    font-size: 10px;
+    border-width: medium 2px 2px;
+    border-style: none solid solid;
+    border-color: #333;
+    padding: 0 5px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.TrackAsiaGL-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: -webkit-flex;
+    display: flex;
+    will-change: transform;
+    pointer-events: none;
+}
+
+.TrackAsiaGL-popup-anchor-top,
+.TrackAsiaGL-popup-anchor-top-left,
+.TrackAsiaGL-popup-anchor-top-right {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.TrackAsiaGL-popup-anchor-bottom,
+.TrackAsiaGL-popup-anchor-bottom-left,
+.TrackAsiaGL-popup-anchor-bottom-right {
+    -webkit-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+
+.TrackAsiaGL-popup-anchor-left {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.TrackAsiaGL-popup-anchor-right {
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+}
+
+.TrackAsiaGL-popup-tip {
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    z-index: 1;
+}
+
+.TrackAsiaGL-popup-anchor-top .TrackAsiaGL-popup-tip {
+    -webkit-align-self: center;
+    align-self: center;
+    border-top: none;
+    border-bottom-color: #fff;
+}
+
+.TrackAsiaGL-popup-anchor-top-left .TrackAsiaGL-popup-tip {
+    -webkit-align-self: flex-start;
+    align-self: flex-start;
+    border-top: none;
+    border-left: none;
+    border-bottom-color: #fff;
+}
+
+.TrackAsiaGL-popup-anchor-top-right .TrackAsiaGL-popup-tip {
+    -webkit-align-self: flex-end;
+    align-self: flex-end;
+    border-top: none;
+    border-right: none;
+    border-bottom-color: #fff;
+}
+
+.TrackAsiaGL-popup-anchor-bottom .TrackAsiaGL-popup-tip {
+    -webkit-align-self: center;
+    align-self: center;
+    border-bottom: none;
+    border-top-color: #fff;
+}
+
+.TrackAsiaGL-popup-anchor-bottom-left .TrackAsiaGL-popup-tip {
+    -webkit-align-self: flex-start;
+    align-self: flex-start;
+    border-bottom: none;
+    border-left: none;
+    border-top-color: #fff;
+}
+
+.TrackAsiaGL-popup-anchor-bottom-right .TrackAsiaGL-popup-tip {
+    -webkit-align-self: flex-end;
+    align-self: flex-end;
+    border-bottom: none;
+    border-right: none;
+    border-top-color: #fff;
+}
+
+.TrackAsiaGL-popup-anchor-left .TrackAsiaGL-popup-tip {
+    -webkit-align-self: center;
+    align-self: center;
+    border-left: none;
+    border-right-color: #fff;
+}
+
+.TrackAsiaGL-popup-anchor-right .TrackAsiaGL-popup-tip {
+    -webkit-align-self: center;
+    align-self: center;
+    border-right: none;
+    border-left-color: #fff;
+}
+
+.TrackAsiaGL-popup-close-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+    border-radius: 0 3px 0 0;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.TrackAsiaGL-popup-close-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.TrackAsiaGL-popup-content {
+    position: relative;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 10px 10px 15px;
+    pointer-events: auto;
+}
+
+.TrackAsiaGL-popup-anchor-top-left .TrackAsiaGL-popup-content {
+    border-top-left-radius: 0;
+}
+
+.TrackAsiaGL-popup-anchor-top-right .TrackAsiaGL-popup-content {
+    border-top-right-radius: 0;
+}
+
+.TrackAsiaGL-popup-anchor-bottom-left .TrackAsiaGL-popup-content {
+    border-bottom-left-radius: 0;
+}
+
+.TrackAsiaGL-popup-anchor-bottom-right .TrackAsiaGL-popup-content {
+    border-bottom-right-radius: 0;
+}
+
+.TrackAsiaGL-popup-track-pointer {
+    display: none;
+}
+
+.TrackAsiaGL-popup-track-pointer * {
+    pointer-events: none;
+    user-select: none;
+}
+
+.TrackAsiaGL-map:hover .TrackAsiaGL-popup-track-pointer {
+    display: flex;
+}
+
+.TrackAsiaGL-map:active .TrackAsiaGL-popup-track-pointer {
+    display: none;
+}
+
+.TrackAsiaGL-marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+}
+
+.TrackAsiaGL-user-location-dot {
+    background-color: #1da1f2;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.TrackAsiaGL-user-location-dot::before {
+    background-color: #1da1f2;
+    content: '';
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    -webkit-animation: TrackAsiaGL-user-location-dot-pulse 2s infinite;
+    -moz-animation: TrackAsiaGL-user-location-dot-pulse 2s infinite;
+    -ms-animation: TrackAsiaGL-user-location-dot-pulse 2s infinite;
+    animation: TrackAsiaGL-user-location-dot-pulse 2s infinite;
+}
+
+.TrackAsiaGL-user-location-dot::after {
+    border-radius: 50%;
+    border: 2px solid #fff;
+    content: '';
+    height: 19px;
+    left: -2px;
+    position: absolute;
+    top: -2px;
+    width: 19px;
+    box-sizing: border-box;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.35);
+}
+
+@-webkit-keyframes TrackAsiaGL-user-location-dot-pulse {
+    0%   { -webkit-transform: scale(1); opacity: 1; }
+    70%  { -webkit-transform: scale(3); opacity: 0; }
+    100% { -webkit-transform: scale(1); opacity: 0; }
+}
+
+@-ms-keyframes TrackAsiaGL-user-location-dot-pulse {
+    0%   { -ms-transform: scale(1); opacity: 1; }
+    70%  { -ms-transform: scale(3); opacity: 0; }
+    100% { -ms-transform: scale(1); opacity: 0; }
+}
+
+@keyframes TrackAsiaGL-user-location-dot-pulse {
+    0%   { transform: scale(1); opacity: 1; }
+    70%  { transform: scale(3); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+.TrackAsiaGL-user-location-dot-stale {
+    background-color: #aaa;
+}
+
+.TrackAsiaGL-user-location-dot-stale::after {
+    display: none;
+}
+
+.TrackAsiaGL-user-location-accuracy-circle {
+    background-color: #1da1f233;
+    width: 1px;
+    height: 1px;
+    border-radius: 100%;
+}
+
+.TrackAsiaGL-crosshair,
+.TrackAsiaGL-crosshair .TrackAsiaGL-interactive,
+.TrackAsiaGL-crosshair .TrackAsiaGL-interactive:active {
+    cursor: crosshair;
+}
+
+.TrackAsiaGL-boxzoom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    background: #fff;
+    border: 2px dotted #202020;
+    opacity: 0.5;
+}
+
+@media print {
+    /* stylelint-disable-next-line selector-class-pattern */
+    .mapbox-improve-map {
+        display: none;
+    }
+}

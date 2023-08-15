@@ -44,19 +44,13 @@ public:
         }
     }
 
-    void onRegisterShaders(gfx::ShaderRegistry& registry) final {
-        if (onRegisterShadersCallback) {
-            onRegisterShadersCallback(registry);
-        }
-    }
-
     std::function<void()> willStartLoadingMapCallback;
     std::function<void()> didFinishLoadingMapCallback;
     std::function<void()> didFailLoadingMapCallback;
     std::function<void()> didFinishLoadingStyleCallback;
     std::function<void(RenderFrameStatus)> didFinishRenderingFrameCallback;
     std::function<void()> didBecomeIdleCallback;
-    std::function<void(gfx::ShaderRegistry&)> onRegisterShadersCallback;
 };
+
 
 } // namespace mbgl

@@ -6,8 +6,8 @@ import androidx.test.rule.ActivityTestRule
 import com.trackasia.android.AppCenter
 import com.trackasia.android.storage.FileSource
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
+import junit.framework.Assert
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

@@ -2,11 +2,11 @@ package com.trackasia.android.testapp.maps
 
 import androidx.test.espresso.UiController
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
-import com.trackasia.android.testapp.action.TrackasiaMapAction
+import com.trackasia.android.testapp.action.MapboxMapAction
 import com.trackasia.android.testapp.activity.EspressoTest
 import com.trackasia.android.testapp.utils.TestingAsyncUtils
 import org.junit.Test
@@ -18,12 +18,12 @@ class StyleLoadTest : EspressoTest() {
     @Test
     fun updateSourceAfterStyleLoad() {
         validateTestSetup()
-        TrackasiaMapAction.invoke(trackasiaMap) { uiController: UiController, trackasiaMap: TrackasiaMap ->
+        MapboxMapAction.invoke(mapboxMap) { uiController: UiController, mapboxMap: MapboxMap ->
             val source = GeoJsonSource("id")
             val layer = SymbolLayer("id", "id")
-            trackasiaMap.setStyle(Style.Builder().withSource(source).withLayer(layer))
+            mapboxMap.setStyle(Style.Builder().withSource(source).withLayer(layer))
             TestingAsyncUtils.waitForLayer(uiController, mapView)
-            trackasiaMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Streets")))
+            mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Streets")))
             TestingAsyncUtils.waitForLayer(uiController, mapView)
             source.setGeoJson("{}")
         }

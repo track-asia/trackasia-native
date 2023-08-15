@@ -8,7 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 
@@ -18,19 +18,19 @@ import com.trackasia.android.testapp.R
  * This includes zoomIn, zoomOut, zoomTo, zoomBy (center and custom focal point).
  */
 class ManualZoomActivity : AppCompatActivity() {
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var mapView: MapView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manual_zoom)
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: TrackasiaMap ->
-            this@ManualZoomActivity.trackasiaMap = trackasiaMap
-            trackasiaMap.setStyle(
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+            this@ManualZoomActivity.mapboxMap = mapboxMap
+            mapboxMap.setStyle(
                 Style.Builder().fromUri(Style.getPredefinedStyle("Satellite Hybrid"))
             )
-            val uiSettings = this@ManualZoomActivity.trackasiaMap.uiSettings
+            val uiSettings = this@ManualZoomActivity.mapboxMap!!.uiSettings
             uiSettings.setAllGesturesEnabled(false)
         }
     }
@@ -43,24 +43,24 @@ class ManualZoomActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_zoom_in -> {
-                trackasiaMap.animateCamera(CameraUpdateFactory.zoomIn())
+                mapboxMap!!.animateCamera(CameraUpdateFactory.zoomIn())
                 true
             }
             R.id.action_zoom_out -> {
-                trackasiaMap.animateCamera(CameraUpdateFactory.zoomOut())
+                mapboxMap!!.animateCamera(CameraUpdateFactory.zoomOut())
                 true
             }
             R.id.action_zoom_by -> {
-                trackasiaMap.animateCamera(CameraUpdateFactory.zoomBy(2.0))
+                mapboxMap!!.animateCamera(CameraUpdateFactory.zoomBy(2.0))
                 true
             }
             R.id.action_zoom_to -> {
-                trackasiaMap.animateCamera(CameraUpdateFactory.zoomTo(2.0))
+                mapboxMap!!.animateCamera(CameraUpdateFactory.zoomTo(2.0))
                 true
             }
             R.id.action_zoom_to_point -> {
                 val view = window.decorView
-                trackasiaMap.animateCamera(
+                mapboxMap!!.animateCamera(
                     CameraUpdateFactory.zoomBy(
                         1.0,
                         Point(view.measuredWidth / 4, view.measuredHeight / 4)
@@ -74,36 +74,36 @@ class ManualZoomActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 }

@@ -10,7 +10,7 @@ namespace android {
 class RasterDEMSource : public Source {
 public:
     using SuperTag = Source;
-    static constexpr auto Name() { return "com/trackasia/android/style/sources/RasterDemSource"; };
+    static constexpr auto Name() { return "com.trackasia.android/style/sources/RasterDemSource"; };
 
     static void registerNative(jni::JNIEnv&);
 

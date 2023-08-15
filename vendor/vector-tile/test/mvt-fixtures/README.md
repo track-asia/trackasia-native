@@ -2,11 +2,11 @@
 
 ![](https://travis-ci.org/mapbox/evilmvt.svg?branch=master)
 
-A [`require()`able](#require-fixtures) suite of [valid](#valid-fixtures) & [invalid](#invalid-fixtures) vector tile fixtures for testing [Mapbox Vector Tile](https://github.com/mapbox/vector-tile-spec) decoding. *Previously called `evilmvt` but eventually `happymvt` prevailed.*
+A [`require()`able](#require-fixtures) suite of [valid](#valid-fixtures) & [invalid](#invalid-fixtures) vector tile fixtures for testing [Trackasia Vector Tile](https://github.com/mapbox/vector-tile-spec) decoding. *Previously called `evilmvt` but eventually `happymvt` prevailed.*
 
 All fixtures are included in the `/fixtures` directory. They are named to be as descriptive as possible, but the tables below gives us more space to describe the underlying data.
 
-**Version**: The version of `mvt-fixtures` stays in sync with the version of the Mapbox Vector Tile Specification. For instance `mvt-fixtures@2.1.0` references the Mapbox `vector-tile-spec@2.1`, reserving the patch versions for any unexpected bug fixes in this project.
+**Version**: The version of `mvt-fixtures` stays in sync with the version of the Trackasia Vector Tile Specification. For instance `mvt-fixtures@2.1.0` references the Trackasia `vector-tile-spec@2.1`, reserving the patch versions for any unexpected bug fixes in this project.
 
 # Usage
 

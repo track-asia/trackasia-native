@@ -3,12 +3,9 @@ package com.trackasia.android.location;
 import androidx.annotation.NonNull;
 
 import com.mapbox.geojson.Feature;
-
-import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.layers.CircleLayer;
 import com.trackasia.android.style.layers.Layer;
 import com.trackasia.android.style.layers.Property;
-import com.trackasia.android.style.layers.PropertyFactory;
 import com.trackasia.android.style.layers.SymbolLayer;
 import com.trackasia.android.style.layers.TransitionOptions;
 import com.trackasia.android.style.sources.GeoJsonOptions;
@@ -17,6 +14,45 @@ import com.trackasia.android.style.sources.GeoJsonSource;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.trackasia.android.location.LocationComponentConstants.ACCURACY_LAYER;
+import static com.trackasia.android.location.LocationComponentConstants.BACKGROUND_LAYER;
+import static com.trackasia.android.location.LocationComponentConstants.BEARING_LAYER;
+import static com.trackasia.android.location.LocationComponentConstants.FOREGROUND_LAYER;
+import static com.trackasia.android.location.LocationComponentConstants.LOCATION_SOURCE;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_ACCURACY_ALPHA;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_ACCURACY_COLOR;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_ACCURACY_RADIUS;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_BACKGROUND_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_BACKGROUND_STALE_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_BEARING_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_COMPASS_BEARING;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_FOREGROUND_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_FOREGROUND_ICON_OFFSET;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_FOREGROUND_STALE_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_GPS_BEARING;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_LOCATION_STALE;
+import static com.trackasia.android.location.LocationComponentConstants.PROPERTY_SHADOW_ICON_OFFSET;
+import static com.trackasia.android.location.LocationComponentConstants.PULSING_CIRCLE_LAYER;
+import static com.trackasia.android.location.LocationComponentConstants.SHADOW_ICON;
+import static com.trackasia.android.location.LocationComponentConstants.SHADOW_LAYER;
+import static com.trackasia.android.style.expressions.Expression.get;
+import static com.trackasia.android.style.expressions.Expression.literal;
+import static com.trackasia.android.style.expressions.Expression.match;
+import static com.trackasia.android.style.expressions.Expression.stop;
+import static com.trackasia.android.style.expressions.Expression.switchCase;
+import static com.trackasia.android.style.layers.Property.ICON_ROTATION_ALIGNMENT_MAP;
+import static com.trackasia.android.style.layers.PropertyFactory.circleColor;
+import static com.trackasia.android.style.layers.PropertyFactory.circleOpacity;
+import static com.trackasia.android.style.layers.PropertyFactory.circlePitchAlignment;
+import static com.trackasia.android.style.layers.PropertyFactory.circleRadius;
+import static com.trackasia.android.style.layers.PropertyFactory.circleStrokeColor;
+import static com.trackasia.android.style.layers.PropertyFactory.iconAllowOverlap;
+import static com.trackasia.android.style.layers.PropertyFactory.iconIgnorePlacement;
+import static com.trackasia.android.style.layers.PropertyFactory.iconImage;
+import static com.trackasia.android.style.layers.PropertyFactory.iconOffset;
+import static com.trackasia.android.style.layers.PropertyFactory.iconRotate;
+import static com.trackasia.android.style.layers.PropertyFactory.iconRotationAlignment;
+
 class LayerSourceProvider {
 
   private static final String EMPTY_STRING = "";
@@ -24,7 +60,7 @@ class LayerSourceProvider {
   @NonNull
   GeoJsonSource generateSource(Feature locationFeature) {
     return new GeoJsonSource(
-      LocationComponentConstants.LOCATION_SOURCE,
+      LOCATION_SOURCE,
       locationFeature,
       new GeoJsonOptions().withMaxZoom(16)
     );
@@ -32,45 +68,35 @@ class LayerSourceProvider {
 
   @NonNull
   Layer generateLayer(@NonNull String layerId) {
-    SymbolLayer layer = new SymbolLayer(layerId, LocationComponentConstants.LOCATION_SOURCE);
+    SymbolLayer layer = new SymbolLayer(layerId, LOCATION_SOURCE);
     layer.setProperties(
-      PropertyFactory.iconAllowOverlap(true),
-      PropertyFactory.iconIgnorePlacement(true),
-      PropertyFactory.iconRotationAlignment(Property.ICON_ROTATION_ALIGNMENT_MAP),
-      PropertyFactory.iconRotate(
-        Expression.match(Expression.literal(layerId), Expression.literal(0f),
-          Expression.stop(LocationComponentConstants.FOREGROUND_LAYER,
-            Expression.get(LocationComponentConstants.PROPERTY_GPS_BEARING)),
-          Expression.stop(LocationComponentConstants.BACKGROUND_LAYER,
-            Expression.get(LocationComponentConstants.PROPERTY_GPS_BEARING)),
-          Expression.stop(LocationComponentConstants.SHADOW_LAYER,
-            Expression.get(LocationComponentConstants.PROPERTY_GPS_BEARING)),
-          Expression.stop(LocationComponentConstants.BEARING_LAYER,
-            Expression.get(LocationComponentConstants.PROPERTY_COMPASS_BEARING))
+      iconAllowOverlap(true),
+      iconIgnorePlacement(true),
+      iconRotationAlignment(ICON_ROTATION_ALIGNMENT_MAP),
+      iconRotate(
+        match(literal(layerId), literal(0f),
+          stop(FOREGROUND_LAYER, get(PROPERTY_GPS_BEARING)),
+          stop(BACKGROUND_LAYER, get(PROPERTY_GPS_BEARING)),
+          stop(SHADOW_LAYER, get(PROPERTY_GPS_BEARING)),
+          stop(BEARING_LAYER, get(PROPERTY_COMPASS_BEARING))
         )
       ),
-      PropertyFactory.iconImage(
-        Expression.match(Expression.literal(layerId), Expression.literal(EMPTY_STRING),
-          Expression.stop(LocationComponentConstants.FOREGROUND_LAYER, Expression.switchCase(
-            Expression.get(LocationComponentConstants.PROPERTY_LOCATION_STALE),
-            Expression.get(LocationComponentConstants.PROPERTY_FOREGROUND_STALE_ICON),
-            Expression.get(LocationComponentConstants.PROPERTY_FOREGROUND_ICON))),
-          Expression.stop(LocationComponentConstants.BACKGROUND_LAYER, Expression.switchCase(
-            Expression.get(LocationComponentConstants.PROPERTY_LOCATION_STALE),
-            Expression.get(LocationComponentConstants.PROPERTY_BACKGROUND_STALE_ICON),
-            Expression.get(LocationComponentConstants.PROPERTY_BACKGROUND_ICON))),
-          Expression.stop(LocationComponentConstants.SHADOW_LAYER,
-            Expression.literal(LocationComponentConstants.SHADOW_ICON)),
-          Expression.stop(LocationComponentConstants.BEARING_LAYER,
-            Expression.get(LocationComponentConstants.PROPERTY_BEARING_ICON))
+      iconImage(
+        match(literal(layerId), literal(EMPTY_STRING),
+          stop(FOREGROUND_LAYER, switchCase(
+            get(PROPERTY_LOCATION_STALE), get(PROPERTY_FOREGROUND_STALE_ICON),
+            get(PROPERTY_FOREGROUND_ICON))),
+          stop(BACKGROUND_LAYER, switchCase(
+            get(PROPERTY_LOCATION_STALE), get(PROPERTY_BACKGROUND_STALE_ICON),
+            get(PROPERTY_BACKGROUND_ICON))),
+          stop(SHADOW_LAYER, literal(SHADOW_ICON)),
+          stop(BEARING_LAYER, get(PROPERTY_BEARING_ICON))
         )
       ),
-      PropertyFactory.iconOffset(
-        Expression.match(Expression.literal(layerId), Expression.literal(new Float[] {0f, 0f}),
-          Expression.stop(Expression.literal(LocationComponentConstants.FOREGROUND_LAYER),
-            Expression.get(LocationComponentConstants.PROPERTY_FOREGROUND_ICON_OFFSET)),
-          Expression.stop(Expression.literal(LocationComponentConstants.SHADOW_LAYER),
-            Expression.get(LocationComponentConstants.PROPERTY_SHADOW_ICON_OFFSET))
+      iconOffset(
+        match(literal(layerId), literal(new Float[] {0f, 0f}),
+          stop(literal(FOREGROUND_LAYER), get(PROPERTY_FOREGROUND_ICON_OFFSET)),
+          stop(literal(SHADOW_LAYER), get(PROPERTY_SHADOW_ICON_OFFSET))
         )
       )
     );
@@ -79,13 +105,13 @@ class LayerSourceProvider {
 
   @NonNull
   Layer generateAccuracyLayer() {
-    return new CircleLayer(LocationComponentConstants.ACCURACY_LAYER, LocationComponentConstants.LOCATION_SOURCE)
+    return new CircleLayer(ACCURACY_LAYER, LOCATION_SOURCE)
       .withProperties(
-        PropertyFactory.circleRadius(Expression.get(LocationComponentConstants.PROPERTY_ACCURACY_RADIUS)),
-        PropertyFactory.circleColor(Expression.get(LocationComponentConstants.PROPERTY_ACCURACY_COLOR)),
-        PropertyFactory.circleOpacity(Expression.get(LocationComponentConstants.PROPERTY_ACCURACY_ALPHA)),
-        PropertyFactory.circleStrokeColor(Expression.get(LocationComponentConstants.PROPERTY_ACCURACY_COLOR)),
-        PropertyFactory.circlePitchAlignment(Property.CIRCLE_PITCH_ALIGNMENT_MAP)
+        circleRadius(get(PROPERTY_ACCURACY_RADIUS)),
+        circleColor(get(PROPERTY_ACCURACY_COLOR)),
+        circleOpacity(get(PROPERTY_ACCURACY_ALPHA)),
+        circleStrokeColor(get(PROPERTY_ACCURACY_COLOR)),
+        circlePitchAlignment(Property.CIRCLE_PITCH_ALIGNMENT_MAP)
       );
   }
 
@@ -103,7 +129,7 @@ class LayerSourceProvider {
   }
 
   Layer generateLocationComponentLayer() {
-    LocationIndicatorLayer layer = new LocationIndicatorLayer(LocationComponentConstants.FOREGROUND_LAYER);
+    LocationIndicatorLayer layer = new LocationIndicatorLayer(FOREGROUND_LAYER);
     layer.setLocationTransition(new TransitionOptions(0, 0));
     layer.setProperties(
         LocationPropertyFactory.perspectiveCompensation(0.9f),
@@ -120,9 +146,9 @@ class LayerSourceProvider {
    */
   @NonNull
   Layer generatePulsingCircleLayer() {
-    return new CircleLayer(LocationComponentConstants.PULSING_CIRCLE_LAYER, LocationComponentConstants.LOCATION_SOURCE)
+    return new CircleLayer(PULSING_CIRCLE_LAYER, LOCATION_SOURCE)
         .withProperties(
-            PropertyFactory.circlePitchAlignment(Property.CIRCLE_PITCH_ALIGNMENT_MAP)
+            circlePitchAlignment(Property.CIRCLE_PITCH_ALIGNMENT_MAP)
         );
   }
 }

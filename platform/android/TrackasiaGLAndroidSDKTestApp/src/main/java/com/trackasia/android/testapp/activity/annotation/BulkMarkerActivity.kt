@@ -14,7 +14,7 @@ import androidx.core.view.MenuItemCompat
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -29,7 +29,7 @@ import java.util.*
  * Test activity showcasing adding a large amount of Markers.
  */
 class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var mapView: MapView
     private var locations: List<LatLng>? = null
     private var progressDialog: ProgressDialog? = null
@@ -38,12 +38,12 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
         setContentView(R.layout.activity_marker_bulk)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(OnMapReadyCallback { trackasiaMap: TrackasiaMap -> initMap(trackasiaMap) })
+        mapView.getMapAsync(OnMapReadyCallback { mapboxMap: MapboxMap -> initMap(mapboxMap) })
     }
 
-    private fun initMap(trackasiaMap: TrackasiaMap) {
-        this.trackasiaMap = trackasiaMap
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
+    private fun initMap(mapboxMap: MapboxMap) {
+        this.mapboxMap = mapboxMap
+        mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -79,10 +79,10 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
 
     private fun showMarkers(amount: Int) {
         var amount = amount
-        if (trackasiaMap == null || locations == null || mapView.isDestroyed) {
+        if (mapboxMap == null || locations == null || mapView.isDestroyed) {
             return
         }
-        trackasiaMap.clear()
+        mapboxMap.clear()
         if (locations!!.size < amount) {
             amount = locations!!.size
         }
@@ -104,7 +104,7 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
                     .snippet(formatter.format(latLng.latitude) + "`, " + formatter.format(latLng.longitude))
             )
         }
-        trackasiaMap.addMarkers(markerOptionsList)
+        mapboxMap.addMarkers(markerOptionsList)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

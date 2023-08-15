@@ -10,7 +10,7 @@ import com.trackasia.android.annotations.Marker
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -21,7 +21,7 @@ import com.trackasia.android.testapp.utils.IconUtils
  */
 class DynamicMarkerChangeActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private var marker: Marker? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +30,9 @@ class DynamicMarkerChangeActivity : AppCompatActivity() {
         mapView.setTag(false)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
-                trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
-                this@DynamicMarkerChangeActivity.trackasiaMap = trackasiaMap
+            OnMapReadyCallback { mapboxMap: MapboxMap ->
+                mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+                this@DynamicMarkerChangeActivity.mapboxMap = mapboxMap
                 // Create marker
                 val markerOptions = MarkerOptions()
                     .position(LAT_LNG_CHELSEA)
@@ -45,7 +45,7 @@ class DynamicMarkerChangeActivity : AppCompatActivity() {
                     )
                     .title(getString(R.string.dynamic_marker_chelsea_title))
                     .snippet(getString(R.string.dynamic_marker_chelsea_snippet))
-                marker = trackasiaMap.addMarker(markerOptions)
+                marker = mapboxMap.addMarker(markerOptions)
             }
         )
         val fab = findViewById<FloatingActionButton>(R.id.fab)

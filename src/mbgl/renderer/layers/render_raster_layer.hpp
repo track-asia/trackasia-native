@@ -7,7 +7,6 @@
 namespace mbgl {
 
 class ImageSourceRenderData;
-class RasterProgram;
 
 class RenderRasterLayer final : public RenderLayer {
 public:
@@ -25,9 +24,6 @@ private:
     // Paint properties
     style::RasterPaintProperties::Unevaluated unevaluated;
     const ImageSourceRenderData* imageData = nullptr;
-
-    // Programs
-    std::shared_ptr<RasterProgram> rasterProgram;
 };
 
 } // namespace mbgl

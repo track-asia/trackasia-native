@@ -10,9 +10,9 @@ import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.InfoWindowAdapter
-import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
+import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.MapboxMap.InfoWindowAdapter
+import com.trackasia.android.maps.MapboxMap.OnMapClickListener
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -23,7 +23,7 @@ import java.util.*
  * Test activity showcasing how to dynamically update InfoWindow when Using an MapboxMap.InfoWindowAdapter.
  */
 class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var mapView: MapView
     private var marker: Marker? = null
     private val mapClickListener = OnMapClickListener { point ->
@@ -56,29 +56,29 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: TrackasiaMap) {
-        trackasiaMap = map
+    override fun onMapReady(map: MapboxMap) {
+        mapboxMap = map
         map.setStyle(Style.getPredefinedStyle("Streets"))
 
         // Add info window adapter
-        addCustomInfoWindowAdapter(trackasiaMap!!)
+        addCustomInfoWindowAdapter(mapboxMap!!)
 
         // Keep info windows open on click
-        trackasiaMap.uiSettings.isDeselectMarkersOnTap = false
+        mapboxMap!!.uiSettings.isDeselectMarkersOnTap = false
 
         // Add a marker
-        marker = addMarker(trackasiaMap!!)
-        trackasiaMap.selectMarker(marker!!)
+        marker = addMarker(mapboxMap!!)
+        mapboxMap!!.selectMarker(marker!!)
 
         // On map click, change the info window contents
-        trackasiaMap.addOnMapClickListener(mapClickListener)
+        mapboxMap!!.addOnMapClickListener(mapClickListener)
 
         // Focus on Paris
-        trackasiaMap.animateCamera(CameraUpdateFactory.newLatLng(PARIS))
+        mapboxMap!!.animateCamera(CameraUpdateFactory.newLatLng(PARIS))
     }
 
-    private fun addMarker(trackasiaMap: TrackasiaMap): Marker {
-        return trackasiaMap.addMarker(
+    private fun addMarker(mapboxMap: MapboxMap): Marker {
+        return mapboxMap.addMarker(
             MarkerOptions()
                 .position(PARIS)
                 .icon(
@@ -91,9 +91,9 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
         )
     }
 
-    private fun addCustomInfoWindowAdapter(trackasiaMap: TrackasiaMap) {
+    private fun addCustomInfoWindowAdapter(mapboxMap: MapboxMap) {
         val padding = resources.getDimension(R.dimen.attr_margin).toInt()
-        trackasiaMap.infoWindowAdapter = InfoWindowAdapter { marker: Marker ->
+        mapboxMap.infoWindowAdapter = InfoWindowAdapter { marker: Marker ->
             val textView = TextView(this@DynamicInfoWindowAdapterActivity)
             textView.text = marker.title
             textView.setBackgroundColor(Color.WHITE)
@@ -105,40 +105,40 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (trackasiaMap != null) {
-            trackasiaMap.removeOnMapClickListener(mapClickListener)
+        if (mapboxMap != null) {
+            mapboxMap!!.removeOnMapClickListener(mapClickListener)
         }
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     companion object {

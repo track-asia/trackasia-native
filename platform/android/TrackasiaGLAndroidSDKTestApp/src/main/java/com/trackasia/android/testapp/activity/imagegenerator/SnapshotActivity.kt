@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.log.Logger
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.databinding.ActivitySnapshotBinding
@@ -17,14 +17,14 @@ class SnapshotActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivitySnapshotBinding
 
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
 
     private val idleListener = object : MapView.OnDidFinishRenderingFrameListener {
         override fun onDidFinishRenderingFrame(fully: Boolean) {
             if (fully) {
                 binding.mapView.removeOnDidFinishRenderingFrameListener(this)
                 Logger.v(TAG, LOG_MESSAGE)
-                trackasiaMap.snapshot { snapshot ->
+                mapboxMap.snapshot { snapshot ->
                     binding.imageView.setImageBitmap(snapshot)
                     binding.mapView.addOnDidFinishRenderingFrameListener(this)
                 }
@@ -40,9 +40,9 @@ class SnapshotActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: TrackasiaMap) {
-        trackasiaMap = map
-        trackasiaMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Outdoor"))) { binding.mapView.addOnDidFinishRenderingFrameListener(idleListener) }
+    override fun onMapReady(map: MapboxMap) {
+        mapboxMap = map
+        mapboxMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Outdoor"))) { binding.mapView.addOnDidFinishRenderingFrameListener(idleListener) }
     }
 
     override fun onStart() {
@@ -57,7 +57,7 @@ class SnapshotActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onPause() {
         super.onPause()
-        trackasiaMap.snapshot {
+        mapboxMap.snapshot {
             Timber.e("Regression test for https://github.com/mapbox/mapbox-gl-native/pull/11358")
         }
         binding.mapView.onPause()

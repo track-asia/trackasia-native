@@ -55,7 +55,6 @@ public:
     static void SetLayerZoomRange(const Nan::FunctionCallbackInfo<v8::Value>&);
     static void SetLayerProperty(const Nan::FunctionCallbackInfo<v8::Value>&);
     static void SetFilter(const Nan::FunctionCallbackInfo<v8::Value>&);
-    static void SetSize(const Nan::FunctionCallbackInfo<v8::Value>&);
     static void SetCenter(const Nan::FunctionCallbackInfo<v8::Value>&);
     static void SetZoom(const Nan::FunctionCallbackInfo<v8::Value>&);
     static void SetBearing(const Nan::FunctionCallbackInfo<v8::Value>&);
@@ -73,7 +72,6 @@ public:
 
     static v8::Local<v8::Value> ParseError(const char* msg);
 
-    void startRender();
     void startRender(const RenderOptions& options);
     void renderFinished();
 
@@ -94,14 +92,13 @@ public:
     std::unique_ptr<RenderRequest> req;
 
     // Async for delivering the notifications of render completion.
-    uv_async_t* async;
+    uv_async_t *async;
 
     bool loaded = false;
 };
 
 struct NodeFileSource : public mbgl::FileSource {
-    NodeFileSource(NodeMap* nodeMap_)
-        : nodeMap(nodeMap_) {}
+    NodeFileSource(NodeMap* nodeMap_) : nodeMap(nodeMap_) {}
     ~NodeFileSource() override = default;
     std::unique_ptr<mbgl::AsyncRequest> request(const mbgl::Resource&, mbgl::FileSource::Callback) final;
     bool canRequest(const mbgl::Resource&) const override;

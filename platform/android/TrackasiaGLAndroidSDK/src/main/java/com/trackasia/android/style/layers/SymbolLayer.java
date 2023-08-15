@@ -8,16 +8,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
-import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
-
 import com.google.gson.JsonElement;
 import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.types.Formatted;
 
+import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
+
 /**
  * An icon or a text label.
  *
- * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-symbol">The online documentation</a>
+ * @see <a href="https://www.mapbox.com/mapbox-gl-style-spec/#layers-symbol">The online documentation</a>
  */
 @UiThread
 public class SymbolLayer extends Layer {

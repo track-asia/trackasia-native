@@ -34,9 +34,9 @@ import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionCo
 import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionHeight;
 import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionOpacity;
 
-import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class LightTest extends BaseTest {
@@ -50,7 +50,7 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("<%- property.name %>TransitionOptions");
-    invoke(trackasiaMap, (uiController, trackasiaMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       TransitionOptions options = new TransitionOptions(300, 100);
@@ -66,7 +66,7 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("<%- property.name %>");
-    invoke(trackasiaMap,(uiController, trackasiaMap) -> {
+    invoke(mapboxMap,(uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       Position position = new Position(1, 2, 3);
@@ -81,14 +81,14 @@ public class LightTest extends BaseTest {
     validateTestSetup();
     setupLight();
     Timber.i("<%- property.name %>");
-    invoke(trackasiaMap, (uiController, trackasiaMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertNotNull(light);
       // Set and Get
       light.set<%- camelize(property.name) %>(<%- defaultValueJava(property) %>);
 <% if (property.name == 'color') { -%>
       assertEquals("<%- camelize(property.name) %> should match", <%- defaultValueJava(property) %>, light.get<%- camelize(property.name) %>());
 <% } else { -%>
-      assertEquals("<%- camelize(property.name) %> should match", <%- defaultValueJava(property) %>, light.get<%- camelize(property.name) %>()<%- property.type === 'number' ? ', 0f' : '' %>);
+      assertEquals("<%- camelize(property.name) %> should match", <%- defaultValueJava(property) %>, light.get<%- camelize(property.name) %>());
 <% } -%>
     });
   }
@@ -109,7 +109,7 @@ public class LightTest extends BaseTest {
 
       @Override
       public void perform(UiController uiController, View view) {
-        light = trackasiaMap.getStyle().getLight();
+        light = mapboxMap.getStyle().getLight();
         FillExtrusionLayer fillExtrusionLayer = new FillExtrusionLayer("3d-buildings", "composite");
         fillExtrusionLayer.setSourceLayer("building");
         fillExtrusionLayer.setFilter(eq(Expression.get("extrude"), "true"));
@@ -120,7 +120,7 @@ public class LightTest extends BaseTest {
           fillExtrusionBase(Expression.get("min_height")),
           fillExtrusionOpacity(0.6f)
         );
-        trackasiaMap.getStyle().addLayer(fillExtrusionLayer);
+        mapboxMap.getStyle().addLayer(fillExtrusionLayer);
       }
     });
   }

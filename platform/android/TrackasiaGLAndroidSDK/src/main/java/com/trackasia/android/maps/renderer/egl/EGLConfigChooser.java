@@ -5,7 +5,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import com.trackasia.android.constants.TrackasiaConstants;
+import com.trackasia.android.constants.MapboxConstants;
 import com.trackasia.android.log.Logger;
 
 import java.util.ArrayList;
@@ -43,12 +43,20 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
   private static final String TAG = "Mbgl-EGLConfigChooser";
 
   /**
-   * Requires API level 18
+   * Requires API level 17
    *
-   * @see android.opengl.EGL15.EGL_OPENGL_ES3_BIT;
+   * @see android.opengl.EGL14.EGL_CONFORMANT;
    */
   @SuppressWarnings("JavadocReference")
-  private static final int EGL_OPENGL_ES3_BIT = 0x0040;
+  private static final int EGL_CONFORMANT = 0x3042;
+
+  /**
+   * Requires API level 17
+   *
+   * @see android.opengl.EGL14.EGL_OPENGL_ES2_BIT;
+   */
+  @SuppressWarnings("JavadocReference")
+  private static final int EGL_OPENGL_ES2_BIT = 0x0004;
 
   private boolean translucentSurface;
 
@@ -88,7 +96,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     int[] numConfigs = new int[1];
     if (!egl.eglChooseConfig(display, configAttributes, null, 0, numConfigs)) {
       Logger.e(TAG, String.format(
-        TrackasiaConstants.TRACKASIA_LOCALE, "eglChooseConfig(NULL) returned error %d", egl.eglGetError())
+        MapboxConstants.MAPBOX_LOCALE, "eglChooseConfig(NULL) returned error %d", egl.eglGetError())
       );
     }
     return numConfigs;
@@ -100,7 +108,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     EGLConfig[] configs = new EGLConfig[numConfigs[0]];
     if (!egl.eglChooseConfig(display, configAttributes, configs, numConfigs[0], numConfigs)) {
       Logger.e(TAG, String.format(
-        TrackasiaConstants.TRACKASIA_LOCALE, "eglChooseConfig() returned error %d", egl.eglGetError())
+        MapboxConstants.MAPBOX_LOCALE, "eglChooseConfig() returned error %d", egl.eglGetError())
       );
     }
     return configs;
@@ -136,14 +144,16 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     class Config implements Comparable<Config> {
       private final BufferFormat bufferFormat;
       private final DepthStencilFormat depthStencilFormat;
+      private final boolean isNotConformant;
       private final boolean isCaveat;
       private final int index;
       private final EGLConfig config;
 
       public Config(BufferFormat bufferFormat, DepthStencilFormat depthStencilFormat,
-                    boolean isCaveat, int index, EGLConfig config) {
+                    boolean isNotConformant, boolean isCaveat, int index, EGLConfig config) {
         this.bufferFormat = bufferFormat;
         this.depthStencilFormat = depthStencilFormat;
+        this.isNotConformant = isNotConformant;
         this.isCaveat = isCaveat;
         this.index = index;
         this.config = config;
@@ -158,6 +168,11 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
         }
 
         i = compare(depthStencilFormat.value, other.depthStencilFormat.value);
+        if (i != 0) {
+          return i;
+        }
+
+        i = compare(isNotConformant, other.isNotConformant);
         if (i != 0) {
           return i;
         }
@@ -187,6 +202,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
       i++;
 
       int caveat = getConfigAttr(egl, display, config, EGL_CONFIG_CAVEAT);
+      int conformant = getConfigAttr(egl, display, config, EGL_CONFORMANT);
       int bits = getConfigAttr(egl, display, config, EGL_BUFFER_SIZE);
       int red = getConfigAttr(egl, display, config, EGL_RED_SIZE);
       int green = getConfigAttr(egl, display, config, EGL_GREEN_SIZE);
@@ -227,11 +243,12 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
           depthStencilFormat = DepthStencilFormat.Format24Depth8Stencil;
         }
 
+        boolean isNotConformant = (conformant & EGL_OPENGL_ES2_BIT) != EGL_OPENGL_ES2_BIT;
         boolean isCaveat = caveat != EGL_NONE;
 
         // Ignore formats we don't recognise
         if (bufferFormat != BufferFormat.Unknown) {
-          matches.add(new Config(bufferFormat, depthStencilFormat, isCaveat, i, config));
+          matches.add(new Config(bufferFormat, depthStencilFormat, isNotConformant, isCaveat, i, config));
         }
       }
 
@@ -251,6 +268,10 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
       Logger.w(TAG, "Chosen config has a caveat.");
     }
 
+    if (bestMatch.isNotConformant) {
+      Logger.w(TAG, "Chosen config is not conformant.");
+    }
+
     return bestMatch.config;
   }
 
@@ -258,7 +279,7 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
     int[] attributevalue = new int[1];
     if (!egl.eglGetConfigAttrib(display, config, attributeName, attributevalue)) {
       Logger.e(TAG, String.format(
-        TrackasiaConstants.TRACKASIA_LOCALE, "eglGetConfigAttrib(%d) returned error %d", attributeName, egl.eglGetError())
+        MapboxConstants.MAPBOX_LOCALE, "eglGetConfigAttrib(%d) returned error %d", attributeName, egl.eglGetError())
       );
     }
     return attributevalue[0];
@@ -279,8 +300,9 @@ public class EGLConfigChooser implements GLSurfaceView.EGLConfigChooser {
       EGL_ALPHA_SIZE, translucentSurface ? 8 : 0,
       EGL_DEPTH_SIZE, 16,
       EGL_STENCIL_SIZE, 8,
+      (emulator ? EGL_NONE : EGL_CONFORMANT), EGL_OPENGL_ES2_BIT,
       (emulator ? EGL_NONE : EGL_COLOR_BUFFER_TYPE), EGL_RGB_BUFFER,
-      EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
+      EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
       EGL_NONE
     };
   }

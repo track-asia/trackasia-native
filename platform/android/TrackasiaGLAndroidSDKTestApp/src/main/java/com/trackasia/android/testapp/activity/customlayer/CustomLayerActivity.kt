@@ -10,7 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.CustomLayer
@@ -25,7 +25,7 @@ import com.trackasia.android.testapp.model.customlayer.ExampleCustomLayer
  *
  */
 class CustomLayerActivity : AppCompatActivity() {
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var mapView: MapView
     private var customLayer: CustomLayer? = null
     private lateinit var fab: FloatingActionButton
@@ -35,15 +35,15 @@ class CustomLayerActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: TrackasiaMap? ->
-                trackasiaMap = map!!
-                trackasiaMap.moveCamera(
+            OnMapReadyCallback { map: MapboxMap? ->
+                mapboxMap = map!!
+                mapboxMap!!.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(39.91448, -243.60947),
                         10.0
                     )
                 )
-                trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? -> initFab() }
+                mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? -> initFab() }
             }
         )
     }
@@ -53,7 +53,7 @@ class CustomLayerActivity : AppCompatActivity() {
         fab.setColorFilter(ContextCompat.getColor(this, R.color.primary))
         fab.setOnClickListener(
             View.OnClickListener { view: View? ->
-                if (trackasiaMap != null) {
+                if (mapboxMap != null) {
                     swapCustomLayer()
                 }
             }
@@ -61,7 +61,7 @@ class CustomLayerActivity : AppCompatActivity() {
     }
 
     private fun swapCustomLayer() {
-        val style = trackasiaMap.style
+        val style = mapboxMap!!.style
         if (customLayer != null) {
             style!!.removeLayer(customLayer!!)
             customLayer = null
@@ -77,44 +77,44 @@ class CustomLayerActivity : AppCompatActivity() {
     }
 
     private fun updateLayer() {
-        if (trackasiaMap != null) {
-            trackasiaMap.triggerRepaint()
+        if (mapboxMap != null) {
+            mapboxMap!!.triggerRepaint()
         }
     }
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

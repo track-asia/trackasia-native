@@ -1,5 +1,5 @@
 {
-    "base_test_path": "integration",
+    "base_test_path": "../trackasia-gl-js/test/integration",
     "cache_path": "cache-style.db",
     "expectation_paths": [
         "expectations/platform-all",

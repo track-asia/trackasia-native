@@ -1,7 +1,7 @@
 package com.trackasia.android.utils
 
 import android.graphics.Color
-import org.junit.Assert
+import junit.framework.Assert
 import org.junit.Test
 
 class ColorUtilsTest {

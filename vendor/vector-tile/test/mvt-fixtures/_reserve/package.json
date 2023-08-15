@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git://github.com/mapbox/mvt-fixtures.git"
   },
-  "author": "Mapbox",
+  "author": "Trackasia",
   "license": "ISC",
   "devDependencies": {
     "tape": "^4.5.1"

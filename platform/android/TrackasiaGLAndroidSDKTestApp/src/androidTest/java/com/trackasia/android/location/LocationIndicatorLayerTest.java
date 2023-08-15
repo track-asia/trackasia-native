@@ -3,25 +3,38 @@
 package com.trackasia.android.location;
 
 import android.graphics.Color;
+
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
-import com.mapbox.geojson.Point;
-
 import com.trackasia.android.maps.BaseLayerTest;
-import org.junit.Before;
-import timber.log.Timber;
+import com.trackasia.android.style.layers.TransitionOptions;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
-import static com.trackasia.android.style.layers.Property.*;
-import static com.trackasia.android.location.LocationPropertyFactory.*;
+import timber.log.Timber;
 
-import com.trackasia.android.style.layers.TransitionOptions;
-import java.util.ArrayList;
-import java.util.List;
+import static com.trackasia.android.location.LocationPropertyFactory.accuracyRadius;
+import static com.trackasia.android.location.LocationPropertyFactory.accuracyRadiusBorderColor;
+import static com.trackasia.android.location.LocationPropertyFactory.accuracyRadiusColor;
+import static com.trackasia.android.location.LocationPropertyFactory.bearing;
+import static com.trackasia.android.location.LocationPropertyFactory.bearingImage;
+import static com.trackasia.android.location.LocationPropertyFactory.bearingImageSize;
+import static com.trackasia.android.location.LocationPropertyFactory.imageTiltDisplacement;
+import static com.trackasia.android.location.LocationPropertyFactory.location;
+import static com.trackasia.android.location.LocationPropertyFactory.perspectiveCompensation;
+import static com.trackasia.android.location.LocationPropertyFactory.shadowImage;
+import static com.trackasia.android.location.LocationPropertyFactory.shadowImageSize;
+import static com.trackasia.android.location.LocationPropertyFactory.topImage;
+import static com.trackasia.android.location.LocationPropertyFactory.topImageSize;
+import static com.trackasia.android.location.LocationPropertyFactory.visibility;
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Basic smoke tests for LocationIndicatorLayer
@@ -30,19 +43,6 @@ import java.util.List;
 public class LocationIndicatorLayerTest extends BaseLayerTest {
 
   private LocationIndicatorLayer layer;
-  private final List<Point> pointsList = new ArrayList<Point>() {
-    {
-      add(Point.fromLngLat(55.30122473231012, 25.26476622289597));
-      add(Point.fromLngLat(55.29743486255916, 25.25827212207261));
-      add(Point.fromLngLat(55.28978863411328, 25.251356725509737));
-      add(Point.fromLngLat(55.300027931336984, 25.246425506635504));
-      add(Point.fromLngLat(55.307474692951274, 25.244200378933655));
-      add(Point.fromLngLat(55.31212891895635, 25.256408010450187));
-      add(Point.fromLngLat(55.30774064871093, 25.26266169122738));
-      add(Point.fromLngLat(55.301357710197806, 25.264946609615492));
-      add(Point.fromLngLat(55.30122473231012, 25.26476622289597));
-    }
-  };
 
   @Before
   @UiThreadTest

@@ -8,21 +8,16 @@ WARNING_FLAGS = [
     "-Wall",
     "-Werror",
     "-Wextra",
+    "-Wno-c++11-narrowing",
+    "-Wno-gnu-anonymous-struct",
+    "-Wno-pointer-to-int-cast",
+    "-Wno-tautological-constant-compare",
     "-Wno-unused-parameter",
     "-Wno-unused-variable",
     "-Wno-variadic-macros",
-    "-Wno-unknown-pragmas",
-] + select({
-    "//:ios": [
-        "-Wno-newline-eof",
-        "-Wno-nested-anon-types",
-        "-Wno-c++11-narrowing",
-        "-Wno-pointer-to-int-cast",
-        "-Wno-tautological-constant-compare",
-        "-Wno-gnu-anonymous-struct",
-    ],
-    "//:linux": [],
-})
+    "-Wno-nested-anon-types",
+    "-Wno-newline-eof",
+]
 
 """
 Compilation flags used for all .cpp and .mm targets.
@@ -30,12 +25,13 @@ Compilation flags used for all .cpp and .mm targets.
 
 CPP_FLAGS = WARNING_FLAGS + [
     "-fexceptions",
-    "-fno-rtti",
+    "-frtti",
     "-ftemplate-depth=1024",
-    "-std=c++17",
+    "-std=c++14",
 ]
+
 """
-Compilation flags related to the Trackasia codebase. Relevant for all .cpp .mm and .m code
+Compilation flags related to the TrackAsia codebase. Relevant for all .cpp .mm and .m code
  - src/*
  - include/*
  - platform/*

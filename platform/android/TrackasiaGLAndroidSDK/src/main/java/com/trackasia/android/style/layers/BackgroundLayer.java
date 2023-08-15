@@ -12,7 +12,7 @@ import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
 /**
  * The background color or pattern of the map.
  *
- * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-background">The online documentation</a>
+ * @see <a href="https://www.mapbox.com/mapbox-gl-style-spec/#layers-background">The online documentation</a>
  */
 @UiThread
 public class BackgroundLayer extends Layer {

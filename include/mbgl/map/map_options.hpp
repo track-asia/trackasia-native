@@ -33,7 +33,8 @@ public:
 
     /**
      * @brief Gets the previously set (or default) map mode.
-     * @return Returns a #mbgl::MapMode
+     *
+     * @return map mode.
      */
     MapMode mapMode() const;
 
@@ -138,4 +139,4 @@ private:
     std::unique_ptr<Impl> impl_;
 };
 
-} // namespace mbgl
+}  // namespace mbgl

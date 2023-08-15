@@ -8,15 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
-import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
-
 import com.google.gson.JsonElement;
 import com.trackasia.android.style.expressions.Expression;
+
+import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
 
 /**
  * A heatmap.
  *
- * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-heatmap">The online documentation</a>
+ * @see <a href="https://www.mapbox.com/mapbox-gl-style-spec/#layers-heatmap">The online documentation</a>
  */
 @UiThread
 public class HeatmapLayer extends Layer {

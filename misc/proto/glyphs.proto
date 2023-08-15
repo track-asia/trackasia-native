@@ -1,6 +1,6 @@
 // Protocol Version 1
 
-package mapboxgl.glyphs;
+package TrackAsiaGL.glyphs;
 
 option optimize_for = LITE_RUNTIME;
 

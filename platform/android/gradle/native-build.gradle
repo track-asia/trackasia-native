@@ -1,8 +1,5 @@
 ext.nativeBuild = { nativeTargets ->
     android {
-        ndkVersion androidSdkVersions.ndkVersion
-        buildToolsVersion androidSdkVersions.buildToolsVersion
-
         defaultPublishConfig project.hasProperty("mapbox.buildtype") ? project.getProperty("mapbox.buildtype") : "debug"
 
         // We sometimes want to invoke Gradle without building a native dependency, e.g. when we just want
@@ -24,13 +21,13 @@ ext.nativeBuild = { nativeTargets ->
         if (abi != 'none') {
             externalNativeBuild {
                 cmake {
-                    path "../TrackasiaGLAndroidSDK/src/cpp/CMakeLists.txt"
-                    version androidSdkVersions.cmakeVersion
+                    path "../TrackAsiaGLAndroidSDK/src/cpp/CMakeLists.txt"
+                    version "3.10.2"
                 }
             }
         }
 
-        // Allow determining the C++ STL we're using when building Trackasia GL.
+        // Allow determining the C++ STL we're using when building TrackAsia GL.
         def stl = 'c++_static'
         if (project.hasProperty("mapbox.stl")) {
             stl = project.getProperty("mapbox.stl")

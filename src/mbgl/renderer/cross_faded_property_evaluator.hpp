@@ -35,7 +35,8 @@ private:
 
 namespace util {
 template <typename T>
-struct Interpolator<Faded<T>> : Uninterpolated {};
+struct Interpolator<Faded<T>>
+    : Uninterpolated {};
 } // namespace util
 
 } // namespace mbgl

@@ -1,28 +1,28 @@
 #import "MBXBenchViewController.h"
 #import "MBXBenchAppDelegate.h"
-#import "MLNMapView_Private.h"
-#import "MLNMapViewDelegate.h"
+#import "MGLMapView_Private.h"
+#import "MGLMapViewDelegate.h"
 
 #include "locations.hpp"
 
 #include <chrono>
 
-@interface MBXBenchViewController () <MLNMapViewDelegate>
+@interface MBXBenchViewController () <MGLMapViewDelegate>
 
-@property (nonatomic) MLNMapView *mapView;
+@property (nonatomic) MGLMapView *mapView;
 
 @end
 
 @implementation MBXBenchViewController
 
-// MARK: - Setup
+#pragma mark - Setup
 
 + (void)initialize
 {
     if (self == [MBXBenchViewController class])
     {
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{
-            @"MBXUserTrackingMode": @(MLNUserTrackingModeNone),
+            @"MBXUserTrackingMode": @(MGLUserTrackingModeNone),
             @"MBXShowsUserLocation": @NO,
             @"MBXDebug": @NO,
         }];
@@ -37,14 +37,14 @@
     NSURL *tile = [[NSBundle mainBundle] URLForResource:@"11" withExtension:@"pbf" subdirectory:@"tiles/tiles/v3/5/7"];
     NSURL *tileSourceURL = [[NSBundle mainBundle] URLForResource:@"openmaptiles" withExtension:@"json" subdirectory:@"tiles"];
     NSURL *url = [NSURL URLWithString:tile ? @"asset://styles/streets.json" : @"maptiler://maps/streets"];
-    self.mapView = [[MLNMapView alloc] initWithFrame:self.view.bounds styleURL:url];
+    self.mapView = [[MGLMapView alloc] initWithFrame:self.view.bounds styleURL:url];
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;
     self.mapView.scrollEnabled = NO;
     self.mapView.rotateEnabled = NO;
     self.mapView.userInteractionEnabled = YES;
-    self.mapView.preferredFramesPerSecond = MLNMapViewPreferredFramesPerSecondMaximum;
+    self.mapView.preferredFramesPerSecond = MGLMapViewPreferredFramesPerSecondMaximum;
 
     [self.view addSubview:self.mapView];
 }
@@ -82,13 +82,13 @@ NSDate* const currentDate = [NSDate date];
     NSString *dateString = [formatter stringFromDate:currentDate];
     
     // Set the log file name
-    NSString* filename = [NSString stringWithFormat: @"Trackasia-bench-%@-%@-%@.log", name, DeviceMode, dateString];
+    NSString* filename = [NSString stringWithFormat: @"TrackAsia-bench-%@-%@-%@.log", name, DeviceMode, dateString];
 
     // Set log file path
     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [allPaths objectAtIndex:0];
     NSString *pathForLog = [documentsDirectory stringByAppendingPathComponent: filename];
-    NSLog(@"Writing Trackasia Bench log.  To open in Console, use the CLI command");
+    NSLog(@"Writing TrackAsia Bench log.  To open in Console, use the CLI command");
     NSLog(@"  open \"%@\"", pathForLog);
 
     [self redirectLogToDocuments :pathForLog];
@@ -133,28 +133,11 @@ static const int benchmarkDuration = 200; // frames
         }
         NSLog(@"Total FPS: %4.1f", totalFPS);
         NSLog(@"Average FPS: %4.1f", totalFPS / result.size());
-
-        // this does not shut the application down correctly,
-        // and results in an assertion failure in thread-local code
-        //exit(0);
-
-        // Use the UIApplication lifecycle instead.
-        // Terminating an app programmatically is strongly discouraged by Apple.
-        // Combined with the plist setting "Application does not run in background" suspend allows
-        // the XCUITest to wake up, so it doesn't need to guess how long we'll take and wait.
-        UIApplication *app = [UIApplication sharedApplication];
-        if ([app respondsToSelector:@selector(suspend)])
-        {
-            [app performSelector:@selector(suspend)];
-        }
-        else if ([app respondsToSelector:@selector(terminate)])
-        {
-            [app performSelector:@selector(terminate)];
-        }
+        exit(0);
     }
 }
 
-- (void)mapViewDidFinishRenderingFrame:(MLNMapView *)mapView fullyRendered:(__unused BOOL)fullyRendered
+- (void)mapViewDidFinishRenderingFrame:(MGLMapView *)mapView fullyRendered:(__unused BOOL)fullyRendered
 {
     if (state == State::Benchmarking)
     {

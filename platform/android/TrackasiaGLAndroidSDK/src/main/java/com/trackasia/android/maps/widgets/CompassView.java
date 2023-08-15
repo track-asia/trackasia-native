@@ -13,15 +13,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 
-import com.trackasia.android.maps.TrackasiaMap;
-import com.trackasia.android.maps.TrackasiaMapOptions;
+import com.trackasia.android.maps.MapboxMap;
 
 /**
  * UI element overlaid on a map to show the map's bearing when it isn't true north (0.0). Tapping
  * the compass resets the bearing to true north and hides the compass.
  * <p>
  * You can change the behaviour of this View during initialisation with
- * {@link TrackasiaMapOptions}, and xml attributes. While running you can
+ * {@link com.trackasia.android.maps.MapboxMapOptions}, and xml attributes. While running you can
  * use {@link com.trackasia.android.maps.UiSettings}.
  * </p>
  */
@@ -35,7 +34,7 @@ public final class CompassView extends ImageView implements Runnable {
   private boolean fadeCompassViewFacingNorth = true;
   @Nullable
   private ViewPropertyAnimatorCompat fadeAnimator;
-  private TrackasiaMap.OnCompassAnimationListener compassAnimationListener;
+  private MapboxMap.OnCompassAnimationListener compassAnimationListener;
   private boolean isAnimating = false;
 
   public CompassView(@NonNull Context context) {
@@ -62,7 +61,7 @@ public final class CompassView extends ImageView implements Runnable {
     setLayoutParams(lp);
   }
 
-  public void injectCompassAnimationListener(@NonNull TrackasiaMap.OnCompassAnimationListener compassAnimationListener) {
+  public void injectCompassAnimationListener(@NonNull MapboxMap.OnCompassAnimationListener compassAnimationListener) {
     this.compassAnimationListener = compassAnimationListener;
   }
 

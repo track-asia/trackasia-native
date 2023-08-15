@@ -1,7 +1,3 @@
-plugins {
-    id 'org.jmailen.kotlinter'
-}
-
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
@@ -36,6 +32,6 @@ compileTestKotlin {
 
 jar {
     manifest {
-        attributes("Lint-Registry-v2": "com.mapbox.mapboxsdk.lint.MapboxIssueRegistry")
+        attributes("Lint-Registry-v2": "com.trackasia.android.lint.MapboxIssueRegistry")
     }
 }

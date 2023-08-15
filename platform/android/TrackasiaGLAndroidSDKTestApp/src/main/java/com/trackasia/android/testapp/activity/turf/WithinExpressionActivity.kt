@@ -10,7 +10,7 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression.within
 import com.trackasia.android.style.layers.CircleLayer
@@ -28,7 +28,7 @@ import com.trackasia.android.testapp.databinding.ActivityWithinExpressionBinding
  */
 class WithinExpressionActivity : AppCompatActivity() {
 
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var binding: ActivityWithinExpressionBinding
     private lateinit var mapView: MapView
 
@@ -45,10 +45,10 @@ class WithinExpressionActivity : AppCompatActivity() {
 
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync { map ->
-            trackasiaMap = map
+            mapboxMap = map
 
             // Setup camera position above Georgetown
-            trackasiaMap.cameraPosition = CameraPosition.Builder()
+            mapboxMap.cameraPosition = CameraPosition.Builder()
                 .target(LatLng(38.90628988399711, -77.06574689337494))
                 .zoom(15.5)
                 .build()
@@ -95,7 +95,7 @@ class WithinExpressionActivity : AppCompatActivity() {
 
         // Setup style with additional layers,
         // using streets as a base style
-        trackasiaMap.setStyle(
+        mapboxMap.setStyle(
             Style.Builder()
                 .fromUri(Style.getPredefinedStyle("Streets"))
                 .withSources(
@@ -127,10 +127,10 @@ class WithinExpressionActivity : AppCompatActivity() {
     }
 
     private fun optimizeStyle() {
-        val style = trackasiaMap.style!!
+        val style = mapboxMap.style!!
 
         // Add fill layer to represent buffered LineString
-        trackasiaMap.style!!.addLayerBelow(
+        mapboxMap.style!!.addLayerBelow(
             FillLayer(FILL_ID, FILL_ID)
                 .withProperties(
                     fillOpacity(0.12f),
@@ -140,7 +140,7 @@ class WithinExpressionActivity : AppCompatActivity() {
         )
 
         // Move to a new camera position
-        trackasiaMap.easeCamera(
+        mapboxMap.easeCamera(
             CameraUpdateFactory.newCameraPosition(
                 CameraPosition.Builder()
                     .zoom(16.0)

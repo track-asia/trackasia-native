@@ -12,7 +12,7 @@ import com.mapbox.geojson.Point
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.Layer
@@ -27,7 +27,7 @@ import timber.log.Timber
  */
 class CustomSpriteActivity : AppCompatActivity() {
     private var source: GeoJsonSource? = null
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private lateinit var mapView: MapView
     private lateinit var layer: Layer
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +36,8 @@ class CustomSpriteActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: TrackasiaMap ->
-                trackasiaMap = map
+            OnMapReadyCallback { map: MapboxMap ->
+                mapboxMap = map
                 map.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
                     val fab = findViewById<FloatingActionButton>(R.id.fab)
                     fab.setColorFilter(
@@ -66,7 +66,7 @@ class CustomSpriteActivity : AppCompatActivity() {
                                     "point",
                                     FeatureCollection.fromFeatures(arrayOf(Feature.fromGeometry(point)))
                                 )
-                                trackasiaMap.style!!.addSource(source!!)
+                                mapboxMap!!.style!!.addSource(source!!)
 
                                 // Add a symbol layer that references that point source
                                 layer = SymbolLayer("layer", "point")
@@ -77,7 +77,7 @@ class CustomSpriteActivity : AppCompatActivity() {
                                 )
 
                                 // lets add a circle below labels!
-                                trackasiaMap.style!!.addLayerBelow(layer, "water_intermittent")
+                                mapboxMap!!.style!!.addLayerBelow(layer, "water_intermittent")
                                 fab.setImageResource(R.drawable.ic_directions_car_black)
                             } else {
                                 // Update point
@@ -96,7 +96,7 @@ class CustomSpriteActivity : AppCompatActivity() {
                                 )
 
                                 // Move the camera as well
-                                trackasiaMap.moveCamera(
+                                mapboxMap!!.moveCamera(
                                     CameraUpdateFactory.newLatLng(
                                         LatLng(
                                             point.latitude(),
@@ -114,37 +114,37 @@ class CustomSpriteActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     public override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     companion object {

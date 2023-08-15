@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:trackasia="http://schemas.android.com/apk/res-auto"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,9 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            trackasia:trackasia_cameraTargetLat="38.913187"
-            trackasia:trackasia_cameraTargetLng="-77.032546"
-            trackasia:trackasia_cameraZoom="12" />
+            mapbox:trackasia_cameraTargetLat="38.913187"
+            mapbox:trackasia_cameraTargetLng="-77.032546"
+            mapbox:trackasia_cameraZoom="12" />
 
         <!-- SF -->
         <fragment
@@ -32,9 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            trackasia:trackasia_cameraTargetLat="37.775732"
-            trackasia:trackasia_cameraTargetLng="-122.413985"
-            trackasia:trackasia_cameraZoom="13"/>
+            mapbox:trackasia_cameraTargetLat="37.775732"
+            mapbox:trackasia_cameraTargetLng="-122.413985"
+            mapbox:trackasia_cameraZoom="13"/>
     </LinearLayout>
 
     <LinearLayout
@@ -51,9 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            trackasia:trackasia_cameraTargetLat="12.97913"
-            trackasia:trackasia_cameraTargetLng="77.59188"
-            trackasia:trackasia_cameraZoom="14" />
+            mapbox:trackasia_cameraTargetLat="12.97913"
+            mapbox:trackasia_cameraTargetLng="77.59188"
+            mapbox:trackasia_cameraZoom="14" />
 
         <!-- Ayacucho -->
         <fragment
@@ -62,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            trackasia:trackasia_cameraTargetLat="-13.155980"
-            trackasia:trackasia_cameraTargetLng="-74.217134"
-            trackasia:trackasia_cameraZoom="15" />
+            mapbox:trackasia_cameraTargetLat="-13.155980"
+            mapbox:trackasia_cameraTargetLng="-74.217134"
+            mapbox:trackasia_cameraZoom="15" />
     </LinearLayout>
 </LinearLayout>

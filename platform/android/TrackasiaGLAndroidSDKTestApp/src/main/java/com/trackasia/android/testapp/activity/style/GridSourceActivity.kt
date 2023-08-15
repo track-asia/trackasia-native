@@ -9,7 +9,7 @@ import com.mapbox.geojson.MultiLineString
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.*
@@ -33,25 +33,26 @@ class GridSourceActivity : AppCompatActivity(), OnMapReadyCallback {
      * grid.
      */
     internal class GridProvider : GeometryTileProvider {
-        override fun getFeaturesForBounds(bounds: LatLngBounds, zoomLevel: Int): FeatureCollection {
+        override fun getFeaturesForBounds(bounds: LatLngBounds, zoom: Int): FeatureCollection {
             val features: MutableList<Feature> = ArrayList()
-            val gridSpacing = if (zoomLevel >= 13) {
+            val gridSpacing: Double
+            gridSpacing = if (zoom >= 13) {
                 0.01
-            } else if (zoomLevel >= 11) {
+            } else if (zoom >= 11) {
                 0.05
-            } else if (zoomLevel == 10) {
+            } else if (zoom == 10) {
                 .1
-            } else if (zoomLevel == 9) {
+            } else if (zoom == 9) {
                 0.25
-            } else if (zoomLevel == 8) {
+            } else if (zoom == 8) {
                 0.5
-            } else if (zoomLevel >= 6) {
+            } else if (zoom >= 6) {
                 1.0
-            } else if (zoomLevel == 5) {
+            } else if (zoom == 5) {
                 2.0
-            } else if (zoomLevel >= 4) {
+            } else if (zoom >= 4) {
                 5.0
-            } else if (zoomLevel == 2) {
+            } else if (zoom == 2) {
                 10.0
             } else {
                 20.0
@@ -92,7 +93,7 @@ class GridSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: TrackasiaMap) {
+    override fun onMapReady(map: MapboxMap) {
         source = CustomGeometrySource(ID_GRID_SOURCE, GridProvider())
         layer = LineLayer(ID_GRID_LAYER, ID_GRID_SOURCE)
         layer!!.setProperties(

@@ -5,17 +5,17 @@ package com.trackasia.android.location;
 import androidx.annotation.ColorInt;
 
 import com.trackasia.android.style.expressions.Expression;
-
-import static com.trackasia.android.utils.ColorUtils.colorToRgbaString;
 import com.trackasia.android.style.layers.LayoutPropertyValue;
 import com.trackasia.android.style.layers.PaintPropertyValue;
 import com.trackasia.android.style.layers.Property;
 import com.trackasia.android.style.layers.PropertyValue;
 
+import static com.trackasia.android.utils.ColorUtils.colorToRgbaString;
+
 /**
  * Constructs paint/layout properties for Layers
  *
- * @see <a href="https://track-asia.com/trackasia-style-spec/#layers">Layer style documentation</a>
+ * @see <a href="https://www.mapbox.com/mapbox-gl-style-spec/#layers">Layer style documentation</a>
  */
 class LocationPropertyFactory {
 

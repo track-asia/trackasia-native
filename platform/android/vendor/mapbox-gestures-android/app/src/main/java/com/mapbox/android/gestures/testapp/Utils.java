@@ -3,7 +3,7 @@ package com.mapbox.android.gestures.testapp;
 import android.content.Context;
 import androidx.annotation.NonNull;
 
-import com.mapbox.mapboxsdk.Mapbox;
+import com.trackasia.android.Mapbox;
 
 public class Utils {
 

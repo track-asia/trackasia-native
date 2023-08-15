@@ -7,9 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mapbox.geojson.Feature;
+import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.location.modes.RenderMode;
 import com.trackasia.android.log.Logger;
-import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.MapboxMap;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.style.expressions.Expression;
 
@@ -30,8 +31,6 @@ import static com.trackasia.android.style.expressions.Expression.linear;
 import static com.trackasia.android.style.expressions.Expression.stop;
 import static com.trackasia.android.style.expressions.Expression.zoom;
 
-import com.trackasia.android.geometry.LatLng;
-
 final class LocationLayerController {
 
   private static final String TAG = "Mbgl-LocationLayerController";
@@ -39,7 +38,7 @@ final class LocationLayerController {
   @RenderMode.Mode
   private int renderMode;
 
-  private final TrackasiaMap trackasiaMap;
+  private final MapboxMap mapboxMap;
   private final LayerBitmapProvider bitmapProvider;
   private LocationComponentOptions options;
   private final OnRenderModeChangedListener internalRenderModeChangedListener;
@@ -52,14 +51,14 @@ final class LocationLayerController {
 
   private LocationLayerRenderer locationLayerRenderer;
 
-  LocationLayerController(TrackasiaMap trackasiaMap, Style style,
+  LocationLayerController(MapboxMap mapboxMap, Style style,
                           LayerSourceProvider layerSourceProvider,
                           LayerFeatureProvider featureProvider,
                           LayerBitmapProvider bitmapProvider,
                           @NonNull LocationComponentOptions options,
                           @NonNull OnRenderModeChangedListener internalRenderModeChangedListener,
                           boolean useSpecializedLocationLayer) {
-    this.trackasiaMap = trackasiaMap;
+    this.mapboxMap = mapboxMap;
     this.bitmapProvider = bitmapProvider;
     this.internalRenderModeChangedListener = internalRenderModeChangedListener;
     this.useSpecializedLocationLayer = useSpecializedLocationLayer;
@@ -203,8 +202,8 @@ final class LocationLayerController {
 
   private void styleScaling(@NonNull LocationComponentOptions options) {
     Expression scaleExpression = interpolate(linear(), zoom(),
-      stop(trackasiaMap.getMinZoomLevel(), options.minZoomIconScale()),
-      stop(trackasiaMap.getMaxZoomLevel(), options.maxZoomIconScale())
+      stop(mapboxMap.getMinZoomLevel(), options.minZoomIconScale()),
+      stop(mapboxMap.getMaxZoomLevel(), options.maxZoomIconScale())
     );
 
     locationLayerRenderer.styleScaling(scaleExpression);
@@ -249,8 +248,8 @@ final class LocationLayerController {
   //
 
   boolean onMapClick(@NonNull LatLng point) {
-    PointF screenLoc = trackasiaMap.getProjection().toScreenLocation(point);
-    List<Feature> features = trackasiaMap.queryRenderedFeatures(screenLoc,
+    PointF screenLoc = mapboxMap.getProjection().toScreenLocation(point);
+    List<Feature> features = mapboxMap.queryRenderedFeatures(screenLoc,
       BACKGROUND_LAYER,
       FOREGROUND_LAYER,
       BEARING_LAYER
@@ -258,32 +257,32 @@ final class LocationLayerController {
     return !features.isEmpty();
   }
 
-  private final TrackasiaAnimator.AnimationsValueChangeListener<LatLng> latLngValueListener =
-    new TrackasiaAnimator.AnimationsValueChangeListener<LatLng>() {
+  private final MapboxAnimator.AnimationsValueChangeListener<LatLng> latLngValueListener =
+    new MapboxAnimator.AnimationsValueChangeListener<LatLng>() {
       @Override
       public void onNewAnimationValue(LatLng value) {
         locationLayerRenderer.setLatLng(value);
       }
   };
 
-  private final TrackasiaAnimator.AnimationsValueChangeListener<Float> gpsBearingValueListener =
-    new TrackasiaAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapboxAnimator.AnimationsValueChangeListener<Float> gpsBearingValueListener =
+    new MapboxAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setGpsBearing(value);
       }
   };
 
-  private final TrackasiaAnimator.AnimationsValueChangeListener<Float> compassBearingValueListener =
-    new TrackasiaAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapboxAnimator.AnimationsValueChangeListener<Float> compassBearingValueListener =
+    new MapboxAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setCompassBearing(value);
       }
   };
 
-  private final TrackasiaAnimator.AnimationsValueChangeListener<Float> accuracyValueListener =
-    new TrackasiaAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapboxAnimator.AnimationsValueChangeListener<Float> accuracyValueListener =
+    new MapboxAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setAccuracyRadius(value);
@@ -293,8 +292,8 @@ final class LocationLayerController {
   /**
    * The listener that handles the updating of the pulsing circle's radius and opacity.
    */
-  private final TrackasiaAnimator.AnimationsValueChangeListener<Float> pulsingCircleRadiusListener =
-    new TrackasiaAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapboxAnimator.AnimationsValueChangeListener<Float> pulsingCircleRadiusListener =
+    new MapboxAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float newPulseRadiusValue) {
         Float newPulseOpacityValue = null;
@@ -307,21 +306,21 @@ final class LocationLayerController {
 
   Set<AnimatorListenerHolder> getAnimationListeners() {
     Set<AnimatorListenerHolder> holders = new HashSet<>();
-    holders.add(new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_LAYER_LATLNG, latLngValueListener));
+    holders.add(new AnimatorListenerHolder(MapboxAnimator.ANIMATOR_LAYER_LATLNG, latLngValueListener));
 
     if (renderMode == RenderMode.GPS) {
-      holders.add(new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_LAYER_GPS_BEARING, gpsBearingValueListener));
+      holders.add(new AnimatorListenerHolder(MapboxAnimator.ANIMATOR_LAYER_GPS_BEARING, gpsBearingValueListener));
     } else if (renderMode == RenderMode.COMPASS) {
       holders.add(
-        new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_LAYER_COMPASS_BEARING, compassBearingValueListener));
+        new AnimatorListenerHolder(MapboxAnimator.ANIMATOR_LAYER_COMPASS_BEARING, compassBearingValueListener));
     }
 
     if (renderMode == RenderMode.COMPASS || renderMode == RenderMode.NORMAL) {
-      holders.add(new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_LAYER_ACCURACY, accuracyValueListener));
+      holders.add(new AnimatorListenerHolder(MapboxAnimator.ANIMATOR_LAYER_ACCURACY, accuracyValueListener));
     }
 
     if (options.pulseEnabled()) {
-      holders.add(new AnimatorListenerHolder(TrackasiaAnimator.ANIMATOR_PULSING_CIRCLE,
+      holders.add(new AnimatorListenerHolder(MapboxAnimator.ANIMATOR_PULSING_CIRCLE,
           pulsingCircleRadiusListener));
     }
     return holders;

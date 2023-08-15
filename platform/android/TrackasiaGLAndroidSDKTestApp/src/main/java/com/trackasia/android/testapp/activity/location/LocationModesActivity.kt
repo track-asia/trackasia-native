@@ -26,8 +26,8 @@ import com.trackasia.android.location.modes.RenderMode
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.CancelableCallback
+import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.MapboxMap.CancelableCallback
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -43,7 +43,7 @@ class LocationModesActivity :
     private var protectedGestureArea: View? = null
     private var permissionsManager: PermissionsManager? = null
     private var locationComponent: LocationComponent? = null
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private var defaultStyle = false
 
     @CameraMode.Mode
@@ -115,10 +115,10 @@ class LocationModesActivity :
     }
 
     @SuppressLint("MissingPermission")
-    override fun onMapReady(trackasiaMap: TrackasiaMap) {
-        this.trackasiaMap = trackasiaMap
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
-            locationComponent = trackasiaMap.locationComponent
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this.mapboxMap = mapboxMap
+        mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+            locationComponent = mapboxMap.locationComponent
             locationComponent!!.activateLocationComponent(
                 LocationComponentActivationOptions
                     .builder(this, style!!)
@@ -225,7 +225,7 @@ class LocationModesActivity :
         if (locationComponent == null) {
             return
         }
-        trackasiaMap.getStyle { style: Style ->
+        mapboxMap!!.getStyle { style: Style ->
             val styleUrl =
                 Style.getPredefinedStyle(
                     if (Style.getPredefinedStyle("Bright") == style.uri) {
@@ -235,7 +235,7 @@ class LocationModesActivity :
                     }
                 )
 
-            trackasiaMap.setStyle(Style.Builder().fromUri(styleUrl))
+            mapboxMap!!.setStyle(Style.Builder().fromUri(styleUrl))
         }
     }
 

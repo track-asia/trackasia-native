@@ -8,15 +8,15 @@ namespace mbgl {
 namespace android {
 namespace conversion {
 
-std::optional<mbgl::style::Filter> toFilter(jni::JNIEnv& env, const jni::Array<jni::Object<>>& jfilter) {
-    std::optional<mbgl::style::Filter> filter;
+optional<mbgl::style::Filter> toFilter(jni::JNIEnv& env, const jni::Array<jni::Object<>>& jfilter) {
+    mbgl::optional<mbgl::style::Filter> filter;
     if (jfilter) {
-        mbgl::style::conversion::Error error;
-        auto converted = mbgl::style::conversion::convert<mbgl::style::Filter>(Value(env, jfilter), error);
-        if (!converted) {
-            mbgl::Log::Error(mbgl::Event::JNI, "Error converting filter: " + error.message);
-        }
-        filter = std::move(*converted);
+      mbgl::style::conversion::Error error;
+      auto converted = mbgl::style::conversion::convert<mbgl::style::Filter>(Value(env, jfilter), error);
+      if (!converted) {
+          mbgl::Log::Error(mbgl::Event::JNI, "Error converting filter: " + error.message);
+      }
+      filter = std::move(*converted);
     }
     return filter;
 }

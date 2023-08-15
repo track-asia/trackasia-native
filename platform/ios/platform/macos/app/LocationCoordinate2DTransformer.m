@@ -3,7 +3,7 @@
 #import <Mapbox/Mapbox.h>
 
 @implementation LocationCoordinate2DTransformer {
-    MLNCoordinateFormatter *_coordinateFormatter;
+    MGLCoordinateFormatter *_coordinateFormatter;
 }
 
 + (Class)transformedValueClass {
@@ -16,7 +16,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _coordinateFormatter = [[MLNCoordinateFormatter alloc] init];
+        _coordinateFormatter = [[MGLCoordinateFormatter alloc] init];
     }
     return self;
 }

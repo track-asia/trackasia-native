@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.maps.*
-import com.trackasia.android.maps.TrackasiaMap.OnCameraMoveListener
-import com.trackasia.android.maps.TrackasiaMap.OnFpsChangedListener
+import com.trackasia.android.maps.MapboxMap.OnCameraMoveListener
+import com.trackasia.android.maps.MapboxMap.OnFpsChangedListener
 import com.trackasia.android.style.layers.Layer
 import com.trackasia.android.style.layers.Property
 import com.trackasia.android.style.layers.PropertyFactory
@@ -22,8 +22,8 @@ import java.util.*
  * Test activity showcasing the different debug modes and allows to cycle between the default map styles.
  */
 open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsChangedListener {
-    private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapView: MapView? = null
+    private var mapboxMap: MapboxMap? = null
     private var cameraMoveListener: OnCameraMoveListener? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var currentStyleIndex = 0
@@ -59,24 +59,24 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
         val mapboxMapOptions = setupMapboxMapOptions()
         mapView = MapView(this, mapboxMapOptions)
         (findViewById<View>(R.id.coordinator_layout) as ViewGroup).addView(mapView, 0)
-        mapView.addOnDidFinishLoadingStyleListener {
-            if (trackasiaMap != null) {
-                setupNavigationView(trackasiaMap.style!!.layers)
+        mapView!!.addOnDidFinishLoadingStyleListener {
+            if (mapboxMap != null) {
+                setupNavigationView(mapboxMap!!.style!!.layers)
             }
         }
-        mapView.tag = true
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)
-        mapView.addOnDidFinishLoadingStyleListener { Timber.d("Style loaded") }
+        mapView!!.tag = true
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync(this)
+        mapView!!.addOnDidFinishLoadingStyleListener { Timber.d("Style loaded") }
     }
 
-    protected open fun setupMapboxMapOptions(): TrackasiaMapOptions {
-        return TrackasiaMapOptions.createFromAttributes(this, null)
+    protected open fun setupMapboxMapOptions(): MapboxMapOptions {
+        return MapboxMapOptions.createFromAttributes(this, null)
     }
 
-    override fun onMapReady(map: TrackasiaMap) {
-        trackasiaMap = map
-        trackasiaMap.setStyle(
+    override fun onMapReady(map: MapboxMap) {
+        mapboxMap = map
+        mapboxMap!!.setStyle(
             Style.Builder().fromUri(STYLES[currentStyleIndex])
         ) { style: Style -> setupNavigationView(style.layers) }
         setupZoomView()
@@ -85,7 +85,7 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
 
     private fun setFpsView() {
         fpsView = findViewById(R.id.fpsView)
-        trackasiaMap.setOnFpsChangedListener(this)
+        mapboxMap!!.setOnFpsChangedListener(this)
     }
 
     override fun onFpsChanged(fps: Double) {
@@ -93,7 +93,7 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
     }
 
     private fun setupNavigationView(layerList: List<Layer>) {
-        Timber.v("New style loaded with JSON: %s", trackasiaMap.style!!.json)
+        Timber.v("New style loaded with JSON: %s", mapboxMap!!.style!!.json)
         val adapter = LayerListAdapter(this, layerList)
         val listView = findViewById<ListView>(R.id.listView)
         listView.adapter = adapter
@@ -121,13 +121,13 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
 
     private fun setupZoomView() {
         val textView = findViewById<TextView>(R.id.textZoom)
-        trackasiaMap.addOnCameraMoveListener(
+        mapboxMap!!.addOnCameraMoveListener(
             OnCameraMoveListener {
                 textView.text = String.format(
                     this@DebugModeActivity.getString(
                         R.string.debug_zoom
                     ),
-                    trackasiaMap.cameraPosition.zoom
+                    mapboxMap!!.cameraPosition.zoom
                 )
             }.also { cameraMoveListener = it }
         )
@@ -136,9 +136,9 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
     private fun setupDebugChangeView() {
         val fabDebug = findViewById<FloatingActionButton>(R.id.fabDebug)
         fabDebug.setOnClickListener { view: View? ->
-            if (trackasiaMap != null) {
-                trackasiaMap.isDebugActive = !trackasiaMap.isDebugActive
-                Timber.d("Debug FAB: isDebug Active? %s", trackasiaMap.isDebugActive)
+            if (mapboxMap != null) {
+                mapboxMap!!.isDebugActive = !mapboxMap!!.isDebugActive
+                Timber.d("Debug FAB: isDebug Active? %s", mapboxMap!!.isDebugActive)
             }
         }
     }
@@ -146,12 +146,12 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
     private fun setupStyleChangeView() {
         val fabStyles = findViewById<FloatingActionButton>(R.id.fabStyles)
         fabStyles.setOnClickListener { view: View? ->
-            if (trackasiaMap != null) {
+            if (mapboxMap != null) {
                 currentStyleIndex++
                 if (currentStyleIndex == STYLES.size) {
                     currentStyleIndex = 0
                 }
-                trackasiaMap.setStyle(Style.Builder().fromUri(STYLES[currentStyleIndex]))
+                mapboxMap!!.setStyle(Style.Builder().fromUri(STYLES[currentStyleIndex]))
             }
         }
     }
@@ -161,11 +161,11 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
         if (itemId == R.id.menu_action_toggle_report_fps) {
             isReportFps = !isReportFps
             fpsView!!.visibility = if (isReportFps) View.VISIBLE else View.GONE
-            trackasiaMap.setOnFpsChangedListener(if (isReportFps) this else null)
+            mapboxMap!!.setOnFpsChangedListener(if (isReportFps) this else null)
         } else if (itemId == R.id.menu_action_limit_to_30_fps) {
-            mapView.setMaximumFps(30)
+            mapView!!.setMaximumFps(30)
         } else if (itemId == R.id.menu_action_limit_to_60_fps) {
-            mapView.setMaximumFps(60)
+            mapView!!.setMaximumFps(60)
         }
         return actionBarDrawerToggle!!.onOptionsItemSelected(item) || super.onOptionsItemSelected(
             item
@@ -179,40 +179,40 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (trackasiaMap != null) {
-            trackasiaMap.removeOnCameraMoveListener(cameraMoveListener!!)
+        if (mapboxMap != null) {
+            mapboxMap!!.removeOnCameraMoveListener(cameraMoveListener!!)
         }
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     private class LayerListAdapter(context: Context?, layers: List<Layer>) :

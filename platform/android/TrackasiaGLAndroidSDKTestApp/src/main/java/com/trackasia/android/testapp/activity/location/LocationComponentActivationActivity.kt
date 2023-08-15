@@ -12,14 +12,14 @@ import com.trackasia.android.location.modes.RenderMode
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 
 class LocationComponentActivationActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private var permissionsManager: PermissionsManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,16 +59,16 @@ class LocationComponentActivationActivity : AppCompatActivity(), OnMapReadyCallb
         permissionsManager!!.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    override fun onMapReady(trackasiaMap: TrackasiaMap) {
-        this.trackasiaMap = trackasiaMap
-        trackasiaMap.setStyle(
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this.mapboxMap = mapboxMap
+        mapboxMap.setStyle(
             Style.getPredefinedStyle("Bright")
         ) { style: Style -> activateLocationComponent(style) }
     }
 
     @SuppressLint("MissingPermission")
     private fun activateLocationComponent(style: Style) {
-        val locationComponent = trackasiaMap.locationComponent
+        val locationComponent = mapboxMap!!.locationComponent
         val locationComponentOptions = LocationComponentOptions.builder(this)
             .elevation(5f)
             .accuracyAlpha(.6f)
@@ -88,36 +88,36 @@ class LocationComponentActivationActivity : AppCompatActivity(), OnMapReadyCallb
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 }

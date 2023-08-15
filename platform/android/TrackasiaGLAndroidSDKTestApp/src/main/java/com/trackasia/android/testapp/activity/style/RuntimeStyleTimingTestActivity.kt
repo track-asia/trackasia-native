@@ -13,8 +13,8 @@ import com.trackasia.android.testapp.R
  * Test activity for unit test execution
  */
 class RuntimeStyleTimingTestActivity : AppCompatActivity() {
-    lateinit var mapView: MapView
-    lateinit var trackasiaMap: TrackasiaMap
+    var mapView: MapView? = null
+    var mapboxMap: MapboxMap? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +23,9 @@ class RuntimeStyleTimingTestActivity : AppCompatActivity() {
 
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: TrackasiaMap ->
-            this@RuntimeStyleTimingTestActivity.trackasiaMap = trackasiaMap
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+            this@RuntimeStyleTimingTestActivity.mapboxMap = mapboxMap
             val parksLayer = CircleLayer("parks", "parks_source")
             parksLayer.sourceLayer = "parks"
             parksLayer.setProperties(
@@ -37,7 +37,7 @@ class RuntimeStyleTimingTestActivity : AppCompatActivity() {
                 "parks_source",
                 "maptiler://sources/7ac429c7-c96e-46dd-8c3e-13d48988986a"
             )
-            trackasiaMap.setStyle(
+            mapboxMap.setStyle(
                 Style.Builder()
                     .fromUri(Style.getPredefinedStyle("Streets"))
                     .withSource(parks)
@@ -48,36 +48,36 @@ class RuntimeStyleTimingTestActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 }

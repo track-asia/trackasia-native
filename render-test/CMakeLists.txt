@@ -46,20 +46,14 @@ target_include_directories(
     PUBLIC ${PROJECT_SOURCE_DIR}/render-test/include ${PROJECT_SOURCE_DIR}/include
 )
 
-# needed for test_runner_common.hpp
-target_include_directories(
-    mbgl-render-test
-    PRIVATE ${PROJECT_SOURCE_DIR}/expression-test
-)
-
 include(${PROJECT_SOURCE_DIR}/vendor/boost.cmake)
 
 target_link_libraries(
     mbgl-render-test
     PRIVATE
-        Mapbox::Base::Extras::args
-        Mapbox::Base::Extras::filesystem
-        Mapbox::Base::pixelmatch-cpp
+        Trackasia::Base::Extras::args
+        Trackasia::Base::Extras::filesystem
+        Trackasia::Base::pixelmatch-cpp
         mbgl-compiler-options
         mbgl-vendor-boost
     PUBLIC mbgl-core

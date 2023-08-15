@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTrackasiaGL/Settings>
+#include <QTrackAsiaGL/Settings>
 
 #include "renderer_backend.hpp"
 
@@ -19,11 +19,12 @@ class Renderer;
 class UpdateParameters;
 } // namespace mbgl
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 class RendererBackend;
 
-class MapRenderer : public QObject {
+class MapRenderer : public QObject
+{
     Q_OBJECT
 
 public:
@@ -54,4 +55,4 @@ private:
     bool m_forceScheduler{};
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

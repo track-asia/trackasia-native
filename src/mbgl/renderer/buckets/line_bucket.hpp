@@ -46,8 +46,8 @@ public:
     gfx::IndexVector<gfx::Triangles> triangles;
     SegmentVector<LineAttributes> segments;
 
-    std::optional<gfx::VertexBuffer<LineLayoutVertex>> vertexBuffer;
-    std::optional<gfx::IndexBuffer> indexBuffer;
+    optional<gfx::VertexBuffer<LineLayoutVertex>> vertexBuffer;
+    optional<gfx::IndexBuffer> indexBuffer;
 
     std::map<std::string, LineProgram::Binders> paintPropertyBinders;
 
@@ -55,10 +55,7 @@ private:
     void addGeometry(const GeometryCoordinates&, const GeometryTileFeature&, const CanonicalTileID&);
 
     struct TriangleElement {
-        TriangleElement(uint16_t a_, uint16_t b_, uint16_t c_)
-            : a(a_),
-              b(b_),
-              c(c_) {}
+        TriangleElement(uint16_t a_, uint16_t b_, uint16_t c_) : a(a_), b(b_), c(c_) {}
         uint16_t a, b, c;
     };
 
@@ -71,15 +68,12 @@ private:
                           bool round,
                           std::size_t startVertex,
                           std::vector<LineBucket::TriangleElement>& triangleStore,
-                          std::optional<Distances> distances);
+                          optional<Distances> distances);
 
-    void addPieSliceVertex(const GeometryCoordinate& currentVertex,
-                           double distance,
-                           const Point<double>& extrude,
-                           bool lineTurnsLeft,
-                           std::size_t startVertex,
-                           std::vector<TriangleElement>& triangleStore,
-                           std::optional<Distances> distances);
+    void addPieSliceVertex(const GeometryCoordinate& currentVertex, double distance,
+            const Point<double>& extrude, bool lineTurnsLeft, std::size_t startVertex,
+            std::vector<TriangleElement>& triangleStore,
+            optional<Distances> distances);
 
     std::ptrdiff_t e1;
     std::ptrdiff_t e2;

@@ -8,8 +8,7 @@
 #include <mbgl/renderer/tile_mask.hpp>
 #include <mbgl/util/image.hpp>
 #include <mbgl/util/mat4.hpp>
-
-#include <optional>
+#include <mbgl/util/optional.hpp>
 
 namespace mbgl {
 
@@ -27,8 +26,8 @@ public:
     void setMask(TileMask&&);
 
     std::shared_ptr<PremultipliedImage> image;
-    std::optional<gfx::Texture> texture;
-    TileMask mask{{0, 0, 0}};
+    optional<gfx::Texture> texture;
+    TileMask mask{ { 0, 0, 0 } };
 
     // Bucket specific vertices are used for Image Sources only
     // Raster Tile Sources use the default buffers from Painter
@@ -36,8 +35,8 @@ public:
     gfx::IndexVector<gfx::Triangles> indices;
     SegmentVector<RasterAttributes> segments;
 
-    std::optional<gfx::VertexBuffer<RasterLayoutVertex>> vertexBuffer;
-    std::optional<gfx::IndexBuffer> indexBuffer;
+    optional<gfx::VertexBuffer<RasterLayoutVertex>> vertexBuffer;
+    optional<gfx::IndexBuffer> indexBuffer;
 };
 
 } // namespace mbgl

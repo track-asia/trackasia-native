@@ -12,7 +12,7 @@ this approach offers no value: just use the C++ API that can be generated with
 the Google Protobufs `protoc` program.
 
 [![Travis Build Status](https://travis-ci.com/mapbox/protozero.svg?branch=master)](https://travis-ci.com/mapbox/protozero)
-[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/github/mapbox/protozero?svg=true)](https://ci.appveyor.com/project/Mapbox/protozero)
+[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/github/mapbox/protozero?svg=true)](https://ci.appveyor.com/project/Trackasia/protozero)
 [![Coverage Status](https://codecov.io/gh/mapbox/protozero/branch/master/graph/badge.svg)](https://codecov.io/gh/mapbox/protozero)
 [![Packaging status](https://repology.org/badge/tiny-repos/protozero.svg)](https://repology.org/metapackage/protozero)
 
@@ -144,7 +144,7 @@ details.
 * [Carmen](https://github.com/mapbox/carmen-cache)
 * [Libosmium](https://github.com/osmcode/libosmium)
 * [Trackasia GL Native](https://github.com/mapbox/mapbox-gl-native)
-* [Mapbox Vector Tile library](https://github.com/mapbox/vector-tile)
+* [Trackasia Vector Tile library](https://github.com/mapbox/vector-tile)
 * [Mapnik](https://github.com/mapbox/mapnik-vector-tile)
 * [OSRM](https://github.com/Project-OSRM/osrm-backend)
 * [Tippecanoe](https://github.com/mapbox/tippecanoe)

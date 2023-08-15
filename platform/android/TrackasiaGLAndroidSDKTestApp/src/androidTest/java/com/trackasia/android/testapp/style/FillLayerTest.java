@@ -3,6 +3,7 @@
 package com.trackasia.android.testapp.style;
 
 import android.graphics.Color;
+
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
@@ -13,24 +14,45 @@ import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
 import com.trackasia.android.maps.BaseLayerTest;
-import org.junit.Before;
-import timber.log.Timber;
-
 import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.layers.FillLayer;
+import com.trackasia.android.style.layers.TransitionOptions;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.trackasia.android.style.expressions.Expression.*;
-import static org.junit.Assert.*;
-import static com.trackasia.android.style.layers.Property.*;
-import static com.trackasia.android.style.layers.PropertyFactory.*;
-
-import com.trackasia.android.style.layers.TransitionOptions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import timber.log.Timber;
+
+import static com.trackasia.android.style.expressions.Expression.distance;
+import static com.trackasia.android.style.expressions.Expression.eq;
+import static com.trackasia.android.style.expressions.Expression.get;
+import static com.trackasia.android.style.expressions.Expression.image;
+import static com.trackasia.android.style.expressions.Expression.literal;
+import static com.trackasia.android.style.expressions.Expression.lt;
+import static com.trackasia.android.style.expressions.Expression.number;
+import static com.trackasia.android.style.expressions.Expression.string;
+import static com.trackasia.android.style.expressions.Expression.toColor;
+import static com.trackasia.android.style.expressions.Expression.within;
+import static com.trackasia.android.style.layers.Property.FILL_TRANSLATE_ANCHOR_MAP;
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
+import static com.trackasia.android.style.layers.PropertyFactory.fillAntialias;
+import static com.trackasia.android.style.layers.PropertyFactory.fillColor;
+import static com.trackasia.android.style.layers.PropertyFactory.fillOpacity;
+import static com.trackasia.android.style.layers.PropertyFactory.fillOutlineColor;
+import static com.trackasia.android.style.layers.PropertyFactory.fillPattern;
+import static com.trackasia.android.style.layers.PropertyFactory.fillSortKey;
+import static com.trackasia.android.style.layers.PropertyFactory.fillTranslate;
+import static com.trackasia.android.style.layers.PropertyFactory.fillTranslateAnchor;
+import static com.trackasia.android.style.layers.PropertyFactory.visibility;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Basic smoke tests for FillLayer

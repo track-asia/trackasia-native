@@ -4,9 +4,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.Style;
+import com.trackasia.android.Mapbox;
+import com.trackasia.android.maps.MapView;
+import com.trackasia.android.maps.Style;
 
 import timber.log.Timber;
 

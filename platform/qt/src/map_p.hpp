@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTrackasiaGL/Map>
+#include <QTrackAsiaGL/Map>
 
 #include "utils/map_observer.hpp"
 #include "utils/map_renderer.hpp"
@@ -17,18 +17,19 @@
 #include <atomic>
 #include <memory>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
-class MapPrivate : public QObject, public mbgl::RendererFrontend {
+class MapPrivate : public QObject, public mbgl::RendererFrontend
+{
     Q_OBJECT
 
 public:
-    explicit MapPrivate(Map*, const Settings&, const QSize& size, qreal pixelRatio);
+    explicit MapPrivate(Map *, const Settings &, const QSize &size, qreal pixelRatio);
     virtual ~MapPrivate();
 
     // mbgl::RendererFrontend implementation.
     void reset() final {}
-    void setObserver(mbgl::RendererObserver&) final;
+    void setObserver(mbgl::RendererObserver &) final;
     void update(std::shared_ptr<mbgl::UpdateParameters>) final;
 
     // These need to be called on the same thread.
@@ -37,8 +38,7 @@ public:
     void render();
     void setFramebufferObject(quint32 fbo, const QSize& size);
 
-    using PropertySetter = std::optional<mbgl::style::conversion::Error> (mbgl::style::Layer::*)(
-        const std::string&, const mbgl::style::conversion::Convertible&);
+    using PropertySetter = mbgl::optional<mbgl::style::conversion::Error> (mbgl::style::Layer::*)(const std::string&, const mbgl::style::conversion::Convertible&);
     bool setProperty(const PropertySetter& setter, const QString& layer, const QString& name, const QVariant& value);
 
     mbgl::EdgeInsets margins;
@@ -70,4 +70,4 @@ private:
     std::atomic_flag m_renderQueued = ATOMIC_FLAG_INIT;
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

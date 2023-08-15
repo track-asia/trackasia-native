@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Point
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression.distance
 import com.trackasia.android.style.expressions.Expression.lt
@@ -26,7 +26,7 @@ import com.mapbox.turf.TurfTransformation
 class DistanceExpressionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWithinExpressionBinding
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
 
     private val lat = 37.78794572301525
     private val lon = -122.40752220153807
@@ -38,10 +38,10 @@ class DistanceExpressionActivity : AppCompatActivity() {
 
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync { map ->
-            trackasiaMap = map
+            mapboxMap = map
 
             // Setup camera position above Georgetown
-            trackasiaMap.cameraPosition = CameraPosition.Builder()
+            mapboxMap.cameraPosition = CameraPosition.Builder()
                 .target(LatLng(lat, lon))
                 .zoom(16.0)
                 .build()
@@ -54,7 +54,7 @@ class DistanceExpressionActivity : AppCompatActivity() {
         val circle = TurfTransformation.circle(center, 150.0, TurfConstants.UNIT_METRES)
         // Setup style with additional layers,
         // using Streets as a base style
-        trackasiaMap.setStyle(
+        mapboxMap.setStyle(
             Style.Builder()
                 .fromUri(Style.getPredefinedStyle("Streets"))
                 .withSources(

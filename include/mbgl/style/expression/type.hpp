@@ -1,10 +1,9 @@
 #pragma once
 
+#include <mbgl/util/optional.hpp>
 #include <mbgl/util/string.hpp>
 #include <mbgl/util/variant.hpp>
 #include <vector>
-
-#include <optional>
 
 namespace mbgl {
 namespace style {
@@ -61,13 +60,13 @@ struct ValueType {
     std::string getName() const { return "value"; }
     bool operator==(const ValueType&) const { return true; }
 };
-
+    
 struct CollatorType {
     constexpr CollatorType() = default;
     std::string getName() const { return "collator"; }
     bool operator==(const CollatorType&) const { return true; }
 };
-
+    
 struct FormattedType {
     constexpr FormattedType() = default;
     std::string getName() const { return "formatted"; }
@@ -108,14 +107,9 @@ using Type = variant<NullType,
                      ImageType>;
 
 struct Array {
-    explicit Array(Type itemType_)
-        : itemType(std::move(itemType_)) {}
-    Array(Type itemType_, std::size_t N_)
-        : itemType(std::move(itemType_)),
-          N(N_) {}
-    Array(Type itemType_, std::optional<std::size_t> N_)
-        : itemType(std::move(itemType_)),
-          N(std::move(N_)) {}
+    explicit Array(Type itemType_) : itemType(std::move(itemType_)) {}
+    Array(Type itemType_, std::size_t N_) : itemType(std::move(itemType_)), N(N_) {}
+    Array(Type itemType_, optional<std::size_t> N_) : itemType(std::move(itemType_)), N(std::move(N_)) {}
     std::string getName() const {
         if (N) {
             return "array<" + toString(itemType) + ", " + util::toString(*N) + ">";
@@ -127,15 +121,13 @@ struct Array {
     }
 
     bool operator==(const Array& rhs) const { return itemType == rhs.itemType && N == rhs.N; }
-
+    
     Type itemType;
-    std::optional<std::size_t> N;
+    optional<std::size_t> N;
 };
-
+    
 template <class T>
-std::string toString(const T& type) {
-    return type.match([&](const auto& t) { return t.getName(); });
-}
+std::string toString(const T& type) { return type.match([&] (const auto& t) { return t.getName(); }); }
 
 } // namespace type
 } // namespace expression

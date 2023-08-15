@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <cstdint>
 #include <cstdlib>
 #include <type_traits>
 #include <exception>
@@ -11,7 +10,8 @@
 
 namespace std {
 
-inline int stoi(const std::string &str) {
+inline int stoi(const std::string &str)
+{
     return atoi(str.c_str());
 }
 
@@ -48,22 +48,17 @@ inline std::string toString(uint8_t t) {
     return toString(static_cast<uint32_t>(t));
 }
 
-template <typename = std::enable_if<!std::is_same_v<uint64_t, unsigned long>>>
+template <typename = std::enable_if<!std::is_same<uint64_t, unsigned long>::value>>
 inline std::string toString(unsigned long t) {
     return toString(static_cast<uint64_t>(t));
 }
 
-template <typename = std::enable_if<!std::is_same_v<uint64_t, unsigned long long>>>
+template <typename = std::enable_if<!std::is_same<uint64_t, unsigned long long>::value>>
 inline std::string toString(unsigned long long t) {
     return toString(static_cast<uint64_t>(t));
 }
 
-template <typename = std::enable_if<!std::is_same_v<int64_t, long>>>
-inline std::string toString(long t) {
-    return toString(static_cast<int64_t>(t));
-}
-
-template <typename = std::enable_if<!std::is_same_v<int64_t, long long>>>
+template <typename = std::enable_if<!std::is_same<int64_t, long long>::value>>
 inline std::string toString(long long t) {
     return toString(static_cast<int64_t>(t));
 }
@@ -84,7 +79,7 @@ std::string toString(T) = delete;
 std::string toHex(uint32_t);
 std::string toHex(uint64_t);
 
-inline float stof(const std::string &str) {
+inline float stof(const std::string& str) {
     return std::stof(str);
 }
 

@@ -9,8 +9,7 @@ function finish { >&2 echo -en "\033[0m"; }
 trap finish EXIT
 
 if [ -z `which jazzy` ]; then
-	echo "jazzy not installed" >&2
-	exit 1
+    ./platform/ios/scripts/install-packaging-dependencies.sh
 fi
 
 DEFAULT_THEME="platform/darwin/docs/theme"
@@ -45,9 +44,9 @@ jazzy \
     --module-version ${SHORT_VERSION} \
     --readme ${README} \
     --documentation="platform/{darwin,ios}/docs/guides/*.md" \
-    --root-url https://track-asia.com/trackasia-native/ios/api/ \
+    --root-url https://docs.mapbox.com/ios/api/maps/${RELEASE_VERSION}/ \
     --theme ${THEME} \
     --head "${CUSTOM_HEAD}" \
     --output ${OUTPUT} \
-    --title "Trackasia Native for iOS" \
+    --title "Maps SDK for iOS" \
     --module-version ${SHORT_VERSION}

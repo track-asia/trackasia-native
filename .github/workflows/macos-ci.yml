@@ -4,47 +4,66 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - opengl-2
-    tags:
-      - 'macos-*'
-    paths:
-      - CMakeLists.txt
-      - 'platform/ios/**'
-      - 'platform/darwin/**'
-      - ".github/workflows/macos-ci.yml"
-      - "bin/**"
-      - "expression-test/**"
-      - "include/**"
-      - "metrics/**"
-      - "platform/default/**"
-      - "render-test/**"
-      - "scripts/**"
-      - "src/**"
-      - "test/**"
-      - "vendor/**"
-      - ".gitmodules"
-      - "!**/*.md"
+      - main
+    tags-ignore:
+      - '**'
+    paths-ignore:
+      - ".gitignore"
+      - "**.md"
+      # ignore other platforms
+      - "platform/android/**"
+      - "platform/glfw/**"
+      - "platform/node/**"
+      - "platform/qt/**"
+      # ignore CI for other platforms
+      - ".github/FUNDING.yml"
+      - ".github/actions/**"
+      - ".github/workflows/android-ci.yml"
+      - ".github/workflows/android-ci-pull.yml"
+      - ".github/workflows/android-docker-base.yml"
+      - ".github/workflows/android-docker-ndk-r21b.yml"
+      - ".github/workflows/android-release.yml"
+      - ".github/workflows/gh-pages-android-api.yml"
+      - ".github/workflows/gh-pages-ios-api.yml"
+      - ".github/workflows/ios-ci.yml"
+      - ".github/workflows/ios-pre-release.yml"
+      - ".github/workflows/ios-release.yml"
+      - ".github/workflows/macos-release.yml"
+      - ".github/workflows/node-ci.yml"
+      - ".github/workflows/node-release.yml"
+      - ".github/workflows/qt-ci-windows.yml"
+      - ".github/workflows/qt-ci.yml"
+      - ".github/workflows/update-gl-js.yml"
 
   pull_request:
     branches:
-      - opengl-2
-    paths:
-      - CMakeLists.txt
-      - 'platform/ios/**'
-      - 'platform/darwin/**'
-      - ".github/workflows/macos-ci.yml"
-      - "bin/**"
-      - "expression-test/**"
-      - "include/**"
-      - "metrics/**"
-      - "platform/default/**"
-      - "render-test/**"
-      - "scripts/**"
-      - "src/**"
-      - "test/**"
-      - "vendor/**"
-      - ".gitmodules"
-      - "!**/*.md"
+      - main
+    paths-ignore:
+      - ".gitignore"
+      - "**.md"
+      # ignore other platforms
+      - "platform/android/**"
+      - "platform/glfw/**"
+      - "platform/ios/**"
+      - "platform/node/**"
+      - "platform/qt/**"
+      # ignore CI for other platforms
+      - ".github/FUNDING.yml"
+      - ".github/workflows/android-ci.yml"
+      - ".github/workflows/android-ci-pull.yml"
+      - ".github/workflows/android-docker-base.yml"
+      - ".github/workflows/android-docker-ndk-r21b.yml"
+      - ".github/workflows/gh-pages-android-api.yml"
+      - ".github/workflows/gh-pages-ios-api.yml"
+      - ".github/workflows/ios-ci.yml"
+      - ".github/workflows/ios-pre-release.yml"
+      - ".github/workflows/ios-release.yml"
+      - ".github/workflows/macos-release.yml"
+      - ".github/workflows/node-ci.yml"
+      - ".github/workflows/node-release.yml"
+      - ".github/workflows/qt-ci-windows.yml"
+      - ".github/workflows/qt-ci.yml"
+      - ".github/workflows/update-gl-js.yml"
 
 concurrency:
   # cancel jobs on PRs only
@@ -118,24 +137,15 @@ jobs:
           ccache --max-size=2G
           ccache --show-stats
 
-      - name: Run macOS Objective-C tests
+      - name: Build macos test
         run: |
-          ../macos/scripts/run-in-macos-gui-env.sh "make macos-test"
-
-      - name: npm install  # C++ tests are run with root as working directory
-        run: npm ci --ignore-scripts
-        working-directory: .
-
-      - name: Run macOS C++ unit tests
-        run: |
-          cmake -S . -B $BUILD_DIR
-          cmake --build $BUILD_DIR --target mbgl-test-runner
-          ctest -VV --test-dir $BUILD_DIR -R mbgl-test-runner
-        env:
-          BUILD_DIR: ../../../Trackasia-gl-native-macostestbuild
+          make macos-test
 
       - name: Check public symbols
         run: make darwin-check-public-symbols
 
       - name: Lint plist files
         run: make macos-lint
+
+      - name: Darwin Style Code check
+        run: make darwin-style-code

@@ -13,6 +13,7 @@ import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.*
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.maplayout.DoubleMapActivity.DoubleMapFragment
 import com.trackasia.android.utils.MapFragmentUtils
 
 /**
@@ -27,7 +28,7 @@ class DoubleMapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_fragment)
         if (savedInstanceState == null) {
-            val options = TrackasiaMapOptions.createFromAttributes(this, null)
+            val options = MapboxMapOptions.createFromAttributes(this, null)
             options.camera(
                 CameraPosition.Builder()
                     .target(MACHU_PICCHU)
@@ -61,9 +62,9 @@ class DoubleMapActivity : AppCompatActivity() {
 
             // MapView large
             mapView = MapView(view.context, MapFragmentUtils.resolveArgs(view.context, arguments))
-            mapView.onCreate(savedInstanceState)
-            mapView.getMapAsync { trackasiaMap: TrackasiaMap ->
-                trackasiaMap.setStyle(
+            mapView!!.onCreate(savedInstanceState)
+            mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+                mapboxMap.setStyle(
                     Style.getPredefinedStyle(
                         "Streets"
                     )
@@ -75,21 +76,21 @@ class DoubleMapActivity : AppCompatActivity() {
             mapViewMini = view.findViewById(R.id.mini_map)
             mapViewMini.onCreate(savedInstanceState)
             mapViewMini.getMapAsync(
-                OnMapReadyCallback { trackasiaMap: TrackasiaMap ->
-                    trackasiaMap.moveCamera(
+                OnMapReadyCallback { mapboxMap: MapboxMap ->
+                    mapboxMap.moveCamera(
                         CameraUpdateFactory.newCameraPosition(
                             CameraPosition.Builder().target(MACHU_PICCHU)
                                 .zoom(ZOOM_OUT)
                                 .build()
                         )
                     )
-                    trackasiaMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Bright")))
-                    val uiSettings = trackasiaMap.uiSettings
+                    mapboxMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Bright")))
+                    val uiSettings = mapboxMap.uiSettings
                     uiSettings.setAllGesturesEnabled(false)
                     uiSettings.isCompassEnabled = false
                     uiSettings.isAttributionEnabled = false
                     uiSettings.isLogoEnabled = false
-                    trackasiaMap.addOnMapClickListener { point: LatLng? ->
+                    mapboxMap.addOnMapClickListener { point: LatLng? ->
                         // test if we can open 2 activities after each other
                         Toast.makeText(
                             mapViewMini.getContext(),
@@ -105,43 +106,43 @@ class DoubleMapActivity : AppCompatActivity() {
 
         override fun onResume() {
             super.onResume()
-            mapView.onResume()
+            mapView!!.onResume()
             mapViewMini!!.onResume()
         }
 
         override fun onStart() {
             super.onStart()
-            mapView.onStart()
+            mapView!!.onStart()
             mapViewMini!!.onStart()
         }
 
         override fun onPause() {
             super.onPause()
-            mapView.onPause()
+            mapView!!.onPause()
             mapViewMini!!.onPause()
         }
 
         override fun onStop() {
             super.onStop()
-            mapView.onStop()
+            mapView!!.onStop()
             mapViewMini!!.onStop()
         }
 
         override fun onDestroyView() {
             super.onDestroyView()
-            mapView.onDestroy()
+            mapView!!.onDestroy()
             mapViewMini!!.onDestroy()
         }
 
         override fun onLowMemory() {
             super.onLowMemory()
-            mapView.onLowMemory()
+            mapView!!.onLowMemory()
             mapViewMini!!.onLowMemory()
         }
 
         override fun onSaveInstanceState(outState: Bundle) {
             super.onSaveInstanceState(outState)
-            mapView.onSaveInstanceState(outState)
+            mapView!!.onSaveInstanceState(outState)
             // Mini map view is not interactive in this case, so we shouldn't save the instance.
             // If we'd like to support state saving for both maps, they'd have to be kept in separate fragments.
             // mapViewMini.onSaveInstanceState(outState);

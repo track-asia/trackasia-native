@@ -12,8 +12,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 
 import com.trackasia.android.R;
-import com.trackasia.android.maps.Style;
-import com.trackasia.android.style.layers.SymbolLayer;
 
 /**
  * Bubble View for Android with custom stroke width and color, arrow size, position and direction.
@@ -21,10 +19,10 @@ import com.trackasia.android.style.layers.SymbolLayer;
  * However, even though the Maps SDK for Android team hasn't continued work on this class,
  * the class is still completely fine to use. This class can be used to create a custom
  * {@link android.view.View}, which is then turned into a {@link android.graphics.Bitmap}.
- * After the bitmap is added to the {@link Style} object, a
- * {@link SymbolLayer} or the
+ * After the bitmap is added to the {@link com.trackasia.android.maps.Style} object, a
+ * {@link com.trackasia.android.style.layers.SymbolLayer} or the
  * <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   Trackasia Annotation Plugin</a> can reference the image ID.
+ *   Mapbox Annotation Plugin</a> can reference the image ID.
  */
 @Deprecated
 public class BubbleLayout extends LinearLayout {

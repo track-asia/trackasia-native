@@ -15,7 +15,7 @@ import com.trackasia.android.utils.ThreadUtils;
 /**
  * The global light source.
  *
- * @see <a href="https://track-asia.com/trackasia-style-spec/#light">The online documentation</a>
+ * @see <a href="https://www.mapbox.com/mapbox-gl-style-spec/#light">The online documentation</a>
  */
 @UiThread
 public class Light {

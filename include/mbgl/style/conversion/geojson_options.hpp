@@ -2,6 +2,7 @@
 
 #include <mbgl/style/sources/geojson_source.hpp>
 #include <mbgl/style/conversion.hpp>
+#include <mbgl/util/optional.hpp>
 
 namespace mbgl {
 namespace style {
@@ -9,7 +10,7 @@ namespace conversion {
 
 template <>
 struct Converter<GeoJSONOptions> {
-    std::optional<GeoJSONOptions> operator()(const Convertible& value, Error& error) const;
+    optional<GeoJSONOptions> operator()(const Convertible& value, Error& error) const;
 };
 
 } // namespace conversion

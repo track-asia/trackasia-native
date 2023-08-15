@@ -7,7 +7,7 @@ import com.trackasia.android.maps.MapView
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
-import org.junit.Assert.assertEquals
+import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

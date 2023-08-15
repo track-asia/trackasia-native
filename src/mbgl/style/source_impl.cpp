@@ -6,35 +6,34 @@ namespace mbgl {
 namespace style {
 
 namespace {
-void WarnIfOverscaleFactorCapsPrefetchDelta(const std::optional<uint8_t>& overscale,
-                                            const std::optional<uint8_t>& prefetch) {
+void WarnIfOverscaleFactorCapsPrefetchDelta(const optional<uint8_t>& overscale, const optional<uint8_t>& prefetch) {
     const uint8_t prefetchDelta = std::max<uint8_t>(util::DEFAULT_PREFETCH_ZOOM_DELTA, prefetch.value_or(0u));
     if (overscale && *overscale < prefetchDelta) {
-        Log::Warning(Event::Style,
-                     "Parent tile overscale factor will cap prefetch delta to " + std::to_string(int(*overscale)));
+        Log::Warning(Event::Style, "Parent tile overscale factor will cap prefetch delta to %d", int(*overscale));
     }
 }
 } // namespace
 
 Source::Impl::Impl(SourceType type_, std::string id_)
     : type(type_),
-      id(std::move(id_)) {}
+      id(std::move(id_)) {
+}
 
-void Source::Impl::setPrefetchZoomDelta(std::optional<uint8_t> delta) noexcept {
+void Source::Impl::setPrefetchZoomDelta(optional<uint8_t> delta) noexcept {
     prefetchZoomDelta = std::move(delta);
     WarnIfOverscaleFactorCapsPrefetchDelta(maxOverscaleFactor, prefetchZoomDelta);
 }
 
-std::optional<uint8_t> Source::Impl::getPrefetchZoomDelta() const noexcept {
+optional<uint8_t> Source::Impl::getPrefetchZoomDelta() const noexcept {
     return prefetchZoomDelta;
 }
 
-void Source::Impl::setMaxOverscaleFactorForParentTiles(std::optional<uint8_t> overscaleFactor) noexcept {
+void Source::Impl::setMaxOverscaleFactorForParentTiles(optional<uint8_t> overscaleFactor) noexcept {
     maxOverscaleFactor = std::move(overscaleFactor);
     WarnIfOverscaleFactorCapsPrefetchDelta(maxOverscaleFactor, prefetchZoomDelta);
 }
 
-std::optional<uint8_t> Source::Impl::getMaxOverscaleFactorForParentTiles() const noexcept {
+optional<uint8_t> Source::Impl::getMaxOverscaleFactorForParentTiles() const noexcept {
     return maxOverscaleFactor;
 }
 

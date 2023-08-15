@@ -7,10 +7,7 @@
 
 namespace mbgl {
 
-class HillshadeProgram;
-class HillshadePrepareProgram;
-
-class RenderHillshadeLayer : public RenderLayer {
+class RenderHillshadeLayer: public RenderLayer {
 public:
     explicit RenderHillshadeLayer(Immutable<style::HillshadeLayer::Impl>);
     ~RenderHillshadeLayer() override;
@@ -30,10 +27,6 @@ private:
 
     std::array<float, 2> getLatRange(const UnwrappedTileID& id);
     std::array<float, 2> getLight(const PaintParameters& parameters);
-
-    // Programs
-    std::shared_ptr<HillshadeProgram> hillshadeProgram;
-    std::shared_ptr<HillshadePrepareProgram> hillshadePrepareProgram;
 };
 
 } // namespace mbgl

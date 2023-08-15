@@ -6,11 +6,11 @@ namespace mbgl {
 namespace style {
 namespace conversion {
 
-std::optional<GeoJSON> Converter<GeoJSON>::operator()(const Convertible& value, Error& error) const {
+optional<GeoJSON> Converter<GeoJSON>::operator()(const Convertible& value, Error& error) const {
     return toGeoJSON(value, error);
 }
 
-std::optional<GeoJSON> parseGeoJSON(const std::string& value, Error& error) {
+optional<GeoJSON> parseGeoJSON(const std::string& value, Error& error) {
     return convertJSON<GeoJSON>(value, error);
 }
 

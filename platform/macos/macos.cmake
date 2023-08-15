@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13")
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.11")
 
 # Override default CMake NATIVE_ARCH_ACTUAL
 # https://gitlab.kitware.com/cmake/cmake/-/issues/20893
@@ -11,7 +11,7 @@ set_target_properties(mbgl-core PROPERTIES XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH[vari
 
 set_target_properties(mbgl-core PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
 
-if(MLN_WITH_OPENGL)
+if(MBGL_WITH_OPENGL)
     find_package(OpenGL REQUIRED)
 
     target_compile_definitions(
@@ -35,7 +35,7 @@ target_sources(
     PRIVATE
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/async_task.cpp
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/collator.mm
-        ${PROJECT_SOURCE_DIR}/platform/darwin/src/http_file_source.mm
+        $<$<BOOL:${MBGL_PUBLIC_BUILD}>:${PROJECT_SOURCE_DIR}/platform/darwin/src/http_file_source.mm>
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/image.mm
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/local_glyph_rasterizer.mm
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/logging_nslog.mm
@@ -65,7 +65,6 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/sqlite3.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/bidi.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/compression.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/filesystem.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/monotonic_timer.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/png_writer.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/thread_local.cpp
@@ -103,9 +102,7 @@ target_link_libraries(
 add_subdirectory(${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(${PROJECT_SOURCE_DIR}/expression-test)
 add_subdirectory(${PROJECT_SOURCE_DIR}/platform/glfw)
-if(MLN_WITH_NODE)
-    add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
-endif()
+add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
 
 add_executable(
     mbgl-test-runner
@@ -161,11 +158,4 @@ set_target_properties(mbgl-benchmark-runner mbgl-test-runner mbgl-render-test-ru
 if(NOT DEFINED ENV{CI})
     add_test(NAME mbgl-benchmark-runner COMMAND mbgl-benchmark-runner WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 endif()
-add_test(
-    NAME mbgl-test-runner
-    COMMAND
-        node
-        ${PROJECT_SOURCE_DIR}/test/storage/with-server.js
-        ${PROJECT_SOURCE_DIR}/test/storage/server.js
-        $<TARGET_FILE:mbgl-test-runner>
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+add_test(NAME mbgl-test-runner COMMAND mbgl-test-runner WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})

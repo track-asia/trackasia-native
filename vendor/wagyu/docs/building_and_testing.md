@@ -20,7 +20,7 @@ cd wagyu
 git submodule update --init
 ```
 
-This will install Mapbox's `mason` package manager as well as [test fixtures](https://github.com/mapnik/geometry-test-data). `mason` is going to install required headers, such as `boost`, `rapidjson`, and `mapbox/geometry`.
+This will install Trackasia's `mason` package manager as well as [test fixtures](https://github.com/mapnik/geometry-test-data). `mason` is going to install required headers, such as `boost`, `rapidjson`, and `mapbox/geometry`.
 
 2. The default `make` builds and runs the tests (`make test`).
 
@@ -47,7 +47,7 @@ Then, it will run the `fixture-tester` executable with all of the geometry tests
 
 ### Including in External Project
 
-You may want to use wagyu in your own project. Since wagyu is a header-only library, all you have to do is include `mapbox/geometry/polygon.hpp` and `mapbox/geometry/wagyu/wagyu.hpp`. `polygon.hpp` is the polygon portion of the Mapbox geometry library, a boost-compliant polygon geometry container.
+You may want to use wagyu in your own project. Since wagyu is a header-only library, all you have to do is include `mapbox/geometry/polygon.hpp` and `mapbox/geometry/wagyu/wagyu.hpp`. `polygon.hpp` is the polygon portion of the Trackasia geometry library, a boost-compliant polygon geometry container.
 
 #### Enabling interruptions
 

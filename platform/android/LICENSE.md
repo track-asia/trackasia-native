@@ -11,214 +11,214 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Arch-Common.  
+TrackAsia GL uses portions of Android Arch-Common.  
 URL: [https://developer.android.com/topic/libraries/architecture/index.html](https://developer.android.com/topic/libraries/architecture/index.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Arch-Runtime.  
+TrackAsia GL uses portions of Android Arch-Runtime.  
 URL: [https://developer.android.com/topic/libraries/architecture/index.html](https://developer.android.com/topic/libraries/architecture/index.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Lifecycle LiveData.  
+TrackAsia GL uses portions of Android Lifecycle LiveData.  
 URL: [https://developer.android.com/topic/libraries/architecture/index.html](https://developer.android.com/topic/libraries/architecture/index.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Lifecycle LiveData Core.  
+TrackAsia GL uses portions of Android Lifecycle LiveData Core.  
 URL: [https://developer.android.com/topic/libraries/architecture/index.html](https://developer.android.com/topic/libraries/architecture/index.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Lifecycle Runtime.  
+TrackAsia GL uses portions of Android Lifecycle Runtime.  
 URL: [https://developer.android.com/topic/libraries/architecture/index.html](https://developer.android.com/topic/libraries/architecture/index.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Lifecycle ViewModel.  
+TrackAsia GL uses portions of Android Lifecycle ViewModel.  
 URL: [https://developer.android.com/topic/libraries/architecture/index.html](https://developer.android.com/topic/libraries/architecture/index.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Lifecycle-Common.  
+TrackAsia GL uses portions of Android Lifecycle-Common.  
 URL: [https://developer.android.com/topic/libraries/architecture/index.html](https://developer.android.com/topic/libraries/architecture/index.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Annotations.  
+TrackAsia GL uses portions of Android Support Library Annotations.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Async Layout Inflater.  
+TrackAsia GL uses portions of Android Support Library Async Layout Inflater.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library collections.  
+TrackAsia GL uses portions of Android Support Library collections.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library compat.  
+TrackAsia GL uses portions of Android Support Library compat.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Coordinator Layout.  
+TrackAsia GL uses portions of Android Support Library Coordinator Layout.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library core UI.  
+TrackAsia GL uses portions of Android Support Library core UI.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library core utils.  
+TrackAsia GL uses portions of Android Support Library core utils.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Cursor Adapter.  
+TrackAsia GL uses portions of Android Support Library Cursor Adapter.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Custom View.  
+TrackAsia GL uses portions of Android Support Library Custom View.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Custom View.  
+TrackAsia GL uses portions of Android Support Library Custom View.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Document File.  
+TrackAsia GL uses portions of Android Support Library Document File.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Drawer Layout.  
+TrackAsia GL uses portions of Android Support Library Drawer Layout.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library fragment.  
+TrackAsia GL uses portions of Android Support Library fragment.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Interpolators.  
+TrackAsia GL uses portions of Android Support Library Interpolators.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library loader.  
+TrackAsia GL uses portions of Android Support Library loader.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Local Broadcast Manager.  
+TrackAsia GL uses portions of Android Support Library Local Broadcast Manager.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Print.  
+TrackAsia GL uses portions of Android Support Library Print.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library Sliding Pane Layout.  
+TrackAsia GL uses portions of Android Support Library Sliding Pane Layout.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Android Support Library View Pager.  
+TrackAsia GL uses portions of Android Support Library View Pager.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Gson.  
+TrackAsia GL uses portions of Gson.  
 License: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Mapbox Accounts SDK for Android.  
+TrackAsia GL uses portions of Mapbox Accounts SDK for Android.  
 URL: [https://github.com/mapbox/mapbox-accounts-android](https://github.com/mapbox/mapbox-accounts-android)  
 License: [Mapbox Terms of Service](https://www.mapbox.com/tos/)
 
 ===========================================================================
 
-Trackasia GL uses portions of Mapbox Android Core Library.  
+TrackAsia GL uses portions of Mapbox Android Core Library.  
 URL: [https://github.com/mapbox/mapbox-events-android](https://github.com/mapbox/mapbox-events-android)  
 License: [The MIT License](https://opensource.org/licenses/MIT)
 
 ===========================================================================
 
-Trackasia GL uses portions of Mapbox Android Gestures Library.  
+TrackAsia GL uses portions of Mapbox Android Gestures Library.  
 URL: [https://github.com/mapbox/mapbox-gestures-android](https://github.com/mapbox/mapbox-gestures-android)  
 License: [BSD](https://opensource.org/licenses/BSD-2-Clause)
 
 ===========================================================================
 
-Trackasia GL uses portions of Mapbox Java SDK.  
+TrackAsia GL uses portions of Mapbox Java SDK.  
 URL: [https://github.com/mapbox/mapbox-java](https://github.com/mapbox/mapbox-java)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Mapbox Java SDK.  
+TrackAsia GL uses portions of Mapbox Java SDK.  
 URL: [https://github.com/mapbox/mapbox-java](https://github.com/mapbox/mapbox-java)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of OkHttp.  
+TrackAsia GL uses portions of OkHttp.  
 License: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Okio.  
+TrackAsia GL uses portions of Okio.  
 License: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of VersionedParcelable and friends.  
+TrackAsia GL uses portions of VersionedParcelable and friends.  
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-Trackasia GL uses portions of Gradle License Plugin.  
+TrackAsia GL uses portions of Gradle License Plugin.  
 URL: [https://github.com/jaredsburrows/gradle-license-plugin](https://github.com/jaredsburrows/gradle-license-plugin)  
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 

@@ -1,5 +1,5 @@
 #import "LimeGreenStyleLayer.h"
-#import <GLKit/GLKit.h>
+@import GLKit;
 
 @implementation LimeGreenStyleLayer {
     GLuint _program;
@@ -9,9 +9,9 @@
     GLuint _aPos;
 }
 
-- (void)didMoveToMapView:(MLNMapView *)mapView {
-    static const GLchar *vertexShaderSource = "#version 300 es\nlayout (location = 0) in vec2 a_pos; void main() { gl_Position = vec4(a_pos, 1, 1); }";
-    static const GLchar *fragmentShaderSource = "#version 300 es\nout highp vec4 fragColor; void main() { fragColor = vec4(0, 0.5, 0, 0.5); }";
+- (void)didMoveToMapView:(MGLMapView *)mapView {
+    static const GLchar *vertexShaderSource = "attribute vec2 a_pos; void main() { gl_Position = vec4(a_pos, 1, 1); }";
+    static const GLchar *fragmentShaderSource = "void main() { gl_FragColor = vec4(0, 0.5, 0, 0.5); }";
 
     _program = glCreateProgram();
     _vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -32,7 +32,7 @@
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(GLfloat), triangle, GL_STATIC_DRAW);
 }
 
-- (void)drawInMapView:(MLNMapView *)mapView withContext:(MLNStyleLayerDrawingContext)context {
+- (void)drawInMapView:(MGLMapView *)mapView withContext:(MGLStyleLayerDrawingContext)context {
     glUseProgram(_program);
     glBindBuffer(GL_ARRAY_BUFFER, _buffer);
     glEnableVertexAttribArray(_aPos);
@@ -42,7 +42,7 @@
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3);
 }
 
-- (void)willMoveFromMapView:(MLNMapView *)mapView {
+- (void)willMoveFromMapView:(MGLMapView *)mapView {
     if (!_program) {
         return;
     }

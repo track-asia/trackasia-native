@@ -9,11 +9,8 @@ namespace gfx {
 
 class Backend {
 public:
-    /// @brief The active graphics API/backend type.
     enum class Type : uint8_t {
-        OpenGL,   ///< The OpenGL API backend
-        TYPE_MAX, ///< Not a valid backend type, used to determine the number
-                  ///< of available backends (ie for array allocation).
+        OpenGL,
     };
 
     static constexpr Type DefaultType = Type::OpenGL;
@@ -24,7 +21,9 @@ public:
         }
     }
 
-    static Type GetType() { return Value(DefaultType); }
+    static Type GetType() {
+        return Value(DefaultType);
+    }
 
     template <typename T, typename... Args>
     static std::unique_ptr<T> Create(Args... args) {

@@ -30,31 +30,31 @@ public final class Resource {
   public static final int STYLE = 1;
 
   /**
-   * TileJSON file as specified in https://track-asia.com/trackasia-style-spec/root/#sources
+   * TileJSON file as specified in https://track-asia.com/trackasia-gl-js-docs/style-spec/#root-sources
    */
   public static final int SOURCE = 2;
 
   /**
    * A vector or raster tile as described in the style sheet at
-   * https://track-asia.com/trackasia-style-spec/sources/
+   * https://track-asia.com/trackasia-gl-js-docs/style-spec/#sources
    */
   public static final int TILE = 3;
 
   /**
    * Signed distance field glyphs for text rendering. These are the URLs specified in the style
-   * in https://track-asia.com/trackasia-style-spec/root/#glyphs
+   * in https://track-asia.com/trackasia-gl-js-docs/style-spec/#root-glyphs
    */
   public static final int GLYPHS = 4;
 
   /**
    * Image part of a sprite sheet. It is constructed of the prefix in
-   *  https://track-asia.com/trackasia-style-spec/root/#sprite and a PNG file extension.
+   *  https://track-asia.com/trackasia-gl-js-docs/style-spec/#root-sprite and a PNG file extension.
    */
   public static final int SPRITE_IMAGE = 5;
 
   /**
    * JSON part of a sprite sheet. It is constructed of the prefix in
-   * https://track-asia.com/trackasia-style-spec/root/#sprite and a JSON file extension.
+   * https://track-asia.com/trackasia-gl-js-docs/style-spec/#root-sprite and a JSON file extension.
    */
   public static final int SPRITE_JSON = 6;
 }

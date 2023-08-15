@@ -3,11 +3,11 @@
 #include <mbgl/actor/actor_ref.hpp>
 #include <mbgl/actor/scheduler.hpp>
 #include <mbgl/util/image.hpp>
+#include <mbgl/util/optional.hpp>
 
 #include <memory>
 #include <mutex>
 #include <utility>
-#include <optional>
 
 #include <jni/jni.hpp>
 
@@ -34,7 +34,8 @@ class AndroidRendererBackend;
  */
 class MapRenderer : public Scheduler {
 public:
-    static constexpr auto Name() { return "com/trackasia/android/maps/renderer/MapRenderer"; };
+
+    static constexpr auto Name() { return "com.trackasia.android/maps/renderer/MapRenderer"; };
 
     static void registerNative(jni::JNIEnv&);
 
@@ -72,7 +73,7 @@ public:
     void requestRender();
 
     // Snapshot - requires a RunLoop on the calling thread
-    using SnapshotCallback = std::function<void(PremultipliedImage)>;
+    using SnapshotCallback = std::function<void (PremultipliedImage)>;
     void requestSnapshot(SnapshotCallback);
 
 protected:
@@ -111,7 +112,7 @@ private:
     jni::WeakReference<jni::Object<MapRenderer>, jni::EnvAttachingDeleter> javaPeer;
 
     float pixelRatio;
-    std::optional<std::string> localIdeographFontFamily;
+    optional<std::string> localIdeographFontFamily;
 
     std::shared_ptr<ThreadPool> threadPool;
     const MailboxData mailboxData;
@@ -127,7 +128,7 @@ private:
     std::mutex updateMutex;
 
     bool framebufferSizeChanged = false;
-    std::atomic<bool> destroyed{false};
+    std::atomic<bool> destroyed {false};
 
     std::unique_ptr<SnapshotCallback> snapshotCallback;
     mapbox::base::WeakPtrFactory<Scheduler> weakFactory{this};

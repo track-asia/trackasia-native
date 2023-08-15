@@ -13,8 +13,8 @@ namespace android {
 
 class AndroidGLRenderableResource final : public mbgl::gl::RenderableResource {
 public:
-    AndroidGLRenderableResource(AndroidRendererBackend& backend_)
-        : backend(backend_) {}
+    AndroidGLRenderableResource(AndroidRendererBackend& backend_) : backend(backend_) {
+    }
 
     void bind() override {
         assert(gfx::BackendScope::exists());
@@ -28,7 +28,8 @@ private:
 
 AndroidRendererBackend::AndroidRendererBackend()
     : gl::RendererBackend(gfx::ContextMode::Unique),
-      mbgl::gfx::Renderable({64, 64}, std::make_unique<AndroidGLRenderableResource>(*this)) {}
+      mbgl::gfx::Renderable({ 64, 64 }, std::make_unique<AndroidGLRenderableResource>(*this)) {
+}
 
 AndroidRendererBackend::~AndroidRendererBackend() = default;
 
@@ -43,7 +44,7 @@ void AndroidRendererBackend::updateViewPort() {
 }
 
 void AndroidRendererBackend::resizeFramebuffer(int width, int height) {
-    size = {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};
+    size = { static_cast<uint32_t>(width), static_cast<uint32_t>(height) };
 }
 
 PremultipliedImage AndroidRendererBackend::readFramebuffer() {
@@ -63,4 +64,4 @@ void AndroidRendererBackend::markContextLost() {
 }
 
 } // namespace android
-} // namespace mbgl
+} // namspace mbgl

@@ -6,8 +6,6 @@
 
 namespace mbgl {
 
-class CircleProgram;
-
 class RenderCircleLayer final : public RenderLayer {
 public:
     explicit RenderCircleLayer(Immutable<style::CircleLayer::Impl>);
@@ -30,9 +28,6 @@ private:
 
     // Paint properties
     style::CirclePaintProperties::Unevaluated unevaluated;
-
-    // Programs
-    std::shared_ptr<CircleProgram> circleProgram;
 };
 
 } // namespace mbgl

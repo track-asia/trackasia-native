@@ -79,7 +79,7 @@ final class NativeMapView implements NativeMap {
   private long nativePtr = 0;
 
   // Listener invoked to return a bitmap of the map
-  private TrackasiaMap.SnapshotReadyCallback snapshotReadyCallback;
+  private MapboxMap.SnapshotReadyCallback snapshotReadyCallback;
 
   static {
     LibraryLoader.load();
@@ -1161,9 +1161,7 @@ final class NativeMapView implements NativeMap {
         } else {
           Bitmap viewContent = viewCallback.getViewContent();
           if (viewContent != null) {
-            snapshotReadyCallback.onSnapshotReady(
-                    BitmapUtils.mergeBitmaps(mapContent, viewContent)
-            );
+            snapshotReadyCallback.onSnapshotReady(BitmapUtils.mergeBitmap(mapContent, viewContent));
           }
         }
       }
@@ -1509,7 +1507,7 @@ final class NativeMapView implements NativeMap {
   //
 
   @Override
-  public void addSnapshotCallback(@NonNull TrackasiaMap.SnapshotReadyCallback callback) {
+  public void addSnapshotCallback(@NonNull MapboxMap.SnapshotReadyCallback callback) {
     if (checkState("addSnapshotCallback")) {
       return;
     }
@@ -1518,14 +1516,14 @@ final class NativeMapView implements NativeMap {
   }
 
   @Override
-  public void setOnFpsChangedListener(@Nullable final TrackasiaMap.OnFpsChangedListener listener) {
+  public void setOnFpsChangedListener(@Nullable final MapboxMap.OnFpsChangedListener listener) {
     final Handler handler = new Handler();
     mapRenderer.queueEvent(new Runnable() {
 
       @Override
       public void run() {
         if (listener != null) {
-          mapRenderer.setOnFpsChangedListener(new TrackasiaMap.OnFpsChangedListener() {
+          mapRenderer.setOnFpsChangedListener(new MapboxMap.OnFpsChangedListener() {
             @Override
             public void onFpsChanged(final double fps) {
               handler.post(() -> listener.onFpsChanged(fps));

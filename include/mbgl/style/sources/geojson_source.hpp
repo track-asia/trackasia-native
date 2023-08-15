@@ -5,6 +5,7 @@
 #include <mbgl/tile/tile_id.hpp>
 #include <mbgl/util/constants.hpp>
 #include <mbgl/util/geojson.hpp>
+#include <mbgl/util/optional.hpp>
 
 #include <map>
 #include <memory>
@@ -64,7 +65,7 @@ public:
     void setGeoJSON(const GeoJSON&);
     void setGeoJSONData(std::shared_ptr<GeoJSONData>);
 
-    std::optional<std::string> getURL() const;
+    optional<std::string> getURL() const;
     const GeoJSONOptions& getOptions() const;
 
     class Impl;
@@ -74,16 +75,18 @@ public:
 
     bool supportsLayerType(const mbgl::style::LayerTypeInfo*) const override;
 
-    mapbox::base::WeakPtr<Source> makeWeakPtr() override { return weakFactory.makeWeakPtr(); }
+    mapbox::base::WeakPtr<Source> makeWeakPtr() override {
+        return weakFactory.makeWeakPtr();
+    }
 
 protected:
     Mutable<Source::Impl> createMutable() const noexcept final;
 
 private:
-    std::optional<std::string> url;
+    optional<std::string> url;
     std::unique_ptr<AsyncRequest> req;
     std::shared_ptr<Scheduler> threadPool;
-    mapbox::base::WeakPtrFactory<Source> weakFactory{this};
+    mapbox::base::WeakPtrFactory<Source> weakFactory {this};
 };
 
 template <>

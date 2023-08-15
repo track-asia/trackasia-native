@@ -1,12 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion androidVersions.compileSdkVersion
-    ndkVersion androidSdkVersions.ndkVersion
-    buildToolsVersion androidSdkVersions.buildToolsVersion
+    compileSdkVersion 33
 
     defaultConfig {
-        applicationId = 'com.trackasia.trackasiasdk.maps.benchmark_runner'
+        applicationId = 'com.trackasia.android.maps.benchmark_runner'
         minSdkVersion 21
         targetSdkVersion 33
         def abi = 'all'
@@ -34,7 +32,7 @@ android {
     }
     externalNativeBuild {
         cmake {
-            version androidSdkVersions.cmakeVersion
+            version '3.10.2'
             path '../../../CMakeLists.txt'
         }
     }

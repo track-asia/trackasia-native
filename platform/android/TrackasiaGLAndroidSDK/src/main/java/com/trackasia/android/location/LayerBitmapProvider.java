@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import com.trackasia.android.R;
 import com.trackasia.android.utils.BitmapUtils;
 
+import static com.trackasia.android.location.Utils.generateShadow;
+
 class LayerBitmapProvider {
 
   private final Context context;
@@ -26,6 +28,6 @@ class LayerBitmapProvider {
 
   Bitmap generateShadowBitmap(@NonNull LocationComponentOptions options) {
     Drawable shadowDrawable = BitmapUtils.getDrawableFromRes(context, R.drawable.trackasia_user_icon_shadow);
-    return Utils.generateShadow(shadowDrawable, options.elevation());
+    return generateShadow(shadowDrawable, options.elevation());
   }
 }

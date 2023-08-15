@@ -1,14 +1,14 @@
 #import <Foundation/Foundation.h>
 #import <mbgl/interface/native_apple_interface.h>
 
-@implementation MLNNativeNetworkManager
+@implementation MGLNativeNetworkManager
 
-static MLNNativeNetworkManager *instance = nil;
+static MGLNativeNetworkManager *instance = nil;
 
-+ (MLNNativeNetworkManager *)sharedManager {
++ (MGLNativeNetworkManager *)sharedManager {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[MLNNativeNetworkManager alloc] init];
+        instance = [[MGLNativeNetworkManager alloc] init];
     });
     return instance;
 }
@@ -24,7 +24,7 @@ static MLNNativeNetworkManager *instance = nil;
     return sessionConfiguration;
 }
 
-// MARK: - Required
+#pragma mark - Required
 
 - (NSURLSessionConfiguration *)sessionConfiguration {
     NSURLSessionConfiguration *configuration = [_delegate sessionConfiguration];
@@ -32,9 +32,9 @@ static MLNNativeNetworkManager *instance = nil;
     if (!configuration) {
         // For testing. Since we get a `nil` return when SDK is modular, we use
         // this for testing requests.
-        // Same as `[MLNNetworkConfiguration defaultSessionConfiguration]` in
-        // `MLNNetworkConfiguration.mm`.
-        configuration = [MLNNativeNetworkManager testSessionConfiguration];
+        // Same as `[MGLNetworkConfiguration defaultSessionConfiguration]` in
+        // `MGLNetworkConfiguration.mm`.
+        configuration = [MGLNativeNetworkManager testSessionConfiguration];
     }
 
     return configuration;

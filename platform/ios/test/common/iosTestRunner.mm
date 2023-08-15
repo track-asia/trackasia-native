@@ -25,7 +25,6 @@
         NSError *error;
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *bundleRoot = [[NSBundle mainBundle] bundlePath];
-
         NSArray *bundleContents = [fileManager contentsOfDirectoryAtPath: bundleRoot error: &error];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDir = [paths objectAtIndex: 0];

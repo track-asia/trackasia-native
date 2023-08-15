@@ -6,8 +6,7 @@ using namespace mbgl;
 using namespace mbgl::style;
 
 /**
- * An implementation of style::Observer that forwards all methods to
- * dynamically-settable lambdas.
+ * An implementation of style::Observer that forwards all methods to dynamically-settable lambdas.
  */
 class StubStyleObserver : public style::Observer {
 public:
@@ -31,9 +30,9 @@ public:
         if (resourceError) resourceError(error);
     };
 
-    std::function<void(Source&)> sourceLoaded;
-    std::function<void(Source&)> sourceChanged;
-    std::function<void(Source&, std::exception_ptr)> sourceError;
-    std::function<void(Source&)> sourceDescriptionChanged;
-    std::function<void(std::exception_ptr)> resourceError;
+    std::function<void (Source&)> sourceLoaded;
+    std::function<void (Source&)> sourceChanged;
+    std::function<void (Source&, std::exception_ptr)> sourceError;
+    std::function<void (Source&)> sourceDescriptionChanged;
+    std::function<void (std::exception_ptr)> resourceError;
 };

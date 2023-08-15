@@ -12,9 +12,9 @@ import com.mapbox.geojson.Feature
 import com.trackasia.android.annotations.BaseMarkerOptions
 import com.trackasia.android.annotations.Marker
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.InfoWindowAdapter
-import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
+import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.MapboxMap.InfoWindowAdapter
+import com.trackasia.android.maps.MapboxMap.OnMapClickListener
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import timber.log.Timber
@@ -23,13 +23,13 @@ import timber.log.Timber
  * Test activity showcasing using the query rendered features API to query feature properties on Map click.
  */
 class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
-    lateinit var mapView: MapView
-    lateinit var trackasiaMap: TrackasiaMap
+    var mapView: MapView? = null
+    var mapboxMap: MapboxMap? = null
         private set
     private var marker: Marker? = null
     private val mapClickListener = OnMapClickListener { point ->
         val density = resources.displayMetrics.density
-        val pixel = trackasiaMap.projection.toScreenLocation(point)
+        val pixel = mapboxMap!!.projection.toScreenLocation(point)
         Timber.i(
             "Requesting features for %sx%s (%sx%s adjusted for density)",
             pixel.x,
@@ -37,19 +37,19 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
             pixel.x / density,
             pixel.y / density
         )
-        val features = trackasiaMap.queryRenderedFeatures(pixel)
+        val features = mapboxMap!!.queryRenderedFeatures(pixel)
 
         // Debug output
         debugOutput(features)
 
         // Remove any previous markers
         if (marker != null) {
-            trackasiaMap.removeMarker(marker!!)
+            mapboxMap!!.removeMarker(marker!!)
         }
 
         // Add a marker on the clicked point
-        marker = trackasiaMap.addMarker(CustomMarkerOptions().position(point)!!.features(features))
-        trackasiaMap.selectMarker(marker!!)
+        marker = mapboxMap!!.addMarker(CustomMarkerOptions().position(point)!!.features(features))
+        mapboxMap!!.selectMarker(marker!!)
         true
     }
 
@@ -59,16 +59,16 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
 
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: TrackasiaMap ->
-            trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
-                this@QueryRenderedFeaturesPropertiesActivity.trackasiaMap = trackasiaMap
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+            mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+                this@QueryRenderedFeaturesPropertiesActivity.mapboxMap = mapboxMap
 
                 // Add custom window adapter
-                addCustomInfoWindowAdapter(trackasiaMap)
+                addCustomInfoWindowAdapter(mapboxMap)
 
                 // Add a click listener
-                trackasiaMap.addOnMapClickListener(mapClickListener)
+                mapboxMap.addOnMapClickListener(mapClickListener)
             }
         }
     }
@@ -99,8 +99,8 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
         }
     }
 
-    private fun addCustomInfoWindowAdapter(trackasiaMap: TrackasiaMap) {
-        trackasiaMap.infoWindowAdapter = object : InfoWindowAdapter {
+    private fun addCustomInfoWindowAdapter(mapboxMap: MapboxMap) {
+        mapboxMap.infoWindowAdapter = object : InfoWindowAdapter {
             private fun row(text: String): TextView {
                 val view = TextView(this@QueryRenderedFeaturesPropertiesActivity)
                 view.text = text
@@ -135,40 +135,40 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (trackasiaMap != null) {
-            trackasiaMap.removeOnMapClickListener(mapClickListener)
+        if (mapboxMap != null) {
+            mapboxMap!!.removeOnMapClickListener(mapClickListener)
         }
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     private class CustomMarker internal constructor(

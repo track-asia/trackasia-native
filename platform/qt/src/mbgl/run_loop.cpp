@@ -24,15 +24,14 @@ RunLoop* RunLoop::Get() {
     return static_cast<RunLoop*>(Scheduler::GetCurrent());
 }
 
-RunLoop::RunLoop(Type type)
-    : impl(std::make_unique<Impl>()) {
+RunLoop::RunLoop(Type type) : impl(std::make_unique<Impl>()) {
     switch (type) {
-        case Type::New:
-            impl->loop = std::make_unique<QEventLoop>();
-            break;
-        case Type::Default:
-            // Use QCoreApplication::instance().
-            break;
+    case Type::New:
+        impl->loop = std::make_unique<QEventLoop>();
+        break;
+    case Type::Default:
+        // Use QCoreApplication::instance().
+        break;
     }
 
     impl->type = type;
@@ -120,5 +119,5 @@ void RunLoop::removeWatch(int fd) {
     }
 }
 
-} // namespace util
-} // namespace mbgl
+}
+}

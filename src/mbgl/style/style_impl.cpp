@@ -161,9 +161,9 @@ void Style::Impl::addSource(std::unique_ptr<Source> source) {
 
 std::unique_ptr<Source> Style::Impl::removeSource(const std::string& id) {
     // Check if source is in use
-    for (const auto& layer : layers) {
+    for (const auto& layer: layers) {
         if (layer->getSourceID() == id) {
-            Log::Warning(Event::General, "Source '" + id + "' is in use, cannot remove");
+            Log::Warning(Event::General, "Source '%s' is in use, cannot remove", id.c_str());
             return nullptr;
         }
     }
@@ -190,7 +190,7 @@ Layer* Style::Impl::getLayer(const std::string& id) const {
     return layers.get(id);
 }
 
-Layer* Style::Impl::addLayer(std::unique_ptr<Layer> layer, const std::optional<std::string>& before) {
+Layer* Style::Impl::addLayer(std::unique_ptr<Layer> layer, const optional<std::string>& before) {
     // TODO: verify source
     if (Source* source = sources.get(layer->getSourceID())) {
         if (!source->supportsLayerType(layer->baseImpl->getTypeInfo())) {
@@ -264,7 +264,7 @@ bool Style::Impl::isLoaded() const {
         return false;
     }
 
-    for (const auto& source : sources) {
+    for (const auto& source: sources) {
         if (!source->loaded) {
             return false;
         }
@@ -275,8 +275,8 @@ bool Style::Impl::isLoaded() const {
 
 void Style::Impl::addImage(std::unique_ptr<style::Image> image) {
     auto newImages = makeMutable<ImageImpls>(*images);
-    auto it = std::lower_bound(
-        newImages->begin(), newImages->end(), image->getID(), [](const auto& a, const std::string& b) {
+    auto it =
+        std::lower_bound(newImages->begin(), newImages->end(), image->getID(), [](const auto& a, const std::string& b) {
             return a->id < b;
         });
     if (it != newImages->end() && (*it)->id == image->getID()) {
@@ -291,19 +291,19 @@ void Style::Impl::addImage(std::unique_ptr<style::Image> image) {
 
 void Style::Impl::removeImage(const std::string& id) {
     auto newImages = makeMutable<ImageImpls>(*images);
-    auto found = std::find_if(
-        newImages->begin(), newImages->end(), [&id](const auto& image) { return image->id == id; });
+    auto found =
+        std::find_if(newImages->begin(), newImages->end(), [&id](const auto& image) { return image->id == id; });
     if (found == newImages->end()) {
-        Log::Warning(Event::General, "Image '" + id + "' is not present in style, cannot remove");
+        Log::Warning(Event::General, "Image '%s' is not present in style, cannot remove", id.c_str());
         return;
     }
     newImages->erase(found);
     images = std::move(newImages);
 }
 
-std::optional<Immutable<style::Image::Impl>> Style::Impl::getImage(const std::string& id) const {
+optional<Immutable<style::Image::Impl>> Style::Impl::getImage(const std::string& id) const {
     auto found = std::find_if(images->begin(), images->end(), [&id](const auto& image) { return image->id == id; });
-    if (found == images->end()) return std::nullopt;
+    if (found == images->end()) return nullopt;
     return *found;
 }
 
@@ -325,7 +325,8 @@ void Style::Impl::onSourceChanged(Source& source) {
 
 void Style::Impl::onSourceError(Source& source, std::exception_ptr error) {
     lastError = error;
-    Log::Error(Event::Style, std::string("Failed to load source ") + source.getID() + ": " + util::toString(error));
+    Log::Error(Event::Style, "Failed to load source %s: %s",
+               source.getID().c_str(), util::toString(error).c_str());
     observer->onSourceError(source, error);
     observer->onResourceError(error);
 }
@@ -364,7 +365,7 @@ void Style::Impl::onSpriteLoaded(std::vector<Immutable<style::Image::Impl>> imag
 
 void Style::Impl::onSpriteError(std::exception_ptr error) {
     lastError = error;
-    Log::Error(Event::Style, "Failed to load sprite: " + util::toString(error));
+    Log::Error(Event::Style, "Failed to load sprite: %s", util::toString(error).c_str());
     observer->onResourceError(error);
     // Unblock rendering tiles (even though sprite request has failed).
     spriteLoaded = true;
@@ -381,7 +382,7 @@ void Style::Impl::onLightChanged(const Light&) {
 }
 
 void Style::Impl::dumpDebugLogs() const {
-    Log::Info(Event::General, "styleURL: " + url);
+    Log::Info(Event::General, "styleURL: %s", url.c_str());
     for (const auto& source : sources) {
         source->dumpDebugLogs();
     }

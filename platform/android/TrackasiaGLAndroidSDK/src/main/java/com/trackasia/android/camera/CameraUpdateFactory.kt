@@ -5,9 +5,9 @@ import android.graphics.PointF
 import androidx.annotation.IntDef
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import timber.log.Timber
-import java.lang.Double.max
+import java.lang.Double.min
 import java.util.Arrays
 
 /**
@@ -267,9 +267,9 @@ object CameraUpdateFactory {
     //
     class CameraPositionUpdate(val bearing: Double, val target: LatLng?, val tilt: Double, val zoom: Double, val padding: DoubleArray?) : CameraUpdate {
 
-        override fun getCameraPosition(trackasiaMap: TrackasiaMap): CameraPosition {
+        override fun getCameraPosition(mapboxMap: MapboxMap): CameraPosition {
             if (target == null) {
-                val previousPosition = trackasiaMap.cameraPosition
+                val previousPosition = mapboxMap.cameraPosition
                 return CameraPosition.Builder(this).target(previousPosition.target).build()
             }
             return CameraPosition.Builder(this).build()
@@ -327,15 +327,15 @@ object CameraUpdateFactory {
         ) {
         }
 
-        override fun getCameraPosition(trackasiaMap: TrackasiaMap): CameraPosition? {
+        override fun getCameraPosition(mapboxMap: MapboxMap): CameraPosition? {
             return if (bearing == null && tilt == null) {
                 // use current camera position tilt and bearing
-                trackasiaMap.getCameraForLatLngBounds(bounds, padding)
+                mapboxMap.getCameraForLatLngBounds(bounds, padding)
             } else {
                 // use provided tilt and bearing
                 assert(bearing != null)
                 assert(tilt != null)
-                trackasiaMap.getCameraForLatLngBounds(bounds, padding, bearing!!, tilt!!)
+                mapboxMap.getCameraForLatLngBounds(bounds, padding, bearing!!, tilt!!)
             }
         }
 
@@ -448,7 +448,7 @@ object CameraUpdateFactory {
             return when (type) {
                 ZOOM_IN -> currentZoomArg + 1
                 ZOOM_OUT -> {
-                    max(currentZoomArg - 1, 0.0)
+                    min(currentZoomArg - 1, 0.0)
                 }
 
                 ZOOM_TO -> zoom
@@ -460,12 +460,12 @@ object CameraUpdateFactory {
             }
         }
 
-        override fun getCameraPosition(trackasiaMap: TrackasiaMap): CameraPosition {
-            val cameraPosition = trackasiaMap.cameraPosition
+        override fun getCameraPosition(mapboxMap: MapboxMap): CameraPosition {
+            val cameraPosition = mapboxMap.cameraPosition
             return if (type != ZOOM_TO_POINT) {
                 CameraPosition.Builder(cameraPosition).zoom(transformZoom(cameraPosition.zoom)).build()
             } else {
-                CameraPosition.Builder(cameraPosition).zoom(transformZoom(cameraPosition.zoom)).target(trackasiaMap.projection.fromScreenLocation(PointF(x, y))).build()
+                CameraPosition.Builder(cameraPosition).zoom(transformZoom(cameraPosition.zoom)).target(mapboxMap.projection.fromScreenLocation(PointF(x, y))).build()
             }
         }
 

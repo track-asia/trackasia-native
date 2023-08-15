@@ -3,7 +3,6 @@ package com.trackasia.android.testapp.maps
 import android.graphics.PointF
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import org.junit.Assert.assertArrayEquals
 import com.trackasia.android.AppCenter
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
@@ -87,7 +86,7 @@ class ScreenCoordinateConversion : AppCenter() {
                 val projection = it.projection
                 projection.fromScreenLocations(doubleArrayOf(1.0, 2.0, 3.0, 4.0), actual)
                 // check all values at once
-                assertArrayEquals(expected, actual, DELTA_DOUBLE)
+                assertTrue(expected.contentEquals(actual))
 
                 // check first latlng value
                 val latLngFirst = LatLng(expected[0], expected[1])

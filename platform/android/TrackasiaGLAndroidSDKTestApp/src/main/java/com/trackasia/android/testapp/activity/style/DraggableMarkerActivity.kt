@@ -16,7 +16,7 @@ import com.trackasia.android.annotations.IconFactory
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.PropertyFactory.*
 import com.trackasia.android.style.layers.SymbolLayer
@@ -47,7 +47,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDraggableMarkerBinding
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private val featureCollection = FeatureCollection.fromFeatures(mutableListOf())
     private val source = GeoJsonSource(sourceId, featureCollection)
     private val layer = SymbolLayer(layerId, sourceId)
@@ -67,7 +67,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync { mapboxMap ->
-            this.trackasiaMap = mapboxMap
+            this.mapboxMap = mapboxMap
 
             mapboxMap.setStyle(
                 Style.Builder()
@@ -175,7 +175,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
      * we still need to listen for move gesture events which map won't be able to provide anymore.
      *
      * @param mapView the mapView
-     * @param trackasiaMap the mapboxMap
+     * @param mapboxMap the mapboxMap
      * @param symbolsCollection the collection that contains all the symbols that we want to be draggable
      * @param symbolsSource the source that contains the [symbolsCollection]
      * @param symbolsLayerId the ID of the layer that the symbols are displayed on
@@ -188,7 +188,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
      */
     class DraggableSymbolsManager(
         mapView: MapView,
-        private val trackasiaMap: TrackasiaMap,
+        private val mapboxMap: MapboxMap,
         private val symbolsCollection: FeatureCollection,
         private val symbolsSource: GeoJsonSource,
         private val symbolsLayerId: String,
@@ -203,11 +203,11 @@ class DraggableMarkerActivity : AppCompatActivity() {
         private val onSymbolDragListeners: MutableList<OnSymbolDragListener> = mutableListOf<OnSymbolDragListener>()
 
         init {
-            trackasiaMap.addOnMapLongClickListener {
+            mapboxMap.addOnMapLongClickListener {
                 // Starting the drag process on long click
-                draggedSymbolId = trackasiaMap.queryRenderedSymbols(it, symbolsLayerId).firstOrNull()?.id()?.also { id ->
-                    trackasiaMap.uiSettings.setAllGesturesEnabled(false)
-                    trackasiaMap.gesturesManager.moveGestureDetector.interrupt()
+                draggedSymbolId = mapboxMap.queryRenderedSymbols(it, symbolsLayerId).firstOrNull()?.id()?.also { id ->
+                    mapboxMap.uiSettings.setAllGesturesEnabled(false)
+                    mapboxMap.gesturesManager.moveGestureDetector.interrupt()
                     notifyOnSymbolDragListeners {
                         onSymbolDragStarted(id)
                     }
@@ -239,7 +239,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
                         stopDragging()
                     }
 
-                    val latLng = trackasiaMap.projection.fromScreenLocation(point)
+                    val latLng = mapboxMap.projection.fromScreenLocation(point)
 
                     symbolsCollection.features()?.indexOfFirst {
                         it.id() == draggedSymbolId
@@ -271,7 +271,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
         }
 
         private fun stopDragging() {
-            trackasiaMap.uiSettings.setAllGesturesEnabled(true)
+            mapboxMap.uiSettings.setAllGesturesEnabled(true)
             draggedSymbolId?.let {
                 notifyOnSymbolDragListeners {
                     onSymbolDragFinished(it)
@@ -341,6 +341,6 @@ class DraggableMarkerActivity : AppCompatActivity() {
     }
 }
 
-private fun TrackasiaMap.queryRenderedSymbols(latLng: LatLng, layerId: String): List<Feature> {
+private fun MapboxMap.queryRenderedSymbols(latLng: LatLng, layerId: String): List<Feature> {
     return this.queryRenderedFeatures(this.projection.toScreenLocation(latLng), layerId)
 }

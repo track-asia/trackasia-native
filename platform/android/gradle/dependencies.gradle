@@ -6,14 +6,8 @@ ext {
             compileSdkVersion: 33,
     ]
 
-    androidSdkVersions = [
-            buildToolsVersion: '31.0.0',
-            ndkVersion       : '25.1.8937393',
-            cmakeVersion     : '3.18.1+',
-    ]
-
     versions = [
-            trackasiaServices: '1.0.0',
+            trackAsiaServices: '1.0.0',
             mapboxCore      : '2.0.1',
             mapboxGestures  : '0.7.0',
             appCompat       : '1.5.1',
@@ -33,10 +27,11 @@ ext {
             mockk           : '1.13.3',
             robolectric     : '4.9.1',
             timber          : '5.0.1',
-            okhttp          : '4.11.0',
+            okhttp          : '4.10.0',
             kotlin          : '1.7.20',
             licenses        : '0.8.80',
             lint            : '30.3.1',
+            gms             : '21.0.1',
             //        jacoco           : '0.8.5',
             appcenter       : '1.5',
             commonsIO       : '2.11.0',
@@ -46,9 +41,9 @@ ext {
     ]
     
     dependenciesList = [
-            mapboxJavaGeoJSON      : "io.github.track-asia:android-sdk-geojson:${versions.trackasiaServices}",
-            mapboxJavaTurf         : "io.github.track-asia:android-sdk-turf:${versions.trackasiaServices}",
+            mapboxJavaGeoJSON      : "io.github.track-asia:android-sdk-geojson:${versions.trackAsiaServices}",
             mapboxAndroidGestures  : "com.mapbox.mapboxsdk:mapbox-android-gestures:${versions.mapboxGestures}",
+            mapboxJavaTurf         : "io.github.track-asia:android-sdk-turf:${versions.trackAsiaServices}",
 
             junit                  : "junit:junit:${versions.junit}",
             amdroidxJunit          : "androidx.test.ext:junit:1.1.4",
@@ -74,6 +69,7 @@ ext {
 
             appCenter              : "com.microsoft.appcenter:espresso-test-extension:${versions.appcenter}",
             commonsIO              : "commons-io:commons-io:${versions.commonsIO}",
+            gmsLocation            : "com.google.android.gms:play-services-location:${versions.gms}",
             timber                 : "com.jakewharton.timber:timber:${versions.timber}",
             okhttp3                : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
             leakCanary             : "com.squareup.leakcanary:leakcanary-android:${versions.leakCanary}",

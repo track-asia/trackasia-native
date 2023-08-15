@@ -5,7 +5,7 @@ import android.view.View;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 
-import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.MapboxMap;
 import com.trackasia.android.testapp.activity.EspressoTest;
 
 import org.hamcrest.Matcher;
@@ -31,16 +31,16 @@ public class LogoTest extends EspressoTest {
     validateTestSetup();
 
     onView(withTagValue(is("logoView")))
-            .perform(new DisableAction(trackasiaMap))
+            .perform(new DisableAction(mapboxMap))
             .check(matches(not(isDisplayed())));
   }
 
   private class DisableAction implements ViewAction {
 
-    private TrackasiaMap trackasiaMap;
+    private MapboxMap mapboxMap;
 
-    DisableAction(TrackasiaMap map) {
-      trackasiaMap = map;
+    DisableAction(MapboxMap map) {
+      mapboxMap = map;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class LogoTest extends EspressoTest {
 
     @Override
     public void perform(UiController uiController, View view) {
-      trackasiaMap.getUiSettings().setLogoEnabled(false);
+      mapboxMap.getUiSettings().setLogoEnabled(false);
     }
   }
 }

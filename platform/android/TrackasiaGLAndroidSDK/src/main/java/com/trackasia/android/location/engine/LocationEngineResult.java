@@ -7,9 +7,13 @@ import android.location.LocationManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.location.LocationResult;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.trackasia.android.location.engine.Utils.isOnClasspath;
 
 /**
  * A wrapper class representing location result from the location engine.
@@ -19,6 +23,8 @@ import java.util.List;
  * @since 1.0.0
  */
 public final class LocationEngineResult {
+  private static final String GOOGLE_PLAY_LOCATION_RESULT = "com.google.android.gms.location.LocationResult";
+
   private final List<Location> locations;
 
   private LocationEngineResult(List<Location> locations) {
@@ -89,7 +95,16 @@ public final class LocationEngineResult {
    */
   @Nullable
   public static LocationEngineResult extractResult(Intent intent) {
-    return extractAndroidResult(intent);
+    LocationEngineResult result = null;
+    if (isOnClasspath(GOOGLE_PLAY_LOCATION_RESULT)) {
+      result = extractGooglePlayResult(intent);
+    }
+    return result == null ? extractAndroidResult(intent) : result;
+  }
+
+  private static LocationEngineResult extractGooglePlayResult(Intent intent) {
+    LocationResult result = LocationResult.extractResult(intent);
+    return result != null ? LocationEngineResult.create(result.getLocations()) : null;
   }
 
   private static LocationEngineResult extractAndroidResult(Intent intent) {

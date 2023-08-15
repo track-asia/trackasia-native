@@ -6,10 +6,6 @@
 #include "metadata.hpp"
 #include "runner.hpp"
 
-#if defined(WIN32) && defined(GetObject)
-#undef GetObject
-#endif
-
 #include <mbgl/map/map.hpp>
 #include <mbgl/renderer/renderer.hpp>
 #include <mbgl/storage/resource.hpp>
@@ -107,7 +103,7 @@ void writeJSON(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const m
                 [&writer](bool b) { writer.Bool(b); },
                 [&writer](uint64_t u) { writer.Uint64(u); },
                 [&writer](int64_t i) { writer.Int64(i); },
-                [&writer](double d) { d == std::floor(d) ? writer.Int64(static_cast<int64_t>(d)) : writer.Double(d); },
+                [&writer](double d) { d == std::floor(d) ? writer.Int64(d) : writer.Double(d); },
                 [&writer](const std::string& s) { writer.String(s); },
                 [&writer](const std::vector<mbgl::Value>& arr) {
                     writer.StartArray();
@@ -172,13 +168,13 @@ std::string toJSON(const std::vector<mbgl::Feature>& features, unsigned indent, 
 JSONReply readJson(const mbgl::filesystem::path& jsonPath) {
     auto maybeJSON = mbgl::util::readFile(jsonPath);
     if (!maybeJSON) {
-        return {std::string("Unable to open file ") + jsonPath.string()};
+        return { std::string("Unable to open file ") + jsonPath.string() };
     }
 
     mbgl::JSDocument document;
     document.Parse<0>(*maybeJSON);
     if (document.HasParseError()) {
-        return {mbgl::formatJSONParseError(document)};
+        return { mbgl::formatJSONParseError(document) };
     }
 
     return {std::move(document)};
@@ -459,13 +455,13 @@ TestMetadata parseTestMetadata(const TestPaths& paths) {
 
     metadata.document = std::move(maybeJson.get<mbgl::JSDocument>());
     if (!metadata.document.HasMember("metadata")) {
-        mbgl::Log::Warning(mbgl::Event::ParseStyle, "Style has no 'metadata': " + paths.stylePath.string());
+        mbgl::Log::Warning(mbgl::Event::ParseStyle, "Style has no 'metadata': %s", paths.stylePath.c_str());
         return metadata;
     }
 
     const mbgl::JSValue& metadataValue = metadata.document["metadata"];
     if (!metadataValue.HasMember("test")) {
-        mbgl::Log::Warning(mbgl::Event::ParseStyle, "Style has no 'metadata.test': " + paths.stylePath.string());
+        mbgl::Log::Warning(mbgl::Event::ParseStyle, "Style has no 'metadata.test': %s", paths.stylePath.c_str());
         return metadata;
     }
 
@@ -485,8 +481,8 @@ TestMetadata parseTestMetadata(const TestPaths& paths) {
         } else if (mapModeStr == "static")
             metadata.mapMode = mbgl::MapMode::Static;
         else {
-            mbgl::Log::Warning(mbgl::Event::ParseStyle,
-                               "Unknown map mode: " + mapModeStr + ". Falling back to static mode");
+            mbgl::Log::Warning(
+                mbgl::Event::ParseStyle, "Unknown map mode: %s. Falling back to static mode", mapModeStr.c_str());
             metadata.mapMode = mbgl::MapMode::Static;
         }
     }
@@ -521,8 +517,8 @@ TestMetadata parseTestMetadata(const TestPaths& paths) {
 
     if (testValue.HasMember("description")) {
         assert(testValue["description"].IsString());
-        metadata.description = std::string{testValue["description"].GetString(),
-                                           testValue["description"].GetStringLength()};
+        metadata.description =
+            std::string{testValue["description"].GetString(), testValue["description"].GetStringLength()};
     }
 
     // Test operations handled in runner.cpp.
@@ -569,12 +565,6 @@ TestMetadata parseTestMetadata(const TestPaths& paths) {
         metadata.renderTest = false;
     }
 
-    if (testValue.HasMember("ignoreProbing")) {
-        if (testValue["ignoreProbing"].IsBool()) {
-            metadata.ignoreProbing = testValue["ignoreProbing"].GetBool();
-        }
-    }
-
     if (testValue.HasMember("queryOptions")) {
         assert(testValue["queryOptions"].IsObject());
 
@@ -594,7 +584,7 @@ TestMetadata parseTestMetadata(const TestPaths& paths) {
             assert(testValue["queryOptions"]["filter"].IsArray());
             auto& filterVal = testValue["queryOptions"]["filter"];
             Error error;
-            std::optional<Filter> converted = convert<Filter>(filterVal, error);
+            mbgl::optional<Filter> converted = convert<Filter>(filterVal, error);
             assert(converted);
             metadata.queryOptions.filter = std::move(*converted);
         }
@@ -711,7 +701,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
             std::string imagePath = operationArray[2].GetString();
 
             result.emplace_back([imageName, imagePath, sdf, pixelRatio](TestContext& ctx) {
-                std::optional<std::string> maybeImage;
+                mbgl::optional<std::string> maybeImage;
                 bool requestCompleted = false;
 
                 auto req = ctx.getFileSource().request(mbgl::Resource::image("mapbox://render-tests/" + imagePath),
@@ -890,8 +880,8 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
 
             result.emplace_back([sourceName, json = serializeJsonValue(operationArray[2])](TestContext& ctx) {
                 mbgl::style::conversion::Error error;
-                auto converted = mbgl::style::conversion::convertJSON<std::unique_ptr<mbgl::style::Source>>(
-                    json, error, sourceName);
+                auto converted =
+                    mbgl::style::conversion::convertJSON<std::unique_ptr<mbgl::style::Source>>(json, error, sourceName);
                 if (!converted) {
                     ctx.getMetadata().errorMessage = std::string("Unable to convert source: ") + error.message;
                     return false;
@@ -939,7 +929,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
             std::string path = std::string(operationArray[2].GetString(), operationArray[2].GetStringLength());
             assert(!path.empty());
 
-            float tolerance = static_cast<float>(operationArray[3].GetDouble());
+            float tolerance = operationArray[3].GetDouble();
             mbgl::filesystem::path filePath(path);
 
             bool compressed = false;
@@ -1007,6 +997,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
         } else if (operationArray[0].GetString() == networkProbeStartOp) {
             // probeNetworkStart
             result.emplace_back([](TestContext&) {
+                assert(!mbgl::ProxyFileSource::isTrackingActive());
                 mbgl::ProxyFileSource::setTrackingActive(true);
                 return true;
             });
@@ -1016,6 +1007,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
             assert(operationArray[1].IsString());
             std::string mark = std::string(operationArray[1].GetString(), operationArray[1].GetStringLength());
             result.emplace_back([mark](TestContext& ctx) {
+                assert(mbgl::ProxyFileSource::isTrackingActive());
                 ctx.getMetadata().metrics.network.emplace(
                     std::piecewise_construct,
                     std::forward_as_tuple(std::move(mark)),
@@ -1026,6 +1018,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
         } else if (operationArray[0].GetString() == networkProbeEndOp) {
             // probeNetworkEnd
             result.emplace_back([](TestContext&) {
+                assert(mbgl::ProxyFileSource::isTrackingActive());
                 mbgl::ProxyFileSource::setTrackingActive(false);
                 return true;
             });
@@ -1039,7 +1032,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
             using namespace mbgl::style::conversion;
 
             std::string sourceID;
-            std::optional<std::string> sourceLayer;
+            mbgl::optional<std::string> sourceLayer;
             std::string featureID;
             std::string stateKey;
             Value stateValue;
@@ -1062,9 +1055,9 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
             }
             const JSValue* state = &operationArray[2];
 
-            const std::function<std::optional<Error>(const std::string&, const Convertible&)> convertFn =
-                [&](const std::string& k, const Convertible& v) -> std::optional<Error> {
-                std::optional<Value> value = toValue(v);
+            const std::function<optional<Error>(const std::string&, const Convertible&)> convertFn =
+                [&](const std::string& k, const Convertible& v) -> optional<Error> {
+                optional<Value> value = toValue(v);
                 if (value) {
                     stateValue = std::move(*value);
                     valueParsed = true;
@@ -1073,7 +1066,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
                     std::size_t length = arrayLength(v);
                     array.reserve(length);
                     for (size_t i = 0; i < length; ++i) {
-                        std::optional<Value> arrayVal = toValue(arrayMember(v, i));
+                        optional<Value> arrayVal = toValue(arrayMember(v, i));
                         if (arrayVal) {
                             array.emplace_back(*arrayVal);
                         }
@@ -1082,7 +1075,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
                     values[k] = std::move(array);
                     stateValue = std::move(values);
                     valueParsed = true;
-                    return std::nullopt;
+                    return nullopt;
 
                 } else if (isObject(v)) {
                     eachMember(v, convertFn);
@@ -1090,11 +1083,11 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
 
                 if (!valueParsed) {
                     metadata.errorMessage = std::string("Could not get feature state value, state key: ") + k;
-                    return std::nullopt;
+                    return nullopt;
                 }
                 stateKey = k;
                 parsedState[stateKey] = stateValue;
-                return std::nullopt;
+                return nullopt;
             };
 
             eachMember(state, convertFn);
@@ -1114,7 +1107,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
             assert(operationArray[1].IsObject());
 
             std::string sourceID;
-            std::optional<std::string> sourceLayer;
+            mbgl::optional<std::string> sourceLayer;
             std::string featureID;
 
             const auto& featureOptions = operationArray[1].GetObject();
@@ -1148,9 +1141,9 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
             assert(operationArray[1].IsObject());
 
             std::string sourceID;
-            std::optional<std::string> sourceLayer;
+            mbgl::optional<std::string> sourceLayer;
             std::string featureID;
-            std::optional<std::string> stateKey;
+            mbgl::optional<std::string> stateKey;
 
             const auto& featureOptions = operationArray[1].GetObject();
             if (featureOptions.HasMember("source")) {
@@ -1196,7 +1189,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
             }
 
             std::string mark = operationArray[1].GetString();
-            int duration = static_cast<int>(operationArray[2].GetFloat());
+            int duration = operationArray[2].GetFloat();
             mbgl::LatLng startPos, endPos;
             double startZoom, endZoom;
 
@@ -1229,9 +1222,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
 
                 mbgl::AnimationOptions animationOptions(mbgl::Milliseconds(duration * 1000));
                 animationOptions.minZoom = mbgl::util::min(startZoom, endZoom);
-                animationOptions.transitionFinishFn = [&]() {
-                    transitionFinished = true;
-                };
+                animationOptions.transitionFinishFn = [&]() { transitionFinished = true; };
 
                 map.flyTo(mbgl::CameraOptions().withCenter(endPos).withZoom(endZoom), animationOptions);
 
@@ -1244,7 +1235,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
                     samples.push_back(frameTime);
                 }
 
-                float averageFps = totalTime > 0.0f ? frames / totalTime : 0.0f;
+                float averageFps = totalTime > 0.0 ? frames / totalTime : 0.0;
                 float minFrameTime = 0.0;
 
                 // Use 1% of the longest frames to compute the minimum fps
@@ -1261,6 +1252,7 @@ TestOperations parseTestOperations(TestMetadata& metadata) {
         } else if (operationArray[0].GetString() == gfxProbeStartOp) {
             // probeGFXStart
             result.emplace_back([](TestContext& ctx) {
+                assert(!ctx.gfxProbeActive);
                 ctx.gfxProbeActive = true;
                 ctx.baselineGfxProbe = ctx.activeGfxProbe;
                 return true;
@@ -1315,13 +1307,12 @@ std::string encodeBase64(const std::string& data) {
 }
 
 std::string createResultItem(const TestMetadata& metadata, bool hasFailedTests) {
-    const bool shouldHide = (hasFailedTests && metadata.status == "passed") ||
-                            (metadata.status.find("ignored") != std::string::npos);
+    const bool shouldHide =
+        (hasFailedTests && metadata.status == "passed") || (metadata.status.find("ignored") != std::string::npos);
 
     std::string html;
     html.append("<div class=\"test " + metadata.status + (shouldHide ? " hide" : "") + "\">\n");
-    html.append(R"(<h2><span class="label" style="background: )" + metadata.color + "\">" + metadata.status +
-                "</span> " + metadata.id + "</h2>\n");
+    html.append(R"(<h2><span class="label" style="background: )" + metadata.color + "\">" + metadata.status + "</span> " + metadata.id + "</h2>\n");
 
     if (!metadata.renderErrored) {
         if (metadata.outputsImage) {
@@ -1364,10 +1355,7 @@ std::string createResultItem(const TestMetadata& metadata, bool hasFailedTests) 
     return html;
 }
 
-std::string createResultPage(const TestStatistics& stats,
-                             const std::vector<TestMetadata>& metadatas,
-                             bool shuffle,
-                             uint32_t seed) {
+std::string createResultPage(const TestStatistics& stats, const std::vector<TestMetadata>& metadatas, bool shuffle, uint32_t seed) {
     const uint32_t unsuccessful = stats.erroredTests + stats.failedTests;
     std::string resultsPage;
 

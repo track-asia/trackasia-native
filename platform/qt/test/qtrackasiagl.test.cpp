@@ -1,6 +1,6 @@
 #include "qtrackasiagl.test.hpp"
 
-#include <QTrackasiaGL/Map>
+#include <QTrackAsiaGL/Map>
 
 #include <QFile>
 #include <QGuiApplication>
@@ -10,19 +10,16 @@
 
 #include <mbgl/test/util.hpp>
 
-QTrackasiaGLTest::QTrackasiaGLTest()
-    : size(512, 512),
-      fbo((assert(widget.context()->isValid()), widget.makeCurrent(), size)),
-      map(nullptr, settings, size) {
-    connect(&map, &QTrackasiaGL::mapChanged, this, &QTrackasiaGLTest::onMapChanged);
-    connect(&map, &QTrackasiaGL::needsRendering, this, &QTrackasiaGLTest::onNeedsRendering);
+QTrackAsiaGLTest::QTrackAsiaGLTest() : size(512, 512), fbo((assert(widget.context()->isValid()), widget.makeCurrent(), size)), map(nullptr, settings, size) {
+    connect(&map, &QTrackAsiaGL::mapChanged, this, &QTrackAsiaGLTest::onMapChanged);
+    connect(&map, &QTrackAsiaGL::needsRendering, this, &QTrackAsiaGLTest::onNeedsRendering);
     map.resize(fbo.size());
     map.setFramebufferObject(fbo.handle(), fbo.size());
-    map.setCoordinateZoom(QTrackasiaGL::Coordinate(60.170448, 24.942046), 14);
+    map.setCoordinateZoom(QTrackAsiaGL::Coordinate(60.170448, 24.942046), 14);
 }
 
-void QTrackasiaGLTest::runUntil(QTrackasiaGL::MapChange status) {
-    changeCallback = [&](QTrackasiaGL::MapChange change) {
+void QTrackAsiaGLTest::runUntil(QTrackAsiaGL::MapChange status) {
+    changeCallback = [&](QTrackAsiaGL::MapChange change) {
         if (change == status) {
             qApp->exit();
             changeCallback = nullptr;
@@ -32,20 +29,21 @@ void QTrackasiaGLTest::runUntil(QTrackasiaGL::MapChange status) {
     qApp->exec();
 }
 
-void QTrackasiaGLTest::onMapChanged(QTrackasiaGL::MapChange change) {
+void QTrackAsiaGLTest::onMapChanged(QTrackAsiaGL::MapChange change) {
     if (changeCallback) {
         changeCallback(change);
     }
 }
 
-void QTrackasiaGLTest::onNeedsRendering() {
+void QTrackAsiaGLTest::onNeedsRendering() {
     widget.makeCurrent();
     fbo.bind();
     QOpenGLContext::currentContext()->functions()->glViewport(0, 0, fbo.width(), fbo.height());
     map.render();
 }
 
-TEST_F(QTrackasiaGLTest, TEST_DISABLED_ON_CI(styleJson)) {
+
+TEST_F(QTrackAsiaGLTest, TEST_DISABLED_ON_CI(styleJson)) {
     QFile f("test/fixtures/resources/style_vector.json");
 
     ASSERT_TRUE(f.open(QFile::ReadOnly | QFile::Text));
@@ -55,28 +53,28 @@ TEST_F(QTrackasiaGLTest, TEST_DISABLED_ON_CI(styleJson)) {
 
     map.setStyleJson(json);
     ASSERT_EQ(map.styleJson(), json);
-    runUntil(QTrackasiaGL::MapChangeDidFinishLoadingMap);
+    runUntil(QTrackAsiaGL::MapChangeDidFinishLoadingMap);
 
     map.setStyleJson("invalid json");
-    runUntil(QTrackasiaGL::MapChangeDidFailLoadingMap);
+    runUntil(QTrackAsiaGL::MapChangeDidFailLoadingMap);
 
     map.setStyleJson("\"\"");
-    runUntil(QTrackasiaGL::MapChangeDidFailLoadingMap);
+    runUntil(QTrackAsiaGL::MapChangeDidFailLoadingMap);
 
     map.setStyleJson(QString());
-    runUntil(QTrackasiaGL::MapChangeDidFailLoadingMap);
+    runUntil(QTrackAsiaGL::MapChangeDidFailLoadingMap);
 }
 
-TEST_F(QTrackasiaGLTest, TEST_DISABLED_ON_CI(styleUrl)) {
-    QString url(QTrackasiaGL::defaultStyles()[0].first);
+TEST_F(QTrackAsiaGLTest, TEST_DISABLED_ON_CI(styleUrl)) {
+    QString url(QTrackAsiaGL::defaultStyles()[0].first);
 
     map.setStyleUrl(url);
     ASSERT_EQ(map.styleUrl(), url);
-    runUntil(QTrackasiaGL::MapChangeDidFinishLoadingMap);
+    runUntil(QTrackAsiaGL::MapChangeDidFinishLoadingMap);
 
     map.setStyleUrl("invalid://url");
-    runUntil(QTrackasiaGL::MapChangeDidFailLoadingMap);
+    runUntil(QTrackAsiaGL::MapChangeDidFailLoadingMap);
 
     map.setStyleUrl(QString());
-    runUntil(QTrackasiaGL::MapChangeDidFailLoadingMap);
+    runUntil(QTrackAsiaGL::MapChangeDidFailLoadingMap);
 }

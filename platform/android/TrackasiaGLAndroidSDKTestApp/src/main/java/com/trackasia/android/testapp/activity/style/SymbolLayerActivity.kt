@@ -16,9 +16,9 @@ import com.mapbox.geojson.Point
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
-import com.trackasia.android.maps.TrackasiaMapOptions
+import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.MapboxMap.OnMapClickListener
+import com.trackasia.android.maps.MapboxMapOptions
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -51,15 +51,15 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
     private var markerSymbolLayer: SymbolLayer? = null
     private var mapboxSignSymbolLayer: SymbolLayer? = null
     private var numberFormatSymbolLayer: SymbolLayer? = null
-    private lateinit var trackasiaMap: TrackasiaMap
-    private lateinit var mapView: MapView
+    private var mapboxMap: MapboxMap? = null
+    private var mapView: MapView? = null
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_symbollayer)
 
         // Create map configuration
-        val trackasiaMapOptions = TrackasiaMapOptions.createFromAttributes(this)
-        trackasiaMapOptions.camera(
+        val mapboxMapOptions = MapboxMapOptions.createFromAttributes(this)
+        mapboxMapOptions.camera(
             CameraPosition.Builder().target(
                 LatLng(52.35273, 4.91638)
             )
@@ -68,14 +68,14 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
         )
 
         // Create map programmatically, add to view hierarchy
-        mapView = MapView(this, trackasiaMapOptions)
-        mapView.getMapAsync(this)
-        mapView.onCreate(savedInstanceState)
+        mapView = MapView(this, mapboxMapOptions)
+        mapView!!.getMapAsync(this)
+        mapView!!.onCreate(savedInstanceState)
         (findViewById<View>(R.id.container) as ViewGroup).addView(mapView)
 
         // Use OnStyleImageMissing API to lazily load an icon
-        mapView.addOnStyleImageMissingListener { id: String? ->
-            val style = trackasiaMap.style
+        mapView!!.addOnStyleImageMissingListener { id: String? ->
+            val style = mapboxMap!!.style
             if (style != null) {
                 Timber.e("Adding image with id: %s", id)
                 val androidIcon =
@@ -85,8 +85,8 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
         }
     }
 
-    override fun onMapReady(trackasiaMap: TrackasiaMap) {
-        this.trackasiaMap = trackasiaMap
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this.mapboxMap = mapboxMap
         val carBitmap = BitmapUtils.getBitmapFromDrawable(
             ResourcesCompat.getDrawable(resources, R.drawable.ic_directions_car_black, null)
         )
@@ -153,7 +153,7 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
                 )
             )
         )
-        trackasiaMap.setStyle(
+        mapboxMap.setStyle(
             Style.Builder()
                 .fromUri("asset://streets.json")
                 .withImage("Car", Objects.requireNonNull(carBitmap)!!, false)
@@ -162,13 +162,13 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
         )
 
         // Set a click-listener so we can manipulate the map
-        trackasiaMap.addOnMapClickListener(this@SymbolLayerActivity)
+        mapboxMap.addOnMapClickListener(this@SymbolLayerActivity)
     }
 
     override fun onMapClick(point: LatLng): Boolean {
         // Query which features are clicked
-        val screenLoc = trackasiaMap.projection.toScreenLocation(point)
-        val markerFeatures = trackasiaMap.queryRenderedFeatures(screenLoc, MARKER_LAYER)
+        val screenLoc = mapboxMap!!.projection.toScreenLocation(point)
+        val markerFeatures = mapboxMap!!.queryRenderedFeatures(screenLoc, MARKER_LAYER)
         if (!markerFeatures.isEmpty()) {
             for (feature in Objects.requireNonNull(markerCollection!!.features())!!) {
                 if (feature.getStringProperty(ID_FEATURE_PROPERTY)
@@ -195,7 +195,7 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
             }
             markerSource!!.setGeoJson(markerCollection)
         } else {
-            val mapboxSignFeatures = trackasiaMap.queryRenderedFeatures(screenLoc, MAPBOX_SIGN_LAYER)
+            val mapboxSignFeatures = mapboxMap!!.queryRenderedFeatures(screenLoc, MAPBOX_SIGN_LAYER)
             if (!mapboxSignFeatures.isEmpty()) {
                 shuffleMapboxSign()
             }
@@ -282,40 +282,40 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     public override fun onDestroy() {
         super.onDestroy()
-        if (trackasiaMap != null) {
-            trackasiaMap.removeOnMapClickListener(this)
+        if (mapboxMap != null) {
+            mapboxMap!!.removeOnMapClickListener(this)
         }
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

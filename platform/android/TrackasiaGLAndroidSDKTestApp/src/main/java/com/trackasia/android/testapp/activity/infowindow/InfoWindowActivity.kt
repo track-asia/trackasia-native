@@ -10,11 +10,11 @@ import com.trackasia.android.annotations.Marker
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.OnInfoWindowClickListener
-import com.trackasia.android.maps.TrackasiaMap.OnInfoWindowCloseListener
-import com.trackasia.android.maps.TrackasiaMap.OnInfoWindowLongClickListener
-import com.trackasia.android.maps.TrackasiaMap.OnMapLongClickListener
+import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.MapboxMap.OnInfoWindowClickListener
+import com.trackasia.android.maps.MapboxMap.OnInfoWindowCloseListener
+import com.trackasia.android.maps.MapboxMap.OnInfoWindowLongClickListener
+import com.trackasia.android.maps.MapboxMap.OnMapLongClickListener
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -33,18 +33,18 @@ class InfoWindowActivity :
     OnInfoWindowCloseListener,
     OnInfoWindowClickListener,
     OnInfoWindowLongClickListener {
-    private lateinit var trackasiaMap: TrackasiaMap
-    private lateinit var mapView: MapView
+    private var mapboxMap: MapboxMap? = null
+    private var mapView: MapView? = null
     private var customMarker: Marker? = null
     private val mapLongClickListener = OnMapLongClickListener { point ->
         if (customMarker != null) {
             // Remove previous added marker
-            trackasiaMap.removeAnnotation(customMarker!!)
+            mapboxMap!!.removeAnnotation(customMarker!!)
             customMarker = null
         }
 
         // Add marker on long click location with default marker image
-        customMarker = trackasiaMap.addMarker(
+        customMarker = mapboxMap!!.addMarker(
             MarkerOptions()
                 .title("Custom Marker")
                 .snippet(
@@ -60,38 +60,38 @@ class InfoWindowActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_infowindow)
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync(this)
     }
 
-    override fun onMapReady(trackasiaMap: TrackasiaMap) {
-        this.trackasiaMap = trackasiaMap
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this.mapboxMap = mapboxMap
+        mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
             addMarkers()
             addInfoWindowListeners()
         }
     }
 
     private fun addMarkers() {
-        trackasiaMap.addMarker(
+        mapboxMap!!.addMarker(
             MarkerOptions()
                 .title("Intersection")
                 .snippet("H St NW with 15th St NW")
                 .position(LatLng(38.9002073, -77.03364419))
         )
-        trackasiaMap.addMarker(
+        mapboxMap!!.addMarker(
             MarkerOptions().title("Intersection")
                 .snippet("E St NW with 17th St NW")
                 .position(LatLng(38.8954236, -77.0394623))
         )
-        trackasiaMap.addMarker(
+        mapboxMap!!.addMarker(
             MarkerOptions().title("The Ellipse").position(LatLng(38.89393, -77.03654))
         )
-        trackasiaMap.addMarker(MarkerOptions().position(LatLng(38.89596, -77.03434)))
-        trackasiaMap.addMarker(
+        mapboxMap!!.addMarker(MarkerOptions().position(LatLng(38.89596, -77.03434)))
+        mapboxMap!!.addMarker(
             MarkerOptions().snippet("Lafayette Square").position(LatLng(38.89949, -77.03656))
         )
-        val marker = trackasiaMap.addMarker(
+        val marker = mapboxMap!!.addMarker(
             MarkerOptions()
                 .title("White House")
                 .snippet(
@@ -103,23 +103,23 @@ class InfoWindowActivity :
         )
 
         // open InfoWindow at startup
-        trackasiaMap.selectMarker(marker)
+        mapboxMap!!.selectMarker(marker)
     }
 
     private fun addInfoWindowListeners() {
-        trackasiaMap.onInfoWindowCloseListener = this
-        trackasiaMap.addOnMapLongClickListener(mapLongClickListener)
-        trackasiaMap.onInfoWindowClickListener = this
-        trackasiaMap.onInfoWindowLongClickListener = this
+        mapboxMap!!.onInfoWindowCloseListener = this
+        mapboxMap!!.addOnMapLongClickListener(mapLongClickListener)
+        mapboxMap!!.onInfoWindowClickListener = this
+        mapboxMap!!.onInfoWindowLongClickListener = this
     }
 
     private fun toggleConcurrentInfoWindow(allowConcurrentInfoWindow: Boolean) {
-        trackasiaMap.deselectMarkers()
-        trackasiaMap.isAllowConcurrentMultipleOpenInfoWindows = allowConcurrentInfoWindow
+        mapboxMap!!.deselectMarkers()
+        mapboxMap!!.isAllowConcurrentMultipleOpenInfoWindows = allowConcurrentInfoWindow
     }
 
     private fun toggleDeselectMarkersOnTap(deselectMarkersOnTap: Boolean) {
-        trackasiaMap.uiSettings.isDeselectMarkersOnTap = deselectMarkersOnTap
+        mapboxMap!!.uiSettings.isDeselectMarkersOnTap = deselectMarkersOnTap
     }
 
     override fun onInfoWindowClick(marker: Marker): Boolean {
@@ -138,40 +138,40 @@ class InfoWindowActivity :
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (trackasiaMap != null) {
-            trackasiaMap.removeOnMapLongClickListener(mapLongClickListener)
+        if (mapboxMap != null) {
+            mapboxMap!!.removeOnMapLongClickListener(mapLongClickListener)
         }
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

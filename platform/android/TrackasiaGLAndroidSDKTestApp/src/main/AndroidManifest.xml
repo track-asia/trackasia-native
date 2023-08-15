@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".TrackasiaApplication"
+        android:name=".TrackAsiaApplication"
         android:allowBackup="true"
         android:exported="true"
         android:fullBackupContent="true"
@@ -104,19 +104,6 @@
             android:description="@string/description_press_for_marker"
             android:exported="true"
             android:label="@string/activity_press_for_marker">
-            <meta-data
-                android:name="@string/category"
-                android:value="@string/category_annotation" />
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.FeatureOverviewActivity" />
-        </activity>
-        <activity
-            android:name=".activity.annotation.JsonApiActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:description="@string/description_add_makers_by_json_api"
-            android:exported="true"
-            android:label="@string/activity_json_api">
             <meta-data
                 android:name="@string/category"
                 android:value="@string/category_annotation" />
@@ -989,7 +976,7 @@
                 android:value="@string/category_camera" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.FeatureOverviewActivity" />
+                android:value="com.trackasia.android.testapp.activity.FeatureOverviewActivity" />
         </activity>
         <activity
             android:name=".activity.offline.MergeOfflineRegionsActivity"
@@ -1001,7 +988,7 @@
                 android:value="@string/category_offline" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.FeatureOverviewActivity" />
+                android:value="com.trackasia.android.testapp.activity.FeatureOverviewActivity" />
         </activity>
         <activity
             android:name=".activity.location.LocationMapChangeActivity"
@@ -1202,21 +1189,21 @@
             android:screenOrientation="landscape" />
         <!-- Configuration Settings -->
         <meta-data
-            android:name="com.trackasia.TestEventsServer"
+            android:name="com.mapbox.TestEventsServer"
             android:value="api-events-staging.tilestream.net" />
         <meta-data
-            android:name="com.trackasia.TestEventsAccessToken"
+            android:name="com.mapbox.TestEventsAccessToken"
             android:value="pk.eyJ1IjoiYmxzdGFnaW5nIiwiYSI6ImNpdDF3OHpoaTAwMDcyeXA5Y3Z0Nmk2dzEifQ.0IfB7v5Qbm2MGVYt8Kb8fg" />
 
         <!-- Comment out this setting to switch to external storage (and disable internal) in your app -->
         <!-- Alternatively you can rely on FileSource#setResourceCachePath API instead -->
         <!-- <meta-data -->
-        <!-- android:name="com.trackasia.SetStorageExternal" -->
+        <!-- android:name="com.mapbox.SetStorageExternal" -->
         <!-- android:value="true" /> -->
 
         <!-- Set value to true to have tile loading measurements on -->
         <meta-data
-            android:name="com.trackasia.MeasureTileDownloadOn"
+            android:name="com.mapbox.MeasureTileDownloadOn"
             android:value="false" />
 
     </application>

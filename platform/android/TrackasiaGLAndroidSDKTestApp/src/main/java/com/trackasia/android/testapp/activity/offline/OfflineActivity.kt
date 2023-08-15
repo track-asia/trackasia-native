@@ -5,12 +5,12 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.trackasia.android.Trackasia
+import com.trackasia.android.Mapbox
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.offline.OfflineManager
 import com.trackasia.android.offline.OfflineManager.CreateOfflineRegionCallback
@@ -39,8 +39,8 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
     /*
    * UI elements
    */
-    private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapView: MapView? = null
+    private var mapboxMap: MapboxMap? = null
     private var progressBar: ProgressBar? = null
     private var downloadRegion: Button? = null
     private var listRegions: Button? = null
@@ -55,21 +55,21 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offline)
 
-        // You can use Trackasia.setConnected(Boolean) to manually set the connectivity
+        // You can use Mapbox.setConnected(Boolean) to manually set the connectivity
         // state of your app. This will override any checks performed via the ConnectivityManager.
-        // Trackasia.getInstance().setConnected(false);
-        val connected = Trackasia.isConnected()
-        Timber.d("Trackasia is connected: %s", connected)
+        // Mapbox.getInstance().setConnected(false);
+        val connected = Mapbox.isConnected()
+        Timber.d("Mapbox is connected: %s", connected)
 
         // Set up map
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: TrackasiaMap ->
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
             Timber.d("Map is ready")
-            this@OfflineActivity.trackasiaMap = trackasiaMap
-            trackasiaMap.setStyle(Style.Builder().fromUri(STYLE_URL))
+            this@OfflineActivity.mapboxMap = mapboxMap
+            mapboxMap.setStyle(Style.Builder().fromUri(STYLE_URL))
             // Set initial position to UNHQ in NYC
-            trackasiaMap.moveCamera(
+            mapboxMap.moveCamera(
                 CameraUpdateFactory.newCameraPosition(
                     CameraPosition.Builder()
                         .target(LatLng(40.749851, -73.967966))
@@ -96,37 +96,37 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     /*
@@ -145,9 +145,9 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
 
         // Query the DB asynchronously
         offlineManager!!.listOfflineRegions(object : ListOfflineRegionsCallback {
-            override fun onList(offlineRegions: Array<OfflineRegion>?) {
+            override fun onList(offlineRegions: Array<OfflineRegion>) {
                 // Check result
-                if (offlineRegions == null || offlineRegions.isEmpty()) {
+                if (offlineRegions == null || offlineRegions.size == 0) {
                     Toast.makeText(
                         this@OfflineActivity,
                         "You have no regions yet.",
@@ -193,9 +193,9 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         startProgress()
 
         // Definition
-        val bounds = trackasiaMap.projection.visibleRegion.latLngBounds
-        val minZoom = trackasiaMap.cameraPosition.zoom
-        val maxZoom = trackasiaMap.maxZoomLevel
+        val bounds = mapboxMap!!.projection.visibleRegion.latLngBounds
+        val minZoom = mapboxMap!!.cameraPosition.zoom
+        val maxZoom = mapboxMap!!.maxZoomLevel
         val pixelRatio = this.resources.displayMetrics.density
         val definition = OfflineTilePyramidRegionDefinition(
             STYLE_URL,
@@ -209,23 +209,21 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         val metadata = OfflineUtils.convertRegionName(regionName)
 
         // Create region
-        if (metadata != null) {
-            offlineManager!!.createOfflineRegion(
-                definition,
-                metadata,
-                object : CreateOfflineRegionCallback {
-                    override fun onCreate(offlineRegion: OfflineRegion) {
-                        Timber.d("Offline region created: %s", regionName)
-                        this@OfflineActivity.offlineRegion = offlineRegion
-                        launchDownload()
-                    }
-
-                    override fun onError(error: String) {
-                        Timber.e("Error: %s", error)
-                    }
+        offlineManager!!.createOfflineRegion(
+            definition,
+            metadata,
+            object : CreateOfflineRegionCallback {
+                override fun onCreate(offlineRegion: OfflineRegion) {
+                    Timber.d("Offline region created: %s", regionName)
+                    this@OfflineActivity.offlineRegion = offlineRegion
+                    launchDownload()
                 }
-            )
-        }
+
+                override fun onError(error: String) {
+                    Timber.e("Error: %s", error)
+                }
+            }
+        )
     }
 
     private fun launchDownload() {
@@ -261,7 +259,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
             }
 
             override fun mapboxTileCountLimitExceeded(limit: Long) {
-                Timber.e("Trackasia tile count limit exceeded: %s", limit)
+                Timber.e("Mapbox tile count limit exceeded: %s", limit)
                 offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
             }
         })
@@ -310,7 +308,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
 
     companion object {
         // JSON encoding/decoding
-        val JSON_CHARSET = Charsets.UTF_8
+        const val JSON_CHARSET = "UTF-8"
         const val JSON_FIELD_REGION_NAME = "FIELD_REGION_NAME"
 
         // Style URL

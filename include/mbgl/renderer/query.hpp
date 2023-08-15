@@ -1,10 +1,10 @@
 #pragma once
 
+#include <mbgl/util/optional.hpp>
 #include <mbgl/style/filter.hpp>
 
 #include <string>
 #include <vector>
-#include <optional>
 
 namespace mbgl {
 
@@ -13,15 +13,15 @@ namespace mbgl {
  */
 class RenderedQueryOptions {
 public:
-    RenderedQueryOptions(std::optional<std::vector<std::string>> layerIDs_ = std::nullopt,
-                         std::optional<style::Filter> filter_ = std::nullopt)
+    RenderedQueryOptions(optional<std::vector<std::string>> layerIDs_ = {},
+                         optional<style::Filter> filter_ = {})
         : layerIDs(std::move(layerIDs_)),
           filter(std::move(filter_)) {}
 
     /** layerIDs to include in the query */
-    std::optional<std::vector<std::string>> layerIDs;
+    optional<std::vector<std::string>> layerIDs;
 
-    std::optional<style::Filter> filter;
+    optional<style::Filter> filter;
 };
 
 /**
@@ -29,15 +29,15 @@ public:
  */
 class SourceQueryOptions {
 public:
-    SourceQueryOptions(std::optional<std::vector<std::string>> sourceLayers_ = std::nullopt,
-                       std::optional<style::Filter> filter_ = std::nullopt)
+    SourceQueryOptions(optional<std::vector<std::string>> sourceLayers_ = {},
+                       optional<style::Filter> filter_ = {})
         : sourceLayers(std::move(sourceLayers_)),
           filter(std::move(filter_)) {}
 
-    /// Required for VectorSource, ignored for GeoJSONSource
-    std::optional<std::vector<std::string>> sourceLayers;
+    // Required for VectorSource, ignored for GeoJSONSource
+    optional<std::vector<std::string>> sourceLayers;
 
-    std::optional<style::Filter> filter;
+    optional<style::Filter> filter;
 };
 
 } // namespace mbgl

@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.FeatureCollection
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.FillLayer
@@ -22,8 +22,8 @@ import timber.log.Timber
  * Demo's query rendered features
  */
 class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
-    lateinit var mapView: MapView
-    lateinit var trackasiaMap: TrackasiaMap
+    var mapView: MapView? = null
+    var mapboxMap: MapboxMap? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +33,9 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
 
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: TrackasiaMap ->
-            this@QueryRenderedFeaturesBoxHighlightActivity.trackasiaMap = trackasiaMap
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+            this@QueryRenderedFeaturesBoxHighlightActivity.mapboxMap = mapboxMap
 
             // Add layer / source
             val source = GeoJsonSource("highlighted-shapes-source")
@@ -43,8 +43,8 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
                 .withProperties(PropertyFactory.fillColor(Color.RED))
             selectionBox.setOnClickListener { view: View? ->
                 // Query
-                val top = selectionBox.top - mapView.top
-                val left = selectionBox.left - mapView.left
+                val top = selectionBox.top - mapView!!.top
+                val left = selectionBox.left - mapView!!.left
                 val box = RectF(
                     left.toFloat(),
                     top.toFloat(),
@@ -56,7 +56,7 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
                     Expression.toNumber(Expression.get("height")),
                     Expression.literal(10)
                 )
-                val features = trackasiaMap.queryRenderedFeatures(box, filter, "building")
+                val features = mapboxMap.queryRenderedFeatures(box, filter, "building")
 
                 // Show count
                 Toast.makeText(
@@ -68,7 +68,7 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
                 // Update source data
                 source.setGeoJson(FeatureCollection.fromFeatures(features))
             }
-            trackasiaMap.setStyle(
+            mapboxMap.setStyle(
                 Style.Builder()
                     .fromUri(Style.getPredefinedStyle("Streets"))
                     .withSource(source)
@@ -79,36 +79,36 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 }

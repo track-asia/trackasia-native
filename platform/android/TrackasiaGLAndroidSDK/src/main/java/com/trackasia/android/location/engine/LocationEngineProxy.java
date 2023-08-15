@@ -12,11 +12,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.trackasia.android.location.engine.Utils.checkNotNull;
 
-public class LocationEngineProxy<T> implements LocationEngine {
+class LocationEngineProxy<T> implements LocationEngine {
   private final LocationEngineImpl<T> locationEngineImpl;
   private Map<LocationEngineCallback<LocationEngineResult>, T> listeners;
 
-  public LocationEngineProxy(LocationEngineImpl<T> locationEngineImpl) {
+  LocationEngineProxy(LocationEngineImpl<T> locationEngineImpl) {
     this.locationEngineImpl = locationEngineImpl;
   }
 

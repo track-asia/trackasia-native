@@ -9,7 +9,7 @@ namespace expression {
 EvaluationResult Coalesce::evaluate(const EvaluationContext& params) const {
     EvaluationResult result = Null;
     std::size_t argsCount = args.size();
-    std::optional<Image> requestedImage;
+    optional<Image> requestedImage;
     for (const auto& arg : args) {
         --argsCount;
         result = arg->evaluate(params);
@@ -43,8 +43,8 @@ bool Coalesce::operator==(const Expression& e) const {
     return false;
 }
 
-std::vector<std::optional<Value>> Coalesce::possibleOutputs() const {
-    std::vector<std::optional<Value>> result;
+std::vector<optional<Value>> Coalesce::possibleOutputs() const {
+    std::vector<optional<Value>> result;
     for (const auto& arg : args) {
         for (auto& output : arg->possibleOutputs()) {
             result.push_back(std::move(output));
@@ -61,9 +61,9 @@ ParseResult Coalesce::parse(const Convertible& value, ParsingContext& ctx) {
         ctx.error("Expected at least one argument.");
         return ParseResult();
     }
-
-    std::optional<type::Type> outputType;
-    std::optional<type::Type> expectedType = ctx.getExpected();
+ 
+    optional<type::Type> outputType;
+    optional<type::Type> expectedType = ctx.getExpected();
     if (expectedType && *expectedType != type::Value) {
         outputType = expectedType;
     }
@@ -87,9 +87,10 @@ ParseResult Coalesce::parse(const Convertible& value, ParsingContext& ctx) {
     // preempt the desired null-coalescing behavior.
     // Thus, if any of our arguments would have needed an annotation, we
     // need to wrap the enclosing coalesce expression with it instead.
-    bool needsAnnotation = expectedType && std::any_of(args.begin(), args.end(), [&](const auto& arg) {
-                               return type::checkSubtype(*expectedType, arg->getType());
-                           });
+    bool needsAnnotation = expectedType &&
+        std::any_of(args.begin(), args.end(), [&] (const auto& arg) {
+            return type::checkSubtype(*expectedType, arg->getType());
+        });
 
     return ParseResult(std::make_unique<Coalesce>(needsAnnotation ? type::Value : *outputType, std::move(args)));
 }

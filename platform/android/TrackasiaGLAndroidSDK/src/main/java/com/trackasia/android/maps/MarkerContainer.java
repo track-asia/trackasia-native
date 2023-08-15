@@ -29,10 +29,10 @@ class MarkerContainer implements Markers {
   }
 
   @Override
-  public Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull TrackasiaMap trackasiaMap) {
+  public Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull MapboxMap mapboxMap) {
     Marker marker = prepareMarker(markerOptions);
     long id = nativeMapView != null ? nativeMapView.addMarker(marker) : 0;
-    marker.setMapboxMap(trackasiaMap);
+    marker.setMapboxMap(mapboxMap);
     marker.setId(id);
     annotations.put(id, marker);
     return marker;
@@ -40,8 +40,8 @@ class MarkerContainer implements Markers {
 
   @NonNull
   @Override
-  public List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull TrackasiaMap
-      trackasiaMap) {
+  public List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull MapboxMap
+    mapboxMap) {
     int count = markerOptionsList.size();
     List<Marker> markers = new ArrayList<>(count);
     if (nativeMapView != null && count > 0) {
@@ -57,7 +57,7 @@ class MarkerContainer implements Markers {
         long[] ids = nativeMapView.addMarkers(markers);
         for (int i = 0; i < ids.length; i++) {
           Marker createdMarker = markers.get(i);
-          createdMarker.setMapboxMap(trackasiaMap);
+          createdMarker.setMapboxMap(mapboxMap);
           createdMarker.setId(ids[i]);
           annotations.put(ids[i], createdMarker);
         }
@@ -67,8 +67,8 @@ class MarkerContainer implements Markers {
   }
 
   @Override
-  public void update(@NonNull Marker updatedMarker, @NonNull TrackasiaMap trackasiaMap) {
-    ensureIconLoaded(updatedMarker, trackasiaMap);
+  public void update(@NonNull Marker updatedMarker, @NonNull MapboxMap mapboxMap) {
+    ensureIconLoaded(updatedMarker, mapboxMap);
     nativeMapView.updateMarker(updatedMarker);
     annotations.setValueAt(annotations.indexOfKey(updatedMarker.getId()), updatedMarker);
   }
@@ -132,8 +132,8 @@ class MarkerContainer implements Markers {
     return marker;
   }
 
-  private void ensureIconLoaded(Marker marker, @NonNull TrackasiaMap trackasiaMap) {
-    iconManager.ensureIconLoaded(marker, trackasiaMap);
+  private void ensureIconLoaded(Marker marker, @NonNull MapboxMap mapboxMap) {
+    iconManager.ensureIconLoaded(marker, mapboxMap);
   }
 
   @NonNull

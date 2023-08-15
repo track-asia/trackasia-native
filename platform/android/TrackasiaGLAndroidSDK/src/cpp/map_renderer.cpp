@@ -21,11 +21,10 @@ MapRenderer::MapRenderer(jni::JNIEnv& _env,
     : javaPeer(_env, obj),
       pixelRatio(pixelRatio_),
       localIdeographFontFamily(localIdeographFontFamily_ ? jni::Make<std::string>(_env, localIdeographFontFamily_)
-                                                         : std::optional<std::string>{}),
+                                                         : optional<std::string>{}),
       mailboxData(this) {}
 
-MapRenderer::MailboxData::MailboxData(Scheduler* scheduler_)
-    : scheduler(scheduler_) {
+MapRenderer::MailboxData::MailboxData(Scheduler* scheduler_) : scheduler(scheduler_) {
     assert(scheduler);
 }
 
@@ -52,7 +51,7 @@ void MapRenderer::reset() {
         std::lock_guard<std::mutex> lock(initialisationMutex);
         rendererObserver.reset();
     } catch (const std::exception& exception) {
-        Log::Error(Event::Android, std::string("MapRenderer::reset failed: ") + exception.what());
+        Log::Error(Event::Android, "MapRenderer::reset failed: %s", exception.what());
     }
 }
 
@@ -71,7 +70,8 @@ void MapRenderer::schedule(std::function<void()> scheduled) {
 
         // Queue the event on the Java Peer
         static auto& javaClass = jni::Class<MapRenderer>::Singleton(*_env);
-        static auto queueEvent = javaClass.GetMethod<void(jni::Object<MapRendererRunnable>)>(*_env, "queueEvent");
+        static auto queueEvent = javaClass.GetMethod<void(
+                jni::Object<MapRendererRunnable>)>(*_env, "queueEvent");
         auto weakReference = javaPeer.get(*_env);
         if (weakReference) {
             weakReference.Call(*_env, queueEvent, peer);
@@ -80,7 +80,7 @@ void MapRenderer::schedule(std::function<void()> scheduled) {
         // Release the c++ peer as it will be destroyed on GC of the Java Peer
         runnable.release();
     } catch (const std::exception& exception) {
-        Log::Error(Event::Android, std::string("MapRenderer::schedule failed: ") + exception.what());
+        Log::Error(Event::Android, "MapRenderer::schedule failed: %s", exception.what());
     }
 }
 
@@ -94,7 +94,7 @@ void MapRenderer::requestRender() {
             weakReference.Call(*_env, onInvalidate);
         }
     } catch (const std::exception& exception) {
-        Log::Error(Event::Android, std::string("MapRenderer::requestRender failed: ") + exception.what());
+        Log::Error(Event::Android, "MapRenderer::requestRender failed: %s", exception.what());
     }
 }
 
@@ -104,7 +104,7 @@ void MapRenderer::update(std::shared_ptr<UpdateParameters> params) {
         std::lock_guard<std::mutex> lock(updateMutex);
         updateParameters = std::move(params);
     } catch (const std::exception& exception) {
-        Log::Error(Event::Android, std::string("MapRenderer::update failed: ") + exception.what());
+        Log::Error(Event::Android, "MapRenderer::update failed: %s", exception.what());
     }
 }
 
@@ -120,24 +120,23 @@ void MapRenderer::setObserver(std::shared_ptr<RendererObserver> _rendererObserve
             renderer->setObserver(rendererObserver.get());
         }
     } catch (const std::exception& exception) {
-        Log::Error(Event::Android, std::string("MapRenderer::setObserver failed: ") + exception.what());
+        Log::Error(Event::Android, "MapRenderer::setObserver failed: %s", exception.what());
     }
 }
 
 void MapRenderer::requestSnapshot(SnapshotCallback callback) {
     auto self = ActorRef<MapRenderer>(*this, mailboxData.getMailbox());
     self.invoke(
-        &MapRenderer::scheduleSnapshot,
-        std::make_unique<SnapshotCallback>(
-            [&, callback = std::move(callback), runloop = util::RunLoop::Get()](PremultipliedImage image) {
-                runloop->invoke(
-                    [callback = std::move(callback), image = std::move(image), renderer = std::move(this)]() mutable {
-                        if (renderer && !renderer->destroyed) {
-                            callback(std::move(image));
-                        }
-                    });
+            &MapRenderer::scheduleSnapshot,
+            std::make_unique<SnapshotCallback>([&, callback=std::move(callback), runloop=util::RunLoop::Get()](PremultipliedImage image) {
+                runloop->invoke([callback=std::move(callback), image=std::move(image), renderer=std::move(this)]() mutable {
+                    if (renderer && !renderer->destroyed) {
+                        callback(std::move(image));
+                    }
+                });
                 snapshotCallback.reset();
-            }));
+            })
+    );
 }
 
 // Called on OpenGL thread //
@@ -153,7 +152,7 @@ void MapRenderer::scheduleSnapshot(std::unique_ptr<SnapshotCallback> callback) {
 }
 
 void MapRenderer::render(JNIEnv&) {
-    assert(renderer);
+    assert (renderer);
 
     std::shared_ptr<UpdateParameters> params;
     {
@@ -166,7 +165,7 @@ void MapRenderer::render(JNIEnv&) {
     }
 
     // Activate the backend
-    gfx::BackendScope backendGuard{*backend};
+    gfx::BackendScope backendGuard { *backend };
 
     // Ensure that the "current" scheduler on the render thread is
     // this scheduler.
@@ -191,7 +190,7 @@ void MapRenderer::onSurfaceCreated(JNIEnv&) {
     std::lock_guard<std::mutex> lock(initialisationMutex);
 
     // The GL context is already active if get a new surface.
-    gfx::BackendScope backendGuard{*backend, gfx::BackendScope::ScopeType::Implicit};
+    gfx::BackendScope backendGuard { *backend, gfx::BackendScope::ScopeType::Implicit };
 
     // The android system will have already destroyed the underlying
     // GL resources if this is not the first initialization and an
@@ -245,18 +244,17 @@ void MapRenderer::registerNative(jni::JNIEnv& env) {
 #define METHOD(MethodPtr, name) jni::MakeNativePeerMethod<decltype(MethodPtr), (MethodPtr)>(name)
 
     // Register the peer
-    jni::RegisterNativePeer<MapRenderer>(
-        env,
-        javaClass,
-        "nativePtr",
-        jni::MakePeer<MapRenderer, const jni::Object<MapRenderer>&, jni::jfloat, const jni::String&>,
-        "nativeInitialize",
-        "finalize",
-        METHOD(&MapRenderer::render, "nativeRender"),
-        METHOD(&MapRenderer::onRendererReset, "nativeReset"),
-        METHOD(&MapRenderer::onSurfaceCreated, "nativeOnSurfaceCreated"),
-        METHOD(&MapRenderer::onSurfaceChanged, "nativeOnSurfaceChanged"),
-        METHOD(&MapRenderer::onSurfaceDestroyed, "nativeOnSurfaceDestroyed"));
+    jni::RegisterNativePeer<MapRenderer>(env, javaClass, "nativePtr",
+                                         jni::MakePeer<MapRenderer, const jni::Object<MapRenderer>&, jni::jfloat, const jni::String&>,
+                                         "nativeInitialize", "finalize",
+                                         METHOD(&MapRenderer::render, "nativeRender"),
+                                         METHOD(&MapRenderer::onRendererReset, "nativeReset"),
+                                         METHOD(&MapRenderer::onSurfaceCreated,
+                                                "nativeOnSurfaceCreated"),
+                                         METHOD(&MapRenderer::onSurfaceChanged,
+                                                "nativeOnSurfaceChanged"),
+                                         METHOD(&MapRenderer::onSurfaceDestroyed,
+                                                "nativeOnSurfaceDestroyed"));
 }
 
 MapRenderer& MapRenderer::getNativePeer(JNIEnv& env, const jni::Object<MapRenderer>& jObject) {

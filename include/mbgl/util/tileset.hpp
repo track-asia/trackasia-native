@@ -2,26 +2,19 @@
 
 #include <mbgl/util/range.hpp>
 #include <mbgl/util/constants.hpp>
+#include <mbgl/util/optional.hpp>
 #include <mbgl/util/geo.hpp>
-
 #include <tuple>
 #include <vector>
 #include <string>
 #include <cstdint>
-#include <optional>
 
 namespace mbgl {
 
 class Tileset {
 public:
-    enum class Scheme : bool {
-        XYZ,
-        TMS
-    };
-    enum class DEMEncoding : bool {
-        Mapbox,
-        Terrarium
-    };
+    enum class Scheme : bool { XYZ, TMS };
+    enum class DEMEncoding : bool { Trackasia, Terrarium };
 
     std::vector<std::string> tiles;
     Range<uint8_t> zoomRange;
@@ -29,13 +22,13 @@ public:
     Scheme scheme;
     // DEMEncoding is not supported by the TileJSON spec
     DEMEncoding encoding;
-    std::optional<LatLngBounds> bounds;
+    optional<LatLngBounds> bounds;
 
     Tileset(std::vector<std::string> tiles_ = std::vector<std::string>(),
             Range<uint8_t> zoomRange_ = {0, util::DEFAULT_MAX_ZOOM},
             std::string attribution_ = {},
             Scheme scheme_ = Scheme::XYZ,
-            DEMEncoding encoding_ = DEMEncoding::Mapbox)
+            DEMEncoding encoding_ = DEMEncoding::Trackasia)
         : tiles(std::move(tiles_)),
           zoomRange(zoomRange_),
           attribution(std::move(attribution_)),
@@ -45,11 +38,13 @@ public:
     // TileJSON also includes center and zoom but they are not used by mbgl.
 
     friend bool operator==(const Tileset& lhs, const Tileset& rhs) {
-        return std::tie(lhs.tiles, lhs.zoomRange, lhs.attribution, lhs.scheme, lhs.bounds) ==
-               std::tie(rhs.tiles, rhs.zoomRange, rhs.attribution, rhs.scheme, rhs.bounds);
+        return std::tie(lhs.tiles, lhs.zoomRange, lhs.attribution, lhs.scheme, lhs.bounds)
+            == std::tie(rhs.tiles, rhs.zoomRange, rhs.attribution, rhs.scheme, rhs.bounds);
     }
 
-    friend bool operator!=(const Tileset& lhs, const Tileset& rhs) { return !(lhs == rhs); }
+    friend bool operator!=(const Tileset& lhs, const Tileset& rhs) {
+        return !(lhs == rhs);
+    }
 };
 
 } // namespace mbgl

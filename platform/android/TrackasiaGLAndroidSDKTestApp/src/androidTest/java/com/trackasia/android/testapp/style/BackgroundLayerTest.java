@@ -3,27 +3,33 @@
 package com.trackasia.android.testapp.style;
 
 import android.graphics.Color;
+
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import com.mapbox.geojson.Point;
-
 import com.trackasia.android.maps.BaseLayerTest;
-import org.junit.Before;
-import timber.log.Timber;
-
 import com.trackasia.android.style.layers.BackgroundLayer;
+import com.trackasia.android.style.layers.TransitionOptions;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
-import static com.trackasia.android.style.layers.Property.*;
-import static com.trackasia.android.style.layers.PropertyFactory.*;
-
-import com.trackasia.android.style.layers.TransitionOptions;
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
+
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
+import static com.trackasia.android.style.layers.PropertyFactory.backgroundColor;
+import static com.trackasia.android.style.layers.PropertyFactory.backgroundOpacity;
+import static com.trackasia.android.style.layers.PropertyFactory.backgroundPattern;
+import static com.trackasia.android.style.layers.PropertyFactory.visibility;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Basic smoke tests for BackgroundLayer

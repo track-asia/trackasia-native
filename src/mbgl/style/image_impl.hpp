@@ -5,7 +5,6 @@
 #include <string>
 #include <unordered_map>
 #include <set>
-#include <optional>
 
 namespace mbgl {
 namespace style {
@@ -18,7 +17,7 @@ public:
          bool sdf = false,
          ImageStretches stretchX = {},
          ImageStretches stretchY = {},
-         std::optional<ImageContent> content = std::nullopt);
+         optional<ImageContent> content = nullopt);
 
     const std::string id;
 
@@ -35,7 +34,7 @@ public:
     const ImageStretches stretchY;
 
     // The space where text can be fit into this image.
-    const std::optional<ImageContent> content;
+    const optional<ImageContent> content;
 };
 
 } // namespace style

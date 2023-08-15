@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -30,7 +30,7 @@ import java.io.IOException
  */
 class DataDrivenStyleActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private var idleListener: IdleZoomListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +40,10 @@ class DataDrivenStyleActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: TrackasiaMap? ->
+            OnMapReadyCallback { map: MapboxMap? ->
                 // Store for later
-                if (map != null) {
-                    trackasiaMap = map
-                }
-                trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+                mapboxMap = map
+                mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
                     // Add a parks layer
                     addParksLayer()
 
@@ -54,7 +52,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                 }
 
                 // Center and Zoom (Amsterdam, zoomed to streets)
-                trackasiaMap.animateCamera(
+                mapboxMap!!.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(52.379189, 4.899431),
                         14.0
@@ -66,9 +64,9 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun setupDebugZoomView() {
         val textView = findViewById<View>(R.id.textZoom) as TextView
-        trackasiaMap.addOnCameraIdleListener(
+        mapboxMap!!.addOnCameraIdleListener(
             IdleZoomListener(
-                trackasiaMap,
+                mapboxMap,
                 textView
             ).also { idleListener = it }
         )
@@ -81,40 +79,40 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (trackasiaMap != null && idleListener != null) {
-            trackasiaMap.removeOnCameraIdleListener(idleListener!!)
+        if (mapboxMap != null && idleListener != null) {
+            mapboxMap!!.removeOnCameraIdleListener(idleListener!!)
         }
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -161,7 +159,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addExponentialZoomFunction() {
         Timber.i("Add exponential zoom function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>("water")!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>("water")!!
         layer.setProperties(
             PropertyFactory.fillColor(
                 Expression.interpolate(
@@ -178,7 +176,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addIntervalZoomFunction() {
         Timber.i("Add interval zoom function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>("water")!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>("water")!!
         layer.setProperties(
             PropertyFactory.fillColor(
                 Expression.step(
@@ -195,7 +193,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addExponentialSourceFunction() {
         Timber.i("Add exponential source function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
         layer.setProperties(
             PropertyFactory.fillColor(
                 Expression.interpolate(
@@ -212,7 +210,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addCategoricalSourceFunction() {
         Timber.i("Add categorical source function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
         layer.setProperties(
             PropertyFactory.fillColor(
                 Expression.match(
@@ -232,7 +230,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addIdentitySourceFunction() {
         Timber.i("Add identity source function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
         layer.setProperties(
             PropertyFactory.fillOpacity(
                 Expression.get("fill-opacity")
@@ -243,7 +241,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addIntervalSourceFunction() {
         Timber.i("Add interval source function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
         layer.setProperties(
             PropertyFactory.fillColor(
                 Expression.step(
@@ -260,7 +258,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addCompositeExponentialFunction() {
         Timber.i("Add composite exponential function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
         layer.setProperties(
             PropertyFactory.fillColor(
                 Expression.interpolate(
@@ -304,7 +302,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addCompositeIntervalFunction() {
         Timber.i("Add composite interval function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
         layer.setProperties(
             PropertyFactory.fillColor(
                 Expression.interpolate(
@@ -348,7 +346,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
 
     private fun addCompositeCategoricalFunction() {
         Timber.i("Add composite categorical function")
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
         layer.setProperties(
             PropertyFactory.fillColor(
                 Expression.step(
@@ -518,7 +516,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                 "amsterdam-parks-source",
                 ResourceUtils.readRawResource(this, R.raw.amsterdam)
             )
-            trackasiaMap.style!!.addSource(source)
+            mapboxMap!!.style!!.addSource(source)
         } catch (ioException: IOException) {
             Toast.makeText(
                 this@DataDrivenStyleActivity,
@@ -529,9 +527,9 @@ class DataDrivenStyleActivity : AppCompatActivity() {
         }
 
         // Add a fill layer
-        trackasiaMap.style!!
+        mapboxMap!!.style!!
             .addLayer(
-                FillLayer(AMSTERDAM_PARKS_LAYER, source.id)
+                FillLayer(AMSTERDAM_PARKS_LAYER, source.getId())
                     .withProperties(
                         PropertyFactory.fillColor(Expression.color(Color.GREEN)),
                         PropertyFactory.fillOutlineColor(Expression.rgb(0, 0, 255)),

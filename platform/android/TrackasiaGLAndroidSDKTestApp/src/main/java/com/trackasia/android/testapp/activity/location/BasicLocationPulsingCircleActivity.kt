@@ -15,12 +15,11 @@ import com.trackasia.android.location.modes.CameraMode
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 
-/* ANCHOR: top */
 /**
  * This activity shows a basic usage of the LocationComponent's pulsing circle. There's no
  * customization of the pulsing circle's color, radius, speed, etc.
@@ -30,7 +29,7 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
     private lateinit var mapView: MapView
     private var permissionsManager: PermissionsManager? = null
     private var locationComponent: LocationComponent? = null
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_layer_basic_pulsing_circle)
@@ -41,14 +40,12 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
         mapView.onCreate(savedInstanceState)
         checkPermissions()
     }
-    /* ANCHOR_END: top */
 
-    /* ANCHOR: onMapReady */
     @SuppressLint("MissingPermission")
-    override fun onMapReady(trackasiaMap: TrackasiaMap) {
-        this.trackasiaMap = trackasiaMap
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
-            locationComponent = trackasiaMap.locationComponent
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this.mapboxMap = mapboxMap
+        mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
+            locationComponent = mapboxMap.locationComponent
             val locationComponentOptions =
                 LocationComponentOptions.builder(this@BasicLocationPulsingCircleActivity)
                     .pulseEnabled(true)
@@ -61,9 +58,7 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
             locationComponent!!.forceLocationUpdate(lastLocation)
         }
     }
-    /* ANCHOR_END: onMapReady */
 
-    /* ANCHOR: LocationComponentActivationOptions */
     private fun buildLocationComponentActivationOptions(
         style: Style,
         locationComponentOptions: LocationComponentOptions
@@ -80,7 +75,6 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
             )
             .build()
     }
-    /* ANCHOR_END: LocationComponentActivationOptions */
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_pulsing_location_mode, menu)
@@ -125,13 +119,12 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
     }
 
     private fun loadNewStyle() {
-        trackasiaMap.setStyle(Style.Builder().fromUri(Utils.nextStyle()))
+        mapboxMap!!.setStyle(Style.Builder().fromUri(Utils.nextStyle()))
     }
 
-    /* ANCHOR: permission */
     private fun checkPermissions() {
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
-            mapView.getMapAsync(this)
+            mapView!!.getMapAsync(this)
         } else {
             permissionsManager = PermissionsManager(object : PermissionsListener {
                 override fun onExplanationNeeded(permissionsToExplain: List<String>) {
@@ -144,7 +137,7 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
 
                 override fun onPermissionResult(granted: Boolean) {
                     if (granted) {
-                        mapView.getMapAsync(this@BasicLocationPulsingCircleActivity)
+                        mapView!!.getMapAsync(this@BasicLocationPulsingCircleActivity)
                     } else {
                         finish()
                     }
@@ -162,32 +155,31 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager!!.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-    /* ANCHOR_END: permission */
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     @SuppressLint("MissingPermission")
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
         if (locationComponent != null) {
             outState.putParcelable(SAVED_STATE_LOCATION, locationComponent!!.lastKnownLocation)
         }
@@ -195,12 +187,12 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     companion object {

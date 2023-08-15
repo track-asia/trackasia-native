@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA839E911CC2E3400062CAFB"
-               BuildableName = "Trackasia GL.app"
+               BuildableName = "TrackAsia GL.app"
                BlueprintName = "macosapp"
                ReferencedContainer = "container:macos.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA839E911CC2E3400062CAFB"
-            BuildableName = "Trackasia GL.app"
+            BuildableName = "TrackAsia GL.app"
             BlueprintName = "macosapp"
             ReferencedContainer = "container:macos.xcodeproj">
          </BuildableReference>
@@ -50,7 +50,7 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "MLNMapSnapshotterTests/testLocalGlyphRendering">
+                  Identifier = "MGLMapSnapshotterTests/testLocalGlyphRendering">
                </Test>
             </SkippedTests>
          </TestableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA839E911CC2E3400062CAFB"
-            BuildableName = "Trackasia GL.app"
+            BuildableName = "TrackAsia GL.app"
             BlueprintName = "macosapp"
             ReferencedContainer = "container:macos.xcodeproj">
          </BuildableReference>
@@ -88,7 +88,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA839E911CC2E3400062CAFB"
-            BuildableName = "Trackasia GL.app"
+            BuildableName = "TrackAsia GL.app"
             BlueprintName = "macosapp"
             ReferencedContainer = "container:macos.xcodeproj">
          </BuildableReference>

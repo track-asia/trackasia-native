@@ -14,10 +14,8 @@
 namespace mbgl {
 namespace style {
 
-VectorSource::VectorSource(std::string id,
-                           variant<std::string, Tileset> urlOrTileset_,
-                           std::optional<float> maxZoom_,
-                           std::optional<float> minZoom_)
+VectorSource::VectorSource(std::string id, variant<std::string, Tileset> urlOrTileset_, optional<float> maxZoom_,
+                           optional<float> minZoom_)
     : Source(makeMutable<Impl>(std::move(id))),
       urlOrTileset(std::move(urlOrTileset_)),
       maxZoom(std::move(maxZoom_)),
@@ -33,7 +31,7 @@ const variant<std::string, Tileset>& VectorSource::getURLOrTileset() const {
     return urlOrTileset;
 }
 
-std::optional<std::string> VectorSource::getURL() const {
+optional<std::string> VectorSource::getURL() const {
     if (urlOrTileset.is<Tileset>()) {
         return {};
     }
@@ -55,7 +53,7 @@ void VectorSource::loadDescription(FileSource& fileSource) {
 
     const auto& rawURL = urlOrTileset.get<std::string>();
     const auto& url = util::mapbox::canonicalizeSourceURL(fileSource.getResourceOptions().tileServerOptions(), rawURL);
-
+    
     req = fileSource.request(Resource::source(url), [this, url, &fileSource](const Response& res) {
         if (res.error) {
             observer->onSourceError(*this, std::make_exception_ptr(std::runtime_error(res.error->message)));
@@ -65,7 +63,7 @@ void VectorSource::loadDescription(FileSource& fileSource) {
             observer->onSourceError(*this, std::make_exception_ptr(std::runtime_error("unexpectedly empty TileJSON")));
         } else {
             conversion::Error error;
-            auto tileset = conversion::convertJSON<Tileset>(*res.data, error);
+            optional<Tileset> tileset = conversion::convertJSON<Tileset>(*res.data, error);
             if (!tileset) {
                 observer->onSourceError(*this, std::make_exception_ptr(util::StyleParseException(error.message)));
                 return;

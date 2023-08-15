@@ -1,6 +1,8 @@
 #pragma once
 
+#include <array>
 #include <string>
+#include <vector>
 
 namespace mbgl {
 namespace util {
@@ -10,7 +12,7 @@ public:
     DefaultStyle(std::string, std::string, int);
 
     const std::string& getUrl() const;
-    const std::string& getName() const;
+    const std::string& getName() const; 
     int getCurrentVersion() const;
 
 private:

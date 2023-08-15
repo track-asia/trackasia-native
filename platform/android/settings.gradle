@@ -1,1 +1,1 @@
-include ':TrackasiaGLAndroidSDK', ':TrackasiaGLAndroidSDKTestApp', ':TrackasiaGLAndroidSDKLint'
+include ':TrackAsiaGLAndroidSDK', ':TrackAsiaGLAndroidSDKTestApp', ':TrackAsiaGLAndroidSDKLint'

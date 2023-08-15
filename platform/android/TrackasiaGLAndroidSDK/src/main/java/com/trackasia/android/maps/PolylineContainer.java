@@ -25,11 +25,11 @@ class PolylineContainer implements Polylines {
   }
 
   @Override
-  public Polyline addBy(@NonNull PolylineOptions polylineOptions, @NonNull TrackasiaMap trackasiaMap) {
+  public Polyline addBy(@NonNull PolylineOptions polylineOptions, @NonNull MapboxMap mapboxMap) {
     Polyline polyline = polylineOptions.getPolyline();
     if (!polyline.getPoints().isEmpty()) {
       long id = nativeMap != null ? nativeMap.addPolyline(polyline) : 0;
-      polyline.setMapboxMap(trackasiaMap);
+      polyline.setMapboxMap(mapboxMap);
       polyline.setId(id);
       annotations.put(id, polyline);
     }
@@ -38,7 +38,7 @@ class PolylineContainer implements Polylines {
 
   @NonNull
   @Override
-  public List<Polyline> addBy(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull TrackasiaMap trackasiaMap) {
+  public List<Polyline> addBy(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull MapboxMap mapboxMap) {
     int count = polylineOptionsList.size();
     Polyline polyline;
     List<Polyline> polylines = new ArrayList<>(count);
@@ -53,7 +53,7 @@ class PolylineContainer implements Polylines {
       long[] ids = nativeMap.addPolylines(polylines);
       for (int i = 0; i < ids.length; i++) {
         Polyline polylineCreated = polylines.get(i);
-        polylineCreated.setMapboxMap(trackasiaMap);
+        polylineCreated.setMapboxMap(mapboxMap);
         polylineCreated.setId(ids[i]);
         annotations.put(ids[i], polylineCreated);
       }

@@ -3,22 +3,19 @@ package com.trackasia.android.testapp.offline
 import android.content.Context
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import java.io.IOException
-import java.util.concurrent.CountDownLatch
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.FixMethodOrder
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 import com.trackasia.android.AppCenter
 import com.trackasia.android.offline.OfflineManager
 import com.trackasia.android.offline.OfflineRegion
 import com.trackasia.android.storage.FileSource
 import com.trackasia.android.testapp.activity.FeatureOverviewActivity
 import com.trackasia.android.testapp.utils.FileUtils
+import org.junit.FixMethodOrder
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
+import java.io.IOException
+import java.util.concurrent.CountDownLatch
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4ClassRunner::class)
@@ -26,6 +23,7 @@ class OfflineManagerTest : AppCenter() {
 
     companion object {
         private const val TEST_DB_FILE_NAME = "offline_test.db"
+        private lateinit var mergedRegion: OfflineRegion
     }
 
     @Rule
@@ -34,36 +32,15 @@ class OfflineManagerTest : AppCenter() {
 
     private val context: Context by lazy { rule.activity }
 
-    @Before
-    @After
-    fun resetDatabase() {
-        val latch = CountDownLatch(1)
-        OfflineManager.getInstance(context).resetDatabase(object : OfflineManager.FileSourceCallback {
-            override fun onSuccess() {
-                latch.countDown()
-            }
-
-            override fun onError(message: String) {
-                throw IOException("Unable to reset database before / after tests.")
-            }
-        })
-        latch.await()
-    }
-
     @Test(timeout = 30_000)
-    fun combinedTest() {
-
-        lateinit var mergedRegion: OfflineRegion
-
-        // Copy file from assets
-
-        val latch1 = CountDownLatch(1)
+    fun a_copyFileFromAssets() {
+        val latch = CountDownLatch(1)
         rule.activity.runOnUiThread {
             FileUtils.CopyFileFromAssetsTask(
                 rule.activity,
                 object : FileUtils.OnFileCopiedFromAssetsListener {
                     override fun onFileCopiedFromAssets() {
-                        latch1.countDown()
+                        latch.countDown()
                     }
 
                     override fun onError() {
@@ -72,93 +49,80 @@ class OfflineManagerTest : AppCenter() {
                 }
             ).execute(TEST_DB_FILE_NAME, FileSource.getResourcesCachePath(rule.activity))
         }
-        latch1.await()
+        latch.await()
+    }
 
-        // Merge a second region
-
-        val latch2 = CountDownLatch(1)
+    @Test(timeout = 30_000)
+    fun b_mergeRegion() {
+        val latch = CountDownLatch(1)
         rule.activity.runOnUiThread {
             OfflineManager.getInstance(context).mergeOfflineRegions(
                 FileSource.getResourcesCachePath(rule.activity) + "/" + TEST_DB_FILE_NAME,
                 object : OfflineManager.MergeOfflineRegionsCallback {
-                    override fun onMerge(offlineRegions: Array<OfflineRegion>?) {
-                        Assert.assertEquals(1, offlineRegions?.size)
-                        latch2.countDown()
+                    override fun onMerge(offlineRegions: Array<out OfflineRegion>?) {
+                        assert(offlineRegions?.size == 1)
+                        latch.countDown()
                     }
 
-                    override fun onError(error: String) {
+                    override fun onError(error: String?) {
                         throw RuntimeException("Unable to merge external offline database. $error")
                     }
                 }
             )
         }
-        latch2.await()
+        latch.await()
+    }
 
-        // List regions (ensure merge yielded one region only)
-
-        val latch3 = CountDownLatch(1)
+    @Test(timeout = 30_000)
+    fun c_listRegion() {
+        val latch = CountDownLatch(1)
         rule.activity.runOnUiThread {
             OfflineManager.getInstance(context).listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
-                override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    Assert.assertEquals(1, offlineRegions?.size)
+                override fun onList(offlineRegions: Array<out OfflineRegion>?) {
+                    assert(offlineRegions?.size == 1)
                     mergedRegion = offlineRegions!![0]
-                    latch3.countDown()
+                    latch.countDown()
                 }
 
-                override fun onError(error: String) {
-                    throw RuntimeException("Unable to list regions in offline database. $error")
+                override fun onError(error: String?) {
+                    throw RuntimeException("Unable to merge external offline database. $error")
                 }
             })
         }
-        latch3.await()
+        latch.await()
+    }
 
-        // Invalidate region
-
-        val latch4 = CountDownLatch(1)
+    @Test(timeout = 30_000)
+    fun d_invalidateRegion() {
+        val latch = CountDownLatch(1)
         rule.activity.runOnUiThread {
             mergedRegion.invalidate(object : OfflineRegion.OfflineRegionInvalidateCallback {
                 override fun onInvalidate() {
-                    latch4.countDown()
+                    latch.countDown()
                 }
 
-                override fun onError(error: String) {
-                    throw RuntimeException("Unable to invalidate region")
-                }
-            })
-        }
-        latch4.await()
-
-        // Delete region
-
-        val latch5 = CountDownLatch(1)
-        rule.activity.runOnUiThread {
-            mergedRegion.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
-                override fun onDelete() {
-                    latch5.countDown()
-                }
-
-                override fun onError(error: String) {
+                override fun onError(error: String?) {
                     throw RuntimeException("Unable to delete region")
                 }
             })
         }
-        latch5.await()
+        latch.await()
+    }
 
-        // List regions (ensure deletion was successful)
-
-        val latch6 = CountDownLatch(1)
+    @Test(timeout = 30_000)
+    fun e_deleteRegion() {
+        val latch = CountDownLatch(1)
         rule.activity.runOnUiThread {
-            OfflineManager.getInstance(context).listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
-                override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    Assert.assertEquals(0, offlineRegions?.size)
-                    latch6.countDown()
+            mergedRegion.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
+                override fun onDelete() {
+                    latch.countDown()
                 }
 
-                override fun onError(error: String) {
-                    throw RuntimeException("Unable to list regions in offline database. $error")
+                override fun onError(error: String?) {
+                    throw RuntimeException("Unable to delete region")
                 }
             })
         }
-        latch6.await()
+        latch.await()
     }
 }

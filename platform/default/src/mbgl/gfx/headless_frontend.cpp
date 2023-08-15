@@ -14,14 +14,14 @@ namespace mbgl {
 HeadlessFrontend::HeadlessFrontend(float pixelRatio_,
                                    gfx::HeadlessBackend::SwapBehaviour swapBehavior,
                                    const gfx::ContextMode contextMode,
-                                   const std::optional<std::string>& localFontFamily)
+                                   const optional<std::string>& localFontFamily)
     : HeadlessFrontend({256, 256}, pixelRatio_, swapBehavior, contextMode, localFontFamily) {}
 
 HeadlessFrontend::HeadlessFrontend(Size size_,
                                    float pixelRatio_,
                                    gfx::HeadlessBackend::SwapBehaviour swapBehavior,
                                    const gfx::ContextMode contextMode,
-                                   const std::optional<std::string>& localFontFamily)
+                                   const optional<std::string>& localFontFamily)
     : size(size_),
       pixelRatio(pixelRatio_),
       frameTime(0),
@@ -32,13 +32,12 @@ HeadlessFrontend::HeadlessFrontend(Size size_,
       asyncInvalidate([this] {
           if (renderer && updateParameters) {
               auto startTime = mbgl::util::MonotonicTimer::now();
-              gfx::BackendScope guard{*getBackend()};
+              gfx::BackendScope guard {*getBackend()};
 
-              // onStyleImageMissing might be called during a render. The user
-              // implemented method could trigger a call to
-              // MLNRenderFrontend#update which overwrites `updateParameters`.
-              // Copy the shared pointer here so that the parameters aren't
-              // destroyed while `render(...)` is still using them.
+              // onStyleImageMissing might be called during a render. The user implemented method
+              // could trigger a call to MGLRenderFrontend#update which overwrites `updateParameters`.
+              // Copy the shared pointer here so that the parameters aren't destroyed while `render(...)` is
+              // still using them.
               auto updateParameters_ = updateParameters;
               renderer->render(updateParameters_);
 
@@ -83,7 +82,8 @@ gfx::RendererBackend* HeadlessFrontend::getBackend() {
 }
 
 CameraOptions HeadlessFrontend::getCameraOptions() {
-    if (updateParameters) return RendererState::getCameraOptions(*updateParameters);
+    if (updateParameters)
+        return RendererState::getCameraOptions(*updateParameters);
 
     static CameraOptions nullCamera;
     return nullCamera;
@@ -117,7 +117,7 @@ ScreenCoordinate HeadlessFrontend::pixelForLatLng(const LatLng& coordinate) {
         return RendererState::pixelForLatLng(*updateParameters, coordinate);
     }
 
-    return ScreenCoordinate{};
+    return ScreenCoordinate {};
 }
 
 LatLng HeadlessFrontend::latLngForPixel(const ScreenCoordinate& point) {
@@ -125,14 +125,14 @@ LatLng HeadlessFrontend::latLngForPixel(const ScreenCoordinate& point) {
         return RendererState::latLngForPixel(*updateParameters, point);
     }
 
-    return LatLng{};
+    return LatLng {};
 }
 
 void HeadlessFrontend::setSize(Size size_) {
     if (size != size_) {
         size = size_;
-        backend->setSize(
-            {static_cast<uint32_t>(size_.width * pixelRatio), static_cast<uint32_t>(size_.height * pixelRatio)});
+        backend->setSize({ static_cast<uint32_t>(size_.width * pixelRatio),
+                           static_cast<uint32_t>(size_.height * pixelRatio) });
     }
 }
 
@@ -143,7 +143,7 @@ PremultipliedImage HeadlessFrontend::readStillImage() {
 HeadlessFrontend::RenderResult HeadlessFrontend::render(Map& map) {
     HeadlessFrontend::RenderResult result;
     std::exception_ptr error;
-    gfx::BackendScope guard{*getBackend()};
+    gfx::BackendScope guard { *getBackend() };
 
     map.renderStill([&](const std::exception_ptr& e) {
         if (e) {
@@ -169,7 +169,7 @@ void HeadlessFrontend::renderOnce(Map&) {
     util::RunLoop::Get()->runOnce();
 }
 
-std::optional<TransformState> HeadlessFrontend::getTransformState() const {
+optional<TransformState> HeadlessFrontend::getTransformState() const {
     if (updateParameters) {
         return updateParameters->transformState;
     } else {

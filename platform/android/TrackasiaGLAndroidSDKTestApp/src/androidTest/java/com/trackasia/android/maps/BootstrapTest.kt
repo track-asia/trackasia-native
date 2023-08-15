@@ -4,7 +4,7 @@ import androidx.test.annotation.UiThreadTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.trackasia.android.AppCenter
-import com.trackasia.android.Trackasia
+import com.trackasia.android.Mapbox
 import com.trackasia.android.WellKnownTileServer
 import com.trackasia.android.storage.FileSource
 import com.trackasia.android.util.TileServerOptions
@@ -19,14 +19,14 @@ class BootstrapTest : AppCenter() {
     @Before
     @UiThreadTest
     fun before() {
-        apiKeyBackup = Trackasia.getApiKey()
+        apiKeyBackup = Mapbox.getApiKey()
     }
 
     @After
     @UiThreadTest
     fun after() {
         val context = InstrumentationRegistry.getInstrumentation().context
-        Trackasia.getInstance(context)
+        Mapbox.getInstance(context)
     }
 
     @Test
@@ -34,9 +34,9 @@ class BootstrapTest : AppCenter() {
     fun defaultBootstrap() {
         val context = InstrumentationRegistry.getInstrumentation().context
 
-        Trackasia.getInstance(context)
+        Mapbox.getInstance(context)
 
-        val tileServerOptions = TileServerOptions.get(WellKnownTileServer.Trackasia)
+        val tileServerOptions = TileServerOptions.get(WellKnownTileServer.TrackAsia)
         Assert.assertTrue(
             Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count()
         )
@@ -54,7 +54,7 @@ class BootstrapTest : AppCenter() {
         val context = InstrumentationRegistry.getInstrumentation().context
 
         val key = "abcdef"
-        Trackasia.getInstance(context, key, WellKnownTileServer.MapTiler)
+        Mapbox.getInstance(context, key, WellKnownTileServer.MapTiler)
 
         val tileServerOptions = TileServerOptions.get(WellKnownTileServer.MapTiler)
         Assert.assertTrue(
@@ -76,9 +76,9 @@ class BootstrapTest : AppCenter() {
 
         val key = "pk.abcdef"
 
-        Trackasia.getInstance(context, key, WellKnownTileServer.MapTiler)
-        Trackasia.getInstance(context)
-        Trackasia.getInstance(context, key, WellKnownTileServer.Mapbox)
+        Mapbox.getInstance(context, key, WellKnownTileServer.MapTiler)
+        Mapbox.getInstance(context)
+        Mapbox.getInstance(context, key, WellKnownTileServer.Mapbox)
 
         val tileServerOptions = TileServerOptions.get(WellKnownTileServer.Mapbox)
         Assert.assertTrue(

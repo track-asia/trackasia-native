@@ -5,7 +5,6 @@
 #include <cstddef>
 #include <vector>
 #include <map>
-#include <string>
 
 namespace mbgl {
 
@@ -37,8 +36,8 @@ public:
     std::size_t indexLength;
 
     // One DrawScope per layer ID. This minimizes rebinding in cases where
-    // several layers share buckets but have different sets of active
-    // attributes. This can happen:
+    // several layers share buckets but have different sets of active attributes.
+    // This can happen:
     //   * when two layers have the same layout properties, but differing
     //     data-driven paint properties
     //   * when two fill layers have the same layout properties, but one

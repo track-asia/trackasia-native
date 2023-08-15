@@ -14,8 +14,8 @@ import com.mapbox.geojson.Polygon
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
-import com.trackasia.android.maps.TrackasiaMap.CancelableCallback
+import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.MapboxMap.CancelableCallback
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
@@ -45,7 +45,7 @@ import java.util.Collections
  */
 class RuntimeStyleActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private var mapboxMap: MapboxMap? = null
     private var styleLoaded = false
     var lngLats = listOf(
         Arrays.asList(
@@ -80,20 +80,18 @@ class RuntimeStyleActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: TrackasiaMap? ->
+            OnMapReadyCallback { map: MapboxMap? ->
                 // Store for later
-                if (map != null) {
-                    trackasiaMap = map
-                }
+                mapboxMap = map
 
                 // Center and Zoom (Amsterdam, zoomed to streets)
-                trackasiaMap.animateCamera(
+                mapboxMap!!.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(52.379189, 4.899431),
                         1.0
                     )
                 )
-                trackasiaMap.setStyle(
+                mapboxMap!!.setStyle(
                     Style.Builder()
                         .fromUri(Style.getPredefinedStyle("Streets")) // set custom transition
                         .withTransition(TransitionOptions(250, 50))
@@ -121,37 +119,37 @@ class RuntimeStyleActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -260,7 +258,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun listLayers() {
-        val layers = trackasiaMap.style!!
+        val layers = mapboxMap!!.style!!
             .layers
         val builder = StringBuilder("Layers:")
         for (layer in layers) {
@@ -271,7 +269,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun listSources() {
-        val sources = trackasiaMap.style!!
+        val sources = mapboxMap!!.style!!
             .sources
         val builder = StringBuilder("Sources:")
         for (source in sources) {
@@ -284,21 +282,21 @@ class RuntimeStyleActivity : AppCompatActivity() {
     private fun setLayerInvisible() {
         val roadLayers = arrayOf("water")
         for (roadLayer in roadLayers) {
-            val layer = trackasiaMap.style!!.getLayer(roadLayer)
+            val layer = mapboxMap!!.style!!.getLayer(roadLayer)
             layer?.setProperties(PropertyFactory.visibility(Property.NONE))
         }
     }
 
     private fun setRoadSymbolPlacement() {
         // Zoom so that the labels are visible first
-        trackasiaMap.animateCamera(
+        mapboxMap!!.animateCamera(
             CameraUpdateFactory.zoomTo(14.0),
             object : DefaultCallback() {
                 override fun onFinish() {
                     val roadLayers =
                         arrayOf("road-label-small", "road-label-medium", "road-label-large")
                     for (roadLayer in roadLayers) {
-                        val layer = trackasiaMap.style!!
+                        val layer = mapboxMap!!.style!!
                             .getLayer(roadLayer)
                         layer?.setProperties(PropertyFactory.symbolPlacement(Property.SYMBOL_PLACEMENT_POINT))
                     }
@@ -308,12 +306,12 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun setBackgroundOpacity() {
-        val background = trackasiaMap.style!!.getLayer("background")
+        val background = mapboxMap!!.style!!.getLayer("background")
         background?.setProperties(PropertyFactory.backgroundOpacity(0.2f))
     }
 
     private fun setWaterColor() {
-        val water = trackasiaMap.style!!.getLayerAs<FillLayer>("water")
+        val water = mapboxMap!!.style!!.getLayerAs<FillLayer>("water")
         if (water != null) {
             water.fillColorTransition = TransitionOptions(7500, 1000)
             water.setProperties(
@@ -331,7 +329,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
 
     private fun removeBuildings() {
         // Zoom to see buildings first
-        trackasiaMap.style!!.removeLayer("building")
+        mapboxMap!!.style!!.removeLayer("building")
     }
 
     private fun addParksLayer() {
@@ -347,7 +345,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
             ).show()
             return
         }
-        trackasiaMap.style!!.addSource(source)
+        mapboxMap!!.style!!.addSource(source)
         var layer: FillLayer? = FillLayer("parksLayer", "amsterdam-spots")
         layer!!.setProperties(
             PropertyFactory.fillColor(Color.RED),
@@ -366,15 +364,15 @@ class RuntimeStyleActivity : AppCompatActivity() {
                 )
             )
         )
-        trackasiaMap.style!!.addLayerBelow(layer, "building")
+        mapboxMap!!.style!!.addLayerBelow(layer, "building")
         // layer.setPaintProperty(fillColor(Color.RED)); // XXX But not after the object is attached
 
         // Or get the object later and set it. It's all good.
-        trackasiaMap.style!!.getLayer("parksLayer")!!
+        mapboxMap!!.style!!.getLayer("parksLayer")!!
             .setProperties(PropertyFactory.fillColor(Color.RED))
 
         // You can get a typed layer, if you're sure it's of that type. Use with care
-        layer = trackasiaMap.style!!.getLayerAs("parksLayer")
+        layer = mapboxMap!!.style!!.getLayerAs("parksLayer")
         // And get some properties
         val fillAntialias = layer!!.fillAntialias
         Timber.d("Fill anti alias: %s", fillAntialias.getValue())
@@ -385,7 +383,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
         Timber.d("Visibility: %s", visibility.getValue())
 
         // Get a good look at it all
-        trackasiaMap.animateCamera(CameraUpdateFactory.zoomTo(12.0))
+        mapboxMap!!.animateCamera(CameraUpdateFactory.zoomTo(12.0))
     }
 
     private fun addDynamicParksLayer() {
@@ -404,7 +402,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
         }
 
         // Add an empty source
-        trackasiaMap.style!!.addSource(GeoJsonSource("dynamic-park-source"))
+        mapboxMap!!.style!!.addSource(GeoJsonSource("dynamic-park-source"))
         val layer = FillLayer("dynamic-parks-layer", "dynamic-park-source")
         layer.setProperties(
             PropertyFactory.fillColor(Color.GREEN),
@@ -422,10 +420,10 @@ class RuntimeStyleActivity : AppCompatActivity() {
                 )
             )
         )
-        trackasiaMap.style!!.addLayer(layer)
+        mapboxMap!!.style!!.addLayer(layer)
 
         // Get a good look at it all
-        trackasiaMap.animateCamera(CameraUpdateFactory.zoomTo(12.0))
+        mapboxMap!!.animateCamera(CameraUpdateFactory.zoomTo(12.0))
 
         // Animate the parks source
         animateParksSource(parks, 0)
@@ -435,13 +433,13 @@ class RuntimeStyleActivity : AppCompatActivity() {
         val handler = Handler(mainLooper)
         handler.postDelayed(
             {
-                if (trackasiaMap == null) {
+                if (mapboxMap == null) {
                     return@postDelayed
                 }
                 Timber.d("Updating parks source")
                 // change the source
                 val park = if (counter < parks.features()!!.size - 1) counter else 0
-                val source = trackasiaMap.style!!.getSourceAs<GeoJsonSource>("dynamic-park-source")
+                val source = mapboxMap!!.style!!.getSourceAs<GeoJsonSource>("dynamic-park-source")
                 if (source == null) {
                     Timber.e("Source not found")
                     Toast.makeText(this@RuntimeStyleActivity, "Source not found", Toast.LENGTH_SHORT)
@@ -462,7 +460,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
     private fun addTerrainLayer() {
         // Add a source
         val source: Source = VectorSource("my-terrain-source", "maptiler://sources/hillshades")
-        trackasiaMap.style!!.addSource(source)
+        mapboxMap!!.style!!.addSource(source)
         var layer: LineLayer? = LineLayer("terrainLayer", "my-terrain-source")
         layer!!.sourceLayer = "contour"
         layer.setProperties(
@@ -473,7 +471,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
         )
 
         // adding layers below "road" layers
-        val layers = trackasiaMap.style!!
+        val layers = mapboxMap!!.style!!
             .layers
         var latestLayer: Layer? = null
         Collections.reverse(layers)
@@ -489,16 +487,16 @@ class RuntimeStyleActivity : AppCompatActivity() {
             }
         }
         if (latestLayer != null) {
-            trackasiaMap.style!!.addLayerBelow(layer, latestLayer.id)
+            mapboxMap!!.style!!.addLayerBelow(layer, latestLayer.id)
         }
 
         // Need to get a fresh handle
-        layer = trackasiaMap.style!!.getLayerAs("terrainLayer")
+        layer = mapboxMap!!.style!!.getLayerAs("terrainLayer")
 
         // Make sure it's also applied after the fact
         layer!!.minZoom = 10f
         layer.maxZoom = 15f
-        layer = trackasiaMap.style!!.getLayer("terrainLayer") as LineLayer?
+        layer = mapboxMap!!.style!!.getLayer("terrainLayer") as LineLayer?
         Toast.makeText(
             this,
             String.format(
@@ -513,14 +511,14 @@ class RuntimeStyleActivity : AppCompatActivity() {
     private fun addSatelliteLayer() {
         // Add a source
         val source: Source = RasterSource("my-raster-source", "maptiler://sources/satellite", 512)
-        trackasiaMap.style!!.addSource(source)
+        mapboxMap!!.style!!.addSource(source)
 
         // Add a layer
-        trackasiaMap.style!!.addLayer(RasterLayer("satellite-layer", "my-raster-source"))
+        mapboxMap!!.style!!.addLayer(RasterLayer("satellite-layer", "my-raster-source"))
     }
 
     private fun updateWaterColorOnZoom() {
-        val layer = trackasiaMap.style!!.getLayerAs<FillLayer>("water") ?: return
+        val layer = mapboxMap!!.style!!.getLayerAs<FillLayer>("water") ?: return
 
         // Set a zoom function to update the color of the water
         layer.setProperties(
@@ -537,7 +535,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
         )
 
         // do some animations to show it off properly
-        trackasiaMap.animateCamera(CameraUpdateFactory.zoomTo(1.0), 1500)
+        mapboxMap!!.animateCamera(CameraUpdateFactory.zoomTo(1.0), 1500)
     }
 
     private fun addCustomTileSource() {
@@ -547,7 +545,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
         tileSet.minZoom = 0f
         tileSet.maxZoom = 14f
         val source: Source = VectorSource("custom-tile-source", tileSet)
-        trackasiaMap.style!!.addSource(source)
+        mapboxMap!!.style!!.addSource(source)
 
         // Add a layer
         val lineLayer = LineLayer("custom-tile-layers", "custom-tile-source")
@@ -559,12 +557,12 @@ class RuntimeStyleActivity : AppCompatActivity() {
             PropertyFactory.lineWidth(2.0f),
             PropertyFactory.lineColor(Color.GREEN)
         )
-        trackasiaMap.style!!.addLayer(lineLayer)
+        mapboxMap!!.style!!.addLayer(lineLayer)
     }
 
     private fun styleFillColorLayer() {
-        trackasiaMap.setStyle(Style.Builder().fromUri("asset://fill_color_style.json"))
-        trackasiaMap.moveCamera(
+        mapboxMap!!.setStyle(Style.Builder().fromUri("asset://fill_color_style.json"))
+        mapboxMap!!.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(31.0, (-100).toDouble()),
                 3.0
@@ -573,8 +571,8 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun styleFillFilterLayer() {
-        trackasiaMap.setStyle(Style.Builder().fromUri("asset://fill_filter_style.json"))
-        trackasiaMap.moveCamera(
+        mapboxMap!!.setStyle(Style.Builder().fromUri("asset://fill_filter_style.json"))
+        mapboxMap!!.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(31.0, (-100).toDouble()),
                 3.0
@@ -583,11 +581,11 @@ class RuntimeStyleActivity : AppCompatActivity() {
         val handler = Handler(mainLooper)
         handler.postDelayed(
             {
-                if (trackasiaMap == null) {
+                if (mapboxMap == null) {
                     return@postDelayed
                 }
                 Timber.d("Styling filtered fill layer")
-                val states = trackasiaMap.style!!.getLayer("states") as FillLayer?
+                val states = mapboxMap!!.style!!.getLayer("states") as FillLayer?
                 if (states != null) {
                     states.setFilter(Expression.eq(Expression.get("name"), Expression.literal("Texas")))
                     states.fillOpacityTransition = TransitionOptions(2500, 0)
@@ -609,8 +607,8 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun styleTextSizeFilterLayer() {
-        trackasiaMap.setStyle(Style.Builder().fromUri("asset://fill_filter_style.json"))
-        trackasiaMap.moveCamera(
+        mapboxMap!!.setStyle(Style.Builder().fromUri("asset://fill_filter_style.json"))
+        mapboxMap!!.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(31.0, (-100).toDouble()),
                 3.0
@@ -619,11 +617,11 @@ class RuntimeStyleActivity : AppCompatActivity() {
         val handler = Handler(mainLooper)
         handler.postDelayed(
             {
-                if (trackasiaMap == null) {
+                if (mapboxMap == null) {
                     return@postDelayed
                 }
                 Timber.d("Styling text size fill layer")
-                val states = trackasiaMap.style!!.getLayer("state-label-lg") as SymbolLayer?
+                val states = mapboxMap!!.style!!.getLayer("state-label-lg") as SymbolLayer?
                 if (states != null) {
                     states.setProperties(
                         PropertyFactory.textSize(
@@ -652,16 +650,16 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun styleLineFilterLayer() {
-        trackasiaMap.setStyle(Style.Builder().fromUri("asset://line_filter_style.json"))
-        trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(40.0, (-97).toDouble()), 5.0))
+        mapboxMap!!.setStyle(Style.Builder().fromUri("asset://line_filter_style.json"))
+        mapboxMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(40.0, (-97).toDouble()), 5.0))
         val handler = Handler(mainLooper)
         handler.postDelayed(
             {
-                if (trackasiaMap == null) {
+                if (mapboxMap == null) {
                     return@postDelayed
                 }
                 Timber.d("Styling filtered line layer")
-                val counties = trackasiaMap.style!!.getLayer("counties") as LineLayer?
+                val counties = mapboxMap!!.style!!.getLayer("counties") as LineLayer?
                 if (counties != null) {
                     counties.setFilter(Expression.eq(Expression.get("NAME10"), "Washington"))
                     counties.setProperties(
@@ -682,16 +680,16 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun styleNumericFillLayer() {
-        trackasiaMap.setStyle(Style.Builder().fromUri("asset://numeric_filter_style.json"))
-        trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(40.0, (-97).toDouble()), 5.0))
+        mapboxMap!!.setStyle(Style.Builder().fromUri("asset://numeric_filter_style.json"))
+        mapboxMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(40.0, (-97).toDouble()), 5.0))
         val handler = Handler(mainLooper)
         handler.postDelayed(
             {
-                if (trackasiaMap == null) {
+                if (mapboxMap == null) {
                     return@postDelayed
                 }
                 Timber.d("Styling numeric fill layer")
-                val regions = trackasiaMap.style!!.getLayer("regions") as FillLayer?
+                val regions = mapboxMap!!.style!!.getLayer("regions") as FillLayer?
                 if (regions != null) {
                     regions.setFilter(
                         Expression.all(
@@ -722,10 +720,10 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun bringWaterToFront() {
-        val water = trackasiaMap.style!!.getLayer("water")
+        val water = mapboxMap!!.style!!.getLayer("water")
         if (water != null) {
-            trackasiaMap.style!!.removeLayer(water)
-            trackasiaMap.style!!.addLayerAt(water, trackasiaMap.style!!.layers.size - 1)
+            mapboxMap!!.style!!.removeLayer(water)
+            mapboxMap!!.style!!.addLayerAt(water, mapboxMap!!.style!!.layers.size - 1)
         } else {
             Toast.makeText(this, "No water layer in this style", Toast.LENGTH_SHORT).show()
         }

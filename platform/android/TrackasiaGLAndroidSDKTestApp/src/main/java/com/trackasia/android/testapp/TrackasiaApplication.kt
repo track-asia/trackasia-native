@@ -6,7 +6,7 @@ import android.os.StrictMode.VmPolicy
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
 import com.trackasia.android.MapStrictMode
-import com.trackasia.android.Trackasia
+import com.trackasia.android.Mapbox
 import com.trackasia.android.WellKnownTileServer
 import com.trackasia.android.log.Logger
 import com.trackasia.android.testapp.utils.ApiKeyUtils
@@ -19,10 +19,10 @@ import timber.log.Timber.DebugTree
  * Application class of the test application.
  *
  *
- * Initialises components as LeakCanary, Strictmode, Timber and Trackasia
+ * Initialises components as LeakCanary, Strictmode, Timber and Mapbox
  *
  */
-open class TrackasiaApplication : MultiDexApplication() {
+class TrackAsiaApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         initializeLogger()
@@ -57,10 +57,8 @@ open class TrackasiaApplication : MultiDexApplication() {
 
     private fun initializeMapbox() {
         val apiKey = ApiKeyUtils.getApiKey(applicationContext)
-        if (apiKey != null) {
-            validateApiKey(apiKey)
-        }
-        Trackasia.getInstance(applicationContext, apiKey, TILE_SERVER)
+        validateApiKey(apiKey)
+        Mapbox.getInstance(applicationContext, apiKey, TILE_SERVER)
         TileLoadingMeasurementUtils.setUpTileLoadingMeasurement()
         MapStrictMode.setStrictModeEnabled(true)
     }
@@ -71,9 +69,9 @@ open class TrackasiaApplication : MultiDexApplication() {
         private const val API_KEY_NOT_SET_MESSAGE =
             (
                 "In order to run the Test App you need to set a valid " +
-                    "API key. During development, you can set the MLN_API_KEY environment variable for the SDK to " +
+                    "API key. During development, you can set the MGL_API_KEY environment variable for the SDK to " +
                     "automatically include it in the Test App. Otherwise, you can manually include it in the " +
-                    "res/values/developer-config.xml file in the TrackasiaGLAndroidSDKTestApp folder."
+                    "res/values/developer-config.xml file in the TrackAsiaGLAndroidSDKTestApp folder."
                 )
 
         private fun validateApiKey(apiKey: String) {

@@ -16,7 +16,7 @@ import com.trackasia.android.location.engine.LocationEngineResult
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityLocationLayerFragmentBinding
@@ -94,7 +94,7 @@ class LocationFragmentActivity : AppCompatActivity() {
         }
 
         private lateinit var mapView: MapView
-        private lateinit var trackasiaMap: TrackasiaMap
+        private lateinit var mapboxMap: MapboxMap
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             mapView = MapView(inflater.context)
@@ -106,9 +106,9 @@ class LocationFragmentActivity : AppCompatActivity() {
             super.onViewCreated(view, savedInstanceState)
             mapView.onCreate(savedInstanceState)
             mapView.getMapAsync {
-                trackasiaMap = it
+                mapboxMap = it
                 it.setStyle(Style.getPredefinedStyle("Streets")) { style ->
-                    val component = trackasiaMap.locationComponent
+                    val component = mapboxMap.locationComponent
 
                     component.activateLocationComponent(
                         LocationComponentActivationOptions
@@ -124,7 +124,7 @@ class LocationFragmentActivity : AppCompatActivity() {
         }
 
         override fun onSuccess(result: LocationEngineResult?) {
-            if (!mapView.isDestroyed) trackasiaMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(result?.lastLocation!!), 12.0))
+            if (!mapView.isDestroyed) mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(result?.lastLocation!!), 12.0))
         }
 
         override fun onFailure(exception: Exception) {

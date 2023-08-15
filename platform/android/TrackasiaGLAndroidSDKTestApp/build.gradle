@@ -1,15 +1,11 @@
-plugins {
-    id 'org.jmailen.kotlinter'
-    id 'com.android.application'
-}
-
+apply plugin: 'com.android.application'
 apply from: "${rootDir}/gradle/native-build.gradle"
 
 android {
     compileSdkVersion androidVersions.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.trackasia.testapp"
+        applicationId "com.trackasia.android.testapp"
         minSdkVersion androidVersions.minSdkVersion
         targetSdkVersion androidVersions.targetSdkVersion
         versionCode 14
@@ -51,7 +47,7 @@ android {
     }
 
     namespace 'com.trackasia.android.testapp'
-    testNamespace 'com.trackasia.testapp.test'
+    testNamespace '${applicationId}'
     lint {
         abortOnError false
         baseline file('lint-baseline-local.xml')
@@ -63,11 +59,8 @@ android {
 
 dependencies {
     implementation dependenciesList.kotlinLib
-    implementation project(':TrackasiaGLAndroidSDK')
-//    implementation files('libs/android-1.0.0-sdk.aar')
-//    implementation 'com.github.track-asia:trackasia-android-sdk:1.0.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-gestures:0.7.0'
 
+    implementation project(':TrackAsiaGLAndroidSDK')
     implementation dependenciesList.mapboxJavaTurf
 
     implementation dependenciesList.supportAppcompatV7
@@ -77,11 +70,12 @@ dependencies {
 
     implementation dependenciesList.multidex
 
+    implementation dependenciesList.gmsLocation
     implementation dependenciesList.timber
 
     implementation dependenciesList.okhttp3
 
-    debugImplementation dependenciesList.leakCanary
+    implementation dependenciesList.leakCanary
 
     androidTestImplementation dependenciesList.supportAnnotations
     androidTestImplementation dependenciesList.testRunner
@@ -91,7 +85,7 @@ dependencies {
     androidTestImplementation dependenciesList.testEspressoContrib
     androidTestImplementation dependenciesList.testUiAutomator
     androidTestImplementation dependenciesList.appCenter
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
 }
 
 apply from: "${rootDir}/gradle/gradle-make.gradle"

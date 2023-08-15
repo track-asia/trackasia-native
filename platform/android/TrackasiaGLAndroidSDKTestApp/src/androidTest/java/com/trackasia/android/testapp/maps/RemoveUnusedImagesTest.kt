@@ -7,7 +7,7 @@ import com.trackasia.android.AppCenter
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
@@ -28,7 +28,7 @@ class RemoveUnusedImagesTest : AppCenter() {
     var rule = ActivityTestRule(EspressoTestActivity::class.java)
 
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private val latch = CountDownLatch(1)
 
     @Before
@@ -36,8 +36,8 @@ class RemoveUnusedImagesTest : AppCenter() {
         rule.runOnUiThread {
             mapView = rule.activity.findViewById(R.id.mapView)
             mapView.getMapAsync {
-                trackasiaMap = it
-                trackasiaMap.setStyle(Style.Builder().fromJson(styleJson))
+                mapboxMap = it
+                mapboxMap.setStyle(Style.Builder().fromJson(styleJson))
             }
         }
     }
@@ -47,22 +47,22 @@ class RemoveUnusedImagesTest : AppCenter() {
         var callbackLatch = CountDownLatch(2)
         rule.runOnUiThread {
             mapView.addOnStyleImageMissingListener {
-                trackasiaMap.style!!.addImage(it, Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888))
+                mapboxMap.style!!.addImage(it, Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888))
             }
 
             // Remove layer and source, so that rendered tiles are no longer used, therefore, map must
             // notify client about unused images.
             mapView.addOnDidBecomeIdleListener {
-                trackasiaMap.style!!.removeLayer("icon")
-                trackasiaMap.style!!.removeSource("geojson")
+                mapboxMap.style!!.removeLayer("icon")
+                mapboxMap.style!!.removeSource("geojson")
             }
 
             mapView.addOnCanRemoveUnusedStyleImageListener {
                 callbackLatch.countDown()
-                trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 120.0), 8.0))
+                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 120.0), 8.0))
                 mapView.addOnDidFinishRenderingFrameListener {
-                    assertNotNull(trackasiaMap.style!!.getImage("small"))
-                    assertNotNull(trackasiaMap.style!!.getImage("large"))
+                    assertNotNull(mapboxMap.style!!.getImage("small"))
+                    assertNotNull(mapboxMap.style!!.getImage("large"))
                     latch.countDown()
                 }
                 return@addOnCanRemoveUnusedStyleImageListener false
@@ -78,19 +78,19 @@ class RemoveUnusedImagesTest : AppCenter() {
     fun testRemoveUnusedImagesDefaultListener() {
         rule.runOnUiThread {
             mapView.addOnStyleImageMissingListener {
-                trackasiaMap.style!!.addImage(it, Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888))
+                mapboxMap.style!!.addImage(it, Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888))
             }
 
             // Remove layer and source, so that rendered tiles are no longer used, thus
             // map must request removal of unused images.
             mapView.addOnDidBecomeIdleListener {
-                trackasiaMap.style!!.removeLayer("icon")
-                trackasiaMap.style!!.removeSource("geojson")
-                trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 120.0), 8.0))
+                mapboxMap.style!!.removeLayer("icon")
+                mapboxMap.style!!.removeSource("geojson")
+                mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 120.0), 8.0))
 
                 // Wait for the next frame and check that images were removed from the style.
                 mapView.addOnDidFinishRenderingFrameListener {
-                    if (trackasiaMap.style!!.getImage("small") == null && trackasiaMap.style!!.getImage("large") == null) {
+                    if (mapboxMap.style!!.getImage("small") == null && mapboxMap.style!!.getImage("large") == null) {
                         latch.countDown()
                     }
                 }
@@ -107,7 +107,7 @@ class RemoveUnusedImagesTest : AppCenter() {
             """
     {
       "version": 8,
-      "name": "Trackasia Streets",
+      "name": "Mapbox Streets",
       "sources": {
         "geojson": {
           "type": "geojson",

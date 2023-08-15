@@ -16,48 +16,48 @@
 #include <mbgl/util/run_loop.hpp>
 
 #include <sstream>
-#include <optional>
 
 using namespace mbgl;
 
 namespace {
 
-static std::string cachePath{"benchmark/fixtures/api/cache.db"};
-constexpr double pixelRatio{1.0};
-constexpr Size size{1000, 1000};
+static std::string cachePath { "benchmark/fixtures/api/cache.db" };
+constexpr double pixelRatio { 1.0 };
+constexpr Size size { 1000, 1000 };
 
 class RenderBenchmark {
 public:
-    RenderBenchmark() { NetworkStatus::Set(NetworkStatus::Status::Offline); }
+    RenderBenchmark() {
+        NetworkStatus::Set(NetworkStatus::Status::Offline);
+    }
 
     util::RunLoop loop;
 };
 
-void prepare(Map& map, std::optional<std::string> json = std::nullopt) {
+void prepare(Map& map, optional<std::string> json = nullopt) {
     map.getStyle().loadJSON(json ? *json : util::read_file("benchmark/fixtures/api/style.json"));
-    map.jumpTo(CameraOptions().withCenter(LatLng{40.726989, -73.992857}).withZoom(15.0)); // Manhattan
+    map.jumpTo(CameraOptions().withCenter(LatLng { 40.726989, -73.992857 }).withZoom(15.0)); // Manhattan
 
     auto image = decodeImage(util::read_file("benchmark/fixtures/api/default_marker.png"));
-    map.getStyle().addImage(std::make_unique<style::Image>("test-icon", std::move(image), 1.0f));
+    map.getStyle().addImage(std::make_unique<style::Image>("test-icon", std::move(image), 1.0));
 }
 
-void prepare_map2(Map& map, std::optional<std::string> json = std::nullopt) {
+void prepare_map2(Map& map, optional<std::string> json = nullopt) {
     map.getStyle().loadJSON(json ? *json : util::read_file("benchmark/fixtures/api/style.json"));
     map.jumpTo(CameraOptions().withCenter(LatLng{41.379800, 2.176810}).withZoom(15.0)); // Barcelona
 
     auto image = decodeImage(util::read_file("benchmark/fixtures/api/default_marker.png"));
-    map.getStyle().addImage(std::make_unique<style::Image>("test-icon", std::move(image), 1.0f));
+    map.getStyle().addImage(std::make_unique<style::Image>("test-icon", std::move(image), 1.0));
 }
 
 } // end namespace
 
 static void API_renderStill_reuse_map(::benchmark::State& state) {
     RenderBenchmark bench;
-    HeadlessFrontend frontend{size, pixelRatio};
-    Map map{frontend,
-            MapObserver::nullObserver(),
-            MapOptions().withMapMode(MapMode::Static).withSize(size).withPixelRatio(pixelRatio),
-            ResourceOptions().withCachePath(cachePath).withApiKey("foobar")};
+    HeadlessFrontend frontend { size, pixelRatio };
+    Map map { frontend, MapObserver::nullObserver(),
+              MapOptions().withMapMode(MapMode::Static).withSize(size).withPixelRatio(pixelRatio),
+              ResourceOptions().withCachePath(cachePath).withApiKey("foobar") };
     prepare(map);
 
     for (auto _ : state) {
@@ -67,11 +67,10 @@ static void API_renderStill_reuse_map(::benchmark::State& state) {
 
 static void API_renderStill_reuse_map_formatted_labels(::benchmark::State& state) {
     RenderBenchmark bench;
-    HeadlessFrontend frontend{size, pixelRatio};
-    Map map{frontend,
-            MapObserver::nullObserver(),
-            MapOptions().withMapMode(MapMode::Static).withSize(size).withPixelRatio(pixelRatio),
-            ResourceOptions().withCachePath(cachePath).withApiKey("foobar")};
+    HeadlessFrontend frontend { size, pixelRatio };
+    Map map { frontend, MapObserver::nullObserver(),
+              MapOptions().withMapMode(MapMode::Static).withSize(size).withPixelRatio(pixelRatio),
+              ResourceOptions().withCachePath(cachePath).withApiKey("foobar") };
     prepare(map, util::read_file("benchmark/fixtures/api/style_formatted_labels.json"));
 
     for (auto _ : state) {
@@ -81,14 +80,13 @@ static void API_renderStill_reuse_map_formatted_labels(::benchmark::State& state
 
 static void API_renderStill_reuse_map_switch_styles(::benchmark::State& state) {
     RenderBenchmark bench;
-    HeadlessFrontend frontend{size, pixelRatio};
-    Map map{frontend,
-            MapObserver::nullObserver(),
-            MapOptions().withMapMode(MapMode::Static).withSize(size).withPixelRatio(pixelRatio),
-            ResourceOptions().withCachePath(cachePath).withApiKey("foobar")};
+    HeadlessFrontend frontend { size, pixelRatio };
+    Map map { frontend, MapObserver::nullObserver(),
+              MapOptions().withMapMode(MapMode::Static).withSize(size).withPixelRatio(pixelRatio),
+              ResourceOptions().withCachePath(cachePath).withApiKey("foobar") };
 
     for (auto _ : state) {
-        prepare(map, {"{}"});
+        prepare(map, { "{}" });
         frontend.render(map);
         prepare(map);
         frontend.render(map);
@@ -99,11 +97,10 @@ static void API_renderStill_recreate_map(::benchmark::State& state) {
     RenderBenchmark bench;
 
     for (auto _ : state) {
-        HeadlessFrontend frontend{size, pixelRatio};
-        Map map{frontend,
-                MapObserver::nullObserver(),
-                MapOptions().withMapMode(MapMode::Static).withSize(size).withPixelRatio(pixelRatio),
-                ResourceOptions().withCachePath(cachePath).withApiKey("foobar")};
+        HeadlessFrontend frontend { size, pixelRatio };
+        Map map { frontend, MapObserver::nullObserver(),
+                  MapOptions().withMapMode(MapMode::Static).withSize(size).withPixelRatio(pixelRatio),
+                  ResourceOptions().withCachePath(cachePath).withApiKey("foobar") };
         prepare(map);
         frontend.render(map);
     }

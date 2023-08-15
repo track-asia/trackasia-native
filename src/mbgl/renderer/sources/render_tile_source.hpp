@@ -25,22 +25,22 @@ public:
     RenderTiles getRenderTilesSortedByYPosition() const override;
     const Tile* getRenderedTile(const UnwrappedTileID&) const override;
 
-    std::unordered_map<std::string, std::vector<Feature>> queryRenderedFeatures(
-        const ScreenLineString& geometry,
-        const TransformState& transformState,
-        const std::unordered_map<std::string, const RenderLayer*>& layers,
-        const RenderedQueryOptions& options,
-        const mat4& projMatrix) const override;
+    std::unordered_map<std::string, std::vector<Feature>>
+    queryRenderedFeatures(const ScreenLineString& geometry,
+                          const TransformState& transformState,
+                          const std::unordered_map<std::string, const RenderLayer*>& layers,
+                          const RenderedQueryOptions& options,
+                          const mat4& projMatrix) const override;
 
-    std::vector<Feature> querySourceFeatures(const SourceQueryOptions&) const override;
+    std::vector<Feature>
+    querySourceFeatures(const SourceQueryOptions&) const override;
 
-    void setFeatureState(const std::optional<std::string>&, const std::string&, const FeatureState&) override;
+    void setFeatureState(const optional<std::string>&, const std::string&, const FeatureState&) override;
 
-    void getFeatureState(FeatureState& state, const std::optional<std::string>&, const std::string&) const override;
+    void getFeatureState(FeatureState& state, const optional<std::string>&, const std::string&) const override;
 
-    void removeFeatureState(const std::optional<std::string>&,
-                            const std::optional<std::string>&,
-                            const std::optional<std::string>&) override;
+    void removeFeatureState(const optional<std::string>&, const optional<std::string>&,
+                            const optional<std::string>&) override;
 
     void reduceMemoryUse() override;
     void dumpDebugLogs() const override;
@@ -71,7 +71,7 @@ protected:
                                 bool needsRelayout,
                                 const TileParameters&) = 0;
     // Returns tileset from the current impl.
-    virtual const std::optional<Tileset>& getTileset() const = 0;
+    virtual const optional<Tileset>& getTileset() const = 0;
 
 private:
     uint8_t getMaxZoom() const final;
@@ -81,7 +81,7 @@ private:
                 bool needsRelayout,
                 const TileParameters&) final;
 
-    std::optional<Tileset> cachedTileset;
+    optional<Tileset> cachedTileset;
 };
 
 } // namespace mbgl

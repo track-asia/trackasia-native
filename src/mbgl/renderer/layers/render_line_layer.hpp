@@ -10,11 +10,6 @@
 
 namespace mbgl {
 
-class LineProgram;
-class LineGradientProgram;
-class LineSDFProgram;
-class LinePatternProgram;
-
 class RenderLineLayer final : public RenderLayer {
 public:
     explicit RenderLineLayer(Immutable<style::LineLayer::Impl>);
@@ -44,13 +39,7 @@ private:
     void updateColorRamp();
 
     PremultipliedImage colorRamp;
-    std::optional<gfx::Texture> colorRampTexture;
-
-    // Programs
-    std::shared_ptr<LineProgram> lineProgram;
-    std::shared_ptr<LineGradientProgram> lineGradientProgram;
-    std::shared_ptr<LineSDFProgram> lineSDFProgram;
-    std::shared_ptr<LinePatternProgram> linePatternProgram;
+    optional<gfx::Texture> colorRampTexture;
 };
 
 } // namespace mbgl

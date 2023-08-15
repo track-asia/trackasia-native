@@ -16,7 +16,7 @@ EvaluationResult Case::evaluate(const EvaluationContext& params) const {
             return branch.second->evaluate(params);
         }
     }
-
+    
     return otherwise->evaluate(params);
 }
 
@@ -36,8 +36,8 @@ bool Case::operator==(const Expression& e) const {
     return false;
 }
 
-std::vector<std::optional<Value>> Case::possibleOutputs() const {
-    std::vector<std::optional<Value>> result;
+std::vector<optional<Value>> Case::possibleOutputs() const {
+    std::vector<optional<Value>> result;
     for (const auto& branch : branches) {
         for (auto& output : branch.second->possibleOutputs()) {
             result.push_back(std::move(output));
@@ -64,7 +64,7 @@ ParseResult Case::parse(const Convertible& value, ParsingContext& ctx) {
         return ParseResult();
     }
 
-    std::optional<type::Type> outputType;
+    optional<type::Type> outputType;
     if (ctx.getExpected() && *ctx.getExpected() != type::Value) {
         outputType = ctx.getExpected();
     }
@@ -81,7 +81,7 @@ ParseResult Case::parse(const Convertible& value, ParsingContext& ctx) {
         if (!output) {
             return output;
         }
-
+        
         if (!outputType) {
             outputType = (*output)->getType();
         }
@@ -96,7 +96,9 @@ ParseResult Case::parse(const Convertible& value, ParsingContext& ctx) {
         return otherwise;
     }
 
-    return ParseResult(std::make_unique<Case>(*outputType, std::move(branches), std::move(*otherwise)));
+    return ParseResult(std::make_unique<Case>(*outputType,
+                                  std::move(branches),
+                                  std::move(*otherwise)));
 }
 
 } // namespace expression

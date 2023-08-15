@@ -11,9 +11,9 @@ public:
     Impl(std::string id);
     Impl(const Impl&, Tileset);
 
-    std::optional<std::string> getAttribution() const final;
+    optional<std::string> getAttribution() const final;
 
-    const std::optional<Tileset> tileset;
+    const optional<Tileset> tileset;
 };
 
 } // namespace style

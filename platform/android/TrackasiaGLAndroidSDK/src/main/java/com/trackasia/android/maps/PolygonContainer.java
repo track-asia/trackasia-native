@@ -25,12 +25,12 @@ class PolygonContainer implements Polygons {
   }
 
   @Override
-  public Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull TrackasiaMap trackasiaMap) {
+  public Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull MapboxMap mapboxMap) {
     Polygon polygon = polygonOptions.getPolygon();
     if (!polygon.getPoints().isEmpty()) {
       long id = nativeMap != null ? nativeMap.addPolygon(polygon) : 0;
       polygon.setId(id);
-      polygon.setMapboxMap(trackasiaMap);
+      polygon.setMapboxMap(mapboxMap);
       annotations.put(id, polygon);
     }
     return polygon;
@@ -38,7 +38,7 @@ class PolygonContainer implements Polygons {
 
   @NonNull
   @Override
-  public List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull TrackasiaMap trackasiaMap) {
+  public List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapboxMap mapboxMap) {
     int count = polygonOptionsList.size();
 
     Polygon polygon;
@@ -54,7 +54,7 @@ class PolygonContainer implements Polygons {
       long[] ids = nativeMap.addPolygons(polygons);
       for (int i = 0; i < ids.length; i++) {
         polygon = polygons.get(i);
-        polygon.setMapboxMap(trackasiaMap);
+        polygon.setMapboxMap(mapboxMap);
         polygon.setId(ids[i]);
         annotations.put(ids[i], polygon);
       }

@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.Feature
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.utils.NavUtils
@@ -19,8 +19,8 @@ import timber.log.Timber
  * Test activity showcasing using the query rendered features API to count features in a rectangle.
  */
 class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
-    lateinit var mapView: MapView
-    lateinit var trackasiaMap: TrackasiaMap
+    var mapView: MapView? = null
+    var mapboxMap: MapboxMap? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +30,14 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
 
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { trackasiaMap: TrackasiaMap ->
-            this@QueryRenderedFeaturesBoxCountActivity.trackasiaMap = trackasiaMap
-            trackasiaMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Streets")))
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+            this@QueryRenderedFeaturesBoxCountActivity.mapboxMap = mapboxMap
+            mapboxMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Streets")))
             selectionBox.setOnClickListener { view: View? ->
                 // Query
-                val top = selectionBox.top - mapView.top
-                val left = selectionBox.left - mapView.left
+                val top = selectionBox.top - mapView!!.top
+                val left = selectionBox.left - mapView!!.left
                 val box = RectF(
                     left.toFloat(),
                     top.toFloat(),
@@ -45,7 +45,7 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
                     (top + selectionBox.height).toFloat()
                 )
                 Timber.i("Querying box %s", box)
-                val features = trackasiaMap.queryRenderedFeatures(box)
+                val features = mapboxMap.queryRenderedFeatures(box)
 
                 // Show count
                 Toast.makeText(
@@ -88,42 +88,41 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
-
-        if (::trackasiaMap.isInitialized) {
+        mapView!!.onStart()
+        if (mapboxMap != null) {
             // Regression test for #14394
-            trackasiaMap.queryRenderedFeatures(PointF(0F, 0F))
+            mapboxMap!!.queryRenderedFeatures(PointF(0F, 0F))
         }
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -45,8 +45,8 @@ buildPackageStyle() {
     fi
 }
 
-export GITHUB_USER=Trackasia
-export GITHUB_REPO=trackasia-native
+export GITHUB_USER=trackasia
+export GITHUB_REPO=trackasia-gl-native
 export BUILDTYPE=Release
 export PACKAGE_FORMAT=xcframework
 

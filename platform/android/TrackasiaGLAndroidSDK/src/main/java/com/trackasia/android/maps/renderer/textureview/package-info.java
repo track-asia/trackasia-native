@@ -1,4 +1,4 @@
 /**
- * Contains the Trackasia Maps Android TextureView API classes.
+ * Contains the Mapbox Maps Android TextureView API classes.
  */
 package com.trackasia.android.maps.renderer.textureview;

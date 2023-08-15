@@ -1,6 +1,6 @@
 ## Vector Tile Library
 
-C++14 library for decoding [Mapbox Vector Tiles](https://www.mapbox.com/vector-tiles/).
+C++14 library for decoding [Trackasia Vector Tiles](https://www.mapbox.com/vector-tiles/).
 
 [![Build Status](https://travis-ci.org/mapbox/vector-tile.svg?branch=master)](https://travis-ci.org/mapbox/vector-tile)
 

@@ -16,7 +16,7 @@ namespace android {
 class CustomGeometrySource : public Source {
 public:
     using SuperTag = Source;
-    static constexpr auto Name() { return "com/trackasia/android/style/sources/CustomGeometrySource"; };
+    static constexpr auto Name() { return "com.trackasia.android/style/sources/CustomGeometrySource"; };
 
     static void registerNative(jni::JNIEnv&);
 
@@ -34,14 +34,13 @@ public:
     void releaseThreads();
 
 private:
-    void setTileData(
-        jni::JNIEnv& env, jni::jint z, jni::jint x, jni::jint y, const jni::Object<geojson::FeatureCollection>& jf);
+    void setTileData(jni::JNIEnv& env, jni::jint z, jni::jint x, jni::jint y, const jni::Object<geojson::FeatureCollection>& jf);
 
     void invalidateTile(jni::JNIEnv& env, jni::jint z, jni::jint x, jni::jint y);
     void invalidateBounds(jni::JNIEnv& env, const jni::Object<LatLngBounds>& bounds);
 
     jni::Local<jni::Array<jni::Object<geojson::Feature>>> querySourceFeatures(jni::JNIEnv&,
-                                                                              const jni::Array<jni::Object<>>&);
+                                                                  const jni::Array<jni::Object<>>& );
 
     jni::Local<jni::Object<Source>> createJavaPeer(jni::JNIEnv&);
 

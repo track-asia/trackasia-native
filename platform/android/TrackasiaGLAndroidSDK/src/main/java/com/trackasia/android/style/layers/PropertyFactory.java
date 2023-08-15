@@ -6,12 +6,13 @@ import androidx.annotation.ColorInt;
 
 import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.types.Formatted;
+
 import static com.trackasia.android.utils.ColorUtils.colorToRgbaString;
 
 /**
  * Constructs paint/layout properties for Layers
  *
- * @see <a href="https://track-asia.com/trackasia-style-spec/#layers">Layer style documentation</a>
+ * @see <a href="https://www.mapbox.com/mapbox-gl-style-spec/#layers">Layer style documentation</a>
  */
 public class PropertyFactory {
 
@@ -1806,7 +1807,7 @@ public class PropertyFactory {
   }
 
   /**
-   * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like Trackasia GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
+   * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like TrackAsia GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
    *
    * @param value a Boolean value
    * @return property wrapper around Boolean
@@ -1816,7 +1817,7 @@ public class PropertyFactory {
   }
 
   /**
-   * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like Trackasia GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
+   * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like TrackAsia GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
    *
    * @param value a Boolean value
    * @return property wrapper around Boolean

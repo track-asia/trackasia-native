@@ -3,7 +3,7 @@ package com.trackasia.android.testapp.activity.offline
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.trackasia.android.Trackasia
+import com.trackasia.android.Mapbox
 import com.trackasia.android.log.Logger
 import com.trackasia.android.maps.Style
 import com.trackasia.android.offline.OfflineManager
@@ -42,13 +42,13 @@ class MergeOfflineRegionsActivity : AppCompatActivity() {
     }
 
     private val onRegionMergedListener = object : OfflineManager.MergeOfflineRegionsCallback {
-        override fun onMerge(offlineRegions: Array<OfflineRegion>?) {
+        override fun onMerge(offlineRegions: Array<OfflineRegion>) {
             binding.mapView.getMapAsync {
                 it.setStyle(Style.Builder().fromUri(TEST_STYLE))
             }
             Toast.makeText(
                 this@MergeOfflineRegionsActivity,
-                String.format("Merged %d regions.", offlineRegions?.size ?: 0),
+                String.format("Merged %d regions.", offlineRegions.size),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -69,11 +69,11 @@ class MergeOfflineRegionsActivity : AppCompatActivity() {
      */
     private class MergeCallback(private var activityCallback: OfflineManager.MergeOfflineRegionsCallback?) : OfflineManager.MergeOfflineRegionsCallback {
 
-        override fun onMerge(offlineRegions: Array<OfflineRegion>?) {
+        override fun onMerge(offlineRegions: Array<out OfflineRegion>?) {
             activityCallback?.onMerge(offlineRegions)
         }
 
-        override fun onError(error: String) {
+        override fun onError(error: String?) {
             activityCallback?.onError(error)
         }
 
@@ -90,7 +90,7 @@ class MergeOfflineRegionsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // forcing offline state
-        Trackasia.setConnected(false)
+        Mapbox.setConnected(false)
 
         binding.mapView.onCreate(savedInstanceState)
         binding.loadRegionBtn.setOnClickListener {
@@ -145,7 +145,7 @@ class MergeOfflineRegionsActivity : AppCompatActivity() {
         binding.mapView.onDestroy()
 
         // restoring connectivity state
-        Trackasia.setConnected(null)
+        Mapbox.setConnected(null)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

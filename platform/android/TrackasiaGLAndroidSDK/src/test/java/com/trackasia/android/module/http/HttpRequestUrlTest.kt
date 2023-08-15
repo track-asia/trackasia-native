@@ -1,11 +1,11 @@
 package com.trackasia.android.module.http
 
-import com.trackasia.android.TrackasiaInjector
+import com.trackasia.android.MapboxInjector
 import com.trackasia.android.http.HttpRequestUrl
 import com.trackasia.android.utils.ConfigUtils
 import io.mockk.mockk
+import junit.framework.Assert.assertEquals
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,7 +16,7 @@ class HttpRequestUrlTest {
 
     @Before
     fun setUp() {
-        TrackasiaInjector.inject(mockk(relaxed = true), "pk.foobar", ConfigUtils.getMockedOptions())
+        MapboxInjector.inject(mockk(relaxed = true), "pk.foobar", ConfigUtils.getMockedOptions())
     }
 
     @Test
@@ -49,6 +49,6 @@ class HttpRequestUrlTest {
 
     @After
     fun tearDown() {
-        TrackasiaInjector.clear()
+        MapboxInjector.clear()
     }
 }

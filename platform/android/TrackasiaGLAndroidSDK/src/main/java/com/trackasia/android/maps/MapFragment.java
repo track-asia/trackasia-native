@@ -34,7 +34,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
 
   private final List<OnMapReadyCallback> mapReadyCallbackList = new ArrayList<>();
   private OnMapViewReadyCallback mapViewReadyCallback;
-  private TrackasiaMap trackasiaMap;
+  private MapboxMap mapboxMap;
   private MapView map;
 
   /**
@@ -49,13 +49,13 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
   /**
    * Creates a MapFragment instance
    *
-   * @param trackasiaMapOptions The configuration options to be used.
+   * @param mapboxMapOptions The configuration options to be used.
    * @return MapFragment instantiated.
    */
   @NonNull
-  public static MapFragment newInstance(@Nullable TrackasiaMapOptions trackasiaMapOptions) {
+  public static MapFragment newInstance(@Nullable MapboxMapOptions mapboxMapOptions) {
     MapFragment mapFragment = new MapFragment();
-    mapFragment.setArguments(MapFragmentUtils.createFragmentArgs(trackasiaMapOptions));
+    mapFragment.setArguments(MapFragmentUtils.createFragmentArgs(mapboxMapOptions));
     return mapFragment;
   }
 
@@ -69,7 +69,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
   @Override
   public void onInflate(@NonNull Context context, AttributeSet attrs, Bundle savedInstanceState) {
     super.onInflate(context, attrs, savedInstanceState);
-    setArguments(MapFragmentUtils.createFragmentArgs(TrackasiaMapOptions.createFromAttributes(context, attrs)));
+    setArguments(MapFragmentUtils.createFragmentArgs(MapboxMapOptions.createFromAttributes(context, attrs)));
   }
 
   /**
@@ -122,13 +122,13 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
   /**
    * Called when the style of the map has successfully loaded.
    *
-   * @param trackasiaMap The public api controller of the map
+   * @param mapboxMap The public api controller of the map
    */
   @Override
-  public void onMapReady(@NonNull TrackasiaMap trackasiaMap) {
-    this.trackasiaMap = trackasiaMap;
+  public void onMapReady(@NonNull MapboxMap mapboxMap) {
+    this.mapboxMap = mapboxMap;
     for (OnMapReadyCallback onMapReadyCallback : mapReadyCallbackList) {
-      onMapReadyCallback.onMapReady(trackasiaMap);
+      onMapReadyCallback.onMapReady(mapboxMap);
     }
   }
 
@@ -216,10 +216,10 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
    * @param onMapReadyCallback The callback to be invoked.
    */
   public void getMapAsync(@NonNull final OnMapReadyCallback onMapReadyCallback) {
-    if (trackasiaMap == null) {
+    if (mapboxMap == null) {
       mapReadyCallbackList.add(onMapReadyCallback);
     } else {
-      onMapReadyCallback.onMapReady(trackasiaMap);
+      onMapReadyCallback.onMapReady(mapboxMap);
     }
   }
 

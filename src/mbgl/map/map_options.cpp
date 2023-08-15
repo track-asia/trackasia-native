@@ -9,13 +9,12 @@ public:
     ViewportMode viewportMode = ViewportMode::Default;
     NorthOrientation orientation = NorthOrientation::Upwards;
     bool crossSourceCollisions = true;
-    Size size = {64, 64};
+    Size size = { 64, 64 };
     float pixelRatio = 1.0;
 };
 
 // These requires the complete type of Impl.
-MapOptions::MapOptions()
-    : impl_(std::make_unique<Impl>()) {}
+MapOptions::MapOptions() : impl_(std::make_unique<Impl>()) {}
 MapOptions::~MapOptions() = default;
 MapOptions::MapOptions(MapOptions&&) noexcept = default;
 
@@ -82,4 +81,4 @@ float MapOptions::pixelRatio() const {
     return impl_->pixelRatio;
 }
 
-} // namespace mbgl
+}  // namespace mbgl

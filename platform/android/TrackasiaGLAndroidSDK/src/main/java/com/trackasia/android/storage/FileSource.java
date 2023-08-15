@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
 import com.trackasia.android.MapStrictMode;
-import com.trackasia.android.Trackasia;
-import com.trackasia.android.constants.TrackasiaConstants;
+import com.trackasia.android.Mapbox;
+import com.trackasia.android.constants.MapboxConstants;
 import com.trackasia.android.log.Logger;
 import com.trackasia.android.util.TileServerOptions;
 import com.trackasia.android.utils.FileUtils;
@@ -107,7 +107,7 @@ public class FileSource {
   @NonNull
   private static String getCachePath(@NonNull Context context) {
     SharedPreferences preferences = context.getSharedPreferences(
-      TrackasiaConstants.TRACKASIA_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+      MapboxConstants.MAPBOX_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     String cachePath = preferences.getString(MAPBOX_SHARED_PREFERENCE_RESOURCES_CACHE_PATH, null);
 
     if (!isPathWritable(cachePath)) {
@@ -116,7 +116,7 @@ public class FileSource {
 
       // Reset stored cache path
       SharedPreferences.Editor editor =
-        context.getSharedPreferences(TrackasiaConstants.TRACKASIA_SHARED_PREFERENCES, Context.MODE_PRIVATE).edit();
+        context.getSharedPreferences(MapboxConstants.MAPBOX_SHARED_PREFERENCES, Context.MODE_PRIVATE).edit();
       editor.remove(MAPBOX_SHARED_PREFERENCE_RESOURCES_CACHE_PATH).apply();
     }
 
@@ -142,7 +142,7 @@ public class FileSource {
 
   private static boolean isExternalStorageConfiguration(@NonNull Context context) {
     // Default value
-    boolean isExternalStorageConfiguration = TrackasiaConstants.DEFAULT_SET_STORAGE_EXTERNAL;
+    boolean isExternalStorageConfiguration = MapboxConstants.DEFAULT_SET_STORAGE_EXTERNAL;
 
     try {
       // Try getting a custom value from the app Manifest
@@ -150,8 +150,8 @@ public class FileSource {
         PackageManager.GET_META_DATA);
       if (appInfo.metaData != null) {
         isExternalStorageConfiguration = appInfo.metaData.getBoolean(
-          TrackasiaConstants.KEY_META_DATA_SET_STORAGE_EXTERNAL,
-          TrackasiaConstants.DEFAULT_SET_STORAGE_EXTERNAL
+          MapboxConstants.KEY_META_DATA_SET_STORAGE_EXTERNAL,
+          MapboxConstants.DEFAULT_SET_STORAGE_EXTERNAL
         );
       }
     } catch (PackageManager.NameNotFoundException exception) {
@@ -293,7 +293,7 @@ public class FileSource {
    */
   public static void setResourcesCachePath(@NonNull final String path,
                                            @NonNull final ResourcesCachePathChangeCallback callback) {
-    final Context applicationContext = Trackasia.getApplicationContext();
+    final Context applicationContext = Mapbox.getApplicationContext();
     final FileSource fileSource = FileSource.getInstance(applicationContext);
 
     if (path.equals(getResourcesCachePath(applicationContext))) {
@@ -304,7 +304,7 @@ public class FileSource {
         @Override
         public void onWritePermissionGranted() {
           final SharedPreferences.Editor editor =
-            applicationContext.getSharedPreferences(TrackasiaConstants.TRACKASIA_SHARED_PREFERENCES,
+            applicationContext.getSharedPreferences(MapboxConstants.MAPBOX_SHARED_PREFERENCES,
               Context.MODE_PRIVATE).edit();
           editor.putString(MAPBOX_SHARED_PREFERENCE_RESOURCES_CACHE_PATH, path);
           editor.apply();
@@ -372,8 +372,8 @@ public class FileSource {
   private long nativePtr;
 
   private FileSource(String cachePath) {
-    TileServerOptions options = Trackasia.getTileServerOptions();
-    initialize(Trackasia.getApiKey(), cachePath, options);
+    TileServerOptions options = Mapbox.getTileServerOptions();
+    initialize(Mapbox.getApiKey(), cachePath, options);
   }
 
   @Keep

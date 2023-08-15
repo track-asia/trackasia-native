@@ -5,7 +5,8 @@ namespace mbgl {
 TileRenderData::TileRenderData() = default;
 
 TileRenderData::TileRenderData(std::shared_ptr<TileAtlasTextures> atlasTextures_)
-    : atlasTextures(std::move(atlasTextures_)) {}
+    : atlasTextures(std::move(atlasTextures_)) {
+}
 
 TileRenderData::~TileRenderData() = default;
 
@@ -21,9 +22,9 @@ const gfx::Texture& TileRenderData::getIconAtlasTexture() const {
     return *atlasTextures->icon;
 }
 
-std::optional<ImagePosition> TileRenderData::getPattern(const std::string&) const {
+optional<ImagePosition> TileRenderData::getPattern(const std::string&) const {
     assert(false);
-    return std::nullopt;
+    return nullopt;
 }
 
 const LayerRenderData* TileRenderData::getLayerRenderData(const style::Layer::Impl&) const {

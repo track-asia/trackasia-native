@@ -1,8 +1,7 @@
-option(MLN_WITH_IOS_CCACHE "Enable ccache for iOS" OFF)
-option(MLN_IOS_RENDER_TEST "Include render tests" ON)
+option(MBGL_WITH_IOS_CCACHE "Enable ccache for iOS" OFF)
 
 if(NOT DEFINED IOS_DEPLOYMENT_TARGET)
-    set(IOS_DEPLOYMENT_TARGET "12.0")
+    set(IOS_DEPLOYMENT_TARGET "9.0")
 endif()
 
 # Override default CMake NATIVE_ARCH_ACTUAL
@@ -22,16 +21,16 @@ endmacro()
 
 set_target_properties(mbgl-core PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
 
-if(MLN_WITH_OPENGL)
+if(MBGL_WITH_OPENGL)
     target_compile_definitions(
         mbgl-core
-        PUBLIC GLES_SILENCE_DEPRECATION GLES_SILENCE_DEPRECATION
+        PUBLIC MBGL_USE_GLES2 GLES_SILENCE_DEPRECATION
     )
-    list(APPEND 
-        PLATFORM_FILES
+    target_sources(
+        mbgl-core
+        PRIVATE
             ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/gl/headless_backend.cpp
-            ${PROJECT_SOURCE_DIR}/platform/darwin/src/gl_functions.cpp 
-            ${PROJECT_SOURCE_DIR}/platform/darwin/src/headless_backend_eagl.mm
+            ${PROJECT_SOURCE_DIR}/platform/darwin/src/gl_functions.cpp ${PROJECT_SOURCE_DIR}/platform/darwin/src/headless_backend_eagl.mm
     )
     target_link_libraries(
         mbgl-core
@@ -39,11 +38,12 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-list(APPEND 
-    PLATFORM_FILES
+target_sources(
+    mbgl-core
+    PRIVATE
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/async_task.cpp
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/collator.mm
-        ${PROJECT_SOURCE_DIR}/platform/darwin/src/http_file_source.mm
+        $<$<BOOL:${MBGL_PUBLIC_BUILD}>:${PROJECT_SOURCE_DIR}/platform/darwin/src/http_file_source.mm>
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/image.mm
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/local_glyph_rasterizer.mm
         ${PROJECT_SOURCE_DIR}/platform/darwin/src/logging_nslog.mm
@@ -73,18 +73,11 @@ list(APPEND
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/sqlite3.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/bidi.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/compression.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/filesystem.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/monotonic_timer.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/png_writer.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/thread_local.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/utf.cpp
 )
-
-target_sources(
-    mbgl-core PRIVATE
-    ${PLATFORM_FILES}
-)
-source_group(TREE ${PROJECT_SOURCE_DIR} FILES ${PLATFORM_FILES})
 
 target_include_directories(
     mbgl-core
@@ -92,10 +85,10 @@ target_include_directories(
 )
 
 include(${PROJECT_SOURCE_DIR}/vendor/icu.cmake)
-if(MLN_WITH_IOS_CCACHE)
+if(MBGL_WITH_IOS_CCACHE)
     include(${PROJECT_SOURCE_DIR}/platform/ios/ccache.cmake)
 endif()
-if(MLN_WITH_OPENGL)
+if(MBGL_WITH_OPENGL)
     include(${PROJECT_SOURCE_DIR}/platform/ios/ios-test-runners.cmake)
 endif()
 

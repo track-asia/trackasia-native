@@ -3,9 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 add_subdirectory(../../../../../
                  ../../../../../${ANDROID_ABI})
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 target_compile_options(mbgl-compiler-options INTERFACE -frtti)
 
 add_library(mapbox-gl SHARED
@@ -96,8 +93,8 @@ add_library(mapbox-gl SHARED
             ${PROJECT_SOURCE_DIR}/java/util.hpp
             ${PROJECT_SOURCE_DIR}/java_types.cpp
             ${PROJECT_SOURCE_DIR}/java_types.hpp
-            ${PROJECT_SOURCE_DIR}/trackasia.cpp
-            ${PROJECT_SOURCE_DIR}/trackasia.hpp
+            ${PROJECT_SOURCE_DIR}/mapbox.cpp
+            ${PROJECT_SOURCE_DIR}/mapbox.hpp
             ${PROJECT_SOURCE_DIR}/map/camera_position.cpp
             ${PROJECT_SOURCE_DIR}/map/camera_position.hpp
             ${PROJECT_SOURCE_DIR}/map/image.cpp

@@ -1,17 +1,12 @@
-workspace(name = "Trackasia")
+workspace(name = "TrackAsia")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "build_bazel_rules_apple",
-    sha256 = "8ac4c7997d863f3c4347ba996e831b5ec8f7af885ee8d4fe36f1c3c8f0092b2c",
-    url = "https://github.com/bazelbuild/rules_apple/releases/download/2.5.0/rules_apple.2.5.0.tar.gz",
-)
-
-http_archive(
-    name = "rules_xcodeproj",
-    sha256 = "24aed0bc6cf4132f62e08d4b81656107ea8d7804c9f7f57cfb9acbd0992ba75b",
-    url = "https://github.com/MobileNativeFoundation/rules_xcodeproj/releases/download/1.8.1/release.tar.gz",
+    sha256 = "a95d9007570cb5c6180b7e380bad2a854734209cc02390eed208efb922843c8a",
+    strip_prefix = "rules_apple-76752fe84ff0dc5d793033015647c78efbf41309",
+    url = "https://github.com/bazelbuild/rules_apple/archive/76752fe84ff0dc5d793033015647c78efbf41309.tar.gz",
 )
 
 load(
@@ -41,19 +36,3 @@ load(
 )
 
 apple_support_dependencies()
-
-load(
-    "@rules_xcodeproj//xcodeproj:repositories.bzl",
-    "xcodeproj_rules_dependencies",
-)
-
-xcodeproj_rules_dependencies()
-
-load(
-    "@build_bazel_rules_apple//apple:apple.bzl",
-    "provisioning_profile_repository",
-)
-
-provisioning_profile_repository(
-    name = "local_provisioning_profiles",
-)

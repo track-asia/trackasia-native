@@ -20,10 +20,10 @@ public:
     TransformState transformState;
     util::RunLoop loop;
     style::Style style{fileSource, 1};
-    AnnotationManager annotationManager{style};
+    AnnotationManager annotationManager { style };
     ImageManager imageManager;
     GlyphManager glyphManager;
-    Tileset tileset{{"https://example.com"}, {0, 22}, "none"};
+    Tileset tileset { { "https://example.com" }, { 0, 22 }, "none" };
 
     TileParameters tileParameters{1.0,
                                   MapDebugOptions(),
@@ -57,21 +57,20 @@ TEST(RasterDEMTile, onError) {
 TEST(RasterDEMTile, onParsed) {
     RasterDEMTileTest test;
     RasterDEMTile tile(OverscaledTileID(0, 0, 0), test.tileParameters, test.tileset);
-    tile.onParsed(std::make_unique<HillshadeBucket>(PremultipliedImage({16, 16}), Tileset::DEMEncoding::Mapbox), 0);
+    tile.onParsed(std::make_unique<HillshadeBucket>(PremultipliedImage({16, 16}), Tileset::DEMEncoding::Trackasia), 0);
     EXPECT_TRUE(tile.isRenderable());
     EXPECT_TRUE(tile.isLoaded());
     EXPECT_TRUE(tile.isComplete());
 
-    // Make sure that once we've had a renderable tile and then receive
-    // erroneous data, we retain the previously rendered data and keep the tile
-    // renderable.
+    // Make sure that once we've had a renderable tile and then receive erroneous data, we retain
+    // the previously rendered data and keep the tile renderable.
     tile.setError(std::make_exception_ptr(std::runtime_error("Connection offline")));
     EXPECT_TRUE(tile.isRenderable());
     EXPECT_TRUE(tile.isLoaded());
     EXPECT_TRUE(tile.isComplete());
 
-    // Then simulate a parsing failure and make sure that we keep it renderable
-    // in this situation as well.
+    // Then simulate a parsing failure and make sure that we keep it renderable in this situation
+    // as well.
     tile.onError(std::make_exception_ptr(std::runtime_error("Parse error")), 0);
     ASSERT_TRUE(tile.isRenderable());
     EXPECT_TRUE(tile.isLoaded());
@@ -86,3 +85,4 @@ TEST(RasterDEMTile, onParsedEmpty) {
     EXPECT_TRUE(tile.isLoaded());
     EXPECT_TRUE(tile.isComplete());
 }
+

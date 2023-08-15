@@ -6,7 +6,7 @@ import androidx.test.annotation.UiThreadTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.trackasia.android.AppCenter
-import com.trackasia.android.Trackasia
+import com.trackasia.android.Mapbox
 import com.trackasia.android.WellKnownTileServer
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
@@ -15,9 +15,9 @@ import com.trackasia.android.geometry.ProjectedMeters
 import com.trackasia.android.maps.renderer.MapRenderer
 import com.trackasia.android.style.layers.TransitionOptions
 import com.trackasia.android.testapp.utils.TestConstants
+import junit.framework.Assert.*
 import org.junit.After
 import org.junit.Assert
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -43,8 +43,8 @@ class NativeMapViewTest : AppCenter() {
     @UiThreadTest
     fun before() {
         val context = InstrumentationRegistry.getInstrumentation().context
-        val apiKey = Trackasia.getApiKey()
-        Trackasia.getInstance(context, apiKey, WellKnownTileServer.MapTiler)
+        val apiKey = Mapbox.getApiKey()
+        Mapbox.getInstance(context, apiKey, WellKnownTileServer.MapTiler)
         nativeMapView = NativeMapView(context, 2.0f, false, null, null, DummyRenderer(context))
         nativeMapView.resizeView(WIDTH, HEIGHT)
     }
@@ -53,8 +53,8 @@ class NativeMapViewTest : AppCenter() {
     @UiThreadTest
     fun after() {
         val context = InstrumentationRegistry.getInstrumentation().context
-        val apiKey = Trackasia.getApiKey()
-        Trackasia.getInstance(context)
+        val apiKey = Mapbox.getApiKey()
+        Mapbox.getInstance(context)
         nativeMapView.destroy()
     }
 
@@ -104,7 +104,7 @@ class NativeMapViewTest : AppCenter() {
         val actual = nativeMapView.latLng
         assertEquals("Latitude should match", expected.latitude, actual.latitude, DELTA)
         assertEquals("Longitude should match", expected.longitude, actual.longitude, DELTA)
-        assertArrayEquals(PADDING_TEST, nativeMapView.cameraPosition.padding, DELTA)
+        Assert.assertArrayEquals(PADDING_TEST, nativeMapView.cameraPosition.padding, DELTA)
     }
 
     @Test
@@ -177,7 +177,7 @@ class NativeMapViewTest : AppCenter() {
         assertEquals("Bearing should match", expected.bearing, actual.bearing, DELTA)
         assertEquals("Pitch should match", expected.tilt, actual.tilt, DELTA)
         assertEquals("Zoom should match", expected.zoom, actual.zoom, DELTA)
-        assertArrayEquals(expected.padding, actual.padding, DELTA)
+        Assert.assertArrayEquals(expected.padding, actual.padding, DELTA)
     }
 
     @Test
@@ -251,10 +251,10 @@ class NativeMapViewTest : AppCenter() {
         val expected = doubleArrayOf(1.0, 2.0, 3.0, 4.0)
         nativeMapView.contentPadding = expected
         val actual = nativeMapView.contentPadding
-        assertEquals("Left should match", expected[0], actual[0], 0.0)
-        assertEquals("Top should match", expected[1], actual[1], 0.0)
-        assertEquals("Right should match", expected[2], actual[2], 0.0)
-        assertEquals("Bottom should match", expected[3], actual[3], 0.0)
+        assertEquals("Left should match", expected[0], actual[0])
+        assertEquals("Top should match", expected[1], actual[1])
+        assertEquals("Right should match", expected[2], actual[2])
+        assertEquals("Bottom should match", expected[3], actual[3])
     }
 
     @Test
@@ -263,7 +263,7 @@ class NativeMapViewTest : AppCenter() {
         val expected = 12.0
         nativeMapView.minZoom = expected
         val actual = nativeMapView.minZoom
-        assertEquals("Min zoom should match", expected, actual, 0.0)
+        assertEquals("Min zoom should match", expected, actual)
     }
 
     @Test
@@ -272,7 +272,7 @@ class NativeMapViewTest : AppCenter() {
         val expected = 12.0
         nativeMapView.maxZoom = expected
         val actual = nativeMapView.maxZoom
-        assertEquals("Max zoom should match", expected, actual, 0.0)
+        assertEquals("Max zoom should match", expected, actual)
     }
 
     @Test
@@ -298,7 +298,7 @@ class NativeMapViewTest : AppCenter() {
     fun testGetProjectedMetersAtLatitude() {
         val expected = 77973.67021115532
         val actual = nativeMapView.getMetersPerPixelAtLatitude(5.0)
-        assertEquals("Get projected meters should match", expected, actual, DELTA)
+        assertEquals("Get projected meters should match", expected, actual)
     }
 
     @Test
@@ -351,7 +351,7 @@ class NativeMapViewTest : AppCenter() {
         assertEquals("Longitude should match", expected.target!!.longitude, actual.target!!.longitude, TestConstants.LAT_LNG_DELTA)
         assertEquals("Tilt should match", expected.tilt, actual.tilt, TestConstants.TILT_DELTA)
         assertEquals("Zoom should match", expected.zoom, actual.zoom, TestConstants.ZOOM_DELTA)
-        assertArrayEquals(expected.padding, actual.padding, DELTA)
+        Assert.assertArrayEquals(expected.padding, actual.padding, DELTA)
     }
 
     @Test
@@ -372,7 +372,7 @@ class NativeMapViewTest : AppCenter() {
         assertEquals("Longitude should match", expected.target!!.longitude, actual.target!!.longitude, TestConstants.LAT_LNG_DELTA)
         assertEquals("Tilt should match", expected.tilt, actual.tilt, TestConstants.TILT_DELTA)
         assertEquals("Zoom should match", expected.zoom, actual.zoom, TestConstants.ZOOM_DELTA)
-        assertArrayEquals(expected.padding, actual.padding, DELTA)
+        Assert.assertArrayEquals(expected.padding, actual.padding, DELTA)
     }
 
     @Test

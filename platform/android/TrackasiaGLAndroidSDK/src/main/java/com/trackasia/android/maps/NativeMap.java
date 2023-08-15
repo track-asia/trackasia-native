@@ -214,7 +214,7 @@ interface NativeMap {
   // Utils API
   //
 
-  void setOnFpsChangedListener(@NonNull TrackasiaMap.OnFpsChangedListener listener);
+  void setOnFpsChangedListener(@NonNull MapboxMap.OnFpsChangedListener listener);
 
   void setDebug(boolean debug);
 
@@ -285,5 +285,5 @@ interface NativeMap {
 
   long getNativePtr();
 
-  void addSnapshotCallback(@NonNull TrackasiaMap.SnapshotReadyCallback callback);
+  void addSnapshotCallback(@NonNull MapboxMap.SnapshotReadyCallback callback);
 }

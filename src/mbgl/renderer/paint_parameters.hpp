@@ -30,8 +30,8 @@ class Context;
 class RendererBackend;
 class CommandEncoder;
 class RenderPass;
-class ShaderRegistry;
 } // namespace gfx
+
 
 class TransformParameters {
 public:
@@ -78,10 +78,7 @@ public:
     float pixelRatio;
     std::array<float, 2> pixelsToGLUnits;
 
-    // Programs is, in effect, an immutable shader registry
     Programs& programs;
-    // We're migrating to a dynamic one
-    gfx::ShaderRegistry& shaders;
 
     gfx::DepthMode depthModeForSublayer(uint8_t n, gfx::DepthMaskType) const;
     gfx::DepthMode depthModeFor3D() const;

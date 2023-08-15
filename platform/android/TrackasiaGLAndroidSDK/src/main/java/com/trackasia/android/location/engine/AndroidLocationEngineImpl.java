@@ -19,13 +19,13 @@ import androidx.annotation.VisibleForTesting;
  * A location engine that uses core android.location and has no external dependencies
  * https://developer.android.com/guide/topics/location/strategies.html
  */
-public class AndroidLocationEngineImpl implements LocationEngineImpl<LocationListener> {
+class AndroidLocationEngineImpl implements LocationEngineImpl<LocationListener> {
   private static final String TAG = "AndroidLocationEngine";
   final LocationManager locationManager;
 
   String currentProvider = LocationManager.PASSIVE_PROVIDER;
 
-  public AndroidLocationEngineImpl(@NonNull Context context) {
+  AndroidLocationEngineImpl(@NonNull Context context) {
     locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
   }
 

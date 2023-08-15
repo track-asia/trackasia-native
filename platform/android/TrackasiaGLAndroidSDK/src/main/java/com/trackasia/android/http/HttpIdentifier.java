@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo;
 import androidx.annotation.NonNull;
 
 import com.trackasia.android.MapStrictMode;
-import com.trackasia.android.Trackasia;
+import com.trackasia.android.Mapbox;
 
 public class HttpIdentifier {
 
@@ -19,7 +19,7 @@ public class HttpIdentifier {
    * @return the application identifier
    */
   public static String getIdentifier() {
-    return getIdentifier(Trackasia.getApplicationContext());
+    return getIdentifier(Mapbox.getApplicationContext());
   }
 
   /**

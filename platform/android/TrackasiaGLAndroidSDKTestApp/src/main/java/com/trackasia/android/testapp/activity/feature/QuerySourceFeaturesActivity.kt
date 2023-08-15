@@ -12,7 +12,7 @@ import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.CircleLayer
@@ -23,21 +23,19 @@ import com.trackasia.android.testapp.R
  * Test activity showcasing using the query source features API to query feature counts
  */
 class QuerySourceFeaturesActivity : AppCompatActivity() {
-    lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    var mapView: MapView? = null
+    private var mapboxMap: MapboxMap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_query_source_features)
 
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { map: TrackasiaMap? ->
-            if (map != null) {
-                trackasiaMap = map
-            }
-            trackasiaMap.getStyle { style: Style -> initStyle(style) }
-            trackasiaMap.setStyle(Style.getPredefinedStyle("Streets"))
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync { map: MapboxMap? ->
+            mapboxMap = map
+            mapboxMap!!.getStyle { style: Style -> initStyle(style) }
+            mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets"))
         }
     }
 
@@ -63,7 +61,7 @@ class QuerySourceFeaturesActivity : AppCompatActivity() {
         style.addLayer(layer)
 
         // Add a click listener
-        trackasiaMap.addOnMapClickListener { point: LatLng? ->
+        mapboxMap!!.addOnMapClickListener { point: LatLng? ->
             // Query
             val features = source.querySourceFeatures(
                 Expression.eq(
@@ -97,36 +95,36 @@ class QuerySourceFeaturesActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 }

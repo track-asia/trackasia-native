@@ -10,7 +10,7 @@ import com.mapbox.geojson.FeatureCollection.fromJson
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.Property.ICON_ANCHOR_CENTER
 import com.trackasia.android.style.layers.PropertyFactory.*
@@ -18,14 +18,14 @@ import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityLatlngboundsBinding
-import com.trackasia.android.testapp.utils.GeoParseUtil
+import com.trackasia.android.testapp.utils.GeoParseUtil.loadStringFromAssets
 import com.trackasia.android.utils.BitmapUtils
 import java.net.URISyntaxException
 
 /** Test activity showcasing using the LatLngBounds camera API. */
 class LatLngBoundsActivity : AppCompatActivity() {
 
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private lateinit var bounds: LatLngBounds
     private lateinit var binding: ActivityLatlngboundsBinding
@@ -49,10 +49,10 @@ class LatLngBoundsActivity : AppCompatActivity() {
     private fun initMapView(savedInstanceState: Bundle?) {
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync { map ->
-            trackasiaMap = map
+            mapboxMap = map
 
             val featureCollection: FeatureCollection =
-                fromJson(GeoParseUtil.loadStringFromAssets(this, "points-sf.geojson"))
+                fromJson(loadStringFromAssets(this, "points-sf.geojson"))
             bounds = createBounds(featureCollection)
 
             map.getCameraForLatLngBounds(bounds, createPadding(peekHeight))?.let {
@@ -68,7 +68,7 @@ class LatLngBoundsActivity : AppCompatActivity() {
     }
 
     private fun loadStyle(featureCollection: FeatureCollection) {
-        trackasiaMap.setStyle(
+        mapboxMap.setStyle(
             Style.Builder()
                 .fromUri(Style.getPredefinedStyle("Streets"))
                 .withLayer(
@@ -104,8 +104,8 @@ class LatLngBoundsActivity : AppCompatActivity() {
                     val offset = convertSlideOffset(slideOffset)
                     val bottomPadding = (peekHeight * offset).toInt()
 
-                    trackasiaMap.getCameraForLatLngBounds(bounds, createPadding(bottomPadding))
-                        ?.let { trackasiaMap.cameraPosition = it }
+                    mapboxMap.getCameraForLatLngBounds(bounds, createPadding(bottomPadding))
+                        ?.let { mapboxMap.cameraPosition = it }
                 }
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {

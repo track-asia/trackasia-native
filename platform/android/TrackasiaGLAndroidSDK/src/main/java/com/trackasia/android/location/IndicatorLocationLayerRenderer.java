@@ -23,7 +23,6 @@ import static com.trackasia.android.style.expressions.Expression.rgba;
 import static com.trackasia.android.style.layers.Property.NONE;
 import static com.trackasia.android.style.layers.Property.VISIBLE;
 
-
 class IndicatorLocationLayerRenderer implements LocationLayerRenderer {
 
   private Style style;

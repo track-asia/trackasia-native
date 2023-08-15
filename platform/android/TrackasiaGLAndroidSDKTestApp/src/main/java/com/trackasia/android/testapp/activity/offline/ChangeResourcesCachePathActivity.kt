@@ -1,6 +1,8 @@
 package com.trackasia.android.testapp.activity.offline
 
+import android.annotation.TargetApi
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.trackasia.android.log.Logger
 import com.trackasia.android.offline.OfflineManager
 import com.trackasia.android.offline.OfflineRegion
 import com.trackasia.android.storage.FileSource
+import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityChangeResourcesCachePathBinding
 import java.io.File
 
@@ -74,11 +77,11 @@ class ChangeResourcesCachePathActivity :
         Toast.makeText(this, "New path: $path", Toast.LENGTH_LONG).show()
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
-            override fun onList(offlineRegions: Array<OfflineRegion>?) {
+            override fun onList(offlineRegions: Array<out OfflineRegion>?) {
                 Logger.i(TAG, "Number of saved offline regions in the new path: ${offlineRegions?.size}")
             }
 
-            override fun onError(error: String) {
+            override fun onError(error: String?) {
                 Logger.e(TAG, error)
             }
         })
@@ -87,11 +90,34 @@ class ChangeResourcesCachePathActivity :
     private fun Context.obtainExternalFilesPaths(): List<String> {
         val paths = ArrayList<String>()
         paths.add(this.filesDir.absolutePath)
-        paths.addAll(obtainExternalFilesPathsKitKat())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            paths.addAll(obtainExternalFilesPathsKitKat())
+        } else {
+            paths.addAll(obtainExternalFilesPathsLegacy())
+        }
         paths.add("${File.separator}invalid${File.separator}cache${File.separator}path")
         return paths
     }
 
+    private fun Context.obtainExternalFilesPathsLegacy(): List<String> {
+        val postFix =
+            "${File.separator}Android${File.separator}data${File.separator}${this.packageName}${File.separator}files"
+        val paths = ArrayList<String>()
+        val externalStorage = System.getenv("EXTERNAL_STORAGE")
+        val secondaryStorage = System.getenv("SECONDARY_STORAGE")
+        if (externalStorage != null) {
+            paths.add(externalStorage + postFix)
+        }
+        if (secondaryStorage != null) {
+            val secPaths = secondaryStorage.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            for (path in secPaths) {
+                paths.add(path + postFix)
+            }
+        }
+        return paths
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private fun Context.obtainExternalFilesPathsKitKat(): List<String> {
         val paths = ArrayList<String>()
         val extDirs = this.getExternalFilesDirs(null)

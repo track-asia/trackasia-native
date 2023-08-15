@@ -5,7 +5,7 @@
       location = "group:ios.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../../build/ios/Trackasia GL Native.xcodeproj">
+      location = "group:../../build/ios/TrackAsia GL Native.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:test/CI.xctestplan">

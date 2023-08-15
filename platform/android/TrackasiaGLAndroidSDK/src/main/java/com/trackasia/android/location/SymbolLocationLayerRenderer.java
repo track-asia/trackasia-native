@@ -1,5 +1,24 @@
 package com.trackasia.android.location;
 
+import android.graphics.Bitmap;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.Point;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.location.modes.RenderMode;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.style.expressions.Expression;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.style.layers.SymbolLayer;
+import com.trackasia.android.style.sources.GeoJsonSource;
+
+import java.util.Set;
+
 import static com.trackasia.android.location.LocationComponentConstants.ACCURACY_LAYER;
 import static com.trackasia.android.location.LocationComponentConstants.BACKGROUND_ICON;
 import static com.trackasia.android.location.LocationComponentConstants.BACKGROUND_LAYER;
@@ -38,26 +57,6 @@ import static com.trackasia.android.style.layers.PropertyFactory.circleStrokeCol
 import static com.trackasia.android.style.layers.PropertyFactory.iconSize;
 import static com.trackasia.android.style.layers.PropertyFactory.visibility;
 import static com.trackasia.android.utils.ColorUtils.colorToRgbaString;
-
-import android.graphics.Bitmap;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.Point;
-
-import com.trackasia.android.geometry.LatLng;
-import com.trackasia.android.location.modes.RenderMode;
-import com.trackasia.android.maps.Style;
-import com.trackasia.android.style.expressions.Expression;
-import com.trackasia.android.style.layers.Layer;
-import com.trackasia.android.style.layers.SymbolLayer;
-import com.trackasia.android.style.sources.GeoJsonSource;
-
-import java.util.Set;
 
 final class SymbolLocationLayerRenderer implements LocationLayerRenderer {
   private Style style;

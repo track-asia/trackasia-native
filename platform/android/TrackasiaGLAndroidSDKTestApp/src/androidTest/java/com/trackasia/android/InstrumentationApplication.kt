@@ -1,9 +1,9 @@
 package com.trackasia.android
 
-import com.trackasia.android.testapp.TrackasiaApplication
+import com.trackasia.android.testapp.MapboxApplication
 
-class InstrumentationApplication : TrackasiaApplication() {
-    fun initializeLeakCanary(): Boolean {
+class InstrumentationApplication : MapboxApplication() {
+    override fun initializeLeakCanary(): Boolean {
         // do not initialize leak canary during instrumentation tests
         return true
     }

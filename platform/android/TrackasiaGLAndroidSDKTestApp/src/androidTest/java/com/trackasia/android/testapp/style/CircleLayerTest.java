@@ -3,6 +3,7 @@
 package com.trackasia.android.testapp.style;
 
 import android.graphics.Color;
+
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
@@ -13,24 +14,49 @@ import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
 import com.trackasia.android.maps.BaseLayerTest;
-import org.junit.Before;
-import timber.log.Timber;
-
 import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.layers.CircleLayer;
+import com.trackasia.android.style.layers.TransitionOptions;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.trackasia.android.style.expressions.Expression.*;
-import static org.junit.Assert.*;
-import static com.trackasia.android.style.layers.Property.*;
-import static com.trackasia.android.style.layers.PropertyFactory.*;
-
-import com.trackasia.android.style.layers.TransitionOptions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import timber.log.Timber;
+
+import static com.trackasia.android.style.expressions.Expression.distance;
+import static com.trackasia.android.style.expressions.Expression.eq;
+import static com.trackasia.android.style.expressions.Expression.get;
+import static com.trackasia.android.style.expressions.Expression.literal;
+import static com.trackasia.android.style.expressions.Expression.lt;
+import static com.trackasia.android.style.expressions.Expression.number;
+import static com.trackasia.android.style.expressions.Expression.toColor;
+import static com.trackasia.android.style.expressions.Expression.within;
+import static com.trackasia.android.style.layers.Property.CIRCLE_PITCH_ALIGNMENT_MAP;
+import static com.trackasia.android.style.layers.Property.CIRCLE_PITCH_SCALE_MAP;
+import static com.trackasia.android.style.layers.Property.CIRCLE_TRANSLATE_ANCHOR_MAP;
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
+import static com.trackasia.android.style.layers.PropertyFactory.circleBlur;
+import static com.trackasia.android.style.layers.PropertyFactory.circleColor;
+import static com.trackasia.android.style.layers.PropertyFactory.circleOpacity;
+import static com.trackasia.android.style.layers.PropertyFactory.circlePitchAlignment;
+import static com.trackasia.android.style.layers.PropertyFactory.circlePitchScale;
+import static com.trackasia.android.style.layers.PropertyFactory.circleRadius;
+import static com.trackasia.android.style.layers.PropertyFactory.circleSortKey;
+import static com.trackasia.android.style.layers.PropertyFactory.circleStrokeColor;
+import static com.trackasia.android.style.layers.PropertyFactory.circleStrokeOpacity;
+import static com.trackasia.android.style.layers.PropertyFactory.circleStrokeWidth;
+import static com.trackasia.android.style.layers.PropertyFactory.circleTranslate;
+import static com.trackasia.android.style.layers.PropertyFactory.circleTranslateAnchor;
+import static com.trackasia.android.style.layers.PropertyFactory.visibility;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Basic smoke tests for CircleLayer

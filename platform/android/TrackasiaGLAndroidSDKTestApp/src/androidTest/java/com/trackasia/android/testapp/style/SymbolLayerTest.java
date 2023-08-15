@@ -3,6 +3,7 @@
 package com.trackasia.android.testapp.style;
 
 import android.graphics.Color;
+
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
@@ -13,26 +14,108 @@ import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
 import com.trackasia.android.maps.BaseLayerTest;
-import org.junit.Before;
-import timber.log.Timber;
-
 import com.trackasia.android.style.expressions.Expression;
 import com.trackasia.android.style.layers.SymbolLayer;
+import com.trackasia.android.style.layers.TransitionOptions;
 import com.trackasia.android.style.types.Formatted;
 import com.trackasia.android.style.types.FormattedSection;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.trackasia.android.style.expressions.Expression.*;
-import static org.junit.Assert.*;
-import static com.trackasia.android.style.layers.Property.*;
-import static com.trackasia.android.style.layers.PropertyFactory.*;
-
-import com.trackasia.android.style.layers.TransitionOptions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import timber.log.Timber;
+
+import static com.trackasia.android.style.expressions.Expression.FormatOption;
+import static com.trackasia.android.style.expressions.Expression.distance;
+import static com.trackasia.android.style.expressions.Expression.eq;
+import static com.trackasia.android.style.expressions.Expression.format;
+import static com.trackasia.android.style.expressions.Expression.get;
+import static com.trackasia.android.style.expressions.Expression.image;
+import static com.trackasia.android.style.expressions.Expression.literal;
+import static com.trackasia.android.style.expressions.Expression.lt;
+import static com.trackasia.android.style.expressions.Expression.number;
+import static com.trackasia.android.style.expressions.Expression.string;
+import static com.trackasia.android.style.expressions.Expression.toColor;
+import static com.trackasia.android.style.expressions.Expression.within;
+import static com.trackasia.android.style.layers.Property.ICON_ANCHOR_CENTER;
+import static com.trackasia.android.style.layers.Property.ICON_PITCH_ALIGNMENT_MAP;
+import static com.trackasia.android.style.layers.Property.ICON_ROTATION_ALIGNMENT_MAP;
+import static com.trackasia.android.style.layers.Property.ICON_TEXT_FIT_NONE;
+import static com.trackasia.android.style.layers.Property.ICON_TRANSLATE_ANCHOR_MAP;
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.SYMBOL_PLACEMENT_POINT;
+import static com.trackasia.android.style.layers.Property.SYMBOL_Z_ORDER_AUTO;
+import static com.trackasia.android.style.layers.Property.TEXT_ANCHOR_CENTER;
+import static com.trackasia.android.style.layers.Property.TEXT_JUSTIFY_AUTO;
+import static com.trackasia.android.style.layers.Property.TEXT_PITCH_ALIGNMENT_MAP;
+import static com.trackasia.android.style.layers.Property.TEXT_ROTATION_ALIGNMENT_MAP;
+import static com.trackasia.android.style.layers.Property.TEXT_TRANSFORM_NONE;
+import static com.trackasia.android.style.layers.Property.TEXT_TRANSLATE_ANCHOR_MAP;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
+import static com.trackasia.android.style.layers.PropertyFactory.iconAllowOverlap;
+import static com.trackasia.android.style.layers.PropertyFactory.iconAnchor;
+import static com.trackasia.android.style.layers.PropertyFactory.iconColor;
+import static com.trackasia.android.style.layers.PropertyFactory.iconHaloBlur;
+import static com.trackasia.android.style.layers.PropertyFactory.iconHaloColor;
+import static com.trackasia.android.style.layers.PropertyFactory.iconHaloWidth;
+import static com.trackasia.android.style.layers.PropertyFactory.iconIgnorePlacement;
+import static com.trackasia.android.style.layers.PropertyFactory.iconImage;
+import static com.trackasia.android.style.layers.PropertyFactory.iconKeepUpright;
+import static com.trackasia.android.style.layers.PropertyFactory.iconOffset;
+import static com.trackasia.android.style.layers.PropertyFactory.iconOpacity;
+import static com.trackasia.android.style.layers.PropertyFactory.iconOptional;
+import static com.trackasia.android.style.layers.PropertyFactory.iconPadding;
+import static com.trackasia.android.style.layers.PropertyFactory.iconPitchAlignment;
+import static com.trackasia.android.style.layers.PropertyFactory.iconRotate;
+import static com.trackasia.android.style.layers.PropertyFactory.iconRotationAlignment;
+import static com.trackasia.android.style.layers.PropertyFactory.iconSize;
+import static com.trackasia.android.style.layers.PropertyFactory.iconTextFit;
+import static com.trackasia.android.style.layers.PropertyFactory.iconTextFitPadding;
+import static com.trackasia.android.style.layers.PropertyFactory.iconTranslate;
+import static com.trackasia.android.style.layers.PropertyFactory.iconTranslateAnchor;
+import static com.trackasia.android.style.layers.PropertyFactory.symbolAvoidEdges;
+import static com.trackasia.android.style.layers.PropertyFactory.symbolPlacement;
+import static com.trackasia.android.style.layers.PropertyFactory.symbolSortKey;
+import static com.trackasia.android.style.layers.PropertyFactory.symbolSpacing;
+import static com.trackasia.android.style.layers.PropertyFactory.symbolZOrder;
+import static com.trackasia.android.style.layers.PropertyFactory.textAllowOverlap;
+import static com.trackasia.android.style.layers.PropertyFactory.textAnchor;
+import static com.trackasia.android.style.layers.PropertyFactory.textColor;
+import static com.trackasia.android.style.layers.PropertyFactory.textField;
+import static com.trackasia.android.style.layers.PropertyFactory.textFont;
+import static com.trackasia.android.style.layers.PropertyFactory.textHaloBlur;
+import static com.trackasia.android.style.layers.PropertyFactory.textHaloColor;
+import static com.trackasia.android.style.layers.PropertyFactory.textHaloWidth;
+import static com.trackasia.android.style.layers.PropertyFactory.textIgnorePlacement;
+import static com.trackasia.android.style.layers.PropertyFactory.textJustify;
+import static com.trackasia.android.style.layers.PropertyFactory.textKeepUpright;
+import static com.trackasia.android.style.layers.PropertyFactory.textLetterSpacing;
+import static com.trackasia.android.style.layers.PropertyFactory.textLineHeight;
+import static com.trackasia.android.style.layers.PropertyFactory.textMaxAngle;
+import static com.trackasia.android.style.layers.PropertyFactory.textMaxWidth;
+import static com.trackasia.android.style.layers.PropertyFactory.textOffset;
+import static com.trackasia.android.style.layers.PropertyFactory.textOpacity;
+import static com.trackasia.android.style.layers.PropertyFactory.textOptional;
+import static com.trackasia.android.style.layers.PropertyFactory.textPadding;
+import static com.trackasia.android.style.layers.PropertyFactory.textPitchAlignment;
+import static com.trackasia.android.style.layers.PropertyFactory.textRadialOffset;
+import static com.trackasia.android.style.layers.PropertyFactory.textRotate;
+import static com.trackasia.android.style.layers.PropertyFactory.textRotationAlignment;
+import static com.trackasia.android.style.layers.PropertyFactory.textSize;
+import static com.trackasia.android.style.layers.PropertyFactory.textTransform;
+import static com.trackasia.android.style.layers.PropertyFactory.textTranslate;
+import static com.trackasia.android.style.layers.PropertyFactory.textTranslateAnchor;
+import static com.trackasia.android.style.layers.PropertyFactory.textVariableAnchor;
+import static com.trackasia.android.style.layers.PropertyFactory.textWritingMode;
+import static com.trackasia.android.style.layers.PropertyFactory.visibility;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Basic smoke tests for SymbolLayer

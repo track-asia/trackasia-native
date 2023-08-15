@@ -22,16 +22,12 @@
 	<string>MBGL</string>
 	<key>CFBundleVersion</key>
 	<string>15256</string>
-	<key>LSMultipleInstancesProhibited</key>
-	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>MLNMapboxMetricsEnabledSettingShownInApp</key>
+	<key>MGLMapboxMetricsEnabledSettingShownInApp</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2015–2019 Mapbox</string>
-	<key>NSSupportsSuddenTermination</key>
-	<true/>
 	<key>UIApplicationExitsOnSuspend</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

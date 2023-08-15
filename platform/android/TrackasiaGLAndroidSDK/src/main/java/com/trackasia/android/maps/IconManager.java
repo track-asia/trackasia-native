@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
-import com.trackasia.android.Trackasia;
+import com.trackasia.android.Mapbox;
 import com.trackasia.android.annotations.Icon;
 import com.trackasia.android.annotations.IconFactory;
 import com.trackasia.android.annotations.Marker;
@@ -60,7 +60,7 @@ class IconManager {
   }
 
   private Icon loadDefaultIconForMarker(Marker marker) {
-    Icon icon = IconFactory.getInstance(Trackasia.getApplicationContext()).defaultMarker();
+    Icon icon = IconFactory.getInstance(Mapbox.getApplicationContext()).defaultMarker();
     Bitmap bitmap = icon.getBitmap();
     updateHighestIconSize(bitmap.getWidth(), bitmap.getHeight() / 2);
     marker.setIcon(icon);
@@ -115,18 +115,18 @@ class IconManager {
     }
   }
 
-  void ensureIconLoaded(@NonNull Marker marker, @NonNull TrackasiaMap trackasiaMap) {
+  void ensureIconLoaded(@NonNull Marker marker, @NonNull MapboxMap mapboxMap) {
     Icon icon = marker.getIcon();
     if (icon == null) {
       icon = loadDefaultIconForMarker(marker);
     }
     addIcon(icon);
-    setTopOffsetPixels(marker, trackasiaMap, icon);
+    setTopOffsetPixels(marker, mapboxMap, icon);
   }
 
-  private void setTopOffsetPixels(Marker marker, @NonNull TrackasiaMap trackasiaMap, @NonNull Icon icon) {
+  private void setTopOffsetPixels(Marker marker, @NonNull MapboxMap mapboxMap, @NonNull Icon icon) {
     // this seems to be a costly operation according to the profiler so I'm trying to save some calls
-    Marker previousMarker = marker.getId() != -1 ? (Marker) trackasiaMap.getAnnotation(marker.getId()) : null;
+    Marker previousMarker = marker.getId() != -1 ? (Marker) mapboxMap.getAnnotation(marker.getId()) : null;
     if (previousMarker == null || previousMarker.getIcon() == null || previousMarker.getIcon() != marker.getIcon()) {
       marker.setTopOffsetPixels(getTopOffsetPixelsForIcon(icon));
     }

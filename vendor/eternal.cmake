@@ -16,6 +16,6 @@ set_target_properties(
     PROPERTIES
         INTERFACE_MAPBOX_NAME "eternal"
         INTERFACE_MAPBOX_URL "https://github.com/mapbox/eternal"
-        INTERFACE_MAPBOX_AUTHOR "Mapbox"
+        INTERFACE_MAPBOX_AUTHOR "Trackasia"
         INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/eternal/LICENSE.md
 )

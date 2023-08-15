@@ -1,18 +1,18 @@
 ext {
-    trackasiaArtifactGroupId = 'io.github.track-asia'
-    trackasiaArtifactId = project.hasProperty('POM_ARTIFACT_ID') ? project.property('POM_ARTIFACT_ID') : System.getenv('POM_ARTIFACT_ID')
-    trackasiaArtifactTitle = 'Trackasia Android SDK'
-    trackasiaArtifactDescription = project.hasProperty('POM_DESCRIPTION') ? project.property('POM_DESCRIPTION') : System.getenv('POM_DESCRIPTION')
-    trackasiaDeveloperName = 'Trackasia'
-    trackasiaDeveloperEmail = 'trackasia@track-asia.com'
-    trackasiaDeveloperOrganization = 'Trackasia'
-    trackasiaDeveloperOrganizationUrl = 'http://www.track-asia.com'
-    trackasiaDeveloperId = 'trackasia'
-    trackasiaArtifactUrl = 'https://github.com/track-asia/trackasia-java'
-    trackasiaArtifactVcsUrl = 'https://github.com/track-asia/trackasia-java.git'
-    trackasiaArtifactScmUrl = 'scm:git@github.com:track-asia/trackasia-java.git'
-    trackasiaArtifactLicenseName = 'The Apache Software License, Version 2.0'
-    trackasiaArtifactLicenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    trackAsiaArtifactGroupId = 'com.trackasia.gl'
+    trackAsiaArtifactId = project.hasProperty('POM_ARTIFACT_ID') ? project.property('POM_ARTIFACT_ID') : System.getenv('POM_ARTIFACT_ID')
+    trackAsiaArtifactTitle = 'TrackAsia Adnroid SDK'
+    trackAsiaArtifactDescription = project.hasProperty('POM_DESCRIPTION') ? project.property('POM_DESCRIPTION') : System.getenv('POM_DESCRIPTION')
+    trackAsiaDeveloperName = 'TrackAsia'
+    trackAsiaDeveloperEmail = 'trackasia@track-asia.com'
+    trackAsiaDeveloperOrganization = 'TrackAsia'
+    trackAsiaDeveloperOrganizationUrl = 'http://www.track-asia.com'
+    trackAsiaDeveloperId = 'trackasia'
+    trackAsiaArtifactUrl = 'https://github.com/track-asia/trackasia-java'
+    trackAsiaArtifactVcsUrl = 'https://github.com/track-asia/trackasia-java.git'
+    trackAsiaArtifactScmUrl = 'scm:git@github.com:track-asia/trackasia-java.git'
+    trackAsiaArtifactLicenseName = 'The Apache Software License, Version 2.0'
+    trackAsiaArtifactLicenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     versionName = getVersionName()
 }
 

@@ -8,9 +8,9 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import com.trackasia.android.AppCenter;
-import com.trackasia.android.Trackasia;
+import com.trackasia.android.Mapbox;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.MapboxMap;
 import com.trackasia.android.testapp.R;
 
 import org.junit.After;
@@ -43,7 +43,7 @@ public abstract class BaseTest extends AppCenter {
   public GrantPermissionRule grantLocationPermissionRule = GrantPermissionRule
           .grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-  protected TrackasiaMap trackasiaMap;
+  protected MapboxMap mapboxMap;
   protected MapView mapView;
   private final CountDownLatch latch = new CountDownLatch(1);
 
@@ -62,19 +62,19 @@ public abstract class BaseTest extends AppCenter {
 
   @UiThread
   @CallSuper
-  protected void initMap(TrackasiaMap trackasiaMap) {
-    this.trackasiaMap = trackasiaMap;
-    trackasiaMap.getStyle(style -> latch.countDown());
+  protected void initMap(MapboxMap mapboxMap) {
+    this.mapboxMap = mapboxMap;
+    mapboxMap.getStyle(style -> latch.countDown());
   }
 
   protected void validateTestSetup() {
-    if (!Trackasia.isConnected()) {
+    if (!Mapbox.isConnected()) {
       Timber.e("Not connected to the internet while running test");
     }
     assertNotNull("MapView isn't initialised", mapView);
-    assertNotNull("TrackasiaMap isn't initialised", trackasiaMap);
-    assertNotNull("Style isn't initialised", trackasiaMap.getStyle());
-    assertTrue("Style isn't fully loaded", trackasiaMap.getStyle().isFullyLoaded());
+    assertNotNull("MapboxMap isn't initialised", mapboxMap);
+    assertNotNull("Style isn't initialised", mapboxMap.getStyle());
+    assertTrue("Style isn't fully loaded", mapboxMap.getStyle().isFullyLoaded());
   }
 
   protected abstract Class getActivityClass();

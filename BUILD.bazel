@@ -1,5 +1,4 @@
 load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS")
-load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 
 # This is defined by both
 # platform/default/filesource-files.json
@@ -27,7 +26,7 @@ cc_library(
         "src",
     ],
     local_defines = [
-        r"MLN_VERSION_REV=\"standalone\"",
+        r"MBGL_VERSION_REV=\"standalone\"",
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -35,6 +34,7 @@ cc_library(
         "//vendor:csscolorparser",
         "//vendor:earcut.hpp",
         "//vendor:eternal",
+        "//vendor:icu",
         "//vendor:mapbox-base",
         "//vendor:parsedate",
         "//vendor:polylabel",
@@ -42,53 +42,7 @@ cc_library(
         "//vendor:unique_resource",
         "//vendor:vector-tile",
         "//vendor:wagyu",
-    ] + select({
-        "//:ios": [
-            "//vendor:icu",
-        ],
-        "//:linux": [],
-    }),
-)
-
-genrule(
-    name = "git_hash",
-    outs = ["hash"],
-    cmd = """
-        git rev-parse HEAD > $@
-    """,
-    local = True,
-    visibility = ["//visibility:public"],
-)
-
-# The next three rules are a bit of a hack
-# they are needed until rules_apple has platforms support
-# https://github.com/bazelbuild/rules_apple/issues/1658
-# Allows passing a command line flag to set the Platform
-# bazel build [target] --//:trackasia_platform=ios
-
-string_flag(
-    name = "trackasia_platform",
-    build_setting_default = "ios",
-)
-
-config_setting(
-    name = "linux",
-    flag_values = {
-        ":trackasia_platform": "linux",
-    },
-)
-
-config_setting(
-    name = "ios",
-    flag_values = {
-        ":trackasia_platform": "ios",
-    },
-)
-
-exports_files(
-    [
-        "LICENSE.md",
-        "scripts/style-spec-reference/v8.json",
     ],
-    visibility = ["//visibility:public"],
 )
+
+exports_files(["LICENSE.md"], visibility = ["//visibility:public"])

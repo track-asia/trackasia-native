@@ -11,6 +11,7 @@
 #include <mbgl/util/tileset.hpp>
 #include <mbgl/util/image.hpp>
 #include <mbgl/util/mat4.hpp>
+#include <mbgl/util/optional.hpp>
 
 namespace mbgl {
 
@@ -27,27 +28,30 @@ public:
     void clear();
     void setMask(TileMask&&);
 
-    std::optional<gfx::Texture> dem;
-    std::optional<gfx::Texture> texture;
+    optional<gfx::Texture> dem;
+    optional<gfx::Texture> texture;
 
-    TileMask mask{{0, 0, 0}};
+    TileMask mask{ { 0, 0, 0 } };
 
     const DEMData& getDEMData() const;
     DEMData& getDEMData();
 
-    bool isPrepared() const { return prepared; }
+    bool isPrepared() const {
+        return prepared;
+    }
 
-    void setPrepared(bool preparedState) { prepared = preparedState; }
+    void setPrepared (bool preparedState) {
+        prepared = preparedState;
+    }
 
     // Raster-DEM Tile Sources use the default buffers from Painter
     gfx::VertexVector<HillshadeLayoutVertex> vertices;
     gfx::IndexVector<gfx::Triangles> indices;
     SegmentVector<HillshadeAttributes> segments;
 
-    std::optional<gfx::VertexBuffer<HillshadeLayoutVertex>> vertexBuffer;
-    std::optional<gfx::IndexBuffer> indexBuffer;
-
-private:
+    optional<gfx::VertexBuffer<HillshadeLayoutVertex>> vertexBuffer;
+    optional<gfx::IndexBuffer> indexBuffer;
+private: 
     DEMData demdata;
     bool prepared = false;
 };

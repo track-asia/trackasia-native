@@ -1,5 +1,5 @@
-#import "Mapbox.h"
+@import Mapbox;
 
-@interface MBXUserLocationAnnotationView : MLNUserLocationAnnotationView
+@interface MBXUserLocationAnnotationView : MGLUserLocationAnnotationView
 
 @end

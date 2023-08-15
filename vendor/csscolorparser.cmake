@@ -2,7 +2,7 @@ if(TARGET mbgl-vendor-csscolorparser)
     return()
 endif()
 
-if(MLN_WITH_QT AND ${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.12.0")
+if(MBGL_WITH_QT AND ${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.12.0")
     add_library(mbgl-vendor-csscolorparser OBJECT)
 else()
     add_library(mbgl-vendor-csscolorparser STATIC)
@@ -15,7 +15,7 @@ target_sources(
 
 target_link_libraries(
     mbgl-vendor-csscolorparser
-    PRIVATE Mapbox::Base::optional mbgl-compiler-options
+    PRIVATE Trackasia::Base::optional mbgl-compiler-options
 )
 
 target_include_directories(

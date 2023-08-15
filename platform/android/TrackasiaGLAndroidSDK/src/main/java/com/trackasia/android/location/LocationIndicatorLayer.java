@@ -7,16 +7,16 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 
-import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
-
-import com.trackasia.android.style.layers.TransitionOptions;
 import com.trackasia.android.style.layers.Layer;
 import com.trackasia.android.style.layers.PropertyValue;
+import com.trackasia.android.style.layers.TransitionOptions;
+
+import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
 
 /**
  * 
  *
- * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-location-indicator">The online documentation</a>
+ * @see <a href="https://www.mapbox.com/mapbox-gl-style-spec/#layers-location-indicator">The online documentation</a>
  */
 @UiThread
 class LocationIndicatorLayer extends Layer {

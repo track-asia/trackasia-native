@@ -3,7 +3,7 @@ package com.trackasia.android.testapp.annotations;
 import com.trackasia.android.annotations.Marker;
 import com.trackasia.android.annotations.MarkerOptions;
 import com.trackasia.android.geometry.LatLng;
-import com.trackasia.android.testapp.action.TrackasiaMapAction;
+import com.trackasia.android.testapp.action.MapboxMapAction;
 import com.trackasia.android.testapp.activity.EspressoTest;
 import com.trackasia.android.testapp.utils.TestConstants;
 
@@ -14,7 +14,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
+import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
 import static org.junit.Assert.assertEquals;
 
 public class MarkerTest extends EspressoTest {
@@ -25,7 +25,7 @@ public class MarkerTest extends EspressoTest {
   @Ignore
   public void addMarkerTest() {
     validateTestSetup();
-    TrackasiaMapAction.invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    MapboxMapAction.invoke(mapboxMap, (uiController, mapboxMap) -> {
       assertEquals("Markers should be empty", 0, mapboxMap.getMarkers().size());
 
       MarkerOptions options = new MarkerOptions();
@@ -48,7 +48,7 @@ public class MarkerTest extends EspressoTest {
   @Ignore
   public void showInfoWindowTest() {
     validateTestSetup();
-    invoke(trackasiaMap, (uiController, mapboxMap) -> {
+    invoke(mapboxMap, (uiController, mapboxMap) -> {
       final MarkerOptions options = new MarkerOptions();
       options.setPosition(new LatLng());
       options.setSnippet(TestConstants.TEXT_MARKER_SNIPPET);

@@ -5,11 +5,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: [self-hosted, Linux]
     defaults:
       run:
         working-directory: platform/android
+    container:
+      image: ghcr.io/track-asia/android-ndk-r21b
     env:
+      LIBSYSCONFCPUS: 8
       JOBS: 8
       BUILDTYPE: Release
       IS_LOCAL_DEVELOPMENT: false
@@ -20,11 +23,6 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      
       - name: Ensure source code revision
         run: scripts/ensure-code-revision.sh        
         working-directory: platform/android
@@ -45,9 +43,6 @@ jobs:
       - name: npm install
         run: npm install --ignore-scripts          
         working-directory: platform/android
-
-      - name: Install ccache
-        run: sudo apt-get install -y ccache
 
       - name: Prepare ccache
         run: ccache --clear       
@@ -88,9 +83,9 @@ jobs:
           RELEASE_VERSION="$( git describe --tags --match=android-v*.*.* --abbrev=0 | sed 's/^android-v//' )"
           echo "Latest version from tag: $RELEASE_VERSION"
           if [ ! -z "$RELEASE_VERSION" ]; then
-            sed -i -e "s/^VERSION_NAME=.*/VERSION_NAME=${RELEASE_VERSION}/" MapboxGLAndroidSDK/gradle.properties
-            echo "MapboxGLAndroidSDK/gradle.properties:"
-            cat MapboxGLAndroidSDK/gradle.properties
+            sed -i -e "s/^VERSION_NAME=.*/VERSION_NAME=${RELEASE_VERSION}/" TrackAsiaGLAndroidSDK/gradle.properties
+            echo "TrackAsiaGLAndroidSDK/gradle.properties:"
+            cat TrackAsiaGLAndroidSDK/gradle.properties
           fi
         shell: bash
 
@@ -101,7 +96,7 @@ jobs:
         run: |
           TRACKASIA_DEVELOPER_CONFIG_XML='${{ secrets.TRACKASIA_DEVELOPER_CONFIG_XML }}'
           if [ -n "${TRACKASIA_DEVELOPER_CONFIG_XML}" ]; then
-            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > MapboxGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
+            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > TrackAsiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
             make android
           else
             echo "No secrets.TRACKASIA_DEVELOPER_CONFIG_XML variable set, skipping apk build..."
@@ -140,8 +135,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: platform/android/MapboxGLAndroidSDK/build/outputs/aar/MapboxGLAndroidSDK-release.aar
-          asset_name: MapboxGLAndroidSDK-release.aar
+          asset_path: platform/android/TrackAsiaGLAndroidSDK/build/outputs/aar/TrackAsiaGLAndroidSDK-release.aar
+          asset_name: TrackAsiaGLAndroidSDK-release.aar
           asset_content_type: application/zip 
 
       - name: Clean release

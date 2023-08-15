@@ -1,10 +1,5 @@
 package com.trackasia.android.testapp.annotations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import android.app.Activity;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -25,6 +20,11 @@ import org.junit.Test;
 
 import java.util.Map;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+
 /**
  * Tests integration between Icons and Markers
  */
@@ -35,7 +35,7 @@ public class IconTest extends EspressoTest {
   @Before
   public void beforeTest() {
     super.beforeTest();
-    iconMap = new IconManagerResolver(trackasiaMap).getIconMap();
+    iconMap = new IconManagerResolver(mapboxMap).getIconMap();
   }
 
   @Test
@@ -43,8 +43,8 @@ public class IconTest extends EspressoTest {
   public void testAddSameIconMarker() {
     validateTestSetup();
     Icon defaultMarker = IconFactory.getInstance(rule.getActivity()).defaultMarker();
-    trackasiaMap.addMarker(new MarkerOptions().position(new LatLng()));
-    trackasiaMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
+    mapboxMap.addMarker(new MarkerOptions().position(new LatLng()));
+    mapboxMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
     assertEquals(1, iconMap.size());
     assertEquals(2, iconMap.get(defaultMarker), 0);
   }
@@ -54,8 +54,8 @@ public class IconTest extends EspressoTest {
   public void testAddDifferentIconMarker() {
     validateTestSetup();
     Icon icon = IconFactory.getInstance(rule.getActivity()).fromResource(R.drawable.trackasia_logo_icon);
-    trackasiaMap.addMarker(new MarkerOptions().icon(icon).position(new LatLng()));
-    trackasiaMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
+    mapboxMap.addMarker(new MarkerOptions().icon(icon).position(new LatLng()));
+    mapboxMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
     assertEquals(iconMap.size(), 2);
     assertTrue(iconMap.containsKey(icon));
     assertTrue(iconMap.get(icon) == 1);
@@ -66,13 +66,13 @@ public class IconTest extends EspressoTest {
   public void testAddRemoveIconMarker() {
     validateTestSetup();
     Icon icon = IconFactory.getInstance(rule.getActivity()).fromResource(R.drawable.trackasia_logo_icon);
-    Marker marker = trackasiaMap.addMarker(new MarkerOptions().icon(icon).position(new LatLng()));
-    trackasiaMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
+    Marker marker = mapboxMap.addMarker(new MarkerOptions().icon(icon).position(new LatLng()));
+    mapboxMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
     assertEquals(iconMap.size(), 2);
     assertTrue(iconMap.containsKey(icon));
     assertTrue(iconMap.get(icon) == 1);
 
-    trackasiaMap.removeMarker(marker);
+    mapboxMap.removeMarker(marker);
     assertEquals(iconMap.size(), 1);
     assertFalse(iconMap.containsKey(icon));
   }
@@ -81,13 +81,13 @@ public class IconTest extends EspressoTest {
   @UiThreadTest
   public void testAddRemoveDefaultMarker() {
     validateTestSetup();
-    Marker marker = trackasiaMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
+    Marker marker = mapboxMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
     assertEquals(iconMap.size(), 1);
 
-    trackasiaMap.removeMarker(marker);
+    mapboxMap.removeMarker(marker);
     assertEquals(iconMap.size(), 0);
 
-    trackasiaMap.addMarker(new MarkerOptions().position(new LatLng()));
+    mapboxMap.addMarker(new MarkerOptions().position(new LatLng()));
     assertEquals(iconMap.size(), 1);
   }
 
@@ -99,25 +99,25 @@ public class IconTest extends EspressoTest {
     IconFactory iconFactory = IconFactory.getInstance(activity);
 
     // add 2 default icon markers
-    Marker defaultMarkerOne = trackasiaMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
-    Marker defaultMarkerTwo = trackasiaMap.addMarker(new MarkerOptions().position(new LatLng(2, 1)));
+    Marker defaultMarkerOne = mapboxMap.addMarker(new MarkerOptions().position(new LatLng(1, 1)));
+    Marker defaultMarkerTwo = mapboxMap.addMarker(new MarkerOptions().position(new LatLng(2, 1)));
 
     // add 4 unique icon markers
-    trackasiaMap.addMarker(new MarkerOptions()
+    mapboxMap.addMarker(new MarkerOptions()
       .icon(iconFactory.fromResource(R.drawable.trackasia_logo_icon))
       .position(new LatLng(3, 1))
     );
-    trackasiaMap.addMarker(new MarkerOptions()
+    mapboxMap.addMarker(new MarkerOptions()
       .icon(iconFactory.fromResource(R.drawable.trackasia_compass_icon))
       .position(new LatLng(4, 1))
     );
-    trackasiaMap.addMarker(new MarkerOptions()
+    mapboxMap.addMarker(new MarkerOptions()
       .icon(IconUtils.drawableToIcon(activity, R.drawable.ic_stars,
         ResourcesCompat.getColor(activity.getResources(),
           R.color.blueAccent, activity.getTheme())))
       .position(new LatLng(5, 1))
     );
-    trackasiaMap.addMarker(new MarkerOptions()
+    mapboxMap.addMarker(new MarkerOptions()
       .icon(iconFactory.fromResource(R.drawable.ic_android))
       .position(new LatLng(6, 1))
     );
@@ -125,17 +125,17 @@ public class IconTest extends EspressoTest {
     assertEquals("Amount of icons should match 5", 5, iconMap.size());
     assertEquals("Refcounter of default marker should match 2", 2, iconMap.get(iconFactory.defaultMarker()), 0);
 
-    trackasiaMap.removeMarker(defaultMarkerOne);
+    mapboxMap.removeMarker(defaultMarkerOne);
 
     assertEquals("Amount of icons should match 5", 5, iconMap.size());
     assertEquals("Refcounter of default marker should match 1", 1, iconMap.get(iconFactory.defaultMarker()), 0);
 
-    trackasiaMap.removeMarker(defaultMarkerTwo);
+    mapboxMap.removeMarker(defaultMarkerTwo);
 
     assertEquals("Amount of icons should match 4", 4, iconMap.size());
     assertNull("DefaultMarker shouldn't exist anymore", iconMap.get(iconFactory.defaultMarker()));
 
-    trackasiaMap.clear();
+    mapboxMap.clear();
     assertEquals("Amount of icons should match 0", 0, iconMap.size());
   }
 }

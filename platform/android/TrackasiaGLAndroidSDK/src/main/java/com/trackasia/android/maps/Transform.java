@@ -10,11 +10,11 @@ import androidx.annotation.UiThread;
 import com.trackasia.android.camera.CameraPosition;
 import com.trackasia.android.camera.CameraUpdate;
 import com.trackasia.android.camera.CameraUpdateFactory;
-import com.trackasia.android.constants.TrackasiaConstants;
+import com.trackasia.android.constants.MapboxConstants;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.log.Logger;
 
-import static com.trackasia.android.maps.TrackasiaMap.OnCameraMoveStartedListener;
+import static com.trackasia.android.maps.MapboxMap.OnCameraMoveStartedListener;
 
 /**
  * Internal use.
@@ -36,7 +36,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
   @Nullable
   private CameraPosition cameraPosition;
   @Nullable
-  private TrackasiaMap.CancelableCallback cameraCancelableCallback;
+  private MapboxMap.CancelableCallback cameraCancelableCallback;
   private CameraChangeDispatcher cameraChangeDispatcher;
 
   private final MapView.OnCameraDidChangeListener moveByChangeListener = new MapView.OnCameraDidChangeListener() {
@@ -55,10 +55,10 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
     this.cameraChangeDispatcher = cameraChangeDispatcher;
   }
 
-  void initialise(@NonNull TrackasiaMap trackasiaMap, @NonNull TrackasiaMapOptions options) {
+  void initialise(@NonNull MapboxMap mapboxMap, @NonNull MapboxMapOptions options) {
     CameraPosition position = options.getCamera();
     if (position != null && !position.equals(CameraPosition.DEFAULT)) {
-      moveCamera(trackasiaMap, CameraUpdateFactory.newCameraPosition(position), null);
+      moveCamera(mapboxMap, CameraUpdateFactory.newCameraPosition(position), null);
     }
     setMinZoom(options.getMinZoomPreference());
     setMaxZoom(options.getMaxZoomPreference());
@@ -84,7 +84,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
     if (animated) {
       invalidateCameraPosition();
       if (cameraCancelableCallback != null) {
-        final TrackasiaMap.CancelableCallback callback = cameraCancelableCallback;
+        final MapboxMap.CancelableCallback callback = cameraCancelableCallback;
 
         // nullification has to happen before Handler#post, see https://github.com/robolectric/robolectric/issues/1306
         cameraCancelableCallback = null;
@@ -105,9 +105,9 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
    * Internal use.
    */
   @UiThread
-  public final void moveCamera(@NonNull TrackasiaMap trackasiaMap, CameraUpdate update,
-                               @Nullable final TrackasiaMap.CancelableCallback callback) {
-    CameraPosition cameraPosition = update.getCameraPosition(trackasiaMap);
+  public final void moveCamera(@NonNull MapboxMap mapboxMap, CameraUpdate update,
+                               @Nullable final MapboxMap.CancelableCallback callback) {
+    CameraPosition cameraPosition = update.getCameraPosition(mapboxMap);
     if (isValidCameraPosition(cameraPosition)) {
       cancelTransitions();
       cameraChangeDispatcher.onCameraMoveStarted(OnCameraMoveStartedListener.REASON_API_ANIMATION);
@@ -129,10 +129,9 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
   }
 
   @UiThread
-  final void easeCamera(@NonNull TrackasiaMap trackasiaMap, CameraUpdate update, int durationMs,
-                        boolean easingInterpolator,
-                        @Nullable final TrackasiaMap.CancelableCallback callback) {
-    CameraPosition cameraPosition = update.getCameraPosition(trackasiaMap);
+  final void easeCamera(@NonNull MapboxMap mapboxMap, CameraUpdate update, int durationMs, boolean easingInterpolator,
+                        @Nullable final MapboxMap.CancelableCallback callback) {
+    CameraPosition cameraPosition = update.getCameraPosition(mapboxMap);
     if (isValidCameraPosition(cameraPosition)) {
       cancelTransitions();
       cameraChangeDispatcher.onCameraMoveStarted(OnCameraMoveStartedListener.REASON_API_ANIMATION);
@@ -152,9 +151,9 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
    * Internal use.
    */
   @UiThread
-  public final void animateCamera(@NonNull TrackasiaMap trackasiaMap, CameraUpdate update, int durationMs,
-                                  @Nullable final TrackasiaMap.CancelableCallback callback) {
-    CameraPosition cameraPosition = update.getCameraPosition(trackasiaMap);
+  public final void animateCamera(@NonNull MapboxMap mapboxMap, CameraUpdate update, int durationMs,
+                                  @Nullable final MapboxMap.CancelableCallback callback) {
+    CameraPosition cameraPosition = update.getCameraPosition(mapboxMap);
     if (isValidCameraPosition(cameraPosition)) {
       cancelTransitions();
       cameraChangeDispatcher.onCameraMoveStarted(OnCameraMoveStartedListener.REASON_API_ANIMATION);
@@ -194,7 +193,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
 
     // notify animateCamera and easeCamera about cancelling
     if (cameraCancelableCallback != null) {
-      final TrackasiaMap.CancelableCallback callback = cameraCancelableCallback;
+      final MapboxMap.CancelableCallback callback = cameraCancelableCallback;
       cameraChangeDispatcher.onCameraIdle();
 
       // nullification has to happen before Handler#post, see https://github.com/robolectric/robolectric/issues/1306
@@ -320,7 +319,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
   //
 
   void setMinZoom(double minZoom) {
-    if ((minZoom < TrackasiaConstants.MINIMUM_ZOOM) || (minZoom > TrackasiaConstants.MAXIMUM_ZOOM)) {
+    if ((minZoom < MapboxConstants.MINIMUM_ZOOM) || (minZoom > MapboxConstants.MAXIMUM_ZOOM)) {
       Logger.e(TAG, String.format("Not setting minZoomPreference, value is in unsupported range: %s", minZoom));
       return;
     }
@@ -332,7 +331,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
   }
 
   void setMaxZoom(double maxZoom) {
-    if ((maxZoom < TrackasiaConstants.MINIMUM_ZOOM) || (maxZoom > TrackasiaConstants.MAXIMUM_ZOOM)) {
+    if ((maxZoom < MapboxConstants.MINIMUM_ZOOM) || (maxZoom > MapboxConstants.MAXIMUM_ZOOM)) {
       Logger.e(TAG, String.format("Not setting maxZoomPreference, value is in unsupported range: %s", maxZoom));
       return;
     }
@@ -344,7 +343,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
   }
 
   void setMinPitch(double minPitch) {
-    if ((minPitch < TrackasiaConstants.MINIMUM_PITCH) || (minPitch > TrackasiaConstants.MAXIMUM_PITCH)) {
+    if ((minPitch < MapboxConstants.MINIMUM_PITCH) || (minPitch > MapboxConstants.MAXIMUM_PITCH)) {
       Logger.e(TAG, String.format("Not setting minPitchPreference, value is in unsupported range: %s", minPitch));
       return;
     }
@@ -356,7 +355,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
   }
 
   void setMaxPitch(double maxPitch) {
-    if ((maxPitch < TrackasiaConstants.MINIMUM_PITCH) || (maxPitch > TrackasiaConstants.MAXIMUM_PITCH)) {
+    if ((maxPitch < MapboxConstants.MINIMUM_PITCH) || (maxPitch > MapboxConstants.MAXIMUM_PITCH)) {
       Logger.e(TAG, String.format("Not setting maxPitchPreference, value is in unsupported range: %s", maxPitch));
       return;
     }

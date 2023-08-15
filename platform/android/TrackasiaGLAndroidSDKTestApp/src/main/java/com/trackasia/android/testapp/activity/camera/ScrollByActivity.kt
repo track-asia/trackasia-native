@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -22,7 +22,7 @@ import com.trackasia.android.testapp.R
  */
 class ScrollByActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var seekBarX: SeekBar
     private lateinit var seekBarY: SeekBar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,16 +51,16 @@ class ScrollByActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: TrackasiaMap) {
-        trackasiaMap = map
-        trackasiaMap.setStyle(Style.getPredefinedStyle("Pastel"))
-        val uiSettings = trackasiaMap.uiSettings
+    override fun onMapReady(map: MapboxMap) {
+        mapboxMap = map
+        mapboxMap!!.setStyle(Style.getPredefinedStyle("Pastel"))
+        val uiSettings = mapboxMap!!.uiSettings
         uiSettings.isLogoEnabled = false
         uiSettings.isAttributionEnabled = false
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setColorFilter(ContextCompat.getColor(this@ScrollByActivity, R.color.primary))
         fab.setOnClickListener { view: View? ->
-            trackasiaMap.scrollBy(
+            mapboxMap!!.scrollBy(
                 (seekBarX!!.progress * MULTIPLIER_PER_PIXEL).toFloat(),
                 (seekBarY!!.progress * MULTIPLIER_PER_PIXEL).toFloat()
             )
@@ -69,37 +69,37 @@ class ScrollByActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView!!.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView!!.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

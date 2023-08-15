@@ -21,7 +21,7 @@ struct BackgroundColor : PaintProperty<Color> {
 };
 
 struct BackgroundOpacity : PaintProperty<float> {
-    static float defaultValue() { return 1.f; }
+    static float defaultValue() { return 1; }
 };
 
 struct BackgroundPattern : CrossFadedPaintProperty<expression::Image> {

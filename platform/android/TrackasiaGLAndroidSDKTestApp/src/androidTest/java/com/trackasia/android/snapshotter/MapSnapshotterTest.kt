@@ -8,8 +8,8 @@ import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.BackgroundLayer
 import com.trackasia.android.style.layers.PropertyFactory
 import com.trackasia.android.testapp.activity.FeatureOverviewActivity
+import junit.framework.Assert.assertNotNull
 import org.junit.Assert
-import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

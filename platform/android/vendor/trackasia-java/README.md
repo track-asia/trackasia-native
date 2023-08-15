@@ -1,5 +1,3 @@
-# NOTE: This repo is looking for someone who would like to maintain it. 
-
 <h1 align="center">
   <br>
   <a href="https://www.mapbox.com/android-docs/java-sdk/overview/"><img src="https://github.com/mapbox/mapbox-java/blob/main/.github/mbxservice-logo.png" alt="Mapbox Service" width="400"></a>
@@ -8,8 +6,8 @@
 <h4 align="center">Build powerful Java apps using Mapbox's tools and services</h4>
 
 <p align="center">
-  <a href="https://maven-badges.herokuapp.com/maven-central/com.mapbox.mapboxsdk/mapbox-sdk-services">
-    <img src="https://maven-badges.herokuapp.com/maven-central/com.mapbox.mapboxsdk/mapbox-sdk-services/badge.svg"
+  <a href="https://maven-badges.herokuapp.com/maven-central/com.trackasia.android/mapbox-sdk-services">
+    <img src="https://maven-badges.herokuapp.com/maven-central/com.trackasia.android/mapbox-sdk-services/badge.svg"
          alt="Maven Central">
   </a>
   <a href="https://circleci.com/gh/mapbox/mapbox-java">
@@ -39,7 +37,7 @@ You'll find all of the documentation for this SDK on [our Mapbox Java documentat
 
 ## Using Snapshots
 
-If you want to test recent bugfixes or features that have not been packaged in an official release yet, you can use a `-SNAPSHOT` release of the current development version of the Mapbox Java SDK via Gradle, available on [JFrog](https://oss.jfrog.org/artifactory/oss-snapshot-local/com/mapbox/mapboxsdk/). There are several different snapshots built nightly. Feel free to use any of the modules as needed.
+If you want to test recent bugfixes or features that have not been packaged in an official release yet, you can use a `-SNAPSHOT` release of the current development version of the Mapbox Java SDK via Gradle, available on [JFrog](https://oss.jfrog.org/artifactory/oss-snapshot-local/com.trackasia.android/). There are several different snapshots built nightly. Feel free to use any of the modules as needed.
 
 ```gradle
 repositories {
@@ -48,7 +46,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.8.0-SNAPSHOT'
+    implementation 'com.trackasia.android:mapbox-sdk-services:5.8.0-SNAPSHOT'
 }
 ```
 

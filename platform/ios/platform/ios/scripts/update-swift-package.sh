@@ -16,18 +16,18 @@ step "Creating Swift package…"
 rm -f Package.swift
 cp platform/ios/scripts/swift_package_template.swift Package.swift
 
-export GITHUB_USER=Trackasia
-export GITHUB_REPO=trackasia-native
+export GITHUB_USER=trackasia
+export GITHUB_REPO=trackasia-gl-native
 export BUILDTYPE=Release
-export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/track-asia/Trackasia-gl-native-distribution
+export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/track-asia/trackasia-gl-native-distribution
 
-VERSION_TAG="ios-v1.0.0"
-PUBLISH_VERSION="1.0.0"
-BINARY_DIRECTORY='/Volumes/Data/Temp/Trackasia'
+VERSION_TAG="ios-v5.11.0"
+PUBLISH_VERSION="5.11.0"
+BINARY_DIRECTORY='/Volumes/Data/Temp/trackasia'
 PUBLISH_PRE_FLAG=''
 S3_DISTRIBUTION=false
-MAPBOX_ZIP_FILE_URL="https://github.com/track-asia/trackasia-native/releases/download/ios-v5.11.0/Mapbox-5.11.0.zip"
-MAPBOX_ZIP_FILE="Mapbox-1.0.0.zip"
+MAPBOX_ZIP_FILE_URL="https://github.com/track-asia/trackasia-gl-native/releases/download/ios-v5.11.0/Mapbox-5.11.0.zip"
+MAPBOX_ZIP_FILE="Mapbox-5.11.0.zip"
 DIST_GITHUB_TOKEN="PUT YOUR TOKEN HERE:"
 
 setTarget() {

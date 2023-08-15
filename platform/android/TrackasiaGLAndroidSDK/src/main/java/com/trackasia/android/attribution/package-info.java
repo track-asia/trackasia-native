@@ -1,4 +1,4 @@
 /**
- * Contains the Trackasia Maps Android Attribution API classes.
+ * Contains the Mapbox Maps Android Attribution API classes.
  */
 package com.trackasia.android.attribution;

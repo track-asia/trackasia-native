@@ -1,4 +1,4 @@
-# Trackasia GL Test App
+# TrackAsia GL Test App
 
 ## Building
 

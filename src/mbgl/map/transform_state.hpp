@@ -7,13 +7,13 @@
 #include <mbgl/util/geo.hpp>
 #include <mbgl/util/geometry.hpp>
 #include <mbgl/util/mat4.hpp>
+#include <mbgl/util/optional.hpp>
 #include <mbgl/util/projection.hpp>
 #include <mbgl/util/size.hpp>
 
 #include <cstdint>
 #include <array>
 #include <limits>
-#include <optional>
 
 namespace mbgl {
 
@@ -21,87 +21,87 @@ class UnwrappedTileID;
 class TileCoordinate;
 
 struct TransformStateProperties {
-    TransformStateProperties& withX(const std::optional<double>& val) {
+    TransformStateProperties& withX(const optional<double>& val) {
         x = val;
         return *this;
     }
-    TransformStateProperties& withY(const std::optional<double>& val) {
+    TransformStateProperties& withY(const optional<double>& val) {
         y = val;
         return *this;
     }
-    TransformStateProperties& withScale(const std::optional<double>& val) {
+    TransformStateProperties& withScale(const optional<double>& val) {
         scale = val;
         return *this;
     }
-    TransformStateProperties& withBearing(const std::optional<double>& val) {
+    TransformStateProperties& withBearing(const optional<double>& val) {
         bearing = val;
         return *this;
     }
-    TransformStateProperties& withPitch(const std::optional<double>& val) {
+    TransformStateProperties& withPitch(const optional<double>& val) {
         pitch = val;
         return *this;
     }
-    TransformStateProperties& withXSkew(const std::optional<double>& val) {
+    TransformStateProperties& withXSkew(const optional<double>& val) {
         xSkew = val;
         return *this;
     }
-    TransformStateProperties& withYSkew(const std::optional<double>& val) {
+    TransformStateProperties& withYSkew(const optional<double>& val) {
         ySkew = val;
         return *this;
     }
-    TransformStateProperties& withAxonometric(const std::optional<bool>& val) {
+    TransformStateProperties& withAxonometric(const optional<bool>& val) {
         axonometric = val;
         return *this;
     }
-    TransformStateProperties& withPanningInProgress(const std::optional<bool>& val) {
+    TransformStateProperties& withPanningInProgress(const optional<bool>& val) {
         panning = val;
         return *this;
     }
-    TransformStateProperties& withScalingInProgress(const std::optional<bool>& val) {
+    TransformStateProperties& withScalingInProgress(const optional<bool>& val) {
         scaling = val;
         return *this;
     }
-    TransformStateProperties& withRotatingInProgress(const std::optional<bool>& val) {
+    TransformStateProperties& withRotatingInProgress(const optional<bool>& val) {
         rotating = val;
         return *this;
     }
-    TransformStateProperties& withEdgeInsets(const std::optional<EdgeInsets>& val) {
+    TransformStateProperties& withEdgeInsets(const optional<EdgeInsets>& val) {
         edgeInsets = val;
         return *this;
     }
-    TransformStateProperties& withSize(const std::optional<Size>& val) {
+    TransformStateProperties& withSize(const optional<Size>& val) {
         size = val;
         return *this;
     }
-    TransformStateProperties& withConstrainMode(const std::optional<ConstrainMode>& val) {
+    TransformStateProperties& withConstrainMode(const optional<ConstrainMode>& val) {
         constrain = val;
         return *this;
     }
-    TransformStateProperties& withNorthOrientation(const std::optional<NorthOrientation>& val) {
+    TransformStateProperties& withNorthOrientation(const optional<NorthOrientation>& val) {
         northOrientation = val;
         return *this;
     }
-    TransformStateProperties& withViewportMode(const std::optional<ViewportMode>& val) {
+    TransformStateProperties& withViewportMode(const optional<ViewportMode>& val) {
         viewPortMode = val;
         return *this;
     }
 
-    std::optional<double> x;
-    std::optional<double> y;
-    std::optional<double> bearing;
-    std::optional<double> scale;
-    std::optional<double> pitch;
-    std::optional<double> xSkew;
-    std::optional<double> ySkew;
-    std::optional<bool> axonometric;
-    std::optional<bool> panning;
-    std::optional<bool> scaling;
-    std::optional<bool> rotating;
-    std::optional<EdgeInsets> edgeInsets;
-    std::optional<Size> size;
-    std::optional<ConstrainMode> constrain;
-    std::optional<NorthOrientation> northOrientation;
-    std::optional<ViewportMode> viewPortMode;
+    optional<double> x;
+    optional<double> y;
+    optional<double> bearing;
+    optional<double> scale;
+    optional<double> pitch;
+    optional<double> xSkew;
+    optional<double> ySkew;
+    optional<bool> axonometric;
+    optional<bool> panning;
+    optional<bool> scaling;
+    optional<bool> rotating;
+    optional<EdgeInsets> edgeInsets;
+    optional<Size> size;
+    optional<ConstrainMode> constrain;
+    optional<NorthOrientation> northOrientation;
+    optional<ViewportMode> viewPortMode;
 };
 
 class TransformState {
@@ -131,7 +131,7 @@ public:
     ViewportMode getViewportMode() const;
     void setViewportMode(ViewportMode val);
 
-    CameraOptions getCameraOptions(const std::optional<EdgeInsets>&) const;
+    CameraOptions getCameraOptions(const optional<EdgeInsets>&) const;
 
     // EdgeInsects
     EdgeInsets getEdgeInsets() const { return edgeInsets; }
@@ -276,8 +276,8 @@ private:
     double scale = 1;
     // This fov value is somewhat arbitrary. The altitude of the camera used
     // to be defined as 1.5 screen heights above the ground, which was an
-    // arbitrary choice. This is the fov equivalent to that value calculated
-    // with: `fov = 2 * arctan((height / 2) / (height * 1.5))`
+    // arbitrary choice. This is the fov equivalent to that value calculated with:
+    // `fov = 2 * arctan((height / 2) / (height * 1.5))`
     double fov = 0.6435011087932844;
     double pitch = 0.0;
     double xSkew = 0.0;

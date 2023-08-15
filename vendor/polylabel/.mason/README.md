@@ -12,7 +12,7 @@ Mason works on both OS X and Linux.
 
 Mason is a package manager designed for developers who package standalone applications and who need complete control over dependency versions.
 
-Because Mason is developed by Mapbox the default S3 bucket and set of available packages are driven by Mapbox developers. For other developers: 1) fork Mason and ideally rename it to something like `mason-{yourorg}`, 2) configure it against your own s3 bucket, and 3) go ahead an publish your own packages to an S3 bucket of your creation.
+Because Mason is developed by Trackasia the default S3 bucket and set of available packages are driven by Trackasia developers. For other developers: 1) fork Mason and ideally rename it to something like `mason-{yourorg}`, 2) configure it against your own s3 bucket, and 3) go ahead an publish your own packages to an S3 bucket of your creation.
 
 ### Comparisons
 

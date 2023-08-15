@@ -11,7 +11,7 @@ import com.mapbox.geojson.LineString
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.MapboxMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.LineLayer
@@ -27,7 +27,7 @@ import java.util.*
 class CollectionUpdateOnStyleChange : AppCompatActivity(), OnMapReadyCallback, Style.OnStyleLoaded {
 
     private lateinit var binding: ActivityCollectionUpdateOnStyleChangeBinding
-    private lateinit var trackasiaMap: TrackasiaMap
+    private lateinit var mapboxMap: MapboxMap
     private var currentStyleIndex: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +45,9 @@ class CollectionUpdateOnStyleChange : AppCompatActivity(), OnMapReadyCallback, S
             .show()
     }
 
-    override fun onMapReady(map: TrackasiaMap) {
-        trackasiaMap = map
-        trackasiaMap.setStyle(Style.Builder().fromUri(STYLES[currentStyleIndex]), this)
+    override fun onMapReady(map: MapboxMap) {
+        mapboxMap = map
+        mapboxMap.setStyle(Style.Builder().fromUri(STYLES[currentStyleIndex]), this)
     }
 
     override fun onStyleLoaded(style: Style) {
@@ -73,7 +73,7 @@ class CollectionUpdateOnStyleChange : AppCompatActivity(), OnMapReadyCallback, S
             if (currentStyleIndex == STYLES.size) {
                 currentStyleIndex = 0
             }
-            trackasiaMap.setStyle(Style.Builder().fromUri(STYLES[currentStyleIndex]), this)
+            mapboxMap.setStyle(Style.Builder().fromUri(STYLES[currentStyleIndex]), this)
         }
     }
 
