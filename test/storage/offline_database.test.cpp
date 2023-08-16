@@ -837,7 +837,7 @@ TEST(OfflineDatabase, MapboxTileLimitExceeded) {
     // Should be fine, ambient tile.
     insertAmbientTile(333);
 
-    // Also fine, not Mapbox.
+    // Also fine, not Trackasia.
     const Resource notMapboxTile = Resource::tile("foobar://region_tile", 1, 0, 0, 0, Tileset::Scheme::XYZ);
     db.putRegionResource(region1->getID(), notMapboxTile, response);
 

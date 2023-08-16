@@ -6,7 +6,7 @@ import json
 path = os.getcwd()
 with open(path + "/LICENSE.md", 'w') as licenseFile:
     licenseFile.write("<!-- This file was generated. Use `make android-license` to update. -->  \n")
-    licenseFile.write("mapbox-gl-native-android copyright 2014-2020 Mapbox. \n\n"
+    licenseFile.write("mapbox-gl-native-android copyright 2014-2020 Trackasia. \n\n"
     "Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following "
     "conditions are met:  \n\n"
     "1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.  \n\n"
@@ -21,7 +21,7 @@ with open(path + "/LICENSE.md", 'w') as licenseFile:
     "NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY "
     "OF SUCH DAMAGE.")
     licenseFile.write("\n\n===========================================================================\n\n")
-    with open(path + "/MapboxGLAndroidSDK/build/reports/licenses/licenseReleaseReport.json", 'r') as dataFile:
+    with open(path + "/TrackasiaGLAndroidSDK/build/reports/licenses/licenseReleaseReport.json", 'r') as dataFile:
         data = json.load(dataFile)
 
         gradleLicensePlugin ="""

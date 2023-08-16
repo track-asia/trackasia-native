@@ -16,7 +16,7 @@ fi
 
 # Gather list of files
 FILES=$(git ls-files "*.hpp" "*.cpp" "*.h" "*.mm" "*.m" "*.c" "*.java" "*.xml" "*.ejs" "*.gradle" |
-        sed '/^platform\/android\/MapboxGLAndroidSDK\/src\/main\/java\/com\/almeros\// d;/^src\/clipper\// d;/^platform\/ios\/uitest\/OCMock/d')
+        sed '/^platform\/android\/TrackasiaGLAndroidSDK\/src\/main\/java\/com\/almeros\// d;/^src\/clipper\// d;/^platform\/ios\/uitest\/OCMock/d')
 
 # Adds trailing newlines to files.
 echo "Checking for missing trailing newlines..."

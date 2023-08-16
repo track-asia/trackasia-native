@@ -204,7 +204,7 @@ Also you can use the link option to ensure that the framework is able to link.
 - Covering the base cpp in the root `src` directory.
 
 `vendor/BUILD.bazel`
-- Covering the submodule dependencies of Maplibre.
+- Covering the submodule dependencies of Trackasia.
 
 `platform/default/BUILD.bazel`
 - Covering the cpp dependencies in default.
@@ -249,7 +249,7 @@ BUILDTYPE=Debug make apackage
 #BUILDTYPE=Release make apackage
 ```
 
-Binaries are produced in `platform/android/MapboxGLAndroidSDK/build/outputs/aar/MapboxGLAndroidSDK-<BUILDTYPE>.aar`
+Binaries are produced in `platform/android/TrackasiaGLAndroidSDK/build/outputs/aar/TrackasiaGLAndroidSDK-<BUILDTYPE>.aar`
 Please refer to [Mapbox Maps SDK for Android](platform/android/) for detailed instructions.
 
 ### iOS

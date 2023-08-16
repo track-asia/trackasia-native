@@ -2129,7 +2129,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.MapboxGL;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trackasia.trackasiagl;
 				PRODUCT_NAME = "Trackasia GL";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2151,7 +2151,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.MapboxGL;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trackasia.trackasiagl;
 				PRODUCT_NAME = "Trackasia GL";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;

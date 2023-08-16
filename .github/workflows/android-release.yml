@@ -83,9 +83,9 @@ jobs:
           RELEASE_VERSION="$( git describe --tags --match=android-v*.*.* --abbrev=0 | sed 's/^android-v//' )"
           echo "Latest version from tag: $RELEASE_VERSION"
           if [ ! -z "$RELEASE_VERSION" ]; then
-            sed -i -e "s/^VERSION_NAME=.*/VERSION_NAME=${RELEASE_VERSION}/" MapboxGLAndroidSDK/gradle.properties
-            echo "MapboxGLAndroidSDK/gradle.properties:"
-            cat MapboxGLAndroidSDK/gradle.properties
+            sed -i -e "s/^VERSION_NAME=.*/VERSION_NAME=${RELEASE_VERSION}/" TrackasiaGLAndroidSDK/gradle.properties
+            echo "TrackasiaGLAndroidSDK/gradle.properties:"
+            cat TrackasiaGLAndroidSDK/gradle.properties
           fi
         shell: bash
 
@@ -96,7 +96,7 @@ jobs:
         run: |
           TRACKASIA_DEVELOPER_CONFIG_XML='${{ secrets.TRACKASIA_DEVELOPER_CONFIG_XML }}'
           if [ -n "${TRACKASIA_DEVELOPER_CONFIG_XML}" ]; then
-            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > MapboxGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
+            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > TrackasiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
             make android
           else
             echo "No secrets.TRACKASIA_DEVELOPER_CONFIG_XML variable set, skipping apk build..."
@@ -135,8 +135,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: platform/android/MapboxGLAndroidSDK/build/outputs/aar/MapboxGLAndroidSDK-release.aar
-          asset_name: MapboxGLAndroidSDK-release.aar
+          asset_path: platform/android/TrackasiaGLAndroidSDK/build/outputs/aar/TrackasiaGLAndroidSDK-release.aar
+          asset_name: TrackasiaGLAndroidSDK-release.aar
           asset_content_type: application/zip 
 
       - name: Clean release

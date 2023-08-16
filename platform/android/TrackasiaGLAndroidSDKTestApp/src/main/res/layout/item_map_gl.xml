@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.trackasia.android.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        app:trackasia_cameraTargetLat="45.38301927899065"
+        app:trackasia_cameraTargetLng="8.63525390625"
+        app:trackasia_cameraZoom="7"/>

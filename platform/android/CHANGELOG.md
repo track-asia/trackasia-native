@@ -133,7 +133,7 @@ Switching from mapbox-java libraries to [trackasia fork](https://github.com/trac
 ## 9.2.0 - May 7, 2020
 ### Features
  - Added the `distance` expression for calculating the shortest distance between an evaluated feature and a given GeoJSON object. ([#339](https://github.com/mapbox/mapbox-gl-native-android/pull/339))
- - The [`SymbolLayer.iconTextFit`](https://docs.mapbox.com/android/api/map-sdk/9.2.0-beta.1/com/mapbox/mapboxsdk/style/layers/PropertyFactory.html#iconTextFit-com.mapbox.mapboxsdk.style.expressions.Expression-) property now respects the stretch metadata of any nine-part stretchable image passed into the `style.addImage` method. You can define the stretchable area of an image by configuring the `stretchX`, `stretchY`, `content` options on `Style.addImage` to append the requisite [metadata](https://github.com/mapbox/mapbox-gl-js/issues/8917). ([#314](https://github.com/mapbox/mapbox-gl-native-android/pull/314))
+ - The [`SymbolLayer.iconTextFit`](https://docs.mapbox.com/android/api/map-sdk/9.2.0-beta.1/com.trackasia.android/style/layers/PropertyFactory.html#iconTextFit-com.trackasia.android.style.expressions.Expression-) property now respects the stretch metadata of any nine-part stretchable image passed into the `style.addImage` method. You can define the stretchable area of an image by configuring the `stretchX`, `stretchY`, `content` options on `Style.addImage` to append the requisite [metadata](https://github.com/mapbox/mapbox-gl-js/issues/8917). ([#314](https://github.com/mapbox/mapbox-gl-native-android/pull/314))
  - Added methods to set and get the sort key of features in a `CircleLayer` at runtime. Features with a higher sort key will appear above features with a lower sort key. ([#322](https://github.com/mapbox/mapbox-gl-native-android/pull/322))
  - Introduced `Source.setVolatile` to disable ambient caching of tiles from a source. Use this option on transient sources, such as traffic tilesets, if not showing tiles from a source is preferable to showing outdated tiles should an update request fail. ([#355](https://github.com/mapbox/mapbox-gl-native-android/pull/355))
  - Introduced `Source.minimumTileUpdateInterval` to override the expiration time set via HTTP headers with a longer expiration time on the client. ([#355](https://github.com/mapbox/mapbox-gl-native-android/pull/355))
@@ -229,7 +229,7 @@ Switching from mapbox-java libraries to [trackasia fork](https://github.com/trac
 
 ### Bug fixes
  - Deprecated `MapboxMap#cycleDebugOptions` and fixed an `UnsatisfiedLinkError` when accessed. [#104](https://github.com/mapbox/mapbox-gl-native-android/pull/104)
- - Fixed a null pointer issue on the public static getters of `Mapbox.java`, in case the user hasn't called `Mapbox.getInstance()`. [#128](https://github.com/mapbox/mapbox-gl-native-android/pull/128)
+ - Fixed a null pointer issue on the public static getters of `Trackasia.java`, in case the user hasn't called `Trackasia.getInstance()`. [#128](https://github.com/mapbox/mapbox-gl-native-android/pull/128)
 
 ## 8.6.0 - December 20, 2019
 [Changes](https://github.com/mapbox/mapbox-gl-native-android/compare/android-v8.6.0-beta.1...android-v8.6.0) since [Mapbox Maps SDK for Android v8.6.0-beta.1](https://github.com/mapbox/mapbox-gl-native-android/releases/tag/android-v8.6.0-beta.1):
@@ -587,7 +587,7 @@ This release changes how offline tile requests are billed — they are now bille
  - Fix performance regression by switching back to a more compact line attributes layout [#14851](https://github.com/mapbox/mapbox-gl-native/pull/14851)
  - Fix a bug that restricted camera viewport after camera bounds were reset [#14882](https://github.com/mapbox/mapbox-gl-native/pull/14882)
  - Fix a bug that ignored floating point values during core to platform color conversion [#14954](https://github.com/mapbox/mapbox-gl-native/pull/14954)
- - Implemented asymmetric center of perspective: fixed an issue that caused the focal point to be always based on the view's horizontal center when setting [MapboxMap setPadding](https://docs.mapbox.com/android/api/map-sdk/8.0.0/com/mapbox/mapboxsdk/maps/MapboxMap.html#setPadding-int-int-int-int-). [#14664](https://github.com/mapbox/mapbox-gl-native/pull/14664)
+ - Implemented asymmetric center of perspective: fixed an issue that caused the focal point to be always based on the view's horizontal center when setting [MapboxMap setPadding](https://docs.mapbox.com/android/api/map-sdk/8.0.0/com.trackasia.android/maps/MapboxMap.html#setPadding-int-int-int-int-). [#14664](https://github.com/mapbox/mapbox-gl-native/pull/14664)
 
 ### Minor features and improvements
  - Allow null updates to GeoJsonSource [#14898](https://github.com/mapbox/mapbox-gl-native/pull/14898)
@@ -999,7 +999,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
  - Immediate location animation based on map's projection [#13545](https://github.com/mapbox/mapbox-gl-native/pull/13545)
  - Option to disable smooth animation of compass and accuracy values [#13574](https://github.com/mapbox/mapbox-gl-native/pull/13574)
  - Add onDidBecomeIdle to Map events [#13513](https://github.com/mapbox/mapbox-gl-native/pull/13513)
- - Expose setAccessToken on Mapbox.java [#13397](https://github.com/mapbox/mapbox-gl-native/pull/13397)
+ - Expose setAccessToken on Trackasia.java [#13397](https://github.com/mapbox/mapbox-gl-native/pull/13397)
  - Expose endpoint change option for snapshotter [#13508](https://github.com/mapbox/mapbox-gl-native/pull/13508)
  - Use locale sensitive DecimalFormat for color alpha conversion [#13393](https://github.com/mapbox/mapbox-gl-native/pull/13393)
  - Enabled RecyclerView integration [#13132](https://github.com/mapbox/mapbox-gl-native/pull/13132)
@@ -1009,7 +1009,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
  - LatLng bounds cannot be wrapped [#13419](https://github.com/mapbox/mapbox-gl-native/pull/13419)
  - Expose endpoint change option for snapshotter [#13508](https://github.com/mapbox/mapbox-gl-native/pull/13508)
  - Formatted "text-field" property setter [#13358](https://github.com/mapbox/mapbox-gl-native/pull/13358)
- - Expose setAccesToken on Mapbox.java [#13397](https://github.com/mapbox/mapbox-gl-native/pull/13397)
+ - Expose setAccesToken on Trackasia.java [#13397](https://github.com/mapbox/mapbox-gl-native/pull/13397)
  - Immediately notify core about forced connectivity state [#13485](https://github.com/mapbox/mapbox-gl-native/pull/13485)
  - Handle transition duration of 0ms for symbols [#13535](https://github.com/mapbox/mapbox-gl-native/pull/13535)
  - Returning boolean when removing sources and layers [#13428](https://github.com/mapbox/mapbox-gl-native/pull/13428)

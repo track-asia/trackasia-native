@@ -14,7 +14,7 @@ passes its test.
 
 | parameter | type  | description      |
 | --------- | ----- | ---------------- |
-| `filter`  | Array | mapbox gl filter |
+| `filter`  | Array | trackasia gl filter |
 
 **Returns** `Function`, filter-evaluating function
 

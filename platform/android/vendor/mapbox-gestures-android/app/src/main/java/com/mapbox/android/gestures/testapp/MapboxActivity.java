@@ -33,7 +33,7 @@ public class MapboxActivity extends AppCompatActivity {
       Timber.e(ACCESS_TOKEN_NOT_SET_MESSAGE);
     }
 
-    Mapbox.getInstance(getApplicationContext(), mapboxAccessToken);
+    Trackasia.getInstance(getApplicationContext(), mapboxAccessToken);
 
     setContentView(R.layout.activity_mapbox);
 

@@ -1,1 +1,1 @@
-var mbgl = require('../../../../lib/mapbox_gl_native');
+var mbgl = require('../../../../lib/trackasai_gl_native');

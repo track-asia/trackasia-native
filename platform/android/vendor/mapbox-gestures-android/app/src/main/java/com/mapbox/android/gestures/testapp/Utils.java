@@ -21,7 +21,7 @@ public class Utils {
   public static String getMapboxAccessToken(@NonNull Context context) {
     try {
       // Read out AndroidManifest
-      String token = Mapbox.getAccessToken();
+      String token = Trackasia.getAccessToken();
       if (token == null || token.isEmpty()) {
         throw new IllegalArgumentException();
       }

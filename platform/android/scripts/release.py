@@ -56,8 +56,8 @@ CIRCLECI_API_TOKEN_ENV_VAR = 'CIRCLECI_API_TOKEN'
 ALLOWED_PRE_RELEASE = ['beta']
 
 # We get the default version from here
-MAPBOX_GL_ANDROID_SDK_PATH = '../MapboxGLAndroidSDK'
-GRADLE_PROPERTIES_PATH = '%s/gradle.properties' % MAPBOX_GL_ANDROID_SDK_PATH
+TRACKASIA_GL_ANDROID_SDK_PATH = '../TrackasiaGLAndroidSDK'
+GRADLE_PROPERTIES_PATH = '%s/gradle.properties' % TRACKASIA_GL_ANDROID_SDK_PATH
 GRADLE_TOKEN = 'VERSION_NAME='
 
 # Triggers a new build, returns a summary of the build

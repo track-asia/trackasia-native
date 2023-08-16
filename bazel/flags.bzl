@@ -31,7 +31,7 @@ CPP_FLAGS = WARNING_FLAGS + [
 ]
 
 """
-Compilation flags related to the Maplibre codebase. Relevant for all .cpp .mm and .m code
+Compilation flags related to the Trackasia codebase. Relevant for all .cpp .mm and .m code
  - src/*
  - include/*
  - platform/*

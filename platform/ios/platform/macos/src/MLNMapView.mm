@@ -271,13 +271,13 @@ public:
     _mbglView = MLNMapViewImpl::Create(self);
 
     // Delete the pre-offline ambient cache at
-    // ~/Library/Caches/com.mapbox.MapboxGL/cache.db.
+    // ~/Library/Caches/com.trackasia.trackasiagl/cache.db.
     NSURL *cachesDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory
                                                                        inDomain:NSUserDomainMask
                                                               appropriateForURL:nil
                                                                          create:NO
                                                                           error:nil];
-    cachesDirectoryURL = [cachesDirectoryURL URLByAppendingPathComponent:@"com.mapbox.MapboxGL"];
+    cachesDirectoryURL = [cachesDirectoryURL URLByAppendingPathComponent:@"com.trackasia.trackasiagl"];
     NSURL *legacyCacheURL = [cachesDirectoryURL URLByAppendingPathComponent:@"cache.db"];
     [[NSFileManager defaultManager] removeItemAtURL:legacyCacheURL error:NULL];
 
