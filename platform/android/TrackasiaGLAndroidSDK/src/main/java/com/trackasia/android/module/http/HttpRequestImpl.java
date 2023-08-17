@@ -10,7 +10,6 @@ import androidx.annotation.VisibleForTesting;
 
 import com.trackasia.android.BuildConfig;
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.http.HttpIdentifier;
 import com.trackasia.android.http.HttpLogger;
 import com.trackasia.android.http.HttpRequest;

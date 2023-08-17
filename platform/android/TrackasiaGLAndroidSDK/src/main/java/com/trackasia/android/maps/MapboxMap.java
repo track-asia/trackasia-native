@@ -35,7 +35,6 @@ import com.trackasia.android.camera.CameraPosition;
 import com.trackasia.android.camera.CameraUpdate;
 import com.trackasia.android.camera.CameraUpdateFactory;
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.geometry.LatLngBounds;
 import com.trackasia.android.location.LocationComponent;

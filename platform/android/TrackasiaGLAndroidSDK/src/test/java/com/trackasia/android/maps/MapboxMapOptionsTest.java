@@ -5,7 +5,6 @@ import android.view.Gravity;
 
 import com.trackasia.android.camera.CameraPosition;
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.geometry.LatLng;
 
 import org.junit.Test;

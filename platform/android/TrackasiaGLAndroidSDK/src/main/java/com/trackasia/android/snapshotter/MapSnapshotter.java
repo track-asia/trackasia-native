@@ -26,7 +26,6 @@ import com.trackasia.android.attribution.AttributionMeasure;
 import com.trackasia.android.attribution.AttributionParser;
 import com.trackasia.android.camera.CameraPosition;
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.geometry.LatLngBounds;
 import com.trackasia.android.log.Logger;
 import com.trackasia.android.maps.Image;

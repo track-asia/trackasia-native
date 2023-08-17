@@ -23,7 +23,6 @@ import com.mapbox.android.gestures.StandardGestureDetector;
 import com.mapbox.android.gestures.StandardScaleGestureDetector;
 import com.trackasia.android.R;
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.utils.MathUtils;
 
 import java.util.ArrayList;

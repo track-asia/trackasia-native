@@ -6,7 +6,6 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.log.Logger;
 
 import java.util.ArrayList;

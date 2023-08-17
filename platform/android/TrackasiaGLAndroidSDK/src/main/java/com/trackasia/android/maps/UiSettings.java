@@ -24,7 +24,6 @@ import androidx.core.content.res.ResourcesCompat;
 import com.trackasia.android.R;
 import com.trackasia.android.camera.CameraPosition;
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.maps.widgets.CompassView;
 import com.trackasia.android.utils.BitmapUtils;
 import com.trackasia.android.utils.ColorUtils;

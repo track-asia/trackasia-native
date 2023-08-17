@@ -14,8 +14,6 @@ import androidx.annotation.UiThread;
 
 import com.trackasia.android.MapStrictMode;
 import com.trackasia.android.Trackasia;
-import com.trackasia.android.Trackasia;
-import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.log.Logger;
 import com.trackasia.android.util.TileServerOptions;

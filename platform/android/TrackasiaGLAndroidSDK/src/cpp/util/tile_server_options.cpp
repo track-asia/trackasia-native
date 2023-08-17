@@ -8,9 +8,9 @@ jni::Local<jni::Object<TileServerOptions>> TileServerOptions::New(jni::JNIEnv& e
     static auto constructor = javaClass.GetConstructor<
         jni::String, jni::String, jni::String, jni::String, jni::String, jni::String,
         jni::String, jni::String, jni::String, jni::String, jni::String,
-        jni::String, jni::String, jni::String, jni::String, jni::String, 
+        jni::String, jni::String, jni::String, jni::String, jni::String,
         jni::String, jni::String, jni::jboolean, jni::String, jni::Array<jni::Object<DefaultStyle>>>(env);
-    
+
     optional<std::string> sourceVersionPrefixValue = tileServerOptions.sourceVersionPrefix();
     optional<std::string> styleVersionPrefixValue = tileServerOptions.styleVersionPrefix();
     optional<std::string> spritesVersionPrefixValue = tileServerOptions.spritesVersionPrefix();
@@ -114,7 +114,7 @@ mbgl::TileServerOptions TileServerOptions::getTileServerOptions(jni::JNIEnv& env
         .withUriSchemeAlias(jni::Make<std::string>(env, options.Get(env, uriSchemeAliasField)))
         .withApiKeyParameterName(jni::Make<std::string>(env, options.Get(env, apiKeyParameterNameField)))
         .setRequiresApiKey(options.Get(env, apiKeyRequiredField));
-    
+
     auto sourcePrefixValue = options.Get(env, sourceVersionPrefixField);
     retVal.withSourceTemplate(
         jni::Make<std::string>(env, options.Get(env, sourceTemplateField)),
@@ -133,13 +133,13 @@ mbgl::TileServerOptions TileServerOptions::getTileServerOptions(jni::JNIEnv& env
             jni::Make<std::string>(env, options.Get(env, spritesDomainNameField)),
             spritesVersionPrefixValue ? jni::Make<std::string>(env, spritesVersionPrefixValue): optional<std::string>{});
 
-    auto glyphsVersionPrefixValue = options.Get(env, glyphsVersionPrefixField);           
+    auto glyphsVersionPrefixValue = options.Get(env, glyphsVersionPrefixField);
     retVal.withGlyphsTemplate(
             jni::Make<std::string>(env, options.Get(env, glyphsTemplateField)),
             jni::Make<std::string>(env, options.Get(env, glyphsDomainNameField)),
             glyphsVersionPrefixValue ? jni::Make<std::string>(env, glyphsVersionPrefixValue) : optional<std::string>{});
 
-    auto tileVersionPrefixValue = options.Get(env, tileVersionPrefixField);        
+    auto tileVersionPrefixValue = options.Get(env, tileVersionPrefixField);
     retVal.withTileTemplate(
             jni::Make<std::string>(env, options.Get(env, tileTemplateField)),
             jni::Make<std::string>(env, options.Get(env, tileDomainNameField)),
