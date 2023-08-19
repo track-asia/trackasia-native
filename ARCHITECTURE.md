@@ -21,7 +21,7 @@ Code and build scripts belonging to platform SDKs are contained in the `platform
 - `platform/android` - Android SDK, forked from https://github.com/mapbox/mapbox-gl-native-android/commit/4c12fb2c.
 - `platform/glfw` - [GLFW](https://www.glfw.org) is library to support OpenGL development on the desktop. The code in this directory builds an executable application `mbgl-glfw` for demo/dev/local testing purposes.
 
-## Maplibre-gl-js
+## Trackasia-gl-js
 
 `trackasia-gl-js` is added to this repostiory as a top-level submodule to provide
 

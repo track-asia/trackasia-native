@@ -1,7 +1,7 @@
 {
   "name": "@track-asia/trackasia-gl-native",
   "version": "5.1.1",
-  "description": "Renders map tiles with Maplibre GL",
+  "description": "Renders map tiles with TrackAsia GL",
   "keywords": [
     "trackasia",
     "gl"

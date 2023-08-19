@@ -204,7 +204,7 @@ Also you can use the link option to ensure that the framework is able to link.
 - Covering the base cpp in the root `src` directory.
 
 `vendor/BUILD.bazel`
-- Covering the submodule dependencies of Maplibre.
+- Covering the submodule dependencies of Trackasia.
 
 `platform/default/BUILD.bazel`
 - Covering the cpp dependencies in default.

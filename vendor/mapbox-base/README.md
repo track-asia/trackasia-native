@@ -6,4 +6,4 @@ trackasia-native-base
 
 A collection of common static and header-only C++ libraries used among our native SDKs.
 
-Part of the [Maplibre](https://track-asia.com) organization
+Part of the [Trackasia](https://track-asia.com) organization
