@@ -6,7 +6,7 @@
 
 #include <exception>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 MapObserver::MapObserver(MapPrivate *d)
     : d_ptr(d)
@@ -119,4 +119,4 @@ void MapObserver::onSourceChanged(mbgl::style::Source&)
     emit mapChanged(Map::MapChangeSourceDidChange);
 }
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

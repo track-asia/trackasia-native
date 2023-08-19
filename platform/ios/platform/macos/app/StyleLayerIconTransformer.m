@@ -12,32 +12,32 @@
     return NO;
 }
 
-- (id)transformedValue:(MLNStyleLayer *)layer {
-    if ([layer isKindOfClass:[MLNBackgroundStyleLayer class]]) {
+- (id)transformedValue:(MGLStyleLayer *)layer {
+    if ([layer isKindOfClass:[MGLBackgroundStyleLayer class]]) {
         return [NSImage imageNamed:@"background"];
     }
-    if ([layer isKindOfClass:[MLNCircleStyleLayer class]]) {
+    if ([layer isKindOfClass:[MGLCircleStyleLayer class]]) {
         return [NSImage imageNamed:@"circle"];
     }
-    if ([layer isKindOfClass:[MLNFillStyleLayer class]]) {
+    if ([layer isKindOfClass:[MGLFillStyleLayer class]]) {
         return [NSImage imageNamed:@"fill"];
     }
-    if ([layer isKindOfClass:[MLNFillExtrusionStyleLayer class]]) {
+    if ([layer isKindOfClass:[MGLFillExtrusionStyleLayer class]]) {
         return [NSImage imageNamed:@"fill-extrusion"];
     }
-    if ([layer isKindOfClass:[MLNLineStyleLayer class]]) {
+    if ([layer isKindOfClass:[MGLLineStyleLayer class]]) {
         return [NSImage imageNamed:@"NSListViewTemplate"];
     }
-    if ([layer isKindOfClass:[MLNRasterStyleLayer class]]) {
+    if ([layer isKindOfClass:[MGLRasterStyleLayer class]]) {
         return [[NSWorkspace sharedWorkspace] iconForFileType:@"jpg"];
     }
-    if ([layer isKindOfClass:[MLNSymbolStyleLayer class]]) {
+    if ([layer isKindOfClass:[MGLSymbolStyleLayer class]]) {
         return [NSImage imageNamed:@"symbol"];
     }
-    if ([layer isKindOfClass:[MLNHeatmapStyleLayer class]]) {
+    if ([layer isKindOfClass:[MGLHeatmapStyleLayer class]]) {
         return [NSImage imageNamed:@"heatmap"];
     }
-    if ([layer isKindOfClass:[MLNHillshadeStyleLayer class]]) {
+    if ([layer isKindOfClass:[MGLHillshadeStyleLayer class]]) {
         return [NSImage imageNamed:@"hillshade"];
     }
     

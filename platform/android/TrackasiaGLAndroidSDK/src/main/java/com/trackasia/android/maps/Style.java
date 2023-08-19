@@ -639,7 +639,9 @@ public class Style {
    * which will fade in/out with a default duration after symbol collision detection.
    * <p>
    * To disable symbols fade in/out animation,
-
+   * pass transition options with {@link TransitionOptions#enablePlacementTransitions} equal to false.
+   * <p>
+   * Both {@link TransitionOptions#duration} and {@link TransitionOptions#delay}
    * will also change the behavior of the symbols fade in/out animation if the placement transition is enabled.
    *
    * @param transitionOptions the transition options
@@ -657,7 +659,10 @@ public class Style {
    * which will fade in/out with a default duration after symbol collision detection.
    * <p>
    * To disable symbols fade in/out animation,
-
+   * pass transition options with {@link TransitionOptions#enablePlacementTransitions} equal to false
+   * into {@link #setTransition(TransitionOptions)}.
+   * <p>
+   * Both {@link TransitionOptions#duration} and {@link TransitionOptions#delay}
    * will also change the behavior of the symbols fade in/out animation if the placement transition is enabled.
    *
    * @return TransitionOptions the transition options

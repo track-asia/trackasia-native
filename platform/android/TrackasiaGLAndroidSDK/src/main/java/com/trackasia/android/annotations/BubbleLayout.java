@@ -22,7 +22,7 @@ import com.trackasia.android.R;
  * After the bitmap is added to the {@link com.trackasia.android.maps.Style} object, a
  * {@link com.trackasia.android.style.layers.SymbolLayer} or the
  * <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   Mapbox Annotation Plugin</a> can reference the image ID.
+ *   Trackasia Annotation Plugin</a> can reference the image ID.
  */
 @Deprecated
 public class BubbleLayout extends LinearLayout {

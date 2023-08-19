@@ -8,7 +8,7 @@
 - (BOOL)application:(UIApplication*)application
     didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     
-    [MLNSettings useWellKnownTileServer:MLNMapTiler];
+    [MGLSettings useWellKnownTileServer:MGLMapTiler];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [MBXBenchViewController new];

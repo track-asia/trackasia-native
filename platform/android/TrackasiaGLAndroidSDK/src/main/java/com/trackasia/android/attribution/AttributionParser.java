@@ -130,10 +130,10 @@ public class AttributionParser {
   }
 
   /**
-   * Invoked to validate if an url is valid for the Mapbox configuration.
+   * Invoked to validate if an url is valid for the Trackasia configuration.
    *
    * @param url the url to be validated
-   * @return if the url is valid for Mapbox
+   * @return if the url is valid for Trackasia
    */
   private boolean isValidForMapbox(@NonNull String url) {
     return withMapboxAttribution || !url.equals(Attribution.MAPBOX_URL);

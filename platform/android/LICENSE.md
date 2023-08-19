@@ -1,5 +1,5 @@
 <!-- This file was generated. Use `make android-license` to update. -->  
-mapbox-gl-native-android copyright 2014-2020 Trackasia. 
+mapbox-gl-native-android copyright 2014-2020 Mapbox. 
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:  
 

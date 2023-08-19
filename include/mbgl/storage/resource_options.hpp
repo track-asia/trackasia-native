@@ -24,17 +24,17 @@ public:
     ResourceOptions clone() const;
 
     /**
-     * @brief Sets the Mapbox access token - see https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ for details.
+     * @brief Sets the Trackasia access token - see https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ for details.
      *
-     * @param token Mapbox access token.
+     * @param token Trackasia access token.
      * @return ResourceOptions for chaining options together.
      */
     ResourceOptions& withApiKey(std::string token);
 
     /**
-     * @brief Gets the previously set (or default) Mapbox access token.
+     * @brief Gets the previously set (or default) Trackasia access token.
      *
-     * @return const std::string& Mapbox access token.
+     * @return const std::string& Trackasia access token.
      */
     const std::string& apiKey() const;
 

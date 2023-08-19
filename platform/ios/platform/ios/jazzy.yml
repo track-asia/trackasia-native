@@ -27,115 +27,115 @@ custom_categories:
       - Gesture Recognizers
   - name: Maps
     children:
-      - MLNSettings
-      - MLNMapCamera
-      - MLNMapView
-      - MLNMapViewDelegate
-      - MLNMapSnapshot
-      - MLNMapSnapshotOptions
-      - MLNMapSnapshotter
-      - MLNUserTrackingMode
+      - MGLSettings
+      - MGLMapCamera
+      - MGLMapView
+      - MGLMapViewDelegate
+      - MGLMapSnapshot
+      - MGLMapSnapshotOptions
+      - MGLMapSnapshotter
+      - MGLUserTrackingMode
   - name: Primitive Shapes
     children:
-      - MLNAnnotation
-      - MLNOverlay
-      - MLNShape
-      - MLNMultiPoint
-      - MLNPointAnnotation
-      - MLNPointCollection
-      - MLNPolygon
-      - MLNPolyline
-      - MLNMultiPolygon
-      - MLNMultiPolyline
-      - MLNShapeCollection
+      - MGLAnnotation
+      - MGLOverlay
+      - MGLShape
+      - MGLMultiPoint
+      - MGLPointAnnotation
+      - MGLPointCollection
+      - MGLPolygon
+      - MGLPolyline
+      - MGLMultiPolygon
+      - MGLMultiPolyline
+      - MGLShapeCollection
   - name: Annotations
     children:
-      - MLNAnnotationImage
-      - MLNAnnotationView
-      - MLNUserLocation
-      - MLNUserLocationAnnotationView
+      - MGLAnnotationImage
+      - MGLAnnotationView
+      - MGLUserLocation
+      - MGLUserLocationAnnotationView
   - name: User Interaction
     children:
-      - MLNCalloutView
-      - MLNCalloutViewDelegate
-      - MLNCompassButton
+      - MGLCalloutView
+      - MGLCalloutViewDelegate
+      - MGLCompassButton
   - name: Location Updates
     children:
-      - MLNLocationManager
-      - MLNLocationManagerDelegate
+      - MGLLocationManager
+      - MGLLocationManagerDelegate
   - name: Styling the Map
     children:
-      - MLNStyle
-      - MLNLight
+      - MGLStyle
+      - MGLLight
   - name: Style Primitives
     children:
-      - MLNFeature
-      - MLNPointFeature
-      - MLNPointFeatureCluster
-      - MLNPolygonFeature
-      - MLNPolylineFeature
-      - MLNMultiPolygonFeature
-      - MLNMultiPolylineFeature
-      - MLNPointCollectionFeature
-      - MLNShapeCollectionFeature
-      - MLNEmptyFeature
+      - MGLFeature
+      - MGLPointFeature
+      - MGLPointFeatureCluster
+      - MGLPolygonFeature
+      - MGLPolylineFeature
+      - MGLMultiPolygonFeature
+      - MGLMultiPolylineFeature
+      - MGLPointCollectionFeature
+      - MGLShapeCollectionFeature
+      - MGLEmptyFeature
   - name: Style Content
     children:
-      - MLNSource
-      - MLNShapeSource
-      - MLNComputedShapeSource
-      - MLNTileSource
-      - MLNRasterTileSource
-      - MLNRasterDEMSource
-      - MLNVectorTileSource
-      - MLNImageSource
+      - MGLSource
+      - MGLShapeSource
+      - MGLComputedShapeSource
+      - MGLTileSource
+      - MGLRasterTileSource
+      - MGLRasterDEMSource
+      - MGLVectorTileSource
+      - MGLImageSource
   - name: Style Layers
     children:
-      - MLNStyleLayer
-      - MLNForegroundStyleLayer
-      - MLNBackgroundStyleLayer
-      - MLNRasterStyleLayer
-      - MLNVectorStyleLayer
-      - MLNCircleStyleLayer
-      - MLNFillStyleLayer
-      - MLNFillExtrusionStyleLayer
-      - MLNHeatmapStyleLayer
-      - MLNHillshadeStyleLayer
-      - MLNLineStyleLayer
-      - MLNSymbolStyleLayer
+      - MGLStyleLayer
+      - MGLForegroundStyleLayer
+      - MGLBackgroundStyleLayer
+      - MGLRasterStyleLayer
+      - MGLVectorStyleLayer
+      - MGLCircleStyleLayer
+      - MGLFillStyleLayer
+      - MGLFillExtrusionStyleLayer
+      - MGLHeatmapStyleLayer
+      - MGLHillshadeStyleLayer
+      - MGLLineStyleLayer
+      - MGLSymbolStyleLayer
   - name: Offline Maps
     children:
-      - MLNOfflineRegion
-      - MLNOfflineStorage
-      - MLNOfflinePack
-      - MLNOfflinePackProgress
-      - MLNOfflinePackState
-      - MLNTilePyramidOfflineRegion
-      - MLNShapeOfflineRegion
+      - MGLOfflineRegion
+      - MGLOfflineStorage
+      - MGLOfflinePack
+      - MGLOfflinePackProgress
+      - MGLOfflinePackState
+      - MGLTilePyramidOfflineRegion
+      - MGLShapeOfflineRegion
   - name: Geometry
     children:
-      - MLNCoordinateBounds
-      - MLNCoordinateBoundsEqualToCoordinateBounds
-      - MLNCoordinateBoundsGetCoordinateSpan
-      - MLNCoordinateBoundsIntersectsCoordinateBounds
-      - MLNCoordinateBoundsIsEmpty
-      - MLNCoordinateBoundsMake
-      - MLNCoordinateBoundsOffset
-      - MLNCoordinateInCoordinateBounds
-      - MLNCoordinateQuad
-      - MLNCoordinateQuadMake
-      - MLNCoordinateQuadFromCoordinateBounds
-      - MLNCoordinateSpan
-      - MLNCoordinateSpanEqualToCoordinateSpan
-      - MLNCoordinateSpanMake
-      - MLNCoordinateSpanZero
-      - MLNDegreesFromRadians
-      - MLNRadiansFromDegrees
-      - MLNStringFromCoordinateBounds
-      - MLNStringFromCoordinateQuad
+      - MGLCoordinateBounds
+      - MGLCoordinateBoundsEqualToCoordinateBounds
+      - MGLCoordinateBoundsGetCoordinateSpan
+      - MGLCoordinateBoundsIntersectsCoordinateBounds
+      - MGLCoordinateBoundsIsEmpty
+      - MGLCoordinateBoundsMake
+      - MGLCoordinateBoundsOffset
+      - MGLCoordinateInCoordinateBounds
+      - MGLCoordinateQuad
+      - MGLCoordinateQuadMake
+      - MGLCoordinateQuadFromCoordinateBounds
+      - MGLCoordinateSpan
+      - MGLCoordinateSpanEqualToCoordinateSpan
+      - MGLCoordinateSpanMake
+      - MGLCoordinateSpanZero
+      - MGLDegreesFromRadians
+      - MGLRadiansFromDegrees
+      - MGLStringFromCoordinateBounds
+      - MGLStringFromCoordinateQuad
   - name: Formatters
     children:
-      - MLNClockDirectionFormatter
-      - MLNCompassDirectionFormatter
-      - MLNCoordinateFormatter
-      - MLNDistanceFormatter
+      - MGLClockDirectionFormatter
+      - MGLCompassDirectionFormatter
+      - MGLCoordinateFormatter
+      - MGLDistanceFormatter

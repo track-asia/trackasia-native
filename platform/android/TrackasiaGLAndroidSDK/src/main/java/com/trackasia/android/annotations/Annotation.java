@@ -17,7 +17,7 @@ import com.trackasia.android.maps.MapboxMap;
  * </p>
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   Mapbox Annotation Plugin</a> instead
+ *   Trackasia Annotation Plugin</a> instead
  */
 @Deprecated
 public abstract class Annotation implements Comparable<Annotation> {

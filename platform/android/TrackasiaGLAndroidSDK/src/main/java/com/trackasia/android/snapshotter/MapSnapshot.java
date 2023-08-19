@@ -67,7 +67,7 @@ public class MapSnapshot {
   }
 
   /**
-   * @return Flag indicating to show the Mapbox logo.
+   * @return Flag indicating to show the Trackasia logo.
    */
   boolean isShowLogo() {
     return showLogo;

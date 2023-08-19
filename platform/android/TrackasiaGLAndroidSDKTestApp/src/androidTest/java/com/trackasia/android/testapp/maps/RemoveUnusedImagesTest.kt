@@ -107,7 +107,7 @@ class RemoveUnusedImagesTest : AppCenter() {
             """
     {
       "version": 8,
-      "name": "Mapbox Streets",
+      "name": "Trackasia Streets",
       "sources": {
         "geojson": {
           "type": "geojson",

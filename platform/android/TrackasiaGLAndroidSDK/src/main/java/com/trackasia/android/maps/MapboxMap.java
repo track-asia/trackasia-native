@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The general class to interact with in the Android Mapbox SDK. It exposes the entry point for all
+ * The general class to interact with in the Android Trackasia SDK. It exposes the entry point for all
  * methods related to the MapView. You cannot instantiate {@link MapboxMap} object directly, rather,
  * you must obtain one from the getMapAsync() method on a MapFragment or MapView that you have
  * added to your application.
@@ -988,7 +988,7 @@ public final class MapboxMap {
    * @return The {@code Marker} that was added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1007,7 +1007,7 @@ public final class MapboxMap {
    * @return The {@code Marker} that was added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1026,7 +1026,7 @@ public final class MapboxMap {
    * @return A list of the {@code Marker}s that were added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1043,7 +1043,7 @@ public final class MapboxMap {
    * @param updatedMarker An updated marker object
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void updateMarker(@NonNull Marker updatedMarker) {
@@ -1057,7 +1057,7 @@ public final class MapboxMap {
    * @return The {@code Polyine} that was added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1072,7 +1072,7 @@ public final class MapboxMap {
    * @return A list of the {@code Polyline}s that were added to the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1086,7 +1086,7 @@ public final class MapboxMap {
    * @param polyline An updated polyline object.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void updatePolyline(@NonNull Polyline polyline) {
@@ -1100,7 +1100,7 @@ public final class MapboxMap {
    * @return The {@code Polygon} that was added to the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1115,7 +1115,7 @@ public final class MapboxMap {
    * @return A list of the {@code Polygon}s that were added to the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1129,7 +1129,7 @@ public final class MapboxMap {
    * @param polygon An updated polygon object
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void updatePolygon(@NonNull Polygon polygon) {
@@ -1145,7 +1145,7 @@ public final class MapboxMap {
    * @param marker Marker to remove
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeMarker(@NonNull Marker marker) {
@@ -1161,7 +1161,7 @@ public final class MapboxMap {
    * @param polyline Polyline to remove
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removePolyline(@NonNull Polyline polyline) {
@@ -1177,7 +1177,7 @@ public final class MapboxMap {
    * @param polygon Polygon to remove
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removePolygon(@NonNull Polygon polygon) {
@@ -1190,7 +1190,7 @@ public final class MapboxMap {
    * @param annotation The annotation object to remove.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeAnnotation(@NonNull Annotation annotation) {
@@ -1203,7 +1203,7 @@ public final class MapboxMap {
    * @param id The identifier associated to the annotation to be removed
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeAnnotation(long id) {
@@ -1216,7 +1216,7 @@ public final class MapboxMap {
    * @param annotationList A list of annotation objects to remove.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeAnnotations(@NonNull List<? extends Annotation> annotationList) {
@@ -1228,7 +1228,7 @@ public final class MapboxMap {
    *
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void removeAnnotations() {
@@ -1240,7 +1240,7 @@ public final class MapboxMap {
    *
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void clear() {
@@ -1254,7 +1254,7 @@ public final class MapboxMap {
    * @return An annotation with a matched id, null is returned if no match was found
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @Nullable
@@ -1269,7 +1269,7 @@ public final class MapboxMap {
    * list will not update the map
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1284,7 +1284,7 @@ public final class MapboxMap {
    * list will not update the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1299,7 +1299,7 @@ public final class MapboxMap {
    * list will not update the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1314,7 +1314,7 @@ public final class MapboxMap {
    * list will not update the map.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1329,7 +1329,7 @@ public final class MapboxMap {
    *                 To unset the callback, use null.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setOnMarkerClickListener(@Nullable OnMarkerClickListener listener) {
@@ -1343,7 +1343,7 @@ public final class MapboxMap {
    *                 To unset the callback, use null.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setOnPolygonClickListener(@Nullable OnPolygonClickListener listener) {
@@ -1357,7 +1357,7 @@ public final class MapboxMap {
    *                 To unset the callback, use null.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setOnPolylineClickListener(@Nullable OnPolylineClickListener listener) {
@@ -1375,7 +1375,7 @@ public final class MapboxMap {
    * @param marker The marker to select.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void selectMarker(@NonNull Marker marker) {
@@ -1391,7 +1391,7 @@ public final class MapboxMap {
    *
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void deselectMarkers() {
@@ -1404,7 +1404,7 @@ public final class MapboxMap {
    * @param marker the marker to deselect
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void deselectMarker(@NonNull Marker marker) {
@@ -1417,7 +1417,7 @@ public final class MapboxMap {
    * @return The currently selected marker.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @NonNull
@@ -1440,7 +1440,7 @@ public final class MapboxMap {
    *                          To unset the callback, use null.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setInfoWindowAdapter(@Nullable InfoWindowAdapter infoWindowAdapter) {
@@ -1453,7 +1453,7 @@ public final class MapboxMap {
    * @return The callback to be invoked when an info window will be shown.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   @Nullable
@@ -1467,7 +1467,7 @@ public final class MapboxMap {
    * @param allow If true, map allows concurrent multiple infowindows to be shown.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public void setAllowConcurrentMultipleOpenInfoWindows(boolean allow) {
@@ -1480,7 +1480,7 @@ public final class MapboxMap {
    * @return If true, map allows concurrent multiple infowindows to be shown.
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public boolean isAllowConcurrentMultipleOpenInfoWindows() {
@@ -2332,7 +2332,7 @@ public final class MapboxMap {
    * @see MapboxMap#setOnMarkerClickListener(OnMarkerClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public interface OnMarkerClickListener {
@@ -2351,7 +2351,7 @@ public final class MapboxMap {
    * @see MapboxMap#setOnPolygonClickListener(OnPolygonClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public interface OnPolygonClickListener {
@@ -2369,7 +2369,7 @@ public final class MapboxMap {
    * @see MapboxMap#setOnPolylineClickListener(OnPolylineClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public interface OnPolylineClickListener {
@@ -2432,7 +2432,7 @@ public final class MapboxMap {
    * @see MapboxMap#setInfoWindowAdapter(InfoWindowAdapter)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
-   * Mapbox Annotation Plugin</a> instead
+   * Trackasia Annotation Plugin</a> instead
    */
   @Deprecated
   public interface InfoWindowAdapter {

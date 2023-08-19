@@ -2,7 +2,7 @@
 //  XCTestCase+Extensions.swift
 //  iosapp UITests
 //
-//  Copyright © 2021 Trackasia. All rights reserved.
+//  Copyright © 2021 TrackAsia. All rights reserved.
 //
 
 import XCTest
@@ -23,7 +23,7 @@ add(screenshot(name: "Example"))
 ```
 */
     func screenshot(name: String = #function) -> XCTAttachment {
-        let attachmentName = "Trackasia-Screenshot-\(name)-\(UIDevice.current.name)-\(UIDevice.current.systemVersion).png"
+        let attachmentName = "TrackAsia-Screenshot-\(name)-\(UIDevice.current.name)-\(UIDevice.current.systemVersion).png"
         let screenshot = XCUIScreen.main.screenshot()
         let attachment = XCTAttachment(uniformTypeIdentifier: "public.png",
                                        name: attachmentName,

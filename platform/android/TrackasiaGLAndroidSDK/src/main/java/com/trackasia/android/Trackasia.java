@@ -11,7 +11,7 @@ import androidx.annotation.UiThread;
 import timber.log.Timber;
 
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.exceptions.TrackasiaConfigurationException;
+import com.trackasia.android.exceptions.MapboxConfigurationException;
 import com.trackasia.android.net.ConnectivityReceiver;
 import com.trackasia.android.storage.FileSource;
 import com.trackasia.android.util.DefaultStyle;
@@ -19,7 +19,7 @@ import com.trackasia.android.util.TileServerOptions;
 import com.trackasia.android.utils.ThreadUtils;
 
 /**
- * The entry point to initialize the Trackasia Android SDK.
+ * The entry point to initialize the TrackAsia Android SDK.
  * <p>
  * Obtain a reference by calling {@link #getInstance(Context, String, WellKnownTileServer)}.
  * Usually this class is configured in Application#onCreate() and is responsible for the
@@ -62,7 +62,7 @@ public final class Trackasia {
       ConnectivityReceiver.instance(appContext);
     }
 
-    TileServerOptions tileServerOptions = TileServerOptions.get(WellKnownTileServer.Trackasia);
+    TileServerOptions tileServerOptions = TileServerOptions.get(WellKnownTileServer.TrackAsia);
     INSTANCE.tileServerOptions = tileServerOptions;
     INSTANCE.apiKey = null;
     FileSource fileSource = FileSource.getInstance(context);
@@ -89,7 +89,7 @@ public final class Trackasia {
   @UiThread
   @NonNull
   public static synchronized Trackasia getInstance(@NonNull Context context, @Nullable String apiKey,
-                                                WellKnownTileServer tileServer) {
+                                                   WellKnownTileServer tileServer) {
     ThreadUtils.init(context);
     ThreadUtils.checkThread(TAG);
     if (INSTANCE == null) {
@@ -128,7 +128,7 @@ public final class Trackasia {
    */
   @Nullable
   public static String getApiKey() {
-    validateTrackasia();
+    validateMapbox();
     return INSTANCE.apiKey;
   }
 
@@ -136,7 +136,7 @@ public final class Trackasia {
    * Set the current active apiKey.
    */
   public static void setApiKey(String apiKey) {
-    validateTrackasia();
+    validateMapbox();
     throwIfApiKeyInvalid(apiKey);
     INSTANCE.apiKey = apiKey;
     FileSource.getInstance(getApplicationContext()).setApiKey(apiKey);
@@ -147,7 +147,7 @@ public final class Trackasia {
    */
   @Nullable
   public static TileServerOptions getTileServerOptions() {
-    validateTrackasia();
+    validateMapbox();
     return INSTANCE.tileServerOptions;
   }
 
@@ -158,7 +158,7 @@ public final class Trackasia {
    */
   @Nullable
   public static DefaultStyle[] getPredefinedStyles() {
-    validateTrackasia();
+    validateMapbox();
     if (INSTANCE.tileServerOptions != null) {
       return INSTANCE.tileServerOptions.getDefaultStyles();
     }
@@ -172,7 +172,7 @@ public final class Trackasia {
    */
   @Nullable
   public static DefaultStyle getPredefinedStyle(String name) {
-    validateTrackasia();
+    validateMapbox();
     if (INSTANCE.tileServerOptions != null) {
       DefaultStyle[] styles = INSTANCE.tileServerOptions.getDefaultStyles();
       for (DefaultStyle style : styles) {
@@ -191,7 +191,7 @@ public final class Trackasia {
    */
   @NonNull
   public static Context getApplicationContext() {
-    validateTrackasia();
+    validateMapbox();
     return INSTANCE.context;
   }
 
@@ -203,7 +203,7 @@ public final class Trackasia {
    *                  disconnected, and null for ConnectivityManager to determine.
    */
   public static synchronized void setConnected(Boolean connected) {
-    validateTrackasia();
+    validateMapbox();
     ConnectivityReceiver.instance(INSTANCE.context).setConnected(connected);
   }
 
@@ -214,7 +214,7 @@ public final class Trackasia {
    * @return true if there is an internet connection, false otherwise
    */
   public static synchronized Boolean isConnected() {
-    validateTrackasia();
+    validateMapbox();
     return ConnectivityReceiver.instance(INSTANCE.context).isConnected();
   }
 
@@ -234,9 +234,9 @@ public final class Trackasia {
   /**
    * Runtime validation of Trackasia creation.
    */
-  private static void validateTrackasia() {
+  private static void validateMapbox() {
     if (INSTANCE == null) {
-      throw new TrackasiaConfigurationException();
+      throw new MapboxConfigurationException();
     }
   }
 
@@ -260,7 +260,7 @@ public final class Trackasia {
    */
   public static void throwIfApiKeyInvalid(@Nullable String apiKey) {
     if (!isApiKeyValid(apiKey)) {
-      throw new TrackasiaConfigurationException(
+      throw new MapboxConfigurationException(
               "A valid API key is required, currently provided key is: " + apiKey);
     }
   }

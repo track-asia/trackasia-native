@@ -18,10 +18,10 @@ static bool needsToForceScheduler() {
 };
 
 static auto *getScheduler() {
-    static QThreadStorage<std::shared_ptr<QTrackasiaGL::Scheduler>> scheduler;
+    static QThreadStorage<std::shared_ptr<QTrackAsiaGL::Scheduler>> scheduler;
 
     if (!scheduler.hasLocalData()) {
-        scheduler.setLocalData(std::make_shared<QTrackasiaGL::Scheduler>());
+        scheduler.setLocalData(std::make_shared<QTrackAsiaGL::Scheduler>());
     }
 
     return scheduler.localData().get();
@@ -30,7 +30,7 @@ static auto *getScheduler() {
 } // namespace
 
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 MapRenderer::MapRenderer(qreal pixelRatio, Settings::GLContextMode mode, const QString &localFontFamily)
     : m_backend(static_cast<mbgl::gfx::ContextMode>(mode)),
@@ -102,4 +102,4 @@ void MapRenderer::setObserver(std::shared_ptr<mbgl::RendererObserver> observer)
     m_renderer->setObserver(observer.get());
 }
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

@@ -1,5 +1,5 @@
 // (c) Dean McNamee <dean@gmail.com>, 2012.
-// C++ port by Mapbox, Konstantin Käfer <mail@kkaefer.com>, 2014-2017.
+// C++ port by Trackasia, Konstantin Käfer <mail@kkaefer.com>, 2014-2017.
 //
 // https://github.com/deanm/css-color-parser-js
 // https://github.com/kkaefer/css-color-parser-cpp

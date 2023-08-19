@@ -1,4 +1,4 @@
-#include <QTrackasiaGL/Settings>
+#include <QTrackAsiaGL/Settings>
 
 #include <mbgl/gfx/renderer_backend.hpp>
 #include <mbgl/map/mode.hpp>
@@ -14,63 +14,63 @@
 #endif
 
 // mbgl::GLContextMode
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::UniqueGLContext) == mbgl::underlying_type(mbgl::gfx::ContextMode::Unique), "error");
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::SharedGLContext) == mbgl::underlying_type(mbgl::gfx::ContextMode::Shared), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::UniqueGLContext) == mbgl::underlying_type(mbgl::gfx::ContextMode::Unique), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::SharedGLContext) == mbgl::underlying_type(mbgl::gfx::ContextMode::Shared), "error");
 
 // mbgl::MapMode
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::Continuous) == mbgl::underlying_type(mbgl::MapMode::Continuous), "error");
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::Static) == mbgl::underlying_type(mbgl::MapMode::Static), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::Continuous) == mbgl::underlying_type(mbgl::MapMode::Continuous), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::Static) == mbgl::underlying_type(mbgl::MapMode::Static), "error");
 
 // mbgl::ConstrainMode
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::NoConstrain) == mbgl::underlying_type(mbgl::ConstrainMode::None), "error");
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::ConstrainHeightOnly) == mbgl::underlying_type(mbgl::ConstrainMode::HeightOnly), "error");
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::ConstrainWidthAndHeight) == mbgl::underlying_type(mbgl::ConstrainMode::WidthAndHeight), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::NoConstrain) == mbgl::underlying_type(mbgl::ConstrainMode::None), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::ConstrainHeightOnly) == mbgl::underlying_type(mbgl::ConstrainMode::HeightOnly), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::ConstrainWidthAndHeight) == mbgl::underlying_type(mbgl::ConstrainMode::WidthAndHeight), "error");
 
 // mbgl::ViewportMode
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::DefaultViewport) == mbgl::underlying_type(mbgl::ViewportMode::Default), "error");
-static_assert(mbgl::underlying_type(QTrackasiaGL::Settings::FlippedYViewport) == mbgl::underlying_type(mbgl::ViewportMode::FlippedY), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::DefaultViewport) == mbgl::underlying_type(mbgl::ViewportMode::Default), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Settings::FlippedYViewport) == mbgl::underlying_type(mbgl::ViewportMode::FlippedY), "error");
 
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
 
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 /*!
-    \class QTrackasiaGL::Settings
-    \brief The Settings class stores the initial configuration for QTrackasiaGL::Map.
+    \class QTrackAsiaGL::Settings
+    \brief The Settings class stores the initial configuration for QTrackAsiaGL::Map.
 
-    \inmodule Trackasia Maps SDK for Qt
+    \inmodule TrackAsia Maps SDK for Qt
 
-    Settings is used to configure QTrackasiaGL::Map at the moment of its creation.
-    Once created, the Settings of a QTrackasiaGL::Map can no longer be changed.
+    Settings is used to configure QTrackAsiaGL::Map at the moment of its creation.
+    Once created, the Settings of a QTrackAsiaGL::Map can no longer be changed.
 
-    Cache-related settings are shared between all QTrackasiaGL::Map instances using the same cache path.
+    Cache-related settings are shared between all QTrackAsiaGL::Map instances using the same cache path.
     The first map to configure cache properties such as size will force the configuration
-    to all newly instantiated QTrackasiaGL::Map objects using the same cache in the same process.
+    to all newly instantiated QTrackAsiaGL::Map objects using the same cache in the same process.
 */
 
 /*!
-    \enum QTrackasiaGL::Settings::GLContextMode
+    \enum QTrackAsiaGL::Settings::GLContextMode
 
     This enum sets the expectations for the OpenGL state.
 
-    \value UniqueGLContext  The OpenGL context is only used by QTrackasiaGL::Map, so it is not
+    \value UniqueGLContext  The OpenGL context is only used by QTrackAsiaGL::Map, so it is not
     reset before each rendering. Use this mode if the intention is to only draw a
     fullscreen map.
 
     \value SharedGLContext  The OpenGL context is shared and the state will be
     marked dirty - which invalidates any previously assumed GL state. The
     embedder is responsible for clearing up the viewport prior to calling
-    QTrackasiaGL::Map::render. The embedder is also responsible for resetting its own
-    GL state after QTrackasiaGL::Map::render has finished, if needed.
+    QTrackAsiaGL::Map::render. The embedder is also responsible for resetting its own
+    GL state after QTrackAsiaGL::Map::render has finished, if needed.
 
     \sa contextMode()
 */
 
 /*!
-    \enum QTrackasiaGL::Settings::MapMode
+    \enum QTrackAsiaGL::Settings::MapMode
 
     This enum sets the map rendering mode
 
@@ -81,8 +81,8 @@ namespace QTrackasiaGL {
     interactive.
 
     \value Static  The map will no longer react to state changes and will only
-    be rendered when QTrackasiaGL::Map::startStaticRender is called. After all the
-    resources are loaded, the QTrackasiaGL::Map::staticRenderFinished signal is emitted.
+    be rendered when QTrackAsiaGL::Map::startStaticRender is called. After all the
+    resources are loaded, the QTrackAsiaGL::Map::staticRenderFinished signal is emitted.
 
     This mode is useful for taking a snapshot of the finished rendering result
     of the map into a QImage.
@@ -91,7 +91,7 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \enum QTrackasiaGL::Settings::ConstrainMode
+    \enum QTrackAsiaGL::Settings::ConstrainMode
 
     This enum determines if the map wraps.
 
@@ -109,7 +109,7 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \enum QTrackasiaGL::Settings::ViewportMode
+    \enum QTrackAsiaGL::Settings::ViewportMode
 
     This enum flips the map vertically.
 
@@ -122,7 +122,7 @@ namespace QTrackasiaGL {
 
 /*!
     Constructs a Settings object with the default values. The default
-    configuration is valid for initializing a QTrackasiaGL::Map.
+    configuration is valid for initializing a QTrackAsiaGL::Map.
 */
 Settings::Settings()
     : m_contextMode(Settings::SharedGLContext)
@@ -132,7 +132,7 @@ Settings::Settings()
     , m_cacheMaximumSize(mbgl::util::DEFAULT_MAX_CACHE_SIZE)
     , m_cacheDatabasePath(":memory:")
     , m_assetPath(QCoreApplication::applicationDirPath())
-    , m_apiKey(qgetenv("MLN_API_KEY"))
+    , m_apiKey(qgetenv("MGL_API_KEY"))
     , m_tileServerOptionsInternal(new mbgl::TileServerOptions(mbgl::TileServerOptions::DefaultConfiguration()))
 {
 }
@@ -166,7 +166,7 @@ void Settings::setContextMode(GLContextMode mode)
     change on the map and it is usually what you expect for
     a interactive map.
 
-    By default, it is set to QTrackasiaGL::Settings::Continuous.
+    By default, it is set to QTrackAsiaGL::Settings::Continuous.
 */
 Settings::MapMode Settings::mapMode() const
 {
@@ -185,7 +185,7 @@ void Settings::setMapMode(MapMode mode)
     Returns the constrain mode. This is used to limit the map to wrap
     around the globe horizontally.
 
-    By default, it is set to QTrackasiaGL::Settings::ConstrainHeightOnly.
+    By default, it is set to QTrackAsiaGL::Settings::ConstrainHeightOnly.
 */
 Settings::ConstrainMode Settings::constrainMode() const
 {
@@ -204,7 +204,7 @@ void Settings::setConstrainMode(ConstrainMode mode)
     Returns the viewport mode. This is used to flip the vertical
     orientation of the map as some devices may use inverted orientation.
 
-    By default, it is set to QTrackasiaGL::Settings::DefaultViewport.
+    By default, it is set to QTrackAsiaGL::Settings::DefaultViewport.
 */
 Settings::ViewportMode Settings::viewportMode() const
 {
@@ -289,7 +289,7 @@ void Settings::setAssetPath(const QString &path)
 /*!
     Returns the API key.
 
-    By default, it is taken from the environment variable \c MLN_API_KEY
+    By default, it is taken from the environment variable \c MGL_API_KEY
     or empty if the variable is not set.
 */
 QString Settings::apiKey() const {
@@ -402,7 +402,7 @@ void Settings::setResourceTransform(const std::function<std::string(const std::s
 /*!
     Reset all settings based on the given template.
 
-    Trackasia can support servers with different resource path structure.
+    TrackAsia can support servers with different resource path structure.
     Some of the most common servers like Maptiler and Mapbox are defined
     in the library. This function will re-initialise all settings based
     on the default values of specific service provider defaults.
@@ -411,8 +411,8 @@ void Settings::resetToTemplate(SettingsTemplate settings_template)
 {
     if(m_tileServerOptionsInternal) delete m_tileServerOptionsInternal;
 
-    if(settings_template == TrackasiaSettings){
-        m_tileServerOptionsInternal = new mbgl::TileServerOptions(mbgl::TileServerOptions::TrackasiaConfiguration());
+    if(settings_template == TrackAsiaSettings){
+        m_tileServerOptionsInternal = new mbgl::TileServerOptions(mbgl::TileServerOptions::TrackAsiaConfiguration());
     }else if(settings_template == MapTilerSettings){
         m_tileServerOptionsInternal = new mbgl::TileServerOptions(mbgl::TileServerOptions::MapTilerConfiguration());
     }else if(settings_template == MapboxSettings){
@@ -440,4 +440,4 @@ mbgl::TileServerOptions *Settings::tileServerOptionsInternal() const {
     return m_tileServerOptionsInternal;
 }
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

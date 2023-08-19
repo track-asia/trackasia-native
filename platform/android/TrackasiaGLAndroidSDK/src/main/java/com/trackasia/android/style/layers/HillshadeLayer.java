@@ -10,7 +10,7 @@ import androidx.annotation.UiThread;
 import static com.trackasia.android.utils.ColorUtils.rgbaToColor;
 
 /**
- * Client-side hillshading visualization based on DEM data. Currently, the implementation only supports Mapbox Terrain RGB and Mapzen Terrarium tiles.
+ * Client-side hillshading visualization based on DEM data. Currently, the implementation only supports Trackasia Terrain RGB and Mapzen Terrarium tiles.
  *
  * @see <a href="https://www.mapbox.com/mapbox-gl-style-spec/#layers-hillshade">The online documentation</a>
  */

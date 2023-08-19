@@ -7,7 +7,7 @@
 #include <protozero/pbf_writer.hpp>
 
 /**
- * Create a Mapbox Vector Tile with evil, non-compliant values.
+ * Create a Trackasia Vector Tile with evil, non-compliant values.
  *
  * @name evil
  * @param {Buffer} buffer - Vector Tile PBF

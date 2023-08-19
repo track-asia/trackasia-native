@@ -3,7 +3,7 @@ package com.mapbox.android.gestures.testapp;
 import android.content.Context;
 import androidx.annotation.NonNull;
 
-import com.mapbox.mapboxsdk.Mapbox;
+import com.trackasia.android.Mapbox;
 
 public class Utils {
 
@@ -21,7 +21,7 @@ public class Utils {
   public static String getMapboxAccessToken(@NonNull Context context) {
     try {
       // Read out AndroidManifest
-      String token = Trackasia.getAccessToken();
+      String token = Mapbox.getAccessToken();
       if (token == null || token.isEmpty()) {
         throw new IllegalArgumentException();
       }

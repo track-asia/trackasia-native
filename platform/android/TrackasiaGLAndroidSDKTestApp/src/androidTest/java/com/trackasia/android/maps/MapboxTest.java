@@ -5,7 +5,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import com.trackasia.android.AppCenter;
 import com.trackasia.android.Trackasia;
-import com.trackasia.android.exceptions.TrackasiaConfigurationException;
+import com.trackasia.android.exceptions.MapboxConfigurationException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -62,7 +62,7 @@ public class MapboxTest extends AppCenter {
   @Test
   @UiThreadTest
   public void setNullApiKey() {
-    expectedException.expect(TrackasiaConfigurationException.class);
+    expectedException.expect(MapboxConfigurationException.class);
     expectedException.expectMessage(
       "A valid API key is required, currently provided key is: " + null
     );

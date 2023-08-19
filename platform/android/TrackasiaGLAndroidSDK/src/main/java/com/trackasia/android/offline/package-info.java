@@ -1,4 +1,4 @@
 /**
- * Contains the Mapbox Maps Android Offline API classes.
+ * Contains the Trackasia Maps Android Offline API classes.
  */
 package com.trackasia.android.offline;

@@ -94,13 +94,13 @@ public class OfflineRegion {
     void onError(OfflineRegionError error);
 
     /*
-     * Implement this method to be notified when the limit on the number of Mapbox
+     * Implement this method to be notified when the limit on the number of Trackasia
      * tiles stored for offline regions has been reached.
      *
      * Once the limit has been reached, the SDK will not download further offline
-     * tiles from Mapbox APIs until existing tiles have been removed.
+     * tiles from Trackasia APIs until existing tiles have been removed.
      *
-     * This limit does not apply to non-Mapbox tile sources.
+     * This limit does not apply to non-Trackasia tile sources.
      *
      * This method will be executed on the main thread.
      */

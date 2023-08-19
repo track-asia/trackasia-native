@@ -6,7 +6,7 @@ let width: CGFloat = 700
 let height: CGFloat = 800
 
 class Responder: NSObject {
-    var mapView: MLNMapView?
+    var mapView: MGLMapView?
     @objc func togglePitch(sender: UISwitch)  {
         let camera = mapView!.camera
         camera.pitch = sender.isOn ? 60 : 0
@@ -51,9 +51,9 @@ panel.addSubview(pitchSwitch)
  Put your access token into a plain text file called `token`. Then select the “token” placeholder below, go to Editor ‣ Insert File Literal, and select the `token` file.
  */
 var apiKey = try String(contentsOfURL: <#token#>)
-MLNSettings.apiKey = apiKey
+MGLSettings.apiKey = apiKey
 
-class PlaygroundAnnotationView: MLNAnnotationView {
+class PlaygroundAnnotationView: MGLAnnotationView {
     
     override func prepareForReuse() {
         isHidden = hideMarkerSwitchView.isOn
@@ -63,11 +63,11 @@ class PlaygroundAnnotationView: MLNAnnotationView {
 
 //: Define a map delegate
 
-class MapDelegate: NSObject, MLNMapViewDelegate {
+class MapDelegate: NSObject, MGLMapViewDelegate {
     
-    var annotationViewByAnnotation = [MLNPointAnnotation: PlaygroundAnnotationView]()
+    var annotationViewByAnnotation = [MGLPointAnnotation: PlaygroundAnnotationView]()
 
-    func mapView(_ mapView: MLNMapView, viewFor annotation: MLNAnnotation) -> MLNAnnotationView? {
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotation") as? PlaygroundAnnotationView
         
@@ -84,13 +84,13 @@ class MapDelegate: NSObject, MLNMapViewDelegate {
             annotationView!.subviews.first?.backgroundColor = .green
         }
         
-        annotationViewByAnnotation[annotation as! MLNPointAnnotation] = annotationView
+        annotationViewByAnnotation[annotation as! MGLPointAnnotation] = annotationView
         
         return annotationView
     }
 
-    func mapView(_ mapView: MLNMapView, didSelect annotation: MLNAnnotation) {
-        let pointAnnotation = annotation as! MLNPointAnnotation
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        let pointAnnotation = annotation as! MGLPointAnnotation
         let annotationView: PlaygroundAnnotationView  = annotationViewByAnnotation[pointAnnotation]!
         
         for view in annotationViewByAnnotation.values {
@@ -116,12 +116,12 @@ class MapDelegate: NSObject, MLNMapViewDelegate {
     }
     
     @objc func handleTap(press: UILongPressGestureRecognizer) {
-        let mapView: MLNMapView = press.view as! MLNMapView
+        let mapView: MGLMapView = press.view as! MGLMapView
         
         let isRecognized = press.state == .recognized
 
         if (isRecognized) {
-            let annotation = MLNPointAnnotation()
+            let annotation = MGLPointAnnotation()
             annotation.title = "Dropped Marker"
             annotation.coordinate = mapView.convert(press.location(in: mapView), toCoordinateFrom: mapView)
             mapView.addAnnotation(annotation)
@@ -133,7 +133,7 @@ class MapDelegate: NSObject, MLNMapViewDelegate {
 
 //: Create a map and its delegate
 
-let mapView = MLNMapView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+let mapView = MGLMapView(frame: CGRect(x: 0, y: 0, width: width, height: height))
 mapView.frame = CGRect(x: 0, y: 0, width: width, height: height)
 
 PlaygroundPage.current.liveView = mapView

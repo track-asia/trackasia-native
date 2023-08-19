@@ -9,7 +9,7 @@
 #include <mutex>
 #include <queue>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 class Scheduler : public QObject, public mbgl::Scheduler
 {
@@ -36,4 +36,4 @@ private:
     mapbox::base::WeakPtrFactory<Scheduler> weakFactory{this};
 };
 
-} // namepace QTrackasiaGL
+} // namepace QTrackAsiaGL

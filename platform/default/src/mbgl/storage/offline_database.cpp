@@ -1404,7 +1404,7 @@ uint64_t OfflineDatabase::getOfflineMapboxTileCount() try {
     offlineMapboxTileCount = query.get<int64_t>(0);
     return *offlineMapboxTileCount;
 } catch (...) {
-    handleError("get offline Mapbox tile count");
+    handleError("get offline Trackasia tile count");
     return std::numeric_limits<uint64_t>::max();
 }
 

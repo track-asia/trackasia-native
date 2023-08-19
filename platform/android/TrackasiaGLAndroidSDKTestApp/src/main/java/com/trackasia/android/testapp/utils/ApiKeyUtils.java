@@ -13,7 +13,7 @@ public class ApiKeyUtils {
    * <p>
    * Returns the ApiKey set in the app resources.
    * </p>
-   * It will first search for a api key in the Mapbox object. If not found it
+   * It will first search for a api key in the Trackasia object. If not found it
    * will then attempt to load the api key from the
    * {@code res/values/dev.xml} development file.
    *

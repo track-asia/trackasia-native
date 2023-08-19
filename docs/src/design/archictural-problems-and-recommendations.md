@@ -1,15 +1,15 @@
 # Architectural Problems & Recommendations
 
-Up until now, this document focused solely on the state of Trackasia GL
+Up until now, this document focused solely on the state of TrackAsia GL
 Native at the time of writing. This section speaks of possible future
-improvements for Trackasia GL Native from an architectural point of view.
-Before that, let's look into the architectural challenges Trackasia GL
+improvements for TrackAsia GL Native from an architectural point of view.
+Before that, let's look into the architectural challenges TrackAsia GL
 Native is facing[^18]:
 
 ## Renderer coupled with OpenGL
 
 The renderer component is tightly coupled to OpenGL ES. It uses OpenGL
-ES as its only preferred rendering backend. Furthermore, Trackasia GL
+ES as its only preferred rendering backend. Furthermore, TrackAsia GL
 Native does not have a clear separation between the following:
 
 1.  The logical responsibility of rendering a map tile. This involves
@@ -21,44 +21,44 @@ Native does not have a clear separation between the following:
 
 The current rendering loop is only implemented for OpenGL. In 2018,
 Apple deprecated OpenGL for both iOS 12 and macOS in favour of Metal.
-Metal is Apple's own 3D graphics API. Trackasia GL Native's sole
+Metal is Apple's own 3D graphics API. TrackAsia GL Native's sole
 dependency on OpenGL ES puts it in a risk of deprecation for iOS
 customers.
 
 ## Lack of support for other map projections except Web Mercator
 
-Trackasia GL Native supports Web Mercator (EPSG:3857) as its only
+TrackAsia GL Native supports Web Mercator (EPSG:3857) as its only
 supported projection. This fulfills most of the web and device map
 needs. At the time of writing, modern map renderers such as Google Maps
 and Trackasia GL offers 3D globe, conic, and rectangular projections too.
-At the time of writing, Trackasia GL Native renderer component does not
+At the time of writing, TrackAsia GL Native renderer component does not
 have an architectural separation for supporting multiple projections and
 coordinate reference systems.
 
 ## Inconsistency among platforms
 
-Each Trackasia GL Native platform has a Map View and Map Renderer
+Each TrackAsia GL Native platform has a Map View and Map Renderer
 component. The inconsistency introduced due to differences in
 concurrency model and programming language is unavoidable. But from an
 abstractions point of view there are inconsistencies that can be
 mitigated:
 
-1.  Map Configuration is modeled inside Trackasia GL Native Core, the
+1.  Map Configuration is modeled inside TrackAsia GL Native Core, the
     shared cross platform codebase. Each platform creates its own
     configuration class and creates a shadow native object. The native
     configuration object is consistent across platforms but the platform
     specific configuration is not.
 
-2.  Trackasia GL Native has a sister repository named Trackasia GL JS. At
-    the time of writing, Trackasia GL JS does not share any code with
-    Trackasia GL Native except shaders, the style specification, and
+2.  TrackAsia GL Native has a sister repository named TrackAsia GL JS. At
+    the time of writing, TrackAsia GL JS does not share any code with
+    TrackAsia GL Native except shaders, the style specification, and
     render test fixtures. This creates a feature inconsistency across
     web and device experience for customers. The rendering architecture
-    is also different between Web and Mobile. Trackasia GL JS currently
+    is also different between Web and Mobile. TrackAsia GL JS currently
     uses WebGL through completely different implementations for Map,
     Style, Layers, Glyph, and TileWorker.
 
-3.  Trackasia Rust is an initiative to port Trackasia GL capability
+3.  TrackAsia Rust is an initiative to port TrackAsia GL capability
     through usage of *WebGPU*. At the time of writing, *WebGPU* is a
     young platform that exposes modern computer graphics capabilities,
     especially Direct3D 12, Metal, and Vulkan through a shared API. It
@@ -66,24 +66,24 @@ mitigated:
     ChromeOS, macOS, and Windows 10. Technically, it can be used with
     Android and iOS but these platforms do not provide out of the box
     support for it. This also has created a divergent experience for
-    customers when it comes to using Trackasia GL Native.
+    customers when it comes to using TrackAsia GL Native.
 
 ## Lack of documentation
 
-Last but not the least, Trackasia GL Native suffers from a general lack
+Last but not the least, TrackAsia GL Native suffers from a general lack
 of documentation. This includes current state of the code architecture,
 continuous integration and development, testing strategy, and a roadmap
 for future improvement. This document intends to address the first.
 
 ## Recommendations
 
-This document proposes the following component architecture for Trackasia
+This document proposes the following component architecture for TrackAsia
 GL Native to address the architectural shortcomings.
 
 ![](media/proposed-architecture-of-trackasia-gl.png)    
-*Figure 4: Proposed Architecture of Trackasia GL Native*
+*Figure 4: Proposed Architecture of TrackAsia GL Native*
 
-Proposed architecture of Trackasia GL Native in Figure 4 addresses the 
+Proposed architecture of TrackAsia GL Native in Figure 4 addresses the 
 aforementioned problems by:
 
 #### Modular Rendering
@@ -112,15 +112,15 @@ native device coordinates.
 
 One example of introducing new component is supporting 3D maps in the
 future. This could mean rendering map tiles on a spherical globe instead
-of a flat 3D plane. At the time of writing Trackasia GL Native supports
+of a flat 3D plane. At the time of writing TrackAsia GL Native supports
 2.5D extrusion for buildings and terrain tiles. Supporting confidential
 datums like *GCJ-02* can also be achieved through this.
 
-#### Future Convergence with Trackasia Rust
+#### Future Convergence with TrackAsia Rust
 
-This document acknowledges the value proposition Trackasia Rust
-initiative brings. At the time of writing, Trackasia Native GL core is
-written in C++. Albeit written in C++, Trackasia Native GL code relies on
+This document acknowledges the value proposition TrackAsia Rust
+initiative brings. At the time of writing, TrackAsia Native GL core is
+written in C++. Albeit written in C++, TrackAsia Native GL code relies on
 immutable message passing between renderer and tile workers. Private
 functions also follow the *C++ move semantics*. This means, each private
 function takes ownership of the arguments passed to the function by
@@ -132,9 +132,9 @@ interoperability with Rust, this document proposes the following to be
 done in sequence:
 
 1.  At first, this document proposes to implement ***Modularized
-    Rendering*** in C++ for Trackasia GL Native. This document also
+    Rendering*** in C++ for TrackAsia GL Native. This document also
     proposes that Unified Rendering Interface will keep the door open
-    for a *WebGPU* backed renderer in Trackasia Rust. This will address
+    for a *WebGPU* backed renderer in TrackAsia Rust. This will address
     the divergence of web and native platforms in the future. The Rust
     renderer can be compiled to WebAssembly and enable WebGPU powered
     rendering for browsers. This paves the path forward for a single
@@ -146,16 +146,16 @@ done in sequence:
 
 3.  Finally, this document proposes to migrate Unified Rendering
     Interface and its implementations to Rust. This will completely
-    transform Trackasia GL Native from a C++ ecosystem to a Rust
+    transform TrackAsia GL Native from a C++ ecosystem to a Rust
     ecosystem.
 
-Following the above steps will merge towards a single Trackasia
+Following the above steps will merge towards a single TrackAsia
 implementation for web and native.
 
 ____________________________
 
 [^18]: This document deliberately does not speak of problems regarding
-    build and infrastructure of Trackasia GL Native. They will be handled
+    build and infrastructure of TrackAsia GL Native. They will be handled
     in individual design PR requests / documents.
 
 [^19]: Rust Foreign Function Interface allows interop bindings and code

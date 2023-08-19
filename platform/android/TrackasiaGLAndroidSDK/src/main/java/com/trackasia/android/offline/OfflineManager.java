@@ -654,7 +654,7 @@ public class OfflineManager {
   }
 
   /**
-   * Sets the maximum number of Mapbox-hosted tiles that may be downloaded and stored on the current device.
+   * Sets the maximum number of Trackasia-hosted tiles that may be downloaded and stored on the current device.
    * By default, the limit is set to 6,000.
    * <p>
    * Once this limit is reached, {@link OfflineRegion.OfflineRegionObserver#mapboxTileCountLimitExceeded(long)}

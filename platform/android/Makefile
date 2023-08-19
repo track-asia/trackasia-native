@@ -343,6 +343,6 @@ clean:
 	        ./TrackasiaGLAndroidSDK/build \
 	        ./TrackasiaGLAndroidSDK/.externalNativeBuild \
 	        ./TrackasiaGLAndroidSDKTestApp/build \
-	        ./TrackasiaGLAndroidSDKTestApp/src/androidTest/java/com.trackasia.android/testapp/activity/gen \
+	        ./TrackasiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/activity/gen \
 	        ./TrackasiaGLAndroidSDK/src/main/assets \
 		    ./TrackasiaGLAndroidSDKTestApp/src/main/assets/integration

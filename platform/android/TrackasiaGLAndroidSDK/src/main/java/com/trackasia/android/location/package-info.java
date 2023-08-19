@@ -1,4 +1,4 @@
 /**
- * Contains the Mapbox Location layer component.
+ * Contains the Trackasia Location layer component.
  */
 package com.trackasia.android.location;

@@ -125,11 +125,11 @@ Which will log the following samples.
 
 #### Android Sample Logging Output
 
-> com.mapbox.mapboxsdk.testapp D/# TrackAsia: online_file_source.cpp: # TrackAsia: online_file_source.cpp activateRequest req->resource.url = https://api.maptiler.com/tiles/v3/tiles.json
+> com.trackasia.android.testapp D/# TrackAsia: online_file_source.cpp: # TrackAsia: online_file_source.cpp activateRequest req->resource.url = https://api.maptiler.com/tiles/v3/tiles.json
 
 #### Xcode Sample Logging Output
 
-> TrackAsia: online_file_source.cpp activateRequest req->resource.url = https://demotiles.trackasia.org/style.json
+> TrackAsia: online_file_source.cpp activateRequest req->resource.url = https://demotiles.track-asia.com/style.json
 
 ---
 

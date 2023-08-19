@@ -219,7 +219,7 @@ public class MapSnapshotter {
     }
 
     /**
-     * @param showLogo The flag indicating to show the Mapbox logo.
+     * @param showLogo The flag indicating to show the Trackasia logo.
      * @return the mutated {@link Options}
      */
     @NonNull

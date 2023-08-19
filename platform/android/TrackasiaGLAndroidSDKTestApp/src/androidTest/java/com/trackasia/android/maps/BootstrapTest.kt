@@ -36,7 +36,7 @@ class BootstrapTest : AppCenter() {
 
         Trackasia.getInstance(context)
 
-        val tileServerOptions = TileServerOptions.get(WellKnownTileServer.Trackasia)
+        val tileServerOptions = TileServerOptions.get(WellKnownTileServer.TrackAsia)
         Assert.assertTrue(
             Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count()
         )

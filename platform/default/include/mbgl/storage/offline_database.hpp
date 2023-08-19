@@ -33,7 +33,7 @@ struct IOException;
 } // namespace util
 
 struct MapboxTileLimitExceededException :  util::Exception {
-    MapboxTileLimitExceededException() : util::Exception("Mapbox tile limit exceeded") {}
+    MapboxTileLimitExceededException() : util::Exception("Trackasia tile limit exceeded") {}
 };
 
 class OfflineDatabase {

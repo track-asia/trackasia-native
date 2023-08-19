@@ -6,7 +6,7 @@
 
 // This header follows the Qt coding style: https://wiki.qt.io/Qt_Coding_Style
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 enum NetworkMode {
     Online, // Default
@@ -20,6 +20,6 @@ Q_TRACKASIAGL_EXPORT double metersPerPixelAtLatitude(double latitude, double zoo
 Q_TRACKASIAGL_EXPORT ProjectedMeters projectedMetersForCoordinate(const Coordinate &);
 Q_TRACKASIAGL_EXPORT Coordinate coordinateForProjectedMeters(const ProjectedMeters &);
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL
 
 #endif // QTRACKASIAGL_UTILS_H

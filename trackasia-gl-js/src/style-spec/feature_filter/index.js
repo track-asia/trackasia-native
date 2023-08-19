@@ -67,7 +67,7 @@ const filterSpec = {
  * passes its test.
  *
  * @private
- * @param {Array} filter trackasia gl filter
+ * @param {Array} filter mapbox gl filter
  * @returns {Function} filter-evaluating function
  */
 function createFilter(filter: any): FeatureFilter {

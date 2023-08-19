@@ -10,7 +10,7 @@ namespace android {
 class Logger {
 public:
    static constexpr auto Name() {
-       return "com.trackasia.android/log/Logger";
+       return "com/mapbox/mapboxsdk/log/Logger";
    };
    static void registerNative(jni::JNIEnv&);
 

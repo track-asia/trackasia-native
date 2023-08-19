@@ -12,8 +12,8 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(RobolectricTestRunner.class)
 public class AttributionParseTest {
 
-  private static final String STREETS_ATTRIBUTION = "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Mapbox</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> \n";
-  private static final String SATELLITE_ATTRIBUTION = "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Mapbox</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a href=\"https://www.digitalglobe.com/\" target=\"_blank\">&copy; DigitalGlobe</a>\n";
+  private static final String STREETS_ATTRIBUTION = "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Trackasia</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> \n";
+  private static final String SATELLITE_ATTRIBUTION = "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Trackasia</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a href=\"https://www.digitalglobe.com/\" target=\"_blank\">&copy; DigitalGlobe</a>\n";
 
   @Test
   public void testParseAttributionStringSatellite() throws Exception {
@@ -29,7 +29,7 @@ public class AttributionParseTest {
       switch (counter) {
         case 0:
           assertEquals("URL mapbox should match", "https://www.mapbox.com/about/maps/", attribution.getUrl());
-          assertEquals("Title mapbox should match", "© Mapbox", attribution.getTitle());
+          assertEquals("Title mapbox should match", "© Trackasia", attribution.getTitle());
           break;
         case 1:
           assertEquals("URL openstreetmap should match", "http://www.openstreetmap.org/about/", attribution.getUrl());
@@ -58,7 +58,7 @@ public class AttributionParseTest {
       switch (counter) {
         case 0:
           assertEquals("URL mapbox should match", "https://www.mapbox.com/about/maps/", attribution.getUrl());
-          assertEquals("Title mapbox should match", "© Mapbox", attribution.getTitle());
+          assertEquals("Title mapbox should match", "© Trackasia", attribution.getTitle());
           break;
         case 1:
           assertEquals("URL openstreetmap should match", "http://www.openstreetmap.org/about/", attribution.getUrl());
@@ -104,7 +104,7 @@ public class AttributionParseTest {
       switch (counter) {
         case 0:
           assertEquals("URL mapbox should match", "https://www.mapbox.com/about/maps/", attribution.getUrl());
-          assertEquals("Title mapbox should match", "© Mapbox", attribution.getTitle());
+          assertEquals("Title mapbox should match", "© Trackasia", attribution.getTitle());
           break;
         case 1:
           assertEquals("URL openstreetmap should match", "http://www.openstreetmap.org/about/", attribution.getUrl());
@@ -133,7 +133,7 @@ public class AttributionParseTest {
       switch (counter) {
         case 0:
           assertEquals("URL mapbox should match", "https://www.mapbox.com/about/maps/", attribution.getUrl());
-          assertEquals("Title mapbox should match", "© Mapbox", attribution.getTitle());
+          assertEquals("Title mapbox should match", "© Trackasia", attribution.getTitle());
           break;
         case 1:
           assertEquals("URL openstreetmap should match", "http://www.openstreetmap.org/about/", attribution.getUrl());
@@ -162,7 +162,7 @@ public class AttributionParseTest {
       switch (counter) {
         case 0:
           assertEquals("URL mapbox should match", "https://www.mapbox.com/about/maps/", attribution.getUrl());
-          assertEquals("Title mapbox should match", "Mapbox", attribution.getTitle());
+          assertEquals("Title mapbox should match", "Trackasia", attribution.getTitle());
           break;
         case 1:
           assertEquals("URL openstreetmap should match", "http://www.openstreetmap.org/about/", attribution.getUrl());
@@ -187,7 +187,7 @@ public class AttributionParseTest {
 
     assertEquals(
       "Attribution string should match",
-      "© Mapbox / OpenStreetMap",
+      "© Trackasia / OpenStreetMap",
       attributionParser.createAttributionString()
     );
   }
@@ -202,7 +202,7 @@ public class AttributionParseTest {
 
     assertEquals(
       "Attribution string should match",
-      "© Mapbox / © OpenStreetMap",
+      "© Trackasia / © OpenStreetMap",
       attributionParser.createAttributionString()
     );
   }
@@ -280,7 +280,7 @@ public class AttributionParseTest {
 
     assertEquals(
       "Attribution string should match",
-      "© Mapbox / OSM / DigitalGlobe",
+      "© Trackasia / OSM / DigitalGlobe",
       attributionParser.createAttributionString(true)
     );
   }

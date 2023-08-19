@@ -639,7 +639,7 @@ final class MapGestureDetector {
       double zoomAddition = calculateScale(velocityXY, detector.isScalingOut());
       double currentZoom = transform.getRawZoom();
       PointF focalPoint = getScaleFocalPoint(detector);
-      // (log(x + 1 / e^2) + 2) * 150, x=0 to 2.5 (MapboxConstants#MAX_ABSOLUTE_SCALE_VELOCITY_CHANGE)
+      // (log(x + 1 / e^2) + 2) * 150, x=0 to 2.5 (TrackasiaConstants#MAX_ABSOLUTE_SCALE_VELOCITY_CHANGE)
       long animationTime = (long) ((Math.log((Math.abs(zoomAddition)) + 1 / Math.pow(Math.E, 2)) + 2)
         * SCALE_VELOCITY_ANIMATION_DURATION_MULTIPLIER);
       scaleAnimator = createScaleAnimator(currentZoom, zoomAddition, focalPoint, animationTime);

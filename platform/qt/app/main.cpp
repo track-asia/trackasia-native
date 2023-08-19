@@ -6,7 +6,7 @@ int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
-    QTrackasiaGL::Settings settings;
+    QTrackAsiaGL::Settings settings;
     settings.setCacheDatabasePath("/tmp/mbgl-cache.db");
     settings.setCacheDatabaseMaximumSize(20 * 1024 * 1024);
 

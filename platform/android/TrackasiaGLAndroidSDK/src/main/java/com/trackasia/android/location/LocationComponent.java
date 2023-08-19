@@ -148,21 +148,21 @@ public final class LocationComponent {
   private boolean useSpecializedLocationLayer;
 
   /**
-   * Indicates that the component is enabled and should be displaying location if Mapbox components are available and
+   * Indicates that the component is enabled and should be displaying location if Trackasia components are available and
    * the lifecycle is in a started state.
    */
   private boolean isEnabled;
 
   /**
    * Indicated that component's lifecycle {@link #onStart()} method has been called.
-   * This allows Mapbox components enter started state and display data, and adds state safety for methods like
+   * This allows Trackasia components enter started state and display data, and adds state safety for methods like
    * {@link #setLocationComponentEnabled(boolean)}
    */
   private boolean isComponentStarted;
 
   /**
-   * Indicates if Mapbox components are ready to be interacted with. This can differ from {@link #isComponentStarted}
-   * if the Mapbox style is being reloaded.
+   * Indicates if Trackasia components are ready to be interacted with. This can differ from {@link #isComponentStarted}
+   * if the Trackasia style is being reloaded.
    */
   private boolean isLayerReady;
 

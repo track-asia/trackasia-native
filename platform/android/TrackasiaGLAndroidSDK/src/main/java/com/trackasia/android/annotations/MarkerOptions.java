@@ -23,7 +23,7 @@ import com.trackasia.android.geometry.LatLng;
  * </pre>
  * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   Mapbox Annotation Plugin</a> instead
+ *   Trackasia Annotation Plugin</a> instead
  */
 @Deprecated
 public final class MarkerOptions extends BaseMarkerOptions<Marker, MarkerOptions> implements Parcelable {

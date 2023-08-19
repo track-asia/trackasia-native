@@ -16,7 +16,7 @@ import timber.log.Timber;
 import static com.trackasia.android.location.engine.Utils.isBetterLocation;
 
 /**
- * Mapbox replacement for Google Play Services Fused Location Client
+ * Trackasia replacement for Google Play Services Fused Location Client
  * <p>
  * Note: fusion will not work in background mode.
  */

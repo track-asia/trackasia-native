@@ -25,7 +25,7 @@ class SourceObserver;
 struct LayerTypeInfo;
 
 /**
- * The runtime representation of a [source](https://www.mapbox.com/mapbox-gl-style-spec/#sources) from the Mapbox Style
+ * The runtime representation of a [source](https://www.mapbox.com/mapbox-gl-style-spec/#sources) from the Trackasia Style
  * Specification.
  *
  * `Source` is an abstract base class; concrete derived classes are provided for each source type. `Source` contains

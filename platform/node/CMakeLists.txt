@@ -57,7 +57,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/node/src/node_logging.hpp
         ${PROJECT_SOURCE_DIR}/platform/node/src/node_map.cpp
         ${PROJECT_SOURCE_DIR}/platform/node/src/node_map.hpp
-        ${PROJECT_SOURCE_DIR}/platform/node/src/node_trackasai_gl_native.cpp
+        ${PROJECT_SOURCE_DIR}/platform/node/src/node_mapbox_gl_native.cpp
         ${PROJECT_SOURCE_DIR}/platform/node/src/node_request.cpp
         ${PROJECT_SOURCE_DIR}/platform/node/src/node_request.hpp
         ${PROJECT_SOURCE_DIR}/platform/node/src/util/async_queue.hpp

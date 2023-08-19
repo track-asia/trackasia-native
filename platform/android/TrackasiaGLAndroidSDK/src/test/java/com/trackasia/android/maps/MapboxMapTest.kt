@@ -1,7 +1,7 @@
 package com.trackasia.android.maps
 
 import android.content.Context
-import com.trackasia.android.TrackasiaInjector
+import com.trackasia.android.MapboxInjector
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.constants.TrackasiaConstants
@@ -78,7 +78,7 @@ class MapboxMapTest {
         val expected = CameraPosition.Builder().target(target).build()
         val update = CameraUpdateFactory.newCameraPosition(expected)
         mapboxMap.easeCamera(update, callback)
-        verify { transform.easeCamera(mapboxMap, update, _root_ide_package_.com.trackasia.android.constants.TrackasiaConstants.ANIMATION_DURATION, true, callback) }
+        verify { transform.easeCamera(mapboxMap, update, TrackasiaConstants.ANIMATION_DURATION, true, callback) }
         verify { developerAnimationListener.onDeveloperAnimationStarted() }
     }
 
@@ -89,7 +89,7 @@ class MapboxMapTest {
         val expected = CameraPosition.Builder().target(target).build()
         val update = CameraUpdateFactory.newCameraPosition(expected)
         mapboxMap.animateCamera(update, callback)
-        verify { transform.animateCamera(mapboxMap, update, _root_ide_package_.com.trackasia.android.constants.TrackasiaConstants.ANIMATION_DURATION, callback) }
+        verify { transform.animateCamera(mapboxMap, update, TrackasiaConstants.ANIMATION_DURATION, callback) }
         verify { developerAnimationListener.onDeveloperAnimationStarted() }
     }
 

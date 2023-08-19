@@ -4,7 +4,7 @@
 
 #include <cassert>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 Scheduler::Scheduler()
 {
@@ -39,4 +39,4 @@ void Scheduler::processEvents()
     }
 }
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

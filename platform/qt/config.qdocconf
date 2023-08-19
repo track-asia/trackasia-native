@@ -6,8 +6,8 @@ include($QT_INSTALL_DOCS/global/qt-html-templates-online.qdocconf)
 
 Cpp.ignoretokens = Q_TRACKASIA_EXPORT
 
-project     = QTrackasiaGL
-description = Trackasia GL Maps SDK for Qt
+project     = QTrackAsiaGL
+description = TrackAsia GL Maps SDK for Qt
 language    = Cpp
 
 outputdir   = docs

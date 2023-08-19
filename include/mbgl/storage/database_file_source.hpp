@@ -228,8 +228,8 @@ public:
     virtual void invalidateOfflineRegion(const OfflineRegion&, std::function<void(std::exception_ptr)>);
 
     /*
-     * Changing or bypassing this limit without permission from Mapbox is prohibited
-     * by the Mapbox Terms of Service.
+     * Changing or bypassing this limit without permission from Trackasia is prohibited
+     * by the Trackasia Terms of Service.
      */
     virtual void setOfflineMapboxTileCountLimit(uint64_t) const;
 

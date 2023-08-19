@@ -1,4 +1,4 @@
-# Trackasia GL Native Documentation
+# TrackAsia GL Native Documentation
 
 [Introduction](./introduction.md)
 

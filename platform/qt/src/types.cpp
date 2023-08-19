@@ -1,68 +1,68 @@
-#include <QTrackasiaGL/Types>
+#include <QTrackAsiaGL/Types>
 
 #include "mbgl/util/geometry.hpp"
 #include "mbgl/util/traits.hpp"
 
 // mbgl::FeatureType
-static_assert(mbgl::underlying_type(QTrackasiaGL::Feature::PointType) == mbgl::underlying_type(mbgl::FeatureType::Point), "error");
-static_assert(mbgl::underlying_type(QTrackasiaGL::Feature::LineStringType) == mbgl::underlying_type(mbgl::FeatureType::LineString), "error");
-static_assert(mbgl::underlying_type(QTrackasiaGL::Feature::PolygonType) == mbgl::underlying_type(mbgl::FeatureType::Polygon), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Feature::PointType) == mbgl::underlying_type(mbgl::FeatureType::Point), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Feature::LineStringType) == mbgl::underlying_type(mbgl::FeatureType::LineString), "error");
+static_assert(mbgl::underlying_type(QTrackAsiaGL::Feature::PolygonType) == mbgl::underlying_type(mbgl::FeatureType::Polygon), "error");
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 /*!
-    \namespace QTrackasiaGL
-    \inmodule Trackasia Maps SDK for Qt
+    \namespace QTrackAsiaGL
+    \inmodule TrackAsia Maps SDK for Qt
 
-    Contains miscellaneous Trackasia types and utilities used throughout QTrackasiaGLGL.
+    Contains miscellaneous TrackAsia types and utilities used throughout QTrackAsiaGLGL.
 */
 
 /*!
-    \typedef QTrackasiaGL::Coordinate
+    \typedef QTrackAsiaGL::Coordinate
 
     Alias for QPair<double, double>.
     Representation for geographical coordinates - latitude and longitude, respectively.
 */
 
 /*!
-    \typedef QTrackasiaGL::CoordinateZoom
+    \typedef QTrackAsiaGL::CoordinateZoom
 
     Alias for QPair<Coordinate, double>.
-    Used as return value in QTrackasiaGLGL::coordinateZoomForBounds.
+    Used as return value in QTrackAsiaGLGL::coordinateZoomForBounds.
 */
 
 /*!
-    \typedef QTrackasiaGL::ProjectedMeters
+    \typedef QTrackAsiaGL::ProjectedMeters
 
     Alias for QPair<double, double>.
     Representation for projected meters - northing and easting, respectively.
 */
 
 /*!
-    \typedef QTrackasiaGL::Coordinates
+    \typedef QTrackAsiaGL::Coordinates
 
-    Alias for QVector<QTrackasiaGL::Coordinate>.
-    A list of QTrackasiaGL::Coordinate objects.
+    Alias for QVector<QTrackAsiaGL::Coordinate>.
+    A list of QTrackAsiaGL::Coordinate objects.
 */
 
 /*!
-    \typedef QTrackasiaGL::CoordinatesCollection
+    \typedef QTrackAsiaGL::CoordinatesCollection
 
-    Alias for QVector<QTrackasiaGL::Coordinates>.
-    A list of QTrackasiaGL::Coordinates objects.
+    Alias for QVector<QTrackAsiaGL::Coordinates>.
+    A list of QTrackAsiaGL::Coordinates objects.
 */
 
 /*!
-    \typedef QTrackasiaGL::CoordinatesCollections
+    \typedef QTrackAsiaGL::CoordinatesCollections
 
-    Alias for QVector<QTrackasiaGL::CoordinatesCollection>.
-    A list of QTrackasiaGL::CoordinatesCollection objects.
+    Alias for QVector<QTrackAsiaGL::CoordinatesCollection>.
+    A list of QTrackAsiaGL::CoordinatesCollection objects.
 */
 
 /*!
-    \class QTrackasiaGL::Feature
+    \class QTrackAsiaGL::Feature
 
-    \inmodule Trackasia Maps SDK for Qt
+    \inmodule TrackAsia Maps SDK for Qt
 
     Represents \l {https://www.mapbox.com/help/define-features/}{map features}
     via its \a type (PointType, LineStringType or PolygonType), \a geometry, \a
@@ -70,9 +70,9 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \enum QTrackasiaGL::Feature::Type
+    \enum QTrackAsiaGL::Feature::Type
 
-    This enum is used as basis for geometry disambiguation in QTrackasiaGL::Feature.
+    This enum is used as basis for geometry disambiguation in QTrackAsiaGL::Feature.
 
     \value PointType      A point geometry type. Means a single or a collection of points.
     \value LineStringType A line string geometry type. Means a single or a collection of line strings.
@@ -80,15 +80,15 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \class QTrackasiaGL::ShapeAnnotationGeometry
+    \class QTrackAsiaGL::ShapeAnnotationGeometry
 
-    \inmodule Trackasia Maps SDK for Qt
+    \inmodule TrackAsia Maps SDK for Qt
 
     Represents a shape annotation geometry.
 */
 
 /*!
-    \enum QTrackasiaGL::ShapeAnnotationGeometry::Type
+    \enum QTrackAsiaGL::ShapeAnnotationGeometry::Type
 
     This enum is used as basis for shape annotation geometry disambiguation.
 
@@ -99,17 +99,17 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \class QTrackasiaGL::SymbolAnnotation
+    \class QTrackAsiaGL::SymbolAnnotation
 
-    \inmodule Trackasia Maps SDK for Qt
+    \inmodule TrackAsia Maps SDK for Qt
 
     A symbol annotation comprises of its geometry and an icon identifier.
 */
 
 /*!
-    \class QTrackasiaGL::LineAnnotation
+    \class QTrackAsiaGL::LineAnnotation
 
-    \inmodule Trackasia Maps SDK for Qt
+    \inmodule TrackAsia Maps SDK for Qt
 
     Represents a line annotation object, along with its properties.
 
@@ -117,9 +117,9 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \class QTrackasiaGL::FillAnnotation
+    \class QTrackAsiaGL::FillAnnotation
 
-    \inmodule Trackasia Maps SDK for Qt
+    \inmodule TrackAsia Maps SDK for Qt
 
     Represents a fill annotation object, along with its properties.
 
@@ -127,33 +127,33 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \typedef QTrackasiaGL::Annotation
+    \typedef QTrackAsiaGL::Annotation
 
     Alias for QVariant.
     Container that encapsulates either a symbol, a line, a fill or a style sourced annotation.
 */
 
 /*!
-    \typedef QTrackasiaGL::AnnotationID
+    \typedef QTrackAsiaGL::AnnotationID
 
     Alias for quint32 representing an annotation identifier.
 */
 
 /*!
-    \typedef QTrackasiaGL::AnnotationIDs
+    \typedef QTrackAsiaGL::AnnotationIDs
 
     Alias for QVector<quint32> representing a container of annotation identifiers.
 */
 
 /*!
-    \class QTrackasiaGL::CameraOptions
-    \inmodule Trackasia Maps SDK for Qt
+    \class QTrackAsiaGL::CameraOptions
+    \inmodule TrackAsia Maps SDK for Qt
 
-    QTrackasiaGL::CameraOptions provides camera options to the renderer.
+    QTrackAsiaGL::CameraOptions provides camera options to the renderer.
 */
 
 /*!
-    \class QTrackasiaGL::CustomLayerHostInterface
+    \class QTrackAsiaGL::CustomLayerHostInterface
 
     Represents a host interface to be implemented for rendering custom layers.
 
@@ -162,11 +162,11 @@ namespace QTrackasiaGL {
 */
 
 /*!
-    \class QTrackasiaGL::CustomLayerRenderParameters
-    \inmodule Trackasia Maps SDK for Qt
+    \class QTrackAsiaGL::CustomLayerRenderParameters
+    \inmodule TrackAsia Maps SDK for Qt
 
-    QTrackasiaGL::CustomLayerRenderParameters provides the data passed on each render
+    QTrackAsiaGL::CustomLayerRenderParameters provides the data passed on each render
     pass for a custom layer.
 */
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

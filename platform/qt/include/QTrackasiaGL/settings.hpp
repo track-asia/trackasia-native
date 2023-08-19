@@ -17,7 +17,7 @@ namespace mbgl
 }
 
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 class Q_TRACKASIAGL_EXPORT Settings
 {
@@ -47,7 +47,7 @@ public:
 
     enum SettingsTemplate {
         DefaultSettings = 0,
-        TrackasiaSettings,
+        TrackAsiaSettings,
         MapTilerSettings,
         MapboxSettings
     };
@@ -115,6 +115,6 @@ private:
     mbgl::TileServerOptions *m_tileServerOptionsInternal{};
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL
 
 #endif // QTRACKASIAGL_SETTINGS_H

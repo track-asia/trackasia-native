@@ -1,4 +1,4 @@
 @import Mapbox;
 
-@interface MBXAnnotationView : MLNAnnotationView
+@interface MBXAnnotationView : MGLAnnotationView
 @end

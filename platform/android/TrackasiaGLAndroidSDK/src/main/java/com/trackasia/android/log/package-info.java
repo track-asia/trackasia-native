@@ -1,4 +1,4 @@
 /**
- * Contains the Mapbox Maps Android Log API classes.
+ * Contains the Trackasia Maps Android Log API classes.
  */
 package com.trackasia.android.log;

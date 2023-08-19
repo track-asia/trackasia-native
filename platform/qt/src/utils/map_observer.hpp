@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTrackasiaGL/Map>
+#include <QTrackAsiaGL/Map>
 
 #include <mbgl/map/map_observer.hpp>
 #include <mbgl/style/style.hpp>
@@ -10,7 +10,7 @@
 #include <exception>
 #include <memory>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 class MapPrivate;
 
@@ -47,4 +47,4 @@ private:
     MapPrivate *d_ptr;
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

@@ -1,6 +1,6 @@
-# Trackasia Maps SDK for Android
+# TrackAsia Maps SDK for Android
 
-The Trackasia Maps SDK for Android is a library based on Trackasia GL Native for embedding interactive map views with scalable, customizable vector maps onto Android devices.
+The TrackAsia Maps SDK for Android is a library based on TrackAsia GL Native for embedding interactive map views with scalable, customizable vector maps onto Android devices.
 
 ## Getting Started
 
@@ -56,7 +56,7 @@ final draft of the C++14 standard. More information in [DEVELOPING.md](../../DEV
 * Environment:  Android Studio + NDK
   * `JAVA_HOME=/Applications/Android Studio.app/Contents/jre/Contents/Home`
   * `ANDROID_SDK_ROOT=~/Library/Android/sdk`
-  * See NDK version discussion on issue: [trackasia/trackasia-gl-native/#xxx](https://github.com/track-asia/trackasia-gl-native/issues/xxx)  
+  * See NDK version discussion on issue: [track-asia/trackasia-gl-native/#xxx](https://github.com/track-asia/trackasia-gl-native/issues/xxx)  
 
 ```
 cd platform/android
@@ -95,7 +95,7 @@ With buck build support, Android Studio can complain about duplicate source file
 
 _The test application (used for development purposes) uses MapTiler vector tiles, which require a MapTiler account and API key._
 
-With the first gradle invocation, gradle will take the value of the `MLN_API_KEY` environment variable and save it to `TrackasiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml`. If the environment variable wasn't set, you can edit `developer-config.xml` manually and add your api key to the `api_key` resource.  
+With the first gradle invocation, gradle will take the value of the `MGL_API_KEY` environment variable and save it to `TrackasiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml`. If the environment variable wasn't set, you can edit `developer-config.xml` manually and add your api key to the `api_key` resource.  
 
 ### Running project
 
@@ -111,7 +111,7 @@ Instead of using the latest stable release of the Maps SDK for Android, you can 
 
 ```java
 // Mapbox SDK dependency
-implementation 'com.trackasia.android:mapbox-android-sdk:9.1.0-SNAPSHOT'
+implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.1.0-SNAPSHOT'
 ```
 
 You also need to have the section below in your build.gradle root folder to be able to resolve the SNAPSHOT dependencies:

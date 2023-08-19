@@ -13,7 +13,7 @@ namespace android {
 class Marker : private mbgl::util::noncopyable {
 public:
 
-    static constexpr auto Name() { return "com.trackasia.android/annotations/Marker"; };
+    static constexpr auto Name() { return "com/mapbox/mapboxsdk/annotations/Marker"; };
 
     static mbgl::Point<double> getPosition(jni::JNIEnv&, const jni::Object<Marker>&);
 

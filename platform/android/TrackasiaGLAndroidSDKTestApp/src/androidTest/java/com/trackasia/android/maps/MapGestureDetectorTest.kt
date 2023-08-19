@@ -115,7 +115,7 @@ class MapGestureDetectorTest : BaseTest() {
             initialZoom = mapboxMap.cameraPosition.zoom
         }
         onView(withId(R.id.mapView)).perform(quickScale(-(mapboxMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold * 2), withVelocity = false, duration = 1000L))
-        R.id.mapView.loopFor(_root_ide_package_.com.trackasia.android.constants.TrackasiaConstants.ANIMATION_DURATION.toLong())
+        R.id.mapView.loopFor(TrackasiaConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
             Assert.assertTrue(mapboxMap.cameraPosition.zoom < initialZoom!!)
         }
@@ -129,7 +129,7 @@ class MapGestureDetectorTest : BaseTest() {
             initialZoom = mapboxMap.cameraPosition.zoom
         }
         onView(withId(R.id.mapView)).perform(quickScale(mapboxMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold / 2, withVelocity = false, duration = 50L))
-        R.id.mapView.loopFor(_root_ide_package_.com.trackasia.android.constants.TrackasiaConstants.ANIMATION_DURATION.toLong())
+        R.id.mapView.loopFor(TrackasiaConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
             Assert.assertEquals(initialZoom!! + 1, mapboxMap.cameraPosition.zoom, 0.1)
         }
@@ -145,7 +145,7 @@ class MapGestureDetectorTest : BaseTest() {
             mapboxMap.uiSettings.isQuickZoomGesturesEnabled = false
         }
         onView(withId(R.id.mapView)).perform(quickScale(mapboxMap.gesturesManager.standardScaleGestureDetector.spanSinceStartThreshold * 2, withVelocity = false, duration = 50L))
-        R.id.mapView.loopFor(_root_ide_package_.com.trackasia.android.constants.TrackasiaConstants.ANIMATION_DURATION.toLong())
+        R.id.mapView.loopFor(TrackasiaConstants.ANIMATION_DURATION.toLong())
         rule.runOnUiThread {
             Assert.assertEquals(initialZoom!!, mapboxMap.cameraPosition.zoom, 0.01)
         }

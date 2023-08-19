@@ -1,6 +1,6 @@
 package com.trackasia.android.module.http
 
-import com.trackasia.android.TrackasiaInjector
+import com.trackasia.android.MapboxInjector
 import com.trackasia.android.utils.ConfigUtils
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals

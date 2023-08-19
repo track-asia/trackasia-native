@@ -6,7 +6,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 
-import com.trackasia.android.exceptions.TrackasiaConfigurationException;
+import com.trackasia.android.exceptions.MapboxConfigurationException;
 import com.trackasia.android.maps.MapView;
 import com.trackasia.android.utils.ConfigUtils;
 
@@ -83,7 +83,7 @@ public class MapboxTest {
     when(context.obtainStyledAttributes(nullable(AttributeSet.class), any(int[].class), anyInt(), anyInt()))
       .thenReturn(typedArray);
 
-    expectedException.expect(TrackasiaConfigurationException.class);
+    expectedException.expect(MapboxConfigurationException.class);
     expectedException.expectMessage(
       "\nUsing MapView requires calling Trackasia.getInstance(Context context, String apiKey,"
               + " WellKnownTileServer wellKnownTileServer) before inflating or creating the view."

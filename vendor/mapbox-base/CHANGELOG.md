@@ -1,4 +1,4 @@
-# Trackasia Base
+# TrackAsia Base
 
 ## v2.1.1
 
@@ -18,7 +18,7 @@
 ## v2.0.0
 
 ### 💫️ Other
-- [base] New fork maintained by Trackasia
+- [base] New fork maintained by TrackAsia
 - [base] Replace Travis with Github Actions
 
 ## v1.9.1

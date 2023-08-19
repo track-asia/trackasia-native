@@ -14,14 +14,14 @@ namespace android {
 class TileServerOptions : private mbgl::util::noncopyable {
 public:
 
-    static constexpr auto Name() { return "com.trackasia.android/util/TileServerOptions"; };
+    static constexpr auto Name() { return "com/mapbox/mapboxsdk/util/TileServerOptions"; };
 
     static jni::Local<jni::Object<TileServerOptions>> New(jni::JNIEnv&, const mbgl::TileServerOptions&);
 
     static jni::Local<jni::Object<TileServerOptions>> DefaultConfiguration(jni::JNIEnv&, const jni::Class<TileServerOptions>&);
     static jni::Local<jni::Object<TileServerOptions>> MapboxConfiguration(jni::JNIEnv&, const jni::Class<TileServerOptions>&);
     static jni::Local<jni::Object<TileServerOptions>> MapTilerConfiguration(jni::JNIEnv&, const jni::Class<TileServerOptions>&);
-    static jni::Local<jni::Object<TileServerOptions>> TrackasiaConfiguration(jni::JNIEnv&, const jni::Class<TileServerOptions>&);
+    static jni::Local<jni::Object<TileServerOptions>> TrackAsiaConfiguration(jni::JNIEnv&, const jni::Class<TileServerOptions>&);
 
     static mbgl::TileServerOptions getTileServerOptions(jni::JNIEnv&, const jni::Object<TileServerOptions>&);
     

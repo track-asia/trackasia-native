@@ -43,17 +43,17 @@ public class MarkerTest {
 
   @Test
   public void testTitle() {
-    MarkerOptions markerOptions = new MarkerOptions().title("Mapbox").position(new LatLng());
+    MarkerOptions markerOptions = new MarkerOptions().title("Trackasia").position(new LatLng());
     Marker marker = markerOptions.getMarker();
-    assertEquals(marker.getTitle(), "Mapbox");
-    assertEquals(markerOptions.getTitle(), "Mapbox");
+    assertEquals(marker.getTitle(), "Trackasia");
+    assertEquals(markerOptions.getTitle(), "Trackasia");
   }
 
   @Test
   public void testSnippet() {
-    MarkerOptions markerOptions = new MarkerOptions().snippet("Mapbox").position(new LatLng());
+    MarkerOptions markerOptions = new MarkerOptions().snippet("Trackasia").position(new LatLng());
     Marker marker = markerOptions.getMarker();
-    assertEquals(marker.getSnippet(), "Mapbox");
+    assertEquals(marker.getSnippet(), "Trackasia");
   }
 
   @Test

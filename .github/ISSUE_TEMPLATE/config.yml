@@ -2,7 +2,7 @@ blank_issues_enabled: false
 contact_links:
   - name: "🙏 Q&A - GitHub Discussions"
     url: https://github.com/track-asia/trackasia-gl-native/discussions/categories/q-a
-    about: If you have a question about using Trackasia GL Native
+    about: If you have a question about using TrackAsia GL Native
   - name: "💬 Chat with us on Slack"
     url: https://slack.openstreetmap.us/
     about: "Join #trackasia-native on the Open Street Map Slack"

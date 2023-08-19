@@ -1,6 +1,6 @@
-# @trackasia/trackasia-gl-native
+# @track-asia/trackasia-gl-native
 
-[![NPM](https://nodei.co/npm/@trackasia/trackasia-gl-native.png)](https://npmjs.org/package/@trackasia/trackasia-gl-native)
+[![NPM](https://nodei.co/npm/@track-asia/trackasia-gl-native.png)](https://npmjs.org/package/@track-asia/trackasia-gl-native)
 [![node-ci](https://github.com/track-asia/trackasia-gl-native/actions/workflows/node-ci.yml/badge.svg)](https://github.com/track-asia/trackasia-gl-native/actions/workflows/node-ci.yml)
 
 ## Installing
@@ -17,7 +17,7 @@ By default, installs binaries. On these platforms no additional dependencies are
 Run:
 
 ```
-npm install @trackasia/trackasia-gl-native
+npm install @track-asia/trackasia-gl-native
 ```
 
 Other platforms will fall back to a source compile with `make node`; see [DEVELOPING.md](DEVELOPING.md) for details on
@@ -35,7 +35,7 @@ npm run test-suite
 ```js
 var fs = require('fs');
 var path = require('path');
-var mbgl = require('@trackasia/trackasia-gl-native');
+var mbgl = require('@track-asia/trackasia-gl-native');
 var sharp = require('sharp');
 
 var options = {
@@ -153,7 +153,7 @@ This is a very barebones implementation and you'll probably want a better implem
 A sample implementation that uses [`request`](https://github.com/request/request) to fetch data from a remote source:
 
 ```js
-var mbgl = require('@trackasia/trackasia-gl-native');
+var mbgl = require('@track-asia/trackasia-gl-native');
 var request = require('request');
 
 var map = new mbgl.Map({
@@ -190,7 +190,7 @@ Stylesheets are free to use any protocols, but your implementation of `request` 
 The module imported with `require('trackasia-gl-native')` inherits from [`EventEmitter`](https://nodejs.org/api/events.html), and the `NodeLogObserver` will push log events to this. Log messages can have [`class`](https://github.com/track-asia/trackasia-gl-native/blob/node-v2.1.0/include/mbgl/platform/event.hpp#L43-L60), [`severity`](https://github.com/track-asia/trackasia-gl-native/blob/node-v2.1.0/include/mbgl/platform/event.hpp#L17-L23), `code` ([HTTP status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)), and `text` parameters.
 
 ```js
-var mbgl = require('@trackasia/trackasia-gl-native');
+var mbgl = require('@track-asia/trackasia-gl-native');
 mbgl.on('message', function(msg) {
     t.ok(msg, 'emits error');
     t.equal(msg.class, 'Style');

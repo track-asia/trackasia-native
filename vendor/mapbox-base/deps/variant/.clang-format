@@ -1,5 +1,5 @@
 ---
-# Trackasia.Variant C/C+ style
+# Mapbox.Variant C/C+ style
 Language:        Cpp
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align

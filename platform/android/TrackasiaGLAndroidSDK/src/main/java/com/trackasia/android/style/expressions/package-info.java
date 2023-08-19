@@ -1,4 +1,4 @@
 /**
- * Contains the Mapbox Maps Android Expression API classes.
+ * Contains the Trackasia Maps Android Expression API classes.
  */
 package com.trackasia.android.style.expressions;

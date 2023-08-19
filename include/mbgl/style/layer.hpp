@@ -67,7 +67,7 @@ struct LayerTypeInfo {
 };
 
 /**
- * The runtime representation of a [layer](https://www.mapbox.com/mapbox-gl-style-spec/#layers) from the Mapbox Style
+ * The runtime representation of a [layer](https://www.mapbox.com/mapbox-gl-style-spec/#layers) from the Trackasia Style
  * Specification.
  *
  * `Layer` is an abstract base class; concrete derived classes are provided for each layer type. `Layer` contains

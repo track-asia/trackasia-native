@@ -2,7 +2,7 @@
 //  bench_UITests.swift
 //  bench UITests
 //
-//  Copyright © 2021 Trackasia. All rights reserved.
+//  Copyright © 2021 TrackAsia. All rights reserved.
 //
 
 import XCTest

@@ -3,7 +3,7 @@ package com.trackasia.android.maps
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ShapeDrawable
-import com.trackasia.android.TrackasiaInjector
+import com.trackasia.android.MapboxInjector
 import com.trackasia.android.constants.TrackasiaConstants
 import com.trackasia.android.style.layers.CannotAddLayerException
 import com.trackasia.android.style.layers.SymbolLayer
@@ -77,7 +77,7 @@ class StyleTest {
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                _root_ide_package_.com.trackasia.android.constants.TrackasiaConstants.LAYER_ID_ANNOTATIONS
+                TrackasiaConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }
@@ -154,7 +154,7 @@ class StyleTest {
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                _root_ide_package_.com.trackasia.android.constants.TrackasiaConstants.LAYER_ID_ANNOTATIONS
+                TrackasiaConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }

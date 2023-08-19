@@ -203,12 +203,12 @@ namespace mbgl {
     }
 
     TileServerOptions TileServerOptions::DefaultConfiguration() {
-        return TrackasiaConfiguration();
+        return TrackAsiaConfiguration();
     }
 
-    TileServerOptions TileServerOptions::TrackasiaConfiguration() {
+    TileServerOptions TileServerOptions::TrackAsiaConfiguration() {
         std::vector<mbgl::util::DefaultStyle> styles {
-                // https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public
+                // https://demotiles.track-asia.com/style.json
                 mbgl::util::DefaultStyle("trackasia://maps/style", "Basic", 1)
         };
 

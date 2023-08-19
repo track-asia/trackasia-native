@@ -70,7 +70,7 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "MLNMapSnapshotterTests/testLocalGlyphRendering">
+                  Identifier = "MGLMapSnapshotterTests/testLocalGlyphRendering">
                </Test>
             </SkippedTests>
          </TestableReference>

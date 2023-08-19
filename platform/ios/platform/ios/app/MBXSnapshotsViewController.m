@@ -18,14 +18,14 @@
 
 @implementation MBXSnapshotsViewController {
     // Top row
-    MLNMapSnapshotter* topLeftSnapshotter;
-    MLNMapSnapshotter* topCenterSnapshotter;
-    MLNMapSnapshotter* topRightSnapshotter;
+    MGLMapSnapshotter* topLeftSnapshotter;
+    MGLMapSnapshotter* topCenterSnapshotter;
+    MGLMapSnapshotter* topRightSnapshotter;
     
     // Bottom row
-    MLNMapSnapshotter* bottomLeftSnapshotter;
-    MLNMapSnapshotter* bottomCenterSnapshotter;
-    MLNMapSnapshotter* bottomRightSnapshotter;
+    MGLMapSnapshotter* bottomLeftSnapshotter;
+    MGLMapSnapshotter* bottomCenterSnapshotter;
+    MGLMapSnapshotter* bottomRightSnapshotter;
 }
 
 - (void)viewDidLoad {
@@ -41,18 +41,18 @@
     bottomRightSnapshotter = [self startSnapshotterForImageView:_snapshotImageViewBR coordinates:CLLocationCoordinate2DMake(31.2780, 121.4286)];
 }
 
-- (MLNMapSnapshotter*) startSnapshotterForImageView:(UIImageView*) imageView coordinates:(CLLocationCoordinate2D) coordinates  {
+- (MGLMapSnapshotter*) startSnapshotterForImageView:(UIImageView*) imageView coordinates:(CLLocationCoordinate2D) coordinates  {
     // Create snapshot options
-    MLNMapCamera* mapCamera = [[MLNMapCamera alloc] init];
+    MGLMapCamera* mapCamera = [[MGLMapCamera alloc] init];
     mapCamera.pitch = 20;
     mapCamera.centerCoordinate = coordinates;
-    MLNMapSnapshotOptions* options = [[MLNMapSnapshotOptions alloc] initWithStyleURL:[[MLNStyle predefinedStyle:@"Hybrid"] url] camera:mapCamera size:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
+    MGLMapSnapshotOptions* options = [[MGLMapSnapshotOptions alloc] initWithStyleURL:[[MGLStyle predefinedStyle:@"Hybrid"] url] camera:mapCamera size:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
     options.zoomLevel = 10;
     
     // Create and start the snapshotter
     __weak UIImageView *weakImageView = imageView;
-    MLNMapSnapshotter* snapshotter = [[MLNMapSnapshotter alloc] initWithOptions:options];
-    [snapshotter startWithCompletionHandler: ^(MLNMapSnapshot* snapshot, NSError *error) {
+    MGLMapSnapshotter* snapshotter = [[MGLMapSnapshotter alloc] initWithOptions:options];
+    [snapshotter startWithCompletionHandler: ^(MGLMapSnapshot* snapshot, NSError *error) {
         if (error) {
             NSLog(@"Could not load snapshot: %@", [error localizedDescription]);
         } else {

@@ -2,9 +2,9 @@
 
 The code in the Darwin platform targets Apple platforms but is not specific
 to iOS or macOS. This code is not distributed as an SDK in itself, but is required
-by iOS and macOS builds of Trackasia GL Native and ultimately by the
-[Trackasia Maps SDK for iOS](https://github.com/track-asia/trackasia-gl-native/tree/main/platform/ios)
-and [Trackasia Maps SDK for macOS](https://github.com/track-asia/trackasia-gl-native/tree/main/platform/macos).
+by iOS and macOS builds of TrackAsia GL Native and ultimately by the
+[TrackAsia Maps SDK for iOS](https://github.com/track-asia/trackasia-gl-native/tree/main/platform/ios)
+and [TrackAsia Maps SDK for macOS](https://github.com/track-asia/trackasia-gl-native/tree/main/platform/macos).
 
 These files depend on the Foundation and Core Foundation frameworks but do not
 depend on iOS- or macOS–specific frameworks, such as UIKit or AppKit. Any

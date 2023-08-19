@@ -13,7 +13,7 @@ using SourceType = mbgl::style::SourceType;
 
 namespace mapboxFixture {
 const TileServerOptions mapboxTileServerOptions = TileServerOptions::MapboxConfiguration();
-const TileServerOptions trackasiaTileServerOptions = TileServerOptions::TrackasiaConfiguration();
+const TileServerOptions trackAsiaTileServerOptions = TileServerOptions::TrackAsiaConfiguration();
 const TileServerOptions mapTilerTileServerOptions = TileServerOptions::MapTilerConfiguration();
 } // namespace fixture
 
@@ -227,21 +227,21 @@ TEST(Mapbox, CanonicalizeVectorTileset) {
     EXPECT_EQ("mapbox://tiles/mapbox.streets/{z}/{x}/{y}.vector.pbf", tileset.tiles[0]);
 }
 
-// Trackasia tests
-TEST(Trackasia, CanonicalURL) {
+// TrackAsia tests
+TEST(TrackAsia, CanonicalURL) {
     EXPECT_EQ(
-        "https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public",
-        mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::trackasiaTileServerOptions, "trackasia://maps/style", ""));
+        "https://demotiles.track-asia.com/style.json",
+        mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://maps/style", ""));
     EXPECT_EQ(
         "https://demotiles.track-asia.com/tiles/tiles.json",
-        mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::trackasiaTileServerOptions, "trackasia://tiles/tiles", ""));
+        mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://tiles/tiles", ""));
     EXPECT_EQ(
         "https://demotiles.track-asia.com/font/{fontstack}/{start}-{end}.pbf",
-        mbgl::util::mapbox::normalizeGlyphsURL(mapboxFixture::trackasiaTileServerOptions, "trackasia://fonts/{fontstack}/{start}-{end}.pbf", ""));
+        mbgl::util::mapbox::normalizeGlyphsURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://fonts/{fontstack}/{start}-{end}.pbf", ""));
 
     EXPECT_EQ(
         "trackasia://tiles/tiles/{z}/{x}/{y}.pbf",
-        mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::trackasiaTileServerOptions, "https://demotiles.track-asia.com/tiles/{z}/{x}/{y}.pbf", SourceType::Vector, 512));
+        mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::trackAsiaTileServerOptions, "https://demotiles.track-asia.com/tiles/{z}/{x}/{y}.pbf", SourceType::Vector, 512));
 }
 
 // MapTiler tests

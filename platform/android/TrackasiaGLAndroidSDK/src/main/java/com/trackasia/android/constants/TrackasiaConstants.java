@@ -3,7 +3,7 @@ package com.trackasia.android.constants;
 import java.util.Locale;
 
 /**
- * MapboxConstants exposes Mapbox related constants
+ * TrackasiaConstants exposes Trackasia related constants
  */
 public class TrackasiaConstants {
 

@@ -59,7 +59,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         // state of your app. This will override any checks performed via the ConnectivityManager.
         // Trackasia.getInstance().setConnected(false);
         val connected = Trackasia.isConnected()
-        Timber.d("Mapbox is connected: %s", connected)
+        Timber.d("Trackasia is connected: %s", connected)
 
         // Set up map
         mapView = findViewById<View>(R.id.mapView) as MapView
@@ -259,7 +259,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
             }
 
             override fun mapboxTileCountLimitExceeded(limit: Long) {
-                Timber.e("Mapbox tile count limit exceeded: %s", limit)
+                Timber.e("Trackasia tile count limit exceeded: %s", limit)
                 offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
             }
         })

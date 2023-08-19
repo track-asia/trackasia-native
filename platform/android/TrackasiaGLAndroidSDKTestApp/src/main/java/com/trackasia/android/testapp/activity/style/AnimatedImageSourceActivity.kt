@@ -15,7 +15,6 @@ import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.RasterLayer
 import com.trackasia.android.style.sources.ImageSource
 import com.trackasia.android.testapp.R
-import com.trackasia.android.testapp.activity.style.AnimatedImageSourceActivity.RefreshImageRunnable
 import com.trackasia.android.utils.BitmapUtils
 
 /**

@@ -1,6 +1,6 @@
 {
   "name": "@mapbox/mapbox-gl-style-spec",
-  "description": "a specification for trackasia gl styles",
+  "description": "a specification for mapbox gl styles",
   "version": "13.13.0-dev",
   "author": "Mapbox",
   "keywords": [

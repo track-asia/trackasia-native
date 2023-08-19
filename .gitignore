@@ -14,7 +14,7 @@
 /platform/android/x86_64
 /cmake-build-debug
 /platform/android/build
-/platform/android/TrackasiaGLAndroidSDK/src/main/assets/sdk_versions/com.mapbox.mapboxsdk
+/platform/android/TrackasiaGLAndroidSDK/src/main/assets/sdk_versions/com.trackasia.android
 /platform/ios/platform/ios/Mapbox.playground/build/
 *.code-workspace
 
@@ -40,5 +40,4 @@ node_modules
 /lib
 
 /bazel-*
-
 .history/

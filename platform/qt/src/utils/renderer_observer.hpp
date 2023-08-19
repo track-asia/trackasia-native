@@ -8,7 +8,7 @@
 
 #include <memory>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 // Forwards RendererObserver signals to the given
 // Delegate RendererObserver on the given RunLoop
@@ -52,4 +52,4 @@ private:
     mbgl::ActorRef<mbgl::RendererObserver> delegate;
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL

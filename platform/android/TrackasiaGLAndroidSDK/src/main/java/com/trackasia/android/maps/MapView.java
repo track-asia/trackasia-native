@@ -27,7 +27,7 @@ import com.trackasia.android.R;
 import com.trackasia.android.WellKnownTileServer;
 import com.trackasia.android.annotations.Annotation;
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.exceptions.TrackasiaConfigurationException;
+import com.trackasia.android.exceptions.MapboxConfigurationException;
 import com.trackasia.android.location.LocationComponent;
 import com.trackasia.android.maps.renderer.MapRenderer;
 import com.trackasia.android.maps.renderer.glsurfaceview.GLSurfaceViewMapRenderer;
@@ -56,8 +56,8 @@ import static com.trackasia.android.maps.widgets.CompassView.TIME_WAIT_IDLE;
  * and style the features of the map to fit your application's use case.
  * </p>
  * <p>
- * Use of {@code MapView} requires a Mapbox API access token.
- * Obtain an access token on the <a href="https://www.mapbox.com/studio/account/tokens/">Mapbox account page</a>.
+ * Use of {@code MapView} requires a Trackasia API access token.
+ * Obtain an access token on the <a href="https://www.mapbox.com/studio/account/tokens/">Trackasia account page</a>.
  * </p>
  * <strong>Warning:</strong> Please note that you are responsible for getting permission to use the map data,
  * and for ensuring your use adheres to the relevant terms of use.
@@ -135,7 +135,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
     }
 
     if (!Trackasia.hasInstance()) {
-      throw new TrackasiaConfigurationException();
+      throw new MapboxConfigurationException();
     }
 
     // hide surface until map is fully loaded #10990
@@ -296,11 +296,11 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
    * Fragment#onViewCreated(View, Bundle).
    * </p>
    * You must set a valid access token with
-   * {@link com.trackasia.android.Trackasia#getInstance(Context, String, WellKnownTileServer)}
+   * {@link Trackasia#getInstance(Context, String, WellKnownTileServer)}
    * before you call this method or an exception will be thrown.
    *
    * @param savedInstanceState Pass in the parent's savedInstanceState.
-   * @see com.trackasia.android.Trackasia#getInstance(Context, String, WellKnownTileServer)
+   * @see Trackasia#getInstance(Context, String, WellKnownTileServer)
    */
   @UiThread
   public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -1,8 +1,8 @@
-# Trackasia GL Native - Open-Source Trackasia GL Native
+# TrackAsia GL Native - Open-Source Trackasia GL Native
 
 SDK for iOS, Android and other platforms
 
-Trackasia GL Native is a community led fork derived from [mapbox-gl-native](https://github.com/mapbox/mapbox-gl-native) prior to their switch to a non-OSS license. The fork also includes Maps SDK for iOS and MacOS (forked from [mapbox-gl-native-ios](https://github.com/mapbox/mapbox-gl-native-ios)) and Android SDK (forked from [mapbox-gl-native-android](https://github.com/mapbox/mapbox-gl-native-android)). These platform-specific SDKs were merged under platform directory and they reference mapbox-gl-native directly, not as a submodule.
+TrackAsia GL Native is a community led fork derived from [mapbox-gl-native](https://github.com/mapbox/mapbox-gl-native) prior to their switch to a non-OSS license. The fork also includes Maps SDK for iOS and MacOS (forked from [mapbox-gl-native-ios](https://github.com/mapbox/mapbox-gl-native-ios)) and Android SDK (forked from [mapbox-gl-native-android](https://github.com/mapbox/mapbox-gl-native-android)). These platform-specific SDKs were merged under platform directory and they reference mapbox-gl-native directly, not as a submodule.
 
 Beside merging in platform specific SDKs, the following changes were made compared to original mapbox projects:
 
@@ -14,14 +14,14 @@ Beside merging in platform specific SDKs, the following changes were made compar
 
 > The mapbox-gl-native was forked from [d60fd30 - mgbl 1.6.0](https://github.com/mapbox/mapbox-gl-native/tree/d60fd302b1f6563e7d16952f8855122fdcc85f73), mapbox-gl-native-ios from [a139216](https://github.com/mapbox/mapbox-gl-native-ios/commit/a139216) and mapbox-gl-native-android from [4c12fb2](https://github.com/mapbox/mapbox-gl-native-android/commit/4c12fb2c)
 
-**Call for Bounties💰** If you have ideas for new features in Trackasia, you can now nominate them for the Trackasia Bounty Program at https://trackasia.org/news/2022-10-16-call-for-bounties/
+**Call for Bounties💰** If you have ideas for new features in TrackAsia, you can now nominate them for the TrackAsia Bounty Program at https://track-asia.com/news/2022-10-16-call-for-bounties/
 ## Documentation
-Trackasia GL Native documentation is a work in progress. To know about the current state of Trackasia and it's path forward, 
+TrackAsia GL Native documentation is a work in progress. To know about the current state of TrackAsia and it's path forward, 
 read the Markdown book. To know about API references for Android and iOS, please follow the API Reference links.
 
-1. [Trackasia GL Native Markdown Book](https://trackasia.org/trackasia-gl-native/docs/book/)
-2. [Trackasia GL Native iOS API Reference](https://trackasia.org/trackasia-gl-native/ios/api/)
-2. [Trackasia GL Native Android API Reference](https://trackasia.org/trackasia-gl-native/android/api/)
+1. [TrackAsia GL Native Markdown Book](https://track-asia.com/trackasia-gl-native/docs/book/)
+2. [TrackAsia GL Native iOS API Reference](https://track-asia.com/trackasia-gl-native/ios/api/)
+2. [TrackAsia GL Native Android API Reference](https://track-asia.com/trackasia-gl-native/android/api/)
 
 ## Build Status
 
@@ -37,16 +37,16 @@ read the Markdown book. To know about API references for Android and iOS, please
 
 We thank everyone who supported us financially in the past and special thanks to the people and organizations who support us with recurring donations!
 
-Read more about the Trackasia Sponsorship Program at [https://trackasia.org/sponsors/](https://trackasia.org/sponsors/).
+Read more about the TrackAsia Sponsorship Program at [https://track-asia.com/sponsors/](https://track-asia.com/sponsors/).
 
 Platinum:
 
-<img src="https://trackasia.org/img/aws-logo.svg" alt="Logo AWS" width="25%"/>
+<img src="https://track-asia.com/img/aws-logo.svg" alt="Logo AWS" width="25%"/>
 
 
 Silver:
 
-<img src="https://trackasia.org/img/meta-logo.svg" alt="Logo Meta" width="50%"/>
+<img src="https://track-asia.com/img/meta-logo.svg" alt="Logo Meta" width="50%"/>
 
 Stone:
 
@@ -90,7 +90,7 @@ Backers and Supporters:
 
 ### Android
 
-1. Add bintray maven repositories to your build.gradle at project level so that you can access Trackasia packages for Android:
+1. Add bintray maven repositories to your build.gradle at project level so that you can access TrackAsia packages for Android:
 
     ```gradle
         allprojects {
@@ -115,7 +115,7 @@ Backers and Supporters:
 
 3. Sync gradle and rebuild your app
 
-*Note: Trackasia by default ships with the proprietary Google Play Location Services. If you want to avoid pulling proprietary dependencies into your project, you can exclude Google Play Location Services as follows:*
+*Note: TrackAsia by default ships with the proprietary Google Play Location Services. If you want to avoid pulling proprietary dependencies into your project, you can exclude Google Play Location Services as follows:*
 ```gradle
     implementation ('io.github.track-asia:android-sdk:<version>') {
         exclude group: 'com.google.android.gms'
@@ -126,7 +126,7 @@ Backers and Supporters:
 
 1. To add a package dependency to your Xcode project, select File > Swift Packages > Add Package Dependency and enter its repository URL. You can also navigate to your target’s General pane, and in the “Frameworks, Libraries, and Embedded Content” section, click the + button, select Add Other, and choose Add Package Dependency.
 
-2. Either add Trackasia GitHub distribution URL (https://github.com/track-asia/trackasia-gl-native-distribution) or search for `trackasia-gl-native` package.
+2. Either add TrackAsia GitHub distribution URL (https://github.com/track-asia/trackasia-gl-native-distribution) or search for `trackasia-gl-native` package.
 
 3. Choose "next". Xcode should clone the distribution repository and download the binaries.
 
@@ -144,7 +144,7 @@ git clone --recurse-submodules https://github.com/track-asia/trackasia-gl-native
 
 ## Build
 
-Trackasia uses tags for its Android & iOS releases based on [SemVer](https://semver.org) versioning.  This is useful for checking out a particular released version for feature enhancements or debugging.
+TrackAsia uses tags for its Android & iOS releases based on [SemVer](https://semver.org) versioning.  This is useful for checking out a particular released version for feature enhancements or debugging.
 
 You can list available tags by issuing the command `git tag`, then use the result
 
@@ -204,7 +204,7 @@ Also you can use the link option to ensure that the framework is able to link.
 - Covering the base cpp in the root `src` directory.
 
 `vendor/BUILD.bazel`
-- Covering the submodule dependencies of Trackasia.
+- Covering the submodule dependencies of Maplibre.
 
 `platform/default/BUILD.bazel`
 - Covering the cpp dependencies in default.
@@ -299,8 +299,8 @@ Please refer to [Mapbox Maps SDK for macos](platform/ios/platform/macos/) for de
 
 See [the Linux platform build section](platform/linux/) for instructions.
 
-### Building Trackasia-GL-Native Core
-Trackasia GL Native shares a single C++ core library with all platforms. To build it, we utilize CMake.
+### Building TrackAsia-GL-Native Core
+TrackAsia GL Native shares a single C++ core library with all platforms. To build it, we utilize CMake.
 
 To build, run the following from the root directory
 ```bash

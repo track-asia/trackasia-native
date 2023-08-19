@@ -6,7 +6,7 @@ import json
 path = os.getcwd()
 with open(path + "/LICENSE.md", 'w') as licenseFile:
     licenseFile.write("<!-- This file was generated. Use `make android-license` to update. -->  \n")
-    licenseFile.write("mapbox-gl-native-android copyright 2014-2020 Trackasia. \n\n"
+    licenseFile.write("mapbox-gl-native-android copyright 2014-2020 Mapbox. \n\n"
     "Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following "
     "conditions are met:  \n\n"
     "1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.  \n\n"

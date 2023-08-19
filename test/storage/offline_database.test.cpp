@@ -1288,19 +1288,19 @@ TEST(OfflineDatabase, OfflineMapboxTileCount) {
     db.putRegionResource(region1->getID(), Resource::style("http://example.com/"), response);
     EXPECT_EQ(0u, db.getOfflineMapboxTileCount());
 
-    // Count stays the same after putting a non-Mapbox tile.
+    // Count stays the same after putting a non-Trackasia tile.
     db.putRegionResource(region1->getID(), nonMapboxTile, response);
     EXPECT_EQ(0u, db.getOfflineMapboxTileCount());
 
-    // Count increases after putting a Mapbox tile not used by another region.
+    // Count increases after putting a Trackasia tile not used by another region.
     db.putRegionResource(region1->getID(), mapboxTile1, response);
     EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
-    // Count stays the same after putting a Mapbox tile used by another region.
+    // Count stays the same after putting a Trackasia tile used by another region.
     db.putRegionResource(region2->getID(), mapboxTile1, response);
     EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
-    // Count stays the same after putting a Mapbox tile used by the same region.
+    // Count stays the same after putting a Trackasia tile used by the same region.
     db.putRegionResource(region2->getID(), mapboxTile1, response);
     EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
@@ -1308,11 +1308,11 @@ TEST(OfflineDatabase, OfflineMapboxTileCount) {
     db.deleteRegion(std::move(*region2));
     EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
-    // Count stays the same after the putting a non-offline Mapbox tile.
+    // Count stays the same after the putting a non-offline Trackasia tile.
     db.put(mapboxTile2, response);
     EXPECT_EQ(1u, db.getOfflineMapboxTileCount());
 
-    // Count increases after putting a pre-existing, but non-offline Mapbox tile.
+    // Count increases after putting a pre-existing, but non-offline Trackasia tile.
     db.putRegionResource(region1->getID(), mapboxTile2, response);
     EXPECT_EQ(2u, db.getOfflineMapboxTileCount());
 
@@ -1668,7 +1668,7 @@ TEST(OfflineDatabase, TEST_REQUIRES_WRITE(DisallowedIO)) {
     EXPECT_EQ(0u, log.uncheckedCount());
 
     EXPECT_EQ(std::numeric_limits<uint64_t>::max(), db.getOfflineMapboxTileCount());
-    EXPECT_EQ(1u, log.count(warning(ResultCode::Auth, "Can't get offline Mapbox tile count: authorization denied")));
+    EXPECT_EQ(1u, log.count(warning(ResultCode::Auth, "Can't get offline Trackasia tile count: authorization denied")));
     EXPECT_EQ(0u, log.uncheckedCount());
 
     fs.reset();
@@ -1842,7 +1842,7 @@ TEST(OfflineDatabase, MergeDatabaseWithSingleRegionTooManyNewTiles) {
 
     auto result = db.mergeDatabase(filename_sideload);
     EXPECT_FALSE(result);
-    EXPECT_EQ(1u, log.count({ EventSeverity::Error, Event::Database, -1, "Mapbox tile limit exceeded" }));
+    EXPECT_EQ(1u, log.count({ EventSeverity::Error, Event::Database, -1, "Trackasia tile limit exceeded" }));
     EXPECT_EQ(0u, log.uncheckedCount());
 }
 
@@ -1859,7 +1859,7 @@ TEST(OfflineDatabase, MergeDatabaseWithSingleRegionTooManyExistingTiles) {
     auto result = db.mergeDatabase(filename_sideload);
     EXPECT_THROW(std::rethrow_exception(result.error()), MapboxTileLimitExceededException);
 
-    EXPECT_EQ(1u, log.count({ EventSeverity::Error, Event::Database, -1, "Mapbox tile limit exceeded" }));
+    EXPECT_EQ(1u, log.count({ EventSeverity::Error, Event::Database, -1, "Trackasia tile limit exceeded" }));
     EXPECT_EQ(0u, log.uncheckedCount());
 }
 

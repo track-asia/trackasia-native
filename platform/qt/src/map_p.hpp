@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTrackasiaGL/Map>
+#include <QTrackAsiaGL/Map>
 
 #include "utils/map_observer.hpp"
 #include "utils/map_renderer.hpp"
@@ -17,7 +17,7 @@
 #include <atomic>
 #include <memory>
 
-namespace QTrackasiaGL {
+namespace QTrackAsiaGL {
 
 class MapPrivate : public QObject, public mbgl::RendererFrontend
 {
@@ -70,4 +70,4 @@ private:
     std::atomic_flag m_renderQueued = ATOMIC_FLAG_INIT;
 };
 
-} // namespace QTrackasiaGL
+} // namespace QTrackAsiaGL
