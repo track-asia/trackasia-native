@@ -9,7 +9,7 @@ import com.mapbox.geojson.MultiLineString
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.*
@@ -93,7 +93,7 @@ class GridSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapboxMap) {
+    override fun onMapReady(map: TrackasiaMap) {
         source = CustomGeometrySource(ID_GRID_SOURCE, GridProvider())
         layer = LineLayer(ID_GRID_LAYER, ID_GRID_SOURCE)
         layer!!.setProperties(

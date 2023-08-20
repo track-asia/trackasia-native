@@ -14,7 +14,7 @@ import com.trackasia.android.testapp.R
  * Test activity showcasing using the MapFragment API using Support Library Fragments.
  *
  *
- * Uses MapboxMapOptions to initialise the Fragment.
+ * Uses TrackasiaMapOptions to initialise the Fragment.
  *
  */
 class SupportMapFragmentActivity :
@@ -22,7 +22,7 @@ class SupportMapFragmentActivity :
     OnMapViewReadyCallback,
     OnMapReadyCallback,
     OnDidFinishRenderingFrameListener {
-    private var mapboxMap: MapboxMap? = null
+    private var mapboxMap: TrackasiaMap? = null
     private var mapView: MapView? = null
     private var initialCameraAnimation = true
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +41,8 @@ class SupportMapFragmentActivity :
         mapFragment!!.getMapAsync(this)
     }
 
-    private fun createFragmentOptions(): MapboxMapOptions {
-        val options = MapboxMapOptions.createFromAttributes(this, null)
+    private fun createFragmentOptions(): TrackasiaMapOptions {
+        val options = TrackasiaMapOptions.createFromAttributes(this, null)
         options.scrollGesturesEnabled(false)
         options.zoomGesturesEnabled(false)
         options.tiltGesturesEnabled(false)
@@ -65,7 +65,7 @@ class SupportMapFragmentActivity :
         mapView!!.addOnDidFinishRenderingFrameListener(this)
     }
 
-    override fun onMapReady(map: MapboxMap) {
+    override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
         mapboxMap!!.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
     }

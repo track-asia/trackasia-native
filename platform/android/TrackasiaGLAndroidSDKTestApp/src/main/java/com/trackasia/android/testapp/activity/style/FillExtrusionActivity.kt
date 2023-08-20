@@ -9,7 +9,7 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.*
@@ -28,7 +28,7 @@ class FillExtrusionActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { mapboxMap: MapboxMap ->
+            OnMapReadyCallback { mapboxMap: TrackasiaMap ->
                 mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
                     val lngLats = listOf(
                         Arrays.asList(

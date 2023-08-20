@@ -26,7 +26,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class StyleTest {
 
-    private lateinit var mapboxMap: MapboxMap
+    private lateinit var mapboxMap: TrackasiaMap
 
     private lateinit var nativeMapView: NativeMap
 
@@ -41,7 +41,15 @@ class StyleTest {
         MockitoAnnotations.initMocks(this)
         MapboxInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
         nativeMapView = mockk(relaxed = true)
-        mapboxMap = MapboxMap(nativeMapView, null, null, null, null, null, null)
+        mapboxMap = TrackasiaMap(
+            nativeMapView,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
         every { nativeMapView.isDestroyed } returns false
         mapboxMap.injectLocationComponent(spyk())
     }

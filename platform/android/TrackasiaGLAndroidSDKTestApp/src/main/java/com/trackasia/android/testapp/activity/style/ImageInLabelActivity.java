@@ -11,7 +11,7 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.OnMapReadyCallback;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.style.expressions.Expression;
@@ -47,7 +47,7 @@ public class ImageInLabelActivity extends AppCompatActivity implements OnMapRead
   }
 
   @Override
-  public void onMapReady(@NonNull MapboxMap mapboxMap) {
+  public void onMapReady(@NonNull TrackasiaMap mapboxMap) {
     mapboxMap.setStyle(Style.getPredefinedStyle("Streets"), style -> {
       Bitmap us = BitmapUtils.getBitmapFromDrawable(getResources().getDrawable(R.drawable.ic_us));
       Bitmap android = BitmapUtils.getBitmapFromDrawable(getResources().getDrawable(R.drawable.ic_android));

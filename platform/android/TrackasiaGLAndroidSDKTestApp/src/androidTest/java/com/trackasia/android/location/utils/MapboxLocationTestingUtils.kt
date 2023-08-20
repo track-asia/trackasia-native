@@ -9,21 +9,21 @@ import android.os.Handler
 import android.os.Looper
 import com.mapbox.geojson.Feature
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.style.layers.Property
 import com.trackasia.android.style.sources.GeoJsonSource
 
-fun MapboxMap.querySourceFeatures(sourceId: String): List<Feature> {
+fun TrackasiaMap.querySourceFeatures(sourceId: String): List<Feature> {
     return this.style!!.getSourceAs<GeoJsonSource>(sourceId)?.querySourceFeatures(null) ?: emptyList()
 }
 
-fun MapboxMap.queryRenderedFeatures(location: Location, layerId: String): List<Feature> {
+fun TrackasiaMap.queryRenderedFeatures(location: Location, layerId: String): List<Feature> {
     val latLng = LatLng(location.latitude, location.longitude)
     val point = this.projection.toScreenLocation(latLng)
     return this.queryRenderedFeatures(point, layerId)
 }
 
-fun MapboxMap.isLayerVisible(layerId: String): Boolean {
+fun TrackasiaMap.isLayerVisible(layerId: String): Boolean {
     return this.style!!.getLayer(layerId)?.visibility?.value?.equals(Property.VISIBLE)!!
 }
 
@@ -63,7 +63,7 @@ class MapboxTestingUtils {
     }
 }
 
-fun MapboxMap.addImageFromDrawable(string: String, drawable: Drawable) {
+fun TrackasiaMap.addImageFromDrawable(string: String, drawable: Drawable) {
     val bitmapFromDrawable = getBitmapFromDrawable(drawable)
     this.style!!.addImage(string, bitmapFromDrawable)
 }

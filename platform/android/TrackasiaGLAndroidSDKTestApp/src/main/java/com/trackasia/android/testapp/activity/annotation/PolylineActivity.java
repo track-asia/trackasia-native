@@ -13,7 +13,7 @@ import com.trackasia.android.annotations.Polyline;
 import com.trackasia.android.annotations.PolylineOptions;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.testapp.R;
 
@@ -45,7 +45,7 @@ public class PolylineActivity extends AppCompatActivity {
   private List<Polyline> polylines;
   private ArrayList<PolylineOptions> polylineOptions = new ArrayList<>();
   private MapView mapView;
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
 
   private boolean fullAlpha = true;
   private boolean visible = true;

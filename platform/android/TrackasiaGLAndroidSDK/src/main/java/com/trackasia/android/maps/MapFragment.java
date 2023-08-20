@@ -34,7 +34,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
 
   private final List<OnMapReadyCallback> mapReadyCallbackList = new ArrayList<>();
   private OnMapViewReadyCallback mapViewReadyCallback;
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
   private MapView map;
 
   /**
@@ -53,7 +53,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
    * @return MapFragment instantiated.
    */
   @NonNull
-  public static MapFragment newInstance(@Nullable MapboxMapOptions mapboxMapOptions) {
+  public static MapFragment newInstance(@Nullable TrackasiaMapOptions mapboxMapOptions) {
     MapFragment mapFragment = new MapFragment();
     mapFragment.setArguments(MapFragmentUtils.createFragmentArgs(mapboxMapOptions));
     return mapFragment;
@@ -69,7 +69,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
   @Override
   public void onInflate(@NonNull Context context, AttributeSet attrs, Bundle savedInstanceState) {
     super.onInflate(context, attrs, savedInstanceState);
-    setArguments(MapFragmentUtils.createFragmentArgs(MapboxMapOptions.createFromAttributes(context, attrs)));
+    setArguments(MapFragmentUtils.createFragmentArgs(TrackasiaMapOptions.createFromAttributes(context, attrs)));
   }
 
   /**
@@ -125,7 +125,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
    * @param mapboxMap The public api controller of the map
    */
   @Override
-  public void onMapReady(@NonNull MapboxMap mapboxMap) {
+  public void onMapReady(@NonNull TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
     for (OnMapReadyCallback onMapReadyCallback : mapReadyCallbackList) {
       onMapReadyCallback.onMapReady(mapboxMap);
@@ -211,7 +211,7 @@ public final class MapFragment extends Fragment implements OnMapReadyCallback {
   }
 
   /**
-   * Sets a callback object which will be triggered when the MapboxMap instance is ready to be used.
+   * Sets a callback object which will be triggered when the TrackasiaMap instance is ready to be used.
    *
    * @param onMapReadyCallback The callback to be invoked.
    */

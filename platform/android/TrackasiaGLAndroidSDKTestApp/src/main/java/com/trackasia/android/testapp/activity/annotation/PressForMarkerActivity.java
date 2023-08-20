@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.trackasia.android.annotations.MarkerOptions;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.testapp.R;
 
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class PressForMarkerActivity extends AppCompatActivity {
 
   private MapView mapView;
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
   private ArrayList<MarkerOptions> markerList = new ArrayList<>();
 
   private static final DecimalFormat LAT_LON_FORMATTER = new DecimalFormat("#.#####");

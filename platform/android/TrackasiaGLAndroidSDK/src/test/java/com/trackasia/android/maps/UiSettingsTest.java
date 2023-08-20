@@ -51,7 +51,7 @@ public class UiSettingsTest {
   FrameLayout.LayoutParams layoutParams = mock(FrameLayout.LayoutParams.class);
 
   private UiSettings uiSettings;
-  private MapboxMapOptions mapboxMapOptions;
+  private TrackasiaMapOptions mapboxMapOptions;
 
   @Before
   public void beforeTest() {

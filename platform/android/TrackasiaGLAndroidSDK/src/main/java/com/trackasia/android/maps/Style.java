@@ -31,7 +31,7 @@ import java.util.Map;
  * The proxy object for current map style.
  * <p>
  * To create new instances of this object, create a new instance using a {@link Builder} and load the style with
- * MapboxMap. This object is returned from {@link MapboxMap#getStyle()} once the style
+ * TrackasiaMap. This object is returned from {@link TrackasiaMap#getStyle()} once the style
  * has been loaded by underlying map.
  * </p>
  */
@@ -814,7 +814,7 @@ public class Style {
      * <p>
      * This method is asynchronous and will return before the style finishes loading.
      * If you wish to wait for the map to finish loading, listen to the {@link MapView.OnDidFinishLoadingStyleListener}
-     * callback or provide an {@link OnStyleLoaded} callback when setting the style on MapboxMap.
+     * callback or provide an {@link OnStyleLoaded} callback when setting the style on TrackasiaMap.
      * </p>
      * If the style fails to load or an invalid style URL is set, the map view will become blank.
      * An error message will be logged in the Android logcat and {@link MapView.OnDidFailLoadingMapListener} callback
@@ -851,7 +851,7 @@ public class Style {
      * <p>
      * This method is asynchronous and will return before the style finishes loading.
      * If you wish to wait for the map to finish loading, listen to the {@link MapView.OnDidFinishLoadingStyleListener}
-     * callback or use {@link MapboxMap#setStyle(String, OnStyleLoaded)} instead.
+     * callback or use {@link TrackasiaMap#setStyle(String, OnStyleLoaded)} instead.
      * </p>
      * If the style fails to load or an invalid style URI is set, the map view will become blank.
      * An error message will be logged in the Android logcat and {@link MapView.OnDidFailLoadingMapListener} callback

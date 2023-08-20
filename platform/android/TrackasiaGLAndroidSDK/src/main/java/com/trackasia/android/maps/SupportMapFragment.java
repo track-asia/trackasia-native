@@ -34,7 +34,7 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
 
   private final List<OnMapReadyCallback> mapReadyCallbackList = new ArrayList<>();
   private MapFragment.OnMapViewReadyCallback mapViewReadyCallback;
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
   private MapView map;
 
   /**
@@ -53,7 +53,7 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
    * @return MapFragment created.
    */
   @NonNull
-  public static SupportMapFragment newInstance(@Nullable MapboxMapOptions mapboxMapOptions) {
+  public static SupportMapFragment newInstance(@Nullable TrackasiaMapOptions mapboxMapOptions) {
     SupportMapFragment mapFragment = new SupportMapFragment();
     mapFragment.setArguments(MapFragmentUtils.createFragmentArgs(mapboxMapOptions));
     return mapFragment;
@@ -82,7 +82,7 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
   @Override
   public void onInflate(@NonNull Context context, AttributeSet attrs, Bundle savedInstanceState) {
     super.onInflate(context, attrs, savedInstanceState);
-    setArguments(MapFragmentUtils.createFragmentArgs(MapboxMapOptions.createFromAttributes(context, attrs)));
+    setArguments(MapFragmentUtils.createFragmentArgs(TrackasiaMapOptions.createFromAttributes(context, attrs)));
   }
 
   /**
@@ -120,7 +120,7 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
   }
 
   @Override
-  public void onMapReady(@NonNull MapboxMap mapboxMap) {
+  public void onMapReady(@NonNull TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
     for (OnMapReadyCallback onMapReadyCallback : mapReadyCallbackList) {
       onMapReadyCallback.onMapReady(mapboxMap);
@@ -206,7 +206,7 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
   }
 
   /**
-   * Sets a callback object which will be triggered when the MapboxMap instance is ready to be used.
+   * Sets a callback object which will be triggered when the TrackasiaMap instance is ready to be used.
    *
    * @param onMapReadyCallback The callback to be invoked.
    */

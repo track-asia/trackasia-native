@@ -14,7 +14,7 @@ import com.trackasia.android.testapp.R
  */
 class RuntimeStyleTimingTestActivity : AppCompatActivity() {
     var mapView: MapView? = null
-    var mapboxMap: MapboxMap? = null
+    var mapboxMap: TrackasiaMap? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class RuntimeStyleTimingTestActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView!!.onCreate(savedInstanceState)
-        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+        mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             this@RuntimeStyleTimingTestActivity.mapboxMap = mapboxMap
             val parksLayer = CircleLayer("parks", "parks_source")
             parksLayer.sourceLayer = "parks"

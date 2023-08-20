@@ -17,7 +17,7 @@ import org.robolectric.RobolectricTestRunner
 class MapboxMapOptionsAttrsTest {
 
     @RelaxedMockK
-    private lateinit var options: MapboxMapOptions
+    private lateinit var options: TrackasiaMapOptions
 
     @RelaxedMockK
     private lateinit var typedArray: TypedArray
@@ -40,7 +40,7 @@ class MapboxMapOptionsAttrsTest {
     fun enabledLocalIdeographFontFamily() {
         mockEnableLocalIdeograph(enabled = true)
 
-        val options = MapboxMapOptions.createFromAttributes(options, context, typedArray)
+        val options = TrackasiaMapOptions.createFromAttributes(options, context, typedArray)
 
         verify(exactly = 1) {
             options.localIdeographFontFamily(any())
@@ -54,7 +54,7 @@ class MapboxMapOptionsAttrsTest {
         val font = "foo"
         mockLocalIdeographString(font)
 
-        val options = MapboxMapOptions.createFromAttributes(options, context, typedArray)
+        val options = TrackasiaMapOptions.createFromAttributes(options, context, typedArray)
 
         verify(exactly = 1) {
             options.localIdeographFontFamily(font)
@@ -68,7 +68,7 @@ class MapboxMapOptionsAttrsTest {
         val fonts = arrayOf("foo", "bar")
         mockLocalIdeographStringArray(fonts)
 
-        val options = MapboxMapOptions.createFromAttributes(options, context, typedArray)
+        val options = TrackasiaMapOptions.createFromAttributes(options, context, typedArray)
 
         verify(exactly = 1) {
             options.localIdeographFontFamily(*fonts)

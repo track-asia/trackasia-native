@@ -10,7 +10,7 @@ import com.mapbox.geojson.FeatureCollection.fromJson
 import com.mapbox.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.Property.ICON_ANCHOR_CENTER
 import com.trackasia.android.style.layers.PropertyFactory.*
@@ -25,7 +25,7 @@ import java.net.URISyntaxException
 /** Test activity showcasing using the LatLngBounds camera API. */
 class LatLngBoundsActivity : AppCompatActivity() {
 
-    private lateinit var mapboxMap: MapboxMap
+    private lateinit var mapboxMap: TrackasiaMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private lateinit var bounds: LatLngBounds
     private lateinit var binding: ActivityLatlngboundsBinding

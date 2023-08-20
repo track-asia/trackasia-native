@@ -18,7 +18,7 @@ import com.trackasia.android.camera.CameraUpdate;
 import com.trackasia.android.camera.CameraUpdateFactory;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.location.modes.CameraMode;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Transform;
 
 import java.util.HashSet;
@@ -31,7 +31,7 @@ final class LocationCameraController {
   @CameraMode.Mode
   private int cameraMode;
 
-  private final MapboxMap mapboxMap;
+  private final TrackasiaMap mapboxMap;
   private final Transform transform;
   private final OnCameraTrackingChangedListener internalCameraTrackingChangedListener;
   private LocationComponentOptions options;
@@ -48,7 +48,7 @@ final class LocationCameraController {
 
   LocationCameraController(
     Context context,
-    MapboxMap mapboxMap,
+    TrackasiaMap mapboxMap,
     Transform transform,
     OnCameraTrackingChangedListener internalCameraTrackingChangedListener,
     @NonNull LocationComponentOptions options,
@@ -69,7 +69,7 @@ final class LocationCameraController {
   }
 
   // Package private for testing purposes
-  LocationCameraController(MapboxMap mapboxMap,
+  LocationCameraController(TrackasiaMap mapboxMap,
                            Transform transform,
                            MoveGestureDetector moveGestureDetector,
                            OnCameraTrackingChangedListener internalCameraTrackingChangedListener,
@@ -154,7 +154,7 @@ final class LocationCameraController {
       }
 
       CameraUpdate update = CameraUpdateFactory.newCameraPosition(builder.build());
-      MapboxMap.CancelableCallback callback = new MapboxMap.CancelableCallback() {
+      TrackasiaMap.CancelableCallback callback = new TrackasiaMap.CancelableCallback() {
         @Override
         public void onCancel() {
           isTransitioning = false;
@@ -354,7 +354,7 @@ final class LocationCameraController {
     }
   }
 
-  private MapboxMap.OnCameraMoveListener onCameraMoveListener = new MapboxMap.OnCameraMoveListener() {
+  private TrackasiaMap.OnCameraMoveListener onCameraMoveListener = new TrackasiaMap.OnCameraMoveListener() {
 
     @Override
     public void onCameraMove() {
@@ -367,7 +367,7 @@ final class LocationCameraController {
 
   @NonNull
   @VisibleForTesting
-  MapboxMap.OnMoveListener onMoveListener = new MapboxMap.OnMoveListener() {
+  TrackasiaMap.OnMoveListener onMoveListener = new TrackasiaMap.OnMoveListener() {
     private boolean interrupt;
 
     @Override
@@ -433,7 +433,7 @@ final class LocationCameraController {
   };
 
   @NonNull
-  private MapboxMap.OnRotateListener onRotateListener = new MapboxMap.OnRotateListener() {
+  private TrackasiaMap.OnRotateListener onRotateListener = new TrackasiaMap.OnRotateListener() {
     @Override
     public void onRotateBegin(@NonNull RotateGestureDetector detector) {
       if (isBearingTracking()) {
@@ -453,7 +453,7 @@ final class LocationCameraController {
   };
 
   @NonNull
-  private MapboxMap.OnFlingListener onFlingListener = new MapboxMap.OnFlingListener() {
+  private TrackasiaMap.OnFlingListener onFlingListener = new TrackasiaMap.OnFlingListener() {
     @Override
     public void onFling() {
       setCameraMode(CameraMode.NONE);

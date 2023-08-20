@@ -8,14 +8,13 @@ import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.*
 import com.trackasia.android.testapp.R
-import com.trackasia.android.testapp.activity.maplayout.VisibilityChangeActivity.VisibilityRunner
 
 /**
  * Test activity showcasing visibility changes to the mapview.
  */
 class VisibilityChangeActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private var mapboxMap: MapboxMap? = null
+    private var mapboxMap: TrackasiaMap? = null
     private val handler = Handler()
     private var runnable: Runnable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +23,7 @@ class VisibilityChangeActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: MapboxMap? ->
+            OnMapReadyCallback { map: TrackasiaMap? ->
                 mapboxMap = map
                 mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets"))
                 mapboxMap!!.animateCamera(

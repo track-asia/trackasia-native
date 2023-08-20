@@ -4,7 +4,7 @@ import android.graphics.PointF;
 
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Projection;
 
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class InfoWindowTest {
   MapView mMapView = mock(MapView.class);
 
   @InjectMocks
-  MapboxMap mMapboxMap = mock(MapboxMap.class);
+  TrackasiaMap mMapboxMap = mock(TrackasiaMap.class);
 
   @Test
   public void testSanity() {

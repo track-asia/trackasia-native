@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.log.Logger;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Projection;
 
 import static com.trackasia.android.location.LocationComponentConstants.INSTANT_LOCATION_TRANSITION_THRESHOLD;
@@ -95,7 +95,7 @@ public final class Utils {
     }
   }
 
-  static float calculateZoomLevelRadius(@NonNull MapboxMap mapboxMap, @Nullable Location location) {
+  static float calculateZoomLevelRadius(@NonNull TrackasiaMap mapboxMap, @Nullable Location location) {
     if (location == null) {
       return 0;
     }

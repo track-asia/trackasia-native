@@ -47,17 +47,17 @@ import java.util.List;
 
 /**
  * The general class to interact with in the Android Trackasia SDK. It exposes the entry point for all
- * methods related to the MapView. You cannot instantiate {@link MapboxMap} object directly, rather,
+ * methods related to the MapView. You cannot instantiate {@link TrackasiaMap} object directly, rather,
  * you must obtain one from the getMapAsync() method on a MapFragment or MapView that you have
  * added to your application.
  * <p>
- * Note: Similar to a View object, a MapboxMap should only be read and modified from the main thread.
+ * Note: Similar to a View object, a TrackasiaMap should only be read and modified from the main thread.
  * </p>
  */
 @UiThread
-public final class MapboxMap {
+public final class TrackasiaMap {
 
-  private static final String TAG = "Mbgl-MapboxMap";
+  private static final String TAG = "Mbgl-TrackasiaMap";
 
   private final NativeMap nativeMapView;
   private final UiSettings uiSettings;
@@ -75,7 +75,7 @@ public final class MapboxMap {
   private AnnotationManager annotationManager;
 
   @Nullable
-  private MapboxMap.OnFpsChangedListener onFpsChangedListener;
+  private TrackasiaMap.OnFpsChangedListener onFpsChangedListener;
 
   @Nullable
   private Style style;
@@ -83,9 +83,9 @@ public final class MapboxMap {
   private boolean debugActive;
   private boolean started;
 
-  MapboxMap(NativeMap map, Transform transform, UiSettings ui, Projection projection,
-            OnGesturesManagerInteractionListener listener, CameraChangeDispatcher cameraChangeDispatcher,
-            List<OnDeveloperAnimationListener> developerAnimationStartedListeners) {
+  TrackasiaMap(NativeMap map, Transform transform, UiSettings ui, Projection projection,
+               OnGesturesManagerInteractionListener listener, CameraChangeDispatcher cameraChangeDispatcher,
+               List<OnDeveloperAnimationListener> developerAnimationStartedListeners) {
     this.nativeMapView = map;
     this.uiSettings = ui;
     this.projection = projection;
@@ -102,7 +102,7 @@ public final class MapboxMap {
     nativeMapView.triggerRepaint();
   }
 
-  void initialise(@NonNull Context context, @NonNull MapboxMapOptions options) {
+  void initialise(@NonNull Context context, @NonNull TrackasiaMapOptions options) {
     transform.initialise(this, options);
     uiSettings.initialise(context, options);
 
@@ -262,7 +262,7 @@ public final class MapboxMap {
    *
    * @param options the options object
    */
-  private void setPrefetchesTiles(@NonNull MapboxMapOptions options) {
+  private void setPrefetchesTiles(@NonNull TrackasiaMapOptions options) {
     if (!options.getPrefetchesTiles()) {
       setPrefetchZoomDelta(0);
     } else {
@@ -286,7 +286,7 @@ public final class MapboxMap {
    * Check whether tile pre-fetching is enabled or not.
    *
    * @return true if enabled
-   * @see MapboxMap#setPrefetchesTiles(boolean)
+   * @see TrackasiaMap#setPrefetchesTiles(boolean)
    * @deprecated Use {@link #getPrefetchZoomDelta()} instead.
    */
   @Deprecated
@@ -298,7 +298,7 @@ public final class MapboxMap {
    * Set the tile pre-fetching zoom delta. Pre-fetching makes sure that a low-resolution
    * tile at the (current_zoom_level - delta) is rendered as soon as possible at the
    * expense of a little bandwidth.
-   * Note: This operation will override the MapboxMapOptions#setPrefetchesTiles(boolean)
+   * Note: This operation will override the TrackasiaMapOptions#setPrefetchesTiles(boolean)
    *       Setting zoom delta to 0 will disable pre-fetching.
    * Default zoom delta is 4.
    *
@@ -312,7 +312,7 @@ public final class MapboxMap {
    * Check current pre-fetching zoom delta.
    *
    * @return current zoom delta.
-   * @see MapboxMap#setPrefetchZoomDelta(int)
+   * @see TrackasiaMap#setPrefetchZoomDelta(int)
    */
   @IntRange(from = 0)
   public int getPrefetchZoomDelta() {
@@ -522,9 +522,9 @@ public final class MapboxMap {
    * @param callback the callback to be invoked when an animation finishes or is canceled
    */
   public final void moveCamera(@NonNull final CameraUpdate update,
-                               @Nullable final MapboxMap.CancelableCallback callback) {
+                               @Nullable final TrackasiaMap.CancelableCallback callback) {
     notifyDeveloperAnimationListeners();
-    transform.moveCamera(MapboxMap.this, update, callback);
+    transform.moveCamera(TrackasiaMap.this, update, callback);
   }
 
   /**
@@ -552,7 +552,7 @@ public final class MapboxMap {
    *                 Do not update or ease the camera from within onCancel().
    * @see com.trackasia.android.camera.CameraUpdateFactory for a set of updates.
    */
-  public final void easeCamera(@NonNull CameraUpdate update, @Nullable final MapboxMap.CancelableCallback callback) {
+  public final void easeCamera(@NonNull CameraUpdate update, @Nullable final TrackasiaMap.CancelableCallback callback) {
     easeCamera(update, TrackasiaConstants.ANIMATION_DURATION, callback);
   }
 
@@ -590,7 +590,7 @@ public final class MapboxMap {
    * @see com.trackasia.android.camera.CameraUpdateFactory for a set of updates.
    */
   public final void easeCamera(@NonNull CameraUpdate update, int durationMs,
-                               @Nullable final MapboxMap.CancelableCallback callback) {
+                               @Nullable final TrackasiaMap.CancelableCallback callback) {
     easeCamera(update, durationMs, true, callback);
   }
 
@@ -631,12 +631,12 @@ public final class MapboxMap {
   public final void easeCamera(@NonNull final CameraUpdate update,
                                final int durationMs,
                                final boolean easingInterpolator,
-                               @Nullable final MapboxMap.CancelableCallback callback) {
+                               @Nullable final TrackasiaMap.CancelableCallback callback) {
     if (durationMs <= 0) {
       throw new IllegalArgumentException("Null duration passed into easeCamera");
     }
     notifyDeveloperAnimationListeners();
-    transform.easeCamera(MapboxMap.this, update, durationMs, easingInterpolator, callback);
+    transform.easeCamera(TrackasiaMap.this, update, durationMs, easingInterpolator, callback);
   }
 
   /**
@@ -664,7 +664,7 @@ public final class MapboxMap {
    *                 called. Do not update or animate the camera from within onCancel().
    * @see com.trackasia.android.camera.CameraUpdateFactory for a set of updates.
    */
-  public final void animateCamera(@NonNull CameraUpdate update, @Nullable MapboxMap.CancelableCallback callback) {
+  public final void animateCamera(@NonNull CameraUpdate update, @Nullable TrackasiaMap.CancelableCallback callback) {
     animateCamera(update, TrackasiaConstants.ANIMATION_DURATION, callback);
   }
 
@@ -702,12 +702,12 @@ public final class MapboxMap {
    * @see com.trackasia.android.camera.CameraUpdateFactory for a set of updates.
    */
   public final void animateCamera(@NonNull final CameraUpdate update, final int durationMs,
-                                  @Nullable final MapboxMap.CancelableCallback callback) {
+                                  @Nullable final TrackasiaMap.CancelableCallback callback) {
     if (durationMs <= 0) {
       throw new IllegalArgumentException("Null duration passed into animateCamera");
     }
     notifyDeveloperAnimationListeners();
-    transform.animateCamera(MapboxMap.this, update, durationMs, callback);
+    transform.animateCamera(TrackasiaMap.this, update, durationMs, callback);
   }
 
   /**
@@ -858,7 +858,7 @@ public final class MapboxMap {
   // API endpoint config
   //
 
-  private void setApiBaseUrl(@NonNull MapboxMapOptions options) {
+  private void setApiBaseUrl(@NonNull TrackasiaMapOptions options) {
     String apiBaseUrl = options.getApiBaseUrl();
     if (!TextUtils.isEmpty(apiBaseUrl)) {
       nativeMapView.setApiBaseUrl(apiBaseUrl);
@@ -2112,7 +2112,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the map is flinged.
    *
-   * @see MapboxMap#addOnFlingListener(OnFlingListener)
+   * @see TrackasiaMap#addOnFlingListener(OnFlingListener)
    */
   public interface OnFlingListener {
     /**
@@ -2124,7 +2124,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the map is moved.
    *
-   * @see MapboxMap#addOnMoveListener(OnMoveListener)
+   * @see TrackasiaMap#addOnMoveListener(OnMoveListener)
    */
   public interface OnMoveListener {
     void onMoveBegin(@NonNull MoveGestureDetector detector);
@@ -2137,7 +2137,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the map is rotated.
    *
-   * @see MapboxMap#addOnRotateListener(OnRotateListener)
+   * @see TrackasiaMap#addOnRotateListener(OnRotateListener)
    */
   public interface OnRotateListener {
     void onRotateBegin(@NonNull RotateGestureDetector detector);
@@ -2150,7 +2150,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the map is scaled.
    *
-   * @see MapboxMap#addOnScaleListener(OnScaleListener)
+   * @see TrackasiaMap#addOnScaleListener(OnScaleListener)
    */
   public interface OnScaleListener {
     void onScaleBegin(@NonNull StandardScaleGestureDetector detector);
@@ -2163,7 +2163,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the map is tilted.
    *
-   * @see MapboxMap#addOnShoveListener(OnShoveListener)
+   * @see TrackasiaMap#addOnShoveListener(OnShoveListener)
    */
   public interface OnShoveListener {
     void onShoveBegin(@NonNull ShoveGestureDetector detector);
@@ -2241,7 +2241,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when a frame is rendered to the map view.
    *
-   * @see MapboxMap#setOnFpsChangedListener(OnFpsChangedListener)
+   * @see TrackasiaMap#setOnFpsChangedListener(OnFpsChangedListener)
    */
   public interface OnFpsChangedListener {
     /**
@@ -2297,7 +2297,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on the map view.
    *
-   * @see MapboxMap#addOnMapClickListener(OnMapClickListener)
+   * @see TrackasiaMap#addOnMapClickListener(OnMapClickListener)
    */
   public interface OnMapClickListener {
     /**
@@ -2313,7 +2313,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the user long clicks on the map view.
    *
-   * @see MapboxMap#addOnMapLongClickListener(OnMapLongClickListener)
+   * @see TrackasiaMap#addOnMapLongClickListener(OnMapLongClickListener)
    */
   public interface OnMapLongClickListener {
     /**
@@ -2329,7 +2329,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on a marker.
    *
-   * @see MapboxMap#setOnMarkerClickListener(OnMarkerClickListener)
+   * @see TrackasiaMap#setOnMarkerClickListener(OnMarkerClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
    * Trackasia Annotation Plugin</a> instead
@@ -2348,7 +2348,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on a polygon.
    *
-   * @see MapboxMap#setOnPolygonClickListener(OnPolygonClickListener)
+   * @see TrackasiaMap#setOnPolygonClickListener(OnPolygonClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
    * Trackasia Annotation Plugin</a> instead
@@ -2366,7 +2366,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on a polyline.
    *
-   * @see MapboxMap#setOnPolylineClickListener(OnPolylineClickListener)
+   * @see TrackasiaMap#setOnPolylineClickListener(OnPolylineClickListener)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
    * Trackasia Annotation Plugin</a> instead
@@ -2384,7 +2384,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the user clicks on an info window.
    *
-   * @see MapboxMap#setOnInfoWindowClickListener(OnInfoWindowClickListener)
+   * @see TrackasiaMap#setOnInfoWindowClickListener(OnInfoWindowClickListener)
    */
   public interface OnInfoWindowClickListener {
     /**
@@ -2399,7 +2399,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when the user long presses on a marker's info window.
    *
-   * @see MapboxMap#setOnInfoWindowClickListener(OnInfoWindowClickListener)
+   * @see TrackasiaMap#setOnInfoWindowClickListener(OnInfoWindowClickListener)
    */
   public interface OnInfoWindowLongClickListener {
 
@@ -2414,7 +2414,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when a marker's info window is closed.
    *
-   * @see MapboxMap#setOnInfoWindowCloseListener(OnInfoWindowCloseListener)
+   * @see TrackasiaMap#setOnInfoWindowCloseListener(OnInfoWindowCloseListener)
    */
   public interface OnInfoWindowCloseListener {
 
@@ -2429,7 +2429,7 @@ public final class MapboxMap {
   /**
    * Interface definition for a callback to be invoked when an info window will be shown.
    *
-   * @see MapboxMap#setInfoWindowAdapter(InfoWindowAdapter)
+   * @see TrackasiaMap#setInfoWindowAdapter(InfoWindowAdapter)
    * @deprecated As of 7.0.0,
    * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
    * Trackasia Annotation Plugin</a> instead

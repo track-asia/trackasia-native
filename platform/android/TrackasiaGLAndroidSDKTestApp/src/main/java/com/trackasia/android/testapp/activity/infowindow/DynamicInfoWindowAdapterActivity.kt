@@ -10,9 +10,9 @@ import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
-import com.trackasia.android.maps.MapboxMap.InfoWindowAdapter
-import com.trackasia.android.maps.MapboxMap.OnMapClickListener
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.InfoWindowAdapter
+import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -20,10 +20,10 @@ import com.trackasia.android.testapp.utils.IconUtils
 import java.util.*
 
 /**
- * Test activity showcasing how to dynamically update InfoWindow when Using an MapboxMap.InfoWindowAdapter.
+ * Test activity showcasing how to dynamically update InfoWindow when Using an TrackasiaMap.InfoWindowAdapter.
  */
 class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var mapboxMap: MapboxMap
+    private lateinit var mapboxMap: TrackasiaMap
     private lateinit var mapView: MapView
     private var marker: Marker? = null
     private val mapClickListener = OnMapClickListener { point ->
@@ -56,7 +56,7 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapboxMap) {
+    override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
         map.setStyle(Style.getPredefinedStyle("Streets"))
 
@@ -77,7 +77,7 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
         mapboxMap!!.animateCamera(CameraUpdateFactory.newLatLng(PARIS))
     }
 
-    private fun addMarker(mapboxMap: MapboxMap): Marker {
+    private fun addMarker(mapboxMap: TrackasiaMap): Marker {
         return mapboxMap.addMarker(
             MarkerOptions()
                 .position(PARIS)
@@ -91,7 +91,7 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
         )
     }
 
-    private fun addCustomInfoWindowAdapter(mapboxMap: MapboxMap) {
+    private fun addCustomInfoWindowAdapter(mapboxMap: TrackasiaMap) {
         val padding = resources.getDimension(R.dimen.attr_margin).toInt()
         mapboxMap.infoWindowAdapter = InfoWindowAdapter { marker: Marker ->
             val textView = TextView(this@DynamicInfoWindowAdapterActivity)

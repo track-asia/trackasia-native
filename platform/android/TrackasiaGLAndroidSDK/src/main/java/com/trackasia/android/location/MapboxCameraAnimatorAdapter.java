@@ -7,15 +7,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
 class MapboxCameraAnimatorAdapter extends MapboxFloatAnimator {
   @Nullable
-  private final MapboxMap.CancelableCallback cancelableCallback;
+  private final TrackasiaMap.CancelableCallback cancelableCallback;
 
   MapboxCameraAnimatorAdapter(@NonNull @Size(min = 2) Float[] values,
                               AnimationsValueChangeListener updateListener,
-                              @Nullable MapboxMap.CancelableCallback cancelableCallback) {
+                              @Nullable TrackasiaMap.CancelableCallback cancelableCallback) {
     super(values, updateListener, Integer.MAX_VALUE);
     this.cancelableCallback = cancelableCallback;
     addListener(new MapboxAnimatorListener());

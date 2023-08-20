@@ -5,7 +5,7 @@ import com.trackasia.android.camera.CameraUpdate;
 import com.trackasia.android.camera.CameraUpdateFactory;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.geometry.LatLngBounds;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.testapp.activity.BaseTest;
 import com.trackasia.android.testapp.activity.espresso.DeviceIndependentTestActivity;
 import com.trackasia.android.testapp.utils.TestConstants;
@@ -46,7 +46,7 @@ public abstract class CameraTest extends BaseTest {
       CameraPosition cameraPosition = mapboxMap.getCameraPosition();
       assertEquals("Default camera position should match default", cameraPosition, initialPosition);
 
-      executeCameraMovement(CameraUpdateFactory.newLatLng(moveTarget), new MapboxMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.newLatLng(moveTarget), new TrackasiaMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, moveTarget, zoom, 0, 0, new double[4]);
@@ -74,7 +74,7 @@ public abstract class CameraTest extends BaseTest {
       final LatLng moveTarget = new LatLng(1.0000000001, 1.0000000003);
 
       executeCameraMovement(CameraUpdateFactory.newLatLngZoom(moveTarget, moveZoom),
-        new MapboxMap.CancelableCallback() {
+        new TrackasiaMap.CancelableCallback() {
           @Override
           public void onCancel() {
             verifyCameraPosition(mapboxMap, moveTarget, moveZoom, 0, 0, new double[4]);
@@ -112,7 +112,7 @@ public abstract class CameraTest extends BaseTest {
           .bearing(moveBearing)
           .padding(movePadding)
           .build()),
-        new MapboxMap.CancelableCallback() {
+        new TrackasiaMap.CancelableCallback() {
           @Override
           public void onCancel() {
             verifyCameraPosition(mapboxMap, moveTarget, moveZoom, moveBearing, moveTilt, movePadding);
@@ -144,7 +144,7 @@ public abstract class CameraTest extends BaseTest {
       builder.include(cornerTwo);
 
       executeCameraMovement(CameraUpdateFactory.newLatLngBounds(builder.build(), 0),
-        new MapboxMap.CancelableCallback() {
+        new TrackasiaMap.CancelableCallback() {
           @Override
           public void onCancel() {
             verifyCameraPosition(mapboxMap, centerBounds, mapboxMap.getCameraPosition().zoom, 0, 0, new double[4]);
@@ -170,7 +170,7 @@ public abstract class CameraTest extends BaseTest {
     invoke(mapboxMap, (uiController, mapboxMap) -> {
       float zoom = 1.0f;
 
-      executeCameraMovement(CameraUpdateFactory.zoomIn(), new MapboxMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.zoomIn(), new TrackasiaMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom + 1, 0, 0, new double[4]);
@@ -195,7 +195,7 @@ public abstract class CameraTest extends BaseTest {
     float zoom = 10.0f;
     validateTestSetup();
     invoke(mapboxMap, (uiController, mapboxMap) -> {
-      executeCameraMovement(CameraUpdateFactory.newLatLngZoom(new LatLng(), zoom), new MapboxMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.newLatLngZoom(new LatLng(), zoom), new TrackasiaMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom, 0, 0, new double[4]);
@@ -217,7 +217,7 @@ public abstract class CameraTest extends BaseTest {
     latch = new CountDownLatch(1);
 
     invoke(mapboxMap, (uiController, mapboxMap) -> {
-      executeCameraMovement(CameraUpdateFactory.zoomOut(), new MapboxMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.zoomOut(), new TrackasiaMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom - 1, 0, 0, new double[4]);
@@ -244,7 +244,7 @@ public abstract class CameraTest extends BaseTest {
       float zoom = 1.0f;
       final float zoomBy = 2.45f;
 
-      executeCameraMovement(CameraUpdateFactory.zoomBy(zoomBy), new MapboxMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.zoomBy(zoomBy), new TrackasiaMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoom + zoomBy, 0, 0, new double[4]);
@@ -270,7 +270,7 @@ public abstract class CameraTest extends BaseTest {
     invoke(mapboxMap, (uiController, mapboxMap) -> {
       final float zoomTo = 2.45f;
 
-      executeCameraMovement(CameraUpdateFactory.zoomTo(zoomTo), new MapboxMap.CancelableCallback() {
+      executeCameraMovement(CameraUpdateFactory.zoomTo(zoomTo), new TrackasiaMap.CancelableCallback() {
         @Override
         public void onCancel() {
           verifyCameraPosition(mapboxMap, mapboxMap.getCameraPosition().target, zoomTo, 0, 0, new double[4]);
@@ -290,9 +290,9 @@ public abstract class CameraTest extends BaseTest {
     }
   }
 
-  abstract void executeCameraMovement(CameraUpdate cameraUpdate, MapboxMap.CancelableCallback callback);
+  abstract void executeCameraMovement(CameraUpdate cameraUpdate, TrackasiaMap.CancelableCallback callback);
 
-  private void verifyCameraPosition(MapboxMap mapboxMap, LatLng moveTarget, double moveZoom, double moveBearing,
+  private void verifyCameraPosition(TrackasiaMap mapboxMap, LatLng moveTarget, double moveZoom, double moveBearing,
                                     double moveTilt, double[] padding) {
     CameraPosition cameraPosition = mapboxMap.getCameraPosition();
     assertEquals("Moved camera position latitude should match", cameraPosition.target.getLatitude(),

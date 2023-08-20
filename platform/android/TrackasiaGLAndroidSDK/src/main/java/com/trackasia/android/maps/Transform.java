@@ -14,7 +14,7 @@ import com.trackasia.android.constants.TrackasiaConstants;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.log.Logger;
 
-import static com.trackasia.android.maps.MapboxMap.OnCameraMoveStartedListener;
+import static com.trackasia.android.maps.TrackasiaMap.OnCameraMoveStartedListener;
 
 /**
  * Internal use.
@@ -36,7 +36,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
   @Nullable
   private CameraPosition cameraPosition;
   @Nullable
-  private MapboxMap.CancelableCallback cameraCancelableCallback;
+  private TrackasiaMap.CancelableCallback cameraCancelableCallback;
   private CameraChangeDispatcher cameraChangeDispatcher;
 
   private final MapView.OnCameraDidChangeListener moveByChangeListener = new MapView.OnCameraDidChangeListener() {
@@ -55,7 +55,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
     this.cameraChangeDispatcher = cameraChangeDispatcher;
   }
 
-  void initialise(@NonNull MapboxMap mapboxMap, @NonNull MapboxMapOptions options) {
+  void initialise(@NonNull TrackasiaMap mapboxMap, @NonNull TrackasiaMapOptions options) {
     CameraPosition position = options.getCamera();
     if (position != null && !position.equals(CameraPosition.DEFAULT)) {
       moveCamera(mapboxMap, CameraUpdateFactory.newCameraPosition(position), null);
@@ -84,7 +84,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
     if (animated) {
       invalidateCameraPosition();
       if (cameraCancelableCallback != null) {
-        final MapboxMap.CancelableCallback callback = cameraCancelableCallback;
+        final TrackasiaMap.CancelableCallback callback = cameraCancelableCallback;
 
         // nullification has to happen before Handler#post, see https://github.com/robolectric/robolectric/issues/1306
         cameraCancelableCallback = null;
@@ -105,8 +105,8 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
    * Internal use.
    */
   @UiThread
-  public final void moveCamera(@NonNull MapboxMap mapboxMap, CameraUpdate update,
-                               @Nullable final MapboxMap.CancelableCallback callback) {
+  public final void moveCamera(@NonNull TrackasiaMap mapboxMap, CameraUpdate update,
+                               @Nullable final TrackasiaMap.CancelableCallback callback) {
     CameraPosition cameraPosition = update.getCameraPosition(mapboxMap);
     if (isValidCameraPosition(cameraPosition)) {
       cancelTransitions();
@@ -129,8 +129,8 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
   }
 
   @UiThread
-  final void easeCamera(@NonNull MapboxMap mapboxMap, CameraUpdate update, int durationMs, boolean easingInterpolator,
-                        @Nullable final MapboxMap.CancelableCallback callback) {
+  final void easeCamera(@NonNull TrackasiaMap mapboxMap, CameraUpdate update, int durationMs, boolean easingInterpolator,
+                        @Nullable final TrackasiaMap.CancelableCallback callback) {
     CameraPosition cameraPosition = update.getCameraPosition(mapboxMap);
     if (isValidCameraPosition(cameraPosition)) {
       cancelTransitions();
@@ -151,8 +151,8 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
    * Internal use.
    */
   @UiThread
-  public final void animateCamera(@NonNull MapboxMap mapboxMap, CameraUpdate update, int durationMs,
-                                  @Nullable final MapboxMap.CancelableCallback callback) {
+  public final void animateCamera(@NonNull TrackasiaMap mapboxMap, CameraUpdate update, int durationMs,
+                                  @Nullable final TrackasiaMap.CancelableCallback callback) {
     CameraPosition cameraPosition = update.getCameraPosition(mapboxMap);
     if (isValidCameraPosition(cameraPosition)) {
       cancelTransitions();
@@ -193,7 +193,7 @@ public final class Transform implements MapView.OnCameraDidChangeListener {
 
     // notify animateCamera and easeCamera about cancelling
     if (cameraCancelableCallback != null) {
-      final MapboxMap.CancelableCallback callback = cameraCancelableCallback;
+      final TrackasiaMap.CancelableCallback callback = cameraCancelableCallback;
       cameraChangeDispatcher.onCameraIdle();
 
       // nullification has to happen before Handler#post, see https://github.com/robolectric/robolectric/issues/1306

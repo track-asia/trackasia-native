@@ -12,14 +12,14 @@ import com.trackasia.android.testapp.R
  */
 class HillshadeLayerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private var mapboxMap: MapboxMap? = null
+    private var mapboxMap: TrackasiaMap? = null
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fill_extrusion_layer)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: MapboxMap? ->
+            OnMapReadyCallback { map: TrackasiaMap? ->
                 mapboxMap = map
                 val rasterDemSource = RasterDemSource(SOURCE_ID, SOURCE_URL)
                 val hillshadeLayer = HillshadeLayer(LAYER_ID, SOURCE_ID)

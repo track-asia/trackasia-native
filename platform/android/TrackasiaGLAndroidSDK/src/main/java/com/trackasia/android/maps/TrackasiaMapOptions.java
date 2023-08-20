@@ -27,14 +27,14 @@ import com.trackasia.android.utils.FontUtils;
 import java.util.Arrays;
 
 /**
- * Defines configuration MapboxMapMapOptions for a MapboxMap. These options can be used when adding a
+ * Defines configuration MapboxMapMapOptions for a TrackasiaMap. These options can be used when adding a
  * map to your application programmatically (as opposed to via XML). If you are using a MapFragment,
- * you can pass these options in using the static factory method newInstance(MapboxMapOptions).
+ * you can pass these options in using the static factory method newInstance(TrackasiaMapOptions).
  * If you are using a MapView, you can pass these options in using the constructor
- * MapView(Context, MapboxMapOptions). If you add a map using XML, then you can apply these options
+ * MapView(Context, TrackasiaMapOptions). If you add a map using XML, then you can apply these options
  * using custom XML tags.
  */
-public class MapboxMapOptions implements Parcelable {
+public class TrackasiaMapOptions implements Parcelable {
 
   private static final int LIGHT_GRAY = 0xFFF0E9E1; // RGB(240, 233, 225))
   private static final float FOUR_DP = 4f;
@@ -95,15 +95,15 @@ public class MapboxMapOptions implements Parcelable {
   private boolean crossSourceCollisions = true;
 
   /**
-   * Creates a new MapboxMapOptions object.
+   * Creates a new TrackasiaMapOptions object.
    *
    * @deprecated Use {@link #createFromAttributes(Context, AttributeSet)} instead.
    */
   @Deprecated
-  public MapboxMapOptions() {
+  public TrackasiaMapOptions() {
   }
 
-  private MapboxMapOptions(Parcel in) {
+  private TrackasiaMapOptions(Parcel in) {
     cameraPosition = in.readParcelable(CameraPosition.class.getClassLoader());
     debugActive = in.readByte() != 0;
 
@@ -157,10 +157,10 @@ public class MapboxMapOptions implements Parcelable {
    * Creates a default MapboxMapsOptions from a given context.
    *
    * @param context Context related to a map view.
-   * @return the MapboxMapOptions created from attributes
+   * @return the TrackasiaMapOptions created from attributes
    */
   @NonNull
-  public static MapboxMapOptions createFromAttributes(@NonNull Context context) {
+  public static TrackasiaMapOptions createFromAttributes(@NonNull Context context) {
     return createFromAttributes(context, null);
   }
 
@@ -169,18 +169,18 @@ public class MapboxMapOptions implements Parcelable {
    *
    * @param context Context related to a map view.
    * @param attrs   Attributeset containing configuration
-   * @return the MapboxMapOptions created from attributes
+   * @return the TrackasiaMapOptions created from attributes
    */
   @NonNull
-  public static MapboxMapOptions createFromAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public static TrackasiaMapOptions createFromAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
     TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.trackasia_MapView, 0, 0);
-    return createFromAttributes(new MapboxMapOptions(), context, typedArray);
+    return createFromAttributes(new TrackasiaMapOptions(), context, typedArray);
   }
 
   @VisibleForTesting
-  static MapboxMapOptions createFromAttributes(@NonNull MapboxMapOptions mapboxMapOptions,
-                                               @NonNull Context context,
-                                               @Nullable TypedArray typedArray) {
+  static TrackasiaMapOptions createFromAttributes(@NonNull TrackasiaMapOptions mapboxMapOptions,
+                                                  @NonNull Context context,
+                                                  @Nullable TypedArray typedArray) {
     float pxlRatio = context.getResources().getDisplayMetrics().density;
     try {
       mapboxMapOptions.camera(new CameraPosition.Builder(typedArray).build());
@@ -320,7 +320,7 @@ public class MapboxMapOptions implements Parcelable {
    */
   @Deprecated
   @NonNull
-  public MapboxMapOptions apiBaseUrl(String apiBaseUrl) {
+  public TrackasiaMapOptions apiBaseUrl(String apiBaseUrl) {
     this.apiBaseUri = apiBaseUrl;
     return this;
   }
@@ -332,7 +332,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions apiBaseUri(String apiBaseUri) {
+  public TrackasiaMapOptions apiBaseUri(String apiBaseUri) {
     this.apiBaseUri = apiBaseUri;
     return this;
   }
@@ -344,7 +344,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions camera(CameraPosition cameraPosition) {
+  public TrackasiaMapOptions camera(CameraPosition cameraPosition) {
     this.cameraPosition = cameraPosition;
     return this;
   }
@@ -356,7 +356,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions debugActive(boolean enabled) {
+  public TrackasiaMapOptions debugActive(boolean enabled) {
     debugActive = enabled;
     return this;
   }
@@ -368,7 +368,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions minZoomPreference(double minZoom) {
+  public TrackasiaMapOptions minZoomPreference(double minZoom) {
     this.minZoom = minZoom;
     return this;
   }
@@ -380,7 +380,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions maxZoomPreference(double maxZoom) {
+  public TrackasiaMapOptions maxZoomPreference(double maxZoom) {
     this.maxZoom = maxZoom;
     return this;
   }
@@ -393,7 +393,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions minPitchPreference(double minPitch) {
+  public TrackasiaMapOptions minPitchPreference(double minPitch) {
     this.minPitch = minPitch;
     return this;
   }
@@ -405,7 +405,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions maxPitchPreference(double maxPitch) {
+  public TrackasiaMapOptions maxPitchPreference(double maxPitch) {
     this.maxPitch = maxPitch;
     return this;
   }
@@ -417,7 +417,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions compassEnabled(boolean enabled) {
+  public TrackasiaMapOptions compassEnabled(boolean enabled) {
     compassEnabled = enabled;
     return this;
   }
@@ -429,7 +429,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions compassGravity(int gravity) {
+  public TrackasiaMapOptions compassGravity(int gravity) {
     compassGravity = gravity;
     return this;
   }
@@ -441,7 +441,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions compassMargins(int[] margins) {
+  public TrackasiaMapOptions compassMargins(int[] margins) {
     compassMargins = margins;
     return this;
   }
@@ -456,7 +456,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions compassFadesWhenFacingNorth(boolean compassFadeWhenFacingNorth) {
+  public TrackasiaMapOptions compassFadesWhenFacingNorth(boolean compassFadeWhenFacingNorth) {
     this.fadeCompassFacingNorth = compassFadeWhenFacingNorth;
     return this;
   }
@@ -471,7 +471,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions compassImage(Drawable compass) {
+  public TrackasiaMapOptions compassImage(Drawable compass) {
     this.compassImage = compass;
     return this;
   }
@@ -483,7 +483,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions logoEnabled(boolean enabled) {
+  public TrackasiaMapOptions logoEnabled(boolean enabled) {
     logoEnabled = enabled;
     return this;
   }
@@ -495,7 +495,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions logoGravity(int gravity) {
+  public TrackasiaMapOptions logoGravity(int gravity) {
     logoGravity = gravity;
     return this;
   }
@@ -507,7 +507,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions logoMargins(int[] margins) {
+  public TrackasiaMapOptions logoMargins(int[] margins) {
     logoMargins = margins;
     return this;
   }
@@ -519,7 +519,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions attributionEnabled(boolean enabled) {
+  public TrackasiaMapOptions attributionEnabled(boolean enabled) {
     attributionEnabled = enabled;
     return this;
   }
@@ -531,7 +531,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions attributionGravity(int gravity) {
+  public TrackasiaMapOptions attributionGravity(int gravity) {
     attributionGravity = gravity;
     return this;
   }
@@ -543,7 +543,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions attributionMargins(int[] margins) {
+  public TrackasiaMapOptions attributionMargins(int[] margins) {
     attributionMargins = margins;
     return this;
   }
@@ -555,7 +555,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions attributionTintColor(@ColorInt int color) {
+  public TrackasiaMapOptions attributionTintColor(@ColorInt int color) {
     attributionTintColor = color;
     return this;
   }
@@ -567,7 +567,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions rotateGesturesEnabled(boolean enabled) {
+  public TrackasiaMapOptions rotateGesturesEnabled(boolean enabled) {
     rotateGesturesEnabled = enabled;
     return this;
   }
@@ -579,7 +579,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions scrollGesturesEnabled(boolean enabled) {
+  public TrackasiaMapOptions scrollGesturesEnabled(boolean enabled) {
     scrollGesturesEnabled = enabled;
     return this;
   }
@@ -591,7 +591,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions horizontalScrollGesturesEnabled(boolean enabled) {
+  public TrackasiaMapOptions horizontalScrollGesturesEnabled(boolean enabled) {
     horizontalScrollGesturesEnabled = enabled;
     return this;
   }
@@ -603,7 +603,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions tiltGesturesEnabled(boolean enabled) {
+  public TrackasiaMapOptions tiltGesturesEnabled(boolean enabled) {
     tiltGesturesEnabled = enabled;
     return this;
   }
@@ -615,7 +615,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions zoomGesturesEnabled(boolean enabled) {
+  public TrackasiaMapOptions zoomGesturesEnabled(boolean enabled) {
     zoomGesturesEnabled = enabled;
     return this;
   }
@@ -627,7 +627,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions doubleTapGesturesEnabled(boolean enabled) {
+  public TrackasiaMapOptions doubleTapGesturesEnabled(boolean enabled) {
     doubleTapGesturesEnabled = enabled;
     return this;
   }
@@ -639,7 +639,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions quickZoomGesturesEnabled(boolean enabled) {
+  public TrackasiaMapOptions quickZoomGesturesEnabled(boolean enabled) {
     quickZoomGesturesEnabled = enabled;
     return this;
   }
@@ -658,13 +658,13 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions textureMode(boolean textureMode) {
+  public TrackasiaMapOptions textureMode(boolean textureMode) {
     this.textureMode = textureMode;
     return this;
   }
 
   @NonNull
-  public MapboxMapOptions translucentTextureSurface(boolean translucentTextureSurface) {
+  public TrackasiaMapOptions translucentTextureSurface(boolean translucentTextureSurface) {
     this.translucentTextureSurface = translucentTextureSurface;
     return this;
   }
@@ -676,7 +676,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions foregroundLoadColor(@ColorInt int loadColor) {
+  public TrackasiaMapOptions foregroundLoadColor(@ColorInt int loadColor) {
     this.foregroundLoadColor = loadColor;
     return this;
   }
@@ -692,7 +692,7 @@ public class MapboxMapOptions implements Parcelable {
    */
   @Deprecated
   @NonNull
-  public MapboxMapOptions setPrefetchesTiles(boolean enable) {
+  public TrackasiaMapOptions setPrefetchesTiles(boolean enable) {
     this.prefetchesTiles = enable;
     return this;
   }
@@ -701,7 +701,7 @@ public class MapboxMapOptions implements Parcelable {
    * Set the tile pre-fetching zoom delta. Pre-fetching makes sure that a low-resolution
    * tile at the (current_zoom_level - delta) is rendered as soon as possible at the
    * expense of a little bandwidth.
-   * Note: This operation will override the MapboxMapOptions#setPrefetchesTiles(boolean)
+   * Note: This operation will override the TrackasiaMapOptions#setPrefetchesTiles(boolean)
    * Setting zoom delta to 0 will disable pre-fetching.
    * Default zoom delta is 4.
    *
@@ -709,7 +709,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions setPrefetchZoomDelta(@IntRange(from = 0) int delta) {
+  public TrackasiaMapOptions setPrefetchZoomDelta(@IntRange(from = 0) int delta) {
     this.prefetchZoomDelta = delta;
     return this;
   }
@@ -725,7 +725,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions crossSourceCollisions(boolean crossSourceCollisions) {
+  public TrackasiaMapOptions crossSourceCollisions(boolean crossSourceCollisions) {
     this.crossSourceCollisions = crossSourceCollisions;
     return this;
   }
@@ -737,7 +737,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions localIdeographFontFamilyEnabled(boolean enabled) {
+  public TrackasiaMapOptions localIdeographFontFamilyEnabled(boolean enabled) {
     this.localIdeographFontFamilyEnabled = enabled;
     return this;
   }
@@ -754,7 +754,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions localIdeographFontFamily(String fontFamily) {
+  public TrackasiaMapOptions localIdeographFontFamily(String fontFamily) {
     this.localIdeographFontFamily = FontUtils.extractValidFont(fontFamily);
     return this;
   }
@@ -773,7 +773,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions localIdeographFontFamily(String... fontFamilies) {
+  public TrackasiaMapOptions localIdeographFontFamily(String... fontFamilies) {
     this.localIdeographFontFamily = FontUtils.extractValidFont(fontFamilies);
     return this;
   }
@@ -786,7 +786,7 @@ public class MapboxMapOptions implements Parcelable {
    * @return This
    */
   @NonNull
-  public MapboxMapOptions pixelRatio(float pixelRatio) {
+  public TrackasiaMapOptions pixelRatio(float pixelRatio) {
     this.pixelRatio = pixelRatio;
     return this;
   }
@@ -1144,13 +1144,13 @@ public class MapboxMapOptions implements Parcelable {
     return pixelRatio;
   }
 
-  public static final Parcelable.Creator<MapboxMapOptions> CREATOR = new Parcelable.Creator<MapboxMapOptions>() {
-    public MapboxMapOptions createFromParcel(@NonNull Parcel in) {
-      return new MapboxMapOptions(in);
+  public static final Parcelable.Creator<TrackasiaMapOptions> CREATOR = new Parcelable.Creator<TrackasiaMapOptions>() {
+    public TrackasiaMapOptions createFromParcel(@NonNull Parcel in) {
+      return new TrackasiaMapOptions(in);
     }
 
-    public MapboxMapOptions[] newArray(int size) {
-      return new MapboxMapOptions[size];
+    public TrackasiaMapOptions[] newArray(int size) {
+      return new TrackasiaMapOptions[size];
     }
   };
 
@@ -1216,7 +1216,7 @@ public class MapboxMapOptions implements Parcelable {
       return false;
     }
 
-    MapboxMapOptions options = (MapboxMapOptions) o;
+    TrackasiaMapOptions options = (TrackasiaMapOptions) o;
 
     if (debugActive != options.debugActive) {
       return false;

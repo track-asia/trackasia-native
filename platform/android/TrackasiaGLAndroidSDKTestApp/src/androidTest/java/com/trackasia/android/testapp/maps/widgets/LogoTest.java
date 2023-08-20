@@ -5,7 +5,7 @@ import android.view.View;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.testapp.activity.EspressoTest;
 
 import org.hamcrest.Matcher;
@@ -37,9 +37,9 @@ public class LogoTest extends EspressoTest {
 
   private class DisableAction implements ViewAction {
 
-    private MapboxMap mapboxMap;
+    private TrackasiaMap mapboxMap;
 
-    DisableAction(MapboxMap map) {
+    DisableAction(TrackasiaMap map) {
       mapboxMap = map;
     }
 

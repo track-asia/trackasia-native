@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.BackgroundLayer
@@ -24,7 +24,7 @@ import java.io.IOException
  */
 class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
     var mapView: MapView? = null
-    var mapboxMap: MapboxMap? = null
+    var mapboxMap: TrackasiaMap? = null
         private set
     private lateinit var toast: Toast
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView!!.onCreate(savedInstanceState)
-        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+        mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             this@QueryRenderedFeaturesBoxSymbolCountActivity.mapboxMap = mapboxMap
             try {
                 val testPoints = ResourceUtils.readRawResource(

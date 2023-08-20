@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.testapp.R;
 
 /**
@@ -14,7 +14,7 @@ import com.trackasia.android.testapp.R;
 public class EspressoTestActivity extends AppCompatActivity {
 
   public MapView mapView;
-  protected MapboxMap mapboxMap;
+  protected TrackasiaMap mapboxMap;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

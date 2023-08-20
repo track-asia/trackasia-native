@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.print.PrintHelper
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -14,15 +14,15 @@ import com.trackasia.android.testapp.R
 /**
  * Test activity showcasing using the Snaphot API to print a Map.
  */
-class PrintActivity : AppCompatActivity(), MapboxMap.SnapshotReadyCallback {
+class PrintActivity : AppCompatActivity(), TrackasiaMap.SnapshotReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var mapboxMap: MapboxMap
+    private lateinit var mapboxMap: TrackasiaMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_print)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(OnMapReadyCallback { mapboxMap: MapboxMap -> initMap(mapboxMap) })
+        mapView.getMapAsync(OnMapReadyCallback { mapboxMap: TrackasiaMap -> initMap(mapboxMap) })
         val fab = findViewById<View>(R.id.fab)
         fab?.setOnClickListener { view: View? ->
             if (mapboxMap != null && mapboxMap!!.style != null) {
@@ -31,7 +31,7 @@ class PrintActivity : AppCompatActivity(), MapboxMap.SnapshotReadyCallback {
         }
     }
 
-    private fun initMap(mapboxMap: MapboxMap) {
+    private fun initMap(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
         mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
     }

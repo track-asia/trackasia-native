@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import androidx.annotation.Keep;
 
 import com.trackasia.android.geometry.LatLngBounds;
-import com.trackasia.android.maps.MapboxMapOptions;
+import com.trackasia.android.maps.TrackasiaMapOptions;
 
 /**
  * This is the interface that all Offline Region definitions have to implement.
@@ -59,7 +59,7 @@ public interface OfflineRegionDefinition extends Parcelable {
    * Defaults to `true`
    *
    * @return true if offline region will include ideographic glyphs
-   * @see MapboxMapOptions#localIdeographFontFamily(String)
+   * @see TrackasiaMapOptions#localIdeographFontFamily(String)
    */
   boolean getIncludeIdeographs();
 

@@ -18,7 +18,7 @@ import java.io.IOException
  */
 class TextureViewTransparentBackgroundActivity : AppCompatActivity() {
     private var mapView: MapView? = null
-    private val mapboxMap: MapboxMap? = null
+    private val mapboxMap: TrackasiaMap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_textureview_transparent)
@@ -33,7 +33,7 @@ class TextureViewTransparentBackgroundActivity : AppCompatActivity() {
     }
 
     private fun setupMapView(savedInstanceState: Bundle?) {
-        val mapboxMapOptions = MapboxMapOptions.createFromAttributes(this, null)
+        val mapboxMapOptions = TrackasiaMapOptions.createFromAttributes(this, null)
         mapboxMapOptions.translucentTextureSurface(true)
         mapboxMapOptions.textureMode(true)
         mapboxMapOptions.camera(
@@ -44,11 +44,11 @@ class TextureViewTransparentBackgroundActivity : AppCompatActivity() {
         )
         mapView = MapView(this, mapboxMapOptions)
         mapView!!.onCreate(savedInstanceState)
-        mapView!!.getMapAsync { mapboxMap: MapboxMap -> initMap(mapboxMap) }
+        mapView!!.getMapAsync { mapboxMap: TrackasiaMap -> initMap(mapboxMap) }
         (findViewById<View>(R.id.coordinator_layout) as ViewGroup).addView(mapView)
     }
 
-    private fun initMap(mapboxMap: MapboxMap) {
+    private fun initMap(mapboxMap: TrackasiaMap) {
         try {
             mapboxMap.setStyle(
                 Style.Builder().fromJson(ResourceUtils.readRawResource(this, R.raw.no_bg_style))

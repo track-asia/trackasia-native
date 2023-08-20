@@ -12,9 +12,9 @@ import com.mapbox.geojson.Feature
 import com.trackasia.android.annotations.BaseMarkerOptions
 import com.trackasia.android.annotations.Marker
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
-import com.trackasia.android.maps.MapboxMap.InfoWindowAdapter
-import com.trackasia.android.maps.MapboxMap.OnMapClickListener
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.InfoWindowAdapter
+import com.trackasia.android.maps.TrackasiaMap.OnMapClickListener
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import timber.log.Timber
@@ -24,7 +24,7 @@ import timber.log.Timber
  */
 class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
     var mapView: MapView? = null
-    var mapboxMap: MapboxMap? = null
+    var mapboxMap: TrackasiaMap? = null
         private set
     private var marker: Marker? = null
     private val mapClickListener = OnMapClickListener { point ->
@@ -60,7 +60,7 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView!!.onCreate(savedInstanceState)
-        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+        mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
                 this@QueryRenderedFeaturesPropertiesActivity.mapboxMap = mapboxMap
 
@@ -99,7 +99,7 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
         }
     }
 
-    private fun addCustomInfoWindowAdapter(mapboxMap: MapboxMap) {
+    private fun addCustomInfoWindowAdapter(mapboxMap: TrackasiaMap) {
         mapboxMap.infoWindowAdapter = object : InfoWindowAdapter {
             private fun row(text: String): TextView {
                 val view = TextView(this@QueryRenderedFeaturesPropertiesActivity)

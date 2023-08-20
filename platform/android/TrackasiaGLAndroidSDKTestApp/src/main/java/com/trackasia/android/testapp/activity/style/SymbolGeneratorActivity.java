@@ -48,7 +48,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.OnMapReadyCallback;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.style.expressions.Expression;
@@ -78,7 +78,7 @@ public class SymbolGeneratorActivity extends AppCompatActivity implements OnMapR
   private static final String FEATURE_REGION = "continent";
 
   private MapView mapView;
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class SymbolGeneratorActivity extends AppCompatActivity implements OnMapR
   }
 
   @Override
-  public void onMapReady(@NonNull final MapboxMap map) {
+  public void onMapReady(@NonNull final TrackasiaMap map) {
     mapboxMap = map;
     map.setStyle(Style.getPredefinedStyle("Outdoor"), style -> {
       addSymbolClickListener();
@@ -188,7 +188,7 @@ public class SymbolGeneratorActivity extends AppCompatActivity implements OnMapR
   /**
    * Utility class to generate Bitmaps for Symbol.
    * <p>
-   * Bitmaps can be added to the map with {@link com.trackasia.android.maps.MapboxMap#addImage(String, Bitmap)}
+   * Bitmaps can be added to the map with {@link TrackasiaMap#addImage(String, Bitmap)}
    * </p>
    */
   private static class SymbolGenerator {
@@ -327,10 +327,10 @@ public class SymbolGeneratorActivity extends AppCompatActivity implements OnMapR
 
   private static class GenerateSymbolTask extends AsyncTask<FeatureCollection, Void, HashMap<String, Bitmap>> {
 
-    private MapboxMap mapboxMap;
+    private TrackasiaMap mapboxMap;
     private WeakReference<Context> context;
 
-    GenerateSymbolTask(MapboxMap mapboxMap, Context context) {
+    GenerateSymbolTask(TrackasiaMap mapboxMap, Context context) {
       this.mapboxMap = mapboxMap;
       this.context = new WeakReference<>(context);
     }

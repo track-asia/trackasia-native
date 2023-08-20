@@ -10,7 +10,7 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.offline.OfflineManager
 import com.trackasia.android.offline.OfflineManager.CreateOfflineRegionCallback
@@ -40,7 +40,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
    * UI elements
    */
     private var mapView: MapView? = null
-    private var mapboxMap: MapboxMap? = null
+    private var mapboxMap: TrackasiaMap? = null
     private var progressBar: ProgressBar? = null
     private var downloadRegion: Button? = null
     private var listRegions: Button? = null
@@ -64,7 +64,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         // Set up map
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView!!.onCreate(savedInstanceState)
-        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+        mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             Timber.d("Map is ready")
             this@OfflineActivity.mapboxMap = mapboxMap
             mapboxMap.setStyle(Style.Builder().fromUri(STYLE_URL))

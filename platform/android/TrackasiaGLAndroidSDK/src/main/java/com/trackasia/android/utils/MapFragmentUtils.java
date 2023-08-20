@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.trackasia.android.constants.TrackasiaConstants;
-import com.trackasia.android.maps.MapboxMapOptions;
+import com.trackasia.android.maps.TrackasiaMapOptions;
 
 /**
  * MapFragment utility class.
@@ -19,33 +19,33 @@ import com.trackasia.android.maps.MapboxMapOptions;
 public class MapFragmentUtils {
 
   /**
-   * Convert MapboxMapOptions to a bundle of fragment arguments.
+   * Convert TrackasiaMapOptions to a bundle of fragment arguments.
    *
-   * @param options The MapboxMapOptions to convert
+   * @param options The TrackasiaMapOptions to convert
    * @return a bundle of converted fragment arguments
    */
   @NonNull
-  public static Bundle createFragmentArgs(MapboxMapOptions options) {
+  public static Bundle createFragmentArgs(TrackasiaMapOptions options) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TrackasiaConstants.FRAG_ARG_MAPBOXMAPOPTIONS, options);
     return bundle;
   }
 
   /**
-   * Convert a bundle of fragment arguments to MapboxMapOptions.
+   * Convert a bundle of fragment arguments to TrackasiaMapOptions.
    *
    * @param context The context of the activity hosting the fragment
    * @param args    The fragment arguments
-   * @return converted MapboxMapOptions
+   * @return converted TrackasiaMapOptions
    */
   @Nullable
-  public static MapboxMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
-    MapboxMapOptions options;
+  public static TrackasiaMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
+    TrackasiaMapOptions options;
     if (args != null && args.containsKey(TrackasiaConstants.FRAG_ARG_MAPBOXMAPOPTIONS)) {
       options = args.getParcelable(TrackasiaConstants.FRAG_ARG_MAPBOXMAPOPTIONS);
     } else {
       // load default options
-      options = MapboxMapOptions.createFromAttributes(context);
+      options = TrackasiaMapOptions.createFromAttributes(context);
     }
     return options;
   }

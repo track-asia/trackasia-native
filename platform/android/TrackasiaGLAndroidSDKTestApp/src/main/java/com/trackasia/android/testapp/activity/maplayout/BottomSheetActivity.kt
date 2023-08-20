@@ -11,8 +11,6 @@ import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.*
 import com.trackasia.android.testapp.R
-import com.trackasia.android.testapp.activity.maplayout.BottomSheetActivity.BottomSheetFragment
-import com.trackasia.android.testapp.activity.maplayout.BottomSheetActivity.MainMapFragment
 import com.trackasia.android.utils.MapFragmentUtils
 
 /**
@@ -115,7 +113,7 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(mapboxMap: MapboxMap) {
+        override fun onMapReady(mapboxMap: TrackasiaMap) {
             mapboxMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
@@ -184,7 +182,7 @@ class BottomSheetActivity : AppCompatActivity() {
                 val bundle = Bundle()
                 bundle.putInt("mapcounter", mapCounter)
                 mapFragment.arguments = bundle
-                val mapboxMapOptions = MapboxMapOptions.createFromAttributes(context!!)
+                val mapboxMapOptions = TrackasiaMapOptions.createFromAttributes(context!!)
                 mapFragment.arguments = MapFragmentUtils.createFragmentArgs(mapboxMapOptions)
                 return mapFragment
             }
@@ -211,7 +209,7 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(mapboxMap: MapboxMap) {
+        override fun onMapReady(mapboxMap: TrackasiaMap) {
             mapboxMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
@@ -259,7 +257,7 @@ class BottomSheetActivity : AppCompatActivity() {
         companion object {
             fun newInstance(context: Context?): BottomSheetFragment {
                 val mapFragment = BottomSheetFragment()
-                val mapboxMapOptions = MapboxMapOptions.createFromAttributes(context!!)
+                val mapboxMapOptions = TrackasiaMapOptions.createFromAttributes(context!!)
                 mapboxMapOptions.renderSurfaceOnTop(true)
                 mapFragment.arguments = MapFragmentUtils.createFragmentArgs(mapboxMapOptions)
                 return mapFragment

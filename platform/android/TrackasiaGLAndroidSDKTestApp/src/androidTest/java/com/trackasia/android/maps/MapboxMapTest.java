@@ -35,7 +35,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * This test is responsible for testing the public API.
  * <p>
- * Methods executed on MapboxMap are called from a ViewAction to ensure correct synchronisation
+ * Methods executed on TrackasiaMap are called from a ViewAction to ensure correct synchronisation
  * with the application UI-thread.
  * </p>
  * @deprecated remove this file when removing deprecated annotations
@@ -69,7 +69,7 @@ public class MapboxMapTest extends EspressoTest {
   public void testInfoWindowAdapter() {
     validateTestSetup();
     onView(withId(R.id.mapView)).perform(new MapboxMapAction((uiController, view) -> {
-      MapboxMap.InfoWindowAdapter infoWindowAdapter = marker -> null;
+      TrackasiaMap.InfoWindowAdapter infoWindowAdapter = marker -> null;
       mapboxMap.setInfoWindowAdapter(infoWindowAdapter);
       assertEquals("InfoWindowAdpter should be the same", infoWindowAdapter, mapboxMap.getInfoWindowAdapter());
     }));

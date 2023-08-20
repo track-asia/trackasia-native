@@ -4,15 +4,15 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.trackasia.android.camera.CameraPosition;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.testapp.R;
 
-public class IdleZoomListener implements MapboxMap.OnCameraIdleListener {
+public class IdleZoomListener implements TrackasiaMap.OnCameraIdleListener {
 
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
   private TextView textView;
 
-  public IdleZoomListener(MapboxMap mapboxMap, TextView textView) {
+  public IdleZoomListener(TrackasiaMap mapboxMap, TextView textView) {
     this.mapboxMap = mapboxMap;
     this.textView = textView;
   }

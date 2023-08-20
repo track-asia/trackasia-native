@@ -190,9 +190,9 @@ public class TrackasiaConstants {
   public static final float ZOOM_RATE = 0.65f;
 
   /**
-   * Fragment Argument Key for MapboxMapOptions
+   * Fragment Argument Key for TrackasiaMapOptions
    */
-  public static final String FRAG_ARG_MAPBOXMAPOPTIONS = "MapboxMapOptions";
+  public static final String FRAG_ARG_MAPBOXMAPOPTIONS = "TrackasiaMapOptions";
 
   /**
    * Layer Id of annotations layer

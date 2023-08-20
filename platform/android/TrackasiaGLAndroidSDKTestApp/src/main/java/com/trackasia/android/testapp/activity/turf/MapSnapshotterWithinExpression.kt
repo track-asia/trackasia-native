@@ -9,7 +9,7 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.snapshotter.MapSnapshotter
 import com.trackasia.android.style.expressions.Expression.within
@@ -28,7 +28,7 @@ import com.trackasia.android.testapp.databinding.ActivityMapsnapshotterWithinExp
  */
 class MapSnapshotterWithinExpression : AppCompatActivity() {
     private lateinit var binding: ActivityMapsnapshotterWithinExpressionBinding
-    private lateinit var mapboxMap: MapboxMap
+    private lateinit var mapboxMap: TrackasiaMap
     private lateinit var snapshotter: MapSnapshotter
     private var snapshotInProgress = false
 

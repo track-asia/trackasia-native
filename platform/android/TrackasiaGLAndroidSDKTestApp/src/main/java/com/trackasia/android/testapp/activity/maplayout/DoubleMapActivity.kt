@@ -13,7 +13,6 @@ import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.*
 import com.trackasia.android.testapp.R
-import com.trackasia.android.testapp.activity.maplayout.DoubleMapActivity.DoubleMapFragment
 import com.trackasia.android.utils.MapFragmentUtils
 
 /**
@@ -28,7 +27,7 @@ class DoubleMapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_fragment)
         if (savedInstanceState == null) {
-            val options = MapboxMapOptions.createFromAttributes(this, null)
+            val options = TrackasiaMapOptions.createFromAttributes(this, null)
             options.camera(
                 CameraPosition.Builder()
                     .target(MACHU_PICCHU)
@@ -63,7 +62,7 @@ class DoubleMapActivity : AppCompatActivity() {
             // MapView large
             mapView = MapView(view.context, MapFragmentUtils.resolveArgs(view.context, arguments))
             mapView!!.onCreate(savedInstanceState)
-            mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+            mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
                 mapboxMap.setStyle(
                     Style.getPredefinedStyle(
                         "Streets"
@@ -76,7 +75,7 @@ class DoubleMapActivity : AppCompatActivity() {
             mapViewMini = view.findViewById(R.id.mini_map)
             mapViewMini.onCreate(savedInstanceState)
             mapViewMini.getMapAsync(
-                OnMapReadyCallback { mapboxMap: MapboxMap ->
+                OnMapReadyCallback { mapboxMap: TrackasiaMap ->
                     mapboxMap.moveCamera(
                         CameraUpdateFactory.newCameraPosition(
                             CameraPosition.Builder().target(MACHU_PICCHU)

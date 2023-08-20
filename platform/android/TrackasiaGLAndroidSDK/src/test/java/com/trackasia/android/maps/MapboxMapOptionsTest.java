@@ -28,189 +28,189 @@ public class MapboxMapOptionsTest {
 
   @Test
   public void testSanity() {
-    assertNotNull("should not be null", new MapboxMapOptions());
+    assertNotNull("should not be null", new TrackasiaMapOptions());
   }
 
   @Test
   public void testDebugEnabled() {
-    assertFalse(new MapboxMapOptions().getDebugActive());
-    assertTrue(new MapboxMapOptions().debugActive(true).getDebugActive());
-    assertFalse(new MapboxMapOptions().debugActive(false).getDebugActive());
+    assertFalse(new TrackasiaMapOptions().getDebugActive());
+    assertTrue(new TrackasiaMapOptions().debugActive(true).getDebugActive());
+    assertFalse(new TrackasiaMapOptions().debugActive(false).getDebugActive());
   }
 
   @Test
   public void testCompassEnabled() {
-    assertTrue(new MapboxMapOptions().compassEnabled(true).getCompassEnabled());
-    assertFalse(new MapboxMapOptions().compassEnabled(false).getCompassEnabled());
+    assertTrue(new TrackasiaMapOptions().compassEnabled(true).getCompassEnabled());
+    assertFalse(new TrackasiaMapOptions().compassEnabled(false).getCompassEnabled());
   }
 
   @Test
   public void testCompassGravity() {
-    assertEquals(Gravity.TOP | Gravity.END, new MapboxMapOptions().getCompassGravity());
-    assertEquals(Gravity.BOTTOM, new MapboxMapOptions().compassGravity(Gravity.BOTTOM).getCompassGravity());
-    assertNotEquals(Gravity.START, new MapboxMapOptions().compassGravity(Gravity.BOTTOM).getCompassGravity());
+    assertEquals(Gravity.TOP | Gravity.END, new TrackasiaMapOptions().getCompassGravity());
+    assertEquals(Gravity.BOTTOM, new TrackasiaMapOptions().compassGravity(Gravity.BOTTOM).getCompassGravity());
+    assertNotEquals(Gravity.START, new TrackasiaMapOptions().compassGravity(Gravity.BOTTOM).getCompassGravity());
   }
 
   @Test
   public void testCompassMargins() {
-    assertTrue(Arrays.equals(new int[] {0, 1, 2, 3}, new MapboxMapOptions().compassMargins(
+    assertTrue(Arrays.equals(new int[] {0, 1, 2, 3}, new TrackasiaMapOptions().compassMargins(
       new int[] {0, 1, 2, 3}).getCompassMargins()));
-    assertFalse(Arrays.equals(new int[] {0, 1, 2, 3}, new MapboxMapOptions().compassMargins(
+    assertFalse(Arrays.equals(new int[] {0, 1, 2, 3}, new TrackasiaMapOptions().compassMargins(
       new int[] {0, 0, 0, 0}).getCompassMargins()));
   }
 
   @Test
   public void testLogoEnabled() {
-    assertTrue(new MapboxMapOptions().logoEnabled(true).getLogoEnabled());
-    assertFalse(new MapboxMapOptions().logoEnabled(false).getLogoEnabled());
+    assertTrue(new TrackasiaMapOptions().logoEnabled(true).getLogoEnabled());
+    assertFalse(new TrackasiaMapOptions().logoEnabled(false).getLogoEnabled());
   }
 
   @Test
   public void testLogoGravity() {
-    assertEquals(Gravity.BOTTOM | Gravity.START, new MapboxMapOptions().getLogoGravity());
-    assertEquals(Gravity.BOTTOM, new MapboxMapOptions().logoGravity(Gravity.BOTTOM).getLogoGravity());
-    assertNotEquals(Gravity.START, new MapboxMapOptions().logoGravity(Gravity.BOTTOM).getLogoGravity());
+    assertEquals(Gravity.BOTTOM | Gravity.START, new TrackasiaMapOptions().getLogoGravity());
+    assertEquals(Gravity.BOTTOM, new TrackasiaMapOptions().logoGravity(Gravity.BOTTOM).getLogoGravity());
+    assertNotEquals(Gravity.START, new TrackasiaMapOptions().logoGravity(Gravity.BOTTOM).getLogoGravity());
   }
 
   @Test
   public void testLogoMargins() {
-    assertTrue(Arrays.equals(new int[] {0, 1, 2, 3}, new MapboxMapOptions().logoMargins(
+    assertTrue(Arrays.equals(new int[] {0, 1, 2, 3}, new TrackasiaMapOptions().logoMargins(
       new int[] {0, 1, 2, 3}).getLogoMargins()));
-    assertFalse(Arrays.equals(new int[] {0, 1, 2, 3}, new MapboxMapOptions().logoMargins(
+    assertFalse(Arrays.equals(new int[] {0, 1, 2, 3}, new TrackasiaMapOptions().logoMargins(
       new int[] {0, 0, 0, 0}).getLogoMargins()));
   }
 
   @Test
   public void testAttributionTintColor() {
-    assertEquals(-1, new MapboxMapOptions().getAttributionTintColor());
-    assertEquals(Color.RED, new MapboxMapOptions().attributionTintColor(Color.RED).getAttributionTintColor());
+    assertEquals(-1, new TrackasiaMapOptions().getAttributionTintColor());
+    assertEquals(Color.RED, new TrackasiaMapOptions().attributionTintColor(Color.RED).getAttributionTintColor());
   }
 
   @Test
   public void testAttributionEnabled() {
-    assertTrue(new MapboxMapOptions().attributionEnabled(true).getAttributionEnabled());
-    assertFalse(new MapboxMapOptions().attributionEnabled(false).getAttributionEnabled());
+    assertTrue(new TrackasiaMapOptions().attributionEnabled(true).getAttributionEnabled());
+    assertFalse(new TrackasiaMapOptions().attributionEnabled(false).getAttributionEnabled());
   }
 
   @Test
   public void testAttributionGravity() {
-    assertEquals(Gravity.BOTTOM | Gravity.START, new MapboxMapOptions().getAttributionGravity());
-    assertEquals(Gravity.BOTTOM, new MapboxMapOptions().attributionGravity(Gravity.BOTTOM).getAttributionGravity());
-    assertNotEquals(Gravity.START, new MapboxMapOptions().attributionGravity(Gravity.BOTTOM).getAttributionGravity());
+    assertEquals(Gravity.BOTTOM | Gravity.START, new TrackasiaMapOptions().getAttributionGravity());
+    assertEquals(Gravity.BOTTOM, new TrackasiaMapOptions().attributionGravity(Gravity.BOTTOM).getAttributionGravity());
+    assertNotEquals(Gravity.START, new TrackasiaMapOptions().attributionGravity(Gravity.BOTTOM).getAttributionGravity());
   }
 
   @Test
   public void testAttributionMargins() {
-    assertTrue(Arrays.equals(new int[] {0, 1, 2, 3}, new MapboxMapOptions().attributionMargins(
+    assertTrue(Arrays.equals(new int[] {0, 1, 2, 3}, new TrackasiaMapOptions().attributionMargins(
       new int[] {0, 1, 2, 3}).getAttributionMargins()));
-    assertFalse(Arrays.equals(new int[] {0, 1, 2, 3}, new MapboxMapOptions().attributionMargins(
+    assertFalse(Arrays.equals(new int[] {0, 1, 2, 3}, new TrackasiaMapOptions().attributionMargins(
       new int[] {0, 0, 0, 0}).getAttributionMargins()));
   }
 
   @Test
   public void testMinZoom() {
-    assertEquals(TrackasiaConstants.MINIMUM_ZOOM, new MapboxMapOptions().getMinZoomPreference(), DELTA);
-    assertEquals(5.0f, new MapboxMapOptions().minZoomPreference(5.0f).getMinZoomPreference(), DELTA);
-    assertNotEquals(2.0f, new MapboxMapOptions().minZoomPreference(5.0f).getMinZoomPreference(), DELTA);
+    assertEquals(TrackasiaConstants.MINIMUM_ZOOM, new TrackasiaMapOptions().getMinZoomPreference(), DELTA);
+    assertEquals(5.0f, new TrackasiaMapOptions().minZoomPreference(5.0f).getMinZoomPreference(), DELTA);
+    assertNotEquals(2.0f, new TrackasiaMapOptions().minZoomPreference(5.0f).getMinZoomPreference(), DELTA);
   }
 
   @Test
   public void testMaxZoom() {
-    assertEquals(TrackasiaConstants.MAXIMUM_ZOOM, new MapboxMapOptions().getMaxZoomPreference(), DELTA);
-    assertEquals(5.0f, new MapboxMapOptions().maxZoomPreference(5.0f).getMaxZoomPreference(), DELTA);
-    assertNotEquals(2.0f, new MapboxMapOptions().maxZoomPreference(5.0f).getMaxZoomPreference(), DELTA);
+    assertEquals(TrackasiaConstants.MAXIMUM_ZOOM, new TrackasiaMapOptions().getMaxZoomPreference(), DELTA);
+    assertEquals(5.0f, new TrackasiaMapOptions().maxZoomPreference(5.0f).getMaxZoomPreference(), DELTA);
+    assertNotEquals(2.0f, new TrackasiaMapOptions().maxZoomPreference(5.0f).getMaxZoomPreference(), DELTA);
   }
 
   @Test
   public void testMinPitch() {
-    assertEquals(TrackasiaConstants.MINIMUM_PITCH, new MapboxMapOptions().getMinPitchPreference(), DELTA);
-    assertEquals(5.0f, new MapboxMapOptions().minPitchPreference(5.0f).getMinPitchPreference(), DELTA);
-    assertNotEquals(2.0f, new MapboxMapOptions().minPitchPreference(5.0f).getMinPitchPreference(), DELTA);
+    assertEquals(TrackasiaConstants.MINIMUM_PITCH, new TrackasiaMapOptions().getMinPitchPreference(), DELTA);
+    assertEquals(5.0f, new TrackasiaMapOptions().minPitchPreference(5.0f).getMinPitchPreference(), DELTA);
+    assertNotEquals(2.0f, new TrackasiaMapOptions().minPitchPreference(5.0f).getMinPitchPreference(), DELTA);
   }
 
   @Test
   public void testMaxPitch() {
-    assertEquals(TrackasiaConstants.MAXIMUM_PITCH, new MapboxMapOptions().getMaxPitchPreference(), DELTA);
-    assertEquals(5.0f, new MapboxMapOptions().maxPitchPreference(5.0f).getMaxPitchPreference(), DELTA);
-    assertNotEquals(2.0f, new MapboxMapOptions().maxPitchPreference(5.0f).getMaxPitchPreference(), DELTA);
+    assertEquals(TrackasiaConstants.MAXIMUM_PITCH, new TrackasiaMapOptions().getMaxPitchPreference(), DELTA);
+    assertEquals(5.0f, new TrackasiaMapOptions().maxPitchPreference(5.0f).getMaxPitchPreference(), DELTA);
+    assertNotEquals(2.0f, new TrackasiaMapOptions().maxPitchPreference(5.0f).getMaxPitchPreference(), DELTA);
   }
 
   @Test
   public void testTiltGesturesEnabled() {
-    assertTrue(new MapboxMapOptions().getTiltGesturesEnabled());
-    assertTrue(new MapboxMapOptions().tiltGesturesEnabled(true).getTiltGesturesEnabled());
-    assertFalse(new MapboxMapOptions().tiltGesturesEnabled(false).getTiltGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().getTiltGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().tiltGesturesEnabled(true).getTiltGesturesEnabled());
+    assertFalse(new TrackasiaMapOptions().tiltGesturesEnabled(false).getTiltGesturesEnabled());
   }
 
   @Test
   public void testScrollGesturesEnabled() {
-    assertTrue(new MapboxMapOptions().getScrollGesturesEnabled());
-    assertTrue(new MapboxMapOptions().scrollGesturesEnabled(true).getScrollGesturesEnabled());
-    assertFalse(new MapboxMapOptions().scrollGesturesEnabled(false).getScrollGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().getScrollGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().scrollGesturesEnabled(true).getScrollGesturesEnabled());
+    assertFalse(new TrackasiaMapOptions().scrollGesturesEnabled(false).getScrollGesturesEnabled());
   }
 
   @Test
   public void testHorizontalScrollGesturesEnabled() {
-    assertTrue(new MapboxMapOptions().getHorizontalScrollGesturesEnabled());
-    assertTrue(new MapboxMapOptions().horizontalScrollGesturesEnabled(true).getHorizontalScrollGesturesEnabled());
-    assertFalse(new MapboxMapOptions().horizontalScrollGesturesEnabled(false).getHorizontalScrollGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().getHorizontalScrollGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().horizontalScrollGesturesEnabled(true).getHorizontalScrollGesturesEnabled());
+    assertFalse(new TrackasiaMapOptions().horizontalScrollGesturesEnabled(false).getHorizontalScrollGesturesEnabled());
   }
 
   @Test
   public void testZoomGesturesEnabled() {
-    assertTrue(new MapboxMapOptions().getZoomGesturesEnabled());
-    assertTrue(new MapboxMapOptions().zoomGesturesEnabled(true).getZoomGesturesEnabled());
-    assertFalse(new MapboxMapOptions().zoomGesturesEnabled(false).getZoomGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().getZoomGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().zoomGesturesEnabled(true).getZoomGesturesEnabled());
+    assertFalse(new TrackasiaMapOptions().zoomGesturesEnabled(false).getZoomGesturesEnabled());
   }
 
   @Test
   public void testRotateGesturesEnabled() {
-    assertTrue(new MapboxMapOptions().getRotateGesturesEnabled());
-    assertTrue(new MapboxMapOptions().rotateGesturesEnabled(true).getRotateGesturesEnabled());
-    assertFalse(new MapboxMapOptions().rotateGesturesEnabled(false).getRotateGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().getRotateGesturesEnabled());
+    assertTrue(new TrackasiaMapOptions().rotateGesturesEnabled(true).getRotateGesturesEnabled());
+    assertFalse(new TrackasiaMapOptions().rotateGesturesEnabled(false).getRotateGesturesEnabled());
   }
 
   @Test
   public void testCamera() {
     CameraPosition position = new CameraPosition.Builder().build();
-    assertEquals(new CameraPosition.Builder(position).build(), new MapboxMapOptions().camera(position).getCamera());
-    assertNotEquals(new CameraPosition.Builder().target(new LatLng(1, 1)), new MapboxMapOptions().camera(position));
-    assertNull(new MapboxMapOptions().getCamera());
+    assertEquals(new CameraPosition.Builder(position).build(), new TrackasiaMapOptions().camera(position).getCamera());
+    assertNotEquals(new CameraPosition.Builder().target(new LatLng(1, 1)), new TrackasiaMapOptions().camera(position));
+    assertNull(new TrackasiaMapOptions().getCamera());
   }
 
   @Test
   public void testPrefetchesTiles() {
     // Default value
-    assertTrue(new MapboxMapOptions().getPrefetchesTiles());
+    assertTrue(new TrackasiaMapOptions().getPrefetchesTiles());
 
     // Check mutations
-    assertTrue(new MapboxMapOptions().setPrefetchesTiles(true).getPrefetchesTiles());
-    assertFalse(new MapboxMapOptions().setPrefetchesTiles(false).getPrefetchesTiles());
+    assertTrue(new TrackasiaMapOptions().setPrefetchesTiles(true).getPrefetchesTiles());
+    assertFalse(new TrackasiaMapOptions().setPrefetchesTiles(false).getPrefetchesTiles());
   }
 
   @Test
   public void testPrefetchZoomDelta() {
     // Default value
-    assertEquals(4, new MapboxMapOptions().getPrefetchZoomDelta());
+    assertEquals(4, new TrackasiaMapOptions().getPrefetchZoomDelta());
 
     // Check mutations
-    assertEquals(5, new MapboxMapOptions().setPrefetchZoomDelta(5).getPrefetchZoomDelta());
+    assertEquals(5, new TrackasiaMapOptions().setPrefetchZoomDelta(5).getPrefetchZoomDelta());
   }
 
 
   @Test
   public void testCrossSourceCollisions() {
     // Default value
-    assertTrue(new MapboxMapOptions().getCrossSourceCollisions());
+    assertTrue(new TrackasiaMapOptions().getCrossSourceCollisions());
 
     // check mutations
-    assertTrue(new MapboxMapOptions().crossSourceCollisions(true).getCrossSourceCollisions());
-    assertFalse(new MapboxMapOptions().crossSourceCollisions(false).getCrossSourceCollisions());
+    assertTrue(new TrackasiaMapOptions().crossSourceCollisions(true).getCrossSourceCollisions());
+    assertFalse(new TrackasiaMapOptions().crossSourceCollisions(false).getCrossSourceCollisions());
   }
 
   @Test
   public void testLocalIdeographFontFamily_enabledByDefault() {
-    MapboxMapOptions options = MapboxMapOptions.createFromAttributes(RuntimeEnvironment.application, null);
+    TrackasiaMapOptions options = TrackasiaMapOptions.createFromAttributes(RuntimeEnvironment.application, null);
     assertEquals(TrackasiaConstants.DEFAULT_FONT, options.getLocalIdeographFontFamily());
   }
 }

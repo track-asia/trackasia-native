@@ -8,7 +8,7 @@ import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.utils.NavUtils
 
 /**
- * Test activity showcasing a simple MapView without any MapboxMap interaction.
+ * Test activity showcasing a simple MapView without any TrackasiaMap interaction.
  */
 class SimpleMapActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
@@ -18,7 +18,7 @@ class SimpleMapActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { mapboxMap: MapboxMap ->
+            OnMapReadyCallback { mapboxMap: TrackasiaMap ->
                 val styles = Style.getPredefinedStyles()
                 if (styles != null && styles.size > 0) {
                     val styleUrl = styles[0].url

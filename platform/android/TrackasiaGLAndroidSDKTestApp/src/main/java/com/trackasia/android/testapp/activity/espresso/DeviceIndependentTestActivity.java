@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.trackasia.android.maps.MapView;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.OnMapReadyCallback;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.testapp.R;
@@ -14,7 +14,7 @@ import com.trackasia.android.testapp.R;
 public class DeviceIndependentTestActivity extends AppCompatActivity implements OnMapReadyCallback {
 
   public MapView mapView;
-  protected MapboxMap mapboxMap;
+  protected TrackasiaMap mapboxMap;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +28,12 @@ public class DeviceIndependentTestActivity extends AppCompatActivity implements 
   }
 
   @Override
-  public void onMapReady(@NonNull MapboxMap map) {
+  public void onMapReady(@NonNull TrackasiaMap map) {
     mapboxMap = map;
     mapboxMap.setStyle(Style.getPredefinedStyle("Streets"));
   }
 
-  public MapboxMap getMapboxMap() {
+  public TrackasiaMap getMapboxMap() {
     return mapboxMap;
   }
 

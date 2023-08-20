@@ -16,7 +16,7 @@ import com.trackasia.android.testapp.R
  */
 class MapPaddingActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private var mapboxMap: MapboxMap? = null
+    private var mapboxMap: TrackasiaMap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_padding)
@@ -24,7 +24,7 @@ class MapPaddingActivity : AppCompatActivity() {
         mapView.setTag(true)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { mapboxMap: MapboxMap ->
+            OnMapReadyCallback { mapboxMap: TrackasiaMap ->
                 this@MapPaddingActivity.mapboxMap = mapboxMap
                 mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
                 val paddingLeft = resources.getDimension(R.dimen.map_padding_left).toInt()

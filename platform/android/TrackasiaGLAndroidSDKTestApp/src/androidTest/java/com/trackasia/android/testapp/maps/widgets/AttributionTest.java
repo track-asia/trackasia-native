@@ -13,7 +13,7 @@ import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.intent.Intents;
 
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.style.sources.Source;
 import com.trackasia.android.testapp.R;
 import com.trackasia.android.testapp.activity.EspressoTest;
@@ -147,9 +147,9 @@ public class AttributionTest extends EspressoTest {
 
   private class DisableAction implements ViewAction {
 
-    private MapboxMap mapboxMap;
+    private TrackasiaMap mapboxMap;
 
-    DisableAction(MapboxMap map) {
+    DisableAction(TrackasiaMap map) {
       mapboxMap = map;
     }
 

@@ -38,7 +38,7 @@ public class MapTouchListenersTest {
 
   @Test
   public void onMapClickListenerTest() throws Exception {
-    MapboxMap.OnMapClickListener listener = mock(MapboxMap.OnMapClickListener.class);
+    TrackasiaMap.OnMapClickListener listener = mock(TrackasiaMap.OnMapClickListener.class);
     mapGestureDetector.addOnMapClickListener(listener);
     mapGestureDetector.notifyOnMapClickListeners(pointF);
     verify(listener, times(1)).onMapClick(latLng);
@@ -50,7 +50,7 @@ public class MapTouchListenersTest {
 
   @Test
   public void onMapLongClickListenerTest() throws Exception {
-    MapboxMap.OnMapLongClickListener listener = mock(MapboxMap.OnMapLongClickListener.class);
+    TrackasiaMap.OnMapLongClickListener listener = mock(TrackasiaMap.OnMapLongClickListener.class);
     mapGestureDetector.addOnMapLongClickListener(listener);
     mapGestureDetector.notifyOnMapLongClickListeners(pointF);
     verify(listener, times(1)).onMapLongClick(latLng);
@@ -62,7 +62,7 @@ public class MapTouchListenersTest {
 
   @Test
   public void onFlingListenerTest() throws Exception {
-    MapboxMap.OnFlingListener listener = mock(MapboxMap.OnFlingListener.class);
+    TrackasiaMap.OnFlingListener listener = mock(TrackasiaMap.OnFlingListener.class);
     mapGestureDetector.addOnFlingListener(listener);
     mapGestureDetector.notifyOnFlingListeners();
     verify(listener, times(1)).onFling();
@@ -74,7 +74,7 @@ public class MapTouchListenersTest {
 
   @Test
   public void onMoveListenerTest() throws Exception {
-    MapboxMap.OnMoveListener listener = mock(MapboxMap.OnMoveListener.class);
+    TrackasiaMap.OnMoveListener listener = mock(TrackasiaMap.OnMoveListener.class);
     MoveGestureDetector detector = mock(MoveGestureDetector.class);
     mapGestureDetector.addOnMoveListener(listener);
     mapGestureDetector.notifyOnMoveBeginListeners(detector);
@@ -95,7 +95,7 @@ public class MapTouchListenersTest {
 
   @Test
   public void onRotateListenerTest() throws Exception {
-    MapboxMap.OnRotateListener listener = mock(MapboxMap.OnRotateListener.class);
+    TrackasiaMap.OnRotateListener listener = mock(TrackasiaMap.OnRotateListener.class);
     RotateGestureDetector detector = mock(RotateGestureDetector.class);
     mapGestureDetector.addOnRotateListener(listener);
     mapGestureDetector.notifyOnRotateBeginListeners(detector);
@@ -116,7 +116,7 @@ public class MapTouchListenersTest {
 
   @Test
   public void onScaleListenerTest() throws Exception {
-    MapboxMap.OnScaleListener listener = mock(MapboxMap.OnScaleListener.class);
+    TrackasiaMap.OnScaleListener listener = mock(TrackasiaMap.OnScaleListener.class);
     StandardScaleGestureDetector detector = mock(StandardScaleGestureDetector.class);
     mapGestureDetector.addOnScaleListener(listener);
     mapGestureDetector.notifyOnScaleBeginListeners(detector);
@@ -137,7 +137,7 @@ public class MapTouchListenersTest {
 
   @Test
   public void onShoveListenerTest() throws Exception {
-    MapboxMap.OnShoveListener listener = mock(MapboxMap.OnShoveListener.class);
+    TrackasiaMap.OnShoveListener listener = mock(TrackasiaMap.OnShoveListener.class);
     ShoveGestureDetector detector = mock(ShoveGestureDetector.class);
     mapGestureDetector.addShoveListener(listener);
     mapGestureDetector.notifyOnShoveBeginListeners(detector);

@@ -21,7 +21,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class MapboxMapTest {
 
-    private lateinit var mapboxMap: MapboxMap
+    private lateinit var mapboxMap: TrackasiaMap
 
     private lateinit var nativeMapView: NativeMap
 
@@ -29,7 +29,7 @@ class MapboxMapTest {
 
     private lateinit var cameraChangeDispatcher: CameraChangeDispatcher
 
-    private lateinit var developerAnimationListener: MapboxMap.OnDeveloperAnimationListener
+    private lateinit var developerAnimationListener: TrackasiaMap.OnDeveloperAnimationListener
 
     @Mock
     private lateinit var context: Context
@@ -45,7 +45,15 @@ class MapboxMapTest {
         developerAnimationListener = mockk(relaxed = true)
         nativeMapView = mockk(relaxed = true)
         transform = mockk(relaxed = true)
-        mapboxMap = MapboxMap(nativeMapView, transform, mockk(relaxed = true), null, null, cameraChangeDispatcher, listOf(developerAnimationListener))
+        mapboxMap = TrackasiaMap(
+            nativeMapView,
+            transform,
+            mockk(relaxed = true),
+            null,
+            null,
+            cameraChangeDispatcher,
+            listOf(developerAnimationListener)
+        )
         every { nativeMapView.isDestroyed } returns false
         every { nativeMapView.nativePtr } returns 5
         mapboxMap.injectLocationComponent(spyk())
@@ -62,7 +70,7 @@ class MapboxMapTest {
 
     @Test
     fun testMoveCamera() {
-        val callback = mockk<MapboxMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         val target = LatLng(1.0, 2.0)
         val expected = CameraPosition.Builder().target(target).build()
         val update = CameraUpdateFactory.newCameraPosition(expected)
@@ -73,7 +81,7 @@ class MapboxMapTest {
 
     @Test
     fun testEaseCamera() {
-        val callback = mockk<MapboxMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         val target = LatLng(1.0, 2.0)
         val expected = CameraPosition.Builder().target(target).build()
         val update = CameraUpdateFactory.newCameraPosition(expected)
@@ -84,7 +92,7 @@ class MapboxMapTest {
 
     @Test
     fun testAnimateCamera() {
-        val callback = mockk<MapboxMap.CancelableCallback>()
+        val callback = mockk<TrackasiaMap.CancelableCallback>()
         val target = LatLng(1.0, 2.0)
         val expected = CameraPosition.Builder().target(target).build()
         val update = CameraUpdateFactory.newCameraPosition(expected)
@@ -140,7 +148,7 @@ class MapboxMapTest {
 
     @Test
     fun testFpsListener() {
-        val fpsChangedListener = mockk<MapboxMap.OnFpsChangedListener>()
+        val fpsChangedListener = mockk<TrackasiaMap.OnFpsChangedListener>()
         mapboxMap.onFpsChangedListener = fpsChangedListener
         assertEquals("Listener should match", fpsChangedListener, mapboxMap.onFpsChangedListener)
     }

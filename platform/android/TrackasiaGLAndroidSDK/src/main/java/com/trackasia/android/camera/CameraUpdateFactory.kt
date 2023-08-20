@@ -5,7 +5,7 @@ import android.graphics.PointF
 import androidx.annotation.IntDef
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import timber.log.Timber
 import java.lang.Double.min
 import java.util.Arrays
@@ -267,7 +267,7 @@ object CameraUpdateFactory {
     //
     class CameraPositionUpdate(val bearing: Double, val target: LatLng?, val tilt: Double, val zoom: Double, val padding: DoubleArray?) : CameraUpdate {
 
-        override fun getCameraPosition(mapboxMap: MapboxMap): CameraPosition {
+        override fun getCameraPosition(mapboxMap: TrackasiaMap): CameraPosition {
             if (target == null) {
                 val previousPosition = mapboxMap.cameraPosition
                 return CameraPosition.Builder(this).target(previousPosition.target).build()
@@ -327,7 +327,7 @@ object CameraUpdateFactory {
         ) {
         }
 
-        override fun getCameraPosition(mapboxMap: MapboxMap): CameraPosition? {
+        override fun getCameraPosition(mapboxMap: TrackasiaMap): CameraPosition? {
             return if (bearing == null && tilt == null) {
                 // use current camera position tilt and bearing
                 mapboxMap.getCameraForLatLngBounds(bounds, padding)
@@ -370,7 +370,7 @@ object CameraUpdateFactory {
      */
     /*
     internal class CameraMoveUpdate(private val x: Float, private val y: Float) : CameraUpdate {
-        override fun getCameraPosition(mapboxMap: MapboxMap): CameraPosition {
+        override fun getCameraPosition(mapboxMap: TrackasiaMap): CameraPosition {
             val uiSettings = mapboxMap.uiSettings
             val projection = mapboxMap.projection
             // Calculate the new center point
@@ -460,7 +460,7 @@ object CameraUpdateFactory {
             }
         }
 
-        override fun getCameraPosition(mapboxMap: MapboxMap): CameraPosition {
+        override fun getCameraPosition(mapboxMap: TrackasiaMap): CameraPosition {
             val cameraPosition = mapboxMap.cameraPosition
             return if (type != ZOOM_TO_POINT) {
                 CameraPosition.Builder(cameraPosition).zoom(transformZoom(cameraPosition.zoom)).build()

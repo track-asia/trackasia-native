@@ -6,12 +6,12 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import com.trackasia.android.location.LocationComponent
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import org.hamcrest.Matcher
 
 class LocationComponentAction(
-    private val mapboxMap: MapboxMap,
+    private val mapboxMap: TrackasiaMap,
     private val onPerformLocationComponentAction: OnPerformLocationComponentAction
 ) : ViewAction {
 
@@ -34,6 +34,6 @@ class LocationComponentAction(
     }
 
     interface OnPerformLocationComponentAction {
-        fun onLocationComponentAction(component: LocationComponent, mapboxMap: MapboxMap, style: Style, uiController: UiController, context: Context)
+        fun onLocationComponentAction(component: LocationComponent, mapboxMap: TrackasiaMap, style: Style, uiController: UiController, context: Context)
     }
 }

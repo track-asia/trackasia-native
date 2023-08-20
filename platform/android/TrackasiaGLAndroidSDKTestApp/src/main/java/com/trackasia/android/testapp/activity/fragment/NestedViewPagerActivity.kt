@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.MapboxMapOptions
+import com.trackasia.android.maps.TrackasiaMapOptions
 import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.SupportMapFragment
 import com.trackasia.android.testapp.R
@@ -102,7 +102,7 @@ class NestedViewPagerActivity : AppCompatActivity() {
         class MapPagerAdapter(private val context: Context, fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {
 
             override fun getItem(position: Int): androidx.fragment.app.Fragment {
-                val options = MapboxMapOptions.createFromAttributes(context)
+                val options = TrackasiaMapOptions.createFromAttributes(context)
                 options.textureMode(true)
                 options.doubleTapGesturesEnabled(false)
                 options.rotateGesturesEnabled(false)

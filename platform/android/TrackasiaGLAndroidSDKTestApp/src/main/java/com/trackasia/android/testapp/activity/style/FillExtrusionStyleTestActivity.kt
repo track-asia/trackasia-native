@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 
@@ -13,7 +13,7 @@ import com.trackasia.android.testapp.R
  */
 class FillExtrusionStyleTestActivity : AppCompatActivity() {
     var mapView: MapView? = null
-    var mapboxMap: MapboxMap? = null
+    var mapboxMap: TrackasiaMap? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +23,7 @@ class FillExtrusionStyleTestActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView!!.onCreate(savedInstanceState)
-        mapView!!.getMapAsync { mapboxMap: MapboxMap ->
+        mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             mapboxMap.setStyle(
                 Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
             ) { style: Style? -> this@FillExtrusionStyleTestActivity.mapboxMap = mapboxMap }

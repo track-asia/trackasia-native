@@ -15,7 +15,7 @@ import androidx.annotation.VisibleForTesting;
 import com.trackasia.android.camera.CameraPosition;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.log.Logger;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Projection;
 
 import java.util.ArrayList;
@@ -211,13 +211,13 @@ final class LocationAnimatorCoordinator {
   }
 
   void feedNewZoomLevel(double targetZoomLevel, @NonNull CameraPosition currentCameraPosition, long animationDuration,
-                        @Nullable MapboxMap.CancelableCallback callback) {
+                        @Nullable TrackasiaMap.CancelableCallback callback) {
     updateZoomAnimator((float) targetZoomLevel, (float) currentCameraPosition.zoom, callback);
     playAnimators(animationDuration, ANIMATOR_ZOOM);
   }
 
   void feedNewTilt(double targetTilt, @NonNull CameraPosition currentCameraPosition, long animationDuration,
-                   @Nullable MapboxMap.CancelableCallback callback) {
+                   @Nullable TrackasiaMap.CancelableCallback callback) {
     updateTiltAnimator((float) targetTilt, (float) currentCameraPosition.tilt, callback);
     playAnimators(animationDuration, ANIMATOR_TILT);
   }
@@ -312,12 +312,12 @@ final class LocationAnimatorCoordinator {
   }
 
   private void updateZoomAnimator(float targetZoomLevel, float previousZoomLevel,
-                                  @Nullable MapboxMap.CancelableCallback cancelableCallback) {
+                                  @Nullable TrackasiaMap.CancelableCallback cancelableCallback) {
     createNewCameraAdapterAnimator(ANIMATOR_ZOOM, new Float[] {previousZoomLevel, targetZoomLevel}, cancelableCallback);
   }
 
   private void updateTiltAnimator(float targetTilt, float previousTiltLevel,
-                                  @Nullable MapboxMap.CancelableCallback cancelableCallback) {
+                                  @Nullable TrackasiaMap.CancelableCallback cancelableCallback) {
     createNewCameraAdapterAnimator(ANIMATOR_TILT, new Float[] {previousTiltLevel, targetTilt}, cancelableCallback);
   }
 
@@ -347,7 +347,7 @@ final class LocationAnimatorCoordinator {
 
   private void createNewCameraAdapterAnimator(@MapboxAnimator.Type int animatorType,
                                               @NonNull @Size(min = 2) Float[] values,
-                                              @Nullable MapboxMap.CancelableCallback cancelableCallback) {
+                                              @Nullable TrackasiaMap.CancelableCallback cancelableCallback) {
     cancelAnimator(animatorType);
     MapboxAnimator.AnimationsValueChangeListener listener = listeners.get(animatorType);
     if (listener != null) {

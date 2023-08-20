@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.annotations.Marker
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
-import com.trackasia.android.maps.MapboxMap.InfoWindowAdapter
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.InfoWindowAdapter
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -22,14 +22,14 @@ import com.trackasia.android.testapp.utils.IconUtils
  */
 class InfoWindowAdapterActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var mapboxMap: MapboxMap
+    private lateinit var mapboxMap: TrackasiaMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_infowindow_adapter)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: MapboxMap ->
+            OnMapReadyCallback { map: TrackasiaMap ->
                 mapboxMap = map
                 map.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
                     addMarkers()

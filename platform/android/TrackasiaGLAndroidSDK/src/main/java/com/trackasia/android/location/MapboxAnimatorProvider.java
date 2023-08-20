@@ -6,7 +6,7 @@ import android.view.animation.Interpolator;
 import androidx.annotation.Nullable;
 
 import com.trackasia.android.geometry.LatLng;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
 final class MapboxAnimatorProvider {
 
@@ -35,7 +35,7 @@ final class MapboxAnimatorProvider {
 
   MapboxCameraAnimatorAdapter cameraAnimator(Float[] values,
                                              MapboxAnimator.AnimationsValueChangeListener updateListener,
-                                             @Nullable MapboxMap.CancelableCallback cancelableCallback) {
+                                             @Nullable TrackasiaMap.CancelableCallback cancelableCallback) {
     return new MapboxCameraAnimatorAdapter(values, updateListener, cancelableCallback);
   }
 

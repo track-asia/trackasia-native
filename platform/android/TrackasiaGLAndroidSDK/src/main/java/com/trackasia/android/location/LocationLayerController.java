@@ -10,7 +10,7 @@ import com.mapbox.geojson.Feature;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.location.modes.RenderMode;
 import com.trackasia.android.log.Logger;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.style.expressions.Expression;
 
@@ -38,7 +38,7 @@ final class LocationLayerController {
   @RenderMode.Mode
   private int renderMode;
 
-  private final MapboxMap mapboxMap;
+  private final TrackasiaMap mapboxMap;
   private final LayerBitmapProvider bitmapProvider;
   private LocationComponentOptions options;
   private final OnRenderModeChangedListener internalRenderModeChangedListener;
@@ -51,7 +51,7 @@ final class LocationLayerController {
 
   private LocationLayerRenderer locationLayerRenderer;
 
-  LocationLayerController(MapboxMap mapboxMap, Style style,
+  LocationLayerController(TrackasiaMap mapboxMap, Style style,
                           LayerSourceProvider layerSourceProvider,
                           LayerFeatureProvider featureProvider,
                           LayerBitmapProvider bitmapProvider,

@@ -29,7 +29,7 @@ import com.trackasia.android.utils.BitmapUtils;
 import com.trackasia.android.utils.ColorUtils;
 
 /**
- * Settings for the user interface of a MapboxMap. To obtain this interface, call getUiSettings().
+ * Settings for the user interface of a TrackasiaMap. To obtain this interface, call getUiSettings().
  */
 public final class UiSettings {
 
@@ -102,7 +102,7 @@ public final class UiSettings {
     this.mapView = mapView;
   }
 
-  void initialise(@NonNull Context context, @NonNull MapboxMapOptions options) {
+  void initialise(@NonNull Context context, @NonNull TrackasiaMapOptions options) {
     Resources resources = context.getResources();
     initialiseGestures(options);
     if (options.getCompassEnabled()) {
@@ -134,7 +134,7 @@ public final class UiSettings {
     restoreFocalPoint(savedInstanceState);
   }
 
-  private void initialiseGestures(MapboxMapOptions options) {
+  private void initialiseGestures(TrackasiaMapOptions options) {
     setZoomGesturesEnabled(options.getZoomGesturesEnabled());
     setScrollGesturesEnabled(options.getScrollGesturesEnabled());
     setHorizontalScrollGesturesEnabled(options.getHorizontalScrollGesturesEnabled());
@@ -180,7 +180,7 @@ public final class UiSettings {
     setZoomRate(savedInstanceState.getFloat(TrackasiaConstants.STATE_ZOOM_RATE, 1.0f));
   }
 
-  private void initialiseCompass(MapboxMapOptions options, @NonNull Resources resources) {
+  private void initialiseCompass(TrackasiaMapOptions options, @NonNull Resources resources) {
     isCompassInitialized = true;
     compassView = mapView.initialiseCompassView();
     setCompassEnabled(options.getCompassEnabled());
@@ -228,7 +228,7 @@ public final class UiSettings {
       mapView.getContext(), savedInstanceState.getByteArray(TrackasiaConstants.STATE_COMPASS_IMAGE_BITMAP)));
   }
 
-  private void initialiseLogo(MapboxMapOptions options, @NonNull Resources resources) {
+  private void initialiseLogo(TrackasiaMapOptions options, @NonNull Resources resources) {
     isLogoInitialized = true;
     logoView = mapView.initialiseLogoView();
     setLogoEnabled(options.getLogoEnabled());
@@ -269,7 +269,7 @@ public final class UiSettings {
       savedInstanceState.getInt(TrackasiaConstants.STATE_LOGO_MARGIN_BOTTOM));
   }
 
-  private void initialiseAttribution(@NonNull Context context, MapboxMapOptions options) {
+  private void initialiseAttribution(@NonNull Context context, TrackasiaMapOptions options) {
     isAttributionInitialized = true;
     attributionsView = mapView.initialiseAttributionView();
     setAttributionEnabled(options.getAttributionEnabled());

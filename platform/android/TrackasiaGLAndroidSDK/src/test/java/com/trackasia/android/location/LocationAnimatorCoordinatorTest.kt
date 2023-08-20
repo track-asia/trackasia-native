@@ -11,7 +11,7 @@ import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKIN
 import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_ZOOM_ANIM_DURATION
 import com.trackasia.android.location.MapboxAnimator.*
 import com.trackasia.android.location.modes.RenderMode
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Projection
 import io.mockk.*
 import junit.framework.Assert.*
@@ -82,7 +82,7 @@ class LocationAnimatorCoordinatorTest {
             MapboxLatLngAnimator(latLngsSlot.captured, listenerSlot.captured, maxFpsSlot.captured)
         }
 
-        val callback = slot<MapboxMap.CancelableCallback>()
+        val callback = slot<TrackasiaMap.CancelableCallback>()
         every {
             animatorProvider.cameraAnimator(capture(floatsSlot), capture(listenerSlot), capture(callback))
         } answers {

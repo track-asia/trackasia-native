@@ -10,11 +10,11 @@ import com.trackasia.android.annotations.Marker
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.MapboxMap
-import com.trackasia.android.maps.MapboxMap.OnInfoWindowClickListener
-import com.trackasia.android.maps.MapboxMap.OnInfoWindowCloseListener
-import com.trackasia.android.maps.MapboxMap.OnInfoWindowLongClickListener
-import com.trackasia.android.maps.MapboxMap.OnMapLongClickListener
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.TrackasiaMap.OnInfoWindowClickListener
+import com.trackasia.android.maps.TrackasiaMap.OnInfoWindowCloseListener
+import com.trackasia.android.maps.TrackasiaMap.OnInfoWindowLongClickListener
+import com.trackasia.android.maps.TrackasiaMap.OnMapLongClickListener
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
@@ -33,7 +33,7 @@ class InfoWindowActivity :
     OnInfoWindowCloseListener,
     OnInfoWindowClickListener,
     OnInfoWindowLongClickListener {
-    private var mapboxMap: MapboxMap? = null
+    private var mapboxMap: TrackasiaMap? = null
     private var mapView: MapView? = null
     private var customMarker: Marker? = null
     private val mapLongClickListener = OnMapLongClickListener { point ->
@@ -64,7 +64,7 @@ class InfoWindowActivity :
         mapView!!.getMapAsync(this)
     }
 
-    override fun onMapReady(mapboxMap: MapboxMap) {
+    override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
         mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
             addMarkers()

@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import com.mapbox.geojson.Feature;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.location.modes.RenderMode;
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.style.layers.Layer;
 import com.trackasia.android.style.sources.GeoJsonSource;
@@ -57,7 +57,7 @@ import static org.mockito.Mockito.when;
 
 public class LocationLayerControllerTest {
 
-  private MapboxMap mapboxMap = mock(MapboxMap.class);
+  private TrackasiaMap mapboxMap = mock(TrackasiaMap.class);
   private Style style = mock(Style.class);
   private LocationLayerRenderer indicatorRenderer = mock(LocationLayerRenderer.class);
 

@@ -38,7 +38,7 @@ public class AnnotationManagerTest {
     long aId = 5L;
     when(aNativeMapView.addMarker(aMarker)).thenReturn(aId);
     BaseMarkerOptions aMarkerOptions = mock(BaseMarkerOptions.class);
-    MapboxMap aMapboxMap = mock(MapboxMap.class);
+    TrackasiaMap aMapboxMap = mock(TrackasiaMap.class);
     when(aMarkerOptions.getMarker()).thenReturn(aMarker);
 
     annotationManager.addMarker(aMarkerOptions, aMapboxMap);
@@ -69,7 +69,7 @@ public class AnnotationManagerTest {
 
     markerList.add(firstMarkerOption);
     markerList.add(secondMarkerOption);
-    MapboxMap aMapboxMap = mock(MapboxMap.class);
+    TrackasiaMap aMapboxMap = mock(TrackasiaMap.class);
     when(aNativeMapView.addMarker(any(Marker.class))).thenReturn(firstId, secondId);
 
     when(aNativeMapView.addMarkers(ArgumentMatchers.<Marker>anyList()))

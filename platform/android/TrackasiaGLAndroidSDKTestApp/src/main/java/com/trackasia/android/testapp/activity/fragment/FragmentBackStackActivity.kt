@@ -2,7 +2,7 @@ package com.trackasia.android.testapp.activity.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.trackasia.android.maps.MapboxMap
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.SupportMapFragment
 import com.trackasia.android.testapp.R
@@ -44,7 +44,7 @@ class FragmentBackStackActivity : AppCompatActivity() {
         binding.button.setOnClickListener { handleClick() }
     }
 
-    private fun initMap(mapboxMap: MapboxMap) {
+    private fun initMap(mapboxMap: TrackasiaMap) {
         mapboxMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid")) {
             mapboxMap.setPadding(300, 300, 300, 300)
         }

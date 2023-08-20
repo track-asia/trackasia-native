@@ -17,7 +17,7 @@ public class AttributionDialogManagerTest {
   Context context = mock(Context.class);
 
   @InjectMocks
-  MapboxMap mapboxMap = mock(MapboxMap.class);
+  TrackasiaMap mapboxMap = mock(TrackasiaMap.class);
 
   @InjectMocks
   Style style = mock(Style.class);

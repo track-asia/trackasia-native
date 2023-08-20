@@ -2,7 +2,7 @@ package com.trackasia.android.testapp.activity;
 
 import androidx.annotation.UiThread;
 
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Style;
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity;
 
@@ -22,7 +22,7 @@ public class EspressoTest extends BaseTest {
 
   @UiThread
   @Override
-  protected void initMap(MapboxMap mapboxMap) {
+  protected void initMap(TrackasiaMap mapboxMap) {
     mapboxMap.setStyle(new Style.Builder().fromUri("asset://streets.json"));
     super.initMap(mapboxMap);
   }

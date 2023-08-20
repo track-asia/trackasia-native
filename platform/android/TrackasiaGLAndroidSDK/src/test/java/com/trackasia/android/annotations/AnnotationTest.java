@@ -2,7 +2,7 @@ package com.trackasia.android.annotations;
 
 import androidx.annotation.NonNull;
 
-import com.trackasia.android.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 public class AnnotationTest {
 
   @InjectMocks
-  private MapboxMap mapboxMap = mock(MapboxMap.class);
+  private TrackasiaMap mapboxMap = mock(TrackasiaMap.class);
   private Annotation annotation;
   @NonNull
   private Annotation compare = new Annotation() {

@@ -8,7 +8,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 /**
- * A MapboxConfigurationException is thrown by MapboxMap when the SDK hasn't been properly initialised.
+ * A MapboxConfigurationException is thrown by TrackasiaMap when the SDK hasn't been properly initialised.
  * <p>
  * This occurs either when {@link Trackasia} is not correctly initialised or the provided apiKey
  * through {@link Trackasia#getInstance(Context, String, WellKnownTileServer)} isn't valid.
@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 public class MapboxConfigurationException extends RuntimeException {
 
   /**
-   * Creates a Trackasia configuration exception thrown by MapboxMap when the SDK hasn't been properly initialised.
+   * Creates a Trackasia configuration exception thrown by TrackasiaMap when the SDK hasn't been properly initialised.
    */
   public MapboxConfigurationException() {
     super("\nUsing MapView requires calling Trackasia.getInstance(Context context, String apiKey, "
@@ -27,7 +27,7 @@ public class MapboxConfigurationException extends RuntimeException {
   }
 
   /**
-   * Creates a Trackasia configuration exception thrown by MapboxMap when the SDK hasn't been properly initialised.
+   * Creates a Trackasia configuration exception thrown by TrackasiaMap when the SDK hasn't been properly initialised.
    */
   public MapboxConfigurationException(@NonNull String message) {
     super(message);
