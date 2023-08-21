@@ -22,7 +22,7 @@ class SimpleMapActivity : AppCompatActivity() {
                 val styles = Style.getPredefinedStyles()
                 if (styles != null && styles.size > 0) {
                     val styleUrl = styles[0].url
-                    mapboxMap.setStyle(Style.Builder().fromUri(styleUrl))
+                    mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public")
                 }
             }
         )

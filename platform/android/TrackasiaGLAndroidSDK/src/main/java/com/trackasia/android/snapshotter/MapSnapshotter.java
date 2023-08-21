@@ -129,7 +129,7 @@ public class MapSnapshotter {
     private int height;
     private LatLngBounds region;
     private CameraPosition cameraPosition;
-    private boolean showLogo = true;
+    private boolean showLogo = false;
     private String localIdeographFontFamily = TrackasiaConstants.DEFAULT_FONT;
     private String apiBaseUrl;
     private Style.Builder builder;

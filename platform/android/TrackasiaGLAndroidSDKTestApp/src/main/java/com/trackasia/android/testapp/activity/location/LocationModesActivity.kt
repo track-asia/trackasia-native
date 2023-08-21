@@ -235,7 +235,7 @@ class LocationModesActivity :
                     }
                 )
 
-            mapboxMap!!.setStyle(Style.Builder().fromUri(styleUrl))
+            mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public")
         }
     }
 
