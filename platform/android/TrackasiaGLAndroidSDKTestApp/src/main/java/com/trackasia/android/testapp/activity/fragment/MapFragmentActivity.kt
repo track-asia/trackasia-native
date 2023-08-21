@@ -67,7 +67,7 @@ class MapFragmentActivity :
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap!!.setStyle(Style.getPredefinedStyle("Outdoor"))
+        mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public")
     }
 
     override fun onDestroy() {

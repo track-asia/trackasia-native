@@ -64,7 +64,7 @@ class TrackAsiaApplication : MultiDexApplication() {
     }
 
     companion object {
-        val TILE_SERVER = WellKnownTileServer.MapTiler
+        val TILE_SERVER = WellKnownTileServer.TrackAsia
         private const val DEFAULT_API_KEY = "YOUR_API_KEY_GOES_HERE"
         private const val API_KEY_NOT_SET_MESSAGE =
             (
