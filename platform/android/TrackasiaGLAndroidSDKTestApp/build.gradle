@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply from: "${rootDir}/gradle/native-build.gradle"
 
 android {
-    compileSdkVersion androidVersions.compileSdkVersion
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.trackasia.android.testapp"
         minSdkVersion androidVersions.minSdkVersion
-        targetSdkVersion androidVersions.targetSdkVersion
+        targetSdkVersion 33
         versionCode 14
         versionName "6.0.1"
         testInstrumentationRunner "com.trackasia.android.InstrumentationRunner"
