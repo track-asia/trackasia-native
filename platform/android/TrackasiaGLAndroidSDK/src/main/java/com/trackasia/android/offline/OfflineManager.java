@@ -62,7 +62,7 @@ public class OfflineManager {
   // The application context
   private Context context;
 
-  /**
+  /**extend.geojson
    * This callback receives an asynchronous response containing a list of all
    * OfflineRegion in the database or an error message otherwise.
    */

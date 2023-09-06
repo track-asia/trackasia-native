@@ -109,7 +109,7 @@ public final class UiSettings {
       initialiseCompass(options, resources);
     }
     if (options.getLogoEnabled()) {
-      initialiseLogo(options, resources);
+      // initialiseLogo(options, resources);
     }
     if (options.getAttributionEnabled()) {
       initialiseAttribution(context, options);
@@ -507,7 +507,7 @@ public final class UiSettings {
    */
   public void setLogoEnabled(boolean enabled) {
     if (enabled && !isLogoInitialized) {
-      initialiseLogo(mapView.mapboxMapOptions, mapView.getContext().getResources());
+      // initialiseLogo(mapView.mapboxMapOptions, mapView.getContext().getResources());
     }
     if (logoView != null) {
       logoView.setVisibility(enabled ? View.VISIBLE : View.GONE);

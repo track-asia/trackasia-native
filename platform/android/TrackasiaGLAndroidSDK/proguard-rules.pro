@@ -16,7 +16,7 @@
 -dontnote com.trackasia.android.maps.TrackasiaMap
 -dontnote com.trackasia.android.maps.TrackasiaMapOptions
 -dontnote com.trackasia.android.log.LoggerDefinition
--dontnote com.trackasia.android.location.engine.LocationEnginePriority
+#-dontnote com.trackasia.android.location.engine.LocationEnginePriority
 
 # config for okhttp 3.11.0, https://github.com/square/okhttp/pull/3354
 -dontwarn javax.annotation.**

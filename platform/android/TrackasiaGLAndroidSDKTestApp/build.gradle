@@ -48,19 +48,19 @@ android {
 
     namespace 'com.trackasia.android.testapp'
     testNamespace '${applicationId}'
-    lint {
-        abortOnError false
-        baseline file('lint-baseline-local.xml')
-        checkAllWarnings true
-        disable 'MissingTranslation', 'GoogleAppIndexingWarning', 'UnpackedNativeCode', 'IconDipSize', 'TypographyQuotes'
-        warningsAsErrors true
-    }
+//    lint {
+//        abortOnError false
+//        baseline file('lint-baseline-local.xml')
+//        checkAllWarnings true
+//        disable 'MissingTranslation', 'GoogleAppIndexingWarning', 'UnpackedNativeCode', 'IconDipSize', 'TypographyQuotes'
+//        warningsAsErrors true
+//    }
 }
 
 dependencies {
     implementation dependenciesList.kotlinLib
 
-    implementation project(':TrackasiaGLAndroidSDK')
+    implementation "io.github.track-asia:android-sdk:1.0.12" //project(':TrackasiaGLAndroidSDK')
     implementation dependenciesList.mapboxJavaTurf
 
     implementation dependenciesList.supportAppcompatV7
@@ -68,7 +68,7 @@ dependencies {
     implementation dependenciesList.supportDesign
     implementation dependenciesList.supportConstraintLayout
 
-    implementation dependenciesList.multidex
+//    implementation dependenciesList.multidex
 
     implementation dependenciesList.gmsLocation
     implementation dependenciesList.timber

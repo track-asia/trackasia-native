@@ -129,3 +129,6 @@ allprojects {
 
 When hitting native crashes you can use ndk-stack to symbolicate crashes.
 More information in [this](https://github.com/mapbox/mapbox-gl-native-android/wiki/Getting-line-numbers-from-an-Android-crash-with-ndk-stack) guide.
+
+
+LOGO - Search initialiseLogo
