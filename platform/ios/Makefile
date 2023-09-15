@@ -1,4 +1,4 @@
-export BUILDTYPE ?= Debug
+export BUILDTYPE ?= Release
 export IS_LOCAL_DEVELOPMENT ?= true
 export TARGET_BRANCH ?= main
 export CI ?= 0
