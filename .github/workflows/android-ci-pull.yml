@@ -65,7 +65,7 @@ jobs:
           java-version: '11'
           
       - name: Setup Android SDK for accepting tool licenses
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@v3
 
       - name: Cache node modules
         uses: actions/cache@v3
