@@ -208,15 +208,16 @@ namespace mbgl {
 
     TileServerOptions TileServerOptions::TrackAsiaConfiguration() {
         std::vector<mbgl::util::DefaultStyle> styles {
-                mbgl::util::DefaultStyle("trackasia://maps/style", "Basic", 1)
+                // https://demotiles.maplibre.org/style.json
+                mbgl::util::DefaultStyle("maplibre://maps/style", "Basic", 1)
         };
 
         TileServerOptions options = TileServerOptions()
-                .withBaseURL("https://tiles.track-asia.com")
-                .withUriSchemeAlias("trackasia")
+                .withBaseURL("https://demotiles.maplibre.org")
+                .withUriSchemeAlias("maplibre")
                 .withApiKeyParameterName("")
                 .withSourceTemplate("/tiles/{domain}.json", "", {})
-                .withStyleTemplate("/tiles/v3/style-streets.json?key=public", "maps", {})
+                .withStyleTemplate("{path}.json", "maps", {})
                 .withSpritesTemplate("/{path}/sprite{scale}.{format}", "", {})
                 .withGlyphsTemplate("/font/{fontstack}/{start}-{end}.pbf", "fonts", {})
                 .withTileTemplate("/{path}", "tiles", {})

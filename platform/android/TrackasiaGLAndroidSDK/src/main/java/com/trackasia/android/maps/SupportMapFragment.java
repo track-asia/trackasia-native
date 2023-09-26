@@ -122,6 +122,7 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
   @Override
   public void onMapReady(@NonNull TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
+
     for (OnMapReadyCallback onMapReadyCallback : mapReadyCallbackList) {
       onMapReadyCallback.onMapReady(mapboxMap);
     }

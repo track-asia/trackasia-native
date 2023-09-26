@@ -1305,6 +1305,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
 
     void initialised() {
       mapboxMap.onPreMapReady();
+
       onMapReady();
       mapboxMap.onPostMapReady();
     }
