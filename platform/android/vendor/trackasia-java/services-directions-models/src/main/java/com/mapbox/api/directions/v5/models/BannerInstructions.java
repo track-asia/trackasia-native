@@ -12,7 +12,6 @@ import com.mapbox.api.directions.v5.DirectionsAdapterFactory;
 /**
  * Visual instruction information related to a particular {@link LegStep} useful for making UI
  * elements inside your application such as banners. To receive this information, your request must
- * <tt>MapboxDirections.Builder#bannerInstructions()</tt> have set to true.
  *
  * @since 3.0.0
  */

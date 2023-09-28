@@ -207,7 +207,6 @@ public abstract class LegStep extends DirectionsJsonObject {
   public abstract List<VoiceInstructions> voiceInstructions();
 
   /**
-   * If in your request you set <tt>MapboxDirections.Builder#bannerInstructions()</tt> to true,
    * you'll receive a list of {@link BannerInstructions} which encompasses all information necessary
    * for creating a visual cue about a given {@link LegStep}.
    *
@@ -446,7 +445,6 @@ public abstract class LegStep extends DirectionsJsonObject {
     public abstract Builder voiceInstructions(@NonNull List<VoiceInstructions> voiceInstructions);
 
     /**
-     * If in your request you set <tt>MapboxDirections.Builder#bannerInstructions()</tt> to true,
      * you'll receive a list of {@link BannerInstructions} which encompasses all information
      * necessary for creating a visual cue about a given {@link LegStep}.
      *

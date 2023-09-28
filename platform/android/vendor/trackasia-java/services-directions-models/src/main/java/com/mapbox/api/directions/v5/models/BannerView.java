@@ -15,7 +15,6 @@ import java.util.List;
  * Includes both plain text information that can be visualized inside your navigation application
  * along with the text string broken down into {@link BannerComponents} which may or may not
  * include a image url. To receive this information, your request must have
- * <tt>MapboxDirections.Builder#bannerInstructions()</tt> set to true.
  *
  * @since 5.0.0
  */
