@@ -53,7 +53,7 @@ jobs:
       MBGL_ANDROID_STL: c++_static
     steps:
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
