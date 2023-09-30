@@ -84,8 +84,8 @@ public final class TrackasiaMap {
   private boolean started;
 
   TrackasiaMap(NativeMap map, Transform transform, UiSettings ui, Projection projection,
-               OnGesturesManagerInteractionListener listener, CameraChangeDispatcher cameraChangeDispatcher,
-               List<OnDeveloperAnimationListener> developerAnimationStartedListeners) {
+            OnGesturesManagerInteractionListener listener, CameraChangeDispatcher cameraChangeDispatcher,
+            List<OnDeveloperAnimationListener> developerAnimationStartedListeners) {
     this.nativeMapView = map;
     this.uiSettings = ui;
     this.projection = projection;
@@ -2093,7 +2093,7 @@ public final class TrackasiaMap {
   /**
    * Returns the {@link LocationComponent} that can be used to display user's location on the map.
    * <p>
-   * Use {@link LocationComponent#activateLocationComponent(Context, Style)} or any overload to activate the component,
+   * Use  or any overload to activate the component,
    * then, enable it with {@link LocationComponent#setLocationComponentEnabled(boolean)}.
    * <p>
    * You can customize the location icon and more with {@link com.trackasia.android.location.LocationComponentOptions}.

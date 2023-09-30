@@ -1,13 +1,17 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'org.jmailen.kotlinter'
+    id 'com.android.application'
+}
+
 apply from: "${rootDir}/gradle/native-build.gradle"
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion androidVersions.compileSdkVersion
 
     defaultConfig {
         applicationId "com.trackasia.android.testapp"
         minSdkVersion androidVersions.minSdkVersion
-        targetSdkVersion 33
+        targetSdkVersion androidVersions.targetSdkVersion
         versionCode 14
         versionName "6.0.1"
         testInstrumentationRunner "com.trackasia.android.InstrumentationRunner"
@@ -47,20 +51,20 @@ android {
     }
 
     namespace 'com.trackasia.android.testapp'
-    testNamespace '${applicationId}'
-//    lint {
-//        abortOnError false
-//        baseline file('lint-baseline-local.xml')
-//        checkAllWarnings true
-//        disable 'MissingTranslation', 'GoogleAppIndexingWarning', 'UnpackedNativeCode', 'IconDipSize', 'TypographyQuotes'
-//        warningsAsErrors true
-//    }
+    testNamespace 'com.trackasia.testapp.test'
+    lint {
+        abortOnError false
+        baseline file('lint-baseline-local.xml')
+        checkAllWarnings true
+        disable 'MissingTranslation', 'GoogleAppIndexingWarning', 'UnpackedNativeCode', 'IconDipSize', 'TypographyQuotes'
+        warningsAsErrors true
+    }
 }
 
 dependencies {
     implementation dependenciesList.kotlinLib
 
-    implementation "io.github.track-asia:android-sdk:1.0.12" //project(':TrackasiaGLAndroidSDK')
+    implementation project(':TrackasiaGLAndroidSDK')
     implementation dependenciesList.mapboxJavaTurf
 
     implementation dependenciesList.supportAppcompatV7
@@ -70,7 +74,6 @@ dependencies {
 
     implementation dependenciesList.multidex
 
-    implementation dependenciesList.gmsLocation
     implementation dependenciesList.timber
 
     implementation dependenciesList.okhttp3

@@ -1145,11 +1145,11 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   }
 
   @Nullable
-  TrackasiaMap getMapboxMap() {
+  TrackasiaMap getTrackasiaMap() {
     return mapboxMap;
   }
 
-  void setMapboxMap(TrackasiaMap mapboxMap) {
+  void setTrackasiaMap(TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
   }
 
@@ -1305,7 +1305,6 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
 
     void initialised() {
       mapboxMap.onPreMapReady();
-
       onMapReady();
       mapboxMap.onPostMapReady();
     }

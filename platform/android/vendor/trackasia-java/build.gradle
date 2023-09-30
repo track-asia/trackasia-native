@@ -5,7 +5,6 @@ buildscript {
 
   repositories {
     maven { url 'https://plugins.gradle.org/m2' }
-    maven { url 'https://maven.google.com' }
     google()
     mavenCentral()
     jcenter()
@@ -18,7 +17,7 @@ buildscript {
     }
 
     classpath pluginDependencies.jacoco
-//    classpath pluginDependencies.errorprone
+    classpath pluginDependencies.errorprone
     classpath pluginDependencies.buildConfig
     classpath pluginDependencies.gradleNexus
   }
@@ -42,7 +41,7 @@ subprojects {
   apply from: "${rootDir}/gradle/dependencies.gradle"
   apply plugin: 'java'
   apply plugin: 'idea'
-//  apply plugin: 'net.ltgt.errorprone'
+  apply plugin: 'net.ltgt.errorprone'
 
   // Fixes issue with test resources not being found inside Intellij
   idea {
@@ -56,13 +55,13 @@ subprojects {
 
   dependencies {
 
-//    errorprone dependenciesList.errorprone
+    errorprone dependenciesList.errorprone
 
     // Test Dependencies
-    testImplementation dependenciesList.junit
-    testImplementation dependenciesList.hamcrestJunit
-    testImplementation dependenciesList.mockito
-    testImplementation dependenciesList.googleTruth
+    testCompile dependenciesList.junit
+    testCompile dependenciesList.hamcrestJunit
+    testCompile dependenciesList.mockito
+    testCompile dependenciesList.googleTruth
   }
 }
 
@@ -135,7 +134,6 @@ apply from: "${rootDir}/gradle/publish-root.gradle"
 nexusPublishing {
   repositories {
     sonatype {
-//      useStaging = !project.ext.isSnapshot
       stagingProfileId = sonatypeStagingProfileId
       username = ossrhUsername
       password = ossrhPassword

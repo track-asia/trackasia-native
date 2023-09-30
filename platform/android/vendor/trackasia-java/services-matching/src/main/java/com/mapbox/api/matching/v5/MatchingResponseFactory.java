@@ -17,9 +17,9 @@ import retrofit2.Response;
 class MatchingResponseFactory {
 
   private static final String PLACEHOLDER_UUID = "mapmatching";
-  private final MapboxMapMatching mapboxMapMatching;
+  private final TrackasiaMapMatching mapboxMapMatching;
 
-  MatchingResponseFactory(MapboxMapMatching mapboxMapMatching) {
+  MatchingResponseFactory(TrackasiaMapMatching mapboxMapMatching) {
     this.mapboxMapMatching = mapboxMapMatching;
   }
 

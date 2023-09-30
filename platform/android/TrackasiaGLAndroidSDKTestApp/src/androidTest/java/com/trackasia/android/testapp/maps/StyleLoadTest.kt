@@ -6,7 +6,7 @@ import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
-import com.trackasia.android.testapp.action.MapboxMapAction
+import com.trackasia.android.testapp.action.TrackasiaMapAction
 import com.trackasia.android.testapp.activity.EspressoTest
 import com.trackasia.android.testapp.utils.TestingAsyncUtils
 import org.junit.Test
@@ -18,7 +18,7 @@ class StyleLoadTest : EspressoTest() {
     @Test
     fun updateSourceAfterStyleLoad() {
         validateTestSetup()
-        MapboxMapAction.invoke(mapboxMap) { uiController: UiController, mapboxMap: TrackasiaMap ->
+        TrackasiaMapAction.invoke(mapboxMap) { uiController: UiController, mapboxMap: TrackasiaMap ->
             val source = GeoJsonSource("id")
             val layer = SymbolLayer("id", "id")
             mapboxMap.setStyle(Style.Builder().withSource(source).withLayer(layer))

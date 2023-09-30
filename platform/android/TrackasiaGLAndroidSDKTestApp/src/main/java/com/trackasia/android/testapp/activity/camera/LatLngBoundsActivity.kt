@@ -18,7 +18,7 @@ import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityLatlngboundsBinding
-import com.trackasia.android.testapp.utils.GeoParseUtil.loadStringFromAssets
+import com.trackasia.android.testapp.utils.GeoParseUtil
 import com.trackasia.android.utils.BitmapUtils
 import java.net.URISyntaxException
 
@@ -52,7 +52,7 @@ class LatLngBoundsActivity : AppCompatActivity() {
             mapboxMap = map
 
             val featureCollection: FeatureCollection =
-                fromJson(loadStringFromAssets(this, "points-sf.geojson"))
+                fromJson(GeoParseUtil.loadStringFromAssets(this, "points-sf.geojson"))
             bounds = createBounds(featureCollection)
 
             map.getCameraForLatLngBounds(bounds, createPadding(peekHeight))?.let {

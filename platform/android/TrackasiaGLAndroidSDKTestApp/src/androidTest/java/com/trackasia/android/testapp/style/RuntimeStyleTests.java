@@ -23,9 +23,8 @@ import com.trackasia.android.style.sources.VectorSource;
 import com.trackasia.android.testapp.R;
 import com.trackasia.android.testapp.activity.EspressoTest;
 
-import junit.framework.Assert;
-
 import org.hamcrest.Matcher;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,7 +35,7 @@ import timber.log.Timber;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
+import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

@@ -61,7 +61,7 @@ import static com.trackasia.android.style.layers.PropertyFactory.fillColor;
 import static com.trackasia.android.style.layers.PropertyFactory.fillOutlineColor;
 import static com.trackasia.android.style.layers.PropertyFactory.textColor;
 import static com.trackasia.android.style.layers.PropertyFactory.textField;
-import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
+import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

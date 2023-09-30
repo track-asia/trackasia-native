@@ -11,6 +11,8 @@ import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.*
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.maplayout.BottomSheetActivity.BottomSheetFragment
+import com.trackasia.android.testapp.activity.maplayout.BottomSheetActivity.MainMapFragment
 import com.trackasia.android.utils.MapFragmentUtils
 
 /**

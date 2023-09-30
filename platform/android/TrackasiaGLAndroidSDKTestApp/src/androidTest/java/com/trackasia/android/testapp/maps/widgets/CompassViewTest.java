@@ -15,7 +15,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
-import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
+import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
@@ -61,7 +61,7 @@ public class CompassViewTest extends EspressoTest {
     onView(withTagValue(is("compassView"))).check(matches(not(isDisplayed())));
     invoke(mapboxMap, (uiController, mapboxMap) -> {
       CameraPosition cameraPosition = mapboxMap.getCameraPosition();
-      assertEquals("Camera bearing should face north, ", 0, cameraPosition.getBearing(), TestConstants.BEARING_DELTA);
+      assertEquals("Camera bearing should face north, ", 0, cameraPosition.bearing, TestConstants.BEARING_DELTA);
     });
   }
 }

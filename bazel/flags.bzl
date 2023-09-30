@@ -27,11 +27,11 @@ CPP_FLAGS = WARNING_FLAGS + [
     "-fexceptions",
     "-frtti",
     "-ftemplate-depth=1024",
-    "-std=c++14",
+    "-std=c++17",
 ]
 
 """
-Compilation flags related to the Trackasia codebase. Relevant for all .cpp .mm and .m code
+Compilation flags related to the trackasia codebase. Relevant for all .cpp .mm and .m code
  - src/*
  - include/*
  - platform/*

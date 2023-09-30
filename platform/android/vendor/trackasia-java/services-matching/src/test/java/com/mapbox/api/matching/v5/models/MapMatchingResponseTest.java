@@ -1,6 +1,6 @@
 package com.mapbox.api.matching.v5.models;
 
-import com.mapbox.api.matching.v5.MapboxMapMatching;
+import com.mapbox.api.matching.v5.TrackasiaMapMatching;
 import com.mapbox.core.TestUtils;
 import com.mapbox.geojson.Point;
 
@@ -65,7 +65,7 @@ public class MapMatchingResponseTest extends TestUtils {
 
   @Test
   public void code_doesReturnCodeFromJson() throws Exception {
-    MapboxMapMatching mapMatching = MapboxMapMatching.builder()
+    TrackasiaMapMatching mapMatching = TrackasiaMapMatching.builder()
       .coordinates(coordinates)
       .baseUrl(mockUrl.toString())
       .accessToken(ACCESS_TOKEN)

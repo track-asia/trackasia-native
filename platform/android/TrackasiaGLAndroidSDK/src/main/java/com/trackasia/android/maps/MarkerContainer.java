@@ -32,7 +32,7 @@ class MarkerContainer implements Markers {
   public Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull TrackasiaMap mapboxMap) {
     Marker marker = prepareMarker(markerOptions);
     long id = nativeMapView != null ? nativeMapView.addMarker(marker) : 0;
-    marker.setMapboxMap(mapboxMap);
+    marker.setTrackasiaMap(mapboxMap);
     marker.setId(id);
     annotations.put(id, marker);
     return marker;
@@ -57,7 +57,7 @@ class MarkerContainer implements Markers {
         long[] ids = nativeMapView.addMarkers(markers);
         for (int i = 0; i < ids.length; i++) {
           Marker createdMarker = markers.get(i);
-          createdMarker.setMapboxMap(mapboxMap);
+          createdMarker.setTrackasiaMap(mapboxMap);
           createdMarker.setId(ids[i]);
           annotations.put(ids[i], createdMarker);
         }

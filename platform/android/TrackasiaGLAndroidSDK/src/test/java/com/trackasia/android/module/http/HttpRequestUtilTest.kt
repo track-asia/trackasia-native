@@ -3,8 +3,8 @@ package com.trackasia.android.module.http
 import com.trackasia.android.MapboxInjector
 import com.trackasia.android.utils.ConfigUtils
 import io.mockk.mockk
-import junit.framework.Assert.assertEquals
 import okhttp3.OkHttpClient
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner

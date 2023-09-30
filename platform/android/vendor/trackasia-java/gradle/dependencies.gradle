@@ -30,7 +30,6 @@ ext {
   dependenciesList = [
       autoValue           : "com.google.auto.value:auto-value:${version.autoValue}",
       autoValueGson       : "com.ryanharter.auto.value:auto-value-gson:${version.autoValueGson}",
-      autoValueGsonAnnotations       : "com.ryanharter.auto.value:auto-value-gson-annotations:${version.autoValueGson}",
       junit               : "junit:junit:${version.junit}",
       supportAnnotation   : "androidx.annotation:annotation:${version.annotation}",
       gson                : "com.google.code.gson:gson:${version.gson}",

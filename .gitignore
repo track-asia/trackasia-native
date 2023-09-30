@@ -40,4 +40,6 @@ node_modules
 /lib
 
 /bazel-*
-.history/
+CMakeLists.txt.user
+
+.history

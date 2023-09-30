@@ -2,16 +2,16 @@ package com.trackasia.android.testapp.style
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import com.trackasia.android.style.sources.CustomGeometrySource.THREAD_POOL_LIMIT
-import com.trackasia.android.style.sources.CustomGeometrySource.THREAD_PREFIX
-import com.trackasia.android.testapp.action.MapboxMapAction.invoke
+import com.trackasia.android.style.sources.CustomGeometrySource.Companion.THREAD_POOL_LIMIT
+import com.trackasia.android.style.sources.CustomGeometrySource.Companion.THREAD_PREFIX
+import com.trackasia.android.testapp.action.TrackasiaMapAction.invoke
 import com.trackasia.android.testapp.action.OrientationAction.orientationLandscape
 import com.trackasia.android.testapp.action.OrientationAction.orientationPortrait
 import com.trackasia.android.testapp.action.WaitAction
 import com.trackasia.android.testapp.activity.BaseTest
 import com.trackasia.android.testapp.activity.style.GridSourceActivity
-import com.trackasia.android.testapp.activity.style.GridSourceActivity.ID_GRID_LAYER
-import com.trackasia.android.testapp.activity.style.GridSourceActivity.ID_GRID_SOURCE
+import com.trackasia.android.testapp.activity.style.GridSourceActivity.Companion.ID_GRID_LAYER
+import com.trackasia.android.testapp.activity.style.GridSourceActivity.Companion.ID_GRID_SOURCE
 import com.trackasia.android.testapp.utils.TestingAsyncUtils
 import org.junit.Assert
 import org.junit.Assert.*
@@ -58,12 +58,12 @@ class CustomGeometrySourceTest : BaseTest() {
     fun threadsRestartedWhenSourceReAddedTest() {
         validateTestSetup()
         invoke(mapboxMap) { uiController, mapboxMap ->
-            mapboxMap.style!!.removeLayer((rule.activity as GridSourceActivity).layer)
+            mapboxMap.style!!.removeLayer((rule.activity as GridSourceActivity).layer!!)
             TestingAsyncUtils.waitForLayer(uiController, mapView)
             mapboxMap.style!!.removeSource(ID_GRID_SOURCE)
             TestingAsyncUtils.waitForLayer(uiController, mapView)
-            mapboxMap.style!!.addSource((rule.activity as GridSourceActivity).source)
-            mapboxMap.style!!.addLayer((rule.activity as GridSourceActivity).layer)
+            mapboxMap.style!!.addSource((rule.activity as GridSourceActivity).source!!)
+            mapboxMap.style!!.addLayer((rule.activity as GridSourceActivity).layer!!)
             TestingAsyncUtils.waitForLayer(uiController, mapView)
             Assert.assertTrue(
                 "Threads should be restarted when the source is re-added to the map.",

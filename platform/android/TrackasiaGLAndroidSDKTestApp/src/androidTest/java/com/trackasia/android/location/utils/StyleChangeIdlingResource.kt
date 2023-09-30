@@ -33,7 +33,7 @@ class StyleChangeIdlingResource : IdlingResource {
 
     fun waitForStyle(mapboxMap: TrackasiaMap, styleUrl: String) {
         isIdle = false
-        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public") {
+        mapboxMap.setStyle(Style.Builder().fromUri(styleUrl)) {
             setIdle()
         }
     }

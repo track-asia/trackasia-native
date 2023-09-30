@@ -22,8 +22,8 @@ class SupportMapFragmentActivity :
     OnMapViewReadyCallback,
     OnMapReadyCallback,
     OnDidFinishRenderingFrameListener {
-    private var mapboxMap: TrackasiaMap? = null
-    private var mapView: MapView? = null
+    private lateinit var mapboxMap: TrackasiaMap
+    private lateinit var mapView: MapView
     private var initialCameraAnimation = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,22 +62,22 @@ class SupportMapFragmentActivity :
 
     override fun onMapViewReady(map: MapView) {
         mapView = map
-        mapView!!.addOnDidFinishRenderingFrameListener(this)
+        mapView.addOnDidFinishRenderingFrameListener(this)
     }
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap!!.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
+        mapboxMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView!!.removeOnDidFinishRenderingFrameListener(this)
+        mapView.removeOnDidFinishRenderingFrameListener(this)
     }
 
     override fun onDidFinishRenderingFrame(fully: Boolean) {
         if (initialCameraAnimation && fully && mapboxMap != null) {
-            mapboxMap!!.animateCamera(
+            mapboxMap.animateCamera(
                 CameraUpdateFactory.newCameraPosition(CameraPosition.Builder().tilt(45.0).build()),
                 5000
             )

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.trackasia.android.maps.*
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.maplayout.MapInDialogActivity.MapDialogFragment
 
 /**
  * Test activity showcasing showing a Map inside of a DialogFragment.
@@ -50,40 +51,40 @@ class MapInDialogActivity : AppCompatActivity() {
 
         override fun onStart() {
             super.onStart()
-            mapView!!.onStart()
+            mapView.onStart()
         }
 
         override fun onResume() {
             super.onResume()
-            mapView!!.onResume()
+            mapView.onResume()
         }
 
         override fun onPause() {
             super.onPause()
-            mapView!!.onPause()
+            mapView.onPause()
         }
 
         override fun onStop() {
             super.onStop()
-            mapView!!.onStop()
+            mapView.onStop()
         }
 
         override fun onDestroyView() {
             super.onDestroyView()
-            mapView!!.onDestroy()
+            mapView.onDestroy()
         }
 
         override fun onLowMemory() {
             super.onLowMemory()
             if (mapView != null) {
-                mapView!!.onLowMemory()
+                mapView.onLowMemory()
             }
         }
 
         override fun onSaveInstanceState(outState: Bundle) {
             super.onSaveInstanceState(outState)
             if (mapView != null) {
-                mapView!!.onSaveInstanceState(outState)
+                mapView.onSaveInstanceState(outState)
             }
         }
 

@@ -4,8 +4,8 @@ import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.Layer
 import io.mockk.mockk
 import io.mockk.verify
-import junit.framework.Assert.assertFalse
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -103,7 +103,7 @@ public final class Polygon extends BasePointCollection {
 
   @Override
   void update() {
-    TrackasiaMap mapboxMap = getMapboxMap();
+    TrackasiaMap mapboxMap = getTrackasiaMap();
     if (mapboxMap != null) {
       mapboxMap.updatePolygon(this);
     }

@@ -14,14 +14,13 @@ import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 
 import com.trackasia.android.maps.TrackasiaMap;
-import com.trackasia.android.maps.TrackasiaMapOptions;
 
 /**
  * UI element overlaid on a map to show the map's bearing when it isn't true north (0.0). Tapping
  * the compass resets the bearing to true north and hides the compass.
  * <p>
  * You can change the behaviour of this View during initialisation with
- * {@link TrackasiaMapOptions}, and xml attributes. While running you can
+ * {@link com.trackasia.android.maps.TrackasiaMapOptions}, and xml attributes. While running you can
  * use {@link com.trackasia.android.maps.UiSettings}.
  * </p>
  */

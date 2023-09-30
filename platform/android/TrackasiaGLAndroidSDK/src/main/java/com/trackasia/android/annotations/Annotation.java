@@ -72,7 +72,7 @@ public abstract class Annotation implements Comparable<Annotation> {
    *
    * @param mapboxMap the hosting mapbox map
    */
-  public void setMapboxMap(TrackasiaMap mapboxMap) {
+  public void setTrackasiaMap(TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
   }
 
@@ -81,7 +81,7 @@ public abstract class Annotation implements Comparable<Annotation> {
    *
    * @return the TrackasiaMap
    */
-  protected TrackasiaMap getMapboxMap() {
+  protected TrackasiaMap getTrackasiaMap() {
     return mapboxMap;
   }
 

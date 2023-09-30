@@ -105,8 +105,8 @@ public abstract class MapMatchingMatching implements Serializable {
 
   /**
    * String of the language to be used for voice instructions.  Defaults to en, and
-   * can be any accepted instruction language.  Will be  when the language provided
-   * via {@link com.mapbox.api.matching.v5.MapboxMapMatching} is not compatible
+   * can be any accepted instruction language.  Will be <tt>null</tt> when the language provided
+   * via {@link com.mapbox.api.matching.v5.TrackasiaMapMatching#language()} is not compatible
    * with API Voice.
    *
    * @return String compatible with voice instructions, null otherwise
@@ -242,8 +242,8 @@ public abstract class MapMatchingMatching implements Serializable {
 
     /**
      * String of the language to be used for voice instructions.  Defaults to en, and
-     * can be any accepted instruction language.  Should be when the language provided
-     * via {@link com.mapbox.api.matching.v5.MapboxMapMatching} is not
+     * can be any accepted instruction language.  Should be <tt>null</tt> when the language provided
+     * via {@link com.mapbox.api.matching.v5.TrackasiaMapMatching#language()} is not
      * compatible with API Voice.
      *
      * @param voiceLanguage String compatible with voice instructions, null otherwise

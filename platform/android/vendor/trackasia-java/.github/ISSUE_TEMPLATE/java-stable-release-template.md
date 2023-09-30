@@ -12,13 +12,13 @@ After the tag is created, the CI build starts automatically at https://circleci.
 
 Once CircleCI successfully pushes the artifact files to Bintray, log into Bintray with the Mapbox credentials. Once you're signed in, visit this release numbers's `Files` page for each of the Java SDK modules:
 
-- https://bintray.com/mapbox/mapbox/mapbox-sdk-turf#files/com/mapbox/mapboxsdk/mapbox-sdk-turf
+- https://bintray.com/mapbox/mapbox/mapbox-sdk-turf#files/com/trackasia/android/mapbox-sdk-turf
 
-- https://bintray.com/mapbox/mapbox/mapbox-sdk-geojson#files/com/mapbox/mapboxsdk/mapbox-sdk-geojson
+- https://bintray.com/mapbox/mapbox/mapbox-sdk-geojson#files/com/trackasia/android/mapbox-sdk-geojson
 
-- https://bintray.com/mapbox/mapbox/mapbox-sdk-services#files/com/mapbox/mapboxsdk/mapbox-sdk-services
+- https://bintray.com/mapbox/mapbox/mapbox-sdk-services#files/com/trackasia/android/mapbox-sdk-services
 
-- https://bintray.com/mapbox/mapbox/mapbox-sdk-core#files/com/mapbox/mapboxsdk/mapbox-sdk-core
+- https://bintray.com/mapbox/mapbox/mapbox-sdk-core#files/com/trackasia/android/mapbox-sdk-core
 
 Verify the attached files for each module, especially the POM which contains the artifact's dependencies. Go to the `Maven Central` tab and click the `Sync` button to sync the artifact with the repository.
 </details>
@@ -44,13 +44,13 @@ After the tag is created, the CI build starts automatically at https://circleci.
 
 Once CircleCI successfully pushes the artifact files to Bintray, log into Bintray with the Mapbox credentials. Once you're signed in, visit this release numbers's `Files` page for each of the Java SDK modules:
 
-- https://bintray.com/mapbox/mapbox/mapbox-sdk-turf#files/com/mapbox/mapboxsdk/mapbox-sdk-turf
+- https://bintray.com/mapbox/mapbox/mapbox-sdk-turf#files/com/trackasia/android/mapbox-sdk-turf
 
-- https://bintray.com/mapbox/mapbox/mapbox-sdk-geojson#files/com/mapbox/mapboxsdk/mapbox-sdk-geojson
+- https://bintray.com/mapbox/mapbox/mapbox-sdk-geojson#files/com/trackasia/android/mapbox-sdk-geojson
 
-- https://bintray.com/mapbox/mapbox/mapbox-sdk-services#files/com/mapbox/mapboxsdk/mapbox-sdk-services
+- https://bintray.com/mapbox/mapbox/mapbox-sdk-services#files/com/trackasia/android/mapbox-sdk-services
 
-- https://bintray.com/mapbox/mapbox/mapbox-sdk-core#files/com/mapbox/mapboxsdk/mapbox-sdk-core
+- https://bintray.com/mapbox/mapbox/mapbox-sdk-core#files/com/trackasia/android/mapbox-sdk-core
 
 Verify the attached files for each module, especially the POM which contains the artifact's dependencies. Go to the `Maven Central` tab and click the `Sync` button to sync the artifact with the repository.
 </details>

@@ -20,7 +20,7 @@ public interface MapMatchingService {
 
   /**
    * Constructs the GET call using the information passed in through the
-   * {@link MapboxMapMatching.Builder}.
+   * {@link TrackasiaMapMatching.Builder}.
    *
    * @param userAgent          user agent
    * @param user               user
@@ -92,7 +92,7 @@ public interface MapMatchingService {
 
   /**
    * Constructs the POST call using the information passed in through the
-   * {@link MapboxMapMatching.Builder}.
+   * {@link TrackasiaMapMatching.Builder}.
    *
    * @param userAgent          user agent
    * @param user               user

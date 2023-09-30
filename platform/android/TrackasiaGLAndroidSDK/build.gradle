@@ -1,3 +1,8 @@
+plugins {
+    id 'org.jmailen.kotlinter'
+    id 'org.jetbrains.dokka' version '1.7.20'
+}
+
 apply plugin: 'com.android.library'
 apply plugin: "com.jaredsburrows.license"
 apply plugin: 'kotlin-android'
@@ -12,7 +17,6 @@ dependencies {
     implementation dependenciesList.supportAnnotations
     implementation dependenciesList.supportFragmentV4
     implementation dependenciesList.okhttp3
-    implementation dependenciesList.gmsLocation
     implementation dependenciesList.timber
     implementation dependenciesList.interpolator
 
@@ -30,6 +34,7 @@ dependencies {
 
 android {
     compileSdkVersion androidVersions.compileSdkVersion
+    buildToolsVersion androidSdkVersions.buildToolsVersion
 
     defaultConfig {
         minSdkVersion androidVersions.minSdkVersion

@@ -129,7 +129,7 @@ Which will log the following samples.
 
 #### Xcode Sample Logging Output
 
-> TrackAsia: online_file_source.cpp activateRequest req->resource.url = https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public
+> TrackAsia: online_file_source.cpp activateRequest req->resource.url = https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public
 
 ---
 

@@ -92,7 +92,7 @@ public class MapMatchingRouteOptionsTest extends TestUtils {
 
   @Test
   public void mapMatchingRequestResult_doesContainTheOriginalRequestData() throws Exception {
-    Response<MapMatchingResponse> response = MapboxMapMatching.builder()
+    Response<MapMatchingResponse> response = TrackasiaMapMatching.builder()
       .coordinates(coordinates)
       .geometries(DirectionsCriteria.GEOMETRY_POLYLINE6)
       .baseUrl(mockUrl.toString())
@@ -112,7 +112,7 @@ public class MapMatchingRouteOptionsTest extends TestUtils {
 
   @Test
   public void mapMatchingRequestResult_doesContainBaseUrl() throws Exception {
-    Response<MapMatchingResponse> response = MapboxMapMatching.builder()
+    Response<MapMatchingResponse> response = TrackasiaMapMatching.builder()
       .coordinates(coordinates)
       .geometries(DirectionsCriteria.GEOMETRY_POLYLINE6)
       .baseUrl(mockUrl.toString())
@@ -127,7 +127,7 @@ public class MapMatchingRouteOptionsTest extends TestUtils {
 
   @Test
   public void mapMatchingRequestResult_doesContainRoundaboutExits() throws Exception {
-    Response<MapMatchingResponse> response = MapboxMapMatching.builder()
+    Response<MapMatchingResponse> response = TrackasiaMapMatching.builder()
       .coordinates(coordinates)
       .geometries(DirectionsCriteria.GEOMETRY_POLYLINE6)
       .baseUrl(mockUrl.toString())
@@ -143,7 +143,7 @@ public class MapMatchingRouteOptionsTest extends TestUtils {
 
   @Test
   public void mapMatchingRequestResult_doesContainSteps() throws Exception {
-    Response<MapMatchingResponse> response = MapboxMapMatching.builder()
+    Response<MapMatchingResponse> response = TrackasiaMapMatching.builder()
       .coordinates(coordinates)
       .geometries(DirectionsCriteria.GEOMETRY_POLYLINE6)
       .baseUrl(mockUrl.toString())
@@ -159,7 +159,7 @@ public class MapMatchingRouteOptionsTest extends TestUtils {
 
   @Test
   public void mapMatchingRequestResult_doesContainGeometries() throws Exception {
-    Response<MapMatchingResponse> response = MapboxMapMatching.builder()
+    Response<MapMatchingResponse> response = TrackasiaMapMatching.builder()
       .coordinates(coordinates)
       .geometries(DirectionsCriteria.GEOMETRY_POLYLINE6)
       .baseUrl(mockUrl.toString())
@@ -175,7 +175,7 @@ public class MapMatchingRouteOptionsTest extends TestUtils {
 
   @Test
   public void mapMatchingRequestResult_doesContainOverview() throws Exception {
-    Response<MapMatchingResponse> response = MapboxMapMatching.builder()
+    Response<MapMatchingResponse> response = TrackasiaMapMatching.builder()
       .coordinates(coordinates)
       .geometries(DirectionsCriteria.GEOMETRY_POLYLINE6)
       .baseUrl(mockUrl.toString())

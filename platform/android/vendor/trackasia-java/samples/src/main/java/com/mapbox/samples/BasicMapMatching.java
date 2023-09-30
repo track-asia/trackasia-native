@@ -1,6 +1,6 @@
 package com.mapbox.samples;
 
-import com.mapbox.api.matching.v5.MapboxMapMatching;
+import com.mapbox.api.matching.v5.TrackasiaMapMatching;
 import com.mapbox.api.matching.v5.models.MapMatchingResponse;
 import com.mapbox.geojson.Point;
 import com.mapbox.sample.BuildConfig;
@@ -11,7 +11,7 @@ import retrofit2.Response;
 public class BasicMapMatching {
   public static void main(String[] args) {
 
-    MapboxMapMatching mapMatching = MapboxMapMatching.builder()
+    TrackasiaMapMatching mapMatching = TrackasiaMapMatching.builder()
       .accessToken(BuildConfig.MAPBOX_ACCESS_TOKEN)
       .coordinate(Point.fromLngLat(-117.1728265285492,32.71204416018209))
       .coordinate(Point.fromLngLat(-117.17288821935652,32.712258556224))

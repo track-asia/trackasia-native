@@ -41,15 +41,7 @@ class StyleTest {
         MockitoAnnotations.initMocks(this)
         MapboxInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
         nativeMapView = mockk(relaxed = true)
-        mapboxMap = TrackasiaMap(
-            nativeMapView,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
+        mapboxMap = TrackasiaMap(nativeMapView, null, null, null, null, null, null)
         every { nativeMapView.isDestroyed } returns false
         mapboxMap.injectLocationComponent(spyk())
     }

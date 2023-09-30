@@ -9,8 +9,8 @@ import com.trackasia.android.testapp.utils.NavUtils
  * Test activity showcasing the different debug modes and allows to cycle between the default map styles.
  */
 class TextureViewDebugModeActivity : DebugModeActivity(), OnMapReadyCallback {
-    override fun setupMapboxMapOptions(): TrackasiaMapOptions {
-        val mapboxMapOptions = super.setupMapboxMapOptions()
+    override fun setupTrackasiaMapOptions(): TrackasiaMapOptions {
+        val mapboxMapOptions = super.setupTrackasiaMapOptions()
         mapboxMapOptions.textureMode(true)
         return mapboxMapOptions
     }

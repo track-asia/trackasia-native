@@ -182,7 +182,7 @@ Add fields to `StepIntersection`:
 - Directions refresh was not being included in services artifact [#966](https://github.com/mapbox/mapbox-java/pull/966)
 
 ### v4.4.0 - February 12, 2019
-- Add waypointIndices to MapboxDirections, update MapboxMapMaptching to have waypointIndices instead of waypoints
+- Add waypointIndices to MapboxDirections, update TrackasiaMapMaptching to have waypointIndices instead of waypoints
   [#959](https://github.com/mapbox/mapbox-java/pull/959),
   [#961](https://github.com/mapbox/mapbox-java/pull/961),
   [#962](https://github.com/mapbox/mapbox-java/pull/962),
@@ -194,7 +194,7 @@ Add fields to `StepIntersection`:
 
 ### v4.3.0 - December 18, 2018
 - Do not use BigDecimal for rounding [#938](https://github.com/mapbox/mapbox-java/pull/938)
-- Remove coordinate limit from MapboxMapMatching [#940](https://github.com/mapbox/mapbox-java/pull/940)
+- Remove coordinate limit from TrackasiaMapMatching [#940](https://github.com/mapbox/mapbox-java/pull/940)
 - Remove character waypoint names limit from mapbox map matching [#941](https://github.com/mapbox/mapbox-java/pull/941)
 - Adding additional tests to files related to coordinate shifting [#936](https://github.com/mapbox/mapbox-java/pull/936)
 - Added waypoint targets to MapboxDirections request [#942](https://github.com/mapbox/mapbox-java/pull/942)

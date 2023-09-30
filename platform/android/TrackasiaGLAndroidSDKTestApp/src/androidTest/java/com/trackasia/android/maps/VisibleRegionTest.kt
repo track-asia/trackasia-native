@@ -5,7 +5,7 @@ import androidx.test.espresso.UiController
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.testapp.action.MapboxMapAction.invoke
+import com.trackasia.android.testapp.action.TrackasiaMapAction.invoke
 import com.trackasia.android.testapp.activity.BaseTest
 import com.trackasia.android.testapp.activity.espresso.PixelTestActivity
 import org.junit.Assert.assertFalse

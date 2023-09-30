@@ -30,7 +30,7 @@ class PolygonContainer implements Polygons {
     if (!polygon.getPoints().isEmpty()) {
       long id = nativeMap != null ? nativeMap.addPolygon(polygon) : 0;
       polygon.setId(id);
-      polygon.setMapboxMap(mapboxMap);
+      polygon.setTrackasiaMap(mapboxMap);
       annotations.put(id, polygon);
     }
     return polygon;
@@ -54,7 +54,7 @@ class PolygonContainer implements Polygons {
       long[] ids = nativeMap.addPolygons(polygons);
       for (int i = 0; i < ids.length; i++) {
         polygon = polygons.get(i);
-        polygon.setMapboxMap(mapboxMap);
+        polygon.setTrackasiaMap(mapboxMap);
         polygon.setId(ids[i]);
         annotations.put(ids[i], polygon);
       }

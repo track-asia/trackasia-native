@@ -123,7 +123,7 @@ public class Marker extends Annotation {
    */
   public void setPosition(LatLng position) {
     this.position = position;
-    TrackasiaMap map = getMapboxMap();
+    TrackasiaMap map = getTrackasiaMap();
     if (map != null) {
       map.updateMarker(this);
     }
@@ -148,7 +148,7 @@ public class Marker extends Annotation {
   public void setIcon(@Nullable Icon icon) {
     this.icon = icon;
     this.iconId = icon != null ? icon.getId() : null;
-    TrackasiaMap map = getMapboxMap();
+    TrackasiaMap map = getTrackasiaMap();
     if (map != null) {
       map.updateMarker(this);
     }
@@ -196,7 +196,7 @@ public class Marker extends Annotation {
       if (mapView.getContext() != null) {
         infoWindow.adaptDefaultMarker(this, mapboxMap, mapView);
       }
-      TrackasiaMap map = getMapboxMap();
+      TrackasiaMap map = getTrackasiaMap();
       if (map != null) {
         map.updateMarker(this);
       }
@@ -214,9 +214,9 @@ public class Marker extends Annotation {
    */
   @Nullable
   public InfoWindow showInfoWindow(@NonNull TrackasiaMap mapboxMap, @NonNull MapView mapView) {
-    setMapboxMap(mapboxMap);
+    setTrackasiaMap(mapboxMap);
     setMapView(mapView);
-    TrackasiaMap.InfoWindowAdapter infoWindowAdapter = getMapboxMap().getInfoWindowAdapter();
+    TrackasiaMap.InfoWindowAdapter infoWindowAdapter = getTrackasiaMap().getInfoWindowAdapter();
     if (infoWindowAdapter != null) {
       // end developer is using a custom InfoWindowAdapter
       View content = infoWindowAdapter.getInfoWindow(this);
@@ -244,7 +244,7 @@ public class Marker extends Annotation {
   @Nullable
   private InfoWindow getInfoWindow(@NonNull MapView mapView) {
     if (infoWindow == null && mapView.getContext() != null) {
-      infoWindow = new InfoWindow(mapView, R.layout.trackasia_infowindow_content, getMapboxMap());
+      infoWindow = new InfoWindow(mapView, R.layout.trackasia_infowindow_content, getTrackasiaMap());
     }
     return infoWindow;
   }

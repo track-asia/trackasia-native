@@ -16,8 +16,8 @@ import java.util.List;
  * Maintains a {@link List} of opened {@link InfoWindow} and tracks configurations as
  * allowConcurrentMultipleInfoWindows which allows to have multiple {@link InfoWindow} open at the
  * same time. Responsible for managing listeners as
- * {@link TrackasiaMap.OnInfoWindowClickListener} and
- * {@link TrackasiaMap.OnInfoWindowLongClickListener}.
+ * {@link com.trackasia.android.maps.TrackasiaMap.OnInfoWindowClickListener} and
+ * {@link com.trackasia.android.maps.TrackasiaMap.OnInfoWindowLongClickListener}.
  * </p>
  */
 class InfoWindowManager {

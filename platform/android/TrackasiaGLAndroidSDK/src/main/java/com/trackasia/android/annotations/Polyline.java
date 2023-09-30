@@ -64,7 +64,7 @@ public final class Polyline extends BasePointCollection {
 
   @Override
   void update() {
-    TrackasiaMap mapboxMap = getMapboxMap();
+    TrackasiaMap mapboxMap = getTrackasiaMap();
     if (mapboxMap != null) {
       mapboxMap.updatePolyline(this);
     }

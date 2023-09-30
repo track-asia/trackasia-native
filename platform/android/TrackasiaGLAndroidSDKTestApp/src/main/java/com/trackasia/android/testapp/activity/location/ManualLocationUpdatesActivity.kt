@@ -10,7 +10,7 @@ import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.location.LocationComponent
 import com.trackasia.android.location.LocationComponentActivationOptions
 import com.trackasia.android.location.engine.LocationEngine
-import com.trackasia.android.location.engine.LocationEngineProvider
+import com.trackasia.android.location.engine.LocationEngineDefault
 import com.trackasia.android.location.engine.LocationEngineRequest
 import com.trackasia.android.location.modes.RenderMode
 import com.trackasia.android.location.permissions.PermissionsListener
@@ -29,7 +29,7 @@ class ManualLocationUpdatesActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_manual_update)
-        locationEngine = LocationEngineProvider.getBestLocationEngine(this, false)
+        locationEngine = LocationEngineDefault.getDefaultLocationEngine(mapView.context)
         val fabManualUpdate = findViewById<FloatingActionButton>(R.id.fabManualLocationChange)
         fabManualUpdate.setOnClickListener { v: View? ->
             if (locationComponent != null && locationComponent!!.locationEngine == null) {
@@ -124,36 +124,36 @@ class ManualLocationUpdatesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onStart() {
         super.onStart()
-        mapView!!.onStart()
+        mapView.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView!!.onResume()
+        mapView.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView!!.onPause()
+        mapView.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView!!.onStop()
+        mapView.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView!!.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView!!.onDestroy()
+        mapView.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView!!.onLowMemory()
+        mapView.onLowMemory()
     }
 }

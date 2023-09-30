@@ -1,100 +1,170 @@
 # Changelog for the TrackAsia Maps SDK for Android
 
-TrackAsia welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-gl-native/blob/main/CONTRIBUTING.md) to get started.
+TrackAsia welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-native/blob/main/CONTRIBUTING.md) to get started.
 
 ## main
 
 ### ✨ Features and improvements
 
-* Add your pull request...
-* Breaking: Changed resourcePrefix to `trackasia_` from `mapbox_` [647](https://github.com/track-asia/trackasia-gl-native/pull/647) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with TrackAsia logo.
-* GMS location: Replace new LocationRequest() with LocationRequest.Builder, and LocationRequest.PRIORITY_X with Priority.PRIORITY_X ([620](https://github.com/track-asia/trackasia-gl-native/pull/620)) 
-
 ### 🐞 Bug fixes
-
-* Increment minSdkVersion from 14 to 21, as it covers 99.2%% of the newer devices since 2014
-*    and lessens the backward compatibility burden ([630](https://github.com/track-asia/trackasia-gl-native/pull/630))
-* Catches NaN for onMove event ([621](https://github.com/track-asia/trackasia-gl-native/pull/621))
 
 ### ⛵ Dependencies
 
-* Revert "Revert "Gradle update"" - Update Gradle from v3 to v7 ([#619](https://github.com/track-asia/trackasia-gl-native/pull/619))
+## 10.2.0 - May 10, 2023
 
+Revert changes of 10.1.0, which was a breaking release by accident.
+
+This version is identical to 10.0.2.
+
+## 10.1.0 - May 9, 2023
+
+### ✨ Features and improvements
+
+* Change to a more natural fling animation and allow setting `flingThreshold` and `flingAnimationBaseTime` in `UiSettings` ([#963](https://github.com/track-asia/trackasia-native/pull/963))
+* Add support for the [`index-of` expression](https://track-asia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
+
+### 🐞 Bug fixes
+
+* Fix regression in CameraUpdateFactory#zoomOut ([#1035](https://github.com/track-asia/trackasia-native/pull/1035))
+* `AndroidLocationEngineImpl` made public to create custom `LocationEngineProvider`([#850](https://github.com/track-asia/trackasia-native/pull/850))
+
+## 10.0.2 - February 23, 2023
+
+### 🐞 Bug fixes
+
+* `MapboxFusedLocationEngineImpl` constructor made public to create custom `LocationEngineProvider`([#850](https://github.com/track-asia/trackasia-native/pull/850))
+
+## 10.0.1 - February 22, 2023
+
+### 🐞 Bug fixes
+
+*  Fixed regression with `RasterSource` native code throwing an exception expecting bound after switching to `FloatArray` ([#830](https://github.com/track-asia/trackasia-native/pull/830)).
+*   `LocationEngineProxy` was made public so that the migration path suggested in the 10.0.0 changelog for those wanting to use GMS Location Services can actually be implemented ([#832](https://github.com/track-asia/trackasia-native/pull/830)).
+
+## 10.0.0 - February 15, 2023
+
+### ✨ Features and improvements
+
+* 💥 Breaking: Changed resourcePrefix to `trackasia_` from `mapbox_` ([#647](https://github.com/track-asia/trackasia-native/pull/647)) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with TrackAsia logo.
+
+  > To migrate:  
+  > If you use any of the public Android resources, you will get an error that they can not be found. Replace the prefix of each, e.g. `R.style.mapbox_LocationComponent` -> `R.style.trackasia_LocationComponent`.
+
+* 💥 Breaking: several deprecated overloads of `LocationComponent.activateLocationComponent` were removed. Use `LocationComponentActivationOptions.Builder` instead. 
+
+  > To migrate, as an example:
+  > ```kotlin
+  >  locationComponent.activateLocationComponent(context, style, false, locationEngineRequest, locationComponentOptions)
+  >  ```
+  > becomes
+  >  ```kotlin
+  >  val options = LocationComponentActivationOptions.builder(context, style).useDefaultLocationEngine(false).locationEngineRequest(locationEngineRequest).locationComponentOptions(locationComponentOptions).build()
+  >  locationComponent.activateLocationComponent(options)
+  >  ```
+
+* 💥 Breaking: the `LocationEngine` implemented with Google Location Services has been removed to make TrackAsia Native for Android fully FLOSS ([#379](https://github.com/track-asia/trackasia-native/issues/379)).
+
+  > To migrate:  
+  > Include the source code of the removed [`GoogleLocationEngineImpl`](https://github.com/track-asia/trackasia-native/blob/4a34caab7593f4f1b6d8c09c06a5e25d7c6cfc43/platform/android/TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/location/engine/GoogleLocationEngineImpl.java) in your source tree.
+  >  
+  > Pass an instance of `LocationEngine` based on `GoogleLocationEngineImpl` to `LocationComponentActivationOptions.Builder.locationEngine` (this was done in a now removed [`LocationEngineProvider`](https://github.com/track-asia/trackasia-native/blob/68d58d6f6f453d5c6cc0fa92fcc6c6cfe0cf967f/platform/android/TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/location/engine/LocationEngineProvider.java#L59) class):
+  >  ```kotlin
+  >  val locationEngine = LocationEngineProxy<Any>(GoogleLocationEngineImpl(context))
+  >  val options = LocationComponentActivationOptions.builder(context, style).locationEngine(locationEngine).build()
+  >  locationComponent.activateLocationComponent(options)
+  >  ```
+
+* 💥 Breaking: The static `LocationEngineResult.extractResult` can no longer extract a `LocationEngineResult` from a Google Play intent.
+
+  > To migrate, include and use the [previous implementation](https://github.com/track-asia/trackasia-native/blob/ea234edf67bb3aec75f077e15c1c30c99756b926/platform/android/TrackasiaGLAndroidSDK/src/main/java/com/trackasia/android/location/engine/LocationEngineResult.java#L97) in your source tree.
+ 
+* Improve Kotlinification of LatLng ([#742](https://github.com/track-asia/trackasia-native/issues))
+* Increment minSdkVersion from 14 to 21, as it covers 99.2%% of the newer devices since 2014 and lessens the backward compatibility burden ([#630](https://github.com/track-asia/trackasia-native/pull/630))
+
+### 🐞 Bug fixes
+
+* Catches NaN for onMove event ([621](https://github.com/track-asia/trackasia-native/pull/621))
+*  `BitmapUtils.mergeBitmap` was deprecated, `BitmapUtils.mergeBitmaps` is a new method that does not offset views rendered on top of snapshots ([#733](https://github.com/track-asia/trackasia-native/issues/733))
+* Fixed a crash when native code was accessing the LatLngBounds class [#655](https://github.com/track-asia/trackasia-native/pull/)
+
+### ⛵ Dependencies
+
+* Revert "Revert "Gradle update"" - Update Gradle from v3 to v7 ([#619](https://github.com/track-asia/trackasia-native/pull/619))
 
 ## 9.6.0 - December 18, 2022
 
 ### ✨ Features and improvements
 
-* Add missing header guards ([#543](https://github.com/track-asia/trackasia-gl-native/pull/543))
-* Removing unused versions sdk ([#515](https://github.com/track-asia/trackasia-gl-native/pull/515))
-* (tag: node-v5.0.1-pre.0) Upgrade libs and remove Jetifier ([#218](https://github.com/track-asia/trackasia-gl-native/pull/218))
-* Migrate examples in android TestApp to Kotlin ([#416](https://github.com/track-asia/trackasia-gl-native/pull/416))
-* Add ClientOptions to be able to pass around client name and version ([#365](https://github.com/track-asia/trackasia-gl-native/pull/365))
-* Use trackasia docs for more links ([#354](https://github.com/track-asia/trackasia-gl-native/pull/354))
-* Use the TrackAsia style spec docs website ([#353](https://github.com/track-asia/trackasia-gl-native/pull/353))
-* Refresh iOS & Android build docs ([5f679b55b](https://github.com/track-asia/trackasia-gl-native/commit/5f679b55b))
-* Qt build improvements and documentation ([#277](https://github.com/track-asia/trackasia-gl-native/pull/277))
-* Replace Mapbox with TrackAsia in README titles ([#297](https://github.com/track-asia/trackasia-gl-native/pull/297))
-* Rename MaptilerFileSource to MBTilesFileSource ([#198](https://github.com/track-asia/trackasia-gl-native/pull/198))
-* Changed missed MapBox reference to TrackAsia ([#253](https://github.com/track-asia/trackasia-gl-native/pull/253))
-* Implement map projection functionality ([#254](https://github.com/track-asia/trackasia-gl-native/pull/254))
-* chore: rename master -> main in CI and scripts ([#246](https://github.com/track-asia/trackasia-gl-native/pull/246))
-* Feature - Bring back node support ([#217](https://github.com/track-asia/trackasia-gl-native/pull/217))
-* Remove obsolete CI configurations ([#219](https://github.com/track-asia/trackasia-gl-native/pull/219))
+* Add missing header guards ([#543](https://github.com/track-asia/trackasia-native/pull/543))
+* Removing unused versions sdk ([#515](https://github.com/track-asia/trackasia-native/pull/515))
+* (tag: node-v5.0.1-pre.0) Upgrade libs and remove Jetifier ([#218](https://github.com/track-asia/trackasia-native/pull/218))
+* Migrate examples in android TestApp to Kotlin ([#416](https://github.com/track-asia/trackasia-native/pull/416))
+* Add ClientOptions to be able to pass around client name and version ([#365](https://github.com/track-asia/trackasia-native/pull/365))
+* Use trackasia docs for more links ([#354](https://github.com/track-asia/trackasia-native/pull/354))
+* Use the TrackAsia style spec docs website ([#353](https://github.com/track-asia/trackasia-native/pull/353))
+* Refresh iOS & Android build docs ([5f679b55b](https://github.com/track-asia/trackasia-native/commit/5f679b55b))
+* Qt build improvements and documentation ([#277](https://github.com/track-asia/trackasia-native/pull/277))
+* Replace Mapbox with TrackAsia in README titles ([#297](https://github.com/track-asia/trackasia-native/pull/297))
+* Rename MaptilerFileSource to MBTilesFileSource ([#198](https://github.com/track-asia/trackasia-native/pull/198))
+* Changed missed MapBox reference to TrackAsia ([#253](https://github.com/track-asia/trackasia-native/pull/253))
+* Implement map projection functionality ([#254](https://github.com/track-asia/trackasia-native/pull/254))
+* chore: rename master -> main in CI and scripts ([#246](https://github.com/track-asia/trackasia-native/pull/246))
+* Feature - Bring back node support ([#217](https://github.com/track-asia/trackasia-native/pull/217))
+* Remove obsolete CI configurations ([#219](https://github.com/track-asia/trackasia-native/pull/219))
 
 ### 🐞 Bug fixes
 
-* Fixes potential NaN when calling `NativeMapView::nativeMoveBy` ([#501](https://github.com/track-asia/trackasia-gl-native/pull/501))
-* Fix android ci workflows ([#476](https://github.com/track-asia/trackasia-gl-native/pull/476))
-* Fix typo in geo.cpp ([#412](https://github.com/track-asia/trackasia-gl-native/pull/412))
-* Fix render tests ([#351](https://github.com/track-asia/trackasia-gl-native/pull/351))
-* fix shiftY calculation typo ([#285](https://github.com/track-asia/trackasia-gl-native/pull/285))
-* [msvc] Fix warnings, mainly casting to smaller types ([#270](https://github.com/track-asia/trackasia-gl-native/pull/270))
-* Fix street label appearance while animating near zoom level threshhold ([#267](https://github.com/track-asia/trackasia-gl-native/pull/267))
+* Fixes potential NaN when calling `NativeMapView::nativeMoveBy` ([#501](https://github.com/track-asia/trackasia-native/pull/501))
+* Fix android ci workflows ([#476](https://github.com/track-asia/trackasia-native/pull/476))
+* Fix typo in geo.cpp ([#412](https://github.com/track-asia/trackasia-native/pull/412))
+* Fix render tests ([#351](https://github.com/track-asia/trackasia-native/pull/351))
+* fix shiftY calculation typo ([#285](https://github.com/track-asia/trackasia-native/pull/285))
+* [msvc] Fix warnings, mainly casting to smaller types ([#270](https://github.com/track-asia/trackasia-native/pull/270))
+* Fix street label appearance while animating near zoom level threshhold ([#267](https://github.com/track-asia/trackasia-native/pull/267))
 
 ### ⛵ Dependencies
 
-* Bump semver from 7.3.7 to 7.3.8 in /platform/android ([#530](https://github.com/track-asia/trackasia-gl-native/pull/530))
-* Bump to JDK 11 in android CI and generate Gradle Wrapper ([#474](https://github.com/track-asia/trackasia-gl-native/pull/474))
-* Bump ejs from 3.1.7 to 3.1.8 in /platform/android ([#470](https://github.com/track-asia/trackasia-gl-native/pull/470))
-* Upgrade Gradle from 3.6.3 to 3.6.4 ([#456](https://github.com/track-asia/trackasia-gl-native/pull/456))
-* Bump semver from 5.7.1 to 7.3.7 in /platform/android ([#461](https://github.com/track-asia/trackasia-gl-native/pull/461))
-* Bump pixelmatch from 4.0.2 to 5.3.0 in /platform/android ([#460](https://github.com/track-asia/trackasia-gl-native/pull/460))
-* Bump esm from 3.1.0 to 3.2.25 in /platform/android ([#463](https://github.com/track-asia/trackasia-gl-native/pull/463))
-* Bump ejs from 2.7.4 to 3.1.7 in /platform/android ([#299](https://github.com/track-asia/trackasia-gl-native/pull/299))
-* Bump lodash from 4.17.19 to 4.17.21 in /platform/android ([#195](https://github.com/track-asia/trackasia-gl-native/pull/195))
+* Bump semver from 7.3.7 to 7.3.8 in /platform/android ([#530](https://github.com/track-asia/trackasia-native/pull/530))
+* Bump to JDK 11 in android CI and generate Gradle Wrapper ([#474](https://github.com/track-asia/trackasia-native/pull/474))
+* Bump ejs from 3.1.7 to 3.1.8 in /platform/android ([#470](https://github.com/track-asia/trackasia-native/pull/470))
+* Upgrade Gradle from 3.6.3 to 3.6.4 ([#456](https://github.com/track-asia/trackasia-native/pull/456))
+* Bump semver from 5.7.1 to 7.3.7 in /platform/android ([#461](https://github.com/track-asia/trackasia-native/pull/461))
+* Bump pixelmatch from 4.0.2 to 5.3.0 in /platform/android ([#460](https://github.com/track-asia/trackasia-native/pull/460))
+* Bump esm from 3.1.0 to 3.2.25 in /platform/android ([#463](https://github.com/track-asia/trackasia-native/pull/463))
+* Bump ejs from 2.7.4 to 3.1.7 in /platform/android ([#299](https://github.com/track-asia/trackasia-native/pull/299))
+* Bump lodash from 4.17.19 to 4.17.21 in /platform/android ([#195](https://github.com/track-asia/trackasia-native/pull/195))
 
 
 ## 9.5.2 - December 02, 2021
 
 ### Bug Fixes
 
-* raster layers stopped working in Android [#161](https://github.com/track-asia/trackasia-gl-native/pull/161)
-* remove Mapbox's in favor of TrackAsia in attribution dialog [#160](https://github.com/track-asia/trackasia-gl-native/pull/160)
-* queryRenderedFeatures returns wrong results - issue #184, [#147](https://github.com/track-asia/trackasia-gl-native/pull/174)
+* raster layers stopped working in Android [#161](https://github.com/track-asia/trackasia-native/pull/161)
+* remove Mapbox's in favor of TrackAsia in attribution dialog [#160](https://github.com/track-asia/trackasia-native/pull/160)
+* queryRenderedFeatures returns wrong results - issue #184, [#147](https://github.com/track-asia/trackasia-native/pull/174)
 
 ## 9.5.1 - September 06, 2021
 
 ### Bug Fixes
 
-* Invalid tile url template for TrackAsia style [#107](https://github.com/track-asia/trackasia-gl-native/pull/107)
-* Crash when inflating view on Android [#130](https://github.com/track-asia/trackasia-gl-native/pull/130)
+* Invalid tile url template for TrackAsia style [#107](https://github.com/track-asia/trackasia-native/pull/107)
+* Crash when inflating view on Android [#130](https://github.com/track-asia/trackasia-native/pull/130)
 
 ### Other
 
-* Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/track-asia/trackasia-gl-native/pull/129)
-* Upgrade to newest protozero [#148](https://github.com/track-asia/trackasia-gl-native/pull/148)
-* Change NativeMapView.resizeView to use 0 instead of throwing IllegalArgumentException [#151](https://github.com/track-asia/trackasia-gl-native/pull/151)
+* Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/track-asia/trackasia-native/pull/129)
+* Upgrade to newest protozero [#148](https://github.com/track-asia/trackasia-native/pull/148)
+* Change NativeMapView.resizeView to use 0 instead of throwing IllegalArgumentException [#151](https://github.com/track-asia/trackasia-native/pull/151)
 
 ## 9.5.0 - June 29, 2021
 
 ### Features
 
-* Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/track-asia/trackasia-gl-native/pull/90)
+* Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/track-asia/trackasia-native/pull/90)
 
 ### Other
 
-* Migration from bintray [#77](https://github.com/track-asia/trackasia-gl-native/pull/77)
+* Migration from bintray [#77](https://github.com/track-asia/trackasia-native/pull/77)
 
 ## 9.4.2 - May 6, 2021
 
@@ -106,17 +176,17 @@ Switching from mapbox-java libraries to [trackasia fork](https://github.com/trac
 
 ### Bug Fixes
 
-* Fixed an issue where symbols flickered when zooming out. [#16](https://github.com/track-asia/trackasia-gl-native/issues/16)
+* Fixed an issue where symbols flickered when zooming out. [#16](https://github.com/track-asia/trackasia-native/issues/16)
 * Fixes crash caused by NullPointerException MapKeyListener [#464](https://github.com/mapbox/mapbox-gl-native-android/issues/464), cherry picked from [#466](https://github.com/mapbox/mapbox-gl-native-android/pull/466) 
 * Fixed an issue where GPS puck keeps previous value when enabled. [#462]https://github.com/mapbox/mapbox-gl-native-android/issues/462, cherry picked from [#470](https://github.com/mapbox/mapbox-gl-native-android/pull/470) 
-* Not changing location camera mode while disabled. [#24](https://github.com/track-asia/trackasia-gl-native/issues/24)
-* Symbol layer flickering after zooming out. [#16](https://github.com/track-asia/trackasia-gl-native/issues/16)
-* Avoid throwing null pointer exception on slow initialization [#22](https://github.com/track-asia/trackasia-gl-native/issues/22)
+* Not changing location camera mode while disabled. [#24](https://github.com/track-asia/trackasia-native/issues/24)
+* Symbol layer flickering after zooming out. [#16](https://github.com/track-asia/trackasia-native/issues/16)
+* Avoid throwing null pointer exception on slow initialization [#22](https://github.com/track-asia/trackasia-native/issues/22)
 
 ### Other
 
 * mapbox-gl-js submodule has been replaced with trackasia-gl-js
-* Removed Telemetry [#7](https://github.com/track-asia/trackasia-gl-native/pull/7)
+* Removed Telemetry [#7](https://github.com/track-asia/trackasia-native/pull/7)
 
 ## 9.3.0 - January 6, 2021
 
@@ -163,13 +233,13 @@ Switching from mapbox-java libraries to [trackasia fork](https://github.com/trac
  - Added `in` expression for testing whether an item exists in an array or a substring exists in a string. ([#171](https://github.com/mapbox/mapbox-gl-native-android/pull/171))
  - Introduced APIs and callbacks for customizing the style used in a `MapSnapshotter` snapshotter with runtime styling methods. ([#268](https://www.github.com/mapbox/mapbox-gl-native-android/pull/268), [#292](https://www.github.com/mapbox/mapbox-gl-native-android/pull/292))
  - Added methods to set and get the sort key of features in a `FillLayer` and `LineLayer` at runtime. Features with a higher sort key will appear above features with a lower sort key. ([#209](https://github.com/mapbox/mapbox-gl-native-android/pull/209))
- - Introduced `MapboxMap.setMaxPitchPreference` and `MapboxMap.setMinPitchPreference` to constrain a map's pitch. ([#199](https://github.com/mapbox/mapbox-gl-native-android/pull/199))
+ - Introduced `TrackasiaMap.setMaxPitchPreference` and `TrackasiaMap.setMinPitchPreference` to constrain a map's pitch. ([#199](https://github.com/mapbox/mapbox-gl-native-android/pull/199))
  - Introduced ability to configure the zoom level(s) that tiles are prefetched from by `Source`. This overrides the  tile prefetch setting defined by the `Map` instance. ([#184](https://github.com/mapbox/mapbox-gl-native-android/pull/184))
 
 ### Performance improvements
  - Increased stability of label placement when the map is tilted. ([#16287](https://github.com/mapbox/mapbox-gl-native/pull/16287))
  - Improved the performance of loading a style that has many style images. ([#16187](https://github.com/mapbox/mapbox-gl-native/pull/16187))
- - Fixed a memory leak during zooming when `MapboxMapOptions.debugActive` is enabled. ([#15179](https://github.com/mapbox/mapbox-gl-native/issues/15179), fixed by [#15395](https://github.com/mapbox/mapbox-gl-native/pull/15395))
+ - Fixed a memory leak during zooming when `TrackasiaMapOptions.debugActive` is enabled. ([#15179](https://github.com/mapbox/mapbox-gl-native/issues/15179), fixed by [#15395](https://github.com/mapbox/mapbox-gl-native/pull/15395))
 
 ### Bug fixes
  - Downloaded offline packs no longer reduce the storage space available for ambient caching of tiles and other resources. ([#15622](https://github.com/mapbox/mapbox-gl-native/pull/15622))
@@ -228,7 +298,7 @@ Switching from mapbox-java libraries to [trackasia fork](https://github.com/trac
  - Update codebase to androidX. [#129](https://github.com/mapbox/mapbox-gl-native-android/pull/129)
 
 ### Bug fixes
- - Deprecated `MapboxMap#cycleDebugOptions` and fixed an `UnsatisfiedLinkError` when accessed. [#104](https://github.com/mapbox/mapbox-gl-native-android/pull/104)
+ - Deprecated `TrackasiaMap#cycleDebugOptions` and fixed an `UnsatisfiedLinkError` when accessed. [#104](https://github.com/mapbox/mapbox-gl-native-android/pull/104)
  - Fixed a null pointer issue on the public static getters of `Mapbox.java`, in case the user hasn't called `Mapbox.getInstance()`. [#128](https://github.com/mapbox/mapbox-gl-native-android/pull/128)
 
 ## 8.6.0 - December 20, 2019
@@ -388,7 +458,7 @@ Switching from mapbox-java libraries to [trackasia fork](https://github.com/trac
 
 ### Features
  - Introduce `clusterProperties` option for aggregated cluster properties. [#15425](https://github.com/mapbox/mapbox-gl-native/pull/15425)
- - Expose the `CameraPosition#padding` field and associated utility camera position builders. This gives a choice to set a persisting map padding immediately during a transition instead of setting it lazily `MapboxMap#setPadding`, which required scheduling additional transition to be applied. This also deprecates `MapboxMap#setPadding` as there should be no need for a lazy padding setter. [#15444](https://github.com/mapbox/mapbox-gl-native/pull/15444)
+ - Expose the `CameraPosition#padding` field and associated utility camera position builders. This gives a choice to set a persisting map padding immediately during a transition instead of setting it lazily `TrackasiaMap#setPadding`, which required scheduling additional transition to be applied. This also deprecates `TrackasiaMap#setPadding` as there should be no need for a lazy padding setter. [#15444](https://github.com/mapbox/mapbox-gl-native/pull/15444)
  - Add number-format expression that allows to format a number to a string, with configurations as minimal/maximal fraction and locale/currency. [#15424](https://github.com/mapbox/mapbox-gl-native/pull/15424)
  - Enable using of `text-offset` option together with `text-variable-anchor` (if `text-radial-offset` option is not provided). If used with `text-variable-anchor`, input values will be taken as absolute values. Offsets along the x- and y-axis will be applied automatically based on the anchor position. [#15542](https://github.com/mapbox/mapbox-gl-native/pull/15542)
 
@@ -555,7 +625,7 @@ This release changes how offline tile requests are billed — they are now bille
 ### Minor features and improvements
  - Improve performance of queryRenderedFeatures by removing unnecessary iterations over vectors and unneeded layers [#14930](https://github.com/mapbox/mapbox-gl-native/pull/14930)
  - Decrease the minimum pixel distance between the current camera position and the target required to interpolate during camera animation [#15073](https://github.com/mapbox/mapbox-gl-native/pull/15073)
- - Introduce `MapboxMapOptions` facility creation method [#15069](https://github.com/mapbox/mapbox-gl-native/pull/15069)
+ - Introduce `TrackasiaMapOptions` facility creation method [#15069](https://github.com/mapbox/mapbox-gl-native/pull/15069)
  - Throw configuration exception when accessing Mapbox services with an invalid token [#15081](https://github.com/mapbox/mapbox-gl-native/pull/15081)
  - Allow setting a null access token in the runtime [#15081](https://github.com/mapbox/mapbox-gl-native/pull/15081)
  - Ensure location shadow's gradient radius is greater than 0 [#15099](https://github.com/mapbox/mapbox-gl-native/pull/15099)
@@ -587,7 +657,7 @@ This release changes how offline tile requests are billed — they are now bille
  - Fix performance regression by switching back to a more compact line attributes layout [#14851](https://github.com/mapbox/mapbox-gl-native/pull/14851)
  - Fix a bug that restricted camera viewport after camera bounds were reset [#14882](https://github.com/mapbox/mapbox-gl-native/pull/14882)
  - Fix a bug that ignored floating point values during core to platform color conversion [#14954](https://github.com/mapbox/mapbox-gl-native/pull/14954)
- - Implemented asymmetric center of perspective: fixed an issue that caused the focal point to be always based on the view's horizontal center when setting [MapboxMap setPadding](https://docs.mapbox.com/android/api/map-sdk/8.0.0/com/trackasia/android/maps/MapboxMap.html#setPadding-int-int-int-int-). [#14664](https://github.com/mapbox/mapbox-gl-native/pull/14664)
+ - Implemented asymmetric center of perspective: fixed an issue that caused the focal point to be always based on the view's horizontal center when setting [TrackasiaMap setPadding](https://docs.mapbox.com/android/api/map-sdk/8.0.0/com/trackasia/android/maps/TrackasiaMap.html#setPadding-int-int-int-int-). [#14664](https://github.com/mapbox/mapbox-gl-native/pull/14664)
 
 ### Minor features and improvements
  - Allow null updates to GeoJsonSource [#14898](https://github.com/mapbox/mapbox-gl-native/pull/14898)
@@ -646,7 +716,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
  - Return color string values in the [0-255] range [#14233](https://github.com/mapbox/mapbox-gl-native/pull/14233)
  - Resume file source to complete resources cache path change [#14546](https://github.com/mapbox/mapbox-gl-native/pull/14546)
  - Remove binary shader support [#14707](https://github.com/mapbox/mapbox-gl-native/pull/14707)
- - Deprecate MapboxMapOptions empty constructor [#14748](https://github.com/mapbox/mapbox-gl-native/pull/14748)
+ - Deprecate TrackasiaMapOptions empty constructor [#14748](https://github.com/mapbox/mapbox-gl-native/pull/14748)
 
 
 ### Features
@@ -781,7 +851,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
  - Clear camera callbacks' message queue when the map is destroyed [#14292](https://github.com/mapbox/mapbox-gl-native/pull/14292)
  - Use a valid gestures focal point when resetting a manager [#14284](https://github.com/mapbox/mapbox-gl-native/pull/14284)
  - Disable move gesture detector foreseeing the quickzoom [#14268](https://github.com/mapbox/mapbox-gl-native/pull/14268)
- - Remove request render from MapboxMap#onStart [#14245](https://github.com/mapbox/mapbox-gl-native/pull/14245)
+ - Remove request render from TrackasiaMap#onStart [#14245](https://github.com/mapbox/mapbox-gl-native/pull/14245)
  - Use TurfMeasurement#distance in LatLng#distanceTo [#14220](https://github.com/mapbox/mapbox-gl-native/pull/14220)
 
 ### Features
@@ -1055,7 +1125,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
  - Removed ILatLng and IProjectedMeteres [#13176](https://github.com/mapbox/mapbox-gl-native/pull/13176)
  - Option to consume map clicks, consuming location clicks [#13205](https://github.com/mapbox/mapbox-gl-native/pull/13205)
  - Consolidated OfflineRegionDefinitions [#13180](https://github.com/mapbox/mapbox-gl-native/pull/13180)
- - Added scrollBy() to MapboxMap, depricated  CameraUpdate.scrollBy() [#13223](https://github.com/mapbox/mapbox-gl-native/pull/13223)
+ - Added scrollBy() to TrackasiaMap, depricated  CameraUpdate.scrollBy() [#13223](https://github.com/mapbox/mapbox-gl-native/pull/13223)
  - Improved CustomGeometrySource constructor typing [#13200](https://github.com/mapbox/mapbox-gl-native/pull/13200)
  - Removed deprecated MarkerView[#13194](https://github.com/mapbox/mapbox-gl-native/pull/13194)
  - Annotate onMapReady with @NonNull [#13307](https://github.com/mapbox/mapbox-gl-native/pull/13307)
@@ -1183,7 +1253,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
  - Arbitrary offline region shapes [#11447](https://github.com/mapbox/mapbox-gl-native/pull/11447)
  - Make AndroidRendererFrontend to request render once per event loop [#12586](https://github.com/mapbox/mapbox-gl-native/issues/12586)
  - Converting GeoJsonSource features asynchronously [#12580](https://github.com/mapbox/mapbox-gl-native/pull/12580)
- - StyleJson configuration on MapboxMapOptions [#12664](https://github.com/mapbox/mapbox-gl-native/pull/12664)
+ - StyleJson configuration on TrackasiaMapOptions [#12664](https://github.com/mapbox/mapbox-gl-native/pull/12664)
  - Update MapInitializer for OfflineRegionDefinition [#12686](https://github.com/mapbox/mapbox-gl-native/pull/12686)
  - Offline symbol render example using AssetFileSource [#12676](https://github.com/mapbox/mapbox-gl-native/pull/12676)
  - Added Chinese translations [#12696](https://github.com/mapbox/mapbox-gl-native/pull/12696)
@@ -1557,7 +1627,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
 - Don't save state if map hasn't been initialised [#10320](https://github.com/mapbox/mapbox-gl-native/pull/10320)
 - Make map snapshot optional [#10310](https://github.com/mapbox/mapbox-gl-native/pull/10310)
 - Synchronise locationlastions with Transifex [#10309](https://github.com/mapbox/mapbox-gl-native/pull/10309)
-- MapboxMap#addImages [#10281](https://github.com/mapbox/mapbox-gl-native/pull/10281)
+- TrackasiaMap#addImages [#10281](https://github.com/mapbox/mapbox-gl-native/pull/10281)
 - Move shape annotation click handling to core [#10267](https://github.com/mapbox/mapbox-gl-native/pull/10267)
 - Map snapshotter additions [#10163](https://github.com/mapbox/mapbox-gl-native/pull/10163)
 - Add velocity to gestures / port animations to SDK animators [#10202](https://github.com/mapbox/mapbox-gl-native/pull/10202)
@@ -1580,7 +1650,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
 - Add interpolator examples [#10067](https://github.com/mapbox/mapbox-gl-native/pull/10067)
 - Add an UnsatisfiedLinkError safeguard [#10180](https://github.com/mapbox/mapbox-gl-native/pull/10180)
 - Hold off handling hover events untill map has been created [#10142](https://github.com/mapbox/mapbox-gl-native/pull/10142)
-- Added `MapboxMap.getCameraForGeometry()` to get a camera with zoom level and center coordinate computed to fit a shape [#10107](https://github.com/mapbox/mapbox-gl-native/pull/10107)
+- Added `TrackasiaMap.getCameraForGeometry()` to get a camera with zoom level and center coordinate computed to fit a shape [#10107](https://github.com/mapbox/mapbox-gl-native/pull/10107)
 - Fine tune gesture zoom & rotation [#10134](https://github.com/mapbox/mapbox-gl-native/pull/10134)
 
 ## 5.2.0-beta.1 - October 6, 2017
@@ -1614,7 +1684,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
 - Expose setStyleJson and getStyleJson [#9714](https://github.com/mapbox/mapbox-gl-native/pull/9714)
 - update LatLngBounds activity with BottomSheet interaction [#9736](https://github.com/mapbox/mapbox-gl-native/pull/9736)
 - post updating InfoWindow update for InfoWindowAdapter [#9716](https://github.com/mapbox/mapbox-gl-native/pull/9716)
-- Annotate MapboxMap class with UiThread [#9712](https://github.com/mapbox/mapbox-gl-native/pull/9712)
+- Annotate TrackasiaMap class with UiThread [#9712](https://github.com/mapbox/mapbox-gl-native/pull/9712)
 - Move ZoomButtonController creation to view initalisation [#9587](https://github.com/mapbox/mapbox-gl-native/pull/9587)
 - Solve lint issues, reduce baseline [#9627](https://github.com/mapbox/mapbox-gl-native/pull/9627)
 - Remove wear module from project [#9618](https://github.com/mapbox/mapbox-gl-native/pull/9618)
@@ -1846,7 +1916,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
 * Telemetry Service is now include automatically via Manifest merge to simplify set up [#8338](https://github.com/mapbox/mapbox-gl-native/pull/8338)
 * Support for Android Nougat [#5910](5910-move-listener-logic-for-nougat)
   - Move location listening logic to `onStart`/`onStop` activity lifecylce methods
-* Removal of `accessToken` on `MapView` and `MapboxMap` [#5621](https://github.com/mapbox/mapbox-gl-native/issues/5621)
+* Removal of `accessToken` on `MapView` and `TrackasiaMap` [#5621](https://github.com/mapbox/mapbox-gl-native/issues/5621)
 * Introduction of new make targets [#5940](https://github.com/mapbox/mapbox-gl-native/issues/5940)
   - Targets for testing, running and using external tools directly from the command line
 * Cleanup Gradle files [#6009](https://github.com/mapbox/mapbox-gl-native/issues/6009)
@@ -1916,7 +1986,7 @@ Please see https://github.com/square/okhttp/issues/2679 for more information.
 * MAS submodules (geojson, telemetry) are now smaller to reduce the overall method count [#7642](https://github.com/mapbox/mapbox-gl-native/pull/7642)
 * Support for Android Nougat [#5910](5910-move-listener-logic-for-nougat)
   - Move location listening logic to onStart/onStop Activity lifecylce methods
-* Removal of `accessToken` on `MapView` and `MapboxMap` [#5621](https://github.com/mapbox/mapbox-gl-native/issues/5621)
+* Removal of `accessToken` on `MapView` and `TrackasiaMap` [#5621](https://github.com/mapbox/mapbox-gl-native/issues/5621)
 * Introduction of new make targets [#5940](https://github.com/mapbox/mapbox-gl-native/issues/5940)
   - Targets for testing, running and using external tools directly from the command line
 * Cleanup Gradle files [#6009](https://github.com/mapbox/mapbox-gl-native/issues/6009)
@@ -2068,19 +2138,19 @@ Mapbox Android 4.1.0 builds off our ambitious 4.0.0 version with 3 major new fea
 
 Mapbox Android 4.0.1 is a patch release to make this bug fix available sooner.
 
-* MapboxMap.removeAnnotations() doesn't remove markers ([#4553](https://github.com/mapbox/mapbox-gl-native/issues/4553))
+* TrackasiaMap.removeAnnotations() doesn't remove markers ([#4553](https://github.com/mapbox/mapbox-gl-native/issues/4553))
 
 ## 4.0.0 - March 30, 2016
 
 Mapbox Android 4.0.0 contains the following 3 major new features.
 
-* MapboxMap API Change ([#3145](https://github.com/mapbox/mapbox-gl-native/issues/3145))
+* TrackasiaMap API Change ([#3145](https://github.com/mapbox/mapbox-gl-native/issues/3145))
 * Offline Maps ([#3891](https://github.com/mapbox/mapbox-gl-native/issues/3891))
 * Telemetry ([#2421](https://github.com/mapbox/mapbox-gl-native/issues/2421))
 
 ## 4.0.0-rc.1 - March 25, 2016
 
-* Default Value Bug Fix for MapboxMapOptions ([#4398](https://github.com/mapbox/mapbox-gl-native/issues/4398))
+* Default Value Bug Fix for TrackasiaMapOptions ([#4398](https://github.com/mapbox/mapbox-gl-native/issues/4398))
 * NullPointerException When Scrolling ([#4424](https://github.com/mapbox/mapbox-gl-native/issues/4424))
 * Platform Specific CHANGELOGS ([#4432](https://github.com/mapbox/mapbox-gl-native/issues/4432))
 * Introduce LatLng.wrap() ([#4475](https://github.com/mapbox/mapbox-gl-native/issues/4475))
@@ -2098,7 +2168,7 @@ Mapbox Android 4.0.0 contains the following 3 major new features.
 
 Mapbox Android 4.0.0 is the most ambitious Android release to date with 3 major new features being released. To help us produce the highest quality SDK possible we're releasing an official Beta release first so that everyone has time to explore it and help hardened it before the official 4.0.0 Final Release.
 
-* MapboxMap API Change ([#3145](https://github.com/mapbox/mapbox-gl-native/issues/3145))
+* TrackasiaMap API Change ([#3145](https://github.com/mapbox/mapbox-gl-native/issues/3145))
 * Offline Maps ([#3891](https://github.com/mapbox/mapbox-gl-native/issues/3891))
 * Telemetry ([#2421](https://github.com/mapbox/mapbox-gl-native/issues/2421))
 

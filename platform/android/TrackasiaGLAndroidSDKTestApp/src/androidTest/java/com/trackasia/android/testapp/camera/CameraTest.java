@@ -16,7 +16,7 @@ import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
+import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 

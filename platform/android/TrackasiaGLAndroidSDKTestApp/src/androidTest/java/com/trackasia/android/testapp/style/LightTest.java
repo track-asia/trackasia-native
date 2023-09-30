@@ -31,9 +31,9 @@ import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionBa
 import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionColor;
 import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionHeight;
 import static com.trackasia.android.style.layers.PropertyFactory.fillExtrusionOpacity;
-import static com.trackasia.android.testapp.action.MapboxMapAction.invoke;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static com.trackasia.android.testapp.action.TrackasiaMapAction.invoke;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class LightTest extends BaseTest {

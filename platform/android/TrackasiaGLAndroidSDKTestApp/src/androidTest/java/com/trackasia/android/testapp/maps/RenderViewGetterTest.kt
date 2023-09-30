@@ -10,8 +10,8 @@ import com.trackasia.android.maps.MapView
 import com.trackasia.android.maps.TrackasiaMapOptions
 import com.trackasia.android.maps.renderer.glsurfaceview.TrackasiaGLSurfaceView
 import com.trackasia.android.testapp.activity.FeatureOverviewActivity
-import junit.framework.Assert.assertNotNull
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

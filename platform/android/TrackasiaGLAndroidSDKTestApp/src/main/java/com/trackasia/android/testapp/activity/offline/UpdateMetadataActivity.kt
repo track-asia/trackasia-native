@@ -17,6 +17,7 @@ import com.trackasia.android.offline.OfflineManager.ListOfflineRegionsCallback
 import com.trackasia.android.offline.OfflineRegion
 import com.trackasia.android.offline.OfflineRegion.OfflineRegionUpdateMetadataCallback
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.activity.offline.UpdateMetadataActivity.OfflineRegionMetadataAdapter
 import com.trackasia.android.testapp.utils.OfflineUtils
 import java.util.*
 
@@ -28,7 +29,7 @@ class UpdateMetadataActivity :
     AdapterView.OnItemClickListener,
     AdapterView.OnItemLongClickListener {
     private var adapter: OfflineRegionMetadataAdapter? = null
-    private var mapView: MapView? = null
+    private lateinit var mapView: MapView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_metadata_update)
@@ -54,10 +55,12 @@ class UpdateMetadataActivity :
         builder.setPositiveButton(
             "OK"
         ) { dialog: DialogInterface?, which: Int ->
-            updateMetadata(
-                region,
-                OfflineUtils.convertRegionName(input.text.toString())
-            )
+            OfflineUtils.convertRegionName(input.text.toString())?.let {
+                updateMetadata(
+                    region,
+                    it
+                )
+            }
         }
         builder.setNegativeButton("Cancel") { dialog: DialogInterface, which: Int -> dialog.cancel() }
         builder.show()
@@ -72,14 +75,14 @@ class UpdateMetadataActivity :
         val container = findViewById<ViewGroup>(R.id.container)
         container.removeAllViews()
         container.addView(MapView(view.context).also { mapView = it })
-        mapView!!.onCreate(null)
-        mapView!!.getMapAsync { map: TrackasiaMap ->
+        mapView.onCreate(null)
+        mapView.getMapAsync { map: TrackasiaMap ->
             map.setOfflineRegionDefinition(
                 adapter!!.getItem(position).definition
             )
         }
-        mapView!!.onStart()
-        mapView!!.onResume()
+        mapView.onStart()
+        mapView.onResume()
         return true
     }
 
@@ -109,7 +112,7 @@ class UpdateMetadataActivity :
 
     private fun loadOfflineRegions() {
         OfflineManager.getInstance(this).listOfflineRegions(object : ListOfflineRegionsCallback {
-            override fun onList(offlineRegions: Array<OfflineRegion>) {
+            override fun onList(offlineRegions: Array<OfflineRegion>?) {
                 if (offlineRegions != null && offlineRegions.size > 0) {
                     adapter!!.setOfflineRegions(Arrays.asList(*offlineRegions))
                 }
@@ -128,13 +131,13 @@ class UpdateMetadataActivity :
     override fun onDestroy() {
         super.onDestroy()
         if (mapView != null) {
-            mapView!!.onPause()
-            mapView!!.onStop()
-            mapView!!.onDestroy()
+            mapView.onPause()
+            mapView.onStop()
+            mapView.onDestroy()
         }
     }
 
-    private class OfflineRegionMetadataAdapter internal constructor(private val context: Context) :
+    private class OfflineRegionMetadataAdapter(private val context: Context) :
         BaseAdapter() {
         private var offlineRegions: List<OfflineRegion>
         fun setOfflineRegions(offlineRegions: List<OfflineRegion>) {
@@ -154,8 +157,8 @@ class UpdateMetadataActivity :
             return position.toLong()
         }
 
-        override fun getView(position: Int, convertView: View, parent: ViewGroup): View {
-            var convertView = convertView
+        override fun getView(position: Int, convertViewParam: View?, parent: ViewGroup): View {
+            var convertView = convertViewParam
             val holder: ViewHolder
             if (convertView == null) {
                 holder = ViewHolder()
@@ -167,7 +170,7 @@ class UpdateMetadataActivity :
                 holder = convertView.tag as ViewHolder
             }
             holder.text!!.text = OfflineUtils.convertRegionName(getItem(position).metadata)
-            return convertView
+            return convertView!!
         }
 
         internal class ViewHolder {

@@ -22,7 +22,7 @@ import timber.log.Timber.DebugTree
  * Initialises components as LeakCanary, Strictmode, Timber and Trackasia
  *
  */
-class TrackAsiaApplication : MultiDexApplication() {
+open class TrackAsiaApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         initializeLogger()
@@ -57,14 +57,16 @@ class TrackAsiaApplication : MultiDexApplication() {
 
     private fun initializeMapbox() {
         val apiKey = ApiKeyUtils.getApiKey(applicationContext)
-        validateApiKey(apiKey)
+        if (apiKey != null) {
+            validateApiKey(apiKey)
+        }
         Trackasia.getInstance(applicationContext, apiKey, TILE_SERVER)
         TileLoadingMeasurementUtils.setUpTileLoadingMeasurement()
         MapStrictMode.setStrictModeEnabled(true)
     }
 
     companion object {
-        val TILE_SERVER = WellKnownTileServer.TrackAsia
+        val TILE_SERVER = WellKnownTileServer.MapTiler
         private const val DEFAULT_API_KEY = "YOUR_API_KEY_GOES_HERE"
         private const val API_KEY_NOT_SET_MESSAGE =
             (

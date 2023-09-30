@@ -22,7 +22,7 @@ class SimpleMapActivity : AppCompatActivity() {
                 val styles = Style.getPredefinedStyles()
                 if (styles != null && styles.size > 0) {
                     val styleUrl = styles[0].url
-                    mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public")
+                    mapboxMap.setStyle(Style.Builder().fromUri(styleUrl))
                 }
             }
         )
@@ -30,37 +30,37 @@ class SimpleMapActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mapView!!.onStart()
+        mapView.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView!!.onResume()
+        mapView.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView!!.onPause()
+        mapView.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView!!.onStop()
+        mapView.onStop()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView!!.onLowMemory()
+        mapView.onLowMemory()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView!!.onDestroy()
+        mapView.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView!!.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

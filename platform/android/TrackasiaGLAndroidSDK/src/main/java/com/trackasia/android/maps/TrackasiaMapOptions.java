@@ -27,7 +27,7 @@ import com.trackasia.android.utils.FontUtils;
 import java.util.Arrays;
 
 /**
- * Defines configuration MapboxMapMapOptions for a TrackasiaMap. These options can be used when adding a
+ * Defines configuration TrackasiaMapMapOptions for a TrackasiaMap. These options can be used when adding a
  * map to your application programmatically (as opposed to via XML). If you are using a MapFragment,
  * you can pass these options in using the static factory method newInstance(TrackasiaMapOptions).
  * If you are using a MapView, you can pass these options in using the constructor
@@ -154,7 +154,7 @@ public class TrackasiaMapOptions implements Parcelable {
   }
 
   /**
-   * Creates a default MapboxMapsOptions from a given context.
+   * Creates a default TrackasiaMapsOptions from a given context.
    *
    * @param context Context related to a map view.
    * @return the TrackasiaMapOptions created from attributes
@@ -165,7 +165,7 @@ public class TrackasiaMapOptions implements Parcelable {
   }
 
   /**
-   * Creates a MapboxMapsOptions from the attribute set.
+   * Creates a TrackasiaMapsOptions from the attribute set.
    *
    * @param context Context related to a map view.
    * @param attrs   Attributeset containing configuration
@@ -179,8 +179,8 @@ public class TrackasiaMapOptions implements Parcelable {
 
   @VisibleForTesting
   static TrackasiaMapOptions createFromAttributes(@NonNull TrackasiaMapOptions mapboxMapOptions,
-                                                  @NonNull Context context,
-                                                  @Nullable TypedArray typedArray) {
+                                               @NonNull Context context,
+                                               @Nullable TypedArray typedArray) {
     float pxlRatio = context.getResources().getDisplayMetrics().density;
     try {
       mapboxMapOptions.camera(new CameraPosition.Builder(typedArray).build());

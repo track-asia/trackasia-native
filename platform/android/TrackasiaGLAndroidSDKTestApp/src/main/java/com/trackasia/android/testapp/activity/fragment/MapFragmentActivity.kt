@@ -22,8 +22,8 @@ class MapFragmentActivity :
     OnMapViewReadyCallback,
     OnMapReadyCallback,
     OnDidFinishRenderingFrameListener {
-    private var mapboxMap: TrackasiaMap? = null
-    private var mapView: MapView? = null
+    private lateinit var mapboxMap: TrackasiaMap
+    private lateinit var mapView: MapView
     private var initialCameraAnimation = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,24 +62,24 @@ class MapFragmentActivity :
 
     override fun onMapViewReady(map: MapView) {
         mapView = map
-        mapView!!.addOnDidFinishRenderingFrameListener(this)
+        mapView.addOnDidFinishRenderingFrameListener(this)
     }
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public")
+        mapboxMap.setStyle(Style.getPredefinedStyle("Outdoor"))
     }
 
     override fun onDestroy() {
         super.onDestroy()
         if (mapView != null) {
-            mapView!!.removeOnDidFinishRenderingFrameListener(this)
+            mapView.removeOnDidFinishRenderingFrameListener(this)
         }
     }
 
     override fun onDidFinishRenderingFrame(fully: Boolean) {
         if (initialCameraAnimation && fully && mapboxMap != null) {
-            mapboxMap!!.animateCamera(
+            mapboxMap.animateCamera(
                 CameraUpdateFactory.newCameraPosition(CameraPosition.Builder().tilt(45.0).build()),
                 5000
             )
