@@ -1,5 +1,6 @@
 package com.mapbox.api.directions.v5.models;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
@@ -33,30 +34,31 @@ public abstract class DirectionsWaypoint extends DirectionsJsonObject {
    * @return string with the name of the way the coordinate snapped to
    * @since 1.0.0
    */
-  @Nullable
+  @NonNull
   public abstract String name();
 
   /**
-   * A {@link Point} representing this waypoint location.
+   * A {@link Point} representing this waypoint location. This point is snapped to the road network.
    *
    * @return GeoJson Point representing this waypoint location
    * @since 3.0.0
    */
-  @Nullable
+  @NonNull
   public Point location() {
     return Point.fromLngLat(rawLocation()[0], rawLocation()[1]);
   }
 
-  /**
-   * A {@link Point} representing this waypoint location.
-   *
-   * @return GeoJson Point representing this waypoint location
-   * @since 3.0.0
-   */
-  @Nullable
+  @NonNull
   @SerializedName("location")
   @SuppressWarnings("mutable")
   abstract double[] rawLocation();
+
+  /**
+   * The straight-line distance from the coordinate specified in the query
+   * to the location it was snapped to.
+   */
+  @Nullable
+  public abstract Double distance();
 
   /**
    * Convert the current {@link DirectionsWaypoint} to its builder holding the currently assigned
@@ -100,7 +102,7 @@ public abstract class DirectionsWaypoint extends DirectionsJsonObject {
    * @since 3.0.0
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
      * Provides the way name which the waypoint's coordinate is snapped to.
@@ -109,10 +111,12 @@ public abstract class DirectionsWaypoint extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
-    public abstract Builder name(@Nullable String name);
+    @NonNull
+    public abstract Builder name(@NonNull String name);
 
     /**
-     * The rawLocation as a double array. Once the {@link DirectionsWaypoint} objects created,
+     * The rawLocation as a double array representing a location snapped to the road network.
+     * Once the {@link DirectionsWaypoint} objects created,
      * this raw location gets converted into a {@link Point} object and is public exposed as such.
      * The double array should have a length of two, index 0 being the longitude and index 1 being
      * latitude.
@@ -122,7 +126,17 @@ public abstract class DirectionsWaypoint extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
-    public abstract Builder rawLocation(@Nullable double[] rawLocation);
+    @NonNull
+    public abstract Builder rawLocation(@NonNull double[] rawLocation);
+
+    /**
+     * The straight-line distance from the coordinate specified in the query
+     * to the location it was snapped to.
+     *
+     * @param distance distance from original requested location
+     */
+    @NonNull
+    public abstract Builder distance(@Nullable Double distance);
 
     /**
      * Build a new {@link DirectionsWaypoint} object.

@@ -82,7 +82,7 @@ public abstract class Incident extends DirectionsJsonObject {
   /**
    * Incident type.
    */
-  @Retention(RetentionPolicy.SOURCE)
+  @Retention(RetentionPolicy.CLASS)
   @StringDef({
     INCIDENT_ACCIDENT,
     INCIDENT_CONGESTION,
@@ -128,7 +128,7 @@ public abstract class Incident extends DirectionsJsonObject {
   /**
    * Impact type.
    */
-  @Retention(RetentionPolicy.SOURCE)
+  @Retention(RetentionPolicy.CLASS)
   @StringDef({
     IMPACT_UNKNOWN,
     IMPACT_CRITICAL,
@@ -214,14 +214,23 @@ public abstract class Incident extends DirectionsJsonObject {
   public abstract List<Integer> alertcCodes();
 
   /**
-   * Incident's geometry index start point.
+   * Traffic codes. See {@link TrafficCodes}.
+   *
+   * @return traffic codes
+   */
+  @Nullable
+  @SerializedName("traffic_codes")
+  public abstract TrafficCodes trafficCodes();
+
+  /**
+   * Incident's leg-wise geometry index start point.
    */
   @Nullable
   @SerializedName("geometry_index_start")
   public abstract Integer geometryIndexStart();
 
   /**
-   * Incident's geometry index end point.
+   * Incident's leg-wise geometry index end point.
    */
   @Nullable
   @SerializedName("geometry_index_end")
@@ -248,6 +257,43 @@ public abstract class Incident extends DirectionsJsonObject {
   @Nullable
   @SerializedName("end_time")
   public abstract String endTime();
+
+  /**
+   * Two letter country code where the incident is located.
+   * @see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.">ISO Country code Wikipedia page</a>
+   */
+  @Nullable
+  @SerializedName("iso_3166_1_alpha2")
+  public abstract String countryCodeAlpha2();
+
+  /**
+   * Three letter country code where the incident is located.
+   * @see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3.">ISO Country code Wikipedia page</a>
+   */
+  @Nullable
+  @SerializedName("iso_3166_1_alpha3")
+  public abstract String countryCodeAlpha3();
+
+  /**
+   * A list of lanes that are blocked by the incident.
+   */
+  @Nullable
+  @SerializedName("lanes_blocked")
+  public abstract List<String> lanesBlocked();
+
+  /**
+   * The number of items in the {@link Incident#lanesBlocked()} list.
+   */
+  @Nullable
+  @SerializedName("num_lanes_blocked")
+  public abstract Integer numLanesBlocked();
+
+  /**
+   * List of roads names affected by the incident.
+   */
+  @Nullable
+  @SerializedName("affected_road_names")
+  public abstract List<String> affectedRoadNames();
 
   /**
    * Create a new instance of this class by using the {@link Incident.Builder} class.
@@ -294,7 +340,7 @@ public abstract class Incident extends DirectionsJsonObject {
    * This builder can be used to set the values describing the {@link Incident}.
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
      * Unique identifier for incident. It might be the only one <b>non-null</b> filed which meant
@@ -302,6 +348,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param id String
      */
+    @NonNull
     public abstract Builder id(@NonNull String id);
 
     /**
@@ -310,6 +357,7 @@ public abstract class Incident extends DirectionsJsonObject {
      * @param type incident type
      * @see IncidentType
      */
+    @NonNull
     public abstract Builder type(@Nullable @IncidentType String type);
 
     /**
@@ -318,6 +366,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param closed is way closed
      */
+    @NonNull
     public abstract Builder closed(@Nullable Boolean closed);
 
     /**
@@ -325,6 +374,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param congestion congestion
      */
+    @NonNull
     public abstract Builder congestion(@Nullable Congestion congestion);
 
     /**
@@ -332,6 +382,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param description incident description
      */
+    @NonNull
     public abstract Builder description(@Nullable String description);
 
     /**
@@ -339,6 +390,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param longDescription incident long description
      */
+    @NonNull
     public abstract Builder longDescription(@Nullable String longDescription);
 
     /**
@@ -347,6 +399,7 @@ public abstract class Incident extends DirectionsJsonObject {
      * @param impact impact type
      * @see ImpactType
      */
+    @NonNull
     public abstract Builder impact(@Nullable @ImpactType String impact);
 
     /**
@@ -354,6 +407,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param subType syp-type
      */
+    @NonNull
     public abstract Builder subType(@Nullable String subType);
 
     /**
@@ -361,6 +415,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param subTypeDescription sub-type description
      */
+    @NonNull
     public abstract Builder subTypeDescription(@Nullable String subTypeDescription);
 
     /**
@@ -369,20 +424,31 @@ public abstract class Incident extends DirectionsJsonObject {
      * @param alertcCodes list of alert codes
      * @see <a href="https://www.iso.org/standard/59231.html">AlertC</a>
      */
+    @NonNull
     public abstract Builder alertcCodes(@Nullable List<Integer> alertcCodes);
 
     /**
-     * Incident's geometry index start point.
+     * Traffic codes.
+     *
+     * @param trafficCodes traffic cods. See {@link TrafficCodes}.
+     */
+    @NonNull
+    public abstract Builder trafficCodes(@Nullable TrafficCodes trafficCodes);
+
+    /**
+     * Incident's leg-wise geometry index start point.
      *
      * @param geometryIndexStart start index
      */
+    @NonNull
     public abstract Builder geometryIndexStart(@Nullable Integer geometryIndexStart);
 
     /**
-     * Incident's geometry index end point.
+     * Incident's leg-wise geometry index end point.
      *
      * @param geometryIndexEnd end index
      */
+    @NonNull
     public abstract Builder geometryIndexEnd(@Nullable Integer geometryIndexEnd);
 
     /**
@@ -390,6 +456,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param creationTime ISO8601 format
      */
+    @NonNull
     public abstract Builder creationTime(@Nullable String creationTime);
 
     /**
@@ -397,6 +464,7 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param startTime ISO8601 format
      */
+    @NonNull
     public abstract Builder startTime(@Nullable String startTime);
 
     /**
@@ -404,13 +472,56 @@ public abstract class Incident extends DirectionsJsonObject {
      *
      * @param endTime ISO8601 format
      */
+    @NonNull
     public abstract Builder endTime(@Nullable String endTime);
+
+    /**
+     * Two letter country code where the incident is located.
+     * @see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.">ISO Country code Wikipedia page</a>
+     *
+     * @param countryCodeAlpha2 2 letter country code
+     */
+    @NonNull
+    public abstract Builder countryCodeAlpha2(@Nullable String countryCodeAlpha2);
+
+    /**
+     * Three letter country code where the incident is located.
+     * @see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3.">ISO Country code Wikipedia page</a>
+     *
+     * @param countryCodeAlpha3 3 letter country code
+     */
+    @NonNull
+    public abstract Builder countryCodeAlpha3(@Nullable String countryCodeAlpha3);
+
+    /**
+     * A list of lanes that are blocked by the incident.
+     *
+     * @param lanesBlocked lanes blocked
+     */
+    @NonNull
+    public abstract Builder lanesBlocked(@Nullable List<String> lanesBlocked);
+
+    /**
+     * The number of items in the {@link Incident#lanesBlocked()} list.
+     *
+     * @param numLanesBlocked number lanes blocked
+     */
+    @NonNull
+    public abstract Builder numLanesBlocked(@Nullable Integer numLanesBlocked);
+
+    /**
+     * Sets list of roads names affected by the incident.
+     * @param affectedRoadNames list of roads names affected by the incident.
+     */
+    @NonNull
+    public abstract Builder affectedRoadNames(@Nullable List<String> affectedRoadNames);
 
     /**
      * Build a new instance of {@link Incident}.
      *
      * @return a new instance of {@link Incident}.
      */
+    @NonNull
     public abstract Incident build();
   }
 }

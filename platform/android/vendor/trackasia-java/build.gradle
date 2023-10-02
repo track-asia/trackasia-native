@@ -8,6 +8,16 @@ buildscript {
     google()
     mavenCentral()
     jcenter()
+    maven {
+      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+      authentication {
+        basic(BasicAuthentication)
+      }
+      credentials {
+        username = "mapbox"
+        password = "sk.eyJ1Ijoic2FuZ25ndXllbjI1IiwiYSI6ImNsbjhrZzNwMDBuYWEyaXA5dmd3YXRkOGoifQ.hbSoKd5hj7tAaF7Qccs6Pw"
+      }
+    }
   }
 
   dependencies {
@@ -20,6 +30,7 @@ buildscript {
     classpath pluginDependencies.errorprone
     classpath pluginDependencies.buildConfig
     classpath pluginDependencies.gradleNexus
+    classpath pluginDependencies.mapboxSdkRegistry
   }
 }
 
@@ -34,6 +45,16 @@ allprojects {
     google()
     mavenCentral()
     jcenter()
+    maven {
+      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+      authentication {
+        basic(BasicAuthentication)
+      }
+      credentials {
+        username = "mapbox"
+        password = "sk.eyJ1Ijoic2FuZ25ndXllbjI1IiwiYSI6ImNsbjhrZzNwMDBuYWEyaXA5dmd3YXRkOGoifQ.hbSoKd5hj7tAaF7Qccs6Pw"
+      }
+    }
   }
 }
 

@@ -71,7 +71,7 @@ public class MapMatchingTracepointTest extends TestUtils {
 
 //  @Test
 //  public void location_doesTransformIntoPointObject() throws Exception {
-//    TrackasiaMapMatching mapMatching = TrackasiaMapMatching.builder()
+//    MapboxMapMatching mapMatching = MapboxMapMatching.builder()
 //      .coordinates(coordinates)
 //      .baseUrl(mockUrl.toString())
 //      .accessToken(ACCESS_TOKEN)
@@ -85,7 +85,7 @@ public class MapMatchingTracepointTest extends TestUtils {
 
 //  @Test
 //  public void waypointIndex_matchesJsonValue() throws Exception {
-//    TrackasiaMapMatching mapMatching = TrackasiaMapMatching.builder()
+//    MapboxMapMatching mapMatching = MapboxMapMatching.builder()
 //      .coordinates(coordinates)
 //      .baseUrl(mockUrl.toString())
 //      .accessToken(ACCESS_TOKEN)
@@ -96,7 +96,7 @@ public class MapMatchingTracepointTest extends TestUtils {
 
 //  @Test
 //  public void alternativesCount_matchesJsonValue() throws Exception {
-//    TrackasiaMapMatching mapMatching = TrackasiaMapMatching.builder()
+//    MapboxMapMatching mapMatching = MapboxMapMatching.builder()
 //      .coordinates(coordinates)
 //      .baseUrl(mockUrl.toString())
 //      .accessToken(ACCESS_TOKEN)
@@ -107,7 +107,7 @@ public class MapMatchingTracepointTest extends TestUtils {
 
 //  @Test
 //  public void matchingsIndex_matchesJsonValue() throws Exception {
-//    TrackasiaMapMatching mapMatching = TrackasiaMapMatching.builder()
+//    MapboxMapMatching mapMatching = MapboxMapMatching.builder()
 //      .coordinates(coordinates)
 //      .baseUrl(mockUrl.toString())
 //      .accessToken(ACCESS_TOKEN)

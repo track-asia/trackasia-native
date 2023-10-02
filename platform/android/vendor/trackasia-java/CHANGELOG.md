@@ -4,8 +4,243 @@ Mapbox welcomes participation and contributions from everyone.
 
 ### main
 
-### 5.9.0 - May 5, 2021
-- Initial TrackAsia release
+### v6.13.0 - July 31, 2023
+- No additional changes
+
+### v6.13.0-beta.2 - July 28, 2023
+- Added `Incident#trafficCodes`.
+
+
+### v6.13.0-beta.1 - July 11, 2023
+
+- Added `StepIntersection.mergingArea`.
+
+
+### v6.12.0 - May 30, 2023
+
+- No additional changes
+
+### v6.12.0-beta.1 - May 25, 2023
+- Added `DirectionsResponse.fromJson(Reader)` and `DirectionsResponse.fromJson(Reader, RouteOptions)` to support streaming serialisation of `DirectionsResponse`.
+
+
+### v6.11.0 - March 03, 2023
+- No additional changes
+
+### v6.11.0-beta.1 - February 03, 2023
+- No additional changes
+
+
+### v.6.10.0 - January 19, 2023
+- No additional changes
+
+
+
+### v6.10.0-beta.4 - December 02, 2022
+- Added "routable points" support for `services-geocoding` [#1522](https://github.com/mapbox/mapbox-java/pull/1522)
+
+
+### v6.10.0-beta.3 - November 30, 2022
+- Specified supported amenity types via `DirectionsCriteria#AmenityTypeCriteria`. [#1515](https://github.com/mapbox/mapbox-java/pull/1515)
+- Fixed an issue where the `OptimizationResponse#trips#routeIndex` and `OptimizationResponse#trips#routeOptions` weren't correctly assigned. [#1517](https://github.com/mapbox/mapbox-java/pull/1517)
+
+
+### v6.10.0-beta.2 - November 11, 2022
+- Added `paymentMethods` parameter for `RouteOptions` and `IntersectionLanes`. [#1449](https://github.com/mapbox/mapbox-java/pull/1449)
+
+
+### v6.10.0-beta.1 - November 09, 2022
+- Added `RouteOptions#waypointsPerRoute()` and `RouteOption.Builders#waypointsPerRoute()` methods. [#1509](https://github.com/mapbox/mapbox-java/pull/1509)
+- Added `DirectionsRoute#waypoints`. [#1509](https://github.com/mapbox/mapbox-java/pull/1509)
+
+
+### v6.9.0 - November 09, 2022
+- Removed `RouteOptions#waypointsPerRoute()` and `RouteOption.Builders#waypointsPerRoute()` methods. [#1506](https://github.com/mapbox/mapbox-java/pull/1506)
+- Removed `DirectionsRoute#waypoints` and made non-deprecated `DirectionsResponse#waypoints`. [#1506](https://github.com/mapbox/mapbox-java/pull/1506)
+
+
+### v6.9.0-beta.2 - November 03, 2022
+- Added `RouteOptions#waypointsPerRoute()` and `RouteOption.Builders#waypointsPerRoute()` methods. [#1503](https://github.com/mapbox/mapbox-java/pull/1503)
+- Added `DirectionsRoute#waypoints` and deprecated `DirectionsResponse#waypoints`. [#1503](https://github.com/mapbox/mapbox-java/pull/1503)
+
+
+### v6.9.0-beta.1 - October 21, 2022
+- Added `getUnrecognizedJsonProperties()` method to `DirectionsRefreshJsonObject` so that unrecognized properties can be received from refresh response. [#1500](https://github.com/mapbox/mapbox-java/pull/1500)
+- Added `DirectionsRefreshJsonObject.Builder#unrecognizedJsonProperties`. [#1500](https://github.com/mapbox/mapbox-java/pull/1500)
+- Added `getUnrecognizedJsonProperties()` method to `DirectionsJsonObject` so that a map of unrecognized properties can be received from route response. [#1500](https://github.com/mapbox/mapbox-java/pull/1500)
+- Added `DirectionsJsonObject.Builder#unrecognizedJsonProperties`. [#1500](https://github.com/mapbox/mapbox-java/pull/1500)
+
+
+### v6.8.0 - September 29, 2022
+- Replaced `TurfSimplify#simplify` with `TurfTransformation#simplify`. [#1496](https://github.com/mapbox/mapbox-java/pull/1496)
+- Deprecated `PolylineUtils#simplify` in favour of `TurfTransformation#simplify`. [#1496](https://github.com/mapbox/mapbox-java/pull/1496)
+
+### v6.8.0-beta.4 - September 5, 2022
+- Added `TurfSimplify#simplify` method to simplify `LineString` using Ramer-Douglas-Peucker algorithm. [#1486](https://github.com/mapbox/mapbox-java/pull/1486)
+- Added `List<Closure>` to `RouteLegRefresh` to make `DirectionsRoute#RouteLeg` refreshed with closures. [#1489](https://github.com/mapbox/mapbox-java/pull/1489)
+
+### v6.8.0-beta.3 - September 1, 2022
+- Added `subTypes` to `BannerComponents`. [#1485](https://github.com/mapbox/mapbox-java/pull/1485)
+
+### v6.8.0-beta.2 - August 17, 2022
+- Added traffic tendency annotations. [#1479](https://github.com/mapbox/mapbox-java/pull/1479)
+
+### v6.8.0-beta.1 - August 12, 2022
+- Added support for `RestStop#guideMap` associated with the `RestStop`. [#1471](https://github.com/mapbox/mapbox-java/pull/1471)
+- Fixed an issue where the `RouteOptions#...List` parameters were not reset correctly (for example, `routeOptions.toBuilder().bearingsList(null).build()` did not reset bearings to null). [#1469](https://github.com/mapbox/mapbox-java/pull/1469)
+- Added `RouteOptions.snappingIncludeStaticClosures` and `RouteOptions.snappingIncludeStaticClosuresList`. [#1469](https://github.com/mapbox/mapbox-java/pull/1469) 
+- Added `RouteOptions#computeTollCost` request parameter that when set to `true` can return `DirectionsRoute#tollCosts`, if data is available. [#1458](https://github.com/mapbox/mapbox-java/pull/1458)
+
+### v6.7.0 - August 12, 2022
+- No additional changes
+
+
+### v6.7.0-beta.1 - Jul 22, 2022
+- Added `Incident.affectedRoadNames`. [#1457](https://github.com/mapbox/mapbox-java/pull/1457)
+- Added `StepIntersections.trafficSignal`,`StepIntersections.stopSign` and `StepIntersections.yieldSign`. [#1464](https://github.com/mapbox/mapbox-java/pull/1464)
+- Fixed an issue where the `MapMatchingMathcing#routeIndex` wasn't correctly assigned. [#1463](https://github.com/mapbox/mapbox-java/pull/1463)
+
+### v6.6.0 - Jun 30, 2022
+- Fixed `RouteOptions#toUrl` for a case when `RouteOptions` was deserialized from a json generated by an old version of mapbox-java. [#1447](https://github.com/mapbox/mapbox-java/pull/1447)
+- Added support for `Amenities` by exposing them as a part of `RestStop`. [#1454](https://github.com/mapbox/mapbox-java/pull/1454)
+
+### v6.5.0 - May 25, 2022
+- No additional changes
+
+
+### v6.5.0-beta.6 - May 17, 2022
+- Added `max_weight` field to `RouteOptions` to provide max vehicle weight, metric tons. [#1439](https://github.com/mapbox/mapbox-java/pull/1439)
+
+### v6.5.0-beta.5 - May 11, 2022
+- Added `TollCollection#name` field which contains a name of the toll booth/gantry, when available. [#1432](https://github.com/mapbox/mapbox-java/pull/1432)
+- Improved `RouteOptions#toUrl` query parameters encoding. This (in between other improvements) adds handling for rarer unescaped characters occurrences (like '&' baked within other string). [#1433](https://github.com/mapbox/mapbox-java/pull/1433)
+- Added `Incidents` to `RouteLegRefresh` which allow to refresh incidents along a route. [#1421](https://github.com/mapbox/mapbox-java/pull/1421)
+
+### v6.5.0-beta.4 - May 5, 2022
+- Added `RestStop#name` field which contains a name of the service/rest area, when available. [#1428](https://github.com/mapbox/mapbox-java/pull/1428)
+
+### v6.5.0-beta.3 - April 27, 2022
+- Added `ignore` parameter to Map Matching API. [#1424](https://github.com/mapbox/mapbox-java/pull/1424)
+- Added roundtrip of unrecognized JSON properties. [#1394](https://github.com/mapbox/mapbox-java/pull/1394)
+- Added API to access unrecognized JSON properties. See `#getUnrecognizedProperty` and `#getUnrecognizedPropertiesNames` in each Directions API model object.  [#1416](https://github.com/mapbox/mapbox-java/pull/1416)
+- Added `RouteOptions.Builder#unrecognizedProperties` to set custom request parameters to a URL generated by `RouteOptions#toUrl` only. The custom request parameters are not supported by `MapboxDirections` service. [#1420](https://github.com/mapbox/mapbox-java/pull/1420)
+- Removed experimental EV routing request/response parameters. Please use the `RouteOptions.Builder#unrecognizedProperties` to set experimental request parameters, and `#getUnrecognizedProperty` to get values from relevant response objects. EV routing parameters documentation is available [here](https://docs.mapbox.com/api/navigation/directions/#electric-vehicle-routing). [#1422](https://github.com/mapbox/mapbox-java/pull/1422)
+
+#### Known issues
+- `RouteOptions#toUrl` might still produce invalid URLs (and fail a request or later crash on `RouteOptions#fromUrl`) if query parameters contain `&` chars that do not exactly match the `<white space>&<white space>` pattern. Only this specific pattern is escaped correctly.
+
+### v6.4.1 - April 22, 2022
+- Added correct escaping for `<white space>&<white space>` pattern in query parameters for `RouteOptions#toUrl`. [#1410](https://github.com/mapbox/mapbox-java/pull/1410).
+
+#### Known issues
+- `RouteOptions#toUrl` might still produce invalid URLs (and fail a request or later crash on `RouteOptions#fromUrl`) if query parameters contain `&` chars that do not exactly match the `<white space>&<white space>` pattern. Only this specific pattern is escaped correctly.
+
+### v6.5.0-beta.2 - April 22, 2022
+- Added correct escaping for `<white space>&<white space>` pattern in query parameters for `RouteOptions#toUrl`. [#1410](https://github.com/mapbox/mapbox-java/pull/1410).
+
+#### Known issues
+- `RouteOptions#toUrl` might still produce invalid URLs (and fail a request or later crash on `RouteOptions#fromUrl`) if query parameters contain `&` chars that do not exactly match the `<white space>&<white space>` pattern. Only this specific pattern is escaped correctly.
+
+### v6.5.0-beta.1 - April 14, 2022
+- Added experimental EV routing request/response parameters. These params will only be part of pre-releases (removed from final versions) until refactored into stable APIs in the future.[#1405](https://github.com/mapbox/mapbox-java/pull/1405)
+
+### v6.4.0 - April 14, 2022
+- Removed experimental EV routing request/response parameters. These params will only be part of pre-releases until refactored into stable APIs in the future.[#1395](https://github.com/mapbox/mapbox-java/pull/1395)
+
+### v6.4.0-beta.4 - March 30, 2022
+- Added route index to `MapMatchingMatching`. [#1385](https://github.com/mapbox/mapbox-java/pull/1385)
+
+### v6.4.0-beta.3 - March 25, 2022
+- Fixed an issue where `RouteOptions#fromUrl` didn't deserialize the port number. [#1382](https://github.com/mapbox/mapbox-java/pull/1382)
+
+### v6.4.0-beta.2 - March 10, 2022
+- :warning: Fixed an issue where `RouteOptions#avoidManeuverRadius` field was represented as integer instead of double. This change is breaking but necessary to correctly represent the Directions API structure. [#1376](https://github.com/mapbox/mapbox-java/pull/1376)
+- Added `railwayCrossing` field to `StepIntersection` which indicates whether there is a railway crossing at the intersection. [#1375](https://github.com/mapbox/mapbox-java/pull/1375)
+- Added ability to handle encoded coordinates in `RouteOptions#toUrl`. [#1377](https://github.com/mapbox/mapbox-java/pull/1377)
+
+### v6.4.0-beta.1 - February 22, 2022
+- Exposed `viaWaypoints` in `RouteLeg` [#1364](https://github.com/mapbox/mapbox-java/pull/1364)
+- Added `RouteOptions#excludeObject` for providing points that should be avoided in the returned route. [#1362](https://github.com/mapbox/mapbox-java/pull/1362)
+- Updated nullability of `DirectionsWaypoint` properties to reflect the API structure. [#1360](https://github.com/mapbox/mapbox-java/pull/1360)
+- Added `DirectionsWaypoint#distance` property. [#1360](https://github.com/mapbox/mapbox-java/pull/1360)
+- Added experimental EV routing request/response parameters. These change will only be part of pre-releases (removed from final versions) until refactored into stable APIs in the future. [#1365](https://github.com/mapbox/mapbox-java/pull/1365)
+
+### v6.3.0 - February 22, 2022
+- No additional changes.
+
+### v6.3.0-beta.1 - January 28, 2022
+- Exposed [turf.lineIntersect](https://turfjs.org/docs/#lineIntersect) via `TurfMisc#lineIntersect` using an algorithm with O(nm) time complexity which should suite small to medium sized geometries until a more performant solution is implemented. [#1348](https://github.com/mapbox/mapbox-java/pull/1348)
+- Fixed an issue where ends of lines where not considered as intersection points. [#1348](https://github.com/mapbox/mapbox-java/pull/1348)
+
+### v6.2.0 - January 20, 2022
+- No additional changes.
+
+### v6.2.0-beta.2 - November 30, 2021
+- Exposed `ShieldSprites`, `ShieldSprite` and `ShieldSpriteAttribute` in support for mapbox designed route shields. [#1336](https://github.com/mapbox/mapbox-java/pull/1336)
+- Added a fix so that no forbidden characters are found in the encoded URL. [#1337](https://github.com/mapbox/mapbox-java/pull/1337)
+- Removed optimization coordinates limit check. [#1339](https://github.com/mapbox/mapbox-java/pull/1339/)
+
+### v6.2.0-beta.1 - November 18, 2021
+- Added `EXCLUDE_CASH_ONLY_TOLLS`([#1309](https://github.com/mapbox/mapbox-java/issues/1309)) and `EXCLUDE_UNPAVED`([#1308](https://github.com/mapbox/mapbox-java/issues/1308)) options to `DirectionsCriteria`.
+- Exposed `DirectionsRoute.Builder#routeIndex` to allow construction when route object is not generated by `mapbox-java` library. [#1328](https://github.com/mapbox/mapbox-java/pull/1328)
+- Added data models for `MapboxShield`. [#1330](https://github.com/mapbox/mapbox-java/pull/1330/)
+
+### v6.1.0 - November 11, 2021
+- Added `avoid_maneuver_radius` to Directions API params and `avoidManeuverRadius` to `RouteOptions`. [#1310](https://github.com/mapbox/mapbox-java/pull/1310)
+- Added encoding for parameters transformed with `RouteOptions.toUrl`. [#1317](https://github.com/mapbox/mapbox-java/pull/1317)
+
+### v6.0.1 - November 04, 2021
+- Refactoring related to URL building for `RouteOptions.toUrl`. [#1313](https://github.com/mapbox/mapbox-java/pull/1314)
+
+### v6.0.0 - October 13, 2021
+- No additional changes.
+
+### v6.0.0-alpha.9 - September 29, 2021
+- Fixed `RouteOptions#toUrl()` function. [#1302](https://github.com/mapbox/mapbox-java/pull/1302)
+
+### v6.0.0-alpha.8 - September 28, 2021
+- Exposed `RouteOptions#toUrl()` function.
+
+### v6.0.0-alpha.7 - September 23, 2021
+ - Exposed include-hov/hot parameters and added exclude list option [#1296](https://github.com/mapbox/mapbox-java/pull/1296)
+
+### v6.0.0-alpha.6 - September 16, 2021
+ - Added support for `active_direction` encapsulated in lane banner component. [#1294](https://github.com/mapbox/mapbox-java/pull/1294)
+
+### v6.0.0-alpha.5 - September 1, 2021
+ - Added support for layers to `RouteOptions` object. [#1279](https://github.com/mapbox/mapbox-java/pull/1279)
+ - Added support for missing country code and lanes blocked properties to `Incident` object. [#1288](https://github.com/mapbox/mapbox-java/pull/1288)
+ - Added support for missing congestion numeric property to `LegAnnotation` object. [#1290](https://github.com/mapbox/mapbox-java/pull/1290)
+
+### v6.0.0-alpha.4 - August 26, 2021
+ - Added support for `metadata` response from Directions API. [#1282](https://github.com/mapbox/mapbox-java/pull/1282)
+ - Added `max_width` and `max_height` to Directions API params. [#1283](https://github.com/mapbox/mapbox-java/pull/1283)
+
+### v6.0.0-alpha.3 - August 19, 2021
+- Bumped `okhttp` version to `4.9.0`. It requires java 1.8 for compatibility. [#1271](https://github.com/mapbox/mapbox-java/pull/1271)
+
+### v6.0.0-alpha.2 - July 28, 2021
+- Removed `accessToken` from `RouteOptions` and moved it to `MapboxDirections` instead. This simplifies serialization and deserialization of route objects without potential leaks of data under the assumption that an entity that makes a route request has an ability to provide an access token without the route object having to transport it. [#1276](https://github.com/mapbox/mapbox-java/pull/1276)
+
+### v6.0.0-alpha.1 - July 20, 2021
+- Refactored `MapboxDirections` to accept `RouteOptions` as an argument that defines request parameters [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Moved the `requestUuid` object out of `RouteOptions` and into `DirectionsRoute` since the UUID is not a request parameter, it's a response value [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Added `enableRefresh` to `RouteOptions` since it is a route request parameter [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Removed a separate `WalkingOptions` in favor of storing the parameter directly in the `RouteOptions` [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Exposed `arriveBy` and `departAt` request parameters [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Exposed `ANNOTATION_CONGESTION_NUMERIC` parameter [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Updated documentation for various route request parameters [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Exposed `DirectionsResponse#fromJson(json, route options, request uuid)` that allows developers to provide information about the original route request which response they deserialize so that Nav SDK can operate correctly [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Exposed `DirectionsRoute#fromJson(json, route options, request uuid)` for same reason as above [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Exposed `RouteOptions#fromUrl` utility function that creates the object from the request URL which might be useful when paired with the above functions [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Added default values for `RouteOptions`: base URL, user, and geometry encoding (polyline6) [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Added a List overload in `RouteOptions` for coordinates, now there are `RouteOptions#coordinates(string)` and `RouteOptions#coordinatesList(list)`. ⚠️ If there are routes that were previously serialized with toJson methods and contained `RouteOptions`, they will not be possible to deserialize anymore since coordinates are now stored as a string and not an array. This breaking change can typically impact test fixtures [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Fixed an issue where coordinates were rounded to 6 decimal places instead of 7 decimal places that the `GeoJSON` specification expects [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Changed the default encoding for MapMatching to be polyline6 and aligns it with regular route requests [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Added a `Bearing` object that represents a pair of values for {angle, degrees} [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Removed route request parameters verification in favor of letting the service respond with a correct error [#1265](https://github.com/mapbox/mapbox-java/pull/1265)
+- Stopped serializing access tokens [#1267](https://github.com/mapbox/mapbox-java/pull/1267)
+- Replaced `Closure` `@Nullable` annotations with `@NonNull` [#1268](https://github.com/mapbox/mapbox-java/pull/1268)
 
 ### 5.9.0-alpha.5 - April 9, 2021
 - Exposed a method to pass a single boolean snapping closure parameter [#1253](https://github.com/mapbox/mapbox-java/pull/1253)
@@ -182,7 +417,7 @@ Add fields to `StepIntersection`:
 - Directions refresh was not being included in services artifact [#966](https://github.com/mapbox/mapbox-java/pull/966)
 
 ### v4.4.0 - February 12, 2019
-- Add waypointIndices to MapboxDirections, update TrackasiaMapMaptching to have waypointIndices instead of waypoints
+- Add waypointIndices to MapboxDirections, update MapboxMapMaptching to have waypointIndices instead of waypoints
   [#959](https://github.com/mapbox/mapbox-java/pull/959),
   [#961](https://github.com/mapbox/mapbox-java/pull/961),
   [#962](https://github.com/mapbox/mapbox-java/pull/962),
@@ -194,7 +429,7 @@ Add fields to `StepIntersection`:
 
 ### v4.3.0 - December 18, 2018
 - Do not use BigDecimal for rounding [#938](https://github.com/mapbox/mapbox-java/pull/938)
-- Remove coordinate limit from TrackasiaMapMatching [#940](https://github.com/mapbox/mapbox-java/pull/940)
+- Remove coordinate limit from MapboxMapMatching [#940](https://github.com/mapbox/mapbox-java/pull/940)
 - Remove character waypoint names limit from mapbox map matching [#941](https://github.com/mapbox/mapbox-java/pull/941)
 - Adding additional tests to files related to coordinate shifting [#936](https://github.com/mapbox/mapbox-java/pull/936)
 - Added waypoint targets to MapboxDirections request [#942](https://github.com/mapbox/mapbox-java/pull/942)

@@ -2,7 +2,6 @@ package com.mapbox.api.directions.v5.models;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,6 +10,8 @@ import com.mapbox.api.directions.v5.DirectionsAdapterFactory;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.PointAsCoordinatesTypeAdapter;
 
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -97,6 +98,14 @@ public abstract class DirectionsResponse extends DirectionsJsonObject {
   public abstract String uuid();
 
   /**
+   * A complex data structure that provides information about the source of the response.
+   *
+   * @return a Metadata with additional source information
+   */
+  @Nullable
+  public abstract Metadata metadata();
+
+  /**
    * Convert the current {@link DirectionsResponse} to its builder holding the currently assigned
    * values. This allows you to modify a single property and then rebuild the object resulting in
    * an updated and modified {@link DirectionsResponse}.
@@ -120,17 +129,140 @@ public abstract class DirectionsResponse extends DirectionsJsonObject {
 
   /**
    * Create a new instance of this class by passing in a formatted valid JSON String.
+   * <p>
+   * Consider using {@link #fromJson(String, RouteOptions)} if the result is used with
+   * downstream consumers of the directions models (like Mapbox Navigation SDK)
+   * to provide rerouting and route refreshing features.
    *
    * @param json a formatted valid JSON string defining a GeoJson Directions Response
    * @return a new instance of this class defined by the values passed inside this static factory
    *   method
+   * @see #fromJson(String, RouteOptions)
    * @since 3.0.0
    */
-  public static DirectionsResponse fromJson(String json) {
-    GsonBuilder gson = new GsonBuilder();
-    gson.registerTypeAdapterFactory(DirectionsAdapterFactory.create());
-    gson.registerTypeAdapter(Point.class, new PointAsCoordinatesTypeAdapter());
-    return gson.create().fromJson(json, DirectionsResponse.class);
+  public static DirectionsResponse fromJson(@NonNull String json) {
+    // rebuilding to ensure that underlying routes have assigned indices and UUID
+    return createGson().fromJson(json, DirectionsResponse.class).toBuilder().build();
+  }
+
+  /**
+   * Deserializes a new instance of this class reading from the specified reader.
+   * <p>
+   * Consider using {@link #fromJson(Reader, RouteOptions)} if the result is used with
+   * downstream consumers of the directions models (like Mapbox Navigation SDK)
+   * to provide rerouting and route refreshing features.
+   *
+   * @param json a reader producing a valid JSON defining a GeoJson Directions Response
+   * @return a new instance of this class defined by the values passed inside this static factory
+   *   method
+   * @see #fromJson(Reader, RouteOptions)
+   */
+  public static DirectionsResponse fromJson(@NonNull Reader json) {
+    // rebuilding to ensure that underlying routes have assigned indices and UUID
+    return createGson().fromJson(json, DirectionsResponse.class).toBuilder().build();
+  }
+
+  /**
+   * Create a new instance of this class by passing in a formatted valid JSON String.
+   * <p>
+   * The parameters of {@link RouteOptions} that were used to make the original route request
+   * as well as the {@link String} UUID of the original response are needed
+   * by the Navigation SDK to support correct rerouting and route refreshing.
+   *
+   * @param json         a formatted valid JSON string defining a GeoJson Directions Route
+   * @param routeOptions options that were used during the original route request
+   * @param requestUuid  UUID of the request found in the body of the original response,
+   *                     see "response.body.uuid"
+   * @return a new instance of this class defined by the values passed inside this static factory
+   *   method
+   * @see RouteOptions#fromUrl(java.net.URL)
+   * @see RouteOptions#fromJson(String)
+   * @deprecated use {@link #fromJson(String, RouteOptions)} instead
+   */
+  @Deprecated
+  public static DirectionsResponse fromJson(
+    @NonNull String json, @Nullable RouteOptions routeOptions, @Nullable String requestUuid) {
+    DirectionsResponse response = createGson().fromJson(json, DirectionsResponse.class);
+    if (routeOptions != null) {
+      response = response.updateWithRequestData(routeOptions);
+    }
+    return response.toBuilder()
+      // set the provided UUID for backwards compatibility
+      // even though it's most likely incorrect
+      .uuid(requestUuid)
+      // rebuilding to ensure that underlying routes have assigned indices and UUID
+      .build();
+  }
+
+  /**
+   * Create a new instance of this class by passing in a formatted valid JSON String.
+   * <p>
+   * The parameter of {@link RouteOptions} that were used to make the original route request
+   * which might be required by downstream consumers of the directions models
+   * (like Mapbox Navigation SDK) to provide rerouting and route refreshing features.
+   *
+   * @param json         a formatted valid JSON string defining a GeoJson Directions Route
+   * @param routeOptions options that were used during the original route request
+   * @return a new instance of this class defined by the values passed inside this static factory
+   *   method
+   * @see RouteOptions#fromUrl(java.net.URL)
+   * @see RouteOptions#fromJson(String)
+   */
+  public static DirectionsResponse fromJson(
+    @NonNull String json,
+    @NonNull RouteOptions routeOptions
+  ) {
+    DirectionsResponse response = createGson().fromJson(json, DirectionsResponse.class);
+    // rebuilding to ensure that underlying routes have assigned indices and UUID
+    return response.updateWithRequestData(routeOptions);
+  }
+
+  /**
+   * Deserializes a new instance of this class reading from the specified reader.
+   * <p>
+   * The parameter of {@link RouteOptions} that were used to make the original route request
+   * which might be required by downstream consumers of the directions models
+   * (like Mapbox Navigation SDK) to provide rerouting and route refreshing features.
+   *
+   * @param json         a reader producing a valid JSON defining a GeoJson Directions Response
+   * @param routeOptions options that were used during the original route request
+   * @return a new instance of this class defined by the values passed inside this static factory
+   *   method
+   * @see RouteOptions#fromUrl(java.net.URL)
+   * @see RouteOptions#fromJson(String)
+   */
+  public static DirectionsResponse fromJson(
+    @NonNull Reader json,
+    @NonNull RouteOptions routeOptions
+  ) {
+    DirectionsResponse response = createGson().fromJson(json, DirectionsResponse.class);
+    // rebuilding to ensure that underlying routes have assigned indices and UUID
+    return response.updateWithRequestData(routeOptions);
+  }
+
+  /**
+   * Exposes an option to enhance an existing response with the request data which might be required
+   * by downstream consumers of the directions models (like Mapbox Navigation SDK) to provide
+   * rerouting and route refreshing features.
+   *
+   * @param routeOptions options used to generate this response
+   * @see RouteOptions#fromUrl(java.net.URL)
+   * @see RouteOptions#fromJson(String)
+   * @see #fromJson(String)
+   */
+  @NonNull
+  public DirectionsResponse updateWithRequestData(@NonNull RouteOptions routeOptions) {
+    List<DirectionsRoute> modifiedRoutes = new ArrayList<>();
+    for (DirectionsRoute route : routes()) {
+      modifiedRoutes.add(
+        route.toBuilder()
+          .routeOptions(routeOptions)
+          .build()
+      );
+    }
+    return this.toBuilder()
+      .routes(modifiedRoutes)
+      .build();
   }
 
   /**
@@ -139,7 +271,7 @@ public abstract class DirectionsResponse extends DirectionsJsonObject {
    * @since 3.0.0
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
      * String indicating the state of the response. This is a separate code than the HTTP status
@@ -186,6 +318,7 @@ public abstract class DirectionsResponse extends DirectionsJsonObject {
      */
     public abstract Builder routes(@NonNull List<DirectionsRoute> routes);
 
+    @NonNull
     abstract List<DirectionsRoute> routes();
 
     /**
@@ -198,6 +331,17 @@ public abstract class DirectionsResponse extends DirectionsJsonObject {
      */
     public abstract Builder uuid(@Nullable String uuid);
 
+    @Nullable
+    abstract String uuid();
+
+    /**
+     * A complex data structure that provides information about the source of the response.
+     *
+     * @param metadata a Metadata with additional source information
+     * @return this builder for chaining options together
+     */
+    public abstract Builder metadata(@Nullable Metadata metadata);
+
     abstract DirectionsResponse autoBuild();
 
     /**
@@ -207,11 +351,27 @@ public abstract class DirectionsResponse extends DirectionsJsonObject {
      * @since 3.0.0
      */
     public DirectionsResponse build() {
+      List<DirectionsRoute> transformedRoutes = new ArrayList<>(routes().size());
       for (int i = 0; i < routes().size(); i++) {
-        routes().set(i, routes().get(i).toBuilder().routeIndex(String.valueOf(i)).build());
+        transformedRoutes.add(
+          i,
+          routes().get(i)
+            .toBuilder()
+            .routeIndex(String.valueOf(i))
+            .requestUuid(uuid())
+            .build()
+        );
       }
+      routes(transformedRoutes);
 
       return autoBuild();
     }
+  }
+
+  @NonNull private static Gson createGson() {
+    GsonBuilder gson = new GsonBuilder();
+    gson.registerTypeAdapterFactory(DirectionsAdapterFactory.create());
+    gson.registerTypeAdapter(Point.class, new PointAsCoordinatesTypeAdapter());
+    return gson.create();
   }
 }

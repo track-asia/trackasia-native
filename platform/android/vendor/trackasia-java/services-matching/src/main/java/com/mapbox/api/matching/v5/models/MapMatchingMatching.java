@@ -1,5 +1,6 @@
 package com.mapbox.api.matching.v5.models;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -31,6 +32,14 @@ public abstract class MapMatchingMatching implements Serializable {
   public static Builder builder() {
     return new AutoValue_MapMatchingMatching.Builder();
   }
+
+  /**
+   * The index of this route in the original network response.
+   *
+   * @return string of an int value representing the index
+   */
+  @Nullable
+  public abstract String routeIndex();
 
   /**
    * The distance traveled from origin to destination.
@@ -106,7 +115,7 @@ public abstract class MapMatchingMatching implements Serializable {
   /**
    * String of the language to be used for voice instructions.  Defaults to en, and
    * can be any accepted instruction language.  Will be <tt>null</tt> when the language provided
-   * via {@link com.mapbox.api.matching.v5.TrackasiaMapMatching#language()} is not compatible
+   * via {@link com.mapbox.api.matching.v5.MapboxMapMatching#language()} is not compatible
    * with API Voice.
    *
    * @return String compatible with voice instructions, null otherwise
@@ -115,6 +124,14 @@ public abstract class MapMatchingMatching implements Serializable {
   @Nullable
   @SerializedName("voiceLocale")
   public abstract String voiceLanguage();
+
+  /**
+   * The universally unique identifier of the request that produced this route.
+   *
+   * @return request uuid
+   */
+  @Nullable
+  public abstract String requestUuid();
 
   /**
    * Convert the current {@link MapMatchingMatching} to its builder holding the currently assigned
@@ -143,6 +160,8 @@ public abstract class MapMatchingMatching implements Serializable {
       .distance(distance())
       .routeOptions(routeOptions())
       .voiceLanguage(voiceLanguage())
+      .requestUuid(requestUuid())
+      .routeIndex(routeIndex())
       .build();
   }
 
@@ -172,6 +191,7 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder distance(double distance);
 
     /**
@@ -181,6 +201,7 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder duration(double duration);
 
     /**
@@ -190,6 +211,7 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder geometry(@Nullable String geometry);
 
     /**
@@ -199,6 +221,7 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder weight(double weight);
 
     /**
@@ -210,6 +233,7 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder weightName(String weightName);
 
     /**
@@ -219,6 +243,7 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder legs(List<RouteLeg> legs);
 
     /**
@@ -228,6 +253,7 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder confidence(double confidence);
 
     /**
@@ -238,19 +264,39 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder routeOptions(@Nullable RouteOptions routeOptions);
 
     /**
      * String of the language to be used for voice instructions.  Defaults to en, and
      * can be any accepted instruction language.  Should be <tt>null</tt> when the language provided
-     * via {@link com.mapbox.api.matching.v5.TrackasiaMapMatching#language()} is not
+     * via {@link com.mapbox.api.matching.v5.MapboxMapMatching#language()} is not
      * compatible with API Voice.
      *
      * @param voiceLanguage String compatible with voice instructions, null otherwise
      * @return this builder for chaining options together
      * @since 3.4.0
      */
+    @NonNull
     public abstract Builder voiceLanguage(@Nullable String voiceLanguage);
+
+    /**
+     * The universally unique identifier of the request that produced this route.
+     *
+     * @param requestUuid uuid
+     * @return this builder for chaining options together
+     */
+    @NonNull
+    public abstract Builder requestUuid(@Nullable String requestUuid);
+
+    /**
+     * The index of the route in the list of routes returned by the original response.
+     *
+     * @param routeIndex string of an int value representing the index
+     * @return this builder for chaining options together
+     */
+    @NonNull
+    public abstract Builder routeIndex(String routeIndex);
 
     /**
      * Build a new {@link MapMatchingMatching} object.
@@ -258,6 +304,7 @@ public abstract class MapMatchingMatching implements Serializable {
      * @return a new {@link MapMatchingMatching} using the provided values in this builder
      * @since 3.0.0
      */
+    @NonNull
     public abstract MapMatchingMatching build();
   }
 }

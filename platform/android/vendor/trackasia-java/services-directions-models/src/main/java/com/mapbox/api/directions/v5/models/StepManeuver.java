@@ -155,7 +155,7 @@ public abstract class StepManeuver extends DirectionsJsonObject {
    *
    * @since 4.1.0
    */
-  @Retention(RetentionPolicy.SOURCE)
+  @Retention(RetentionPolicy.CLASS)
   @StringDef( {
     TURN,
     NEW_NAME,
@@ -324,7 +324,7 @@ public abstract class StepManeuver extends DirectionsJsonObject {
    * @since 3.0.0
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
      * The rawLocation as a double array. Once the {@link StepManeuver} object's created, this raw

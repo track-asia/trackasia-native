@@ -19,19 +19,46 @@ build-release:
 build-cli:
 	./gradlew shadowJar
 
-javadoc:
-	mkdir documentation
-	mkdir documentation/core/
-	mkdir documentation/geojson/
-	mkdir documentation/turf/
-	mkdir documentation/services/
-	./gradlew :services-core:javadoc; mv services-core/build/docs/javadoc/ ./documentation/core/javadoc/ ; \
-	./gradlew :services-geojson:javadoc; mv services-geojson/build/docs/javadoc/ ./documentation/geojson/javadoc/ ; \
-	./gradlew :services-turf:javadoc; mv services-turf/build/docs/javadoc/ ./documentation/turf/javadoc/ ; \
-	./gradlew :services:javadoc; mv services/build/docs/javadoc/ ./documentation/services/javadoc/ ; \
-
 publish:
 	./gradlew publishReleasePublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+
+
+javadoc:
+	mkdir documentation
+	mkdir documentation/libjava-core/
+	mkdir documentation/libjava-geojson/
+	mkdir documentation/libjava-turf/
+	mkdir documentation/libjava-services/
+	mkdir documentation/libjava-services-directions-models/
+	mkdir documentation/libjava-services-directions-refresh-models/
+	./gradlew :services-core:javadoc; mv services-core/build/docs/javadoc/ ./documentation/libjava-core/javadoc/ ; \
+	./gradlew :services-geojson:javadoc; mv services-geojson/build/docs/javadoc/ ./documentation/libjava-geojson/javadoc/ ; \
+	./gradlew :services-turf:javadoc; mv services-turf/build/docs/javadoc/ ./documentation/libjava-turf/javadoc/ ; \
+	./gradlew :services:javadoc; mv services/build/docs/javadoc/ ./documentation/libjava-services/javadoc/ ; \
+	./gradlew :services-directions-models:javadoc; mv services-directions-models/build/docs/javadoc/ ./documentation/libjava-services-directions-models/javadoc/ ; \
+	./gradlew :services-directions-refresh-models:javadoc; mv services-directions-refresh-models/build/docs/javadoc/ ./documentation/libjava-services-directions-refresh-models/javadoc/ ; \
+
+sdk-registry-upload:
+	./gradlew mapboxSDKRegistryUpload
+
+sdk-registry-publish:
+	@if [ -z "$(GITHUB_TOKEN)" ]; then \
+		echo "GITHUB_TOKEN env variable has to be set"; \
+	else \
+		python3 -m pip install git-pull-request; \
+		./gradlew mapboxSDKRegistryPublishAll; \
+	fi
+
+sdk-registry-publish-snapshot:
+	./gradlew mapboxSDKRegistryUpload -Psnapshot=true
+
+graphs:
+	./gradlew :services-core:generateDependencyGraphMapboxLibraries
+	./gradlew :services-geojson:generateDependencyGraphMapboxLibraries
+	./gradlew :services:generateDependencyGraphMapboxLibraries
+	./gradlew :services-turf:generateDependencyGraphMapboxLibraries
+	./gradlew :services-directions-models:generateDependencyGraphMapboxLibraries
+	./gradlew :services-directions-refresh-models:generateDependencyGraphMapboxLibraries
 
 directions-matrix-fixtures:
 	# request a symmetric 1x3 matrix for pedestrians

@@ -46,11 +46,17 @@ public class StepIntersectionTest extends TestUtils {
       .rawLocation(new double[]{13.426579, 52.508068})
       .geometryIndex(123)
       .isUrban(true)
-      .restStop(RestStop.builder().type("rest_area").build())
-      .tollCollection(TollCollection.builder().type("toll_gantry").build())
+      .restStop(RestStop.builder().type("rest_area").name("stop_name").build())
+      .tollCollection(TollCollection.builder().type("toll_gantry").name("toll_name").build())
       .adminIndex(2)
+      .stopSign(true)
+      .yieldSign(true)
+      .trafficSignal(true)
       .mapboxStreetsV8(MapboxStreetsV8.builder().roadClass("street").build())
       .tunnelName("tunnel_name")
+      .junction(Junction.builder().name("jct_name").build())
+      .interchange(Interchange.builder().name("ic_name").build())
+      .mergingArea(MergingArea.builder().type(MergingArea.TYPE_FROM_LEFT).build())
       .build();
 
     String jsonString = intersection.toJson();
@@ -68,6 +74,7 @@ public class StepIntersectionTest extends TestUtils {
       .bearings(Arrays.asList(120, 210, 300))
       .rawLocation(new double[]{13.424671, 52.508812})
       .mapboxStreetsV8(MapboxStreetsV8.builder().roadClass("street").build())
+      .mergingArea(MergingArea.builder().type(MergingArea.TYPE_FROM_LEFT).build())
       .tunnelName("tunnel_name")
       .build();
 
@@ -76,7 +83,6 @@ public class StepIntersectionTest extends TestUtils {
 
     assertEquals(intersection, intersectionFromJson);
   }
-
 
   @Test
   public void testFromJson() {
@@ -88,7 +94,12 @@ public class StepIntersectionTest extends TestUtils {
     + "\"geometry_index\": 123,"
     + "\"is_urban\": true,"
     + "\"mapbox_streets_v8\": {\"class\": \"street\"},"
-    + "\"tunnel_name\": \"test tunnel name\""
+    + "\"tunnel_name\": \"test tunnel name\","
+    + "\"railway_crossing\": true,"
+    + "\"traffic_signal\": true,"
+    + "\"stop_sign\": true,"
+    + "\"merging_area\": {\"type\": \"from_right\"},"
+    + "\"yield_sign\": true"
     + "}";
 
     StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
@@ -96,6 +107,11 @@ public class StepIntersectionTest extends TestUtils {
     assertTrue(stepIntersection.isUrban());
     assertEquals("street", stepIntersection.mapboxStreetsV8().roadClass());
     assertEquals("test tunnel name", stepIntersection.tunnelName());
+    assertTrue(stepIntersection.railwayCrossing());
+    assertTrue(stepIntersection.trafficSignal());
+    assertTrue(stepIntersection.stopSign());
+    assertTrue(stepIntersection.yieldSign());
+    assertEquals(MergingArea.builder().type(MergingArea.TYPE_FROM_RIGHT).build(), stepIntersection.mergingArea());
 
     Point location = stepIntersection.location();
     assertEquals(13.426579, location.longitude(), 0.0001);
@@ -124,12 +140,13 @@ public class StepIntersectionTest extends TestUtils {
   public void testRestStop() {
     String stepIntersectionJsonString = "{"
     + "\"location\": [ 13.426579, 52.508068 ],"
-    + "\"rest_stop\": { \"type\": \"rest_area\" }"
+    + "\"rest_stop\": { \"type\": \"rest_area\", \"name\": \"stop_name\" }"
     + "}";
 
     StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
 
     Assert.assertEquals("rest_area", stepIntersection.restStop().type());
+    Assert.assertEquals("stop_name", stepIntersection.restStop().name());
     String jsonStr = stepIntersection.toJson();
     compareJson(stepIntersectionJsonString, jsonStr);
   }
@@ -138,12 +155,94 @@ public class StepIntersectionTest extends TestUtils {
   public void testTollCollection() {
     String stepIntersectionJsonString = "{"
     + "\"location\": [ 13.426579, 52.508068 ],"
-    + "\"toll_collection\": { \"type\": \"toll_gantry\" }"
+    + "\"toll_collection\": { \"type\": \"toll_gantry\", \"name\": \"toll_name\" }"
     + "}";
 
     StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
 
     Assert.assertEquals("toll_gantry", stepIntersection.tollCollection().type());
+    Assert.assertEquals("toll_name", stepIntersection.tollCollection().name());
+    String jsonStr = stepIntersection.toJson();
+    compareJson(stepIntersectionJsonString, jsonStr);
+  }
+
+  @Test
+  public void testJunction() {
+    String stepIntersectionJsonString = "{"
+        + "\"location\": [ 13.426579, 52.508068 ],"
+        + "\"jct\": { \"name\": \"jct_name\" }"
+        + "}";
+
+    StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
+
+    Assert.assertEquals("jct_name", stepIntersection.junction().name());
+    String jsonStr = stepIntersection.toJson();
+    compareJson(stepIntersectionJsonString, jsonStr);
+  }
+
+  @Test
+  public void testNullJunction() {
+    String stepIntersectionJsonString = "{"
+        + "\"location\": [ 13.426579, 52.508068 ]"
+        + "}";
+
+    StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
+
+    Assert.assertNull(stepIntersection.junction());
+    String jsonStr = stepIntersection.toJson();
+    compareJson(stepIntersectionJsonString, jsonStr);
+  }
+
+  @Test
+  public void testInterchange() {
+    String stepIntersectionJsonString = "{"
+        + "\"location\": [ 13.426579, 52.508068 ],"
+        + "\"ic\": { \"name\": \"ic_name\" }"
+        + "}";
+
+    StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
+
+    Assert.assertEquals("ic_name", stepIntersection.interchange().name());
+    String jsonStr = stepIntersection.toJson();
+    compareJson(stepIntersectionJsonString, jsonStr);
+  }
+
+  @Test
+  public void testNullInterchange() {
+    String stepIntersectionJsonString = "{"
+        + "\"location\": [ 13.426579, 52.508068 ]"
+        + "}";
+
+    StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
+
+    Assert.assertNull(stepIntersection.interchange());
+    String jsonStr = stepIntersection.toJson();
+    compareJson(stepIntersectionJsonString, jsonStr);
+  }
+
+  @Test
+  public void testMergingArea() {
+    String stepIntersectionJsonString = "{"
+      + "\"location\": [ 13.426579, 52.508068 ],"
+      + "\"merging_area\": { \"type\": \"from_left\" }"
+      + "}";
+
+    StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
+
+    Assert.assertEquals(MergingArea.builder().type(MergingArea.TYPE_FROM_LEFT).build(), stepIntersection.mergingArea());
+    String jsonStr = stepIntersection.toJson();
+    compareJson(stepIntersectionJsonString, jsonStr);
+  }
+
+  @Test
+  public void testNullMergingArea() {
+    String stepIntersectionJsonString = "{"
+      + "\"location\": [ 13.426579, 52.508068 ]"
+      + "}";
+
+    StepIntersection stepIntersection = StepIntersection.fromJson(stepIntersectionJsonString);
+
+    Assert.assertNull(stepIntersection.mergingArea());
     String jsonStr = stepIntersection.toJson();
     compareJson(stepIntersectionJsonString, jsonStr);
   }

@@ -12,6 +12,7 @@ import com.mapbox.api.directions.v5.DirectionsCriteria.DestinationCriteria;
 import com.mapbox.api.directions.v5.DirectionsCriteria.GeometriesCriteria;
 import com.mapbox.api.directions.v5.DirectionsCriteria.OverviewCriteria;
 import com.mapbox.api.directions.v5.DirectionsCriteria.ProfileCriteria;
+import com.mapbox.api.directions.v5.models.Bearing;
 import com.mapbox.api.directions.v5.utils.FormatUtils;
 import com.mapbox.api.optimization.v1.models.OptimizationAdapterFactory;
 import com.mapbox.api.optimization.v1.models.OptimizationResponse;
@@ -22,11 +23,14 @@ import com.mapbox.core.utils.ApiCallHelper;
 import com.mapbox.core.utils.MapboxUtils;
 import com.mapbox.core.utils.TextUtils;
 import com.mapbox.geojson.Point;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * The Mapbox Optimization API returns a duration-optimized trip between the input coordinates.
@@ -79,6 +83,32 @@ public abstract class MapboxOptimization
       source(),
       language(),
       distributions());
+  }
+
+  @Override
+  public Response<OptimizationResponse> executeCall() throws IOException {
+    Response<OptimizationResponse> response = getCall().execute();
+    OptimizationResponseFactory factory = new OptimizationResponseFactory(MapboxOptimization.this);
+    return factory.generate(response);
+  }
+
+  @Override
+  public void enqueueCall(final Callback<OptimizationResponse> callback) {
+    getCall().enqueue(new Callback<OptimizationResponse>() {
+      @Override
+      public void onResponse(Call<OptimizationResponse> call,
+                             Response<OptimizationResponse> response) {
+        OptimizationResponseFactory factory =
+          new OptimizationResponseFactory(MapboxOptimization.this);
+        Response<OptimizationResponse> generatedResponse = factory.generate(response);
+        callback.onResponse(call, generatedResponse);
+      }
+
+      @Override
+      public void onFailure(Call<OptimizationResponse> call, Throwable throwable) {
+        callback.onFailure(call, throwable);
+      }
+    });
   }
 
   @NonNull
@@ -157,7 +187,7 @@ public abstract class MapboxOptimization
   public abstract static class Builder {
 
     private List<Integer[]> distributions = new ArrayList<>();
-    private List<List<Double>> bearings = new ArrayList<>();
+    private List<Bearing> bearings = new ArrayList<>();
     private List<Point> coordinates = new ArrayList<>();
     private String[] annotations;
     private double[] radiuses;
@@ -336,9 +366,8 @@ public abstract class MapboxOptimization
      * @return this builder for chaining options together
      * @since 2.1.0
      */
-    public Builder bearing(@Nullable @FloatRange(from = 0, to = 360) Double angle,
-                           @Nullable @FloatRange(from = 0, to = 360) Double tolerance) {
-      bearings.add(Arrays.asList(angle, tolerance));
+    public Builder bearing(double angle, double tolerance) {
+      bearings.add(Bearing.builder().angle(angle).degrees(tolerance).build());
       return this;
     }
 
@@ -481,8 +510,6 @@ public abstract class MapboxOptimization
       if (coordinates == null || coordinates.size() < 2) {
         throw new ServicesException("At least two coordinates must be provided with your API"
           + "request.");
-      } else if (coordinates.size() > 12) {
-        throw new ServicesException("Maximum of 12 coordinates are allowed for this API.");
       }
 
       coordinates(formatCoordinates(coordinates));
@@ -504,8 +531,8 @@ public abstract class MapboxOptimization
       List<String> coordinatesFormatted = new ArrayList<>();
       for (Point point : coordinates) {
         coordinatesFormatted.add(String.format(Locale.US, "%s,%s",
-          FormatUtils.formatCoordinate(point.longitude()),
-          FormatUtils.formatCoordinate(point.latitude())));
+          FormatUtils.formatDouble(point.longitude()),
+          FormatUtils.formatDouble(point.latitude())));
       }
 
       return TextUtils.join(";", coordinatesFormatted.toArray());

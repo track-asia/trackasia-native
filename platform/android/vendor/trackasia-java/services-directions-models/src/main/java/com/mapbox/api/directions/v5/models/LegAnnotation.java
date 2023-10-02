@@ -1,10 +1,12 @@
 package com.mapbox.api.directions.v5.models;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.SerializedName;
 import com.mapbox.api.directions.v5.DirectionsAdapterFactory;
 
 import java.util.List;
@@ -82,6 +84,28 @@ public abstract class LegAnnotation extends DirectionsJsonObject {
   public abstract List<String> congestion();
 
   /**
+   * The congestion between each pair of coordinates.
+   *
+   * @return a list of Integers with each entry being a congestion value between two of the
+   *   routeLeg geometry coordinates
+   */
+  @Nullable
+  @SerializedName("congestion_numeric")
+  public abstract List<Integer> congestionNumeric();
+
+  /*
+   * The traffic tendency between each pair of coordinates.
+   * @return a list of {@link Integer} where each value matches
+   *   {@link DirectionsCriteria.TrafficTendencyCriteria}. The tendency value conveys the changing
+   *   state of traffic congestion (increasing, decreasing, constant etc). New values
+   *   could be introduced in the future without an API version change.
+   */
+  @SuppressWarnings("checkstyle:javadocmethod")
+  @Nullable
+  @SerializedName("traffic_tendency")
+  public abstract List<Integer> trafficTendency();
+
+  /**
    * Convert the current {@link LegAnnotation} to its builder holding the currently assigned
    * values. This allows you to modify a single property and then rebuild the object resulting in
    * an updated and modified {@link LegAnnotation}.
@@ -123,7 +147,7 @@ public abstract class LegAnnotation extends DirectionsJsonObject {
    * @since 3.0.0
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
      * The distance, in meters, between each pair of coordinates.
@@ -177,11 +201,31 @@ public abstract class LegAnnotation extends DirectionsJsonObject {
     public abstract Builder congestion(@Nullable List<String> congestion);
 
     /**
+     * The congestion between each pair of coordinates.
+     *
+     * @param congestionNumeric a list of Integers with each entry being a congestion value between
+     *   two of the routeLeg geometry coordinates
+     * @return this builder for chaining options together
+     */
+    public abstract Builder congestionNumeric(@Nullable List<Integer> congestionNumeric);
+
+    /*
+     * The traffic tendency between each pair of coordinates.
+     * @param trafficTendency is a list of {@link Integer} where each value matches
+     *   {@link DirectionsCriteria.TrafficTendencyCriteria}. The tendency value conveys the changing
+     *   state of traffic congestion (increasing, decreasing, constant etc).
+     */
+    @SuppressWarnings("checkstyle:javadocmethod")
+    @NonNull
+    public abstract Builder trafficTendency(@Nullable List<Integer> trafficTendency);
+
+    /**
      * Build a new {@link LegAnnotation} object.
      *
      * @return a new {@link LegAnnotation} using the provided values in this builder
      * @since 3.0.0
      */
     public abstract LegAnnotation build();
+
   }
 }
