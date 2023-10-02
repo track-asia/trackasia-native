@@ -23,7 +23,7 @@ configurations {
 }
 
 buildConfig {
-  packageName = 'com.trackasia.core'
+  packageName = 'com.mapbox.core'
   version = project.ext.versionName
   buildConfigField 'String', 'GIT_REVISION', getGitRevision()
 }

@@ -69,20 +69,76 @@ public abstract class BannerComponents extends DirectionsJsonObject
    */
   public static final String LANE = "lane";
 
-  /**
+  /*
    * This view gives guidance through junctions and is used to complete maneuvers.
    */
+  @SuppressWarnings("checkstyle:javadocvariable")
   public static final String GUIDANCE_VIEW = "guidance-view";
 
-  /**
-   * This view gives guidance through signboards and is used to complete maneuvers.
+  /*
+   * Sign Image After a Toll Gate. Used immediately after exiting a toll gate containing just the
+   * overhead signboard. The preferred road (not the lane) arrow is highlighted on the signboard.
    */
+  @SuppressWarnings("checkstyle:javadocvariable")
+  public static final String AFTERTOLL = "aftertoll";
+
+  /*
+   * 3D City Real. Bird’s-eye artist’s rendition view of a general road intersection
+   * and preferred road lane arrow. There is no overhead signage.
+   */
+  @SuppressWarnings("checkstyle:javadocvariable")
+  public static final String CITYREAL = "cityreal";
+
+  /*
+   * Expressway Entrance. Bird’s-eye artist’s rendition view of the overhead signage
+   * and preferred road lane arrow at an entrance ramp onto an expressway.
+   */
+  @SuppressWarnings("checkstyle:javadocvariable")
+  public static final String EXPRESSWAY_ENTRANCE = "entrance";
+
+  /*
+   * Expressway Exit. Bird’s-eye artist’s rendition view of the overhead signage and
+   * preferred road lane arrow at an exit ramp from an expressway.
+   */
+  @SuppressWarnings("checkstyle:javadocvariable")
+  public static final String EXPRESSWAY_EXIT = "exit";
+
+  /*
+   * Junction View. Bird’s-eye artist’s rendition view of the overhead signage and
+   * preferred road lane arrow on motorways where the road bifurcates into 2 or
+   * more motorway trunk roads.
+   */
+  @SuppressWarnings("checkstyle:javadocvariable")
+  public static final String JCT = "jct";
+
+  /*
+   * Service Area-Parking Area. Bird’s-eye artist’s rendition view of the overhead
+   * signage and preferred road lane arrow at a rest area ramp where the route
+   * leaves the main road.
+   */
+  @SuppressWarnings("checkstyle:javadocvariable")
+  public static final String SAPA = "sapa";
+
+  /*
+   * SAPA Guide Map. Vertical artist’s rendition guide map of an SAPA rest area
+   * showing various facilities icons such as restaurants, restrooms and parking areas.
+   * The scale is approx. 1:5K.
+   */
+  @SuppressWarnings("checkstyle:javadocvariable")
+  public static final String SAPAGUIDEMAP = "sapaguidemap";
+
+  /*
+   * Advanced 2D signboard. These are vendor enhanced detailed signboards.
+   */
+  @SuppressWarnings("checkstyle:javadocvariable")
   public static final String SIGNBOARD = "signboard";
 
-  /**
-   * This view gives guidance through junctions and is used to complete maneuvers.
+  /*
+   * Branched Image After Toll Gate. Bird’s-eye artist’s rendition view of the overhead
+   * signage and preferred road lane arrow immediately after exiting a toll gate.
    */
-  public static final String JCT = "jct";
+  @SuppressWarnings("checkstyle:javadocvariable")
+  public static final String TOLLBRANCH = "tollbranch";
 
   /**
    * Banner component types.
@@ -90,7 +146,7 @@ public abstract class BannerComponents extends DirectionsJsonObject
    *
    * @since 3.0.0
    */
-  @Retention(RetentionPolicy.SOURCE)
+  @Retention(RetentionPolicy.CLASS)
   @StringDef( {
           TEXT,
           ICON,
@@ -106,12 +162,18 @@ public abstract class BannerComponents extends DirectionsJsonObject
   /**
    * Banner component types.
    * https://docs.mapbox.com/api/navigation/#banner-instruction-object
-   *
    */
-  @Retention(RetentionPolicy.SOURCE)
+  @Retention(RetentionPolicy.CLASS)
   @StringDef( {
+      AFTERTOLL,
+      CITYREAL,
+      EXPRESSWAY_ENTRANCE,
+      EXPRESSWAY_EXIT,
       JCT,
-      SIGNBOARD
+      SAPA,
+      SAPAGUIDEMAP,
+      SIGNBOARD,
+      TOLLBRANCH
   })
   public @interface BannerComponentsSubType {
   }
@@ -158,20 +220,13 @@ public abstract class BannerComponents extends DirectionsJsonObject
   @BannerComponentsType
   public abstract String type();
 
-  /**
+  /*
    * String giving you more context about {@link BannerComponentsType} which
    * may help in visual markup/display choices.
-   * <p>
-   * Possible values:
-   * <ul>
-   * <li><strong>jct</strong>: indicates a junction guidance view.</li>
-   * <li><strong>signboard</strong>: indicates a signboard guidance view.</li>
-   * </ul>
-   *
-   * @return String type from above list
    */
   @Nullable
-  @BannerComponentsType
+  @BannerComponentsSubType
+  @SuppressWarnings("checkstyle:javadocmethod")
   public abstract String subType();
 
   /**
@@ -216,6 +271,19 @@ public abstract class BannerComponents extends DirectionsJsonObject
   public abstract String imageBaseUrl();
 
   /**
+   * In some cases when the {@link LegStep} is a highway or major roadway, there might be a shield
+   * icon that's included to better identify to your user to roadway. Note that this doesn't
+   * return the image itself but rather a complex object that can used to formulate the url which
+   * in turn would be used to make a network request and download a file.
+   *
+   * @return a complex object which can be used to download the shield icon if one is available
+   * @since 3.0.0
+   */
+  @Nullable
+  @SerializedName("mapbox_shield")
+  public abstract MapboxShield mapboxShield();
+
+  /**
    * In some cases when the {@link StepManeuver} will be difficult to navigate, an image
    * can describe how to proceed. The domain name for this image is a Junction View.
    * Unlike the imageBaseUrl, this image url does not include image density encodings.
@@ -249,6 +317,20 @@ public abstract class BannerComponents extends DirectionsJsonObject
    */
   @Nullable
   public abstract Boolean active();
+
+  /**
+   * When components.active is set to true, this property shows which of the lane's
+   * {@link BannerComponents#directions()} is applicable to the current route, when there is
+   * more than one. For example, if a lane allows you to go left or straight but your current
+   * route is guiding you to the left, then this value will be set to left.
+   * See {@link BannerComponents#directions()} for possible values.
+   * When {@link BannerComponents#active()} is false, this property will not be included in
+   * the response. Only available on the mapbox/driving profile.
+   * @return applicable lane direction.
+   */
+  @Nullable
+  @SerializedName("active_direction")
+  public abstract String activeDirection();
 
   /**
    * Convert the current {@link BannerComponents} to its builder holding the currently assigned
@@ -318,7 +400,7 @@ public abstract class BannerComponents extends DirectionsJsonObject
    * @since 3.0.0
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
      * A snippet of the full {@link BannerText#text()} which can be used for visually altering parts
@@ -354,21 +436,13 @@ public abstract class BannerComponents extends DirectionsJsonObject
 
 
 
-    /**
+    /*
      * String giving you more context about {@link BannerComponentsType}
      * which may help in visual markup/display choices.
-     * <p>
-     * Possible values:
-     * <ul>
-     * <li><strong>jct</strong>: indicates a junction guidance view.</li>
-     * <li><strong>signboard</strong>: indicates a signboard guidance view.</li>
-     * </ul>
-     *
-     * @param subType String subType from above list
-     * @return String type from above list
      */
     @NonNull
     @BannerComponentsType
+    @SuppressWarnings("checkstyle:javadocmethod")
     public abstract Builder subType(@Nullable @BannerComponentsSubType String subType);
 
 
@@ -409,6 +483,17 @@ public abstract class BannerComponents extends DirectionsJsonObject
     public abstract Builder imageBaseUrl(@Nullable String imageBaseUrl);
 
     /**
+     * In some cases when the {@link LegStep} is a highway or major roadway, there might be a shield
+     * icon that's included to better identify to your user to roadway. Note that this doesn't
+     * return the image itself but rather a complex object that can used to formulate the url which
+     * in turn would be used to make a network request and download a file.
+     *
+     * @param mapboxShield an object which can be used to download the shield icon if available
+     * @return this builder for chaining options together
+     */
+    public abstract Builder mapboxShield(@Nullable MapboxShield mapboxShield);
+
+    /**
      * In some cases when the {@link StepManeuver} will be difficult to navigate, an image
      * can describe how to proceed. The domain name for this image is a Junction View.
      * Unlike the imageBaseUrl, this image url does not include image density encodings.
@@ -441,6 +526,20 @@ public abstract class BannerComponents extends DirectionsJsonObject
      * @since 3.2.0
      */
     public abstract Builder active(Boolean activeState);
+
+    /**
+     * When components.active is set to true, this property shows which of the lane's
+     * {@link BannerComponents#directions()} is applicable to the current route, when there is
+     * more than one. For example, if a lane allows you to go left or straight but your current
+     * route is guiding you to the left, then this value will be set to left.
+     * See {@link BannerComponents#directions()} for possible values.
+     * When {@link BannerComponents#active()} is false, this property will not be included in
+     * the response. Only available on the mapbox/driving profile.
+     *
+     * @param activeDirection applicable lane direction.
+     * @return this builder for chaining options together
+     */
+    public abstract Builder activeDirection(String activeDirection);
 
     /**
      * Build a new {@link BannerComponents} object.

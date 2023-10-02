@@ -1,6 +1,6 @@
 package com.mapbox.api.directions.v5.models;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
@@ -16,16 +16,16 @@ import com.mapbox.api.directions.v5.DirectionsAdapterFactory;
 public abstract class Closure extends DirectionsJsonObject {
 
   /**
-   * Closure's geometry index start point.
+   * Closure's leg-wise geometry index start point.
    */
-  @Nullable
+  @NonNull
   @SerializedName("geometry_index_start")
   public abstract Integer geometryIndexStart();
 
   /**
-   * Closure's geometry index end point.
+   * Closure's leg-wise geometry index end point.
    */
-  @Nullable
+  @NonNull
   @SerializedName("geometry_index_end")
   public abstract Integer geometryIndexEnd();
 
@@ -74,21 +74,21 @@ public abstract class Closure extends DirectionsJsonObject {
    * This builder can be used to set the values describing the {@link Closure}.
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
-     * Closure's geometry index start point.
+     * Closure's leg-wise geometry index start point.
      *
      * @param geometryIndexStart start index
      */
-    public abstract Builder geometryIndexStart(@Nullable Integer geometryIndexStart);
+    public abstract Builder geometryIndexStart(@NonNull Integer geometryIndexStart);
 
     /**
-     * Closure's geometry index end point.
+     * Closure's leg-wise geometry index end point.
      *
      * @param geometryIndexEnd end index
      */
-    public abstract Builder geometryIndexEnd(@Nullable Integer geometryIndexEnd);
+    public abstract Builder geometryIndexEnd(@NonNull Integer geometryIndexEnd);
 
     /**
      * Build a new {@link Closure} object.

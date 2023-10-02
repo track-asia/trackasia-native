@@ -206,6 +206,42 @@ public abstract class StepIntersection extends DirectionsJsonObject {
   public abstract String tunnelName();
 
   /**
+   * Indicates whether there is a railway crossing at the intersection.
+   *
+   * @return whether there is a railway crossing at the intersection
+   */
+  @Nullable
+  @SerializedName("railway_crossing")
+  public abstract Boolean railwayCrossing();
+
+  /**
+   * Indicates whether there is a traffic signal at the intersection.
+   *
+   * @return whether there is a traffic signal at the intersection
+   */
+  @Nullable
+  @SerializedName("traffic_signal")
+  public abstract Boolean trafficSignal();
+
+  /**
+   * Indicates whether there is a stop sign at the intersection.
+   *
+   * @return whether there is a stop sign at the intersection
+   */
+  @Nullable
+  @SerializedName("stop_sign")
+  public abstract Boolean stopSign();
+
+  /**
+   * Indicates whether there is a yield sign at the intersection.
+   *
+   * @return whether there is a yield sign at the intersection
+   */
+  @Nullable
+  @SerializedName("yield_sign")
+  public abstract Boolean yieldSign();
+
+  /**
    * Convert the current {@link StepIntersection} to its builder holding the currently assigned
    * values. This allows you to modify a single property and then rebuild the object resulting in
    * an updated and modified {@link StepIntersection}.
@@ -247,7 +283,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
    * @since 3.0.0
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
      * An integer array of bearing values available at the step intersection.
@@ -258,6 +294,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder bearings(@Nullable List<Integer> bearing);
 
     /**
@@ -274,6 +311,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder classes(@Nullable List<String> classes);
 
     /**
@@ -286,6 +324,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder entry(@Nullable List<Boolean> entry);
 
     /**
@@ -299,6 +338,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder in(@Nullable Integer in);
 
     /**
@@ -310,6 +350,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder out(@Nullable Integer out);
 
     /**
@@ -322,6 +363,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder lanes(@Nullable List<IntersectionLanes> lanes);
 
     /**
@@ -333,6 +375,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @param geometryIndex index for the intersection
      * @return this builder for chaining options together
      */
+    @NonNull
     public abstract Builder geometryIndex(@Nullable Integer geometryIndex);
 
     /**
@@ -343,7 +386,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @param isUrban indicating whether the road exiting the intersection is in an urban area
      * @return this builder for chaining options together
      */
-    @Nullable
+    @NonNull
     public abstract Builder isUrban(@Nullable Boolean isUrban);
 
     /**
@@ -354,7 +397,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @param adminIndex zero-based index into the admin list on the route leg for this intersection
      * @return this builder for chaining options together
      */
-    @Nullable
+    @NonNull
     public abstract Builder adminIndex(@Nullable Integer adminIndex);
 
     /**
@@ -364,7 +407,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @param restStop object containing information about passing rest stops along the route.
      * @return this builder for chaining options together
      */
-    @Nullable
+    @NonNull
     public abstract Builder restStop(@Nullable RestStop restStop);
 
     /**
@@ -378,7 +421,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      *                       a toll collection point along the route.
      * @return this builder for chaining options together
      */
-    @Nullable
+    @NonNull
     public abstract Builder tollCollection(@Nullable TollCollection tollCollection);
 
     /**
@@ -389,7 +432,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @param street an object containing detailed road information.
      * @return this builder for chaining options together
      */
-    @Nullable
+    @NonNull
     public abstract Builder mapboxStreetsV8(@Nullable MapboxStreetsV8 street);
 
     /**
@@ -398,7 +441,44 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @param tunnelName name of the tunnel
      * @return this builder for chaining options together
      */
+    @NonNull
     public abstract Builder tunnelName(@Nullable String tunnelName);
+
+    /**
+     * Indicates whether there is a railway crossing at the intersection.
+     *
+     * @param railwayCrossing whether there is a railway crossing at the intersection.
+     * @return this builder for chaining options together
+     */
+    @NonNull
+    public abstract Builder railwayCrossing(@Nullable Boolean railwayCrossing);
+
+    /**
+     * Indicates whether there is a traffic signal at the intersection.
+     *
+     * @param trafficSignal whether there is a traffic signal at the intersection.
+     * @return this builder for chaining options together
+     */
+    @NonNull
+    public abstract Builder trafficSignal(@Nullable Boolean trafficSignal);
+
+    /**
+     * Indicates whether there is a stop sign at the intersection.
+     *
+     * @param stopSign whether there is a stop sign at the intersection.
+     * @return this builder for chaining options together
+     */
+    @NonNull
+    public abstract Builder stopSign(@Nullable Boolean stopSign);
+
+    /**
+     * Indicates whether there is a yield sign at the intersection.
+     *
+     * @param yieldSign whether there is a yield sign at the intersection.
+     * @return this builder for chaining options together
+     */
+    @NonNull
+    public abstract Builder yieldSign(@Nullable Boolean yieldSign);
 
     /**
      * The rawLocation as a double array. Once the {@link StepIntersection} object's created,
@@ -411,6 +491,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @return this builder for chaining options together
      * @since 3.0.0
      */
+    @NonNull
     public abstract Builder rawLocation(@NonNull double[] rawLocation);
 
     /**
@@ -419,6 +500,7 @@ public abstract class StepIntersection extends DirectionsJsonObject {
      * @return a new {@link StepIntersection} using the provided values in this builder
      * @since 3.0.0
      */
+    @NonNull
     public abstract StepIntersection build();
   }
 }

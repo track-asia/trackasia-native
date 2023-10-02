@@ -146,6 +146,46 @@ public class BannerComponentTest extends TestUtils {
   }
 
   @Test
+  public void testToFromJsonActiveDirection() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .text("test")
+        .type("lane")
+        .activeDirection("left")
+        .directions(Arrays.asList("left", "straight"))
+        .active(true)
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
+  public void testToFromJsonRouteShield() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .mapboxShield(
+            MapboxShield
+                .builder()
+                .baseUrl("https://api.mapbox.com/styles/v1/")
+                .displayRef("242")
+                .name("us-interstate")
+                .textColor("black")
+                .build()
+        )
+        .text("I 95")
+        .type("icon")
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
   public void testToFromJsonLaneIcon() {
 
     BannerComponents bannerComponents = BannerComponents.builder()
@@ -177,12 +217,102 @@ public class BannerComponentTest extends TestUtils {
   }
 
   @Test
+  public void testToFromJsonAfterTollSubType() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .text("")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.AFTERTOLL)
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
+  public void testToFromJsonCityRealSubType() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .text("")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.CITYREAL)
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
+  public void testToFromJsonExpresswayEntranceSubType() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .text("")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.EXPRESSWAY_ENTRANCE)
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
+  public void testToFromJsonExpresswayExitSubType() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .text("")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.EXPRESSWAY_EXIT)
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
   public void testToFromJsonJctSubType() {
 
     BannerComponents bannerComponents = BannerComponents.builder()
         .text("")
-        .type("guidance-view")
-        .subType("jct")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.JCT)
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
+  public void testToFromJsonSapaSubType() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .text("")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.SAPA)
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
+  public void testToFromJsonSapaMapSubType() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .text("")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.SAPAGUIDEMAP)
         .build();
 
     String jsonString = bannerComponents.toJson();
@@ -196,8 +326,23 @@ public class BannerComponentTest extends TestUtils {
 
     BannerComponents bannerComponents = BannerComponents.builder()
         .text("")
-        .type("guidance-view")
-        .subType("signboard")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.SIGNBOARD)
+        .build();
+
+    String jsonString = bannerComponents.toJson();
+    BannerComponents bannerComponentsFromJson = BannerComponents.fromJson(jsonString);
+
+    assertEquals(bannerComponents, bannerComponentsFromJson);
+  }
+
+  @Test
+  public void testToFromJsonTollBranchSubType() {
+
+    BannerComponents bannerComponents = BannerComponents.builder()
+        .text("")
+        .type(BannerComponents.GUIDANCE_VIEW)
+        .subType(BannerComponents.TOLLBRANCH)
         .build();
 
     String jsonString = bannerComponents.toJson();

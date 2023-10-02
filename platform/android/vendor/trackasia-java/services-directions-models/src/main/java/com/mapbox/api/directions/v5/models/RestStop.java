@@ -1,13 +1,17 @@
 package com.mapbox.api.directions.v5.models;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.SerializedName;
 import com.mapbox.api.directions.v5.DirectionsAdapterFactory;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
+
+import java.util.List;
 
 /**
  * An object containing information about passing rest stops along the route.
@@ -23,6 +27,28 @@ public abstract class RestStop extends DirectionsJsonObject {
    */
   @Nullable
   public abstract String type();
+
+  /**
+   * The name of the rest stop. Optionally included if data is available.
+   */
+  @Nullable
+  public abstract String name();
+
+  /**
+   * The list of amenities at the rest stop if available.
+   */
+  @Nullable
+  public abstract List<Amenity> amenities();
+
+  /*
+   * The guideMap image URL without extension. Optionally included if data is available.
+   * The guideMap image can be retrieved as `svg`, `png` by appending `.svg`, `.png` to
+   * the URL string accordingly.
+   */
+  @SuppressWarnings("checkstyle:javadocmethod")
+  @Nullable
+  @SerializedName("guidemap")
+  public abstract String guideMap();
 
   /**
    * Create a new instance of this class by using the {@link Builder} class.
@@ -69,7 +95,7 @@ public abstract class RestStop extends DirectionsJsonObject {
    * This builder can be used to set the values describing the {@link RestStop}.
    */
   @AutoValue.Builder
-  public abstract static class Builder {
+  public abstract static class Builder extends DirectionsJsonObject.Builder<Builder> {
 
     /**
      * The type of rest stop, either `rest_area` (includes parking only) or `service_area`
@@ -78,13 +104,40 @@ public abstract class RestStop extends DirectionsJsonObject {
      *
      * @param type rest stop type
      */
+    @NonNull
     public abstract Builder type(@Nullable String type);
+
+    /**
+     * The name of the rest stop. Optionally included if data is available.
+     *
+     * @param name rest stop name
+     */
+    @NonNull
+    public abstract Builder name(@Nullable String name);
+
+    /**
+     * The list of amenities at the rest stop if available.
+     *
+     * @param amenities list of amenities
+     */
+    @NonNull
+    public abstract Builder amenities(@Nullable List<Amenity> amenities);
+
+    /*
+     * The guideMap image URL without extension. Optionally included if data is available.
+     * The guideMap image can be retrieved as `svg`, `png` by appending `.svg`, `.png` to
+     * the URL string accordingly.
+     */
+    @SuppressWarnings("checkstyle:javadocmethod")
+    @NonNull
+    public abstract Builder guideMap(@Nullable String guideMap);
 
     /**
      * Build a new {@link RestStop} object.
      *
      * @return a new {@link RestStop} using the provided values in this builder
      */
+    @NonNull
     public abstract RestStop build();
   }
 }

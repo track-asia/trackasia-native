@@ -8,6 +8,16 @@ buildscript {
     google()
     mavenCentral()
     jcenter()
+    maven {
+      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+      authentication {
+        basic(BasicAuthentication)
+      }
+      credentials {
+        username = "mapbox"
+        password = project.hasProperty('SDK_REGISTRY_TOKEN') ? project.property('SDK_REGISTRY_TOKEN') : System.getenv('SDK_REGISTRY_TOKEN')
+      }
+    }
   }
 
   dependencies {
@@ -20,6 +30,7 @@ buildscript {
     classpath pluginDependencies.errorprone
     classpath pluginDependencies.buildConfig
     classpath pluginDependencies.gradleNexus
+    classpath pluginDependencies.mapboxSdkRegistry
   }
 }
 
@@ -34,6 +45,18 @@ allprojects {
     google()
     mavenCentral()
     jcenter()
+    maven {
+      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+      authentication {
+        basic(BasicAuthentication)
+      }
+      credentials {
+        username = "mapbox"
+        password = project.hasProperty('SDK_REGISTRY_TOKEN') ? project.property('SDK_REGISTRY_TOKEN') : System.getenv('SDK_REGISTRY_TOKEN')
+      }
+    }
+    // uncomment if snapshots access is needed
+    // maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
   }
 }
 
@@ -96,6 +119,11 @@ subprojects { subproject ->
     if (!jarTask.name.endsWith("sourcesJar")) {
       jarTask.exclude("**/*.java")
     }
+  }
+
+  tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
   }
 
   if (TESTABLE_MODULES.contains(subproject.name)) {

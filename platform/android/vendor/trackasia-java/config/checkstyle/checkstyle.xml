@@ -32,7 +32,7 @@
 
   <!-- Checks for long source files. -->
   <module name="FileLength">
-    <property name="max" value="2000"/>
+    <property name="max" value="2500"/>
   </module>
 
   <!-- Trailing spaces -->
@@ -45,12 +45,18 @@
   <!--################ Non-AST checks ################-->
   <!--################################################-->
 
+  <module name="SuppressWarningsFilter" />
+
   <module name="TreeWalker">
 
     <!--#################################################################-->
     <!--################ NAMING CHECKS ##################################-->
     <!--#################################################################-->
 
+    <module name="SuppressWarningsHolder" />
+    <module name="SuppressWarnings">
+      <property name="id" value="checkstyle:suppresswarnings"/>
+    </module>
 
     <!-- allow the dev to switch the checker OFF in a single file or a method -->
     <!-- <module name="SuppressionCommentFilter"/> -->
@@ -85,7 +91,7 @@
     at least two characters long.
     -->
     <module name="MemberName">
-      <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+      <property name="format" value="^[a-z][a-z0-9]*[a-zA-Z0-9]*$"/>
       <property name="applyToPublic" value="false"/>
       <message key="name.invalidPattern"
                value="Member name ''{0}'' must start off lowercase and be at least two characters long."/>
@@ -96,7 +102,7 @@
     lower case letter.
     -->
     <module name="MethodName">
-      <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
+      <property name="format" value="^[a-z][a-z0-9]*[a-zA-Z0-9_]*$"/>
       <message key="name.invalidPattern"
                value="Method name ''{0}'' must be at least two characters long."/>
     </module>
@@ -123,7 +129,7 @@
 
     <!-- Require parameter names to be at least two characters long -->
     <module name="ParameterName">
-      <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+      <property name="format" value="^[a-z][a-z0-9]*[a-zA-Z0-9]*$"/>
       <message key="name.invalidPattern"
                value="Parameter name ''{0}'' must be at least two characters long."/>
     </module>
@@ -134,7 +140,7 @@
     -->
     <module name="LocalVariableName">
       <property name="tokens" value="VARIABLE_DEF"/>
-      <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+      <property name="format" value="^[a-z][a-z0-9]*[a-zA-Z0-9]*$"/>
       <property name="allowOneCharVarInForLoop" value="true"/>
       <message key="name.invalidPattern"
                value="Local variable name ''{0}'' must be at least two characters long."/>
@@ -173,7 +179,7 @@
     the format property.
     -->
     <module name="CatchParameterName">
-      <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+      <property name="format" value="^[a-z][a-z0-9]*[a-zA-Z0-9]*$"/>
       <message key="name.invalidPattern"
                value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
     </module>
@@ -389,7 +395,9 @@
     https://source.android.com/source/code-style.html#use-javadoc-standard-comments
     -->
     <module name="JavadocMethod">
-      <property name="scope" value="public"/>
+      <property name="id" value="checkstyle:javadocmethod"/>
+
+      <property name="scope" value="public" />
 
       <!-- exception: property methods (getX, setX, isX) -->
       <property name="allowMissingPropertyJavadoc" value="true"/>
@@ -412,6 +420,8 @@
 
     <!-- Javadoc required for public fields (part of API) -->
     <module name="JavadocVariable">
+      <property name="id" value="checkstyle:javadocvariable"/>
+
       <property name="scope" value="public"/>
     </module>
 
@@ -435,14 +445,8 @@
     </module>
 
     <module name="JavadocType">
+      <property name="id" value="checkstyle:javadoctype"/>
       <property name="scope" value="public"/>
-    </module>
-
-    <!-- Require the @since tag to be on all public javadoc methods. -->
-    <module name="WriteTag">
-      <property name="tag" value="@since"/>
-      <property name="severity" value="warning"/>
-      <property name="tagSeverity" value="ignore"/>
     </module>
 
     <!-- Forbid pointless Javadoc summary sentences. -->

@@ -1,6 +1,6 @@
 package com.mapbox.api.matching.v5.models;
 
-import com.mapbox.api.matching.v5.TrackasiaMapMatching;
+import com.mapbox.api.matching.v5.MapboxMapMatching;
 import com.mapbox.core.TestUtils;
 import com.mapbox.geojson.Point;
 
@@ -20,6 +20,7 @@ import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import retrofit2.Response;
 
+import static com.mapbox.api.directions.v5.DirectionsCriteria.PROFILE_DRIVING;
 import static org.junit.Assert.assertTrue;
 
 public class MapMatchingResponseTest extends TestUtils {
@@ -65,7 +66,8 @@ public class MapMatchingResponseTest extends TestUtils {
 
   @Test
   public void code_doesReturnCodeFromJson() throws Exception {
-    TrackasiaMapMatching mapMatching = TrackasiaMapMatching.builder()
+    MapboxMapMatching mapMatching = MapboxMapMatching.builder()
+      .profile(PROFILE_DRIVING)
       .coordinates(coordinates)
       .baseUrl(mockUrl.toString())
       .accessToken(ACCESS_TOKEN)
