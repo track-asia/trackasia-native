@@ -21,7 +21,7 @@ class SimpleMapActivity : AppCompatActivity() {
             OnMapReadyCallback { mapboxMap: TrackasiaMap ->
                 val styles = Style.getPredefinedStyles()
                 if (styles != null && styles.size > 0) {
-                    val styleUrl = styles[0].url
+                    val styleUrl = "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
                     mapboxMap.setStyle(Style.Builder().fromUri(styleUrl))
                 }
             }

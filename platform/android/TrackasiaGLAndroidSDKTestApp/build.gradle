@@ -64,7 +64,8 @@ android {
 dependencies {
     implementation dependenciesList.kotlinLib
 
-    implementation project(':TrackasiaGLAndroidSDK')
+//    implementation project(':TrackasiaGLAndroidSDK')
+    implementation "io.github.track-asia:android-sdk:1.0.16"
     implementation dependenciesList.mapboxJavaTurf
 
     implementation dependenciesList.supportAppcompatV7
