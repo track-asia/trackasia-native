@@ -1,6 +1,6 @@
 package com.mapbox.core.constants;
 
-import com.trackasia.core.BuildConfig;
+//import com.mapbox.core.BuildConfig;
 
 import java.util.Locale;
 
@@ -18,7 +18,7 @@ public final class Constants {
    */
   public static final String HEADER_USER_AGENT
     = String.format(Locale.US, "MapboxJava/%s (%s)",
-    BuildConfig.VERSION, BuildConfig.GIT_REVISION);
+    "1.0.9", "");
 
   /**
    * Base URL for all API calls, not hardcoded to enable testing.
