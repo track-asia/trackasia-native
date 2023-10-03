@@ -768,7 +768,7 @@
         }
       ],
       "routeOptions": {
-        "baseUrl": "https://api.mapbox.com",
+        "baseUrl": "https://maps.track-asia.com",
         "user": "mapbox",
         "profile": "driving-traffic",
         "coordinates": "-122.4934801,37.7721532;-122.4850055,37.7801765",
@@ -1499,7 +1499,7 @@
         }
       ],
       "routeOptions": {
-        "baseUrl": "https://api.mapbox.com",
+        "baseUrl": "https://maps.track-asia.com",
         "user": "mapbox",
         "profile": "driving-traffic",
         "coordinates": "-122.4934801,37.7721532;-122.4850055,37.7801765",
@@ -2249,7 +2249,7 @@
         }
       ],
       "routeOptions": {
-        "baseUrl": "https://api.mapbox.com",
+        "baseUrl": "https://maps.track-asia.com",
         "user": "mapbox",
         "profile": "driving-traffic",
         "coordinates": "-122.4934801,37.7721532;-122.4850055,37.7801765",

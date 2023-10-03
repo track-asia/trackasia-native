@@ -41,7 +41,7 @@ import java.util.Set;
 public abstract class RouteOptions extends DirectionsJsonObject {
 
   private static final String UTF_8 = "UTF-8";
-  private static final String ACCESS_TOKEN_URL_PARAM_NAME = "access_token";
+  private static final String ACCESS_TOKEN_URL_PARAM_NAME = "key";
 
   /**
    *  Fields that aren't supposed to be serialized.
@@ -61,14 +61,12 @@ public abstract class RouteOptions extends DirectionsJsonObject {
    * Build a new instance of {@link RouteOptions} and sets default values for:
    * <ul>
    *   <li>{@link #baseUrl()} equal to {@link DirectionsCriteria#BASE_API_URL}.</li>
-   *   <li>{@link #user()} equal to {@link DirectionsCriteria#PROFILE_DEFAULT_USER}.</li>
    *   <li>{@link #geometries()} equal to {@link DirectionsCriteria#GEOMETRY_POLYLINE6}.</li>
    * </ul>
    */
   public static Builder builder() {
     return new AutoValue_RouteOptions.Builder()
       .baseUrl(DirectionsCriteria.BASE_API_URL)
-      .user(DirectionsCriteria.PROFILE_DEFAULT_USER)
       .geometries(DirectionsCriteria.GEOMETRY_POLYLINE6);
   }
 
@@ -79,14 +77,6 @@ public abstract class RouteOptions extends DirectionsJsonObject {
    */
   @NonNull
   public abstract String baseUrl();
-
-  /**
-   * The user parameter of the request, defaults to "mapbox".
-   *
-   * @return string with the user
-   */
-  @NonNull
-  public abstract String user();
 
   /**
    * The routing profile to use. Possible values are
@@ -1004,9 +994,8 @@ public abstract class RouteOptions extends DirectionsJsonObject {
 
     try {
       String[] pathElements = url.getPath().split("/");
-      optionsJson.addProperty("user", URLDecoder.decode(pathElements[3], UTF_8));
-      optionsJson.addProperty("profile", URLDecoder.decode(pathElements[4], UTF_8));
-      optionsJson.addProperty("coordinates", URLDecoder.decode(pathElements[5], UTF_8));
+      optionsJson.addProperty("profile", URLDecoder.decode(pathElements[3], UTF_8));
+      optionsJson.addProperty("coordinates", URLDecoder.decode(pathElements[4], UTF_8));
 
       String[] queryElements = url.getQuery().split("&");
       for (String query : queryElements) {
@@ -1041,8 +1030,7 @@ public abstract class RouteOptions extends DirectionsJsonObject {
       sb.append('/');
     }
 
-    sb.append("directions/v5")
-      .append(String.format("/%s", user()))
+    sb.append("route/v1")
       .append(String.format("/%s", profile()))
       .append(String.format("/%s", coordinates()))
       .append(String.format("?%s=%s", ACCESS_TOKEN_URL_PARAM_NAME, accessToken))
@@ -1189,14 +1177,6 @@ public abstract class RouteOptions extends DirectionsJsonObject {
     @NonNull
     public abstract Builder baseUrl(@NonNull String baseUrl);
 
-    /**
-     * The user parameter of the request, defaults to "mapbox".
-     *
-     * @param user string with the user
-     * @return this builder for chaining options together
-     */
-    @NonNull
-    public abstract Builder user(@NonNull String user);
 
     /**
      * The routing profile to use. Possible values are

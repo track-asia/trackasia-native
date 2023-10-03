@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://api.mapbox.com",
+  "baseUrl": "https://maps.track-asia.com",
   "user": "mapbox",
   "profile": "driving",
   "coordinates": "-122.4003312,37.7736941;-122.4187529,37.7689715;-122.4255172,37.7775835",

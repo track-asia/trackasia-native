@@ -38,7 +38,7 @@ If you want to test recent bugfixes or features that have not been packaged in a
 ```gradle
 repositories {
     maven {
-        url 'https://api.mapbox.com/downloads/v2/snapshots/maven'
+        url 'https://maps.track-asia.com/downloads/v2/snapshots/maven'
         authentication {
           basic(BasicAuthentication)
         }

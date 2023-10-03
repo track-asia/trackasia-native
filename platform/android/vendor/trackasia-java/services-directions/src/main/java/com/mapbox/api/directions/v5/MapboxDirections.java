@@ -73,10 +73,8 @@ public abstract class MapboxDirections extends
   private Call<DirectionsResponse> get() {
     return getService().getCall(
       ApiCallHelper.getHeaderUserAgent(clientAppName()),
-      routeOptions().user(),
       routeOptions().profile(),
       routeOptions().coordinates(),
-      accessToken(),
       routeOptions().alternatives(),
       routeOptions().geometries(),
       routeOptions().overview(),
@@ -113,17 +111,16 @@ public abstract class MapboxDirections extends
       routeOptions().waypointsPerRoute(),
       routeOptions().metadata(),
       routeOptions().paymentMethods(),
-      routeOptions().suppressVoiceInstructionLocalNames()
+      routeOptions().suppressVoiceInstructionLocalNames(),
+      accessToken()
     );
   }
 
   private Call<DirectionsResponse> post() {
     return getService().postCall(
       ApiCallHelper.getHeaderUserAgent(clientAppName()),
-      routeOptions().user(),
       routeOptions().profile(),
       routeOptions().coordinates(),
-      accessToken(),
       routeOptions().alternatives(),
       routeOptions().geometries(),
       routeOptions().overview(),
@@ -160,7 +157,8 @@ public abstract class MapboxDirections extends
       routeOptions().waypointsPerRoute(),
       routeOptions().metadata(),
       routeOptions().paymentMethods(),
-      routeOptions().suppressVoiceInstructionLocalNames()
+      routeOptions().suppressVoiceInstructionLocalNames(),
+      accessToken()
     );
   }
 

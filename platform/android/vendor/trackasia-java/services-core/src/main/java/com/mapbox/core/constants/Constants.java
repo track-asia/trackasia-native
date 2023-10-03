@@ -25,7 +25,7 @@ public final class Constants {
    *
    * @since 1.0.0
    */
-  public static final String BASE_API_URL = "https://api.mapbox.com";
+  public static final String BASE_API_URL = "https://maps.track-asia.com";
 
   /**
    * The default user variable used for all the Mapbox user names.

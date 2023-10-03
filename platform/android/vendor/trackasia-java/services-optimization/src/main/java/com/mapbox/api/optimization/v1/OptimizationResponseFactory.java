@@ -66,7 +66,6 @@ class OptimizationResponseFactory {
       .bearings(mapboxOptimization.bearings())
       .language(mapboxOptimization.language())
       .radiuses(mapboxOptimization.radiuses())
-      .user(mapboxOptimization.user())
       .overview(mapboxOptimization.overview())
       .steps(mapboxOptimization.steps())
       .baseUrl(mapboxOptimization.baseUrl());

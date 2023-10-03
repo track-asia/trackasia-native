@@ -305,7 +305,7 @@ public class MapboxDirectionsTest extends TestUtils {
       .routeOptions(routeOptions)
       .build();
     assertTrue(
-      directions.cloneCall().request().url().toString().startsWith("https://api.mapbox.com"));
+      directions.cloneCall().request().url().toString().startsWith("https://maps.track-asia.com"));
   }
 
   @Test

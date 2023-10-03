@@ -44,8 +44,8 @@ public final class Asserts {
   /***
    * Verifies that URL doesn't contain duplicated query parameters.
    * Examples:
-   * https://api.mapbox.com/test?a=1&a=2 - invalid
-   * https://api.mapbox.com/test?a=1&b=2 - valid
+   * https://maps.track-asia.com/test?a=1&a=2 - invalid
+   * https://maps.track-asia.com/test?a=1&b=2 - valid
    * @param url
    */
   public static void assertNoDuplicatedParameters(URL url) {

@@ -63,7 +63,6 @@ class MatchingResponseFactory {
               .approaches(mapboxMapMatching.approaches())
               .language(mapboxMapMatching.language())
               .radiuses(mapboxMapMatching.radiuses())
-              .user(mapboxMapMatching.user())
               .voiceInstructions(mapboxMapMatching.voiceInstructions())
               .bannerInstructions(mapboxMapMatching.bannerInstructions())
               .roundaboutExits(mapboxMapMatching.roundaboutExits())

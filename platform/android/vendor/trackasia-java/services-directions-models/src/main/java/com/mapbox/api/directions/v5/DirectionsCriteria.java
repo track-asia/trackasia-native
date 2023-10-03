@@ -24,7 +24,7 @@ public final class DirectionsCriteria {
   /**
    * Base URL for all API calls.
    */
-  public static final String BASE_API_URL = "https://api.mapbox.com";
+  public static final String BASE_API_URL = "https://maps.track-asia.com";
 
   /**
    * For car and motorcycle routing. This profile factors in current and historic traffic

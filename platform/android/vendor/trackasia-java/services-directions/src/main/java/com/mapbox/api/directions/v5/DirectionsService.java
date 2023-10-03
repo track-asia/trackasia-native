@@ -21,7 +21,6 @@ interface DirectionsService {
    * Request definition.
    *
    * @param userAgent                     the user agent
-   * @param user                          {@link RouteOptions#user()}
    * @param profile                       {@link RouteOptions#profile()}
    * @param coordinates                   {@link RouteOptions#coordinatesList()}
    * @param accessToken                   the access token
@@ -61,13 +60,11 @@ interface DirectionsService {
    * @param metadata                      {@link RouteOptions#metadata()}
    * @return the {@link DirectionsResponse} in a Call wrapper
    */
-  @GET("directions/v5/{user}/{profile}/{coordinates}")
+  @GET("route/v1/{profile}/{coordinates}")
   Call<DirectionsResponse> getCall(
     @Header("User-Agent") String userAgent,
-    @Path("user") String user,
     @Path("profile") String profile,
     @Path("coordinates") String coordinates,
-    @Query("access_token") String accessToken,
     @Query("alternatives") Boolean alternatives,
     @Query("geometries") String geometries,
     @Query("overview") String overview,
@@ -104,14 +101,14 @@ interface DirectionsService {
     @Query("waypoints_per_route") Boolean waypointsPerRoute,
     @Query("metadata") Boolean metadata,
     @Query("payment_methods") String paymentMethods,
-    @Query("suppress_voice_instruction_local_names") Boolean suppressVoiceInstructionLocalNames
+    @Query("suppress_voice_instruction_local_names") Boolean suppressVoiceInstructionLocalNames,
+    @Query("key") String accessToken
   );
 
   /**
    * Request definition.
    *
    * @param userAgent                     the user agent
-   * @param user                          {@link RouteOptions#user()}
    * @param profile                       {@link RouteOptions#profile()}
    * @param coordinates                   {@link RouteOptions#coordinatesList()}
    * @param accessToken                   the access token
@@ -152,13 +149,11 @@ interface DirectionsService {
    * @return the {@link DirectionsResponse} in a Call wrapper
    */
   @FormUrlEncoded
-  @POST("directions/v5/{user}/{profile}")
+  @POST("route/v1/{profile}")
   Call<DirectionsResponse> postCall(
     @Header("User-Agent") String userAgent,
-    @Path("user") String user,
     @Path("profile") String profile,
     @Field("coordinates") String coordinates,
-    @Query("access_token") String accessToken,
     @Field("alternatives") Boolean alternatives,
     @Field("geometries") String geometries,
     @Field("overview") String overview,
@@ -195,6 +190,7 @@ interface DirectionsService {
     @Field("waypoints_per_route") Boolean waypointsPerRoute,
     @Field("metadata") Boolean metadata,
     @Field("payment_methods") String paymentMethods,
-    @Field("suppress_voice_instruction_local_names") Boolean suppressVoiceInstructionLocalNames
+    @Field("suppress_voice_instruction_local_names") Boolean suppressVoiceInstructionLocalNames,
+    @Query("key") String accessToken
   );
 }

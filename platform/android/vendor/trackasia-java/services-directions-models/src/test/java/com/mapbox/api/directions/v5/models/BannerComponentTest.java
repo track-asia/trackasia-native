@@ -169,7 +169,7 @@ public class BannerComponentTest extends TestUtils {
         .mapboxShield(
             MapboxShield
                 .builder()
-                .baseUrl("https://api.mapbox.com/styles/v1/")
+                .baseUrl("https://maps.track-asia.com/styles/v1/")
                 .displayRef("242")
                 .name("us-interstate")
                 .textColor("black")

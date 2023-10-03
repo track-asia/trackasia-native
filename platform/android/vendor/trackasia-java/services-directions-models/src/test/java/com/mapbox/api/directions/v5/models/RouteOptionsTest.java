@@ -38,7 +38,7 @@ public class RouteOptionsTest extends TestUtils {
    */
   private static final String ROUTE_OPTIONS_JSON = "route_options_v5.json";
   private static final String ROUTE_OPTIONS_URL =
-    "https://api.mapbox.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715;-122.4255172,37.7775835?access_token=pk.token&geometries=polyline6&alternatives=false&overview=full&radiuses=%3Bunlimited%3B5.1&steps=true&avoid_maneuver_radius=200.0&bearings=0%2C90%3B90%2C0%3B&layers=-42%3B%3B0&continue_straight=false&annotations=congestion%2Cdistance%2Cduration&language=ru&roundabout_exits=false&voice_instructions=true&banner_instructions=true&voice_units=metric&exclude=toll%2Cferry%2Cpoint%2811.0+-22.0%29&include=hot%2Chov2&approaches=%3Bcurb%3B&waypoints=0%3B1%3B2&waypoint_names=%3BSerangoon+Garden+Market+%26+Food+Centre%3BFunky+%26nAmE*&waypoint_targets=%3B12.2%2C21.2%3B&enable_refresh=true&walking_speed=5.11&walkway_bias=-0.2&alley_bias=0.75&snapping_include_closures=%3Bfalse%3Btrue&snapping_include_static_closures=true%3B%3Bfalse&arrive_by=2021-01-01%27T%2701%3A01&depart_at=2021-02-02%27T%2702%3A02&max_height=1.5&max_width=1.4&max_weight=2.9&compute_toll_cost=true&waypoints_per_route=true&metadata=true&payment_methods=general&suppress_voice_instruction_local_names=true";
+    "https://maps.track-asia.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715;-122.4255172,37.7775835?access_token=pk.token&geometries=polyline6&alternatives=false&overview=full&radiuses=%3Bunlimited%3B5.1&steps=true&avoid_maneuver_radius=200.0&bearings=0%2C90%3B90%2C0%3B&layers=-42%3B%3B0&continue_straight=false&annotations=congestion%2Cdistance%2Cduration&language=ru&roundabout_exits=false&voice_instructions=true&banner_instructions=true&voice_units=metric&exclude=toll%2Cferry%2Cpoint%2811.0+-22.0%29&include=hot%2Chov2&approaches=%3Bcurb%3B&waypoints=0%3B1%3B2&waypoint_names=%3BSerangoon+Garden+Market+%26+Food+Centre%3BFunky+%26nAmE*&waypoint_targets=%3B12.2%2C21.2%3B&enable_refresh=true&walking_speed=5.11&walkway_bias=-0.2&alley_bias=0.75&snapping_include_closures=%3Bfalse%3Btrue&snapping_include_static_closures=true%3B%3Bfalse&arrive_by=2021-01-01%27T%2701%3A01&depart_at=2021-02-02%27T%2702%3A02&max_height=1.5&max_width=1.4&max_weight=2.9&compute_toll_cost=true&waypoints_per_route=true&metadata=true&payment_methods=general&suppress_voice_instruction_local_names=true";
   private static final String ACCESS_TOKEN = "pk.token";
 
   private final String optionsJson = loadJsonFixture(ROUTE_OPTIONS_JSON);
@@ -428,7 +428,7 @@ public class RouteOptionsTest extends TestUtils {
   @Test
   public void routeOptionsWithDefaults_toUrl() {
     String expectedUrl =
-      "https://api.mapbox.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6";
+      "https://maps.track-asia.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6";
     List<Point> coordinates = new ArrayList<>();
     coordinates.add(Point.fromLngLat(-122.4003312, 37.7736941));
     coordinates.add(Point.fromLngLat(-122.4187529, 37.7689715));
@@ -446,7 +446,7 @@ public class RouteOptionsTest extends TestUtils {
   @Test
   public void snappingIncludeStaticClosuresList_Null_toUrl() {
     String expectedUrl =
-            "https://api.mapbox.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6";
+            "https://maps.track-asia.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6";
     List<Point> coordinates = new ArrayList<>();
     coordinates.add(Point.fromLngLat(-122.4003312, 37.7736941));
     coordinates.add(Point.fromLngLat(-122.4187529, 37.7689715));
@@ -465,7 +465,7 @@ public class RouteOptionsTest extends TestUtils {
   @Test
   public void snappingIncludeStaticClosuresList_Empty_toUrl() {
     String expectedUrl =
-            "https://api.mapbox.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6";
+            "https://maps.track-asia.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6";
     List<Point> coordinates = new ArrayList<>();
     coordinates.add(Point.fromLngLat(-122.4003312, 37.7736941));
     coordinates.add(Point.fromLngLat(-122.4187529, 37.7689715));
@@ -654,13 +654,13 @@ public class RouteOptionsTest extends TestUtils {
   @Test
   public void routeOptionsWithPort_roundtripping() {
     String expectedUrl =
-      "https://api.mapbox.com:12345/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6";
+      "https://maps.track-asia.com:12345/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6";
     List<Point> coordinates = new ArrayList<>();
     coordinates.add(Point.fromLngLat(-122.4003312, 37.7736941));
     coordinates.add(Point.fromLngLat(-122.4187529, 37.7689715));
 
     RouteOptions options = RouteOptions.builder()
-      .baseUrl("https://api.mapbox.com:12345")
+      .baseUrl("https://maps.track-asia.com:12345")
       .profile(DirectionsCriteria.PROFILE_DRIVING)
       .coordinatesList(coordinates)
       .build();
@@ -694,7 +694,7 @@ public class RouteOptionsTest extends TestUtils {
   @Test
   public void routeOptionsWithDecodedChars_toUrlWithEncodedChars() {
     String expectedEncodedUrl =
-      "https://api.mapbox.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6&waypoint_names=%3BFunky+%26nAmE*";
+      "https://maps.track-asia.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6&waypoint_names=%3BFunky+%26nAmE*";
     List<Point> coordinates = new ArrayList<>();
     coordinates.add(Point.fromLngLat(-122.4003312, 37.7736941));
     coordinates.add(Point.fromLngLat(-122.4187529, 37.7689715));
@@ -742,7 +742,7 @@ public class RouteOptionsTest extends TestUtils {
       .build();
 
     String url =
-      "https://api.mapbox.com/directions/v5/mapbox/driving/-122.4003312%2C37.7736941;-122.4187529%2C37.7689715?access_token=pk.token&geometries=polyline6&waypoint_names=my%20starting%20position;my%20destination";
+      "https://maps.track-asia.com/directions/v5/mapbox/driving/-122.4003312%2C37.7736941;-122.4187529%2C37.7689715?access_token=pk.token&geometries=polyline6&waypoint_names=my%20starting%20position;my%20destination";
 
     RouteOptions resultingOptions = RouteOptions.fromUrl(new URL(url));
 
@@ -752,7 +752,7 @@ public class RouteOptionsTest extends TestUtils {
   @Test
   public void routeOptionsWithUTF8Chars_toUrlWithEncodedChars() {
     String expectedEncodedUrl =
-      "https://api.mapbox.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6&waypoint_names=%3B%D0%A3%D0%BB%D0%B8%D1%86%D0%B0+%D0%AF%D0%BD%D0%B0+%D0%A7%D0%B5%D1%87%D0%BE%D1%82%D0%B0+7%2C+Minsk+220045%2C+Belarus";
+      "https://maps.track-asia.com/directions/v5/mapbox/driving/-122.4003312,37.7736941;-122.4187529,37.7689715?access_token=pk.token&geometries=polyline6&waypoint_names=%3B%D0%A3%D0%BB%D0%B8%D1%86%D0%B0+%D0%AF%D0%BD%D0%B0+%D0%A7%D0%B5%D1%87%D0%BE%D1%82%D0%B0+7%2C+Minsk+220045%2C+Belarus";
     List<Point> coordinates = new ArrayList<>();
     coordinates.add(Point.fromLngLat(-122.4003312, 37.7736941));
     coordinates.add(Point.fromLngLat(-122.4187529, 37.7689715));
@@ -818,7 +818,7 @@ public class RouteOptionsTest extends TestUtils {
   @Test
   public void routeOptionsWithExcludePointAndCriteriaFromUrl() throws MalformedURLException {
     URL testUrl = new URL(
-      "https://api.mapbox.com/directions/v5/mapbox/driving-traffic/18.60289583391497,54.41121871390118;18.59400217318438,54.40983705017376.json?access_token=testToken&alternatives=true&annotations=distance%2Cduration%2Ccongestion%2Cspeed&geometries=geojson&language=en&overview=full&steps=true&exclude=point(18.595875353791087%2054.41000119108463),toll");
+      "https://maps.track-asia.com/directions/v5/mapbox/driving-traffic/18.60289583391497,54.41121871390118;18.59400217318438,54.40983705017376.json?access_token=testToken&alternatives=true&annotations=distance%2Cduration%2Ccongestion%2Cspeed&geometries=geojson&language=en&overview=full&steps=true&exclude=point(18.595875353791087%2054.41000119108463),toll");
 
     RouteOptions routeOptions = RouteOptions.fromUrl(testUrl);
 
@@ -1075,7 +1075,7 @@ public class RouteOptionsTest extends TestUtils {
     coordinates.add(Point.fromLngLat(-122.4255172, 37.7775835));
 
     return RouteOptions.builder()
-      .baseUrl("https://api.mapbox.com")
+      .baseUrl("https://maps.track-asia.com")
       .profile(DirectionsCriteria.PROFILE_DRIVING)
       .coordinatesList(coordinates)
       .alternatives(false)
@@ -1122,7 +1122,7 @@ public class RouteOptionsTest extends TestUtils {
 
   private RouteOptions defaultRouteOptions() {
     return RouteOptions.builder()
-            .baseUrl("https://api.mapbox.com")
+            .baseUrl("https://maps.track-asia.com")
             .profile(DirectionsCriteria.PROFILE_DRIVING)
             .coordinatesList(Arrays.asList(Point.fromLngLat(-122.4003312, 37.7736941)))
             .build();
@@ -1138,7 +1138,7 @@ public class RouteOptionsTest extends TestUtils {
     coordinates.add(Point.fromLngLat(-122.4255172, 37.7775835));
 
     return RouteOptions.builder()
-      .baseUrl("https://api.mapbox.com")
+      .baseUrl("https://maps.track-asia.com")
       .profile(DirectionsCriteria.PROFILE_DRIVING)
       .coordinatesList(coordinates)
       .alternatives(false)
