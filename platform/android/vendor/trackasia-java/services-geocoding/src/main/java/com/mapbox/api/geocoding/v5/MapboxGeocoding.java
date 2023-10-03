@@ -627,9 +627,9 @@ public abstract class MapboxGeocoding extends MapboxService<GeocodingResponse, G
       // Generate build so that we can check that values are valid.
       MapboxGeocoding geocoding = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(geocoding.accessToken())) {
-        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
-      }
+//      if (!MapboxUtils.isAccessTokenValid(geocoding.accessToken())) {
+//        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
+//      }
       if (geocoding.query().isEmpty()) {
         throw new ServicesException("A query with at least one character or digit is required.");
       }

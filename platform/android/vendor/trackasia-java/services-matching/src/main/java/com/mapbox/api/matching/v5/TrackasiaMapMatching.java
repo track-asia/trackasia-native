@@ -728,9 +728,9 @@ public abstract class TrackasiaMapMatching extends
       // Generate build so that we can check that values are valid.
       TrackasiaMapMatching mapMatching = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(mapMatching.accessToken())) {
-        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
-      }
+//      if (!MapboxUtils.isAccessTokenValid(mapMatching.accessToken())) {
+//        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
+//      }
       return mapMatching;
     }
 

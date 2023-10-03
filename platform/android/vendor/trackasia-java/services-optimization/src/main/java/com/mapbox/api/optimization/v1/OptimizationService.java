@@ -17,7 +17,6 @@ public interface OptimizationService {
 
   /**
    * @param userAgent     the application information
-   * @param user          the user which the OSRM engine should run on, typically Mapbox
    * @param profile       the profile optimization should use
    * @param coordinates   the coordinates used to calculate the trip
    * @param accessToken   valid mapbox access token
@@ -45,10 +44,9 @@ public interface OptimizationService {
    * @return The {@link OptimizationResponse} in a Call wrapper
    * @since 2.1.0
    */
-  @GET("optimized-trips/v1/{user}/{profile}/{coordinates}")
+  @GET("optimized-trips/v1/{profile}/{coordinates}")
   Call<OptimizationResponse> getCall(
     @Header("User-Agent") String userAgent,
-    @Path("user") String user,
     @Path("profile") String profile,
     @Path("coordinates") String coordinates,
     @Query("access_token") String accessToken,

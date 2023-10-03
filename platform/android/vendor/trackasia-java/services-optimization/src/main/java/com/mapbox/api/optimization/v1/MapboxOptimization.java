@@ -64,7 +64,6 @@ public abstract class MapboxOptimization
   protected Call<OptimizationResponse> initializeCall() {
     return getService().getCall(
       ApiCallHelper.getHeaderUserAgent(clientAppName()),
-      user(),
       profile(),
       coordinates(),
       accessToken(),
@@ -494,9 +493,9 @@ public abstract class MapboxOptimization
       // Generate build so that we can check that values are valid.
       MapboxOptimization optimization = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(optimization.accessToken())) {
-        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
-      }
+//      if (!MapboxUtils.isAccessTokenValid(optimization.accessToken())) {
+//        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
+//      }
       return optimization;
     }
 

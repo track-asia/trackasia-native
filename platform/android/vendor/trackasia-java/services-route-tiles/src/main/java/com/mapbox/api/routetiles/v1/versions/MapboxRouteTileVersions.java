@@ -125,9 +125,9 @@ public abstract class MapboxRouteTileVersions extends MapboxService<RouteTileVer
     public MapboxRouteTileVersions build() {
       MapboxRouteTileVersions mapboxRouteTileVersions = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(mapboxRouteTileVersions.accessToken())) {
-        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
-      }
+//      if (!MapboxUtils.isAccessTokenValid(mapboxRouteTileVersions.accessToken())) {
+//        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
+//      }
 
       return mapboxRouteTileVersions;
     }

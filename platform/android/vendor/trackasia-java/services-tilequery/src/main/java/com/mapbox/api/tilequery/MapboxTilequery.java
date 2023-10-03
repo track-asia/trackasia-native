@@ -303,9 +303,9 @@ public abstract class MapboxTilequery extends MapboxService<FeatureCollection, T
     public MapboxTilequery build() {
       MapboxTilequery tilequery = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(tilequery.accessToken())) {
-        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
-      }
+//      if (!MapboxUtils.isAccessTokenValid(tilequery.accessToken())) {
+//        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
+//      }
 
       if (tilequery.query().isEmpty()) {
         throw new ServicesException("A query with latitude and longitude values is required.");

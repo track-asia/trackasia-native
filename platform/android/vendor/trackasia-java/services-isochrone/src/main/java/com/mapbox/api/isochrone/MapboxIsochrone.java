@@ -344,10 +344,10 @@ public abstract class MapboxIsochrone extends MapboxService<FeatureCollection, I
 
       MapboxIsochrone isochrone = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(isochrone.accessToken())) {
-        throw new ServicesException("Using the Mapbox Isochrone API requires setting "
-          + "a valid access token.");
-      }
+//      if (!MapboxUtils.isAccessTokenValid(isochrone.accessToken())) {
+//        throw new ServicesException("Using the Mapbox Isochrone API requires setting "
+//          + "a valid access token.");
+//      }
 
       if (TextUtils.isEmpty(isochrone.coordinates())) {
         throw new ServicesException("A query with longitude and latitude values is "
