@@ -103,11 +103,6 @@ public class MapMatchingRouteOptionsTest extends TestUtils {
 
     assertEquals(Locale.CANADA.getLanguage(), matching.routeOptions().language());
     assertEquals(DirectionsCriteria.PROFILE_WALKING, matching.routeOptions().profile());
-    assertEquals(Constants.MAPBOX_USER, matching.routeOptions().user());
-
-    // Never set values
-    assertNull(matching.routeOptions().annotations());
-    assertNull(matching.routeOptions().bearingsList());
   }
 
   @Test

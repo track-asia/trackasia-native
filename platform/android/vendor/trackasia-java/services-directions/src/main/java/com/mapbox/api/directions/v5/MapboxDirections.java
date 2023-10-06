@@ -1188,10 +1188,10 @@ public abstract class MapboxDirections extends
 
             MapboxDirections directions = autoBuild();
 
-//      if (!MapboxUtils.isAccessTokenValid(directions.accessToken())) {
-//        throw new ServicesException("Using Mapbox Services requires setting a valid access"
-//          + " token.");
-//      }
+//            if (!MapboxUtils.isAccessTokenValid(directions.accessToken())) {
+//                throw new ServicesException("Using Mapbox Services requires setting a valid access"
+//                        + " token.");
+//            }
             return directions;
         }
     }

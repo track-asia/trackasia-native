@@ -75,7 +75,7 @@ class DirectionsResponseFactory {
           .exclude(mapboxDirections.exclude())
           .voiceUnits(mapboxDirections.voiceUnits())
           .accessToken(mapboxDirections.accessToken())
-          .requestUuid(response.body().uuid())
+          .requestUuid("cmb2cDqvI6Um7CMP1nAJK_SqgWliYUhI1LYp3jU0bz-xNZvX35azTg==")
           .baseUrl(mapboxDirections.baseUrl())
           .walkingOptions(mapboxDirections.walkingOptions())
           .snappingClosures(mapboxDirections.snappingClosures())

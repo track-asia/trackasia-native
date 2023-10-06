@@ -32,7 +32,7 @@ public interface DirectionsService {
    * @return the {@link DirectionsResponse} in a Call wrapper
    * @since 1.0.0
    */
-  @GET("route/v1/{profile}/{coordinates}")
+  @GET("route/v1/{profile}/{coordinates}.json")
   Call<DirectionsResponse> getCall(
     @Header("User-Agent") String userAgent,
     @Path("profile") String profile,
@@ -59,7 +59,7 @@ public interface DirectionsService {
    * @since 4.6.0
    */
   @FormUrlEncoded
-  @POST("route/v1/{profile}")
+  @POST("route/v1/{profile}.json")
   Call<DirectionsResponse> postCall(
     @Header("User-Agent") String userAgent,
     @Path("profile") String profile,

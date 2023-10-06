@@ -2,8 +2,10 @@ apply plugin: 'java-library'
 
 dependencies {
   api project(":services-directions")
+    testImplementation project(path: ':services')
+    testImplementation project(path: ':services')
 
-  // Annotations
+    // Annotations
   compileOnly dependenciesList.supportAnnotation
 
   // AutoValue
