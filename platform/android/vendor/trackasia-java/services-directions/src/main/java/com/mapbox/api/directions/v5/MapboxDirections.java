@@ -86,10 +86,8 @@ public abstract class MapboxDirections extends
   private Call<DirectionsResponse> get() {
     return getService().getCall(
       ApiCallHelper.getHeaderUserAgent(clientAppName()),
-      user(),
       profile(),
       FormatUtils.formatCoordinates(coordinates()),
-      accessToken(),
       alternatives(),
       geometries(),
       overview(),
@@ -97,12 +95,12 @@ public abstract class MapboxDirections extends
       steps(),
       bearing(),
       continueStraight(),
-      annotation(),
-      language(),
-      roundaboutExits(),
-      voiceInstructions(),
-      bannerInstructions(),
-      voiceUnits(),
+//      annotation(),
+//      language(),
+//      roundaboutExits(),
+//      voiceInstructions(),
+//      bannerInstructions(),
+//      voiceUnits(),
       exclude(),
       approaches(),
       waypointIndices(),
@@ -112,14 +110,14 @@ public abstract class MapboxDirections extends
       walkingSpeed(),
       walkwayBias(),
       alleyBias(),
-      snappingClosures()
+      snappingClosures(),
+      accessToken()
     );
   }
 
   private Call<DirectionsResponse> post() {
     return getService().postCall(
       ApiCallHelper.getHeaderUserAgent(clientAppName()),
-      user(),
       profile(),
       FormatUtils.formatCoordinates(coordinates()),
       accessToken(),
@@ -1228,10 +1226,10 @@ public abstract class MapboxDirections extends
 
       MapboxDirections directions = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(directions.accessToken())) {
-        throw new ServicesException("Using Mapbox Services requires setting a valid access"
-          + " token.");
-      }
+      // if (!MapboxUtils.isAccessTokenValid(directions.accessToken())) {
+      //   throw new ServicesException("Using Mapbox Services requires setting a valid access"
+      //     + " token.");
+      // }
       return directions;
     }
   }

@@ -62,21 +62,6 @@ public abstract class RouteOptions extends DirectionsJsonObject {
    * @since 3.0.0
    */
   @NonNull
-  public abstract String user();
-
-  /**
-   * The routing profile to use. Possible values are
-   * {@link DirectionsCriteria#PROFILE_DRIVING_TRAFFIC}, {@link DirectionsCriteria#PROFILE_DRIVING},
-   * {@link DirectionsCriteria#PROFILE_WALKING}, or {@link DirectionsCriteria#PROFILE_CYCLING}.
-   * The same profile which was used during the request that resulted in this root directions
-   * response. <tt>MapboxDirections.Builder</tt> ensures that a profile is always set even if the
-   * <tt>MapboxDirections</tt> requesting object doesn't specifically set a profile.
-   *
-   * @return string value representing the profile defined in
-   *         {@link DirectionsCriteria.ProfileCriteria}
-   * @since 3.0.0
-   */
-  @NonNull
   public abstract String profile();
 
   /**
@@ -579,15 +564,6 @@ public abstract class RouteOptions extends DirectionsJsonObject {
      * @since 3.0.0
      */
     public abstract Builder baseUrl(@NonNull String baseUrl);
-
-    /**
-     * The user value that was used during the request.
-     *
-     * @param user string representing the user field in the calling url
-     * @return this builder for chaining options together
-     * @since 3.0.0
-     */
-    public abstract Builder user(@NonNull String user);
 
     /**
      * The routing profile to use. Possible values are

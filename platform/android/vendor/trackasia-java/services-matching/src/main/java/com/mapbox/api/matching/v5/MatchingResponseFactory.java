@@ -62,7 +62,6 @@ class MatchingResponseFactory {
           .approachesList(ParseUtils.parseToStrings(mapboxMapMatching.approaches()))
           .language(mapboxMapMatching.language())
           .radiusesList(ParseUtils.parseToDoubles(mapboxMapMatching.radiuses()))
-          .user(mapboxMapMatching.user())
           .voiceInstructions(mapboxMapMatching.voiceInstructions())
           .bannerInstructions(mapboxMapMatching.bannerInstructions())
           .roundaboutExits(mapboxMapMatching.roundaboutExits())

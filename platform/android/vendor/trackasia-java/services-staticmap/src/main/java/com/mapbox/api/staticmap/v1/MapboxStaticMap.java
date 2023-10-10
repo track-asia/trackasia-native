@@ -409,10 +409,10 @@ public abstract class MapboxStaticMap {
     public MapboxStaticMap build() {
       MapboxStaticMap staticMap = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(staticMap.accessToken())) {
-        throw new ServicesException("Using Mapbox Services requires setting a valid access"
-          + " token.");
-      }
+      // if (!MapboxUtils.isAccessTokenValid(staticMap.accessToken())) {
+      //   throw new ServicesException("Using Mapbox Services requires setting a valid access"
+      //     + " token.");
+      // }
 
       if (staticMap.styleId().isEmpty()) {
         throw new ServicesException("You need to set a map style.");

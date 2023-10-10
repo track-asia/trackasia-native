@@ -194,9 +194,9 @@ public abstract class MapboxRouteTiles extends MapboxService<ResponseBody, Route
     public MapboxRouteTiles build() {
       MapboxRouteTiles mapboxRouteTiles = autoBuild();
 
-      if (!MapboxUtils.isAccessTokenValid(mapboxRouteTiles.accessToken())) {
-        throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
-      }
+      // if (!MapboxUtils.isAccessTokenValid(mapboxRouteTiles.accessToken())) {
+      //   throw new ServicesException("Using Mapbox Services requires setting a valid access token.");
+      // }
 
       return mapboxRouteTiles;
     }

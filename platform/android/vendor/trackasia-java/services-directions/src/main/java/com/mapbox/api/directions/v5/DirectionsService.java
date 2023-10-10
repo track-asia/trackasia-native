@@ -23,7 +23,6 @@ public interface DirectionsService {
    * {@link MapboxDirections.Builder}.
    *
    * @param userAgent           the user agent
-   * @param user                the user
    * @param profile             the profile directions should use
    * @param coordinates         the coordinates the route should follow
    * @param accessToken         Mapbox access token
@@ -36,18 +35,18 @@ public interface DirectionsService {
    *                            direction and dictates the angle of approach
    * @param continueStraight    define whether the route should continue straight even if the
    *                            route will be slower
-   * @param annotations         an annotations object that contains additional details about each
-   *                            line segment along the route geometry. Each entry in an
-   *                            annotations field corresponds to a coordinate along the route
-   *                            geometry
-   * @param language            language of returned turn-by-turn text instructions
-   * @param roundaboutExits     Add extra step when roundabouts occur with additional information
-   *                            for the user
-   * @param voiceInstructions   request that the response contain voice instruction information,
-   *                            useful for navigation
-   * @param bannerInstructions  request that the response contain banner instruction information,
-   *                            useful for navigation
-   * @param voiceUnits          voice units
+//   * @param annotations         an annotations object that contains additional details about each
+//   *                            line segment along the route geometry. Each entry in an
+//   *                            annotations field corresponds to a coordinate along the route
+//   *                            geometry
+//   * @param language            language of returned turn-by-turn text instructions
+//   * @param roundaboutExits     Add extra step when roundabouts occur with additional information
+//   *                            for the user
+//   * @param voiceInstructions   request that the response contain voice instruction information,
+//   *                            useful for navigation
+//   * @param bannerInstructions  request that the response contain banner instruction information,
+//   *                            useful for navigation
+//   * @param voiceUnits          voice units
    * @param exclude             exclude tolls, motorways or more along your route
    * @param approaches          which side of the road to approach a waypoint
    * @param waypointIndices     which input coordinates should be treated as waypoints/separate legs
@@ -64,13 +63,11 @@ public interface DirectionsService {
    * @return the {@link DirectionsResponse} in a Call wrapper
    * @since 1.0.0
    */
-  @GET("directions/v5/{user}/{profile}/{coordinates}")
+  @GET("route/v1/{profile}/{coordinates}.json")
   Call<DirectionsResponse> getCall(
     @Header("User-Agent") String userAgent,
-    @Path("user") String user,
     @Path("profile") String profile,
     @Path("coordinates") String coordinates,
-    @Query("access_token") String accessToken,
     @Query("alternatives") Boolean alternatives,
     @Query("geometries") String geometries,
     @Query("overview") String overview,
@@ -78,12 +75,12 @@ public interface DirectionsService {
     @Query("steps") Boolean steps,
     @Query("bearings") String bearings,
     @Query("continue_straight") Boolean continueStraight,
-    @Query("annotations") String annotations,
-    @Query("language") String language,
-    @Query("roundabout_exits") Boolean roundaboutExits,
-    @Query("voice_instructions") Boolean voiceInstructions,
-    @Query("banner_instructions") Boolean bannerInstructions,
-    @Query("voice_units") String voiceUnits,
+//    @Query("annotations") String annotations,
+//    @Query("language") String language,
+//    @Query("roundabout_exits") Boolean roundaboutExits,
+//    @Query("voice_instructions") Boolean voiceInstructions,
+//    @Query("banner_instructions") Boolean bannerInstructions,
+//    @Query("voice_units") String voiceUnits,
     @Query("exclude") String exclude,
     @Query("approaches") String approaches,
     @Query("waypoints") String waypointIndices,
@@ -93,7 +90,8 @@ public interface DirectionsService {
     @Query("walking_speed") Double walkingSpeed,
     @Query("walkway_bias") Double walkwayBias,
     @Query("alley_bias") Double alleyBias,
-    @Query("snapping_include_closures") String snappingClosures
+    @Query("snapping_include_closures") String snappingClosures,
+    @Query("key") String accessToken
   );
 
   /**
@@ -101,7 +99,6 @@ public interface DirectionsService {
    * {@link MapboxDirections.Builder}.
    *
    * @param userAgent           the user agent
-   * @param user                the user
    * @param profile             the profile directions should use
    * @param coordinates         the coordinates the route should follow
    * @param accessToken         Mapbox access token
@@ -143,10 +140,9 @@ public interface DirectionsService {
    * @since 4.6.0
    */
   @FormUrlEncoded
-  @POST("directions/v5/{user}/{profile}")
+  @POST("route/v1/{profile}.json")
   Call<DirectionsResponse> postCall(
     @Header("User-Agent") String userAgent,
-    @Path("user") String user,
     @Path("profile") String profile,
     @Field("coordinates") String coordinates,
     @Query("access_token") String accessToken,
