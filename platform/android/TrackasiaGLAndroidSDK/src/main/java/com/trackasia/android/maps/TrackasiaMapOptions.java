@@ -244,13 +244,13 @@ public class TrackasiaMapOptions implements Parcelable {
         Gravity.BOTTOM | Gravity.START));
       mapboxMapOptions.logoMargins(new int[] {
         (int) (typedArray.getDimension(R.styleable.trackasia_MapView_trackasia_uiLogoMarginLeft,
-          FOUR_DP * pxlRatio)),
+          106)),
         (int) (typedArray.getDimension(R.styleable.trackasia_MapView_trackasia_uiLogoMarginTop,
           FOUR_DP * pxlRatio)),
         (int) (typedArray.getDimension(R.styleable.trackasia_MapView_trackasia_uiLogoMarginRight,
           FOUR_DP * pxlRatio)),
         (int) (typedArray.getDimension(R.styleable.trackasia_MapView_trackasia_uiLogoMarginBottom,
-          FOUR_DP * pxlRatio))});
+          FOUR_DP + 10 * pxlRatio))});
 
       mapboxMapOptions.attributionTintColor(typedArray.getColor(
         R.styleable.trackasia_MapView_trackasia_uiAttributionTintColor, UNDEFINED_COLOR));
@@ -260,7 +260,7 @@ public class TrackasiaMapOptions implements Parcelable {
         R.styleable.trackasia_MapView_trackasia_uiAttributionGravity, Gravity.BOTTOM | Gravity.START));
       mapboxMapOptions.attributionMargins(new int[] {
         (int) (typedArray.getDimension(R.styleable.trackasia_MapView_trackasia_uiAttributionMarginLeft,
-          NINETY_TWO_DP * pxlRatio)),
+          12 * pxlRatio)),
         (int) (typedArray.getDimension(R.styleable.trackasia_MapView_trackasia_uiAttributionMarginTop,
           FOUR_DP * pxlRatio)),
         (int) (typedArray.getDimension(R.styleable.trackasia_MapView_trackasia_uiAttributionMarginRight,

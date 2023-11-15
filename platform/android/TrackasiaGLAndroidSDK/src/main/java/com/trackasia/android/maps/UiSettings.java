@@ -288,7 +288,7 @@ public final class UiSettings {
       // user did not specify margins when programmatically creating a map
       Resources resources = context.getResources();
       int margin = (int) resources.getDimension(R.dimen.trackasia_four_dp);
-      int leftMargin = (int) resources.getDimension(R.dimen.trackasia_ninety_two_dp);
+      int leftMargin = (int) resources.getDimension(R.dimen.trackasia_eight_dp);
       setAttributionMargins(leftMargin, margin, margin, margin);
     }
   }
