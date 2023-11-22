@@ -265,6 +265,7 @@ make iproj
 # make Xcode workspace, but run in headless mode
 make iproj CI=1
 
+make style-code
 # Make Frameworks
 make xcframework BUILDTYPE=Release
 
@@ -285,6 +286,7 @@ Please refer to [Mapbox Maps SDK for iOS](platform/ios/platform/ios/) for detail
 ```bash
 cd platform/ios
 # open macOS project in Xcode
+make ios
 make xproj
 
 # build or test from the command line
