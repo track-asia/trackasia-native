@@ -43,7 +43,7 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
 
     private fun initMap(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
-        mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

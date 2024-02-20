@@ -93,7 +93,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
                 )
                 mapboxMap!!.setStyle(
                     Style.Builder()
-                        .fromUri(Style.getPredefinedStyle("Streets")) // set custom transition
+                        .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")// set custom transition
                         .withTransition(TransitionOptions(250, 50))
                 ) { style: Style ->
                     styleLoaded = true

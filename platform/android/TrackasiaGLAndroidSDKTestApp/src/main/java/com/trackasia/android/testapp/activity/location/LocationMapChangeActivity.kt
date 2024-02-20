@@ -67,7 +67,7 @@ class LocationMapChangeActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
         mapboxMap.setStyle(
-            Style.Builder().fromUri(Utils.nextStyle())
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
         ) { style: Style -> activateLocationComponent(style) }
     }
 

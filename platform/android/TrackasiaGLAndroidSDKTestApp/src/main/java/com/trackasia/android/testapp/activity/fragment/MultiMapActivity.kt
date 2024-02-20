@@ -17,10 +17,10 @@ class MultiMapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_multi_map)
         val fragmentManager = supportFragmentManager
-        initFragmentStyle(fragmentManager, R.id.map1, Style.getPredefinedStyle("Streets"))
-        initFragmentStyle(fragmentManager, R.id.map2, Style.getPredefinedStyle("Bright"))
-        initFragmentStyle(fragmentManager, R.id.map3, Style.getPredefinedStyle("Satellite Hybrid"))
-        initFragmentStyle(fragmentManager, R.id.map4, Style.getPredefinedStyle("Pastel"))
+        initFragmentStyle(fragmentManager, R.id.map1, "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+        initFragmentStyle(fragmentManager, R.id.map2, "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+        initFragmentStyle(fragmentManager, R.id.map3, "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+        initFragmentStyle(fragmentManager, R.id.map4, "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
     }
 
     private fun initFragmentStyle(

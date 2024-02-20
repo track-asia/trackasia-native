@@ -25,7 +25,7 @@ class VisibilityChangeActivity : AppCompatActivity() {
         mapView.getMapAsync(
             OnMapReadyCallback { map: TrackasiaMap? ->
                 mapboxMap = map
-                mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets"))
+                mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 mapboxMap!!.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(55.754020, 37.620948),

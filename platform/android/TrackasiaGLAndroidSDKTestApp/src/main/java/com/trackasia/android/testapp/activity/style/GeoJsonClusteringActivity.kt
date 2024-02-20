@@ -75,7 +75,7 @@ class GeoJsonClusteringActivity : AppCompatActivity() {
                 try {
                     mapboxMap!!.setStyle(
                         Style.Builder()
-                            .fromUri(Style.getPredefinedStyle("Bright"))
+                            .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                             .withSource(createClusterSource().also { clusterSource = it })
                             .withLayer(createSymbolLayer())
                             .withLayer(createClusterLevelLayer(0, clusterLayers))

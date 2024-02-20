@@ -123,10 +123,8 @@ class MapSnapshotterWithinExpression : AppCompatActivity() {
 
         // Setup style with additional layers,
         // using streets as a base style
-        mapboxMap.setStyle(
-            Style.Builder()
-                .fromUri(Style.getPredefinedStyle("Streets"))
-        ) {
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+        {
             binding.mapView.addOnCameraDidChangeListener(cameraListener)
         }
 
@@ -138,7 +136,7 @@ class MapSnapshotterWithinExpression : AppCompatActivity() {
             .withPixelRatio(2.0f)
             .withStyleBuilder(
                 Style.Builder()
-                    .fromUri(Style.getPredefinedStyle("Streets"))
+                    .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                     .withSources(
                         GeoJsonSource(
                             POINT_ID,

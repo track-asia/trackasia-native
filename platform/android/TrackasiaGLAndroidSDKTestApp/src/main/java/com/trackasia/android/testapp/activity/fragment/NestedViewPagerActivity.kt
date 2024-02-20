@@ -113,7 +113,7 @@ class NestedViewPagerActivity : AppCompatActivity() {
                     0 -> {
                         options.camera(CameraPosition.Builder().target(LatLng(34.920526, 102.634774)).zoom(3.0).build())
                         val fragment = SupportMapFragment.newInstance(options)
-                        fragment.getMapAsync { mapboxMap -> mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) }
+                        fragment.getMapAsync { mapboxMap -> mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") }
                         return fragment
                     }
                     1 -> {
@@ -122,7 +122,7 @@ class NestedViewPagerActivity : AppCompatActivity() {
                     2 -> {
                         options.camera(CameraPosition.Builder().target(LatLng(62.326440, 92.764913)).zoom(3.0).build())
                         val fragment = SupportMapFragment.newInstance(options)
-                        fragment.getMapAsync { mapboxMap -> mapboxMap.setStyle(Style.getPredefinedStyle("Pastel")) }
+                        fragment.getMapAsync { mapboxMap -> mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") }
                         return fragment
                     }
                     3 -> {
@@ -131,7 +131,7 @@ class NestedViewPagerActivity : AppCompatActivity() {
                     4 -> {
                         options.camera(CameraPosition.Builder().target(LatLng(-25.007786, 133.623852)).zoom(3.0).build())
                         val fragment = SupportMapFragment.newInstance(options)
-                        fragment.getMapAsync { mapboxMap -> mapboxMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid")) }
+                        fragment.getMapAsync { mapboxMap -> mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") }
                         return fragment
                     }
                     5 -> {

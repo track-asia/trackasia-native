@@ -40,7 +40,7 @@ class CameraAnimatorActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        map.setStyle(Style.getPredefinedStyle("Streets"))
+        map.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         initFab()
     }
 

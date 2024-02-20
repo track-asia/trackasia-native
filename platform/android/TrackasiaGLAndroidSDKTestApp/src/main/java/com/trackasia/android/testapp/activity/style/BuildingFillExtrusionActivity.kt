@@ -38,7 +38,7 @@ class BuildingFillExtrusionActivity : AppCompatActivity() {
         mapView.getMapAsync(
             OnMapReadyCallback { map: TrackasiaMap? ->
                 mapboxMap = map
-                mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
+                mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style ->
                     setupBuildings(style)
                     setupLight()
                 }

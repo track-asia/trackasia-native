@@ -48,7 +48,7 @@ public class ImageInLabelActivity extends AppCompatActivity implements OnMapRead
 
   @Override
   public void onMapReady(@NonNull TrackasiaMap mapboxMap) {
-    mapboxMap.setStyle(Style.getPredefinedStyle("Streets"), style -> {
+    mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public", style -> {
       Bitmap us = BitmapUtils.getBitmapFromDrawable(getResources().getDrawable(R.drawable.ic_us));
       Bitmap android = BitmapUtils.getBitmapFromDrawable(getResources().getDrawable(R.drawable.ic_android));
 

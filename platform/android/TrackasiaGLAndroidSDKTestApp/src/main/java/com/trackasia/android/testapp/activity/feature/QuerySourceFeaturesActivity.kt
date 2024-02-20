@@ -35,7 +35,7 @@ class QuerySourceFeaturesActivity : AppCompatActivity() {
         mapView!!.getMapAsync { map: TrackasiaMap? ->
             mapboxMap = map
             mapboxMap!!.getStyle { style: Style -> initStyle(style) }
-            mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets"))
+            mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         }
     }
 

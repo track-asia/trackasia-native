@@ -41,7 +41,7 @@ class TextureViewAnimationActivity : AppCompatActivity() {
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             this@TextureViewAnimationActivity.mapboxMap = mapboxMap
-            mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+            mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
             setFpsView(mapboxMap)
 
             // Animate the map view

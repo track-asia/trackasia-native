@@ -68,12 +68,7 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
                 // Update source data
                 source.setGeoJson(FeatureCollection.fromFeatures(features))
             }
-            mapboxMap.setStyle(
-                Style.Builder()
-                    .fromUri(Style.getPredefinedStyle("Streets"))
-                    .withSource(source)
-                    .withLayer(layer)
-            )
+            mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         }
     }
 

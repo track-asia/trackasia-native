@@ -55,7 +55,7 @@ public class PressForMarkerActivity extends AppCompatActivity {
         return false;
       });
 
-      mapboxMap.setStyle(Style.getPredefinedStyle("Streets"));
+      mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public");
 
       if (savedInstanceState != null) {
         markerList = savedInstanceState.getParcelableArrayList(STATE_MARKER_LIST);

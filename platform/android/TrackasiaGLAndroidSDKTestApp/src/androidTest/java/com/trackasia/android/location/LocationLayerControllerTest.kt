@@ -154,7 +154,7 @@ class LocationLayerControllerTest : EspressoTest() {
                 component.isLocationComponentEnabled = true
                 component.renderMode = RenderMode.NORMAL
                 component.forceLocationUpdate(location)
-                styleChangeIdlingResource.waitForStyle(mapboxMap, Style.getPredefinedStyle("Bright"))
+                styleChangeIdlingResource.waitForStyle(mapboxMap, "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 TestingAsyncUtils.waitForLayer(uiController, mapView)
 
                 assertThat(component.renderMode, `is`(equalTo(RenderMode.NORMAL)))
@@ -456,7 +456,7 @@ class LocationLayerControllerTest : EspressoTest() {
                 component.isLocationComponentEnabled = true
                 component.renderMode = RenderMode.NORMAL
                 component.forceLocationUpdate(location)
-                styleChangeIdlingResource.waitForStyle(mapboxMap, Style.getPredefinedStyle("Bright"))
+                styleChangeIdlingResource.waitForStyle(mapboxMap, "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 TestingAsyncUtils.waitForLayer(uiController, mapView)
 
                 assertThat(component.renderMode, `is`(equalTo(RenderMode.NORMAL)))
@@ -503,7 +503,7 @@ class LocationLayerControllerTest : EspressoTest() {
                     `is`(true)
                 )
 
-                mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Bright")))
+                mapboxMap.setStyle(Style.Builder().fromUrl("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"))
                 TestingAsyncUtils.waitForLayer(uiController, mapView)
 
                 assertThat(

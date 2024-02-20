@@ -64,7 +64,7 @@ class CameraAnimationTypeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap!!.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Streets")))
+        mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         mapboxMap!!.uiSettings.isAttributionEnabled = false
         mapboxMap!!.uiSettings.isLogoEnabled = false
         mapboxMap!!.addOnCameraIdleListener(cameraIdleListener)

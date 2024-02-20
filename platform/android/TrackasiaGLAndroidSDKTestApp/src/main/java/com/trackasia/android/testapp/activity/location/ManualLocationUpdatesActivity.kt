@@ -103,7 +103,7 @@ class ManualLocationUpdatesActivity : AppCompatActivity(), OnMapReadyCallback {
     @SuppressLint("MissingPermission")
     override fun onMapReady(mapboxMap: TrackasiaMap) {
         mapboxMap.setStyle(
-            Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
         ) { style: Style? ->
             locationComponent = mapboxMap.locationComponent
             locationComponent!!.activateLocationComponent(

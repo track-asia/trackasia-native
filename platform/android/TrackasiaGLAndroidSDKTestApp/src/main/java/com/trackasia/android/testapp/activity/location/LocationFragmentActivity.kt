@@ -107,7 +107,7 @@ class LocationFragmentActivity : AppCompatActivity() {
             mapView.onCreate(savedInstanceState)
             mapView.getMapAsync {
                 mapboxMap = it
-                it.setStyle(Style.getPredefinedStyle("Streets")) { style ->
+                it.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style ->
                     val component = mapboxMap.locationComponent
 
                     component.activateLocationComponent(

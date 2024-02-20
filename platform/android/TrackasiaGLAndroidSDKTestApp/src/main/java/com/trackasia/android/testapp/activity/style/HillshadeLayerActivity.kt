@@ -25,9 +25,9 @@ class HillshadeLayerActivity : AppCompatActivity() {
                 val hillshadeLayer = HillshadeLayer(LAYER_ID, SOURCE_ID)
                 mapboxMap!!.setStyle(
                     Style.Builder()
-                        .fromUri(Style.getPredefinedStyle("Streets"))
-                        .withLayerBelow(hillshadeLayer, LAYER_BELOW_ID)
-                        .withSource(rasterDemSource)
+                        .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+//                        .withLayerBelow(hillshadeLayer, LAYER_BELOW_ID)
+//                        .withSource(rasterDemSource)
                 )
             }
         )

@@ -31,7 +31,7 @@ class InfoWindowAdapterActivity : AppCompatActivity() {
         mapView.getMapAsync(
             OnMapReadyCallback { map: TrackasiaMap ->
                 mapboxMap = map
-                map.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+                map.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style? ->
                     addMarkers()
                     addCustomInfoWindowAdapter()
                 }

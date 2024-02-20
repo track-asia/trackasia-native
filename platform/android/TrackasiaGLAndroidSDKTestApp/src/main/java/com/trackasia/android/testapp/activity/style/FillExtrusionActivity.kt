@@ -29,7 +29,7 @@ class FillExtrusionActivity : AppCompatActivity() {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
             OnMapReadyCallback { mapboxMap: TrackasiaMap ->
-                mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
+                mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style ->
                     val lngLats = listOf(
                         Arrays.asList(
                             Point.fromLngLat(5.12112557888031, 52.09071040847704),

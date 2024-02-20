@@ -35,7 +35,7 @@ class MapSnapshotterHeatMapActivity : AppCompatActivity(), MapSnapshotter.Snapsh
                 override fun onGlobalLayout() {
                     container.viewTreeObserver.removeGlobalOnLayoutListener(this)
                     Timber.i("Starting snapshot")
-                    val builder = Style.Builder().fromUri(Style.getPredefinedStyle("Outdoor"))
+                    val builder = Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                         .withSource(earthquakeSource!!)
                         .withLayerAbove(heatmapLayer, "water_intermittent")
                     mapSnapshotter = MapSnapshotter(

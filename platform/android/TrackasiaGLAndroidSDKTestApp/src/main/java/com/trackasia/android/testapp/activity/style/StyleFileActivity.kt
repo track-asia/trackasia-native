@@ -34,7 +34,7 @@ class StyleFileActivity : AppCompatActivity() {
         mapView.getMapAsync(
             OnMapReadyCallback { map: TrackasiaMap? ->
                 mapboxMap = map
-                mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+                mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style? ->
                     val fab = findViewById<FloatingActionButton>(R.id.fab_file)
                     fab.setColorFilter(ContextCompat.getColor(this@StyleFileActivity, R.color.primary))
                     fab.setOnClickListener { view: View ->

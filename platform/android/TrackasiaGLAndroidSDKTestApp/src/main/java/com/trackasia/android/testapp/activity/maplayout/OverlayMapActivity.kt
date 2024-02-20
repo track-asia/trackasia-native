@@ -24,7 +24,7 @@ class OverlayMapActivity : AppCompatActivity() {
         binding.mapView.onCreate(savedInstanceState)
         binding.parentView.addView(OverlayView(this))
         binding.mapView.getMapAsync {
-            it.setStyle(Style.getPredefinedStyle("Streets"))
+            it.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         }
     }
 

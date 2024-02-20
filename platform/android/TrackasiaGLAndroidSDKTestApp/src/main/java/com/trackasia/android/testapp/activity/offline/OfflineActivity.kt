@@ -312,6 +312,6 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         const val JSON_FIELD_REGION_NAME = "FIELD_REGION_NAME"
 
         // Style URL
-        val STYLE_URL = Style.getPredefinedStyle("Streets")
+        val STYLE_URL = "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
     }
 }

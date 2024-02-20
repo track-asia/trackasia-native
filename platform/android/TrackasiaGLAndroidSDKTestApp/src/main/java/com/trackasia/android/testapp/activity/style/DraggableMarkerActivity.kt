@@ -71,7 +71,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
 
             mapboxMap.setStyle(
                 Style.Builder()
-                    .fromUri(Style.getPredefinedStyle("Streets"))
+                    .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                     .withImage(markerImageId, IconFactory.getInstance(this).defaultMarker().bitmap)
                     .withSource(source)
                     .withLayer(layer)

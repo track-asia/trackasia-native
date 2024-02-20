@@ -230,7 +230,7 @@ TEST(Mapbox, CanonicalizeVectorTileset) {
 // TrackAsia tests
 TEST(TrackAsia, CanonicalURL) {
     EXPECT_EQ(
-        "https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public",
+        "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
         mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://maps/style", ""));
     EXPECT_EQ(
         "https://demotiles.track-asia.com/tiles/tiles.json",
@@ -267,7 +267,7 @@ TEST(MapTiler, SourceURL) {
         "https://api.maptiler.com/tiles/v3/tiles.json?key=abcdef",
         mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::mapTilerTileServerOptions, "maptiler://sources/v3", "abcdef"));
     EXPECT_EQ(
-        "https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public",
+        "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
         mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::mapTilerTileServerOptions, "maptiler://sources/outdoor", "abcdef"));
     EXPECT_EQ(
         "https://api.maptiler.com/tiles/7ac429c7-c96e-46dd-8c3e-13d48988986a/tiles.json?key=abcdef",

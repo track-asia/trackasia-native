@@ -34,7 +34,7 @@ class StretchableImageActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
-        mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style ->
             val popup = BitmapUtils.getBitmapFromDrawable(
                 resources.getDrawable(R.drawable.popup)
             )

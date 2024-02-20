@@ -93,7 +93,7 @@ public class SymbolGeneratorActivity extends AppCompatActivity implements OnMapR
   @Override
   public void onMapReady(@NonNull final TrackasiaMap map) {
     mapboxMap = map;
-    map.setStyle(Style.getPredefinedStyle("Outdoor"), style -> {
+    map.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public", style -> {
       addSymbolClickListener();
       new LoadDataTask(SymbolGeneratorActivity.this).execute();
     });

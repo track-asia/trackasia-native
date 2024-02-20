@@ -31,7 +31,7 @@ class HeatmapLayerActivity : AppCompatActivity() {
                 try {
                     mapboxMap!!.setStyle(
                         Style.Builder()
-                            .fromUri(Style.getPredefinedStyle("Pastel"))
+                            .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                             .withSource(createEarthquakeSource())
                             .withLayerAbove(createHeatmapLayer(), "country_label")
                             .withLayerBelow(createCircleLayer(), HEATMAP_LAYER_ID)

@@ -309,7 +309,7 @@ class StyleTest {
         mapboxMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleJson = "{}" }
         mapboxMap.notifyStyleLoaded()
-        mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         verify(exactly = 1) { callback.onStyleLoaded(any()) }
     }
 

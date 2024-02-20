@@ -70,7 +70,7 @@ class LatLngBoundsActivity : AppCompatActivity() {
     private fun loadStyle(featureCollection: FeatureCollection) {
         mapboxMap.setStyle(
             Style.Builder()
-                .fromUri(Style.getPredefinedStyle("Streets"))
+                .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 .withLayer(
                     SymbolLayer("symbol", "symbol")
                         .withProperties(

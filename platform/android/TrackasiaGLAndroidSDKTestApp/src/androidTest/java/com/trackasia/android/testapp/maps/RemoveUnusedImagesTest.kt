@@ -37,7 +37,7 @@ class RemoveUnusedImagesTest : AppCenter() {
             mapView = rule.activity.findViewById(R.id.mapView)
             mapView.getMapAsync {
                 mapboxMap = it
-                mapboxMap.setStyle(Style.Builder().fromJson(styleJson))
+                mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
             }
         }
     }

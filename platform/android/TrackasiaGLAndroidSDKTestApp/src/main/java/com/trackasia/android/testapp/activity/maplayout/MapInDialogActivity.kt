@@ -42,7 +42,7 @@ class MapInDialogActivity : AppCompatActivity() {
             mapView.getMapAsync(
                 OnMapReadyCallback { mapboxMap: TrackasiaMap ->
                     mapboxMap.setStyle(
-                        Style.getPredefinedStyle("Outdoor")
+                        "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
                     )
                 }
             )

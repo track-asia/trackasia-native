@@ -24,7 +24,7 @@ public class StyleLoaderTest extends EspressoTest {
     invoke(mapboxMap, (uiController, mapboxMap) -> {
       try {
         String expected = ResourceUtils.readRawResource(rule.getActivity(), R.raw.local_style);
-        mapboxMap.setStyle(new Style.Builder().fromJson(expected));
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public");
         String actual = mapboxMap.getStyle().getJson();
         assertEquals("Style json should match", expected, actual);
       } catch (IOException exception) {
@@ -39,7 +39,7 @@ public class StyleLoaderTest extends EspressoTest {
     invoke(mapboxMap, (uiController, mapboxMap) -> {
       try {
         String expected = ResourceUtils.readRawResource(rule.getActivity(), R.raw.local_style);
-        mapboxMap.setStyle(new Style.Builder().fromJson(expected));
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public");
 
         // fake activity stop/start
         MapView mapView = (MapView) rule.getActivity().findViewById(R.id.mapView);

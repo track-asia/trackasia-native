@@ -190,7 +190,7 @@ class LocationComponentTest : EspressoTest() {
                 uiController: UiController,
                 context: Context
             ) {
-                mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Bright")))
+                mapboxMap.setStyle(Style.Builder().fromUrl("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"))
 
                 component.activateLocationComponent(
                     LocationComponentActivationOptions
@@ -675,7 +675,7 @@ class LocationComponentTest : EspressoTest() {
                 component.isLocationComponentEnabled = true
                 component.forceLocationUpdate(location)
                 component.isLocationComponentEnabled = false
-                mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Bright")))
+                mapboxMap.setStyle(Style.Builder().fromUrl("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"))
                 component.isLocationComponentEnabled = true
                 TestingAsyncUtils.waitForLayer(uiController, mapView)
 
@@ -796,7 +796,7 @@ class LocationComponentTest : EspressoTest() {
                 component.onStop()
                 component.onStart()
 
-                mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Bright")))
+                mapboxMap.setStyle(Style.Builder().fromUrl("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"))
                 TestingAsyncUtils.waitForLayer(uiController, mapView)
             }
         }
@@ -821,7 +821,7 @@ class LocationComponentTest : EspressoTest() {
                         .build()
                 )
                 component.isLocationComponentEnabled = true
-                mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Bright")))
+                mapboxMap.setStyle(Style.Builder().fromUrl("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"))
                 component.onStop()
                 component.onStart()
                 TestingAsyncUtils.waitForLayer(uiController, mapView)
@@ -908,7 +908,7 @@ class LocationComponentTest : EspressoTest() {
                 )
                 component.isLocationComponentEnabled = true
                 component.forceLocationUpdate(location)
-                mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Bright")))
+                mapboxMap.setStyle(Style.Builder().fromUrl("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"))
                 component.onStop()
                 TestingAsyncUtils.waitForLayer(uiController, mapView)
                 component.onStart()

@@ -38,7 +38,7 @@ class CustomSpriteActivity : AppCompatActivity() {
         mapView.getMapAsync(
             OnMapReadyCallback { map: TrackasiaMap ->
                 mapboxMap = map
-                map.setStyle(Style.getPredefinedStyle("Streets")) { style: Style ->
+                map.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style ->
                     val fab = findViewById<FloatingActionButton>(R.id.fab)
                     fab.setColorFilter(
                         ContextCompat.getColor(
@@ -47,7 +47,7 @@ class CustomSpriteActivity : AppCompatActivity() {
                         )
                     )
                     fab.setOnClickListener(object : View.OnClickListener {
-                        private lateinit var point: Point
+                        private var point: Point? = null
                         override fun onClick(view: View) {
                             if (point == null) {
                                 Timber.i("First click -> Car")
@@ -99,8 +99,8 @@ class CustomSpriteActivity : AppCompatActivity() {
                                 mapboxMap!!.moveCamera(
                                     CameraUpdateFactory.newLatLng(
                                         LatLng(
-                                            point.latitude(),
-                                            point.longitude()
+                                            point!!.latitude(),
+                                            point!!.longitude()
                                         )
                                     )
                                 )

@@ -30,7 +30,7 @@ public class DeviceIndependentTestActivity extends AppCompatActivity implements 
   @Override
   public void onMapReady(@NonNull TrackasiaMap map) {
     mapboxMap = map;
-    mapboxMap.setStyle(Style.getPredefinedStyle("Streets"));
+    mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public");
   }
 
   public TrackasiaMap getMapboxMap() {

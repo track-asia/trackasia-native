@@ -61,7 +61,7 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView!!.onCreate(savedInstanceState)
         mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
-            mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+            mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style? ->
                 this@QueryRenderedFeaturesPropertiesActivity.mapboxMap = mapboxMap
 
                 // Add custom window adapter

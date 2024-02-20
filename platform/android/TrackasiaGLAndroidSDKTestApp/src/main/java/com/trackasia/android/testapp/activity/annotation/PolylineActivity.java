@@ -67,7 +67,7 @@ public class PolylineActivity extends AppCompatActivity {
     mapView.onCreate(savedInstanceState);
     mapView.getMapAsync(mapboxMap -> {
       PolylineActivity.this.mapboxMap = mapboxMap;
-      mapboxMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"));
+      mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public");
       mapboxMap.setOnPolylineClickListener(polyline -> Toast.makeText(
         PolylineActivity.this,
         "You clicked on polyline with id = " + polyline.getId(),

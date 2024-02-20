@@ -50,7 +50,7 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
     class ItemAdapter(private val activity: GLSurfaceRecyclerViewActivity, private val inflater: LayoutInflater) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
         private val items = listOf(
-            "one", "two", "three", MapItem(Style.getPredefinedStyle("Streets")), "four", "five", MapItem(Style.getPredefinedStyle("Pastel")), "seven", "eight", "nine", "ten",
+            "one", "two", "three", MapItem(Style.getPredefinedStyle("Streets")), "four", "five", MapItem("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"), "seven", "eight", "nine", "ten",
             "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
             "nineteen", "twenty", "twenty-one"
         )
@@ -144,7 +144,7 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
 
             fun bind(mapItem: MapItem) {
                 mapView.getMapAsync { mapboxMap ->
-                    mapboxMap.setStyle(mapItem.style) {
+                    mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") {
                         mapboxMap.snapshot { }
                     }
                 }

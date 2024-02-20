@@ -19,7 +19,7 @@ class MergeOfflineRegionsActivity : AppCompatActivity() {
     companion object {
         private const val LOG_TAG = "Mbgl-MergeOfflineRegionsActivity"
         private const val TEST_DB_FILE_NAME = "offline_test.db"
-        private var TEST_STYLE = Style.getPredefinedStyle("Satellite Hybrid")
+        private var TEST_STYLE = "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
     }
 
     private val onFileCopiedListener = object : FileUtils.OnFileCopiedFromAssetsListener {

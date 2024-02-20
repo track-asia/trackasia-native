@@ -47,7 +47,7 @@ class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnCl
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        map.setStyle(Style.getPredefinedStyle("Satellite Hybrid")) { style: Style? ->
+        map.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style? ->
             // add a listener to FAB
             fab = findViewById(R.id.fab)
             fab.setColorFilter(ContextCompat.getColor(this@CameraPositionActivity, R.color.primary))

@@ -45,7 +45,7 @@ class GestureDetectorActivity : AppCompatActivity() {
         mapView.getMapAsync(
             OnMapReadyCallback { mapboxMap: TrackasiaMap ->
                 this@GestureDetectorActivity.mapboxMap = mapboxMap
-                mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+                mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 initializeMap()
             }
         )

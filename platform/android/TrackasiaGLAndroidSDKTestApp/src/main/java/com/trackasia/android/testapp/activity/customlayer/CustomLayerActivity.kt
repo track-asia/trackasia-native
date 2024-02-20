@@ -43,7 +43,7 @@ class CustomLayerActivity : AppCompatActivity() {
                         10.0
                     )
                 )
-                mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? -> initFab() }
+                mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style? -> initFab() }
             }
         )
     }

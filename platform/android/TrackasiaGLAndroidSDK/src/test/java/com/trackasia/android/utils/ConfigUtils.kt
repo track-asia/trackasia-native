@@ -8,7 +8,7 @@ class ConfigUtils {
         @JvmStatic
         fun getMockedOptions(): TileServerOptions {
             val defaultStyles = arrayOf(
-                DefaultStyle("maptiler://maps/streets", "Streets", 1),
+                DefaultStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public", "Streets", 1),
                 DefaultStyle("maptiler://maps/outdoor", "Outdoor", 1),
                 DefaultStyle("maptiler://maps/basic", "Basic", 1),
                 DefaultStyle("maptiler://maps/bright", "Bright", 1),

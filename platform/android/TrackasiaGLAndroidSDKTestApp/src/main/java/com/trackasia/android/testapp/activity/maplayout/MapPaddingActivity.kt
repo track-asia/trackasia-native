@@ -26,7 +26,7 @@ class MapPaddingActivity : AppCompatActivity() {
         mapView.getMapAsync(
             OnMapReadyCallback { mapboxMap: TrackasiaMap ->
                 this@MapPaddingActivity.mapboxMap = mapboxMap
-                mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+                mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 val paddingLeft = resources.getDimension(R.dimen.map_padding_left).toInt()
                 val paddingBottom = resources.getDimension(R.dimen.map_padding_bottom).toInt()
                 val paddingRight = resources.getDimension(R.dimen.map_padding_right).toInt()

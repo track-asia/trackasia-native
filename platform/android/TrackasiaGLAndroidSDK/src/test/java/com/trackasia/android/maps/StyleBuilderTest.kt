@@ -20,7 +20,7 @@ class StyleBuilderTest {
 
     @Test
     fun testFromUrl() {
-        val expected = "https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public"
+        val expected = "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
         val builder = Style.Builder()
         builder.fromUrl(expected)
         assertEquals(expected, builder.uri)

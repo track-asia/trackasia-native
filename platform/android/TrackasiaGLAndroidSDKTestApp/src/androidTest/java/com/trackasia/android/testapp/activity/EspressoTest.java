@@ -23,7 +23,7 @@ public class EspressoTest extends BaseTest {
   @UiThread
   @Override
   protected void initMap(TrackasiaMap mapboxMap) {
-    mapboxMap.setStyle(new Style.Builder().fromUri("asset://streets.json"));
+    mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public");
     super.initMap(mapboxMap);
   }
 }

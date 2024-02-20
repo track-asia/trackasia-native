@@ -28,7 +28,7 @@ class ManualZoomActivity : AppCompatActivity() {
         mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             this@ManualZoomActivity.mapboxMap = mapboxMap
             mapboxMap.setStyle(
-                Style.Builder().fromUri(Style.getPredefinedStyle("Satellite Hybrid"))
+                Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
             )
             val uiSettings = this@ManualZoomActivity.mapboxMap!!.uiSettings
             uiSettings.setAllGesturesEnabled(false)

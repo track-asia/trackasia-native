@@ -49,7 +49,7 @@ class MapSnapshotterBitMapOverlayActivity :
                             Math.min(container.measuredHeight, 1024)
                         )
                             .withStyleBuilder(
-                                Style.Builder().fromUri(Style.getPredefinedStyle("Outdoor"))
+                                Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                             )
                             .withCameraPosition(
                                 CameraPosition.Builder().target(LatLng(52.090737, 5.121420))

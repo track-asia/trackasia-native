@@ -88,7 +88,7 @@ class MapChangeActivity : AppCompatActivity() {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
             OnMapReadyCallback { mapboxMap: TrackasiaMap ->
-                mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+                mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 mapboxMap.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(55.754020, 37.620948),

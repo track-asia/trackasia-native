@@ -21,9 +21,9 @@ class StyleLoadTest : EspressoTest() {
         MapboxMapAction.invoke(mapboxMap) { uiController: UiController, mapboxMap: TrackasiaMap ->
             val source = GeoJsonSource("id")
             val layer = SymbolLayer("id", "id")
-            mapboxMap.setStyle(Style.Builder().withSource(source).withLayer(layer))
+            mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
             TestingAsyncUtils.waitForLayer(uiController, mapView)
-            mapboxMap.setStyle(Style.Builder().fromUrl(Style.getPredefinedStyle("Streets")))
+            mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
             TestingAsyncUtils.waitForLayer(uiController, mapView)
             source.setGeoJson("{}")
         }

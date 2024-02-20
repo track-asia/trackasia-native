@@ -36,7 +36,7 @@ class TextureViewResizeActivity : AppCompatActivity() {
     }
 
     private fun setupMap(mapboxMap: TrackasiaMap) {
-        mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
     }
 
     private fun setupFab() {

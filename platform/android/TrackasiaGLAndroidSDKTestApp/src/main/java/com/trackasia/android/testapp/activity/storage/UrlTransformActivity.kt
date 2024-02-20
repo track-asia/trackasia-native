@@ -44,7 +44,7 @@ class UrlTransformActivity : AppCompatActivity() {
         FileSource.getInstance(this@UrlTransformActivity).setResourceTransform(Transform())
         mapView!!.getMapAsync { map: TrackasiaMap ->
             Timber.i("Map loaded")
-            map.setStyle(Style.getPredefinedStyle("Streets"))
+            map.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         }
     }
 

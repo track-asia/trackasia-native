@@ -259,11 +259,11 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
     companion object {
         private val STYLES = arrayOf(
             Style.getPredefinedStyle("Streets"),
-            Style.getPredefinedStyle("Outdoor"),
-            Style.getPredefinedStyle("Bright"),
-            Style.getPredefinedStyle("Pastel"),
-            Style.getPredefinedStyle("Satellite Hybrid"),
-            Style.getPredefinedStyle("Satellite Hybrid")
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
         )
     }
 }

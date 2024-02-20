@@ -26,7 +26,7 @@ class PixelTestActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
     }
 
     public override fun onResume() {

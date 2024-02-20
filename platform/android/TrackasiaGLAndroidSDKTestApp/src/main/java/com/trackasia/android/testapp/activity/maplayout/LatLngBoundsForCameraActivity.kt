@@ -27,7 +27,7 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
-        mapboxMap.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         mapboxMap.setMinZoomPreference(2.0)
         mapboxMap.uiSettings.isFlingVelocityAnimationEnabled = false
         showCrosshair()

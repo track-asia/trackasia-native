@@ -64,9 +64,7 @@ class DoubleMapActivity : AppCompatActivity() {
             mapView!!.onCreate(savedInstanceState)
             mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
                 mapboxMap.setStyle(
-                    Style.getPredefinedStyle(
-                        "Streets"
-                    )
+                    "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
                 )
             }
             (view.findViewById<View>(R.id.container) as ViewGroup).addView(mapView, 0)
@@ -83,7 +81,7 @@ class DoubleMapActivity : AppCompatActivity() {
                                 .build()
                         )
                     )
-                    mapboxMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Bright")))
+                    mapboxMap.setStyle(Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"))
                     val uiSettings = mapboxMap.uiSettings
                     uiSettings.setAllGesturesEnabled(false)
                     uiSettings.isCompassEnabled = false

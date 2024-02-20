@@ -97,7 +97,7 @@ class WithinExpressionActivity : AppCompatActivity() {
         // using streets as a base style
         mapboxMap.setStyle(
             Style.Builder()
-                .fromUri(Style.getPredefinedStyle("Streets"))
+                .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 .withSources(
                     GeoJsonSource(
                         POINT_ID,

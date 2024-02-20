@@ -34,7 +34,7 @@ class RealTimeGeoJsonActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets")) { style -> // add source
+        mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style -> // add source
             try {
                 style.addSource(GeoJsonSource(ID_GEOJSON_SOURCE, URI(URL_GEOJSON_SOURCE)))
             } catch (malformedUriException: URISyntaxException) {

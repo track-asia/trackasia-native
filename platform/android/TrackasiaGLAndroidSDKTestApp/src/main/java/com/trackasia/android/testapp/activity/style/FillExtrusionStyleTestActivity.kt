@@ -25,7 +25,7 @@ class FillExtrusionStyleTestActivity : AppCompatActivity() {
         mapView!!.onCreate(savedInstanceState)
         mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             mapboxMap.setStyle(
-                Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
+                Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
             ) { style: Style? -> this@FillExtrusionStyleTestActivity.mapboxMap = mapboxMap }
         }
     }

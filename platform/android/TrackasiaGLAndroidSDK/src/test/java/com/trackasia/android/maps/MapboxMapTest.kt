@@ -57,7 +57,7 @@ class MapboxMapTest {
         every { nativeMapView.isDestroyed } returns false
         every { nativeMapView.nativePtr } returns 5
         mapboxMap.injectLocationComponent(spyk())
-        mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         mapboxMap.onFinishLoadingStyle()
     }
 

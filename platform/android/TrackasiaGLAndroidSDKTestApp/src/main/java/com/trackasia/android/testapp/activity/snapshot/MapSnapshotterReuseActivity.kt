@@ -89,12 +89,12 @@ class MapSnapshotterReuseActivity : AppCompatActivity(), MapSnapshotter.Snapshot
             .build()
     val randomStyle: String
         get() = when (random.nextInt(5)) {
-            0 -> Style.getPredefinedStyle("Pastel")
-            1 -> Style.getPredefinedStyle("Bright")
-            2 -> Style.getPredefinedStyle("Streets")
-            3 -> Style.getPredefinedStyle("Outdoor")
-            4 -> Style.getPredefinedStyle("Satellite Hybrid")
-            else -> Style.getPredefinedStyle("Streets")
+            0 -> "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
+            1 -> "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
+            2 -> "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
+            3 -> "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
+            4 -> "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
+            else -> "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
         }
 
     companion object {

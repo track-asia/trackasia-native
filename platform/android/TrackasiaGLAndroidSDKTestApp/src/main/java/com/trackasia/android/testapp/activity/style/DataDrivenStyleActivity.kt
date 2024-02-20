@@ -43,7 +43,7 @@ class DataDrivenStyleActivity : AppCompatActivity() {
             OnMapReadyCallback { map: TrackasiaMap? ->
                 // Store for later
                 mapboxMap = map
-                mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+                mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style? ->
                     // Add a parks layer
                     addParksLayer()
 

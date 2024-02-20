@@ -67,7 +67,7 @@ class SupportMapFragmentActivity :
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap!!.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
+        mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
     }
 
     override fun onDestroy() {

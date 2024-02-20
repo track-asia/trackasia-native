@@ -33,7 +33,7 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
         mapView!!.onCreate(savedInstanceState)
         mapView!!.getMapAsync { mapboxMap: TrackasiaMap ->
             this@QueryRenderedFeaturesBoxCountActivity.mapboxMap = mapboxMap
-            mapboxMap.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Streets")))
+            mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
             selectionBox.setOnClickListener { view: View? ->
                 // Query
                 val top = selectionBox.top - mapView!!.top

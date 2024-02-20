@@ -252,10 +252,10 @@ class DownloadRegionActivity : AppCompatActivity(), OfflineRegion.OfflineRegionO
 
     private fun initSpinner() {
         val styles = ArrayList<String>()
-        styles.add(Style.getPredefinedStyle("Streets"))
-        styles.add(Style.getPredefinedStyle("Pastel"))
-        styles.add(Style.getPredefinedStyle("Bright"))
-        styles.add(Style.getPredefinedStyle("Outdoor"))
+        styles.add("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+        styles.add("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+        styles.add("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+        styles.add("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         val spinnerArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, styles)
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerStyleUrl.adapter = spinnerArrayAdapter

@@ -21,7 +21,7 @@ class LocalGlyphActivity : AppCompatActivity() {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
             OnMapReadyCallback { mapboxMap: TrackasiaMap ->
-                mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+                mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 // Set initial position to Suzhou
                 mapboxMap.moveCamera(
                     CameraUpdateFactory.newCameraPosition(

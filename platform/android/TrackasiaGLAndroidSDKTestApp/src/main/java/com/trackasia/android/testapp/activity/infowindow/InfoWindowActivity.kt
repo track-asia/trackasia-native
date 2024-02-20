@@ -66,7 +66,7 @@ class InfoWindowActivity :
 
     override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
-        mapboxMap.setStyle(Style.getPredefinedStyle("Streets")) { style: Style? ->
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style: Style? ->
             addMarkers()
             addInfoWindowListeners()
         }

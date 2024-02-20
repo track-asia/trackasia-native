@@ -47,7 +47,7 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
         mapView.getMapAsync(
             OnMapReadyCallback { map: TrackasiaMap? ->
                 mapboxMap = map
-                mapboxMap!!.setStyle(Style.getPredefinedStyle("Satellite Hybrid"))
+                mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 mapView.addOnDidFinishLoadingStyleListener(
                     OnDidFinishLoadingStyleListener {
                         val style = mapboxMap!!.style
@@ -274,12 +274,12 @@ class CircleLayerActivity : AppCompatActivity(), View.OnClickListener {
 
     private object Data {
         val STYLES = arrayOf(
-            Style.getPredefinedStyle("Streets"),
-            Style.getPredefinedStyle("Outdoor"),
-            Style.getPredefinedStyle("Bright"),
-            Style.getPredefinedStyle("Pastel"),
-            Style.getPredefinedStyle("Satellite Hybrid"),
-            Style.getPredefinedStyle("Satellite Hybrid")
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+            "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
         )
     }
 

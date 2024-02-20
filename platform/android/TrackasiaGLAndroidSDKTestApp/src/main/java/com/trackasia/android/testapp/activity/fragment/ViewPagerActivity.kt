@@ -88,15 +88,15 @@ class ViewPagerActivity : AppCompatActivity() {
 }
 
 fun SupportMapFragment.getMapAsync(index: Int) {
-    this.getMapAsync {
-        it.setStyle(
-            when (index) {
-                0 -> Style.getPredefinedStyle("Streets")
-                1 -> Style.getPredefinedStyle("Pastel")
-                2 -> Style.getPredefinedStyle("Satellite Hybrid")
-                3 -> Style.getPredefinedStyle("Bright")
-                else -> Style.getPredefinedStyle("Streets")
-            }
-        )
+    this.getMapAsync {it.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
+//        it.setStyle(
+//            when (index) {
+//                0 -> Style.getPredefinedStyle("Streets")
+//                1 -> "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
+//                2 -> "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
+//                3 -> Style.getPredefinedStyle("Bright")
+//                else -> Style.getPredefinedStyle("Streets")
+//            }
+//        )
     }
 }

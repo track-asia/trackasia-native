@@ -68,7 +68,7 @@ dependencies {
     implementation dependenciesList.supportDesign
     implementation dependenciesList.supportConstraintLayout
 
-//    implementation dependenciesList.multidex
+    implementation dependenciesList.multidex
 
     implementation dependenciesList.gmsLocation
     implementation dependenciesList.timber

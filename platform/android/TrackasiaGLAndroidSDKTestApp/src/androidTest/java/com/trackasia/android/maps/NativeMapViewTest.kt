@@ -61,7 +61,7 @@ class NativeMapViewTest : AppCenter() {
     @Test
     @UiThreadTest
     fun testSetStyleUrl() {
-        val expected = Style.getPredefinedStyle("Pastel")
+        val expected = "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
         nativeMapView.styleUri = expected
         val actual = nativeMapView.styleUri
         assertEquals("Style URL should match", expected, actual)

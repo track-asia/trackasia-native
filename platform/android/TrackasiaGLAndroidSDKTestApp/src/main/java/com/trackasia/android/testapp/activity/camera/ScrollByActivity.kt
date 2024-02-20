@@ -53,7 +53,7 @@ class ScrollByActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap!!.setStyle(Style.getPredefinedStyle("Pastel"))
+        mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         val uiSettings = mapboxMap!!.uiSettings
         uiSettings.isLogoEnabled = false
         uiSettings.isAttributionEnabled = false

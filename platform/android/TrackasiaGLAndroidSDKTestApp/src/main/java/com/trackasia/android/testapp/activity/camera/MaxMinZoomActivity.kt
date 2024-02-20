@@ -17,7 +17,7 @@ class MaxMinZoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapboxMap: TrackasiaMap
     private val clickListener = OnMapClickListener {
         if (mapboxMap != null) {
-            mapboxMap!!.setStyle(Style.Builder().fromUri(Style.getPredefinedStyle("Outdoor")))
+            mapboxMap!!.setStyle(Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"))
         }
         true
     }
@@ -35,7 +35,7 @@ class MaxMinZoomActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: TrackasiaMap) {
         mapboxMap = map
-        mapboxMap!!.setStyle(Style.getPredefinedStyle("Streets"))
+        mapboxMap!!.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         mapboxMap!!.setMinZoomPreference(3.0)
         mapboxMap!!.setMaxZoomPreference(5.0)
         mapboxMap!!.addOnMapClickListener(clickListener)

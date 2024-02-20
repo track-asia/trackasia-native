@@ -169,12 +169,12 @@ class BottomSheetActivity : AppCompatActivity() {
 
         companion object {
             private val STYLES = arrayOf(
-                Style.getPredefinedStyle("Streets"),
-                Style.getPredefinedStyle("Satellite Hybrid"),
-                Style.getPredefinedStyle("Bright"),
-                Style.getPredefinedStyle("Pastel"),
-                Style.getPredefinedStyle("Satellite Hybrid"),
-                Style.getPredefinedStyle("Outdoor")
+                "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+                "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+                "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+                "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+                "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public",
+                "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public"
             )
 
             fun newInstance(context: Context?, mapCounter: Int): MainMapFragment {
@@ -216,7 +216,7 @@ class BottomSheetActivity : AppCompatActivity() {
                     15.0
                 )
             )
-            mapboxMap.setStyle(Style.getPredefinedStyle("Bright"))
+            mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
         }
 
         override fun onStart() {

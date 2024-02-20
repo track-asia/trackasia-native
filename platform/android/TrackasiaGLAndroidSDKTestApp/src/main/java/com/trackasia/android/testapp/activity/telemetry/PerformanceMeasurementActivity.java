@@ -50,7 +50,7 @@ public class PerformanceMeasurementActivity extends AppCompatActivity {
     HttpRequestUtil.setOkHttpClient(okHttpClient);
 
     mapView.getMapAsync(mapboxMap -> mapboxMap.setStyle(
-      new Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))));
+      new Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")));
   }
 
 

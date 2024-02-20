@@ -48,7 +48,7 @@ class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         val layer = RasterLayer(ID_IMAGE_LAYER, ID_IMAGE_SOURCE)
         map.setStyle(
             Style.Builder()
-                .fromUri(Style.getPredefinedStyle("Streets"))
+                .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 .withSource(imageSource)
                 .withLayer(layer)
         ) { style: Style? ->

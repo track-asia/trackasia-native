@@ -61,7 +61,7 @@ class PhysicalUnitCircleActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeL
 
             mapboxMap.setStyle(
                 Style.Builder()
-                    .fromUri(Style.getPredefinedStyle("Satellite Hybrid"))
+                    .fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                     .withLayer(
                         FillLayer(LAYER_ID, SOURCE_ID).withProperties(
                             fillColor(

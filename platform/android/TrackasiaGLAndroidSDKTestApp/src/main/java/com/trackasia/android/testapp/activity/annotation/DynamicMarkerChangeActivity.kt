@@ -31,7 +31,7 @@ class DynamicMarkerChangeActivity : AppCompatActivity() {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
             OnMapReadyCallback { mapboxMap: TrackasiaMap ->
-                mapboxMap.setStyle(Style.getPredefinedStyle("Streets"))
+                mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public")
                 this@DynamicMarkerChangeActivity.mapboxMap = mapboxMap
                 // Create marker
                 val markerOptions = MarkerOptions()
