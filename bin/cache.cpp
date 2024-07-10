@@ -14,7 +14,7 @@
 #include <unordered_map>
 
 int main(int argc, char* argv[]) {
-    args::ArgumentParser p("Trackasia GL cache tool", "");
+    args::ArgumentParser p("Mapbox GL cache tool", "");
     args::HelpFlag helpFlag(p, "help", "Display this help menu", {'h'});
 
     args::ValueFlag<std::string> urlValue(p, "URL", "Resource URL (required)", {'u'}, args::Options::Required);

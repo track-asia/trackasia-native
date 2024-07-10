@@ -43,7 +43,7 @@ struct IconKeepUpright : LayoutProperty<bool> {
 
 struct IconOffset : DataDrivenLayoutProperty<std::array<float, 2>> {
     static constexpr const char *name() { return "icon-offset"; }
-    static std::array<float, 2> defaultValue() { return {{0, 0}}; }
+    static std::array<float, 2> defaultValue() { return {{0.f, 0.f}}; }
 };
 
 struct IconOptional : LayoutProperty<bool> {
@@ -168,7 +168,7 @@ struct TextMaxWidth : DataDrivenLayoutProperty<float> {
 
 struct TextOffset : DataDrivenLayoutProperty<std::array<float, 2>> {
     static constexpr const char *name() { return "text-offset"; }
-    static std::array<float, 2> defaultValue() { return {{0, 0}}; }
+    static std::array<float, 2> defaultValue() { return {{0.f, 0.f}}; }
 };
 
 struct TextOptional : LayoutProperty<bool> {
@@ -351,7 +351,9 @@ public:
 
     unsigned long constantsMask() const override;
 
-    const SymbolLayer::Impl& layerImpl() const;
+    expression::Dependency getDependencies() const noexcept override;
+
+    const SymbolLayer::Impl& layerImpl() const noexcept;
     // Data members.
     SymbolPaintProperties::PossiblyEvaluated evaluated;
 };

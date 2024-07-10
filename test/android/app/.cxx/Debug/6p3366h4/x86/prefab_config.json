@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "prefabPath": "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-android/caches/modules-2/files-2.1/com.google.prefab/cli/2.1.0/aa32fec809c44fa531f01dcfb739b5b3304d3050/cli-2.1.0-all.jar",
+  "packages": [
+    "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-android/caches/8.8/transforms/6a469a578b5fa02df5f6f0c1dbe70d7b/transformed/curl-8.8.0/prefab",
+    "/Volumes/DATA/ADVN-GIT/TRACK-ASIA/trackasia-android/caches/8.8/transforms/108171cef65a1d4ef847ab0b0f476dd1/transformed/boringssl-4.0/prefab"
+  ]
+}

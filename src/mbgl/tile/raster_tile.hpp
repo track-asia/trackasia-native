@@ -17,9 +17,7 @@ class Layer;
 
 class RasterTile final : public Tile {
 public:
-    RasterTile(const OverscaledTileID&,
-                   const TileParameters&,
-                   const Tileset&);
+    RasterTile(const OverscaledTileID&, const TileParameters&, const Tileset&);
     ~RasterTile() override;
 
     std::unique_ptr<TileRenderData> createRenderData() override;
@@ -27,7 +25,7 @@ public:
     void setUpdateParameters(const TileUpdateParameters&) override;
 
     void setError(std::exception_ptr);
-    void setMetadata(optional<Timestamp> modified, optional<Timestamp> expires);
+    void setMetadata(std::optional<Timestamp> modified, std::optional<Timestamp> expires);
     void setData(const std::shared_ptr<const std::string>& data);
 
     bool layerPropertiesUpdated(const Immutable<style::LayerProperties>& layerProperties) override;
@@ -37,9 +35,14 @@ public:
     void onParsed(std::unique_ptr<RasterBucket> result, uint64_t correlationID);
     void onError(std::exception_ptr, uint64_t correlationID);
 
+    void cancel() override;
+
 private:
+    void markObsolete();
+
     TileLoader<RasterTile> loader;
 
+    TaggedScheduler threadPool;
     std::shared_ptr<Mailbox> mailbox;
     Actor<RasterTileWorker> worker;
 
@@ -48,6 +51,8 @@ private:
     // Contains the Bucket object for the tile. Buckets are render
     // objects and they get added by tile parsing operations.
     std::shared_ptr<RasterBucket> bucket;
+
+    std::atomic<bool> obsolete{false};
 };
 
 } // namespace mbgl

@@ -13,10 +13,12 @@
 namespace mbgl {
 namespace style {
 
-RasterSource::RasterSource(std::string id, variant<std::string, Tileset> urlOrTileset_, uint16_t tileSize, SourceType sourceType)
+RasterSource::RasterSource(std::string id,
+                           variant<std::string, Tileset> urlOrTileset_,
+                           uint16_t tileSize,
+                           SourceType sourceType)
     : Source(makeMutable<Impl>(sourceType, std::move(id), tileSize)),
-      urlOrTileset(std::move(urlOrTileset_)) {
-}
+      urlOrTileset(std::move(urlOrTileset_)) {}
 
 RasterSource::~RasterSource() = default;
 
@@ -28,7 +30,7 @@ const variant<std::string, Tileset>& RasterSource::getURLOrTileset() const {
     return urlOrTileset;
 }
 
-optional<std::string> RasterSource::getURL() const {
+std::optional<std::string> RasterSource::getURL() const {
     if (urlOrTileset.is<Tileset>()) {
         return {};
     }
@@ -54,7 +56,7 @@ void RasterSource::loadDescription(FileSource& fileSource) {
 
     const auto& rawURL = urlOrTileset.get<std::string>();
     const auto& url = util::mapbox::canonicalizeSourceURL(fileSource.getResourceOptions().tileServerOptions(), rawURL);
-    
+
     req = fileSource.request(Resource::source(url), [this, url, &fileSource](const Response& res) {
         if (res.error) {
             observer->onSourceError(*this, std::make_exception_ptr(std::runtime_error(res.error->message)));
@@ -64,13 +66,15 @@ void RasterSource::loadDescription(FileSource& fileSource) {
             observer->onSourceError(*this, std::make_exception_ptr(std::runtime_error("unexpectedly empty TileJSON")));
         } else {
             conversion::Error error;
-            optional<Tileset> tileset = conversion::convertJSON<Tileset>(*res.data, error);
+            std::optional<Tileset> tileset = conversion::convertJSON<Tileset>(*res.data, error);
             if (!tileset) {
                 observer->onSourceError(*this, std::make_exception_ptr(util::StyleParseException(error.message)));
                 return;
             }
             const auto& tileServerOptions = fileSource.getResourceOptions().tileServerOptions();
-            util::mapbox::canonicalizeTileset(tileServerOptions, *tileset, url, getType(), getTileSize());
+            if (tileServerOptions.uriSchemeAlias() == "mapbox") {
+                util::mapbox::canonicalizeTileset(tileServerOptions, *tileset, url, getType(), getTileSize());
+            }
             bool changed = impl().tileset != *tileset;
 
             baseImpl = makeMutable<Impl>(impl(), *tileset);

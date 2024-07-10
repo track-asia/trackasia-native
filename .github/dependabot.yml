@@ -1,29 +1,28 @@
-# # To get started with Dependabot version updates, you'll need to specify which
-# # package ecosystems to update and where the package manifests are located.
-# # Please see the documentation for all configuration options:
-# # https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
-# version: 2
-# updates:
-#   - package-ecosystem: "npm"
-#     directory: "/"
-#     schedule:
-#       interval: "weekly"
-#     open-pull-requests-limit: 3
-#     versioning-strategy: increase
-#   - package-ecosystem: "npm"
-#     directory: "/platform/android"
-#     schedule:
-#       interval: "weekly"
-#     open-pull-requests-limit: 3
-#     versioning-strategy: increase
-#   - package-ecosystem: "npm"
-#     directory: "/platform/ios"
-#     schedule:
-#       interval: "weekly"
-#     open-pull-requests-limit: 3
-#     versioning-strategy: increase
-#   - package-ecosystem: 'github-actions'
-#     directory: '/'
-#     schedule:
-#       interval: 'daily'
+version: 2
+updates:
+  - package-ecosystem: 'github-actions'
+    open-pull-requests-limit: 1
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    ignore:
+      - dependency-name: 'codecov/codecov-action'
+        versions: ['4']
+    groups:
+      dependencies:
+        patterns:
+          - '*'
+  - package-ecosystem: 'gradle'
+    open-pull-requests-limit: 1
+    directory: '/platform/android'
+    schedule:
+      interval: 'weekly'
+    groups:
+      dependencies:
+        patterns:
+          - '*'

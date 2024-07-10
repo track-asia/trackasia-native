@@ -54,7 +54,7 @@ public:
 int main(int argc, char** argv) {
     try {
         if (argc < 2) {
-            std::clog << "please provide path to uncompressed Trackasia Vector tile (.mvt)\n";
+            std::clog << "please provide path to uncompressed Mapbox Vector tile (.mvt)\n";
             return -1;
         }
         std::string tile_path(argv[1]);

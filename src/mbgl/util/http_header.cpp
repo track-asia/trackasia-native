@@ -2,15 +2,16 @@
 
 #include <mbgl/util/chrono.hpp>
 #include <mbgl/util/string.hpp>
+#include <mbgl/util/instrumentation.hpp>
 
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4828)
+#pragma warning(disable : 4828)
 #endif
 
 #include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
+#include <boost/phoenix/core.hpp>
+#include <boost/phoenix/operator.hpp>
 
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -20,24 +21,30 @@ namespace mbgl {
 namespace http {
 
 CacheControl CacheControl::parse(const std::string& value) {
+    MLN_TRACE_FUNC();
+
     namespace qi = boost::spirit::qi;
     namespace phoenix = boost::phoenix;
 
     CacheControl result;
-    qi::phrase_parse(value.begin(), value.end(), (
-        (qi::lit("must-revalidate") [ phoenix::ref(result.mustRevalidate) = true ]) |
-        (qi::lit("max-age") >> '=' >> qi::ulong_long [ phoenix::ref(result.maxAge) = qi::_1 ]) |
-        (*(('"' >> *(('\\' >> qi::char_) | (qi::char_ - '"')) >> '"') | (qi::char_ - '"' - ',')))
-    ) % ',', qi::ascii::space);
+    qi::phrase_parse(value.begin(),
+                     value.end(),
+                     ((qi::lit("must-revalidate")[phoenix::ref(result.mustRevalidate) = true]) |
+                      (qi::lit("max-age") >> '=' >> qi::ulong_long[phoenix::ref(result.maxAge) = qi::_1]) |
+                      (*(('"' >> *(('\\' >> qi::char_) | (qi::char_ - '"')) >> '"') | (qi::char_ - '"' - ',')))) %
+                         ',',
+                     qi::ascii::space);
     return result;
 }
 
-optional<Timestamp> CacheControl::toTimePoint() const {
-    return maxAge ? util::now() + Seconds(*maxAge) : optional<Timestamp>{};
+std::optional<Timestamp> CacheControl::toTimePoint() const {
+    return maxAge ? util::now() + Seconds(*maxAge) : std::optional<Timestamp>{};
 }
 
-optional<Timestamp> parseRetryHeaders(const optional<std::string>& retryAfter,
-                                      const optional<std::string>& xRateLimitReset) {
+std::optional<Timestamp> parseRetryHeaders(const std::optional<std::string>& retryAfter,
+                                           const std::optional<std::string>& xRateLimitReset) {
+    MLN_TRACE_FUNC();
+
     if (retryAfter) {
         try {
             auto secs = std::chrono::seconds(std::stoi(*retryAfter));

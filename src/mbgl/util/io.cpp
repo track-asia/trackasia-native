@@ -1,4 +1,5 @@
 #include <mbgl/util/io.hpp>
+#include <mbgl/util/instrumentation.hpp>
 
 #include <cstdio>
 #include <cerrno>
@@ -16,11 +17,13 @@
 namespace mbgl {
 namespace util {
 
-IOException::IOException(int err, const std::string& msg)
-    : std::runtime_error(msg + ": " + std::strerror(errno)), code(err) {
-}
+IOException::IOException(int err, const std::string &msg)
+    : std::runtime_error(msg + ": " + std::strerror(errno)),
+      code(err) {}
 
 void write_file(const std::string &filename, const std::string &data) {
+    MLN_TRACE_FUNC();
+
     FILE *fd = fopen(filename.c_str(), MBGL_FOPEN_MODE_WBE);
     if (fd) {
         fwrite(data.data(), sizeof(std::string::value_type), data.size(), fd);
@@ -31,6 +34,8 @@ void write_file(const std::string &filename, const std::string &data) {
 }
 
 std::string read_file(const std::string &filename) {
+    MLN_TRACE_FUNC();
+
     std::ifstream file(filename, std::ios::binary);
     if (file.good()) {
         std::stringstream data;
@@ -41,7 +46,9 @@ std::string read_file(const std::string &filename) {
     }
 }
 
-optional<std::string> readFile(const std::string &filename) {
+std::optional<std::string> readFile(const std::string &filename) {
+    MLN_TRACE_FUNC();
+
     std::ifstream file(filename, std::ios::binary);
     if (file.good()) {
         std::stringstream data;
@@ -51,14 +58,18 @@ optional<std::string> readFile(const std::string &filename) {
     return {};
 }
 
-void deleteFile(const std::string& filename) {
+void deleteFile(const std::string &filename) {
+    MLN_TRACE_FUNC();
+
     const int ret = std::remove(filename.c_str());
     if (ret != 0 && errno != ENOENT) {
         throw IOException(errno, "Could not delete file " + filename);
     }
 }
 
-void copyFile(const std::string& destination, const std::string& source) {
+void copyFile(const std::string &destination, const std::string &source) {
+    MLN_TRACE_FUNC();
+
     std::ifstream src(source, std::ios::binary);
     if (!src.good()) {
         throw IOException(errno, "Cannot read file " + source);

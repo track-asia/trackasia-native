@@ -1,0 +1,7837 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "libmbgl-core.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"include",
+			"target_compile_definitions",
+			"target_include_directories",
+			"target_sources",
+			"set_source_files_properties"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt",
+			"platform/android/android.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 141,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 1360,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 1447,
+				"parent" : 0
+			},
+			{
+				"file" : 1,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 83,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 1000,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 1327,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 1332,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 78,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 1292,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 1320,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 30,
+				"parent" : 4
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -fvisibility=hidden -fvisibility-inlines-hidden"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-fno-rtti"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Werror"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wno-error=tautological-constant-compare"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-pthread"
+				},
+				{
+					"fragment" : "-std=c++17"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "MLN_DRAWABLE_RENDERER=1"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MLN_LEGACY_RENDERER=0"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MLN_RENDER_BACKEND_OPENGL=1"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MLN_USE_UNORDERED_DENSE=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "RAPIDJSON_HAS_STDSTRING=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "TRACY_ENABLE"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/src"
+				},
+				{
+					"backtrace" : 8,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/platform/default/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unordered_dense/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/kdbush.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/supercluster.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/shelf-pack-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/geojson-vt-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/cheap-ruler-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/boost/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/csscolorparser"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/earcut.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/eternal/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/parsedate"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/polylabel/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/protozero/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unique_resource"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/vector-tile/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/wagyu/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/expected-lite/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/geojson.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/geometry.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/jni.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/pixelmatch-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/variant/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/rapidjson/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/_deps/tracy-src/public"
+				},
+				{
+					"backtrace" : 5,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/icu/include"
+				},
+				{
+					"backtrace" : 5,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/sqlite/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2,
+					2
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				317,
+				318,
+				320,
+				321,
+				322,
+				323,
+				329,
+				330,
+				331,
+				332,
+				333,
+				334,
+				335,
+				336,
+				337,
+				339,
+				341,
+				343,
+				345,
+				347,
+				349,
+				351,
+				353,
+				355,
+				357,
+				359,
+				361,
+				362,
+				363,
+				364,
+				365,
+				367,
+				368,
+				369,
+				370,
+				371,
+				372,
+				373,
+				376,
+				378,
+				380,
+				382,
+				384,
+				386,
+				388,
+				390,
+				394,
+				396,
+				398,
+				400,
+				412,
+				413,
+				417,
+				418,
+				419,
+				420,
+				427,
+				428,
+				429,
+				430,
+				431,
+				432,
+				433,
+				434,
+				435,
+				436,
+				437,
+				439,
+				442,
+				446,
+				448,
+				450,
+				452,
+				453,
+				455,
+				456,
+				457,
+				459,
+				462,
+				463,
+				466,
+				468,
+				470,
+				472,
+				475,
+				478,
+				483,
+				485,
+				487,
+				489,
+				491,
+				495,
+				499,
+				501,
+				503,
+				507,
+				514,
+				516,
+				518,
+				520,
+				522,
+				524,
+				526,
+				528,
+				530,
+				532,
+				534,
+				536,
+				539,
+				541,
+				543,
+				546,
+				548,
+				550,
+				552,
+				554,
+				556,
+				558,
+				560,
+				562,
+				564,
+				568,
+				573,
+				575,
+				577,
+				580,
+				583,
+				585,
+				588,
+				589,
+				591,
+				592,
+				594,
+				596,
+				598,
+				600,
+				602,
+				604,
+				606,
+				608,
+				612,
+				614,
+				619,
+				622,
+				626,
+				630,
+				631,
+				632,
+				633,
+				634,
+				636,
+				637,
+				638,
+				639,
+				640,
+				641,
+				642,
+				643,
+				644,
+				645,
+				647,
+				648,
+				649,
+				650,
+				651,
+				652,
+				654,
+				655,
+				656,
+				658,
+				659,
+				660,
+				661,
+				662,
+				663,
+				664,
+				665,
+				666,
+				667,
+				668,
+				669,
+				670,
+				672,
+				673,
+				674,
+				675,
+				676,
+				677,
+				678,
+				679,
+				680,
+				681,
+				682,
+				683,
+				684,
+				685,
+				686,
+				687,
+				688,
+				689,
+				690,
+				691,
+				692,
+				694,
+				695,
+				696,
+				697,
+				699,
+				700,
+				702,
+				703,
+				706,
+				707,
+				709,
+				711,
+				712,
+				714,
+				716,
+				717,
+				719,
+				721,
+				722,
+				724,
+				726,
+				727,
+				729,
+				731,
+				732,
+				734,
+				736,
+				737,
+				739,
+				741,
+				742,
+				744,
+				746,
+				747,
+				749,
+				752,
+				753,
+				758,
+				761,
+				763,
+				764,
+				767,
+				768,
+				770,
+				771,
+				773,
+				774,
+				776,
+				777,
+				778,
+				780,
+				781,
+				783,
+				784,
+				786,
+				788,
+				790,
+				792,
+				794,
+				796,
+				798,
+				800,
+				802,
+				805,
+				808,
+				811,
+				813,
+				815,
+				817,
+				819,
+				821,
+				824,
+				826,
+				828,
+				830,
+				832,
+				834,
+				836,
+				838,
+				840,
+				842,
+				843,
+				847,
+				849,
+				851,
+				853,
+				854,
+				855,
+				856,
+				857,
+				858,
+				859,
+				861,
+				863,
+				864,
+				865,
+				866,
+				868,
+				871,
+				873,
+				875,
+				877,
+				878,
+				879,
+				881,
+				884,
+				886,
+				888,
+				890,
+				892,
+				895,
+				896,
+				897,
+				901,
+				903,
+				904,
+				905,
+				907,
+				910,
+				912,
+				915,
+				916,
+				917,
+				920,
+				925,
+				926,
+				928,
+				930,
+				932,
+				934,
+				935,
+				936,
+				937,
+				939,
+				943,
+				947,
+				949,
+				951,
+				954,
+				956,
+				958,
+				960,
+				962,
+				964,
+				966,
+				969,
+				971,
+				973,
+				975,
+				977,
+				979,
+				980,
+				981,
+				983,
+				984,
+				986,
+				988,
+				989,
+				990,
+				991,
+				993,
+				995,
+				996,
+				998,
+				1000,
+				1002,
+				1003,
+				1004,
+				1006,
+				1008,
+				1009,
+				1010,
+				1011,
+				1012,
+				1013,
+				1014,
+				1015,
+				1016,
+				1017,
+				1018,
+				1019,
+				1020,
+				1021,
+				1022,
+				1023,
+				1024,
+				1025,
+				1026,
+				1027,
+				1028,
+				1029,
+				1030,
+				1031,
+				1032,
+				1033,
+				1034,
+				1035,
+				1036,
+				1037
+			],
+			"sysroot" : 
+			{
+				"path" : "/Users/sangnguyen/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+			}
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -fvisibility=hidden -fvisibility-inlines-hidden"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-fno-rtti"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Werror"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wno-error=tautological-constant-compare"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-pthread"
+				},
+				{
+					"fragment" : "-std=c++17"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 11,
+					"define" : "MBGL_VERSION_REV=\"51e4c777\""
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MLN_DRAWABLE_RENDERER=1"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MLN_LEGACY_RENDERER=0"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MLN_RENDER_BACKEND_OPENGL=1"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MLN_USE_UNORDERED_DENSE=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "RAPIDJSON_HAS_STDSTRING=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "TRACY_ENABLE"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/src"
+				},
+				{
+					"backtrace" : 8,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/platform/default/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unordered_dense/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/kdbush.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/supercluster.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/shelf-pack-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/geojson-vt-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/cheap-ruler-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/boost/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/csscolorparser"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/earcut.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/eternal/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/parsedate"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/polylabel/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/protozero/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unique_resource"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/vector-tile/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/wagyu/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/expected-lite/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/geojson.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/geometry.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/jni.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/pixelmatch-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/variant/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/rapidjson/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/_deps/tracy-src/public"
+				},
+				{
+					"backtrace" : 5,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/icu/include"
+				},
+				{
+					"backtrace" : 5,
+					"isSystem" : true,
+					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/sqlite/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2,
+					2
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				923
+			],
+			"sysroot" : 
+			{
+				"path" : "/Users/sangnguyen/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+			}
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "mbgl-vendor-csscolorparser::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "mbgl-vendor-parsedate::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "mbgl-vendor-icu::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "mbgl-vendor-sqlite::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "TracyClient::@5312c6e87bd9d431bdc8"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "MapLibre"
+	},
+	"id" : "mbgl-core::@6890427a1f51a3e7e1df",
+	"name" : "mbgl-core",
+	"nameOnDisk" : "libmbgl-core.a",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "mbgl\\gfx",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				233,
+				317,
+				318,
+				319,
+				320,
+				321,
+				322,
+				323,
+				324,
+				325,
+				326,
+				327,
+				328,
+				329,
+				330,
+				331,
+				400,
+				401,
+				402,
+				403,
+				404,
+				405,
+				406,
+				407,
+				408,
+				409,
+				410,
+				411,
+				412,
+				413,
+				414,
+				415,
+				416,
+				417,
+				418,
+				419,
+				420,
+				421,
+				422,
+				423,
+				424,
+				425,
+				426
+			]
+		},
+		{
+			"name" : "mbgl\\renderer",
+			"sourceIndexes" : 
+			[
+				13,
+				14,
+				15,
+				16,
+				75,
+				76,
+				77,
+				78,
+				79,
+				332,
+				333,
+				334,
+				335,
+				336,
+				514,
+				515,
+				516,
+				517,
+				536,
+				537,
+				538,
+				539,
+				540,
+				541,
+				542,
+				543,
+				544,
+				545,
+				564,
+				565,
+				566,
+				567,
+				568,
+				569,
+				570,
+				571,
+				572,
+				573,
+				574,
+				575,
+				576,
+				577,
+				578,
+				579,
+				580,
+				581,
+				582,
+				583,
+				584,
+				585,
+				586,
+				587,
+				588,
+				589,
+				590,
+				591,
+				606,
+				607,
+				608,
+				609,
+				610,
+				611,
+				612,
+				613,
+				614,
+				615,
+				616,
+				617,
+				618
+			]
+		},
+		{
+			"name" : "mbgl\\shaders",
+			"sourceIndexes" : 
+			[
+				17,
+				243,
+				244,
+				298,
+				299,
+				300,
+				303,
+				304,
+				305,
+				306,
+				307,
+				308,
+				309,
+				310,
+				311,
+				312,
+				313,
+				314,
+				315,
+				316,
+				361
+			]
+		},
+		{
+			"name" : "mbgl\\util",
+			"sourceIndexes" : 
+			[
+				18,
+				181,
+				182,
+				183,
+				184,
+				185,
+				186,
+				187,
+				188,
+				189,
+				190,
+				191,
+				192,
+				193,
+				194,
+				195,
+				196,
+				197,
+				198,
+				199,
+				200,
+				201,
+				202,
+				203,
+				204,
+				205,
+				206,
+				207,
+				208,
+				209,
+				210,
+				211,
+				212,
+				213,
+				214,
+				215,
+				216,
+				217,
+				218,
+				219,
+				220,
+				221,
+				222,
+				223,
+				224,
+				225,
+				226,
+				227,
+				228,
+				229,
+				230,
+				231,
+				232,
+				851,
+				852,
+				853,
+				854,
+				855,
+				856,
+				857,
+				858,
+				859,
+				860,
+				861,
+				862,
+				863,
+				864,
+				865,
+				866,
+				867,
+				868,
+				869,
+				870,
+				871,
+				872,
+				873,
+				874,
+				875,
+				876,
+				877,
+				878,
+				879,
+				880,
+				881,
+				882,
+				883,
+				884,
+				885,
+				886,
+				887,
+				888,
+				889,
+				890,
+				891,
+				892,
+				893,
+				894,
+				895,
+				896,
+				897,
+				898,
+				899,
+				900,
+				901,
+				902,
+				903,
+				904,
+				905,
+				906,
+				907,
+				908,
+				909,
+				910,
+				911,
+				912,
+				913,
+				914,
+				915,
+				916,
+				917,
+				918,
+				919,
+				920,
+				921,
+				922,
+				923,
+				924,
+				925
+			]
+		},
+		{
+			"name" : "mbgl\\shaders\\gl",
+			"sourceIndexes" : 
+			[
+				19,
+				20,
+				245,
+				246,
+				247,
+				248,
+				249,
+				250,
+				251,
+				252,
+				253,
+				254,
+				255,
+				256,
+				257,
+				258,
+				259,
+				260,
+				261,
+				262,
+				263,
+				264,
+				265,
+				266,
+				267,
+				268,
+				269,
+				270,
+				271,
+				272,
+				273,
+				274,
+				275,
+				276,
+				277,
+				278,
+				279,
+				280,
+				281,
+				282,
+				283,
+				284,
+				285,
+				286,
+				287,
+				288,
+				289,
+				290,
+				291,
+				292,
+				293,
+				294,
+				295,
+				296,
+				297,
+				362,
+				988
+			]
+		},
+		{
+			"name" : "mbgl\\gl",
+			"sourceIndexes" : 
+			[
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				238,
+				239,
+				363,
+				364,
+				365,
+				366,
+				367,
+				368,
+				369,
+				370,
+				371,
+				926,
+				927,
+				928,
+				929,
+				930,
+				931,
+				932,
+				933,
+				939,
+				940,
+				941,
+				942,
+				943,
+				944,
+				945,
+				946,
+				947,
+				948,
+				949,
+				950,
+				951,
+				952,
+				953,
+				956,
+				957,
+				958,
+				959,
+				960,
+				961,
+				962,
+				963,
+				964,
+				965,
+				966,
+				967,
+				968,
+				969,
+				970,
+				971,
+				972,
+				973,
+				974,
+				975,
+				976,
+				977,
+				978
+			]
+		},
+		{
+			"name" : "mbgl\\actor",
+			"sourceIndexes" : 
+			[
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				372,
+				373
+			]
+		},
+		{
+			"name" : "mbgl\\annotation",
+			"sourceIndexes" : 
+			[
+				36,
+				376,
+				377,
+				378,
+				379,
+				380,
+				381,
+				382,
+				383,
+				384,
+				385,
+				386,
+				387,
+				388,
+				389,
+				390,
+				391
+			]
+		},
+		{
+			"name" : "mbgl\\layermanager",
+			"sourceIndexes" : 
+			[
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				237,
+				240,
+				302,
+				427,
+				428,
+				429,
+				430,
+				431,
+				432,
+				433,
+				434,
+				435,
+				436,
+				437,
+				936,
+				979,
+				990
+			]
+		},
+		{
+			"name" : "mbgl\\map",
+			"sourceIndexes" : 
+			[
+				59,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65,
+				66,
+				67,
+				452,
+				453,
+				454,
+				455,
+				456,
+				457,
+				458,
+				459,
+				460,
+				461
+			]
+		},
+		{
+			"name" : "mbgl\\math",
+			"sourceIndexes" : 
+			[
+				68,
+				69,
+				70,
+				71,
+				72,
+				462
+			]
+		},
+		{
+			"name" : "mbgl\\platform",
+			"sourceIndexes" : 
+			[
+				73,
+				74,
+				241,
+				463,
+				980
+			]
+		},
+		{
+			"name" : "mbgl\\storage",
+			"sourceIndexes" : 
+			[
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				87,
+				88,
+				89,
+				624,
+				625,
+				626,
+				627,
+				628,
+				629,
+				630,
+				631,
+				632,
+				633,
+				634
+			]
+		},
+		{
+			"name" : "mbgl\\style",
+			"sourceIndexes" : 
+			[
+				90,
+				91,
+				109,
+				149,
+				150,
+				151,
+				152,
+				162,
+				163,
+				164,
+				165,
+				166,
+				167,
+				174,
+				175,
+				176,
+				177,
+				178,
+				635,
+				656,
+				657,
+				696,
+				697,
+				698,
+				699,
+				700,
+				701,
+				702,
+				703,
+				704,
+				705,
+				751,
+				752,
+				753,
+				754,
+				755,
+				756,
+				757,
+				758,
+				759,
+				760,
+				761,
+				762,
+				763,
+				764,
+				765,
+				766,
+				783,
+				784,
+				785,
+				786
+			]
+		},
+		{
+			"name" : "mbgl\\style\\conversion",
+			"sourceIndexes" : 
+			[
+				92,
+				93,
+				94,
+				95,
+				96,
+				97,
+				98,
+				99,
+				100,
+				101,
+				102,
+				103,
+				104,
+				105,
+				106,
+				107,
+				108,
+				636,
+				637,
+				638,
+				639,
+				640,
+				641,
+				642,
+				643,
+				644,
+				645,
+				646,
+				647,
+				648,
+				649,
+				650,
+				651,
+				652,
+				653,
+				654,
+				655
+			]
+		},
+		{
+			"name" : "mbgl\\style\\expression",
+			"sourceIndexes" : 
+			[
+				110,
+				111,
+				112,
+				113,
+				114,
+				115,
+				116,
+				117,
+				118,
+				119,
+				120,
+				121,
+				122,
+				123,
+				124,
+				125,
+				126,
+				127,
+				128,
+				129,
+				130,
+				131,
+				132,
+				133,
+				134,
+				135,
+				136,
+				137,
+				138,
+				139,
+				140,
+				141,
+				142,
+				143,
+				144,
+				145,
+				146,
+				147,
+				148,
+				658,
+				659,
+				660,
+				661,
+				662,
+				663,
+				664,
+				665,
+				666,
+				667,
+				668,
+				669,
+				670,
+				671,
+				672,
+				673,
+				674,
+				675,
+				676,
+				677,
+				678,
+				679,
+				680,
+				681,
+				682,
+				683,
+				684,
+				685,
+				686,
+				687,
+				688,
+				689,
+				690,
+				691,
+				692,
+				693,
+				694,
+				695
+			]
+		},
+		{
+			"name" : "mbgl\\style\\layers",
+			"sourceIndexes" : 
+			[
+				153,
+				154,
+				155,
+				156,
+				157,
+				158,
+				159,
+				160,
+				161,
+				234,
+				235,
+				242,
+				301,
+				706,
+				707,
+				708,
+				709,
+				710,
+				711,
+				712,
+				713,
+				714,
+				715,
+				716,
+				717,
+				718,
+				719,
+				720,
+				721,
+				722,
+				723,
+				724,
+				725,
+				726,
+				727,
+				728,
+				729,
+				730,
+				731,
+				732,
+				733,
+				734,
+				735,
+				736,
+				737,
+				738,
+				739,
+				740,
+				741,
+				742,
+				743,
+				744,
+				745,
+				746,
+				747,
+				748,
+				749,
+				750,
+				934,
+				935,
+				937,
+				938,
+				983,
+				984,
+				985,
+				986,
+				987,
+				989,
+				991,
+				992
+			]
+		},
+		{
+			"name" : "mbgl\\style\\sources",
+			"sourceIndexes" : 
+			[
+				168,
+				169,
+				170,
+				171,
+				172,
+				173,
+				767,
+				768,
+				769,
+				770,
+				771,
+				772,
+				773,
+				774,
+				775,
+				776,
+				777,
+				778,
+				779,
+				780,
+				781,
+				782
+			]
+		},
+		{
+			"name" : "mbgl\\tile",
+			"sourceIndexes" : 
+			[
+				179,
+				180,
+				819,
+				820,
+				821,
+				822,
+				823,
+				824,
+				825,
+				826,
+				827,
+				828,
+				829,
+				830,
+				831,
+				832,
+				833,
+				834,
+				835,
+				836,
+				837,
+				838,
+				839,
+				840,
+				841,
+				842,
+				843,
+				844,
+				845,
+				846,
+				847,
+				848,
+				849,
+				850
+			]
+		},
+		{
+			"name" : "mbgl\\style\\layers\\mtl",
+			"sourceIndexes" : 
+			[
+				236
+			]
+		},
+		{
+			"name" : "mbgl\\renderer\\layers",
+			"sourceIndexes" : 
+			[
+				337,
+				338,
+				339,
+				340,
+				341,
+				342,
+				343,
+				344,
+				345,
+				346,
+				347,
+				348,
+				349,
+				350,
+				351,
+				352,
+				353,
+				354,
+				355,
+				356,
+				357,
+				358,
+				359,
+				360,
+				546,
+				547,
+				548,
+				549,
+				550,
+				551,
+				552,
+				553,
+				554,
+				555,
+				556,
+				557,
+				558,
+				559,
+				560,
+				561,
+				562,
+				563,
+				954,
+				955,
+				981,
+				982,
+				993,
+				994
+			]
+		},
+		{
+			"name" : "mbgl\\algorithm",
+			"sourceIndexes" : 
+			[
+				374,
+				375
+			]
+		},
+		{
+			"name" : "mbgl\\geometry",
+			"sourceIndexes" : 
+			[
+				392,
+				393,
+				394,
+				395,
+				396,
+				397,
+				398,
+				399
+			]
+		},
+		{
+			"name" : "mbgl\\layout",
+			"sourceIndexes" : 
+			[
+				438,
+				439,
+				440,
+				441,
+				442,
+				443,
+				444,
+				445,
+				446,
+				447,
+				448,
+				449,
+				450,
+				451
+			]
+		},
+		{
+			"name" : "mbgl\\programs",
+			"sourceIndexes" : 
+			[
+				464,
+				465,
+				466,
+				467,
+				468,
+				469,
+				470,
+				471,
+				472,
+				473,
+				474,
+				475,
+				476,
+				477,
+				478,
+				479,
+				480,
+				481,
+				482,
+				483,
+				484,
+				485,
+				486,
+				487,
+				488,
+				489,
+				490,
+				491,
+				492,
+				493,
+				494,
+				495,
+				496,
+				497,
+				498,
+				499,
+				500,
+				501,
+				502,
+				503,
+				504,
+				505,
+				506,
+				507,
+				508,
+				509,
+				510,
+				511,
+				512,
+				513
+			]
+		},
+		{
+			"name" : "mbgl\\renderer\\buckets",
+			"sourceIndexes" : 
+			[
+				518,
+				519,
+				520,
+				521,
+				522,
+				523,
+				524,
+				525,
+				526,
+				527,
+				528,
+				529,
+				530,
+				531,
+				532,
+				533,
+				534,
+				535
+			]
+		},
+		{
+			"name" : "mbgl\\renderer\\sources",
+			"sourceIndexes" : 
+			[
+				592,
+				593,
+				594,
+				595,
+				596,
+				597,
+				598,
+				599,
+				600,
+				601,
+				602,
+				603,
+				604,
+				605
+			]
+		},
+		{
+			"name" : "mbgl\\sprite",
+			"sourceIndexes" : 
+			[
+				619,
+				620,
+				621,
+				622,
+				623
+			]
+		},
+		{
+			"name" : "mbgl\\text",
+			"sourceIndexes" : 
+			[
+				787,
+				788,
+				789,
+				790,
+				791,
+				792,
+				793,
+				794,
+				795,
+				796,
+				797,
+				798,
+				799,
+				800,
+				801,
+				802,
+				803,
+				804,
+				805,
+				806,
+				807,
+				808,
+				809,
+				810,
+				811,
+				812,
+				813,
+				814,
+				815,
+				816,
+				817,
+				818
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				995,
+				996,
+				998,
+				1000,
+				1002,
+				1003,
+				1004,
+				1006,
+				1008,
+				1009,
+				1010,
+				1011,
+				1012,
+				1013,
+				1014,
+				1015,
+				1016,
+				1017,
+				1018,
+				1019,
+				1020,
+				1021,
+				1022,
+				1023,
+				1024,
+				1025,
+				1026,
+				1027,
+				1028,
+				1029,
+				1030,
+				1031,
+				1032,
+				1033,
+				1034,
+				1035,
+				1036,
+				1037
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				997,
+				999,
+				1001,
+				1005,
+				1007
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/context.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/drawable.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/drawable_data.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/drawable_impl.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/drawable_builder.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/drawable_tweaker.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/drawable_atlases_tweaker.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/drawable_custom_layer_host_tweaker.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/gpu_expression.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/uniform_block.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/uniform_buffer.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/vertex_attribute.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/texture2d.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/change_request.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/layer_group.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/layer_tweaker.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/render_target.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/shader_program_base.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/suppress_copies.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/shader_info.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/shader_program_gl.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/buffer_allocator.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/drawable_gl.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/drawable_gl_builder.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/layer_group_gl.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/uniform_block_gl.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/uniform_buffer_gl.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/vertex_attribute_gl.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/texture2d.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/actor/actor.hpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/actor/actor_ref.hpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/actor/aspiring_actor.hpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/actor/established_actor.hpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/actor/mailbox.hpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/actor/message.hpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/actor/scheduler.hpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/annotation/annotation.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/backend_scope.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/gfx_types.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/polyline_generator.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/fill_generator.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/renderable.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/renderer_backend.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/rendering_stats.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/shader_registry.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/shader_group.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/shader.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/types.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/background_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/circle_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/fill_extrusion_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/fill_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/heatmap_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/hillshade_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/layer_manager.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/line_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/raster_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/symbol_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/bound_options.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/camera.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/change.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/map.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/map_observer.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/map_options.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/map_projection.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/mode.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/map/projection_mode.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/math/angles.hpp",
+			"sourceGroupIndex" : 10
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/math/clamp.hpp",
+			"sourceGroupIndex" : 10
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/math/log2.hpp",
+			"sourceGroupIndex" : 10
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/math/minmax.hpp",
+			"sourceGroupIndex" : 10
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/math/wrap.hpp",
+			"sourceGroupIndex" : 10
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/platform/settings.hpp",
+			"sourceGroupIndex" : 11
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/platform/thread.hpp",
+			"sourceGroupIndex" : 11
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/query.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/renderer.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/renderer_frontend.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/renderer_observer.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/renderer/renderer_state.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/database_file_source.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/file_source.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/file_source_manager.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/network_status.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/offline.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/online_file_source.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/resource.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/resource_options.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/resource_transform.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/storage/response.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/color_ramp_property_value.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/color_ramp_property_value.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/constant.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/coordinate.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/custom_geometry_source_options.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/filter.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/function.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/geojson.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/geojson_options.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/get_json_type.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/layer.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/light.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/position.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/property_value.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/rotation.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/source.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/tileset.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion/transition_options.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/conversion_impl.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/assertion.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/at.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/boolean_operator.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/case.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/check_subtype.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/coalesce.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/coercion.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/collator.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/collator_expression.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/comparison.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/compound_expression.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/dsl.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/distance.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/error.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/expression.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/find_zoom_curve.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/format_expression.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/format_section_override.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/formatted.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/get_covering_stops.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/image.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/image_expression.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/in.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/index_of.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/interpolate.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/interpolator.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/is_constant.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/is_expression.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/length.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/let.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/literal.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/match.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/number_format.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/parsing_context.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/slice.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/step.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/type.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/value.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/expression/within.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/filter.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/image.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layer.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layer_properties.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/background_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/circle_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/fill_extrusion_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/fill_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/heatmap_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/hillshade_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/line_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/raster_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/symbol_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/light.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/position.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/property_expression.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/property_value.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/rotation.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/source.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/sources/custom_geometry_source.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/sources/geojson_source.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/sources/image_source.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/sources/raster_dem_source.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/sources/raster_source.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/sources/vector_source.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/style.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/style_property.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/transition_options.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/types.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/undefined.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/tile/tile_id.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/tile/tile_necessity.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/async_request.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/async_task.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/char_array_buffer.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/chrono.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/client_options.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/color.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/compression.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/constants.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/containers.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/convert.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/default_style.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/enum.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/event.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/exception.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/expected.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/feature.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/font_stack.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/geo.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/geojson.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/geometry.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/identity.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/ignore.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/image.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/immutable.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/indexed_tuple.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/instrumentation.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/interpolate.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/logging.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/noncopyable.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/platform.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/premultiply.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/projection.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/range.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/run_loop.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/scoped.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/size.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/string.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/string_indexer.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/tile_server_options.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/thread.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/tileset.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/timer.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/tiny_unordered_map.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/traits.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/type_list.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/unitbezier.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/util.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/variant.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/vectors.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/work_request.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/work_task.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/util/work_task_impl.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gfx/backend.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/custom_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/custom_layer_render_parameters.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/mtl/custom_layer_render_parameters.hpp",
+			"sourceGroupIndex" : 19
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/custom_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/renderable_resource.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/gl/renderer_backend.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/location_indicator_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/platform/gl_functions.hpp",
+			"sourceGroupIndex" : 11
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/location_indicator_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/shader_source.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/shader_manifest.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/shader_group_gl.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/prelude.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/background.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_background.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_background_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_circle.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_collision_box.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_collision_circle.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_debug.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_fill.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_fill_outline.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_fill_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_fill_outline_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_fill_outline_triangulated.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_fill_extrusion.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_fill_extrusion_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_heatmap.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_heatmap_texture.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_hillshade_prepare.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_hillshade.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_line.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_line_gradient.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_line_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_line_sdf.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_raster.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_symbol_icon.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_symbol_sdf.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/drawable_symbol_text_and_icon.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/background_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/circle.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/clipping_mask.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/collision_box.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/collision_circle.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/debug.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/fill_extrusion_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/fill_extrusion.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/fill_outline_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/fill_outline.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/fill_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/fill.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/heatmap_texture.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/heatmap.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/hillshade_prepare.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/hillshade.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/line_gradient.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/line_pattern.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/line_sdf.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/line.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/raster.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/symbol_icon.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/symbol_sdf_icon.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/symbol_sdf_text.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/gl/symbol_text_and_icon.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/background_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/circle_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/collision_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/style/layers/custom_drawable_layer.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/layermanager/custom_drawable_layer_factory.hpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/debug_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/fill_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/fill_extrusion_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/heatmap_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/heatmap_texture_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/hillshade_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/hillshade_prepare_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/line_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/custom_drawable_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/raster_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/shader_defines.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/symbol_layer_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"path" : "include/mbgl/shaders/widevector_ubo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/drawable.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/drawable_builder.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/drawable_builder_impl.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/drawable_builder_impl.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/drawable_atlases_tweaker.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/drawable_custom_layer_host_tweaker.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/gpu_expression.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/hillshade_prepare_drawable_data.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/image_drawable_data.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/line_drawable_data.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/symbol_drawable_data.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/collision_drawable_data.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/uniform_block.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/uniform_buffer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/vertex_attribute.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/render_target.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/change_request.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layer_group.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/tile_layer_group.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layer_tweaker.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/background_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/background_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/circle_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/circle_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/fill_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/fill_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/fill_extrusion_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/fill_extrusion_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/heatmap_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/heatmap_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/heatmap_texture_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/heatmap_texture_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/hillshade_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/hillshade_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/hillshade_prepare_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/hillshade_prepare_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/line_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/line_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/raster_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/raster_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/symbol_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/symbol_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/collision_layer_tweaker.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/collision_layer_tweaker.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/shaders/shader_program_base.cpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/shaders/gl/shader_program_gl.cpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/buffer_allocator.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/drawable_gl.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/drawable_gl_builder.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/drawable_gl_impl.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/layer_group_gl.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/texture2d.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/uniform_block_gl.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/uniform_buffer_gl.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/vertex_attribute_gl.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/actor/mailbox.cpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/actor/scheduler.cpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/algorithm/update_renderables.hpp",
+			"sourceGroupIndex" : 21
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/algorithm/update_tile_masks.hpp",
+			"sourceGroupIndex" : 21
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/annotation/annotation_manager.cpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/annotation/annotation_manager.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/annotation/annotation_source.cpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/annotation/annotation_source.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/annotation/annotation_tile.cpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/annotation/annotation_tile.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/annotation/fill_annotation_impl.cpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/annotation/fill_annotation_impl.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/annotation/line_annotation_impl.cpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/annotation/line_annotation_impl.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/annotation/render_annotation_source.cpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/annotation/render_annotation_source.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/annotation/shape_annotation_impl.cpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/annotation/shape_annotation_impl.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/annotation/symbol_annotation_impl.cpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/annotation/symbol_annotation_impl.hpp",
+			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/geometry/anchor.hpp",
+			"sourceGroupIndex" : 22
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/geometry/debug_font_data.hpp",
+			"sourceGroupIndex" : 22
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/geometry/dem_data.cpp",
+			"sourceGroupIndex" : 22
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/geometry/dem_data.hpp",
+			"sourceGroupIndex" : 22
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/geometry/feature_index.cpp",
+			"sourceGroupIndex" : 22
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/geometry/feature_index.hpp",
+			"sourceGroupIndex" : 22
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/geometry/line_atlas.cpp",
+			"sourceGroupIndex" : 22
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/geometry/line_atlas.hpp",
+			"sourceGroupIndex" : 22
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/attribute.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/attribute.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/color_mode.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/command_encoder.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/cull_face_mode.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/debug_group.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/depth_mode.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/draw_mode.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/draw_scope.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/index_buffer.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/index_vector.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/offscreen_texture.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/polyline_generator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/fill_generator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/program.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/render_pass.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/renderbuffer.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/renderer_backend.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/rendering_stats.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/shader_group.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gfx/shader_registry.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/stencil_mode.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/texture.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/uniform.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/upload_pass.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/vertex_buffer.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gfx/vertex_vector.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/background_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/circle_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/fill_extrusion_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/fill_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/heatmap_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/hillshade_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/layer_manager.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/line_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/raster_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/symbol_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/circle_layout.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layout/clip_lines.cpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/clip_lines.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/layout.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layout/merge_lines.cpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/merge_lines.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/pattern_layout.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/symbol_feature.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layout/symbol_instance.cpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/symbol_instance.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layout/symbol_layout.cpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/symbol_layout.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layout/symbol_projection.cpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/layout/symbol_projection.hpp",
+			"sourceGroupIndex" : 23
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/map/map.cpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/map/map_impl.cpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/map/map_impl.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/map/map_options.cpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/map/map_projection.cpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/map/transform.cpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/map/transform.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/map/transform_state.cpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/map/transform_state.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/map/zoom_history.hpp",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/math/log2.cpp",
+			"sourceGroupIndex" : 10
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/platform/settings.cpp",
+			"sourceGroupIndex" : 11
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/attributes.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/background_pattern_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/background_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/background_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/circle_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/circle_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/clipping_mask_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/clipping_mask_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/collision_box_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/collision_box_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/collision_circle_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/debug_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/debug_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/fill_extrusion_pattern_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/fill_extrusion_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/fill_extrusion_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/fill_outline_pattern_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/fill_outline_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/fill_pattern_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/fill_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/fill_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/heatmap_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/heatmap_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/heatmap_texture_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/heatmap_texture_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/hillshade_prepare_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/hillshade_prepare_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/hillshade_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/hillshade_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/line_gradient_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/line_pattern_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/line_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/line_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/line_sdf_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/program_parameters.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/program_parameters.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/programs.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/programs.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/raster_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/raster_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/segment.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/symbol_icon_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/programs/symbol_program.cpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/symbol_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/symbol_sdf_icon_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/symbol_sdf_text_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/symbol_text_and_icon_program.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/textures.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/programs/uniforms.hpp",
+			"sourceGroupIndex" : 24
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/backend_scope.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/bucket.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/bucket_parameters.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/bucket_parameters.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/circle_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/circle_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/debug_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/debug_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/fill_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/fill_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/fill_extrusion_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/fill_extrusion_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/heatmap_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/heatmap_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/hillshade_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/hillshade_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/line_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/line_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/raster_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/raster_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/buckets/symbol_bucket.cpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/buckets/symbol_bucket.hpp",
+			"sourceGroupIndex" : 25
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/cross_faded_property_evaluator.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/cross_faded_property_evaluator.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/data_driven_property_evaluator.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/group_by_layout.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/group_by_layout.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/image_atlas.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/image_atlas.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/image_manager.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/image_manager.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/image_manager_observer.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_background_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_background_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_circle_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_circle_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_fill_extrusion_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_fill_extrusion_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_fill_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_fill_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_heatmap_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_heatmap_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_hillshade_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_hillshade_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_line_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_line_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_raster_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_raster_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_symbol_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_symbol_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/paint_parameters.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/paint_parameters.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/paint_property_binder.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/paint_property_statistics.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/pattern_atlas.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/pattern_atlas.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/possibly_evaluated_property_value.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/property_evaluation_parameters.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/property_evaluator.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/render_layer.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_layer.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/render_light.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_light.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/render_orchestrator.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_orchestrator.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_pass.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/render_source.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_source.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_source_observer.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/render_static_data.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_static_data.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/render_tile.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_tile.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/render_tree.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/renderer.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/renderer_impl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/renderer_impl.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/renderer_state.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/sources/render_custom_geometry_source.cpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/sources/render_custom_geometry_source.hpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/sources/render_geojson_source.cpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/sources/render_geojson_source.hpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/sources/render_image_source.cpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/sources/render_image_source.hpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/sources/render_raster_dem_source.cpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/sources/render_raster_dem_source.hpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/sources/render_raster_source.cpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/sources/render_raster_source.hpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/sources/render_tile_source.cpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/sources/render_tile_source.hpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/sources/render_vector_source.cpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/sources/render_vector_source.hpp",
+			"sourceGroupIndex" : 26
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/source_state.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/source_state.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/style_diff.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/style_diff.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/tile_mask.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/tile_parameters.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/tile_pyramid.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/tile_pyramid.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/tile_render_data.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/tile_render_data.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/transition_parameters.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/update_parameters.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/upload_parameters.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/sprite/sprite_loader.cpp",
+			"sourceGroupIndex" : 27
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/sprite/sprite_loader.hpp",
+			"sourceGroupIndex" : 27
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/sprite/sprite_loader_observer.hpp",
+			"sourceGroupIndex" : 27
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/sprite/sprite_parser.cpp",
+			"sourceGroupIndex" : 27
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/sprite/sprite_parser.hpp",
+			"sourceGroupIndex" : 27
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/storage/asset_file_source.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/storage/mbtiles_file_source.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/storage/file_source_manager.cpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/storage/http_file_source.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/storage/local_file_source.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/storage/main_resource_loader.hpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/storage/network_status.cpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/storage/resource.cpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/storage/resource_options.cpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/storage/resource_transform.cpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/storage/response.cpp",
+			"sourceGroupIndex" : 12
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/collection.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/color_ramp_property_value.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/constant.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/sprite.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/coordinate.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/custom_geometry_source_options.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/filter.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/function.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/geojson.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/geojson_options.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/get_json_type.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/conversion/json.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/layer.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/light.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/position.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/property_value.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/rotation.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/source.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/conversion/stringify.hpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/tileset.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/conversion/transition_options.cpp",
+			"sourceGroupIndex" : 14
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/custom_tile_loader.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/custom_tile_loader.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/assertion.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/at.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/boolean_operator.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/case.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/check_subtype.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/coalesce.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/coercion.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/collator.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/collator_expression.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/comparison.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/compound_expression.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/distance.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/dsl.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/expression/dsl_impl.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/expression.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/find_zoom_curve.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/format_expression.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/formatted.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/get_covering_stops.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/image.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/image_expression.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/in.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/index_of.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/interpolate.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/is_constant.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/is_expression.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/length.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/let.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/literal.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/match.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/number_format.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/parsing_context.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/slice.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/step.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/util.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/expression/util.hpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/value.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/expression/within.cpp",
+			"sourceGroupIndex" : 15
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/filter.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/image.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/sprite.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sprite.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/image_impl.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/image_impl.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layer.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layer_impl.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layer_impl.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layer_observer.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/background_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/background_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/background_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/background_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/background_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/circle_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/circle_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/circle_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/circle_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/circle_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/fill_extrusion_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/fill_extrusion_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/fill_extrusion_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/fill_extrusion_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/fill_extrusion_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/fill_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/fill_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/fill_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/fill_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/fill_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/heatmap_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/heatmap_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/heatmap_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/heatmap_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/heatmap_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/hillshade_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/hillshade_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/hillshade_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/hillshade_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/hillshade_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/line_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/line_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/line_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/line_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/line_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/raster_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/raster_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/raster_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/raster_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/raster_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/symbol_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/symbol_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/symbol_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/symbol_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/symbol_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layout_property.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/light.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/light_impl.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/light_impl.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/light_observer.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/observer.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/paint_property.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/parser.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/parser.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/properties.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/property_expression.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/rapidjson_conversion.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/source.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/source_impl.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/source_impl.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/source_observer.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/custom_geometry_source.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/custom_geometry_source_impl.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/sources/custom_geometry_source_impl.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/geojson_source.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/geojson_source_impl.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/sources/geojson_source_impl.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/image_source.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/image_source_impl.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/sources/image_source_impl.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/raster_dem_source.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/raster_source.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/raster_source_impl.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/sources/raster_source_impl.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/vector_source.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/sources/vector_source_impl.cpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/sources/vector_source_impl.hpp",
+			"sourceGroupIndex" : 17
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/style.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/style_impl.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/style_impl.hpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/types.cpp",
+			"sourceGroupIndex" : 13
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/bidi.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/check_max_angle.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/check_max_angle.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/collision_feature.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/collision_feature.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/collision_index.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/collision_index.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/cross_tile_symbol_index.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/cross_tile_symbol_index.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/get_anchors.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/get_anchors.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/glyph.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/glyph.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/glyph_atlas.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/glyph_atlas.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/glyph_manager.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/glyph_manager.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/glyph_manager_observer.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/glyph_pbf.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/glyph_pbf.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/glyph_range.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/language_tag.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/language_tag.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/local_glyph_rasterizer.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/placement.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/placement.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/quads.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/quads.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/shaping.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/shaping.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/text/tagged_string.cpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/text/tagged_string.hpp",
+			"sourceGroupIndex" : 28
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/custom_geometry_tile.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/custom_geometry_tile.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/geojson_tile.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/geojson_tile.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/geojson_tile_data.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/geometry_tile.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/geometry_tile.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/geometry_tile_data.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/geometry_tile_data.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/geometry_tile_worker.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/geometry_tile_worker.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/raster_dem_tile.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/raster_dem_tile.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/raster_dem_tile_worker.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/raster_dem_tile_worker.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/raster_tile.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/raster_tile.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/raster_tile_worker.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/raster_tile_worker.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/tile.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/tile.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/tile_cache.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/tile_cache.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/tile_id_hash.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/tile_id_io.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/tile_loader.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/tile_loader_impl.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/tile_observer.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/vector_tile.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/vector_tile.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/tile/vector_tile_data.cpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/tile/vector_tile_data.hpp",
+			"sourceGroupIndex" : 18
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/camera.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/bounding_volumes.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/bounding_volumes.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/chrono.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/client_options.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/color.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/constants.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/convert.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/dtoa.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/dtoa.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/event.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/filesystem.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/font_stack.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/geo.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/geojson_impl.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/geometry_util.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/geometry_util.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/grid_index.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/grid_index.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/hash.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/http_header.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/http_header.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/http_timeout.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/http_timeout.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/i18n.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/i18n.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/identity.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/interpolate.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/intersection_tests.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/intersection_tests.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/io.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/io.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/literal.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/logging.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/longest_common_subsequence.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/mapbox.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/mapbox.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/mat2.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/mat2.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/mat3.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/mat3.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/mat4.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/mat4.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/math.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/premultiply.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/quaternion.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/rapidjson.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/rapidjson.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/rect.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/std.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/stopwatch.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/stopwatch.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/string.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/string_indexer.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/thread.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/thread_local.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/thread_pool.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/thread_pool.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/tile_coordinate.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/tile_cover.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/tile_cover.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/tile_cover_impl.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/tile_cover_impl.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/tile_range.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/default_style.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/tile_server_options.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/tiny_sdf.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/tiny_sdf.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/token.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/url.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/url.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/utf.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 1,
+			"path" : "src/mbgl/util/version.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/util/version.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/util/work_request.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/attribute.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/attribute.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/command_encoder.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/command_encoder.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/context.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/context.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/fence.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/fence.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/custom_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/custom_layer_render_parameters.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/custom_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/custom_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/custom_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/debugging_extension.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/debugging_extension.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/defines.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/draw_scope_resource.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/enum.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/enum.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/extension.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/framebuffer.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/index_buffer_resource.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/index_buffer_resource.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/object.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/object.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/offscreen_texture.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/offscreen_texture.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/program.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_custom_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_custom_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/render_pass.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/render_pass.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/renderbuffer_resource.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/renderbuffer_resource.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/renderer_backend.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/state.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/texture.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/texture.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/texture_resource.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/texture_resource.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/timestamp_query_extension.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/timestamp_query_extension.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/types.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/uniform.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/uniform.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/upload_pass.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/upload_pass.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/value.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/value.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/vertex_array.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/vertex_array.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/gl/vertex_buffer_resource.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/gl/vertex_buffer_resource.hpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/location_indicator_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/platform/gl_functions.cpp",
+			"sourceGroupIndex" : 11
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_location_indicator_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_location_indicator_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/location_indicator_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/location_indicator_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/location_indicator_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/location_indicator_layer_properties.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/location_indicator_layer_properties.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/shaders/gl/shader_info.cpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/custom_drawable_layer.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/layermanager/custom_drawable_layer_factory.cpp",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/style/layers/custom_drawable_layer_impl.cpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/style/layers/custom_drawable_layer_impl.hpp",
+			"sourceGroupIndex" : 16
+		},
+		{
+			"backtrace" : 10,
+			"compileGroupIndex" : 0,
+			"path" : "src/mbgl/renderer/layers/render_custom_drawable_layer.cpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 10,
+			"path" : "src/mbgl/renderer/layers/render_custom_drawable_layer.hpp",
+			"sourceGroupIndex" : 20
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/async_task.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/attach_env.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"path" : "platform/android/src/attach_env.hpp",
+			"sourceGroupIndex" : 30
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/bitmap.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"path" : "platform/android/src/bitmap.hpp",
+			"sourceGroupIndex" : 30
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/bitmap_factory.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"path" : "platform/android/src/bitmap_factory.hpp",
+			"sourceGroupIndex" : 30
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/gl_functions.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/image.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/jni.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"path" : "platform/android/src/jni.hpp",
+			"sourceGroupIndex" : 30
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/run_loop.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"path" : "platform/android/src/run_loop_impl.hpp",
+			"sourceGroupIndex" : 30
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/string_util.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/thread.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/android/src/timer.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/gfx/headless_backend.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/gfx/headless_frontend.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/gl/headless_backend.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/map/map_snapshotter.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/platform/time.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/asset_file_source.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/database_file_source.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/file_source_manager.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/file_source_request.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/local_file_request.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/local_file_source.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/mbtiles_file_source.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/main_resource_loader.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/offline.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/offline_database.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/offline_download.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/online_file_source.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/storage/sqlite3.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/text/bidi.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/util/compression.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/util/filesystem.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/util/monotonic_timer.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/util/png_writer.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/util/thread_local.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/util/utf.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/default/src/mbgl/layermanager/layer_manager.cpp",
+			"sourceGroupIndex" : 29
+		},
+		{
+			"backtrace" : 12,
+			"compileGroupIndex" : 0,
+			"path" : "platform/linux/src/headless_backend_egl.cpp",
+			"sourceGroupIndex" : 29
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

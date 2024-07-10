@@ -1,0 +1,287 @@
+{
+  "buildFiles": [
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/benchmark/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/platform/android/android.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/render-test/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/scripts/license.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/prefab/x86/prefab/lib/i686-linux-android/cmake/boringssl/boringsslConfig.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/prefab/x86/prefab/lib/i686-linux-android/cmake/curl/curlConfig.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/_deps/tracy-src/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/benchmark.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/boost.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/cpp-httplib.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/csscolorparser.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/earcut.hpp.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/eternal.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/icu.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/rapidjson.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/include/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/parsedate.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/polylabel.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/protozero.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/sqlite.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/tracy.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unique_resource.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unordered_dense/CMakeLists.txt",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/vector-tile.cmake",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/wagyu.cmake"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "ContinuousStart::@6890427a1f51a3e7e1df": {
+      "artifactName": "ContinuousStart",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlySubmit::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlySubmit",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-parsedate::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-vendor-parsedate",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/libmbgl-vendor-parsedate.a",
+      "runtimeFiles": []
+    },
+    "Nightly::@6890427a1f51a3e7e1df": {
+      "artifactName": "Nightly",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyMemCheck::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlyMemCheck",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-googletest::@36f028580bb02cc8272a": {
+      "artifactName": "mbgl-vendor-googletest",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/test/libmbgl-vendor-googletest.a",
+      "runtimeFiles": []
+    },
+    "ContinuousSubmit::@6890427a1f51a3e7e1df": {
+      "artifactName": "ContinuousSubmit",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyUpdate::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlyUpdate",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalMemCheck::@6890427a1f51a3e7e1df": {
+      "artifactName": "ExperimentalMemCheck",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyBuild::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlyBuild",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalCoverage::@6890427a1f51a3e7e1df": {
+      "artifactName": "ExperimentalCoverage",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyMemoryCheck::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlyMemoryCheck",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-test-runner::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-test-runner",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/Debug/6p3366h4/obj/x86/libmbgl-test-runner.so",
+      "runtimeFiles": []
+    },
+    "ExperimentalTest::@6890427a1f51a3e7e1df": {
+      "artifactName": "ExperimentalTest",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "example-custom-layer::@6890427a1f51a3e7e1df": {
+      "artifactName": "example-custom-layer",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/Debug/6p3366h4/obj/x86/libexample-custom-layer.so",
+      "runtimeFiles": []
+    },
+    "ContinuousMemCheck::@6890427a1f51a3e7e1df": {
+      "artifactName": "ContinuousMemCheck",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "Continuous::@6890427a1f51a3e7e1df": {
+      "artifactName": "Continuous",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousBuild::@6890427a1f51a3e7e1df": {
+      "artifactName": "ContinuousBuild",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousTest::@6890427a1f51a3e7e1df": {
+      "artifactName": "ContinuousTest",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalUpdate::@6890427a1f51a3e7e1df": {
+      "artifactName": "ExperimentalUpdate",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyTest::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlyTest",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalStart::@6890427a1f51a3e7e1df": {
+      "artifactName": "ExperimentalStart",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-benchmark-runner::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-benchmark-runner",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/Debug/6p3366h4/obj/x86/libmbgl-benchmark-runner.so",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-benchmark::@3e2e920e28e9d6b4e283": {
+      "artifactName": "mbgl-vendor-benchmark",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/benchmark/libmbgl-vendor-benchmark.a",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-sqlite::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-vendor-sqlite",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/libmbgl-vendor-sqlite.a",
+      "runtimeFiles": []
+    },
+    "ContinuousUpdate::@6890427a1f51a3e7e1df": {
+      "artifactName": "ContinuousUpdate",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-csscolorparser::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-vendor-csscolorparser",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/libmbgl-vendor-csscolorparser.a",
+      "runtimeFiles": []
+    },
+    "TracyClient::@5312c6e87bd9d431bdc8": {
+      "artifactName": "TracyClient",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/_deps/tracy-build/libTracyClient.a",
+      "runtimeFiles": []
+    },
+    "mbgl-core-license::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-core-license",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalConfigure::@6890427a1f51a3e7e1df": {
+      "artifactName": "ExperimentalConfigure",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousConfigure::@6890427a1f51a3e7e1df": {
+      "artifactName": "ContinuousConfigure",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalSubmit::@6890427a1f51a3e7e1df": {
+      "artifactName": "ExperimentalSubmit",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousCoverage::@6890427a1f51a3e7e1df": {
+      "artifactName": "ContinuousCoverage",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-test::@36f028580bb02cc8272a": {
+      "artifactName": "mbgl-test",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/test/libmbgl-test.a",
+      "runtimeFiles": []
+    },
+    "mbgl-core::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-core",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/libmbgl-core.a",
+      "runtimeFiles": []
+    },
+    "ExperimentalBuild::@6890427a1f51a3e7e1df": {
+      "artifactName": "ExperimentalBuild",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyStart::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlyStart",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-benchmark::@3e2e920e28e9d6b4e283": {
+      "artifactName": "mbgl-benchmark",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/benchmark/libmbgl-benchmark.a",
+      "runtimeFiles": []
+    },
+    "mbgl-render-test-runner::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-render-test-runner",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/Debug/6p3366h4/obj/x86/libmbgl-render-test-runner.so",
+      "runtimeFiles": []
+    },
+    "NightlyConfigure::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlyConfigure",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "Experimental::@6890427a1f51a3e7e1df": {
+      "artifactName": "Experimental",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyCoverage::@6890427a1f51a3e7e1df": {
+      "artifactName": "NightlyCoverage",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-icu::@6890427a1f51a3e7e1df": {
+      "artifactName": "mbgl-vendor-icu",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/libmbgl-vendor-icu.a",
+      "runtimeFiles": []
+    },
+    "mbgl-render-test::@6e3b0ce576d379659bc0": {
+      "artifactName": "mbgl-render-test",
+      "abi": "x86",
+      "output": "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/render-test/libmbgl-render-test.a",
+      "runtimeFiles": []
+    }
+  }
+}

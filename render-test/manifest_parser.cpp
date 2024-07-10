@@ -7,8 +7,12 @@
 #include <algorithm>
 #include <random>
 
+#if defined(WIN32) && defined(GetObject)
+#undef GetObject
+#endif
+
 Manifest::Manifest() {
-    const char* envApiKey = getenv("MGL_API_KEY");
+    const char* envApiKey = getenv("MLN_API_KEY");
     if (envApiKey != nullptr) {
         apiKey = envApiKey;
     }
@@ -70,7 +74,7 @@ std::vector<std::pair<std::string, std::string>> parseIgnores(const std::vector<
 
 // defaultExpectationPath: absolute path that constains the style.json file for testing
 // testId: Test case id that used for composing expectation path
-// expectatedPaths: absolute paths that constain possible expected.png/metrics.json files for result checking
+// expectatedPaths: absolute paths that contain possible expected.png/metrics.json files for result checking
 std::vector<mbgl::filesystem::path> getTestExpectations(const mbgl::filesystem::path& defaultExpectationPath,
                                                         const std::string& testId,
                                                         std::vector<mbgl::filesystem::path> expectatedPaths) {
@@ -90,61 +94,60 @@ mbgl::filesystem::path getValidPath(const std::string& manifestPath, const std::
     if (mbgl::filesystem::exists(result)) {
         return result.lexically_normal();
     }
-    mbgl::Log::Warning(mbgl::Event::General, "Invalid path is provided inside the manifest file: %s", path.c_str());
+    mbgl::Log::Warning(mbgl::Event::General, "Invalid path is provided inside the manifest file: " + path);
     return mbgl::filesystem::path{};
 }
 
 } // namespace
 
-mbgl::optional<Manifest> ManifestParser::parseManifest(const std::string& manifestPath,
-                                                       std::string testFilter) {
+std::optional<Manifest> ManifestParser::parseManifest(const std::string& manifestPath, std::string testFilter) {
     Manifest manifest;
     const auto filePath = mbgl::filesystem::path(manifestPath);
     manifest.manifestPath = manifestPath.substr(0, manifestPath.find(filePath.filename()));
 
     auto contents = readJson(filePath);
     if (!contents.is<mbgl::JSDocument>()) {
-        mbgl::Log::Error(mbgl::Event::General, "Provided manifest file: %s is not a valid json", filePath.c_str());
-        return mbgl::nullopt;
+        mbgl::Log::Error(mbgl::Event::General,
+                         "Provided manifest file: " + std::string(filePath) + " is not a valid json");
+        return std::nullopt;
     }
 
     auto document = std::move(contents.get<mbgl::JSDocument>());
     if (document.HasMember("result_path")) {
         const auto& resultPathValue = document["result_path"];
         if (!resultPathValue.IsString()) {
-            mbgl::Log::Warning(
-                mbgl::Event::General, "Invalid result_path is provided inside the manifest file: %s", filePath.c_str());
-            return mbgl::nullopt;
+            mbgl::Log::Warning(mbgl::Event::General,
+                               "Invalid result_path is provided inside the manifest file: " + std::string(filePath));
+            return std::nullopt;
         }
         manifest.resultPath = (getValidPath(manifest.manifestPath, resultPathValue.GetString()) / "").string();
         if (manifest.resultPath.empty()) {
-            return mbgl::nullopt;
+            return std::nullopt;
         }
     }
     if (document.HasMember("cache_path")) {
         const auto& cachePathValue = document["cache_path"];
         if (!cachePathValue.IsString()) {
-            mbgl::Log::Warning(
-                mbgl::Event::General, "Invalid cache_path is provided inside the manifest file: %s", filePath.c_str());
-            return mbgl::nullopt;
+            mbgl::Log::Warning(mbgl::Event::General,
+                               "Invalid cache_path is provided inside the manifest file: " + std::string(filePath));
+            return std::nullopt;
         }
         manifest.cachePath = (getValidPath(manifest.manifestPath, ".") / cachePathValue.GetString()).string();
         if (manifest.cachePath.empty()) {
-            return mbgl::nullopt;
+            return std::nullopt;
         }
     }
-    //TODO:PP
+    // TODO:PP
     if (document.HasMember("access_token")) {
         const auto& apiKeyValue = document["access_token"];
         if (!apiKeyValue.IsString()) {
             mbgl::Log::Warning(mbgl::Event::General,
-                               "Invalid access_token is provided inside the manifest file: %s",
-                               filePath.c_str());
-            return mbgl::nullopt;
+                               "Invalid access_token is provided inside the manifest file: " + std::string(filePath));
+            return std::nullopt;
         }
         manifest.apiKey = apiKeyValue.GetString();
         if (manifest.apiKey.empty()) {
-            return mbgl::nullopt;
+            return std::nullopt;
         }
     }
     mbgl::filesystem::path baseTestPath;
@@ -152,26 +155,27 @@ mbgl::optional<Manifest> ManifestParser::parseManifest(const std::string& manife
         const auto& testPathValue = document["base_test_path"];
         if (!testPathValue.IsString()) {
             mbgl::Log::Warning(mbgl::Event::General,
-                               "Invalid base_test_path is provided inside the manifest file: %s",
-                               filePath.c_str());
-            return mbgl::nullopt;
+                               "Invalid base_test_path is provided inside the manifest "
+                               "file: " +
+                                   std::string(filePath));
+            return std::nullopt;
         }
         baseTestPath = getValidPath(manifest.manifestPath, testPathValue.GetString());
         if (baseTestPath.empty()) {
-            return mbgl::nullopt;
+            return std::nullopt;
         }
     }
     mbgl::filesystem::path expectedMetricPath;
     if (document.HasMember("metric_path")) {
         const auto& metricPathValue = document["metric_path"];
         if (!metricPathValue.IsString()) {
-            mbgl::Log::Warning(
-                mbgl::Event::General, "Invalid metric_path is provided inside the manifest file: %s", filePath.c_str());
-            return mbgl::nullopt;
+            mbgl::Log::Warning(mbgl::Event::General,
+                               "Invalid metric_path is provided inside the manifest file: " + std::string(filePath));
+            return std::nullopt;
         }
         expectedMetricPath = getValidPath(manifest.manifestPath, metricPathValue.GetString());
         if (expectedMetricPath.empty()) {
-            return mbgl::nullopt;
+            return std::nullopt;
         }
     }
     std::vector<mbgl::filesystem::path> expectationPaths{};
@@ -179,20 +183,22 @@ mbgl::optional<Manifest> ManifestParser::parseManifest(const std::string& manife
         const auto& expectationPathValue = document["expectation_paths"];
         if (!expectationPathValue.IsArray()) {
             mbgl::Log::Warning(mbgl::Event::General,
-                               "Provided expectation_paths inside the manifest file: %s is not a valid array",
-                               filePath.c_str());
-            return mbgl::nullopt;
+                               "Provided expectation_paths inside the manifest file: %s is "
+                               "not a valid array" +
+                                   std::string(filePath));
+            return std::nullopt;
         }
         for (const auto& value : expectationPathValue.GetArray()) {
             if (!value.IsString()) {
                 mbgl::Log::Warning(mbgl::Event::General,
-                                   "Invalid expectation path item is provided inside the manifest file: %s",
-                                   filePath.c_str());
-                return mbgl::nullopt;
+                                   "Invalid expectation path item is provided inside the "
+                                   "manifest file: " +
+                                       std::string(filePath));
+                return std::nullopt;
             }
             expectationPaths.emplace_back(getValidPath(manifest.manifestPath, value.GetString()));
             if (expectationPaths.back().empty()) {
-                return mbgl::nullopt;
+                return std::nullopt;
             }
         }
     }
@@ -200,21 +206,22 @@ mbgl::optional<Manifest> ManifestParser::parseManifest(const std::string& manife
     if (document.HasMember("ignore_paths")) {
         const auto& ignorePathValue = document["ignore_paths"];
         if (!ignorePathValue.IsArray()) {
-            mbgl::Log::Warning(mbgl::Event::General,
-                               "Provided ignore_paths inside the manifest file: %s is not a valid array",
-                               filePath.c_str());
-            return mbgl::nullopt;
+            mbgl::Log::Warning(
+                mbgl::Event::General,
+                "Provided ignore_paths inside the manifest file: " + std::string(filePath) + " is not a valid array");
+            return std::nullopt;
         }
         for (const auto& value : ignorePathValue.GetArray()) {
             if (!value.IsString()) {
                 mbgl::Log::Warning(mbgl::Event::General,
-                                   "Invalid ignore path item is provided inside the manifest file: %s",
-                                   filePath.c_str());
-                return mbgl::nullopt;
+                                   "Invalid ignore path item is provided inside the manifest "
+                                   "file: " +
+                                       std::string(filePath));
+                return std::nullopt;
             }
             ignorePaths.emplace_back(getValidPath(manifest.manifestPath, value.GetString()));
             if (ignorePaths.back().empty()) {
-                return mbgl::nullopt;
+                return std::nullopt;
             }
         }
         manifest.ignores = parseIgnores(ignorePaths);
@@ -223,17 +230,18 @@ mbgl::optional<Manifest> ManifestParser::parseManifest(const std::string& manife
     if (document.HasMember("probes")) {
         const auto& probesValue = document["probes"];
         if (!probesValue.IsArray()) {
-            mbgl::Log::Warning(mbgl::Event::General,
-                               "Provided probes inside the manifest file: %s is not a valid array",
-                               filePath.c_str());
-            return mbgl::nullopt;
+            mbgl::Log::Warning(
+                mbgl::Event::General,
+                "Provided probes inside the manifest file: " + std::string(filePath) + "is not a valid array");
+            return std::nullopt;
         }
         for (const auto& value : probesValue.GetArray()) {
             if (!value.IsString()) {
                 mbgl::Log::Warning(mbgl::Event::General,
-                                   "Invalid probe type is provided inside the manifest file: %s",
-                                   filePath.c_str());
-                return mbgl::nullopt;
+                                   "Invalid probe type is provided inside the manifest "
+                                   "file: " +
+                                       std::string(filePath));
+                return std::nullopt;
             }
             manifest.probes.emplace(value.GetString());
         }
@@ -242,9 +250,9 @@ mbgl::optional<Manifest> ManifestParser::parseManifest(const std::string& manife
     if (testFilter.empty() && document.HasMember("filter")) {
         const auto& filterValue = document["filter"];
         if (!filterValue.IsString()) {
-            mbgl::Log::Warning(
-                mbgl::Event::General, "Invalid filter is provided inside the manifest file: %s", filePath.c_str());
-            return mbgl::nullopt;
+            mbgl::Log::Warning(mbgl::Event::General,
+                               "Invalid filter is provided inside the manifest file: " + std::string(filePath));
+            return std::nullopt;
         }
 
         testFilter = filterValue.GetString();
@@ -280,7 +288,29 @@ mbgl::optional<Manifest> ManifestParser::parseManifest(const std::string& manife
 
             std::vector<mbgl::filesystem::path> expectedMetricPaths{expectedMetricPath};
 #if defined(__ANDROID__)
-            expectedMetricPaths.emplace_back("/sdcard/baselines/");
+            // todo: use `Context.getExternalFilesDir()` or similar via JNI to select an appropriate destination
+            const auto locations = std::vector<std::string>{
+                "/sdcard",
+                "/storage/emulated/0",
+                "/storage/self/primary",
+            };
+            static bool reportedOnce = false;
+            for (const auto& location : locations) {
+                // Checking `mbgl::filesystem::status` doesn't accurately reflect whether we can create subdirectories,
+                // so just try it. (See `TestRunner::checkProbingResults`)
+                try {
+                    const auto baselinesPath = location + "/baselines";
+                    mbgl::filesystem::create_directories(baselinesPath);
+                    expectedMetricPaths.emplace_back(baselinesPath);
+                    break;
+                } catch (mbgl::filesystem::filesystem_error& ex) {
+                    if (!reportedOnce) {
+                        mbgl::Log::Warning(mbgl::Event::Android, "Not a writable directory: " + std::string(ex.what()));
+                    }
+                }
+            }
+            // Only log on the first case
+            reportedOnce = true;
 #elif defined(__APPLE__)
             expectedMetricPaths.emplace_back(manifest.manifestPath + "/baselines/");
 #endif
@@ -290,5 +320,5 @@ mbgl::optional<Manifest> ManifestParser::parseManifest(const std::string& manife
         }
     }
 
-    return mbgl::optional<Manifest>(manifest);
+    return std::optional<Manifest>(manifest);
 }

@@ -6,11 +6,15 @@ namespace mbgl {
 namespace style {
 namespace expression {
 
-Image::Image(std::string imageID_, bool available_) : imageID(std::move(imageID_)), available(available_) {}
+Image::Image(std::string imageID_, bool available_)
+    : imageID(std::move(imageID_)),
+      available(available_) {}
 
-Image::Image(std::string imageID_) : Image(std::move(imageID_), false) {}
+Image::Image(std::string imageID_)
+    : Image(std::move(imageID_), false) {}
 
-Image::Image(const char* imageID_) : Image(std::string(imageID_)) {
+Image::Image(const char* imageID_)
+    : Image(std::string(imageID_)) {
     assert(imageID_);
 }
 
@@ -38,27 +42,27 @@ bool Image::empty() const {
 
 namespace conversion {
 using namespace mbgl::style::expression;
-optional<Image> Converter<Image>::operator()(const Convertible& value, Error& error) const {
+std::optional<Image> Converter<Image>::operator()(const Convertible& value, Error& error) const {
     if (isArray(value)) {
         Convertible imageParameters = arrayMember(value, 0);
         std::size_t imageParametersLength = arrayLength(imageParameters);
         if (imageParametersLength < 1) {
             error.message = "Image has to contain an ID.";
-            return nullopt;
+            return std::nullopt;
         }
 
-        optional<std::string> imageID = toString(arrayMember(imageParameters, 0));
+        std::optional<std::string> imageID = toString(arrayMember(imageParameters, 0));
         if (!imageID) {
             error.message = "Image has to contain an ID.";
-            return nullopt;
+            return std::nullopt;
         }
 
         return Image(*imageID, false);
-    } else if (optional<std::string> result = toString(value)) {
+    } else if (std::optional<std::string> result = toString(value)) {
         return Image(*result, false);
     } else {
         error.message = "Image must be plain string or array type.";
-        return nullopt;
+        return std::nullopt;
     }
 }
 

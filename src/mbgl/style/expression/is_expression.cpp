@@ -13,12 +13,11 @@ using namespace mbgl::style::conversion;
 
 bool isExpression(const Convertible& value) {
     if (!isArray(value) || arrayLength(value) == 0) return false;
-    optional<std::string> name = toString(arrayMember(value, 0));
+    std::optional<std::string> name = toString(arrayMember(value, 0));
     if (!name) return false;
-    
+
     return isExpression(*name) || CompoundExpression::exists(*name);
 }
-
 
 } // namespace expression
 } // namespace style

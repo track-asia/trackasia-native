@@ -16,10 +16,9 @@
 namespace mbgl {
 namespace util {
 
-using LOOP_HANDLE = void *;
+using LOOP_HANDLE = void*;
 
-class RunLoop : public Scheduler,
-                private util::noncopyable {
+class RunLoop : public Scheduler, private util::noncopyable {
 public:
     enum class Type : uint8_t {
         Default,
@@ -32,9 +31,9 @@ public:
     };
 
     enum class Event : uint8_t {
-        None      = 0,
-        Read      = 1,
-        Write     = 2,
+        None = 0,
+        Read = 1,
+        Write = 2,
         ReadWrite = Read | Write,
     };
 
@@ -49,7 +48,7 @@ public:
     void stop();
 
     /// Platform integration callback for platforms that do not have full
-    /// run loop integration or don't want to block at the Trackasia GL Native
+    /// run loop integration or don't want to block at the Mapbox GL Native
     /// loop. It will be called from any thread and is up to the platform
     /// to, after receiving the callback, call RunLoop::runOnce() from the
     /// same thread as the Map object lives.
@@ -73,15 +72,17 @@ public:
 
     // Post the cancellable work fn(args...) to this RunLoop.
     template <class Fn, class... Args>
-    std::unique_ptr<AsyncRequest>
-    invokeCancellable(Fn&& fn, Args&&... args) {
+    std::unique_ptr<AsyncRequest> invokeCancellable(Fn&& fn, Args&&... args) {
         std::shared_ptr<WorkTask> task = WorkTask::make(std::forward<Fn>(fn), std::forward<Args>(args)...);
         push(Priority::Default, task);
         return std::make_unique<WorkRequest>(task);
     }
 
-    void schedule(std::function<void()> fn) override { invoke(std::move(fn)); }
+    void schedule(std::function<void()>&& fn) override { invoke(std::move(fn)); }
+    void schedule(const util::SimpleIdentity, std::function<void()>&& fn) override { schedule(std::move(fn)); }
     ::mapbox::base::WeakPtr<Scheduler> makeWeakPtr() override { return weakFactory.makeWeakPtr(); }
+
+    void waitForEmpty(const util::SimpleIdentity = util::SimpleIdentity::Empty) override;
 
     class Impl;
 

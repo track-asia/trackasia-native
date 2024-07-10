@@ -1,1 +1,1 @@
-libboost 1.69 for Trackasia GL Native
+libboost 1.83 for MapLibre Native

@@ -8,24 +8,27 @@
 #include <string>
 #include <vector>
 #include <tuple>
+#include <optional>
 
 namespace mbgl {
 namespace style {
 
 class Filter {
 public:
-    optional<std::shared_ptr<const expression::Expression>> expression;
+    std::optional<std::shared_ptr<const expression::Expression>> expression;
+
 private:
-    optional<mbgl::Value> legacyFilter;
+    std::optional<mbgl::Value> legacyFilter;
+
 public:
     Filter() = default;
 
-    Filter(expression::ParseResult _expression, optional<mbgl::Value> _filter = {})
-    : expression(std::move(*_expression)),
-     legacyFilter(std::move(_filter)){
+    Filter(expression::ParseResult _expression, std::optional<mbgl::Value> _filter = std::nullopt)
+        : expression(std::move(*_expression)),
+          legacyFilter(std::move(_filter)) {
         assert(!expression || *expression != nullptr);
     }
-    
+
     bool operator()(const expression::EvaluationContext& context) const;
 
     operator bool() const { return expression || legacyFilter; }
@@ -37,16 +40,13 @@ public:
             return *(lhs.expression) == *(rhs.expression);
         }
     }
-    
-    friend bool operator!=(const Filter& lhs, const Filter& rhs) {
-        return !(lhs == rhs);
-    }
-    
+
+    friend bool operator!=(const Filter& lhs, const Filter& rhs) { return !(lhs == rhs); }
+
     mbgl::Value serialize() const {
         if (legacyFilter) {
             return *legacyFilter;
-        }
-        else if (expression) {
+        } else if (expression) {
             return (**expression).serialize();
         }
         return NullValue();

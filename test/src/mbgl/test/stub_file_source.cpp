@@ -10,21 +10,24 @@ using namespace std::chrono_literals;
 class StubFileRequest : public AsyncRequest {
 public:
     StubFileRequest(StubFileSource& fileSource_)
-        : fileSource(fileSource_) {
-    }
+        : fileSource(fileSource_) {}
 
-    ~StubFileRequest() override {
-        fileSource.remove(this);
-    }
+    ~StubFileRequest() override { fileSource.remove(this); }
 
     StubFileSource& fileSource;
 };
 
-StubFileSource::StubFileSource(ResponseType type_):
-    StubFileSource::StubFileSource(ResourceOptions().withTileServerOptions(TileServerOptions::MapTilerConfiguration()), ClientOptions(), type_) {}
+StubFileSource::StubFileSource(ResponseType type_)
+    : StubFileSource::StubFileSource(
+          ResourceOptions().withTileServerOptions(TileServerOptions::MapTilerConfiguration()), ClientOptions(), type_) {
+}
 
-StubFileSource::StubFileSource(const ResourceOptions& resourceOptions_, const ClientOptions& clientOptions_, ResponseType type_)
-        : type(type_), resourceOptions(resourceOptions_.clone()), clientOptions(clientOptions_.clone()) {
+StubFileSource::StubFileSource(const ResourceOptions& resourceOptions_,
+                               const ClientOptions& clientOptions_,
+                               ResponseType type_)
+    : type(type_),
+      resourceOptions(resourceOptions_.clone()),
+      clientOptions(clientOptions_.clone()) {
     if (type == ResponseType::Synchronous) {
         return;
     }
@@ -33,16 +36,18 @@ StubFileSource::StubFileSource(const ResourceOptions& resourceOptions_, const Cl
         // Explicit copy to avoid iterator invalidation if ~StubFileRequest gets called within the loop.
         auto pending_ = pending;
         for (auto& pair : pending_) {
-            optional<Response> res = std::get<1>(pair.second)(std::get<0>(pair.second));
+            std::optional<Response> res = std::get<1>(pair.second)(std::get<0>(pair.second));
             if (res) {
-                // This must be before calling the callback, because it's possible that the callback
-                // could:
+                // This must be before calling the callback, because it's
+                // possible that the callback could:
                 //
-                //   1. Deallocate the AsyncRequest itself, thus removing it from pending
+                //   1. Deallocate the AsyncRequest itself, thus removing it
+                //   from pending
                 //   2. Allocate a new AsyncRequest at the same memory location
                 //
-                // If remove(pair.first) was called after both those things happened, it would
-                // remove the newly allocated request rather than the intended request.
+                // If remove(pair.first) was called after both those things
+                // happened, it would remove the newly allocated request rather
+                // than the intended request.
                 if (!res->error) {
                     remove(pair.first);
                 }
@@ -58,7 +63,7 @@ StubFileSource::~StubFileSource() = default;
 std::unique_ptr<AsyncRequest> StubFileSource::request(const Resource& resource, Callback callback) {
     auto req = std::make_unique<StubFileRequest>(*this);
     if (type == ResponseType::Synchronous) {
-        optional<Response> res = response(resource);
+        std::optional<Response> res = response(resource);
         if (res) {
             callback(*res);
         }
@@ -84,31 +89,31 @@ mapbox::base::Value StubFileSource::getProperty(const std::string& key) const {
     return (it != properties.end()) ? it->second : mapbox::base::Value();
 }
 
-optional<Response> StubFileSource::defaultResponse(const Resource& resource) {
+std::optional<Response> StubFileSource::defaultResponse(const Resource& resource) {
     switch (resource.kind) {
-    case Resource::Kind::Style:
-        if (!styleResponse) throw std::runtime_error("unexpected style request");
-        return styleResponse(resource);
-    case Resource::Kind::Source:
-        if (!sourceResponse) throw std::runtime_error("unexpected source request");
-        return sourceResponse(resource);
-    case Resource::Kind::Tile:
-        if (!tileResponse) throw std::runtime_error("unexpected tile request");
-        return tileResponse(resource);
-    case Resource::Kind::Glyphs:
-        if (!glyphsResponse) throw std::runtime_error("unexpected glyphs request");
-        return glyphsResponse(resource);
-    case Resource::Kind::SpriteJSON:
-        if (!spriteJSONResponse) throw std::runtime_error("unexpected sprite JSON request");
-        return spriteJSONResponse(resource);
-    case Resource::Kind::SpriteImage:
-        if (!spriteImageResponse) throw std::runtime_error("unexpected sprite image request");
-        return spriteImageResponse(resource);
-    case Resource::Kind::Image:
-        if (!imageResponse) throw std::runtime_error("unexpected image request");
-        return imageResponse(resource);
-    case Resource::Kind::Unknown:
-        throw std::runtime_error("unknown resource type");
+        case Resource::Kind::Style:
+            if (!styleResponse) throw std::runtime_error("unexpected style request");
+            return styleResponse(resource);
+        case Resource::Kind::Source:
+            if (!sourceResponse) throw std::runtime_error("unexpected source request");
+            return sourceResponse(resource);
+        case Resource::Kind::Tile:
+            if (!tileResponse) throw std::runtime_error("unexpected tile request");
+            return tileResponse(resource);
+        case Resource::Kind::Glyphs:
+            if (!glyphsResponse) throw std::runtime_error("unexpected glyphs request");
+            return glyphsResponse(resource);
+        case Resource::Kind::SpriteJSON:
+            if (!spriteJSONResponse) throw std::runtime_error("unexpected sprite JSON request");
+            return spriteJSONResponse(resource);
+        case Resource::Kind::SpriteImage:
+            if (!spriteImageResponse) throw std::runtime_error("unexpected sprite image request");
+            return spriteImageResponse(resource);
+        case Resource::Kind::Image:
+            if (!imageResponse) throw std::runtime_error("unexpected image request");
+            return imageResponse(resource);
+        case Resource::Kind::Unknown:
+            throw std::runtime_error("unknown resource type");
     }
 
     // The above switch is exhaustive, but placate GCC nonetheless:

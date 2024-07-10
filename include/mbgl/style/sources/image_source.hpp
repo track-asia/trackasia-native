@@ -2,7 +2,8 @@
 
 #include <mbgl/style/source.hpp>
 #include <mbgl/util/image.hpp>
-#include <mbgl/util/optional.hpp>
+
+#include <optional>
 
 namespace mbgl {
 class LatLng;
@@ -15,7 +16,7 @@ public:
     ImageSource(std::string id, std::array<LatLng, 4>);
     ~ImageSource() override;
 
-    optional<std::string> getURL() const;
+    std::optional<std::string> getURL() const;
     void setURL(const std::string& url);
 
     void setImage(PremultipliedImage&&);
@@ -30,17 +31,16 @@ public:
 
     bool supportsLayerType(const mbgl::style::LayerTypeInfo*) const override;
 
-    mapbox::base::WeakPtr<Source> makeWeakPtr() override {
-        return weakFactory.makeWeakPtr();
-    }
+    mapbox::base::WeakPtr<Source> makeWeakPtr() override { return weakFactory.makeWeakPtr(); }
 
 protected:
     Mutable<Source::Impl> createMutable() const noexcept final;
 
 private:
-    optional<std::string> url;
+    std::optional<std::string> url;
     std::unique_ptr<AsyncRequest> req;
-    mapbox::base::WeakPtrFactory<Source> weakFactory {this};
+    mapbox::base::WeakPtrFactory<Source> weakFactory{this};
+    // Do not add members here, see `WeakPtrFactory`
 };
 
 template <>

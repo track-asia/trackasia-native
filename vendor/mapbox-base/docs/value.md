@@ -282,7 +282,7 @@ outputs
 
 ## A real world example
 
-Let's assume you want to create a line gradient to be used in Trackasia GL-Native. We can programatically construct the data structure as we would do it if the data comes from a backend data source:
+Let's assume you want to create a line gradient to be used in Mapbox GL-Native. We can programatically construct the data structure as we would do it if the data comes from a backend data source:
 
 ```C++
     using A = mapbox::base::ValueArray;

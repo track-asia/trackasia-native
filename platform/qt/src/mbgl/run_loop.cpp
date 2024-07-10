@@ -1,6 +1,7 @@
 #include "run_loop_impl.hpp"
 
 #include <mbgl/actor/scheduler.hpp>
+#include <mbgl/util/monotonic_timer.hpp>
 
 #include <QCoreApplication>
 
@@ -24,14 +25,15 @@ RunLoop* RunLoop::Get() {
     return static_cast<RunLoop*>(Scheduler::GetCurrent());
 }
 
-RunLoop::RunLoop(Type type) : impl(std::make_unique<Impl>()) {
+RunLoop::RunLoop(Type type)
+    : impl(std::make_unique<Impl>()) {
     switch (type) {
-    case Type::New:
-        impl->loop = std::make_unique<QEventLoop>();
-        break;
-    case Type::Default:
-        // Use QCoreApplication::instance().
-        break;
+        case Type::New:
+            impl->loop = std::make_unique<QEventLoop>();
+            break;
+        case Type::Default:
+            // Use QCoreApplication::instance().
+            break;
     }
 
     impl->type = type;
@@ -89,6 +91,22 @@ void RunLoop::runOnce() {
     }
 }
 
+void RunLoop::waitForEmpty([[maybe_unused]] const mbgl::util::SimpleIdentity tag) {
+    while (true) {
+        std::size_t remaining;
+        {
+            std::lock_guard<std::mutex> lock(mutex);
+            remaining = defaultQueue.size() + highPriorityQueue.size();
+        }
+
+        if (remaining == 0) {
+            return;
+        }
+
+        runOnce();
+    }
+}
+
 void RunLoop::addWatch(int fd, Event event, std::function<void(int, Event)>&& cb) {
     MBGL_VERIFY_THREAD(tid);
 
@@ -119,5 +137,5 @@ void RunLoop::removeWatch(int fd) {
     }
 }
 
-}
-}
+} // namespace util
+} // namespace mbgl

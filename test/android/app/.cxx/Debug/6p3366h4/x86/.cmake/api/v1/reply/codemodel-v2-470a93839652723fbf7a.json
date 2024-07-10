@@ -1,0 +1,614 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-08d082f75fd359330df1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						29,
+						31,
+						32,
+						33,
+						35,
+						37,
+						39,
+						41,
+						42,
+						43
+					]
+				},
+				{
+					"build" : "vendor/mapbox-base",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4
+					],
+					"jsonFile" : "directory-vendor.mapbox-base-Debug-cc33197cbfc67b9eb002.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "vendor/mapbox-base"
+				},
+				{
+					"build" : "vendor/mapbox-base/extras",
+					"jsonFile" : "directory-vendor.mapbox-base.extras-Debug-7a685c69a34f7ed223dc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "vendor/mapbox-base/extras"
+				},
+				{
+					"build" : "vendor/mapbox-base/include",
+					"jsonFile" : "directory-vendor.mapbox-base.include-Debug-29e5efd2f59372ffbb3d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "vendor/mapbox-base/include"
+				},
+				{
+					"build" : "vendor/mapbox-base/deps",
+					"jsonFile" : "directory-vendor.mapbox-base.deps-Debug-28d84e01715b23d90d94.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "vendor/mapbox-base/deps"
+				},
+				{
+					"build" : "_deps/tracy-build",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-_deps.tracy-build-Debug-1813dda9f6018179a686.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "test/android/app/.cxx/Debug/6p3366h4/x86/_deps/tracy-src",
+					"targetIndexes" : 
+					[
+						28
+					]
+				},
+				{
+					"build" : "vendor/unordered_dense",
+					"jsonFile" : "directory-vendor.unordered_dense-Debug-f4733e295f3f87f56327.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 3,
+					"source" : "vendor/unordered_dense"
+				},
+				{
+					"build" : "test",
+					"jsonFile" : "directory-test-Debug-451c0598f41488bb20b9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "test",
+					"targetIndexes" : 
+					[
+						36,
+						40
+					]
+				},
+				{
+					"build" : "benchmark",
+					"jsonFile" : "directory-benchmark-Debug-b1f9c84cc15063a9b835.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "benchmark",
+					"targetIndexes" : 
+					[
+						30,
+						38
+					]
+				},
+				{
+					"build" : "render-test",
+					"jsonFile" : "directory-render-test-Debug-bb0fdbf5e0f4161f67d9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "render-test",
+					"targetIndexes" : 
+					[
+						34
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						7,
+						8,
+						9
+					],
+					"name" : "Mapbox GL Native",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						29,
+						30,
+						31,
+						32,
+						33,
+						34,
+						35,
+						36,
+						37,
+						38,
+						39,
+						40,
+						41,
+						42,
+						43
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4
+					],
+					"name" : "MAPBOX_BASE",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "Tracy",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						28
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6
+					],
+					"name" : "unordered_dense",
+					"parentIndex" : 0
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Continuous::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Continuous-Debug-70db2a034e07adadc5fa.json",
+					"name" : "Continuous",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ContinuousBuild::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ContinuousBuild-Debug-18650cf69318ff3e83b0.json",
+					"name" : "ContinuousBuild",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ContinuousConfigure::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ContinuousConfigure-Debug-a253f22b7185fc7a1839.json",
+					"name" : "ContinuousConfigure",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ContinuousCoverage::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ContinuousCoverage-Debug-674d119404e9e399754b.json",
+					"name" : "ContinuousCoverage",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ContinuousMemCheck::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ContinuousMemCheck-Debug-08ac7f6497908a70e071.json",
+					"name" : "ContinuousMemCheck",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ContinuousStart::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ContinuousStart-Debug-6c29f0a081e0040405e3.json",
+					"name" : "ContinuousStart",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ContinuousSubmit::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ContinuousSubmit-Debug-f38fa3770e27be8f765b.json",
+					"name" : "ContinuousSubmit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ContinuousTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ContinuousTest-Debug-9fbefa6b219547b8bdf7.json",
+					"name" : "ContinuousTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ContinuousUpdate::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ContinuousUpdate-Debug-86dd6853b869cc13d03c.json",
+					"name" : "ContinuousUpdate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Experimental::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Experimental-Debug-deb6a258e5f554d51c0a.json",
+					"name" : "Experimental",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ExperimentalBuild::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ExperimentalBuild-Debug-f33117e4aeee6c564da5.json",
+					"name" : "ExperimentalBuild",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ExperimentalConfigure::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ExperimentalConfigure-Debug-b1a44fe0f601c5c63259.json",
+					"name" : "ExperimentalConfigure",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ExperimentalCoverage::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ExperimentalCoverage-Debug-aa345bd35120e9af19ef.json",
+					"name" : "ExperimentalCoverage",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ExperimentalMemCheck::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ExperimentalMemCheck-Debug-c70d1017fe30f4af2bc3.json",
+					"name" : "ExperimentalMemCheck",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ExperimentalStart::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ExperimentalStart-Debug-2983802927dde6c4d0e1.json",
+					"name" : "ExperimentalStart",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ExperimentalSubmit::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ExperimentalSubmit-Debug-650bf9cff66f5c30d7a5.json",
+					"name" : "ExperimentalSubmit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ExperimentalTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ExperimentalTest-Debug-6fdc4dda2608503ffda6.json",
+					"name" : "ExperimentalTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ExperimentalUpdate::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ExperimentalUpdate-Debug-5b25dbb9bd5f27a85826.json",
+					"name" : "ExperimentalUpdate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Nightly::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Nightly-Debug-dea9c01c190cef5ada81.json",
+					"name" : "Nightly",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlyBuild::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlyBuild-Debug-5b6d28978e1ad98b592c.json",
+					"name" : "NightlyBuild",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlyConfigure::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlyConfigure-Debug-cfca4fae5d6106ebdbcd.json",
+					"name" : "NightlyConfigure",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlyCoverage::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlyCoverage-Debug-d3b724d23998067db3e0.json",
+					"name" : "NightlyCoverage",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlyMemCheck::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlyMemCheck-Debug-532f85902f52079320ff.json",
+					"name" : "NightlyMemCheck",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlyMemoryCheck::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlyMemoryCheck-Debug-b36529df0e6e2e3eafa0.json",
+					"name" : "NightlyMemoryCheck",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlyStart::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlyStart-Debug-8e100127f38b0fd9daf7.json",
+					"name" : "NightlyStart",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlySubmit::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlySubmit-Debug-a7cb093f7cf0977237fc.json",
+					"name" : "NightlySubmit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlyTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlyTest-Debug-e2aa1b29698e0cb8f288.json",
+					"name" : "NightlyTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NightlyUpdate::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NightlyUpdate-Debug-18fbfd5def40bf174d7f.json",
+					"name" : "NightlyUpdate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "TracyClient::@5312c6e87bd9d431bdc8",
+					"jsonFile" : "target-TracyClient-Debug-6edbcb4a7e95d4e1e8eb.json",
+					"name" : "TracyClient",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example-custom-layer::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example-custom-layer-Debug-89d6cfd545149c53885a.json",
+					"name" : "example-custom-layer",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "mbgl-benchmark::@3e2e920e28e9d6b4e283",
+					"jsonFile" : "target-mbgl-benchmark-Debug-f2679a63bfea6eab53c8.json",
+					"name" : "mbgl-benchmark",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-benchmark-runner::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-benchmark-runner-Debug-88c8fa6813868b0a9106.json",
+					"name" : "mbgl-benchmark-runner",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-core::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-core-Debug-0468d3aaeac1d5eb5bc6.json",
+					"name" : "mbgl-core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-core-license::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-core-license-Debug-3c163b872da4a15e19e4.json",
+					"name" : "mbgl-core-license",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "mbgl-render-test::@6e3b0ce576d379659bc0",
+					"jsonFile" : "target-mbgl-render-test-Debug-13b3243836144d32313f.json",
+					"name" : "mbgl-render-test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-render-test-runner::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-render-test-runner-Debug-d58d45bde9de41d2b4ad.json",
+					"name" : "mbgl-render-test-runner",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "mbgl-test::@36f028580bb02cc8272a",
+					"jsonFile" : "target-mbgl-test-Debug-dccf3b79943f61e7b111.json",
+					"name" : "mbgl-test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-test-runner::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-test-runner-Debug-81dce328abbad4dd33a2.json",
+					"name" : "mbgl-test-runner",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "mbgl-vendor-benchmark::@3e2e920e28e9d6b4e283",
+					"jsonFile" : "target-mbgl-vendor-benchmark-Debug-e3f0d4ffb728849fa29c.json",
+					"name" : "mbgl-vendor-benchmark",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-vendor-csscolorparser::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-vendor-csscolorparser-Debug-43d19244f2ad4b032e9f.json",
+					"name" : "mbgl-vendor-csscolorparser",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "mbgl-vendor-googletest::@36f028580bb02cc8272a",
+					"jsonFile" : "target-mbgl-vendor-googletest-Debug-7dfdd3c520c442111262.json",
+					"name" : "mbgl-vendor-googletest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-vendor-icu::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-vendor-icu-Debug-7845de16a973c5439902.json",
+					"name" : "mbgl-vendor-icu",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-vendor-parsedate::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-vendor-parsedate-Debug-e521c5e330b75bd006d3.json",
+					"name" : "mbgl-vendor-parsedate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mbgl-vendor-sqlite::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mbgl-vendor-sqlite-Debug-0e9046ea40c79c9db0fc.json",
+					"name" : "mbgl-vendor-sqlite",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86",
+		"source" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

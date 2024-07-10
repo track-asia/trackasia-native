@@ -2,11 +2,13 @@
 
 #include <mbgl/renderer/renderer.hpp>
 #include <mbgl/gfx/backend_scope.hpp>
+#include <mbgl/gfx/renderer_backend.hpp>
+#include <mbgl/util/instrumentation.hpp>
 
 GLFWRendererFrontend::GLFWRendererFrontend(std::unique_ptr<mbgl::Renderer> renderer_, GLFWView& glfwView_)
-    : glfwView(glfwView_)
-    , renderer(std::move(renderer_)) {
-        glfwView.setRenderFrontend(this);
+    : glfwView(glfwView_),
+      renderer(std::move(renderer_)) {
+    glfwView.setRenderFrontend(this);
 }
 
 GLFWRendererFrontend::~GLFWRendererFrontend() = default;
@@ -26,17 +28,23 @@ void GLFWRendererFrontend::update(std::shared_ptr<mbgl::UpdateParameters> params
     glfwView.invalidate();
 }
 
-void GLFWRendererFrontend::render() {
-    assert(renderer);
-    
-    if (!updateParameters) return;
-    
-    mbgl::gfx::BackendScope guard { glfwView.getRendererBackend(), mbgl::gfx::BackendScope::ScopeType::Implicit };
+const mbgl::TaggedScheduler& GLFWRendererFrontend::getThreadPool() const {
+    return glfwView.getRendererBackend().getThreadPool();
+}
 
-    // onStyleImageMissing might be called during a render. The user implemented method
-    // could trigger a call to MGLRenderFrontend#update which overwrites `updateParameters`.
-    // Copy the shared pointer here so that the parameters aren't destroyed while `render(...)` is
-    // still using them.
+void GLFWRendererFrontend::render() {
+    MLN_TRACE_FUNC();
+
+    assert(renderer);
+
+    if (!updateParameters) return;
+
+    mbgl::gfx::BackendScope guard{glfwView.getRendererBackend(), mbgl::gfx::BackendScope::ScopeType::Implicit};
+
+    // onStyleImageMissing might be called during a render. The user implemented
+    // method could trigger a call to MLNRenderFrontend#update which overwrites
+    // `updateParameters`. Copy the shared pointer here so that the parameters
+    // aren't destroyed while `render(...)` is still using them.
     auto updateParameters_ = updateParameters;
     renderer->render(updateParameters_);
 }

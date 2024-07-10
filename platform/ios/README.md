@@ -1,9 +1,14 @@
-# TrackAsia Maps SDKs for iOS and macOS
+# MapLibre Native for iOS
 
-The TrackAsia Maps SDK for iOS is an open-source framework for embedding interactive map views with scalable, customizable vector maps into Cocoa Touch applications on iOS 9.0 and above using Objective-C, Swift, or Interface Builder. It takes stylesheets that conform to the [TrackAsia GL Style Specification](https://track-asia.com/trackasia-gl-js-docs/style-spec/), applies them to vector tiles that conform to the [Mapbox Vector Tile Specification](https://www.mapbox.com/developers/vector-tiles/), and renders them using OpenGL. It is based on the TrackAsia GL Native library.
+[![GitHub Action build status](https://github.com/maplibre/maplibre-native/actions/workflows/ios-ci.yml/badge.svg)](https://github.com/maplibre/maplibre-native/actions/workflows/ios-ci.yml) [![CocoaPods Package](https://img.shields.io/cocoapods/v/MapLibre.svg)](https://github.com/CocoaPods/Specs/tree/master/Specs/b/0/0/MapLibre) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fmaplibre%2Fmaplibre-gl-native-distribution%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution)
 
-## License
+Embed interactive maps with scalable, customizable vector maps into iOS Applications. Uses [Metal](https://developer.apple.com/metal/) for real-time rendering.
 
-TrackAsia GL Native is licensed under the [2-Clause BSD license](LICENSE.md). The licenses of its dependencies are tracked via [FOSSA](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmapbox%2Fmapbox-gl-native):
+## Documentation
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmapbox%2Fmapbox-gl-native.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmapbox%2Fmapbox-gl-native)
+- See the [Getting Started](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre-native-for-ios/gettingstarted) Guide in the documentation.
+- [MapLibre Native iOS Documentation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/)
+
+# Contributing
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for instructions on how to build the project or how to work on the documentation.

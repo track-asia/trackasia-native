@@ -33,9 +33,7 @@ public:
         cb();
     }
 
-    void sync(std::promise<void> barrier) {
-        barrier.set_value();
-    }
+    void sync(std::promise<void> barrier) { barrier.set_value(); }
 
 private:
     AsyncTask *async;
@@ -75,8 +73,9 @@ TEST(AsyncTask, DestroyShouldNotRunQueue) {
 TEST(AsyncTask, DestroyAfterSignaling) {
     RunLoop loop;
 
-    // We're creating two tasks and signal both of them; the one that gets fired first destroys
-    // the other one. Make sure that the second one we destroyed doesn't fire.
+    // We're creating two tasks and signal both of them; the one that gets fired
+    // first destroys the other one. Make sure that the second one we destroyed
+    // doesn't fire.
 
     std::unique_ptr<AsyncTask> task1, task2;
 
@@ -101,12 +100,13 @@ TEST(AsyncTask, DestroyAfterSignaling) {
 
 TEST(AsyncTask, RequestCoalescingMultithreaded) {
     RunLoop loop;
+    util::SimpleIdentity id;
 
     unsigned count = 0, numThreads = 25;
     AsyncTask async([&count] { ++count; });
 
-    std::shared_ptr<Scheduler> retainer = Scheduler::GetBackground();
-    auto mailbox = std::make_shared<Mailbox>(*retainer);
+    TaggedScheduler retainer = {Scheduler::GetBackground(), id};
+    auto mailbox = std::make_shared<Mailbox>(retainer);
 
     TestWorker worker(&async);
     ActorRef<TestWorker> workerRef(worker, mailbox);
@@ -128,21 +128,24 @@ TEST(AsyncTask, RequestCoalescingMultithreaded) {
 
 TEST(AsyncTask, ThreadSafety) {
     RunLoop loop;
+    mbgl::util::SimpleIdentity id;
 
     unsigned count = 0, numThreads = 25;
     std::atomic_uint completed(numThreads);
 
     AsyncTask async([&count] { ++count; });
 
-    std::shared_ptr<Scheduler> retainer = Scheduler::GetBackground();
-    auto mailbox = std::make_shared<Mailbox>(*retainer);
+    TaggedScheduler retainer = {Scheduler::GetBackground(), id};
+    auto mailbox = std::make_shared<Mailbox>(retainer);
 
     TestWorker worker(&async);
     ActorRef<TestWorker> workerRef(worker, mailbox);
 
     for (unsigned i = 0; i < numThreads; ++i) {
         // The callback runs on the worker, thus the atomic type.
-        workerRef.invoke(&TestWorker::runWithCallback, [&] { if (!--completed) loop.stop(); });
+        workerRef.invoke(&TestWorker::runWithCallback, [&] {
+            if (!--completed) loop.stop();
+        });
     }
 
     loop.run();
@@ -167,7 +170,7 @@ TEST(AsyncTask, scheduleAndReplyValue) {
     };
 
     std::shared_ptr<Scheduler> sheduler = Scheduler::GetBackground();
-    sheduler->scheduleAndReplyValue(runInBackground, onResult);
+    sheduler->scheduleAndReplyValue(util::SimpleIdentity::Empty, runInBackground, onResult);
     loop.run();
 }
 

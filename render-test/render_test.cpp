@@ -14,15 +14,31 @@
 #include "parser.hpp"
 #include "runner.hpp"
 
-#define ANSI_COLOR_RED        "\x1b[31m"
-#define ANSI_COLOR_GREEN      "\x1b[32m"
-#define ANSI_COLOR_YELLOW     "\x1b[33m"
-#define ANSI_COLOR_BLUE       "\x1b[34m"
-#define ANSI_COLOR_MAGENTA    "\x1b[35m"
-#define ANSI_COLOR_CYAN       "\x1b[36m"
-#define ANSI_COLOR_GRAY       "\x1b[37m"
+#if MLN_RENDER_BACKEND_METAL
+#include <mbgl/gfx/backend.hpp>
+#endif // MLN_RENDER_BACKEND_METAL
+
+#ifdef SHOW_ANSI_COLORS
+#define ANSI_COLOR_RED "\x1b[31m"
+#define ANSI_COLOR_GREEN "\x1b[32m"
+#define ANSI_COLOR_YELLOW "\x1b[33m"
+#define ANSI_COLOR_BLUE "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN "\x1b[36m"
+#define ANSI_COLOR_GRAY "\x1b[37m"
 #define ANSI_COLOR_LIGHT_GRAY "\x1b[90m"
-#define ANSI_COLOR_RESET      "\x1b[0m"
+#define ANSI_COLOR_RESET "\x1b[0m"
+#else
+#define ANSI_COLOR_RED ""
+#define ANSI_COLOR_GREEN ""
+#define ANSI_COLOR_YELLOW ""
+#define ANSI_COLOR_BLUE ""
+#define ANSI_COLOR_MAGENTA ""
+#define ANSI_COLOR_CYAN ""
+#define ANSI_COLOR_GRAY ""
+#define ANSI_COLOR_LIGHT_GRAY ""
+#define ANSI_COLOR_RESET ""
+#endif
 
 #if !defined(SANITIZE)
 void* operator new(std::size_t sz) {
@@ -51,7 +67,7 @@ ArgumentsTuple parseArguments(int argc, char** argv) {
         {"metrics", TestRunner::UpdateResults::METRICS},
         {"rebaseline", TestRunner::UpdateResults::REBASELINE}};
 
-    args::ArgumentParser argumentParser("Trackasia GL Test Runner");
+    args::ArgumentParser argumentParser("MapLibre Native Test Runner");
 
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
 
@@ -97,8 +113,7 @@ ArgumentsTuple parseArguments(int argc, char** argv) {
     mbgl::filesystem::path manifestPath = args::get(testPathValue);
     if (!mbgl::filesystem::exists(manifestPath) || !manifestPath.has_filename()) {
         mbgl::Log::Error(mbgl::Event::General,
-                         "Provided test manifest file path '%s' does not exist",
-                         manifestPath.string().c_str());
+                         "Provided test manifest file path '" + manifestPath.string() + "' does not exist");
         exit(3);
     }
 
@@ -106,8 +121,8 @@ ArgumentsTuple parseArguments(int argc, char** argv) {
     const auto shuffle = shuffleFlag ? args::get(shuffleFlag) : false;
     const auto online = onlineFlag ? args::get(onlineFlag) : false;
     const auto seed = seedValue ? args::get(seedValue) : 1u;
-    TestRunner::UpdateResults updateResults =
-        testUpdateResultsValue ? args::get(testUpdateResultsValue) : TestRunner::UpdateResults::NO;
+    TestRunner::UpdateResults updateResults = testUpdateResultsValue ? args::get(testUpdateResultsValue)
+                                                                     : TestRunner::UpdateResults::NO;
     return ArgumentsTuple{recycleMapFlag ? args::get(recycleMapFlag) : false,
                           shuffle,
                           online,
@@ -148,6 +163,11 @@ int runRenderTests(int argc, char** argv, std::function<void()> testStatus) {
 
     NetworkStatus::Set(online ? NetworkStatus::Status::Online : NetworkStatus::Status::Offline);
 
+#if MLN_RENDER_BACKEND_METAL
+    printf(ANSI_COLOR_YELLOW "Using GPU Expression Evaluation" ANSI_COLOR_RESET "\n");
+    mbgl::gfx::Backend::setEnableGPUExpressionEval(true);
+#endif // MLN_RENDER_BACKEND_METAL
+
     const auto& manifest = runner.getManifest();
     const auto& ignores = manifest.getIgnores();
     const auto& testPaths = manifest.getTestPaths();
@@ -175,7 +195,8 @@ int runRenderTests(int argc, char** argv, std::function<void()> testStatus) {
         std::string ignoreReason;
 
         const std::string ignoreName = id;
-        const auto it = std::find_if(ignores.cbegin(), ignores.cend(), [&ignoreName](auto pair) { return pair.first == ignoreName; });
+        const auto it = std::find_if(
+            ignores.cbegin(), ignores.cend(), [&ignoreName](auto pair) { return pair.first == ignoreName; });
         if (it != ignores.end()) {
             metadata.ignoredTest = shouldIgnore = true;
             ignoreReason = it->second;
@@ -205,13 +226,15 @@ int runRenderTests(int argc, char** argv, std::function<void()> testStatus) {
                 status = "ignored failed";
                 color = "#9E9E9E";
                 stats.ignoreFailedTests++;
-                printf(ANSI_COLOR_LIGHT_GRAY "* ignore %s (%s)" ANSI_COLOR_RESET "\n", id.c_str(), ignoreReason.c_str());
+                printf(
+                    ANSI_COLOR_LIGHT_GRAY "* ignore %s (%s)" ANSI_COLOR_RESET "\n", id.c_str(), ignoreReason.c_str());
             }
         } else {
-            // Only fail the bots on render errors, this is a CI limitation that we need
-            // to succeed on metrics failed so the rebaseline bot can run next in the
-            // pipeline and collect the new baselines. The rebaseline bot will ultimately
-            // report the error and block the patch from being merged.
+            // Only fail the bots on render errors, this is a CI limitation that
+            // we need to succeed on metrics failed so the rebaseline bot can
+            // run next in the pipeline and collect the new baselines. The
+            // rebaseline bot will ultimately report the error and block the
+            // patch from being merged.
             if (metadata.renderErrored || metadata.renderFailed) {
                 returnCode = 1;
             }
@@ -248,23 +271,33 @@ int runRenderTests(int argc, char** argv, std::function<void()> testStatus) {
     std::string resultsHTML = createResultPage(stats, metadatas, shuffle, seed);
     mbgl::util::write_file(resultPath, resultsHTML);
 
-    const uint32_t count =
-        stats.erroredTests + stats.failedTests + stats.ignoreFailedTests + stats.ignorePassedTests + stats.passedTests;
+    const uint32_t count = stats.erroredTests + stats.failedTests + stats.ignoreFailedTests + stats.ignorePassedTests +
+                           stats.passedTests;
 
     if (stats.passedTests) {
-        printf(ANSI_COLOR_GREEN "%u passed (%.1lf%%)" ANSI_COLOR_RESET "\n", stats.passedTests, 100.0 * stats.passedTests / count);
+        printf(ANSI_COLOR_GREEN "%u passed (%.1lf%%)" ANSI_COLOR_RESET "\n",
+               stats.passedTests,
+               100.0 * stats.passedTests / count);
     }
     if (stats.ignorePassedTests) {
-        printf(ANSI_COLOR_YELLOW "%u passed but were ignored (%.1lf%%)" ANSI_COLOR_RESET "\n", stats.ignorePassedTests, 100.0 * stats.ignorePassedTests / count);
+        printf(ANSI_COLOR_YELLOW "%u passed but were ignored (%.1lf%%)" ANSI_COLOR_RESET "\n",
+               stats.ignorePassedTests,
+               100.0 * stats.ignorePassedTests / count);
     }
     if (stats.ignoreFailedTests) {
-        printf(ANSI_COLOR_LIGHT_GRAY "%u ignored (%.1lf%%)" ANSI_COLOR_RESET "\n", stats.ignoreFailedTests, 100.0 * stats.ignoreFailedTests / count);
+        printf(ANSI_COLOR_LIGHT_GRAY "%u ignored (%.1lf%%)" ANSI_COLOR_RESET "\n",
+               stats.ignoreFailedTests,
+               100.0 * stats.ignoreFailedTests / count);
     }
     if (stats.failedTests) {
-        printf(ANSI_COLOR_RED "%u failed (%.1lf%%)" ANSI_COLOR_RESET "\n", stats.failedTests, 100.0 * stats.failedTests / count);
+        printf(ANSI_COLOR_RED "%u failed (%.1lf%%)" ANSI_COLOR_RESET "\n",
+               stats.failedTests,
+               100.0 * stats.failedTests / count);
     }
     if (stats.erroredTests) {
-        printf(ANSI_COLOR_RED "%u errored (%.1lf%%)" ANSI_COLOR_RESET "\n", stats.erroredTests, 100.0 * stats.erroredTests / count);
+        printf(ANSI_COLOR_RED "%u errored (%.1lf%%)" ANSI_COLOR_RESET "\n",
+               stats.erroredTests,
+               100.0 * stats.erroredTests / count);
     }
 
     printf("Results at: %s\n", mbgl::filesystem::canonical(resultPath).c_str());

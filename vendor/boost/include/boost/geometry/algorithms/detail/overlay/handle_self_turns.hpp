@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
 // Copyright (c) 2017 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2017 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2017-2023 Adam Wulkiewicz, Lodz, Poland.
+
+// This file was modified by Oracle on 2019-2022.
+// Modifications copyright (c) 2019-2022 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -10,13 +15,15 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_HANDLE_SELF_TURNS_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_HANDLE_SELF_TURNS_HPP
 
-#include <boost/range.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/range/value_type.hpp>
 
+#include <boost/geometry/algorithms/detail/covered_by/implementation.hpp>
 #include <boost/geometry/algorithms/detail/overlay/cluster_info.hpp>
 #include <boost/geometry/algorithms/detail/overlay/is_self_turn.hpp>
 #include <boost/geometry/algorithms/detail/overlay/overlay_type.hpp>
-#include <boost/geometry/algorithms/covered_by.hpp>
-#include <boost/geometry/algorithms/within.hpp>
+#include <boost/geometry/algorithms/detail/within/implementation.hpp>
 
 namespace boost { namespace geometry
 {
@@ -28,15 +35,19 @@ namespace detail { namespace overlay
 template <overlay_type OverlayType>
 struct check_within
 {
-    template <typename Turn, typename Geometry0, typename Geometry1>
+    template
+    <
+        typename Turn, typename Geometry0, typename Geometry1,
+        typename UmbrellaStrategy
+    >
     static inline
     bool apply(Turn const& turn, Geometry0 const& geometry0,
-                Geometry1 const& geometry1)
+               Geometry1 const& geometry1, UmbrellaStrategy const& strategy)
     {
         // Operations 0 and 1 have the same source index in self-turns
         return turn.operations[0].seg_id.source_index == 0
-            ? geometry::within(turn.point, geometry1)
-            : geometry::within(turn.point, geometry0);
+            ? geometry::within(turn.point, geometry1, strategy)
+            : geometry::within(turn.point, geometry0, strategy);
     }
 
 };
@@ -44,24 +55,35 @@ struct check_within
 template <>
 struct check_within<overlay_difference>
 {
-    template <typename Turn, typename Geometry0, typename Geometry1>
+    template
+    <
+        typename Turn, typename Geometry0, typename Geometry1,
+        typename UmbrellaStrategy
+    >
     static inline
     bool apply(Turn const& turn, Geometry0 const& geometry0,
-                Geometry1 const& geometry1)
+               Geometry1 const& geometry1, UmbrellaStrategy const& strategy)
     {
         // difference = intersection(a, reverse(b))
         // therefore we should reverse the meaning of within for geometry1
         return turn.operations[0].seg_id.source_index == 0
-            ? ! geometry::covered_by(turn.point, geometry1)
-            : geometry::within(turn.point, geometry0);
+            ? ! geometry::covered_by(turn.point, geometry1, strategy)
+            : geometry::within(turn.point, geometry0, strategy);
     }
 };
 
 struct discard_turns
 {
-    template <typename Turns, typename Clusters, typename Geometry0, typename Geometry1>
+    template
+    <
+        typename Turns, typename Clusters,
+        typename Geometry0, typename Geometry1,
+        typename Strategy
+    >
     static inline
-    void apply(Turns& , Clusters const& , Geometry0 const& , Geometry1 const& )
+    void apply(Turns& , Clusters const& ,
+               Geometry0 const& , Geometry1 const& ,
+               Strategy const& )
     {}
 };
 
@@ -72,25 +94,24 @@ struct discard_closed_turns : discard_turns {};
 template <>
 struct discard_closed_turns<overlay_union, operation_union>
 {
-
-    template <typename Turns, typename Clusters, typename Geometry0, typename Geometry1>
+    // Point in Geometry Strategy
+    template
+    <
+        typename Turns, typename Clusters,
+        typename Geometry0, typename Geometry1,
+        typename Strategy
+    >
     static inline
     void apply(Turns& turns, Clusters const& /*clusters*/,
-            Geometry0 const& geometry0, Geometry1 const& geometry1)
+               Geometry0 const& geometry0, Geometry1 const& geometry1,
+               Strategy const& strategy)
     {
-        typedef typename boost::range_value<Turns>::type turn_type;
-
-        for (typename boost::range_iterator<Turns>::type
-                it = boost::begin(turns);
-             it != boost::end(turns);
-             ++it)
+        for (auto& turn : turns)
         {
-            turn_type& turn = *it;
-
             if (! turn.discarded
                 && is_self_turn<overlay_union>(turn)
-                && check_within<overlay_union>::apply(turn,
-                        geometry0, geometry1))
+                && check_within<overlay_union>::apply(turn, geometry0,
+                                                      geometry1, strategy))
             {
                 // Turn is in the interior of other geometry
                 turn.discarded = true;
@@ -109,18 +130,16 @@ private :
     bool is_self_cluster(signed_size_type cluster_id,
             const Turns& turns, Clusters const& clusters)
     {
-        typename Clusters::const_iterator cit = clusters.find(cluster_id);
+        auto cit = clusters.find(cluster_id);
         if (cit == clusters.end())
         {
             return false;
         }
 
         cluster_info const& cinfo = cit->second;
-        for (std::set<signed_size_type>::const_iterator it
-             = cinfo.turn_indices.begin();
-             it != cinfo.turn_indices.end(); ++it)
+        for (auto index : cinfo.turn_indices)
         {
-            if (! is_self_turn<OverlayType>(turns[*it]))
+            if (! is_self_turn<OverlayType>(turns[index]))
             {
                 return false;
             }
@@ -130,32 +149,31 @@ private :
     }
 
     template <typename Turns, typename Clusters,
-              typename Geometry0, typename Geometry1>
+              typename Geometry0, typename Geometry1, typename Strategy>
     static inline
     void discard_clusters(Turns& turns, Clusters const& clusters,
-            Geometry0 const& geometry0, Geometry1 const& geometry1)
+            Geometry0 const& geometry0, Geometry1 const& geometry1,
+            Strategy const& strategy)
     {
-        for (typename Clusters::const_iterator cit = clusters.begin();
-             cit != clusters.end(); ++cit)
+        for (auto const& pair : clusters)
         {
-            signed_size_type const cluster_id = cit->first;
+            signed_size_type const cluster_id = pair.first;
+            cluster_info const& cinfo = pair.second;
 
             // If there are only self-turns in the cluster, the cluster should
             // be located within the other geometry, for intersection
-            if (! cit->second.turn_indices.empty()
+            if (! cinfo.turn_indices.empty()
                 && is_self_cluster(cluster_id, turns, clusters))
             {
-                cluster_info const& cinfo = cit->second;
-                signed_size_type const index = *cinfo.turn_indices.begin();
-                if (! check_within<OverlayType>::apply(turns[index],
-                                                       geometry0, geometry1))
+                signed_size_type const first_index = *cinfo.turn_indices.begin();
+                if (! check_within<OverlayType>::apply(turns[first_index],
+                                                       geometry0, geometry1,
+                                                       strategy))
                 {
                     // Discard all turns in cluster
-                    for (std::set<signed_size_type>::const_iterator sit
-                         = cinfo.turn_indices.begin();
-                         sit != cinfo.turn_indices.end(); ++sit)
+                    for (auto index : cinfo.turn_indices)
                     {
-                        turns[*sit].discarded = true;
+                        turns[index].discarded = true;
                     }
                 }
             }
@@ -165,27 +183,22 @@ private :
 public :
 
     template <typename Turns, typename Clusters,
-              typename Geometry0, typename Geometry1>
+              typename Geometry0, typename Geometry1, typename Strategy>
     static inline
     void apply(Turns& turns, Clusters const& clusters,
-            Geometry0 const& geometry0, Geometry1 const& geometry1)
+            Geometry0 const& geometry0, Geometry1 const& geometry1,
+            Strategy const& strategy)
     {
-        discard_clusters(turns, clusters, geometry0, geometry1);
+        discard_clusters(turns, clusters, geometry0, geometry1, strategy);
 
-        typedef typename boost::range_value<Turns>::type turn_type;
-
-        for (typename boost::range_iterator<Turns>::type
-                it = boost::begin(turns);
-             it != boost::end(turns);
-             ++it)
+        for (auto& turn : turns)
         {
-            turn_type& turn = *it;
-
             // It is a ii self-turn
             // Check if it is within the other geometry
             if (! turn.discarded
                 && is_self_turn<overlay_intersection>(turn)
-                && ! check_within<OverlayType>::apply(turn, geometry0, geometry1))
+                && ! check_within<OverlayType>::apply(turn, geometry0,
+                                                      geometry1, strategy))
             {
                 // It is not within another geometry, set it as non startable.
                 // It still might be traveled (#case_recursive_boxes_70)

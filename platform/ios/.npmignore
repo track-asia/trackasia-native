@@ -14,7 +14,7 @@ vendor
 include
 mason_packages
 mapbox-gl-js
-trackasia-gl-js
+maplibre-gl-js
 test
 lib
 next

@@ -46,6 +46,12 @@ target_include_directories(
     PUBLIC ${PROJECT_SOURCE_DIR}/render-test/include ${PROJECT_SOURCE_DIR}/include
 )
 
+# needed for test_runner_common.hpp
+target_include_directories(
+    mbgl-render-test
+    PRIVATE ${PROJECT_SOURCE_DIR}/expression-test
+)
+
 include(${PROJECT_SOURCE_DIR}/vendor/boost.cmake)
 
 target_link_libraries(
@@ -59,4 +65,8 @@ target_link_libraries(
     PUBLIC mbgl-core
 )
 
-set_property(TARGET mbgl-render-test PROPERTY FOLDER Core)
+set_property(TARGET mbgl-render-test PROPERTY FOLDER MapLibre)
+
+if(MLN_WITH_OPENGL)
+    target_compile_definitions(mbgl-render-test PRIVATE "MLN_RENDER_BACKEND_OPENGL=1")
+endif()

@@ -23,7 +23,7 @@ TEST(Style, Properties) {
     util::RunLoop loop;
 
     auto fileSource = std::make_shared<StubFileSource>();
-    Style::Impl style { fileSource, 1.0 };
+    Style::Impl style{fileSource, 1.0, {Scheduler::GetBackground(), {}}};
 
     style.loadJSON(R"STYLE({"name": "Test"})STYLE");
     ASSERT_EQ("Test", style.getName());
@@ -34,7 +34,7 @@ TEST(Style, Properties) {
 
     style.loadJSON(R"STYLE({"bearing": 24})STYLE");
     ASSERT_EQ("", style.getName());
-    ASSERT_EQ(LatLng {}, *style.getDefaultCamera().center);
+    ASSERT_EQ(LatLng{}, *style.getDefaultCamera().center);
     ASSERT_EQ(24, *style.getDefaultCamera().bearing);
 
     style.loadJSON(R"STYLE({"zoom": 13.3})STYLE");
@@ -47,7 +47,7 @@ TEST(Style, Properties) {
 
     style.loadJSON(R"STYLE({})STYLE");
     ASSERT_EQ(Milliseconds(300), *style.getTransitionOptions().duration);
-    ASSERT_EQ(optional<Duration> {}, style.getTransitionOptions().delay);
+    ASSERT_EQ(std::optional<Duration>{}, style.getTransitionOptions().delay);
 
     style.loadJSON(R"STYLE({"transition": { "duration": 500, "delay": 50 }})STYLE");
     ASSERT_EQ(Milliseconds(500), *style.getTransitionOptions().duration);
@@ -55,7 +55,7 @@ TEST(Style, Properties) {
 
     style.loadJSON(R"STYLE({"name": 23, "center": {}, "bearing": "north", "zoom": null, "pitch": "wide"})STYLE");
     ASSERT_EQ("", style.getName());
-    ASSERT_EQ(LatLng {}, *style.getDefaultCamera().center);
+    ASSERT_EQ(LatLng{}, *style.getDefaultCamera().center);
     ASSERT_EQ(0, *style.getDefaultCamera().zoom);
     ASSERT_EQ(0, *style.getDefaultCamera().bearing);
     ASSERT_EQ(0, *style.getDefaultCamera().pitch);
@@ -65,12 +65,12 @@ TEST(Style, DuplicateSource) {
     util::RunLoop loop;
 
     auto fileSource = std::make_shared<StubFileSource>();
-    Style::Impl style { fileSource, 1.0 };
+    Style::Impl style{fileSource, 1.0, {Scheduler::GetBackground(), {}}};
 
     style.loadJSON(util::read_file("test/fixtures/resources/style-unused-sources.json"));
 
     style.addSource(std::make_unique<VectorSource>("sourceId", "mptiler://tiles/contours"));
-    
+
     try {
         style.addSource(std::make_unique<VectorSource>("sourceId", "mptiler://tiles/contours"));
         FAIL() << "Should not have been allowed to add a duplicate source id";
@@ -82,14 +82,12 @@ TEST(Style, DuplicateSource) {
 TEST(Style, RemoveSourceInUse) {
     util::RunLoop loop;
 
-    auto log = new FixtureLogObserver();
-    Log::setObserver(std::unique_ptr<Log::Observer>(log));
+    FixtureLog log;
 
     auto fileSource = std::make_shared<StubFileSource>();
-    Style::Impl style { fileSource, 1.0 };
+    Style::Impl style{fileSource, 1.0, {Scheduler::GetBackground(), {}}};
 
     style.loadJSON(util::read_file("test/fixtures/resources/style-unused-sources.json"));
-
     style.addSource(std::make_unique<VectorSource>("sourceId", "mptiler://tiles/contours"));
     style.addLayer(std::make_unique<LineLayer>("layerId", "sourceId"));
 
@@ -98,24 +96,24 @@ TEST(Style, RemoveSourceInUse) {
     ASSERT_EQ(nullptr, removed);
     ASSERT_NE(nullptr, style.getSource("sourceId"));
 
-    const FixtureLogObserver::LogMessage logMessage {
-            EventSeverity::Warning,
-            Event::General,
-            int64_t(-1),
-            "Source 'sourceId' is in use, cannot remove",
+    const FixtureLogObserver::LogMessage logMessage{
+        EventSeverity::Warning,
+        Event::General,
+        int64_t(-1),
+        "Source 'sourceId' is in use, cannot remove",
     };
 
 #if defined(WIN32)
     Sleep(1000);
 #endif
 
-    EXPECT_EQ(log->count(logMessage), 1u);
+    EXPECT_EQ(log.count(logMessage), 1u);
 }
 
 TEST(Style, SourceImplsOrder) {
     util::RunLoop loop;
     auto fileSource = std::make_shared<StubFileSource>();
-    Style::Impl style{fileSource, 1.0};
+    Style::Impl style{fileSource, 1.0, {Scheduler::GetBackground(), {}}};
 
     style.addSource(std::make_unique<VectorSource>("c", "mptiler://tiles/contours"));
     style.addSource(std::make_unique<VectorSource>("b", "mptiler://tiles/contours"));
@@ -137,7 +135,7 @@ TEST(Style, SourceImplsOrder) {
 TEST(Style, AddRemoveImage) {
     util::RunLoop loop;
     auto fileSource = std::make_shared<StubFileSource>();
-    Style::Impl style{fileSource, 1.0};
+    Style::Impl style{fileSource, 1.0, {Scheduler::GetBackground(), {}}};
     style.addImage(std::make_unique<style::Image>("one", PremultipliedImage({16, 16}), 2.0f));
     style.addImage(std::make_unique<style::Image>("two", PremultipliedImage({16, 16}), 2.0f));
     style.addImage(std::make_unique<style::Image>("three", PremultipliedImage({16, 16}), 2.0f));
@@ -154,7 +152,7 @@ TEST(Style, AddRemoveRemoveImage) {
     // regression test for https://github.com/mapbox/mapbox-gl-native/pull/16391
     util::RunLoop loop;
     auto fileSource = std::make_shared<StubFileSource>();
-    Style::Impl style{fileSource, 1.0};
+    Style::Impl style{fileSource, 1.0, {Scheduler::GetBackground(), {}}};
     style.addImage(std::make_unique<style::Image>("one", PremultipliedImage({16, 16}), 2.0f));
     style.addImage(std::make_unique<style::Image>("two", PremultipliedImage({16, 16}), 2.0f));
     style.addImage(std::make_unique<style::Image>("three", PremultipliedImage({16, 16}), 2.0f));

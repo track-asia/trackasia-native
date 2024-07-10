@@ -1,0 +1,21 @@
+# ninja log v5
+0	42	1720422883987314513	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-mkdir	3a1891bdda274717
+0	42	1720422883987314513	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-mkdir	3a1891bdda274717
+42	6980	1720422890925387061	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-download	cb037e913fd938ec
+42	6980	1720422890925387061	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-download	cb037e913fd938ec
+6981	9266	0	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-update	32fe942a5c709783
+6981	9266	0	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-update	32fe942a5c709783
+9266	9356	1720422893298574881	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-patch	f5ada2095ff8b8e0
+9266	9356	1720422893298574881	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-patch	f5ada2095ff8b8e0
+9356	9390	1720422893333550903	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-configure	e65063081bceeb4
+9356	9390	1720422893333550903	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-configure	e65063081bceeb4
+9390	9443	1720422893379702378	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-build	78836cc3fbfdef96
+9390	9443	1720422893379702378	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-build	78836cc3fbfdef96
+9446	9542	1720422893483955362	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-install	1de8036f6d7edd91
+9446	9542	1720422893483955362	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-install	1de8036f6d7edd91
+9542	9596	1720422893529837422	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-test	27e5bb6cac5d90d
+9542	9596	1720422893529837422	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-test	27e5bb6cac5d90d
+9596	9645	1720422893587772181	CMakeFiles/tracy-populate-complete	945287d15ad8f8b6
+9596	9645	1720422893587772181	tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-done	945287d15ad8f8b6
+9596	9645	1720422893587772181	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/CMakeFiles/tracy-populate-complete	945287d15ad8f8b6
+9596	9645	1720422893587772181	/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-subbuild/tracy-populate-prefix/src/tracy-populate-stamp/tracy-populate-done	945287d15ad8f8b6

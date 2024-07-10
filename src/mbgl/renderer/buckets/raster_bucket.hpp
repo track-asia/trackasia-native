@@ -8,9 +8,16 @@
 #include <mbgl/renderer/tile_mask.hpp>
 #include <mbgl/util/image.hpp>
 #include <mbgl/util/mat4.hpp>
-#include <mbgl/util/optional.hpp>
+
+#include <memory>
+#include <optional>
 
 namespace mbgl {
+
+namespace gfx {
+class Texture2D;
+using Texture2DPtr = std::shared_ptr<Texture2D>;
+} // namespace gfx
 
 class RasterBucket final : public Bucket {
 public:
@@ -26,17 +33,26 @@ public:
     void setMask(TileMask&&);
 
     std::shared_ptr<PremultipliedImage> image;
-    optional<gfx::Texture> texture;
-    TileMask mask{ { 0, 0, 0 } };
+    std::optional<gfx::Texture> texture;
+    gfx::Texture2DPtr texture2d;
+    TileMask mask{{0, 0, 0}};
 
     // Bucket specific vertices are used for Image Sources only
     // Raster Tile Sources use the default buffers from Painter
-    gfx::VertexVector<RasterLayoutVertex> vertices;
-    gfx::IndexVector<gfx::Triangles> indices;
+    using VertexVector = gfx::VertexVector<RasterLayoutVertex>;
+    const std::shared_ptr<VertexVector> sharedVertices = std::make_shared<VertexVector>();
+    VertexVector& vertices = *sharedVertices;
+
+    using TriangleIndexVector = gfx::IndexVector<gfx::Triangles>;
+    const std::shared_ptr<TriangleIndexVector> sharedTriangles = std::make_shared<TriangleIndexVector>();
+    TriangleIndexVector& indices = *sharedTriangles;
+
     SegmentVector<RasterAttributes> segments;
 
-    optional<gfx::VertexBuffer<RasterLayoutVertex>> vertexBuffer;
-    optional<gfx::IndexBuffer> indexBuffer;
+#if MLN_LEGACY_RENDERER
+    std::optional<gfx::VertexBuffer<RasterLayoutVertex>> vertexBuffer;
+    std::optional<gfx::IndexBuffer> indexBuffer;
+#endif // MLN_LEGACY_RENDERER
 };
 
 } // namespace mbgl

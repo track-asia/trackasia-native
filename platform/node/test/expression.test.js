@@ -1,4 +1,4 @@
-const {run} = require('../../../trackasia-gl-js/test/integration/lib/expression');
+const {run} = require('../../../metrics/integration/lib/expression');
 const mbgl = require('../index');
 const ignores = require('./ignores.json');
 

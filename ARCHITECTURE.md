@@ -1,8 +1,8 @@
-This document aims to outline at a high level the various parts that make up TrackAsia GL Native and how they work together.
+This document aims to outline at a high level the various parts that make up MapLibre Native and how they work together.
 
 # Repository structure
 
-TrackAsia GL Native uses a monolithic repository that houses both core C++ code and code that wraps the C++ core with SDKs for Android, iOS, macOS, Node.js, and Qt. A "monorepo" allows us to:
+MapLibre Native uses a monolithic repository that houses both core C++ code and code that wraps the C++ core with SDKs for Android, iOS, macOS, Node.js, and Qt. A "monorepo" allows us to:
 
  * Make changes to the core API and SDKs simultaneously, ensuring no platform falls behind.
  * Ensure that core changes do not inadvertently break SDK tests.
@@ -21,14 +21,6 @@ Code and build scripts belonging to platform SDKs are contained in the `platform
 - `platform/android` - Android SDK, forked from https://github.com/mapbox/mapbox-gl-native-android/commit/4c12fb2c.
 - `platform/glfw` - [GLFW](https://www.glfw.org) is library to support OpenGL development on the desktop. The code in this directory builds an executable application `mbgl-glfw` for demo/dev/local testing purposes.
 
-## trackasia-gl-js
-
-`trackasia-gl-js` is added to this repostiory as a top-level submodule to provide
-
-- Test cases and test data, e.g. all rendering test manifests json files under `render-test` load test cases from `trackasia-gl-js/test/*`.
-- Shader written in GLSL ES.
-- Style specification
-
 ## Other directories
 
 - `benchmark` contains the performance tests built using https://github.com/google/benchmark/. The code under this directory builds the `mbgl-benchmark-test` executable to execute the benchmark tests.
@@ -36,7 +28,7 @@ Code and build scripts belonging to platform SDKs are contained in the `platform
   - iOS SDK runs benchmark test through a separate app named `BenchmarkApp`.
   - Android SDK does not have benchmark test.
 - `bin` contains the code for tools like `mbgl-cache`, `mbgl-offline`, and `mbgl-render`.
-- `expression-test` contains tests for the expression feature in the map style (see more details about expression [here](https://track-asia.com/trackasia-gl-js-docs/style-spec/expressions/).
+- `expression-test` contains tests for the expression feature in the map style (see more details about expression [here](https://maplibre.org/maplibre-style-spec/expressions/).
 - `metrics` contains test manifest files and ground truth for graphic comparison based render test.
 - `misc` contains protobuf for style, vector tile, and glyphs. It also icons and pictures used in documents.
 - `render-test` contains image diff based render tests. These tests verify if the rendering results match with expectations by capturing the rendering results and compare with the groundtruth images in the `metrics` directory.
@@ -46,7 +38,7 @@ Code and build scripts belonging to platform SDKs are contained in the `platform
 
 # Build system
 
-The TrackAsia GL Native build system uses a variety of tools.
+The MapLibre Native build system uses a variety of tools.
 
 ## Make
 
@@ -58,17 +50,17 @@ Git submodules are used to pull in several dependencies: mason (see below) and s
 
 ## npm
 
-npm is a package manager for Node.js. TrackAsia GL Native uses it to pull in several development dependencies that happen to be packaged as node modules -- mainly for testing needs.
+npm is a package manager for Node.js. MapLibre Native uses it to pull in several development dependencies that happen to be packaged as node modules -- mainly for testing needs.
 
 ## Mason
 
-[Mason](https://github.com/mapbox/mason) is Mapbox's own cross platform C/C++ package manager. TrackAsia GL Native uses mason packages as a source of precompiled binaries for third-party dependencies such as Boost, RapidJSON, and SQLite, and Mapbox's own C++ modules such as [earcut.hpp](https://github.com/mapbox/earcut.hpp) and [geojson-vt-cpp](https://github.com/mapbox/geojson-vt-cpp). It is also used to obtain a toolchain for Android platform cross-compiliation.
+[Mason](https://github.com/mapbox/mason) is Mapbox's own cross platform C/C++ package manager. MapLibre Native uses mason packages as a source of precompiled binaries for third-party dependencies such as Boost, RapidJSON, and SQLite, and Mapbox's own C++ modules such as [earcut.hpp](https://github.com/mapbox/earcut.hpp) and [geojson-vt-cpp](https://github.com/mapbox/geojson-vt-cpp). It is also used to obtain a toolchain for Android platform cross-compiliation.
 
 We track mason dependencies for a given platform in the file `platform/<platform>/scripts/configure.sh`. The `configure` script at the root handles sourcing this file during the build, running the appropriate mason commands, and writing configuration settings for the subsequent build to a `config.gypi` in the build output directory.
 
 ## gyp
 
-[gyp](https://gyp.gsrc.io/) is a build system originally created for Chromium and since adopted by Node.js. In TrackAsia GL Native it's used to build the core C++ static library, the Node.js platform module, and the shared JNI module for Android.
+[gyp](https://gyp.gsrc.io/) is a build system originally created for Chromium and since adopted by Node.js. In MapLibre Native it's used to build the core C++ static library, the Node.js platform module, and the shared JNI module for Android.
 
 ## Platform-specific subsystems
 
@@ -76,7 +68,7 @@ Outside of the core C++ static library, platform SDKs typically rely on platform
 
 * For iOS and macOS this means Xcode and the xcodebuild command line tool.
 * For Android, Gradle and Android Studio.
-* For Qt, `qmake`.
+* For Qt, plain CMake is used to generate the build system.
 
 See the relevant platform-specific `README.md` / `INSTALL.md` for details.
 
@@ -85,9 +77,9 @@ See the relevant platform-specific `README.md` / `INSTALL.md` for details.
 ## Map
 ## Style
 
-The "Style" component of TrackAsia GL Native contains an implementation of the [Mapbox Style Specification](https://www.mapbox.com/mapbox-gl-style-spec/), defining what data to draw, the order to draw it in, and how to style the data when drawing it.
+The "Style" component of MapLibre Native contains an implementation of the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/), defining what data to draw, the order to draw it in, and how to style the data when drawing it.
 
-In addition to supporting styles loaded from a URL, TrackAsia GL Native includes a runtime styling API, which allows users to dynamically modify the current style: add and remove layers, modify layer properties, and so on. As appropriate for a C++ API, the runtime styling API API is _strongly typed_: there are subclasses for each layer type, with correctly-typed accessors for each style property. This results in a large API surface area. Fortunately, this is automated, by generating the API – and the regular portion of the implementation – from the style specification.
+In addition to supporting styles loaded from a URL, MapLibre Native includes a runtime styling API, which allows users to dynamically modify the current style: add and remove layers, modify layer properties, and so on. As appropriate for a C++ API, the runtime styling API API is _strongly typed_: there are subclasses for each layer type, with correctly-typed accessors for each style property. This results in a large API surface area. Fortunately, this is automated, by generating the API – and the regular portion of the implementation – from the style specification.
 
 The layers API makes a distinction between public API and internal implementation using [the `Impl` idiom](https://github.com/mapbox/mapbox-gl-native/issues/3254) seen elsewhere in the codebase. Here, it takes the form of parallel class hierarchies:
 
@@ -100,11 +92,11 @@ For each subclass of `Layer` or source, there's a corresponding `Impl` subclass.
 
 The `Layer::Impl` and `Source::Impl` reference held by `Layer` and `Source` base classes is _immutable_: it's a shared reference to a `const` (read only) pointer. Immutability permits the `Impl` objects to be shared safely between threads when needed -- for example, between the main thread and worker thread that performs computation in the background, or between the main thread and a dedicated renderer thread. See the "Threading" section below for further details on the threading model.
 
-Immutability is an alternative to several other strategies for safe intra-thread communication. One alternative strategy is to insert locks whenever data is shared between threads and at least one thread may be modifying the data. This strategy is prone to problems such as race conditions (if you forget to use a lock), deadlocks (if locks are acquired in conflicting orders), and poor performance due to lock contention. Another strategy is to copy data whenever it's needed by another thread. For complex structures such as a Mapbox Style, copying can be an expensive operation. With immutability, the approach is to share data without copying, but ensure that any data so shared cannot be modified by any thread, and that the data is not destroyed until the last thread using it relinquishes its reference.
+Immutability is an alternative to several other strategies for safe intra-thread communication. One alternative strategy is to insert locks whenever data is shared between threads and at least one thread may be modifying the data. This strategy is prone to problems such as race conditions (if you forget to use a lock), deadlocks (if locks are acquired in conflicting orders), and poor performance due to lock contention. Another strategy is to copy data whenever it's needed by another thread. For complex structures such as a MapLibre Style, copying can be an expensive operation. With immutability, the approach is to share data without copying, but ensure that any data so shared cannot be modified by any thread, and that the data is not destroyed until the last thread using it relinquishes its reference.
 
 Immutability is implemented by the `Immutable<T>` template, which acts as a non-nullable shared reference to a `const T`. It has behavior similar to `std::shared_ptr<const T>`, but indicates its intent as an immutable reference that is safe to share between threads.
 
-Immutability is core to the implementation, and yet one of the defining features of Trackasia GL is the ability to manipulate and mutate the style freely at runtime. How can this be possible if everything is immutable? The answer turns on the distinction mentioned in the previous section between public classes such as `Layer` and private implementations such as `Layer::Impl`. In Trackasia GL the following private implementations are immutable, whereas their public counterparts are not:
+Immutability is core to the implementation, and yet one of the defining features of Mapbox GL is the ability to manipulate and mutate the style freely at runtime. How can this be possible if everything is immutable? The answer turns on the distinction mentioned in the previous section between public classes such as `Layer` and private implementations such as `Layer::Impl`. In Mapbox GL the following private implementations are immutable, whereas their public counterparts are not:
 
 * **Mutable objects**: `Layer`, `Source`, `Image`, `Light`
 * **Immutable objects**: `Layer::Impl`, `Source::Impl`, `Image::Impl`, `Light::Impl`
@@ -120,7 +112,7 @@ Two things to note about this process:
 * No existing Impls are modified -- only the newly created copy.
 * Only one existing reference to an Impl is modified -- the one held by the `Layer` instance being mutated. Any references to the previous Impl held by other threads remain unchanged. They go on using the previous value for radius until notified by some other means that there has been a change.
 
-So how do things that are holding references to the previous Impl get notified? The answer is **style diffing**. This is the process by which we determine, from one frame to the next, what parts of the style have changed and therefore what needs to be recalculated in response to those changes in order to draw an updated frame. In parallel to style objects such as `Style`, `Layer`, `Source` and so on, Trackasia GL maintains render objects such as `RenderStyle`, `RenderLayer`, `RenderSource` and so on. These render objects:
+So how do things that are holding references to the previous Impl get notified? The answer is **style diffing**. This is the process by which we determine, from one frame to the next, what parts of the style have changed and therefore what needs to be recalculated in response to those changes in order to draw an updated frame. In parallel to style objects such as `Style`, `Layer`, `Source` and so on, Mapbox GL maintains render objects such as `RenderStyle`, `RenderLayer`, `RenderSource` and so on. These render objects:
 
 * are mutable
 * may live on either the main thread or an independent rendering thread, depending on the SDK
@@ -140,7 +132,7 @@ One final benefit of this approach of diffing immutable objects: we get "smart" 
 
 # Threading
 
-At runtime, TrackAsia GL Native uses the following threads:
+At runtime, MapLibre Native uses the following threads:
 
 * The "main thread" (or other thread on which a `Map` object is created) handles direct `Map` API requests, owns the active `Style` and its associated objects, and renders the map. Since this thread is usually dispatching events triggered by user input, it's important that these duties not require significant computation or perform blocking I/O that would cause UI jank or hangs.
 * Many of the tasks that require significant computation are associated with layout and styling of map features: parsing vector tiles, computing text layout, and generating data buffers to be consumed by OpenGL. This work happens on "worker threads" that are spawned by the main thread, four per `Style` object. The `Style` and its associated objects handle dispatching tasks to the workers, typically on a tile-by-tile basis.

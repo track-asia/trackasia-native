@@ -3,68 +3,64 @@ name: node-ci
 on:
   workflow_dispatch:
   push:
-    tags-ignore:
-      - '**'
-    paths-ignore:
-      - ".gitignore"
-      - "**.md"
-      # ignore other platforms
-      - "platform/android/**"
-      - "platform/darwin/**"
-      - "platform/glfw/**"
-      - "platform/ios/**"
-      - "platform/macos/**"
-      - "platform/qt/**"
-      # ignore CI for other platforms
-      - ".github/FUNDING.yml"
-      - ".github/actions/**"
-      - ".github/workflows/android-ci.yml"
-      - ".github/workflows/android-ci-pull.yml"
-      - ".github/workflows/android-docker-base.yml"
-      - ".github/workflows/android-docker-ndk-r21b.yml"
-      - ".github/workflows/android-release.yml"
-      - ".github/workflows/gh-pages-android-api.yml"
-      - ".github/workflows/gh-pages-ios-api.yml"
-      - ".github/workflows/ios-ci.yml"
-      - ".github/workflows/ios-pre-release.yml"
-      - ".github/workflows/ios-release.yml"
-      - ".github/workflows/macos-ci.yml"
-      - ".github/workflows/macos-release.yml"
-      - ".github/workflows/qt-ci-windows.yml"
-      - ".github/workflows/qt-ci.yml"
-      - ".github/workflows/update-gl-js.yml"
     branches:
       - main
+      - topic/drawable
+      - node-*.*.x
+    tags:
+      - "node-*"
+    paths:
+      - CMakeLists.txt
+      - "platform/linux/**"
+      - "platform/default/**"
+      - "platform/node/**"
+      - "platform/windows/**"
+      - "platform/darwin/**"
+      - "platform/macos/**"
+      - "platform/ios/platform/darwin/**"
+      - "platform/ios/platform/macos/**"
+      - ".github/workflows/node-ci.yml"
+      - "bin/**"
+      - "expression-test/**"
+      - "include/**"
+      - "metrics/**"
+      - "render-test/**"
+      - "scripts/**"
+      - "src/**"
+      - "test/**"
+      - "vendor/**"
+      - ".gitmodules"
+      - "!**/*.md"
+      - "package.json"
+      - "package-lock.json"
 
   pull_request:
     branches:
-      - main
-    paths-ignore:
-      - ".gitignore"
-      - "**.md"
-      # ignore other platforms
-      - "platform/android/**"
+      - "*"
+    paths:
+      - CMakeLists.txt
+      - "platform/linux/**"
+      - "platform/default/**"
+      - "platform/node/**"
+      - "platform/windows/**"
       - "platform/darwin/**"
-      - "platform/glfw/**"
-      - "platform/ios/**"
       - "platform/macos/**"
-      - "platform/qt/**"
-      # ignore CI for other platforms
-      - ".github/FUNDING.yml"
-      - ".github/workflows/android-ci.yml"
-      - ".github/workflows/android-ci-pull.yml"
-      - ".github/workflows/android-docker-base.yml"
-      - ".github/workflows/android-docker-ndk-r21b.yml"
-      - ".github/workflows/gh-pages-android-api.yml"
-      - ".github/workflows/gh-pages-ios-api.yml"
-      - ".github/workflows/ios-ci.yml"
-      - ".github/workflows/ios-pre-release.yml"
-      - ".github/workflows/ios-release.yml"
-      - ".github/workflows/macos-ci.yml"
-      - ".github/workflows/macos-release.yml"
-      - ".github/workflows/qt-ci-windows.yml"
-      - ".github/workflows/qt-ci.yml"
-      - ".github/workflows/update-gl-js.yml"
+      - "platform/ios/platform/darwin/**"
+      - "platform/ios/platform/macos/**"
+      - ".github/workflows/node-ci.yml"
+      - "bin/**"
+      - "expression-test/**"
+      - "include/**"
+      - "metrics/**"
+      - "render-test/**"
+      - "scripts/**"
+      - "src/**"
+      - "test/**"
+      - "vendor/**"
+      - ".gitmodules"
+      - "!**/*.md"
+      - "package.json"
+      - "package-lock.json"
 
 concurrency:
   # cancel jobs on PRs only
@@ -78,15 +74,21 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runs-on: ubuntu-20.04
+          - runs-on: ubuntu-22.04
             arch: x86_64
-          - runs-on: macos-12
-            arch: x86_64
-          - runs-on: macos-12-arm
+          - runs-on: [self-hosted, linux, ARM64]
             arch: arm64
+          # Disabled until Metal backend is complete
+          # A release for macOS can be made from the opengl-2 branch
+          # - runs-on: macos-12
+          #   arch: x86_64
+          # - runs-on: macos-13-xlarge
+          #   arch: arm64
+          - runs-on: windows-2022
+            arch: x86_64
     continue-on-error: true
     env:
-      BUILDTYPE: ${{github.ref == 'refs/heads/main' && 'Release' || 'Debug'}}
+      BUILDTYPE: "Release"
 
     defaults:
       run:
@@ -94,33 +96,35 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
 
+      - name: Setup submodules
+        shell: bash
+        run: |
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c core.longpaths=true -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive || true
+
       - name: Get OS Architecture
+        if: runner.os == 'MacOS' || runner.os == 'Linux'
         run: uname -m
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies macOS
-        if: runner.os == 'macOS'
+      - name: Install dependencies (MacOS)
+        if: runner.os == 'MacOS'
         env:
           HOMEBREW_NO_AUTO_UPDATE: 1
           HOMEBREW_NO_INSTALL_CLEANUP: 1
         run: |
-          brew list cmake || brew install cmake
           brew list ccache || brew install ccache
           brew list ninja || brew install ninja
           brew list pkg-config || brew install pkg-config
           brew list glfw || brew install glfw
           brew list libuv || brew install libuv
 
-      - name: Install dependencies Linux
+      - name: Install dependencies (Linux)
         if: runner.os == 'Linux'
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -128,111 +132,165 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             ccache \
-            cmake \
             ninja-build \
             pkg-config \
             xvfb \
             libcurl4-openssl-dev \
             libglfw3-dev \
             libuv1-dev \
-            g++-10 \
-            libc++-9-dev \
-            libc++abi-9-dev
+            g++-12 \
+            libjpeg-dev \
+            libpng-dev \
+            libwebp-dev
           /usr/sbin/update-ccache-symlinks
+
+      - name: Use Node.js from nvmrc
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
 
       - name: npm ci
         run: npm ci --ignore-scripts
 
-      - name: Prepare ccache
-        run: ccache --clear --set-config cache_dir=~/.ccache
+      - name: Set up msvc dev cmd (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Cache ccache
-        uses: actions/cache@v3
-        env:
-          cache-name: ccache-v1
-        with:
-          path: ~/.ccache
-          key: ${{ env.cache-name }}-${{ matrix.os }}-${{ github.job }}-${{ github.ref }}-${{ github.sha }}-${{ github.head_ref }}
-          restore-keys: |
-            ${{ env.cache-name }}-${{ matrix.os }}-${{ github.job }}-${{ github.ref }}-${{ github.sha }}
-            ${{ env.cache-name }}-${{ matrix.os }}-${{ github.job }}-${{ github.ref }}
-            ${{ env.cache-name }}-${{ matrix.os }}-${{ github.job }}
-
-      - name: Clear ccache statistics
+      # Fixes an issue with the image causing builds to fail - https://github.com/actions/runner-images/issues/8598
+      - name: Remove Strawberry Perl from PATH (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          ccache --zero-stats --set-config cache_dir=~/.ccache
-          ccache --max-size=2G --set-config cache_dir=~/.ccache
-          ccache --show-stats --set-config cache_dir=~/.ccache
+          $env:PATH = $env:PATH -replace "C:\\Strawberry\\c\\bin;", ""
+          "PATH=$env:PATH" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - name: CMake
+      - name: Setup cmake
+        if: ${{contains(runner.name, 'GitHub Actions')}}
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.29.2'
+ 
+      - name: cmake version
+        run: |
+          cmake --version
+
+      - name: Set up ccache (MacOS/Linux)
+        if: runner.os == 'MacOS' || runner.os == 'Linux'
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          key: ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}-${{ github.ref }}-${{ github.sha }}-${{ github.head_ref }}
+          restore-keys: |
+            ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}-${{ github.ref }}-${{ github.sha }}
+            ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}-${{ github.ref }}
+            ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}
+
+      - name: Set up ccache (Windows)
+        if: runner.os == 'Windows'
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          variant: "sccache"
+          key: ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}-${{ github.ref }}-${{ github.sha }}-${{ github.head_ref }}
+          restore-keys: |
+            ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}-${{ github.ref }}-${{ github.sha }}
+            ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}-${{ github.ref }}
+            ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}
+
+      - name: Cache cmake-node-module deps
+        uses: actions/cache@v4
+        with:
+          # downloaded with platform/node/cmake/module.cmake
+          path: build/headers
+          key: ${{ runner.os }}-${{ runner.arch }}-cmake-node-module-deps
+
+      - name: Configure maplibre-native (MacOS)
         if: runner.os == 'MacOS'
         run: |
-          cmake . -B build -G Ninja -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=${{ env.BUILDTYPE }}
+          cmake . -B build \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=${{ env.BUILDTYPE }} \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DMLN_WITH_NODE=ON
 
-      - name: CMake
+      - name: Configure maplibre-native (Linux)
         if: runner.os == 'Linux'
+        shell: bash -leo pipefail {0}
         run: |
-          cmake . -B build -G Ninja -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=${{ env.BUILDTYPE }} -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
+          cmake . -B build \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=${{ env.BUILDTYPE }} \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_C_COMPILER=gcc-12 \
+            -DCMAKE_CXX_COMPILER=g++-12 \
+            -DMLN_WITH_NODE=ON
 
-      - name: Build
+      - name: "Create directory '${{ github.workspace }}/platform/windows/vendor/vcpkg/bincache' (Windows)"
+        if: runner.os == 'Windows'
+        run: mkdir -p ${{ github.workspace }}/platform/windows/vendor/vcpkg/bincache
+        shell: bash
+
+      - name: Restore vcpkg cache (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/platform/windows/vendor/vcpkg
+            !${{ github.workspace }}/platform/windows/vendor/vcpkg/buildtrees
+            !${{ github.workspace }}/platform/windows/vendor/vcpkg/packages
+            !${{ github.workspace }}/platform/windows/vendor/vcpkg/downloads
+            !${{ github.workspace }}/platform/windows/vendor/vcpkg/installed
+          key: |
+            ${{ matrix.runs-on }}-${{ env.BUILDTYPE }}-${{ github.job }}-${{ hashFiles( '.git/modules/platform/windows/vendor/vcpkg/HEAD' ) }}-${{ hashFiles( 'platform/windows/Get-VendorPackages.ps1' ) }}
+
+      - name: Configure maplibre-native (Windows)
+        if: runner.os == 'Windows'
         run: |
-          cmake --build build -j $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null)
+          cmake . -B build \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=${{ env.BUILDTYPE }} \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=sccache \
+            -DMLN_WITH_NODE=ON
+
+      - name: Build maplibre-native (MacOS/Linux)
+        if: runner.os == 'MacOS' || runner.os == 'Linux'
+        run: |
+          cmake --build build -j "$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null)"
+
+      - name: Build maplibre-native (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cmake --build build
 
       - name: Run render tests on macOS
         if: runner.os == 'macOS'
-        run: ./build/mbgl-render-test-runner --manifestPath metrics/macos-xcode11-release-style.json
+        run: set -o pipefail && ./build/mbgl-render-test-runner --manifestPath metrics/macos-xcode11-release-style.json
 
-      - name: Upload render test artifacts
-        uses: actions/upload-artifact@v3
-        if: always()
+      - name: Upload render test artifacts (MacOS)
+        if: runner.os == 'MacOS'
+        uses: actions/upload-artifact@v4
         with:
           name: render-query-test-results
           path: metrics/macos-xcode11-release-style.html
 
-      - name: Test
+      - name: Test (Linux)
         if: runner.os == 'Linux'
         run: xvfb-run --auto-servernum npm test
 
-      - name: Test
-        if: runner.os == 'macOS'
+      - name: Test (MacOS)
+        if: runner.os == 'MacOS'
         run: npm test
+
+      - name: Test (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          LIBGL_ALWAYS_SOFTWARE: true
+          GALLIUM_DRIVER: softpipe
+        run: |
+          Invoke-WebRequest https://github.com/pal1000/mesa-dist-win/releases/download/22.3.5/mesa3d-22.3.5-release-msvc.7z -OutFile mesa3d.7z
+          & 'C:\Program Files\7-Zip\7z.exe' e -olib\node-v115 .\mesa3d.7z x64\opengl32.dll x64\libgallium_wgl.dll x64\libGLESv2.dll x64\libglapi.dll
+          npm test
 
       # On PRs make sure that the npm package can be packaged.
       - name: Pack
-        if: github.ref != 'refs/heads/main'
         run: |
           npm pack --dry-run
-          
-  test_linux_arm:
-    runs-on: macos-12-arm
-    name: test (ubuntu-20.04, arm64)
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
-          fetch-depth: 0
-
-      - name: Install dependencies macOS
-        if: runner.os == 'macOS'
-        env:
-          HOMEBREW_NO_AUTO_UPDATE: 1
-          HOMEBREW_NO_INSTALL_CLEANUP: 1
-        run: |
-          brew install docker docker-compose
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Create the docker build image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platforms: linux/arm64
-          file: platform/node/scripts/Dockerfile_Build
-          tags: build
-          push: false
-          load: true
-
-      - name: Run the docker build image and create node libs
-        run:  docker run --rm -v $(pwd):/data build

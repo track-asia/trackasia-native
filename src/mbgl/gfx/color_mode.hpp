@@ -3,6 +3,7 @@
 #include <mbgl/gfx/types.hpp>
 #include <mbgl/util/variant.hpp>
 #include <mbgl/util/color.hpp>
+#include <mbgl/util/hash.hpp>
 
 namespace mbgl {
 namespace gfx {
@@ -29,15 +30,11 @@ public:
         static constexpr ColorBlendFactorType dstFactor = ColorBlendFactorType::Zero;
     };
 
-    using Add              = LinearBlend<ColorBlendEquationType::Add>;
-    using Subtract         = LinearBlend<ColorBlendEquationType::Subtract>;
-    using ReverseSubtract  = LinearBlend<ColorBlendEquationType::ReverseSubtract>;
+    using Add = LinearBlend<ColorBlendEquationType::Add>;
+    using Subtract = LinearBlend<ColorBlendEquationType::Subtract>;
+    using ReverseSubtract = LinearBlend<ColorBlendEquationType::ReverseSubtract>;
 
-    using BlendFunction = variant<
-        Replace,
-        Add,
-        Subtract,
-        ReverseSubtract>;
+    using BlendFunction = variant<Replace, Add, Subtract, ReverseSubtract>;
 
     BlendFunction blendFunction;
     Color blendColor;
@@ -51,20 +48,28 @@ public:
 
     Mask mask;
 
-    static ColorMode disabled() {
-       return { Replace{}, {}, { false, false, false, false } };
-    }
+    static ColorMode disabled() { return {Replace{}, {}, {false, false, false, false}}; }
 
-    static ColorMode unblended() {
-       return { Replace{}, {}, { true, true, true, true } };
-    }
+    static ColorMode unblended() { return {Replace{}, {}, {true, true, true, true}}; }
 
     static ColorMode alphaBlended() {
-        return { Add{ ColorBlendFactorType::One, ColorBlendFactorType::OneMinusSrcAlpha }, {}, { true, true, true, true } };
+        return {Add{ColorBlendFactorType::One, ColorBlendFactorType::OneMinusSrcAlpha}, {}, {true, true, true, true}};
     }
 
     static ColorMode additive() {
-        return { Add{ ColorBlendFactorType::One, ColorBlendFactorType::One }, {}, { true, true, true, true } };
+        return {Add{ColorBlendFactorType::One, ColorBlendFactorType::One}, {}, {true, true, true, true}};
+    }
+
+    std::size_t hash() const {
+        return mbgl::util::hash(blendFunction.which(),
+                                blendColor.r,
+                                blendColor.g,
+                                blendColor.b,
+                                blendColor.a,
+                                mask.r,
+                                mask.g,
+                                mask.b,
+                                mask.a);
     }
 };
 

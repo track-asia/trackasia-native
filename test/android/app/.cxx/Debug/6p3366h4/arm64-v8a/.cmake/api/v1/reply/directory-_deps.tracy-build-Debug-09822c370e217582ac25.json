@@ -1,0 +1,173 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 149,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 154,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 156,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 158,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 160,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 168,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"_deps/tracy-build/libTracyClient.a"
+			],
+			"targetId" : "TracyClient::@5312c6e87bd9d431bdc8",
+			"targetIndex" : 28,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include/tracy",
+			"paths" : 
+			[
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/tracy/TracyC.h",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/tracy/Tracy.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/tracy/TracyD3D11.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/tracy/TracyD3D12.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/tracy/TracyLua.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/tracy/TracyOpenCL.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/tracy/TracyOpenGL.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/tracy/TracyVulkan.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "include/client",
+			"paths" : 
+			[
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/tracy_concurrentqueue.h",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/tracy_rpmalloc.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/tracy_SPSCQueue.h",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyKCore.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyArmCpuTable.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyCallstack.h",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyCallstack.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyCpuid.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyDebug.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyDxt1.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyFastVector.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyLock.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyProfiler.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyRingBuffer.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyScoped.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyStringHelpers.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracySysPower.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracySysTime.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracySysTrace.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/client/TracyThread.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "include/common",
+			"paths" : 
+			[
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/tracy_lz4.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/tracy_lz4hc.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyAlign.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyAlloc.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyApi.h",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyColor.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyForceInline.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyMutex.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyProtocol.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyQueue.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracySocket.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyStackFrames.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracySystem.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyUwp.hpp",
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/public/common/TracyYield.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 5,
+			"component" : "Unspecified",
+			"destination" : "share/Tracy",
+			"exportName" : "TracyConfig",
+			"exportTargets" : 
+			[
+				{
+					"id" : "TracyClient::@5312c6e87bd9d431bdc8",
+					"index" : 28
+				}
+			],
+			"paths" : 
+			[
+				"_deps/tracy-build/CMakeFiles/Export/share/Tracy/TracyTargets.cmake"
+			],
+			"type" : "export"
+		},
+		{
+			"backtrace" : 6,
+			"component" : "Unspecified",
+			"destination" : "share/Tracy",
+			"paths" : 
+			[
+				"test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-build/TracyConfig.cmake"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "_deps/tracy-build",
+		"source" : "test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src"
+	}
+}

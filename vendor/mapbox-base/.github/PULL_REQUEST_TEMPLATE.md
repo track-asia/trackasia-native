@@ -11,4 +11,4 @@
  - [ ] Post benchmark scores.
  - [ ] Manually test the debug page.
  - [ ] Suggest a changelog category: bug/feature/docs/etc. or "skip changelog".
- - [ ] Add an entry inside this element for inclusion in the `trackasia-gl-js` changelog: `<changelog></changelog>`.
+ - [ ] Add an entry inside this element for inclusion in the `maplibre-gl-js` changelog: `<changelog></changelog>`.

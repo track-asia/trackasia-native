@@ -1,13 +1,15 @@
-#include <mbgl/util/run_loop.hpp>
-#include <mbgl/util/async_task.hpp>
-#include <mbgl/util/thread_local.hpp>
 #include <mbgl/actor/scheduler.hpp>
+#include <mbgl/util/async_task.hpp>
+#include <mbgl/util/monotonic_timer.hpp>
+#include <mbgl/util/run_loop.hpp>
+#include <mbgl/util/thread_local.hpp>
 
 #include <uv.h>
 
 #include <cassert>
 #include <functional>
 #include <unordered_map>
+#include <stdexcept>
 
 namespace {
 
@@ -24,21 +26,21 @@ struct Watch {
 
         RunLoop::Event watchEvent = RunLoop::Event::None;
         switch (event) {
-        case UV_READABLE:
-            watchEvent = RunLoop::Event::Read;
-            break;
-        case UV_WRITABLE:
-            watchEvent = RunLoop::Event::Write;
-            break;
-        case UV_READABLE | UV_WRITABLE:
-            watchEvent = RunLoop::Event::ReadWrite;
-            break;
+            case UV_READABLE:
+                watchEvent = RunLoop::Event::Read;
+                break;
+            case UV_WRITABLE:
+                watchEvent = RunLoop::Event::Write;
+                break;
+            case UV_READABLE | UV_WRITABLE:
+                watchEvent = RunLoop::Event::ReadWrite;
+                break;
         }
 
         watch->eventCallback(watch->fd, watchEvent);
     };
 
-    static void onClose(uv_handle_t *poll) {
+    static void onClose(uv_handle_t* poll) {
         auto watch = reinterpret_cast<Watch*>(poll->data);
         watch->closeCallback();
     };
@@ -58,16 +60,12 @@ RunLoop* RunLoop::Get() {
 class RunLoop::Impl {
 public:
     void closeHolder() {
-        uv_close(holderHandle(), [](uv_handle_t* h) {
-            delete reinterpret_cast<uv_async_t*>(h);
-        });
+        uv_close(holderHandle(), [](uv_handle_t* h) { delete reinterpret_cast<uv_async_t*>(h); });
     }
 
-    uv_handle_t* holderHandle() {
-        return reinterpret_cast<uv_handle_t*>(holder);
-    }
+    uv_handle_t* holderHandle() { return reinterpret_cast<uv_handle_t*>(holder); }
 
-    uv_loop_t *loop = nullptr;
+    uv_loop_t* loop = nullptr;
     uv_async_t* holder = new uv_async_t;
 
     RunLoop::Type type;
@@ -76,17 +74,18 @@ public:
     std::unordered_map<int, std::unique_ptr<Watch>> watchPoll;
 };
 
-RunLoop::RunLoop(Type type) : impl(std::make_unique<Impl>()) {
+RunLoop::RunLoop(Type type)
+    : impl(std::make_unique<Impl>()) {
     switch (type) {
-    case Type::New:
-        impl->loop = new uv_loop_t;
-        if (uv_loop_init(impl->loop) != 0) {
-            throw std::runtime_error("Failed to initialize loop.");
-        }
-        break;
-    case Type::Default:
-        impl->loop = uv_default_loop();
-        break;
+        case Type::New:
+            impl->loop = new uv_loop_t;
+            if (uv_loop_init(impl->loop) != 0) {
+                throw std::runtime_error("Failed to initialize loop.");
+            }
+            break;
+        case Type::Default:
+            impl->loop = uv_default_loop();
+            break;
     }
 
     // Just for holding a ref to the main loop and keep
@@ -150,10 +149,26 @@ void RunLoop::stop() {
     invoke([&] { uv_unref(impl->holderHandle()); });
 }
 
+void RunLoop::waitForEmpty([[maybe_unused]] const mbgl::util::SimpleIdentity tag) {
+    while (true) {
+        std::size_t remaining;
+        {
+            std::lock_guard<std::mutex> lock(mutex);
+            remaining = defaultQueue.size() + highPriorityQueue.size();
+        }
+
+        if (remaining == 0) {
+            return;
+        }
+
+        runOnce();
+    }
+}
+
 void RunLoop::addWatch(int fd, Event event, std::function<void(int, Event)>&& callback) {
     MBGL_VERIFY_THREAD(tid);
 
-    Watch *watch = nullptr;
+    Watch* watch = nullptr;
     auto watchPollIter = impl->watchPoll.find(fd);
 
     if (watchPollIter == impl->watchPoll.end()) {
@@ -162,7 +177,11 @@ void RunLoop::addWatch(int fd, Event event, std::function<void(int, Event)>&& ca
         watch = watchPtr.get();
         impl->watchPoll[fd] = std::move(watchPtr);
 
+#ifdef WIN32
+        if (uv_poll_init_socket(impl->loop, &watch->poll, fd)) {
+#else
         if (uv_poll_init(impl->loop, &watch->poll, fd)) {
+#endif
             throw std::runtime_error("Failed to init poll on file descriptor.");
         }
     } else {
@@ -175,17 +194,17 @@ void RunLoop::addWatch(int fd, Event event, std::function<void(int, Event)>&& ca
 
     int pollEvent = 0;
     switch (event) {
-    case Event::Read:
-        pollEvent = UV_READABLE;
-        break;
-    case Event::Write:
-        pollEvent = UV_WRITABLE;
-        break;
-    case Event::ReadWrite:
-        pollEvent = UV_READABLE | UV_WRITABLE;
-        break;
-    default:
-        throw std::runtime_error("Unhandled event.");
+        case Event::Read:
+            pollEvent = UV_READABLE;
+            break;
+        case Event::Write:
+            pollEvent = UV_WRITABLE;
+            break;
+        case Event::ReadWrite:
+            pollEvent = UV_READABLE | UV_WRITABLE;
+            break;
+        default:
+            throw std::runtime_error("Unhandled event.");
     }
 
     if (uv_poll_start(&watch->poll, pollEvent, &Watch::onEvent)) {

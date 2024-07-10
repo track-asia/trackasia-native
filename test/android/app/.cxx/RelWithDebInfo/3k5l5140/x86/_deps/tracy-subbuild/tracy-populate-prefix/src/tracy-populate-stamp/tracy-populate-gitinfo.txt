@@ -1,0 +1,3 @@
+repository='https://github.com/wolfpld/tracy.git'
+module=''
+tag='origin'

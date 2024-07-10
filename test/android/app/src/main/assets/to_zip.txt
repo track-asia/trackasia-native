@@ -1,3 +1,3 @@
 test/results/
 test/fixtures/
-trackasia-gl-js/src/style-spec/reference/
+scripts/style-spec-reference/

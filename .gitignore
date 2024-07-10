@@ -1,27 +1,30 @@
-/mapbox-gl-native-android/TrackasiaGLAndroidSDK/mapbox-gl-native
-/mapbox-gl-native-android/TrackasiaGLAndroidSDKTestApp/mapbox-gl-native
-/platform/android/TrackasiaGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
+/mapbox-gl-native-android/MapLibreAndroid/mapbox-gl-native
+/mapbox-gl-native-android/MapLibreAndroidTestApp/mapbox-gl-native
+/platform/android/MapLibreAndroidTestApp/src/main/res/values/developer-config.xml
 /platform/android/local.properties
 /platform/android/gradle/configuration.gradle
 /platform/android/arm64-v8a
 /platform/android/armeabi-v7a
-/platform/android/TrackasiaGLAndroidSDK/.cxx
-/platform/android/TrackasiaGLAndroidSDK/build
-/platform/android/TrackasiaGLAndroidSDKTestApp/.cxx
-/platform/android/TrackasiaGLAndroidSDKTestApp/build
+/platform/android/MapLibreAndroid/.cxx
+/platform/android/MapLibreAndroid/build
+/platform/android/MapLibreAndroidTestApp/.cxx
+/platform/android/MapLibreAndroidTestApp/build
 /platform/android/.gradle
 /platform/android/x86
 /platform/android/x86_64
 /cmake-build-debug
 /platform/android/build
-/platform/android/TrackasiaGLAndroidSDK/src/main/assets/sdk_versions/com.trackasia.android
+/platform/android/MapLibreAndroid/src/main/assets/sdk_versions/com.mapbox.mapboxsdk
 /platform/ios/platform/ios/Mapbox.playground/build/
+/platform/windows/vendor/mesa3d/
 *.code-workspace
 
 .DS_Store
+.cache
+compile_commands.json
 /build
 **/.idea
-/platform/android/TrackasiaGLAndroidSDKTestApp/local.properties
+/platform/android/MapLibreAndroidTestApp/local.properties
 /new_offline.db
 *.gpg
 /.vscode
@@ -40,6 +43,11 @@ node_modules
 /lib
 
 /bazel-*
+/MODULE.bazel.lock
 CMakeLists.txt.user
+CMakeFiles
+__generated__
 
-.history
+/metrics/integration/query-tests/**/actual.json
+/metrics/integration/render-tests/**/actual.png
+/metrics/integration/render-tests/**/diff.png

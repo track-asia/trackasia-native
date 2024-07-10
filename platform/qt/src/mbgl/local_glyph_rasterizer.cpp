@@ -12,16 +12,17 @@ namespace mbgl {
 
 class LocalGlyphRasterizer::Impl {
 public:
-    Impl(const optional<std::string>& fontFamily_);
+    Impl(const std::optional<std::string>& fontFamily_);
 
     bool isConfigured() const;
 
-    optional<std::string> fontFamily;
+    std::optional<std::string> fontFamily;
     QFont font;
-    optional<QFontMetrics> metrics;
+    std::optional<QFontMetrics> metrics;
 };
 
-LocalGlyphRasterizer::Impl::Impl(const optional<std::string>& fontFamily_) : fontFamily(fontFamily_) {
+LocalGlyphRasterizer::Impl::Impl(const std::optional<std::string>& fontFamily_)
+    : fontFamily(fontFamily_) {
     if (isConfigured()) {
         font.setFamily(QString::fromStdString(*fontFamily));
         font.setPixelSize(util::ONE_EM);
@@ -33,14 +34,14 @@ bool LocalGlyphRasterizer::Impl::isConfigured() const {
     return fontFamily.operator bool();
 }
 
-LocalGlyphRasterizer::LocalGlyphRasterizer(const optional<std::string>& fontFamily)
+LocalGlyphRasterizer::LocalGlyphRasterizer(const std::optional<std::string>& fontFamily)
     : impl(std::make_unique<Impl>(fontFamily)) {}
 
-LocalGlyphRasterizer::~LocalGlyphRasterizer() {
-}
+LocalGlyphRasterizer::~LocalGlyphRasterizer() {}
 
 bool LocalGlyphRasterizer::canRasterizeGlyph(const FontStack&, GlyphID glyphID) {
-    return impl->isConfigured() && impl->metrics->inFont(glyphID) && util::i18n::allowsFixedWidthGlyphGeneration(glyphID);
+    return impl->isConfigured() && impl->metrics->inFont(glyphID) &&
+           util::i18n::allowsFixedWidthGlyphGeneration(glyphID);
 }
 
 Glyph LocalGlyphRasterizer::rasterizeGlyph(const FontStack&, GlyphID glyphID) {
@@ -80,7 +81,7 @@ Glyph LocalGlyphRasterizer::rasterizeGlyph(const FontStack&, GlyphID glyphID) {
     memcpy(img.get(), image.constBits(), image.byteCount());
 #endif
 
-    glyph.bitmap = AlphaImage { size, std::move(img) };
+    glyph.bitmap = AlphaImage{size, std::move(img)};
 
     return glyph;
 }
