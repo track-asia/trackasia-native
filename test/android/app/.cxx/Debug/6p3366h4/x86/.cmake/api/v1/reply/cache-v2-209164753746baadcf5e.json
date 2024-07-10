@@ -1663,10 +1663,10 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "The CMake toolchain file"
 				}
 			],
-			"type" : "UNINITIALIZED",
+			"type" : "FILEPATH",
 			"value" : "/Users/sangnguyen/Library/Android/sdk/ndk/26.1.10909125/build/cmake/android.toolchain.cmake"
 		},
 		{
@@ -2151,7 +2151,7 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Build MapLibre Native Node.js bindings"
+					"value" : "Build TrackAsia Native Node.js bindings"
 				}
 			],
 			"type" : "BOOL",
@@ -2187,7 +2187,7 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Build MapLibre Native Qt bindings"
+					"value" : "Build TrackAsia Native Qt bindings"
 				}
 			],
 			"type" : "BOOL",
@@ -2295,7 +2295,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "SangNguyens-MacBook-Pro.local"
+			"value" : "SangNguyens-MBP"
 		},
 		{
 			"name" : "SVNCOMMAND",

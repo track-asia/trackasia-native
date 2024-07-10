@@ -36,7 +36,7 @@ objc_library(
 
 ios_application(
     name = "RenderTestApp",
-    bundle_id = "{}.maplibre.RenderTestApp".format(BUNDLE_ID_PREFIX),
+    bundle_id = "{}.trackasia.RenderTestApp".format(BUNDLE_ID_PREFIX),
     families = ["iphone"],
     infoplists = [
         "//render-test/ios:Info.plist",

@@ -22,8 +22,8 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 include(ExternalProject)
 ExternalProject_Add(tracy-populate
                      "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/wolfpld/tracy.git" "GIT_TAG" "master" "GIT_SHALLOW" "TRUE" "GIT_PROGRESS" "TRUE"
-                    SOURCE_DIR          "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src"
-                    BINARY_DIR          "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-build"
+                    SOURCE_DIR          "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src"
+                    BINARY_DIR          "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

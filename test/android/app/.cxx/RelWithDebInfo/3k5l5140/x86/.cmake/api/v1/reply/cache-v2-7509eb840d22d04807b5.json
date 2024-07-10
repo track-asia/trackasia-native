@@ -203,7 +203,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -691,7 +691,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/prefab/x86/prefab"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/prefab/x86/prefab"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -799,7 +799,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native"
 		},
 		{
 			"name" : "CMAKE_INSTALL_BINDIR",
@@ -1091,7 +1091,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/RelWithDebInfo/3k5l5140/obj/x86"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/RelWithDebInfo/3k5l5140/obj/x86"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -1423,7 +1423,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/RelWithDebInfo/3k5l5140/obj/x86"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/RelWithDebInfo/3k5l5140/obj/x86"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1819,7 +1819,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/_deps"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/_deps"
 		},
 		{
 			"name" : "FETCHCONTENT_FULLY_DISCONNECTED",
@@ -1967,7 +1967,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base"
 		},
 		{
 			"name" : "MAPBOX_BASE_BUILD_TESTING",
@@ -2003,7 +2003,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base"
 		},
 		{
 			"name" : "MEMORYCHECK_COMMAND",
@@ -2151,7 +2151,7 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Build MapLibre Native Node.js bindings"
+					"value" : "Build TrackAsia Native Node.js bindings"
 				}
 			],
 			"type" : "BOOL",
@@ -2187,7 +2187,7 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Build MapLibre Native Qt bindings"
+					"value" : "Build TrackAsia Native Qt bindings"
 				}
 			],
 			"type" : "BOOL",
@@ -2239,7 +2239,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86"
 		},
 		{
 			"name" : "Mapbox GL Native_IS_TOP_LEVEL",
@@ -2263,7 +2263,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native"
 		},
 		{
 			"name" : "P4COMMAND",
@@ -2687,7 +2687,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/_deps/tracy-build"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/_deps/tracy-build"
 		},
 		{
 			"name" : "Tracy_IS_TOP_LEVEL",
@@ -2711,7 +2711,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/_deps/tracy-src"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/_deps/tracy-src"
 		},
 		{
 			"name" : "_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX",
@@ -2735,7 +2735,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/prefab/x86/prefab/lib/i686-linux-android/cmake/boringssl"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/prefab/x86/prefab/lib/i686-linux-android/cmake/boringssl"
 		},
 		{
 			"name" : "curl_DIR",
@@ -2747,7 +2747,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/prefab/x86/prefab/lib/i686-linux-android/cmake/curl"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/prefab/x86/prefab/lib/i686-linux-android/cmake/curl"
 		},
 		{
 			"name" : "unordered_dense_BINARY_DIR",
@@ -2759,7 +2759,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/unordered_dense"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/unordered_dense"
 		},
 		{
 			"name" : "unordered_dense_IS_TOP_LEVEL",
@@ -2783,7 +2783,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unordered_dense"
+			"value" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/unordered_dense"
 		}
 	],
 	"kind" : "cache",

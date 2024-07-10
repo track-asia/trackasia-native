@@ -1,4 +1,4 @@
-# MapLibre Native Documentation
+# TrackAsia Native Documentation
 
 [Introduction](./introduction.md)
 
@@ -10,10 +10,10 @@
     - [Android Map Rendering Data Flow](design/android-map-rendering-data-flow.md)
     - [Geometry Tile Worker](design/geometry-tile-worker.md)
 
-- [MapLibre Native for Android](./android/README.md)
+- [TrackAsia Native for Android](./android/README.md)
     - [Quickstart](./android/getting-started-guide.md)
     - [Annotation: Marker](./android/annotation-guide.md)
     - [Location Component](./android/location-component-guide.md)
 
-- [Profiling applications that use MapLibre Native](./profiling/README.md)
+- [Profiling applications that use TrackAsia Native](./profiling/README.md)
     - [Tracy profiling](./profiling/tracy-profiling.md)

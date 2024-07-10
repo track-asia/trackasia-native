@@ -26,8 +26,8 @@ struct LayerTypeInfo;
 
 /**
  * The runtime representation of a
- * [source](https://maplibre.org/maplibre-style-spec/sources/) from
- * the MapLibre Style Specification.
+ * [source](https://trackasia.org/trackasia-style-spec/sources/) from
+ * the TrackAsia Style Specification.
  *
  * `Source` is an abstract base class; concrete derived classes are provided for
  * each source type. `Source` contains functionality that is common to all layer

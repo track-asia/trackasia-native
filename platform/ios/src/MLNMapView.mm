@@ -295,7 +295,7 @@ static NSString * const MLNInvisibleStyleMarkerSymbolName = @"invisible_marker";
 
 /// Prefix that denotes a sprite installed by MLNMapView, to avoid collisions
 /// with style-defined sprites.
-NSString * const MLNAnnotationSpritePrefix = @"org.maplibre.sprites.";
+NSString * const MLNAnnotationSpritePrefix = @"org.trackasia.sprites.";
 
 /// Slop area around the hit testing point, allowing for imprecise annotation selection.
 const CGFloat MLNAnnotationImagePaddingForHitTest = 5;
@@ -695,7 +695,7 @@ public:
 
     // setup logo
     //
-    UIImage *logo = [UIImage mgl_resourceImageNamed:@"maplibre-logo-stroke-gray"];
+    UIImage *logo = [UIImage mgl_resourceImageNamed:@"trackasia-logo-stroke-gray"];
     _logoView = [[UIImageView alloc] initWithImage:logo];
     _logoView.accessibilityTraits = UIAccessibilityTraitStaticText;
     _logoView.accessibilityLabel = NSLocalizedStringWithDefaultValue(@"LOGO_A11Y_LABEL", nil, nil, @"Mapbox", @"Accessibility label");
@@ -2864,7 +2864,7 @@ public:
         }
     }
 
-    NSString *actionSheetTitle = NSLocalizedStringWithDefaultValue(@"SDK_NAME", nil, nil, @"MapLibre Native for iOS", @"Action sheet title");
+    NSString *actionSheetTitle = NSLocalizedStringWithDefaultValue(@"SDK_NAME", nil, nil, @"TrackAsia Native for iOS", @"Action sheet title");
     UIAlertController *attributionController = [UIAlertController alertControllerWithTitle:actionSheetTitle
                                                                                    message:nil
                                                                             preferredStyle:UIAlertControllerStyleActionSheet];

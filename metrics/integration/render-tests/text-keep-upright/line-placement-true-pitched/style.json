@@ -12,7 +12,7 @@
   "zoom": 14,
   "pitch": 35,
   "sources": {
-    "maplibre": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -32,7 +32,7 @@
     {
       "id": "line-placement-true",
       "type": "symbol",
-      "source": "maplibre",
+      "source": "trackasia",
       "source-layer": "road",
       "layout": {
         "symbol-placement": "line",

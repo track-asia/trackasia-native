@@ -40,7 +40,7 @@ filegroup(
 )
 
 macos_command_line_application(
-    name = "MapLibreMac",
+    name = "TrackAsiaMac",
     minimum_deployment_os_version = "13.0",
     minimum_os_version = "13.0",
     visibility = ["//visibility:public"],
@@ -52,11 +52,11 @@ xcodeproj(
     bazel_env = {"PATH": "/bin:/usr/bin:/usr/local/bin:/opt/homebrew/bin"},
     default_xcode_configuration = "Debug",
     minimum_xcode_version = "14",
-    project_name = "MapLibre",
+    project_name = "TrackAsia",
     tags = ["manual"],
     top_level_targets = [
         top_level_target(
-            "//platform/macos:MapLibreMac",
+            "//platform/macos:TrackAsiaMac",
             target_environments = [
                 "simulator",
             ],

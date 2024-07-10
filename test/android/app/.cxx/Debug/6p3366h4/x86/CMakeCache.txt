@@ -305,8 +305,8 @@ CMAKE_SYSTEM_NAME:UNINITIALIZED=Android
 //No help, variable specified on the command line.
 CMAKE_SYSTEM_VERSION:UNINITIALIZED=28
 
-//No help, variable specified on the command line.
-CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=/Users/sangnguyen/Library/Android/sdk/ndk/26.1.10909125/build/cmake/android.toolchain.cmake
+//The CMake toolchain file
+CMAKE_TOOLCHAIN_FILE:FILEPATH=/Users/sangnguyen/Library/Android/sdk/ndk/26.1.10909125/build/cmake/android.toolchain.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -401,7 +401,7 @@ MLN_WITH_COVERAGE:BOOL=OFF
 //Build with EGL renderer
 MLN_WITH_EGL:BOOL=OFF
 
-//Build MapLibre Native Node.js bindings
+//Build TrackAsia Native Node.js bindings
 MLN_WITH_NODE:BOOL=OFF
 
 //Build with OpenGL renderer
@@ -410,7 +410,7 @@ MLN_WITH_OPENGL:BOOL=ON
 //Build with OSMesa (Software) renderer
 MLN_WITH_OSMESA:BOOL=OFF
 
-//Build MapLibre Native Qt bindings
+//Build TrackAsia Native Qt bindings
 MLN_WITH_QT:BOOL=OFF
 
 //Compile with runtime type information
@@ -432,7 +432,7 @@ Mapbox GL Native_IS_TOP_LEVEL:STATIC=ON
 Mapbox GL Native_SOURCE_DIR:STATIC=/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native
 
 //Name of the computer/site where compile is being run
-SITE:STRING=SangNguyens-MacBook-Pro.local
+SITE:STRING=SangNguyens-MBP
 
 //Enforce callstack collection for tracy regions
 TRACY_CALLSTACK:BOOL=OFF

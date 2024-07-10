@@ -28,7 +28,7 @@
   ],
   "zoom": 14,
   "sources": {
-    "maplibre": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -48,7 +48,7 @@
     {
       "id": "icon",
       "type": "symbol",
-      "source": "maplibre",
+      "source": "trackasia",
       "source-layer": "poi_label",
       "filter": [
         "==",

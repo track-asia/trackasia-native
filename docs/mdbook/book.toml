@@ -1,9 +1,9 @@
 [book]
-authors = ["MapLibre Contributors"]
+authors = ["TrackAsia Contributors"]
 language = "en"
 multilingual = false
 src = "src"
-title = "MapLibre Native Documentation"
+title = "TrackAsia Native Documentation"
 
 [output.html]
 additional-css = ["diff.css"]

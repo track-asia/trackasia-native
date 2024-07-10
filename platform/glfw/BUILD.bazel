@@ -1,4 +1,4 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS")
 
 objc_library(
     name = "metal_backend",
@@ -9,9 +9,9 @@ objc_library(
         "metal_backend.h",
         "metal_backend.mm",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + TRACKASIA_FLAGS,
     deps = [
-        "//:maplibre_lib",
+        "//:trackasia_lib",
         "@glfw",
     ],
 )
@@ -42,7 +42,7 @@ cc_binary(
                    "glfw_gl_backend.hpp",
                ],
            }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + TRACKASIA_FLAGS,
     data = [
         ":mapbox_puck_assets",
     ],
@@ -62,7 +62,7 @@ cc_binary(
         "@rules_xcodeproj//xcodeproj:generated",
     ],
     deps = [
-        "//:maplibre_lib",
+        "//:trackasia_lib",
         "@glfw",
     ] + select({
         "@platforms//os:macos": ["metal_backend"],

@@ -1,4 +1,4 @@
-# Install script for directory: /Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/include
+# Install script for directory: /Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/include
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -65,19 +65,19 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest/googletest"
+					"path" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest/googletest"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest/googletest/include"
+					"path" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest/googletest/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest/googlemock"
+					"path" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest/googlemock"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest/googlemock/include"
+					"path" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest/googlemock/include"
 				}
 			],
 			"language" : "CXX",

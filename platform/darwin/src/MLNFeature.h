@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
  listed above for each attribute value. In addition to the Foundation types, you
  may also set an attribute to an `NSColor` (macOS) or `UIColor` (iOS), which
  will be converted into its
- <a href="https://maplibre.org/maplibre-style-spec/types/#color">CSS string representation</a>
+ <a href="https://trackasia.org/trackasia-style-spec/types/#color">CSS string representation</a>
  when the feature is added to an `MLNShapeSource`. This can be convenient when
  using the attribute to supply a value for a color-typed layout or paint
  attribute via a key path expression.

@@ -12,7 +12,7 @@
   ],
   "zoom": 17,
   "sources": {
-    "maplibre": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -33,7 +33,7 @@
     {
       "id": "line",
       "type": "symbol",
-      "source": "maplibre",
+      "source": "trackasia",
       "source-layer": "road_label",
       "layout": {
         "icon-image": "triangle-stroked-12",

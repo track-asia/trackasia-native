@@ -1,6 +1,6 @@
 # Linux
 
-This guide explains how to get started building and running MapLibre Native on Linux. The guide focusses on a Ubuntu 22.04. The build process should give you a set of `.a` files that you can use to include MapLibre Native in other C++ projects, as well as a set of executables that you can run to render map tile images and test the project.
+This guide explains how to get started building and running TrackAsia Native on Linux. The guide focusses on a Ubuntu 22.04. The build process should give you a set of `.a` files that you can use to include TrackAsia Native in other C++ projects, as well as a set of executables that you can run to render map tile images and test the project.
 
 ## Requirements
 
@@ -20,18 +20,18 @@ apt install clang git cmake ccache ninja-build pkg-config
 
 ## Docker
 
-You can use a Docker container to build MapLibre Native. A `Dockerfile` that installes the required dependencies when the image is built is provided in this directory.
+You can use a Docker container to build TrackAsia Native. A `Dockerfile` that installes the required dependencies when the image is built is provided in this directory.
 
 Build image with:
 ```bash
 # in platform/linux
-docker build -t maplibre-native-image .
+docker build -t trackasia-native-image .
 ```
 
 Run image with:
 ```bash
 # in repo root directory
-docker run --rm -it -v "$(pwd)":/root/ maplibre-native-image
+docker run --rm -it -v "$(pwd)":/root/ trackasia-native-image
 ```
 
 ## Build
@@ -39,8 +39,8 @@ docker run --rm -it -v "$(pwd)":/root/ maplibre-native-image
 First, clone the repository. This repository uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), that are required to build the project.
 
 ```bash
-git clone --recurse-submodules -j8 https://github.com/maplibre/maplibre-native.git
-cd maplibre-native
+git clone --recurse-submodules -j8 https://github.com/track-asia/trackasia-native.git
+cd trackasia-native
 ```
 
 To create the build, run the following commands from the root of the project:
@@ -58,20 +58,20 @@ cmake --build build --target mbgl-render -j $(nproc 2>/dev/null || sysctl -n hw.
 If all went well, there should now be a `./build/bin/mbgl-render` binary that you can run to generate map tile images. To test that it is working properly, run the following command.
 
 ```bash
-./build/bin/mbgl-render --style https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json --output out.png
+./build/bin/mbgl-render --style https://raw.githubusercontent.com/track-asia/demotiles/gh-pages/style.json --output out.png
 ```
 
 > I get an error `Error: Failed to open X display.` when I run this command.
 
-If you're setting up MapLibre Native on a headless server (i.e. one without a display), you'll need to simulate an X server to do any rendering. Install `xvfb` and `xauth` and run the following command:
+If you're setting up TrackAsia Native on a headless server (i.e. one without a display), you'll need to simulate an X server to do any rendering. Install `xvfb` and `xauth` and run the following command:
 
 ```bash
-xvfb-run -a ./build/bin/mbgl-render --style https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json --output out.png
+xvfb-run -a ./build/bin/mbgl-render --style https://raw.githubusercontent.com/track-asia/demotiles/gh-pages/style.json --output out.png
 ```
 
-This should produce an `out.png` map tile image with the default MapLibre styling from [the MapLibre demo](https://maplibre.org/).
+This should produce an `out.png` map tile image with the default TrackAsia styling from [the TrackAsia demo](https://trackasia.org/).
 
-![Sample image of world from mbgl-render command](/misc/sample-maplibre-style-mbgl-render-out.png)
+![Sample image of world from mbgl-render command](/misc/sample-trackasia-style-mbgl-render-out.png)
 
 ### Using your own style/tiles 
 
@@ -102,7 +102,7 @@ This should produce an `out.png` image in your current directory with a barebone
 
 ### Running the render tests
 
-To check that the output of the rendering is correct, we compare actual rendered PNGs for simple styles with expected PNGs. The content of the tests used to be stored in the MapLibre GL JS repository, which means that GL JS and Native are mostly pixel-identical in their rendering.
+To check that the output of the rendering is correct, we compare actual rendered PNGs for simple styles with expected PNGs. The content of the tests used to be stored in the TrackAsia GL JS repository, which means that GL JS and Native are mostly pixel-identical in their rendering.
 
 The directory structure of the render tests looks like:
 

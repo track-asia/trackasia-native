@@ -1,12 +1,12 @@
-[![MapLibre Logo](https://maplibre.org/img/maplibre-logo-big.svg)](https://maplibre.org/)
+[![TrackAsia Logo](https://trackasia.org/img/trackasia-logo-big.svg)](https://trackasia.org/)
 
 ## mvt-cpp
 
-[![](https://img.shields.io/badge/Slack-%23maplibre--native-2EB67D?logo=slack)](https://slack.openstreetmap.us/)
+[![](https://img.shields.io/badge/Slack-%23trackasia--native-2EB67D?logo=slack)](https://slack.openstreetmap.us/)
 
 C++14 library for decoding [Mapbox Vector Tiles](https://www.mapbox.com/vector-tiles/).
 
-This is a dependency of [MapLibre Native](https://github.com/maplibre/maplibre-native).
+This is a dependency of [TrackAsia Native](https://github.com/track-asia/trackasia-native).
 
 Forked from [`mapbox/vector-tile`](https://github.com/mapbox/vector-tile).
 

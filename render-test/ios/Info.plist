@@ -11,13 +11,13 @@
   <key>CFBundleExecutable</key>
   <string>RenderTestApp</string>
   <key>CFBundleGetInfoString</key>
-  <string>org.maplibre.RenderTestApp</string>
+  <string>org.trackasia.RenderTestApp</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>1.0</string>
   <key>CFBundleLongVersionString</key>
   <string>1.0</string>
   <key>CFBundleName</key>
-  <string>org.maplibre.RenderTestApp</string>
+  <string>org.trackasia.RenderTestApp</string>
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>

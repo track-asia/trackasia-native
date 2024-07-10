@@ -1,146 +1,146 @@
-# Changelog for MapLibre Native for iOS
+# Changelog for TrackAsia Native for iOS
 
-MapLibre welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/maplibre/maplibre-native/blob/master/CONTRIBUTING.md) to get started.
+TrackAsia welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/track-asia/trackasia-native/blob/master/CONTRIBUTING.md) to get started.
 
 ## main
 
-- Add [Privacy Manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files). MapLibre Native iOS has no built-in tracking, but it does use some system APIs for functional purposes that are marked by Apple as privacy sensitive. ([#1866](https://github.com/maplibre/maplibre-native/issues/1866)).
-- Change default `MLNMapSnapshotter` logo to the MapLibre logo ([#2541](https://github.com/maplibre/maplibre-native/pull/2541)). Note that showing the MapLibre logo is never required. Check with your tile provider if you need to show a logo.
+- Add [Privacy Manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files). TrackAsia Native iOS has no built-in tracking, but it does use some system APIs for functional purposes that are marked by Apple as privacy sensitive. ([#1866](https://github.com/track-asia/trackasia-native/issues/1866)).
+- Change default `MLNMapSnapshotter` logo to the TrackAsia logo ([#2541](https://github.com/track-asia/trackasia-native/pull/2541)). Note that showing the TrackAsia logo is never required. Check with your tile provider if you need to show a logo.
 
 ## 6.5.0
 
-- Allow uses to handle authorization for location services ([#2453](https://github.com/maplibre/maplibre-native/pull/2453)). See [`MLNMapview.shouldRequestAuthorizationToUseLocationServices`](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnmapview/shouldrequestauthorizationtouselocationservices).
-- Fixed memory usage high in some cases ([#2442](https://github.com/maplibre/maplibre-native/pull/2442)).
-- Avoid processing raster tiles after destruction mailbox ([#2443](https://github.com/maplibre/maplibre-native/pull/2443)).
-- Annotation view recycling re-enabled ([#2454](https://github.com/maplibre/maplibre-native/pull/2454)). Fixes some issues with Annotations.
-- Increase the deferred cleanup timeout ([#2455](https://github.com/maplibre/maplibre-native/pull/2455)). Workaround for rare crash.
-- Fixes crash that happened with some PBF files ([#795](https://github.com/maplibre/maplibre-native/issues/795), [#2460](https://github.com/maplibre/maplibre-native/pull/2460)).
-- Allow using MapLibre Native on iPad Air 2. Note: tests your styles! iPad Air 2 has one of the oldest GPUs that support Metal ([#2470](https://github.com/maplibre/maplibre-native/pull/2470)).
+- Allow uses to handle authorization for location services ([#2453](https://github.com/track-asia/trackasia-native/pull/2453)). See [`MLNMapview.shouldRequestAuthorizationToUseLocationServices`](https://trackasia.org/trackasia-native/ios/latest/documentation/track-asia/mlnmapview/shouldrequestauthorizationtouselocationservices).
+- Fixed memory usage high in some cases ([#2442](https://github.com/track-asia/trackasia-native/pull/2442)).
+- Avoid processing raster tiles after destruction mailbox ([#2443](https://github.com/track-asia/trackasia-native/pull/2443)).
+- Annotation view recycling re-enabled ([#2454](https://github.com/track-asia/trackasia-native/pull/2454)). Fixes some issues with Annotations.
+- Increase the deferred cleanup timeout ([#2455](https://github.com/track-asia/trackasia-native/pull/2455)). Workaround for rare crash.
+- Fixes crash that happened with some PBF files ([#795](https://github.com/track-asia/trackasia-native/issues/795), [#2460](https://github.com/track-asia/trackasia-native/pull/2460)).
+- Allow using TrackAsia Native on iPad Air 2. Note: tests your styles! iPad Air 2 has one of the oldest GPUs that support Metal ([#2470](https://github.com/track-asia/trackasia-native/pull/2470)).
 
 ## 6.4.2
 
-- Fix Metal frame glitch on older devices ([#2379](https://github.com/maplibre/maplibre-native/pull/2379)).
-- Fix style switching delay fix when annotations are visible ([#2395](https://github.com/maplibre/maplibre-native/pull/2395)).
+- Fix Metal frame glitch on older devices ([#2379](https://github.com/track-asia/trackasia-native/pull/2379)).
+- Fix style switching delay fix when annotations are visible ([#2395](https://github.com/track-asia/trackasia-native/pull/2395)).
 - Small performance and memory usage optimizations.
 
 ## 6.4.1
 
-- Update user agent from Mapbox to MapLibreNative ([#2367](https://github.com/maplibre/maplibre-native/pull/2367)).
-- Synchronous rendering on Metal when annotation views are visible ([#2334](https://github.com/maplibre/maplibre-native/pull/2334)).
+- Update user agent from Mapbox to TrackAsiaNative ([#2367](https://github.com/track-asia/trackasia-native/pull/2367)).
+- Synchronous rendering on Metal when annotation views are visible ([#2334](https://github.com/track-asia/trackasia-native/pull/2334)).
 - Various performance optimizations.
 
 ## 6.4.0
 
-- User-Agent in network requests can now be changed via `MLNNativeNetworkManager.sharedManager.sessionConfiguration` ([#2293](https://github.com/maplibre/maplibre-native/pull/2293)).
+- User-Agent in network requests can now be changed via `MLNNativeNetworkManager.sharedManager.sessionConfiguration` ([#2293](https://github.com/track-asia/trackasia-native/pull/2293)).
 
 ## 6.3.3
 
-- Fix memory leak in Metal shader compilation ([#2257](https://github.com/maplibre/maplibre-native/pull/2257)).
-- Improved iOS UI tests ([#2258](https://github.com/maplibre/maplibre-native/pull/2258))
-- Add wide vector shader option to Custom Drawable Layer ([#2183](https://github.com/maplibre/maplibre-native/pull/2183))
-- Guard against potential crash when the Metal drawable is now unavailable ([#2272](https://github.com/maplibre/maplibre-native/pull/2272))
-- Eliminate spurious log output when using triangulated fill outlines ([#2279](https://github.com/maplibre/maplibre-native/pull/2279))
-- Fix projection matrix for raster image drawables ([#2242](https://github.com/maplibre/maplibre-native/pull/2242))
+- Fix memory leak in Metal shader compilation ([#2257](https://github.com/track-asia/trackasia-native/pull/2257)).
+- Improved iOS UI tests ([#2258](https://github.com/track-asia/trackasia-native/pull/2258))
+- Add wide vector shader option to Custom Drawable Layer ([#2183](https://github.com/track-asia/trackasia-native/pull/2183))
+- Guard against potential crash when the Metal drawable is now unavailable ([#2272](https://github.com/track-asia/trackasia-native/pull/2272))
+- Eliminate spurious log output when using triangulated fill outlines ([#2279](https://github.com/track-asia/trackasia-native/pull/2279))
+- Fix projection matrix for raster image drawables ([#2242](https://github.com/track-asia/trackasia-native/pull/2242))
 
 ## 6.3.2
 
-- Fix potential memory leak ([#2254](https://github.com/maplibre/maplibre-native/pull/2254)).
+- Fix potential memory leak ([#2254](https://github.com/track-asia/trackasia-native/pull/2254)).
 
 ## 6.3.1
 
-- Add debug symbols to releases (see [Releases on GitHub](https://github.com/maplibre/maplibre-native/releases?q=ios&expanded=true)).
+- Add debug symbols to releases (see [Releases on GitHub](https://github.com/track-asia/trackasia-native/releases?q=ios&expanded=true)).
 
 ## 6.3.0
 
-- Temporary workaround for map display freeze / stutter when using annotation views with Metal backend. [Issue 2117](https://github.com/maplibre/maplibre-native/issues/2117) fixed by [PR 2148](https://github.com/maplibre/maplibre-native/pull/2148).
-- Make setURL method on MLNImageSource public ([#2197](https://github.com/maplibre/maplibre-native/pull/2197)).
-- Make setCoordinates method on MLNImageSource public ([#2198](https://github.com/maplibre/maplibre-native/pull/2198)).
+- Temporary workaround for map display freeze / stutter when using annotation views with Metal backend. [Issue 2117](https://github.com/track-asia/trackasia-native/issues/2117) fixed by [PR 2148](https://github.com/track-asia/trackasia-native/pull/2148).
+- Make setURL method on MLNImageSource public ([#2197](https://github.com/track-asia/trackasia-native/pull/2197)).
+- Make setCoordinates method on MLNImageSource public ([#2198](https://github.com/track-asia/trackasia-native/pull/2198)).
 
 ## 6.2.0
 
-- Add support for [multi sprites](https://github.com/maplibre/maplibre-native/pull/1858). More information on this feature can be found in the [Style Spec Documentation](https://maplibre.org/maplibre-style-spec/sprite/#multiple-sprite-sources).
-- Fix for C++ header in public Objective-C header ([#2156](https://github.com/maplibre/maplibre-native/pull/q 56)).
+- Add support for [multi sprites](https://github.com/track-asia/trackasia-native/pull/1858). More information on this feature can be found in the [Style Spec Documentation](https://trackasia.org/trackasia-style-spec/sprite/#multiple-sprite-sources).
+- Fix for C++ header in public Objective-C header ([#2156](https://github.com/track-asia/trackasia-native/pull/q 56)).
 
 ## 6.1.1
 
-- Tighten camera equality requirements ([#2139](https://github.com/maplibre/maplibre-native/pull/2139)).
+- Tighten camera equality requirements ([#2139](https://github.com/track-asia/trackasia-native/pull/2139)).
 
 ## 6.1.0
 
-- Addition of an MLNCustomStyleLayer that allows running custom Metal shaders and code. Example included in the PR. ([#2006](https://github.com/maplibre/maplibre-native/pull/2006))
+- Addition of an MLNCustomStyleLayer that allows running custom Metal shaders and code. Example included in the PR. ([#2006](https://github.com/track-asia/trackasia-native/pull/2006))
 - Various performance optimizations.
-  - Avoid redundant bindings/states based on Metal profiler feedback. ([#2006](https://github.com/maplibre/maplibre-native/pull/2006))
-  - Eliminate the remaining examples of tweakers being re-created on each update, which reduced reuse of uniform buffers. ([#2050](https://github.com/maplibre/maplibre-native/pull/2050))
-  - Eliminate an extra vector allocation for many attributes ([#2049](https://github.com/maplibre/maplibre-native/pull/2049))
-  - Don't save an extra copy of properties-as-uniforms set with symbol data, or re-build it when updating properties on existing drawables. ([#2054](https://github.com/maplibre/maplibre-native/pull/2054))
-  - Combine multiple segments into a drawable when `sortFeaturesByKey` is not used ([#2060](https://github.com/maplibre/maplibre-native/pull/2060))
-  - UBO by index instead of map ([#1980](https://github.com/maplibre/maplibre-native/pull/1980))
-  - Use `enableDepth` option ([#2073](https://github.com/maplibre/maplibre-native/pull/2073))
-  - Minor optimizations ([#2091](https://github.com/maplibre/maplibre-native/pull/2091))
+  - Avoid redundant bindings/states based on Metal profiler feedback. ([#2006](https://github.com/track-asia/trackasia-native/pull/2006))
+  - Eliminate the remaining examples of tweakers being re-created on each update, which reduced reuse of uniform buffers. ([#2050](https://github.com/track-asia/trackasia-native/pull/2050))
+  - Eliminate an extra vector allocation for many attributes ([#2049](https://github.com/track-asia/trackasia-native/pull/2049))
+  - Don't save an extra copy of properties-as-uniforms set with symbol data, or re-build it when updating properties on existing drawables. ([#2054](https://github.com/track-asia/trackasia-native/pull/2054))
+  - Combine multiple segments into a drawable when `sortFeaturesByKey` is not used ([#2060](https://github.com/track-asia/trackasia-native/pull/2060))
+  - UBO by index instead of map ([#1980](https://github.com/track-asia/trackasia-native/pull/1980))
+  - Use `enableDepth` option ([#2073](https://github.com/track-asia/trackasia-native/pull/2073))
+  - Minor optimizations ([#2091](https://github.com/track-asia/trackasia-native/pull/2091))
 
 ## 6.0.0
 
 * This is the first release that uses **Metal** for rendering. This is a graphics API from Apple that replaces OpenGL ES on Apple platforms.
-  * Note that the [snapshotter](https://github.com/maplibre/maplibre-native/issues/1862) has not been implemented yet for the Metal renderer. Hold off updating if your application requires this functionality.
+  * Note that the [snapshotter](https://github.com/track-asia/trackasia-native/issues/1862) has not been implemented yet for the Metal renderer. Hold off updating if your application requires this functionality.
   * While we had a long period of pre-releases and testing leading up to this release, and no crashes have been reported, it is possible that you come across inconsistencies or problems in production apps. Please report them on GitHub.
-* 💥 Breaking: Changed the prefix of files, classes, methods, variables and everything from `MGL` to `MLN`. ([#919](https://github.com/maplibre/maplibre-native/pull/919)).
+* 💥 Breaking: Changed the prefix of files, classes, methods, variables and everything from `MGL` to `MLN`. ([#919](https://github.com/track-asia/trackasia-native/pull/919)).
 
   > To migrate:  
   > Change all your `MGL` prefixes to `MLN`. If you are using `NSKeyedArchiver` or similar mechanishm to save the state, the app may crash after this change when trying to unarchive the state using old names of the classes. You need to clean the saved state of the app and save it using new classes.
 * 💥 Breaking: The OpenGL ES renderer now uses OpenGL ES 3.0. This means that only iOS Devices with an Apple A7 GPU or later are supported. https://developer.apple.com/library/archive/documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/BestPracticesforAppleA7GPUsandLater/BestPracticesforAppleA7GPUsandLater.html
-* The Swift package needs to be imported with `import MapLibre` instead of `import Mapbox`.
+* The Swift package needs to be imported with `import TrackAsia` instead of `import Mapbox`.
 
 ## 5.13.0 - January 05, 2023
 
-* Fix missing attribution [#236](https://github.com/maplibre/maplibre-native/pull/236)
-* Fix logging format strings [#266](https://github.com/maplibre/maplibre-native/pull/266)
-* Implement map projection functionality [#254](https://github.com/maplibre/maplibre-native/pull/254)
-* Fix warnings, mainly casting to smaller types [#270](https://github.com/maplibre/maplibre-native/pull/270)
+* Fix missing attribution [#236](https://github.com/track-asia/trackasia-native/pull/236)
+* Fix logging format strings [#266](https://github.com/track-asia/trackasia-native/pull/266)
+* Implement map projection functionality [#254](https://github.com/track-asia/trackasia-native/pull/254)
+* Fix warnings, mainly casting to smaller types [#270](https://github.com/track-asia/trackasia-native/pull/270)
 * Remove an unused static library (savings of 97 KB from iOS binary)
-* Add ClientOptions to be able to pass around client name and version [#365](https://github.com/maplibre/maplibre-native/pull/365)
-* Remove account from xcconfig [#382](https://github.com/maplibre/maplibre-native/pull/382)
-* Remove observation of key-path [#380](https://github.com/maplibre/maplibre-native/pull/380)
-* Fix for "NSExpression function is forbidden" [#411](https://github.com/maplibre/maplibre-native/pull/411)
-* Xcode 14 compatibility [#494](https://github.com/maplibre/maplibre-native/pull/494) [#599](https://github.com/maplibre/maplibre-native/pull/599)
+* Add ClientOptions to be able to pass around client name and version [#365](https://github.com/track-asia/trackasia-native/pull/365)
+* Remove account from xcconfig [#382](https://github.com/track-asia/trackasia-native/pull/382)
+* Remove observation of key-path [#380](https://github.com/track-asia/trackasia-native/pull/380)
+* Fix for "NSExpression function is forbidden" [#411](https://github.com/track-asia/trackasia-native/pull/411)
+* Xcode 14 compatibility [#494](https://github.com/track-asia/trackasia-native/pull/494) [#599](https://github.com/track-asia/trackasia-native/pull/599)
 
 ## 5.12.2 - December 02, 2021
 
 ### Improvements
 
-* Exposes the windowBit value from zlib in the compress/decompress helper utils [#147](https://github.com/maplibre/maplibre-native/pull/147)
-* Fix camera paddings reset on map view gestures performing [#188](https://github.com/maplibre/maplibre-native/pull/188)
+* Exposes the windowBit value from zlib in the compress/decompress helper utils [#147](https://github.com/track-asia/trackasia-native/pull/147)
+* Fix camera paddings reset on map view gestures performing [#188](https://github.com/track-asia/trackasia-native/pull/188)
 
 ## 5.12.1 - September 06, 2021
 
 ### Bug Fixes
 
-* ScaleBar enhancements [#120](https://github.com/maplibre/maplibre-native/pull/120), [#121](https://github.com/maplibre/maplibre-native/pull/121)
-* Invalid tile url template for MapLibre style [#107](https://github.com/maplibre/maplibre-native/pull/107)
-* Address crash when localFontFamilyName is nil [#109](https://github.com/maplibre/maplibre-native/pull/109)
-* Fix for annotations stuttering and drifting when panning [#113](https://github.com/maplibre/maplibre-native/pull/113)
-* Adjust local glyphs [#122](https://github.com/maplibre/maplibre-native/pull/122)
-* Return correct Mapbox TileServerOptions [#132](https://github.com/maplibre/maplibre-native/pull/132)
+* ScaleBar enhancements [#120](https://github.com/track-asia/trackasia-native/pull/120), [#121](https://github.com/track-asia/trackasia-native/pull/121)
+* Invalid tile url template for TrackAsia style [#107](https://github.com/track-asia/trackasia-native/pull/107)
+* Address crash when localFontFamilyName is nil [#109](https://github.com/track-asia/trackasia-native/pull/109)
+* Fix for annotations stuttering and drifting when panning [#113](https://github.com/track-asia/trackasia-native/pull/113)
+* Adjust local glyphs [#122](https://github.com/track-asia/trackasia-native/pull/122)
+* Return correct Mapbox TileServerOptions [#132](https://github.com/track-asia/trackasia-native/pull/132)
 
 ### Other
 
-* Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/maplibre/maplibre-native/pull/129)
-* Upgrade to newest protozero [#148](https://github.com/maplibre/maplibre-native/pull/148)
-* Fix build for Xcode 12.5 & 13-beta. [#153](https://github.com/maplibre/maplibre-native/pull/153)
+* Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/track-asia/trackasia-native/pull/129)
+* Upgrade to newest protozero [#148](https://github.com/track-asia/trackasia-native/pull/148)
+* Fix build for Xcode 12.5 & 13-beta. [#153](https://github.com/track-asia/trackasia-native/pull/153)
 
 ## 5.12.0 - June 29, 2021
 
 ### Features
 
-* Added allowScrollGesturesDuringRotateOrZoom [#60](https://github.com/maplibre/maplibre-native/pull/62)
-* Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/maplibre/maplibre-native/pull/90)
+* Added allowScrollGesturesDuringRotateOrZoom [#60](https://github.com/track-asia/trackasia-native/pull/62)
+* Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/track-asia/trackasia-native/pull/90)
 
 ### Bug Fixes
 
-* Fix map stuttering by switching render call to use setNeedsDisplay [#60](https://github.com/maplibre/maplibre-native/pull/60)
-* Dispatch to main queue, rather than global [#64](https://github.com/maplibre/maplibre-native/pull/64)
-* Use DisplayLink to prevent crashes in willResignActive [#68](https://github.com/maplibre/maplibre-native/pull/68)
-* Ignore sizing and positioning for hidden elements in assertions [#80](https://github.com/maplibre/maplibre-native/pull/80)
-* Disable map snapshots by default [#83](https://github.com/maplibre/maplibre-native/pull/83)
+* Fix map stuttering by switching render call to use setNeedsDisplay [#60](https://github.com/track-asia/trackasia-native/pull/60)
+* Dispatch to main queue, rather than global [#64](https://github.com/track-asia/trackasia-native/pull/64)
+* Use DisplayLink to prevent crashes in willResignActive [#68](https://github.com/track-asia/trackasia-native/pull/68)
+* Ignore sizing and positioning for hidden elements in assertions [#80](https://github.com/track-asia/trackasia-native/pull/80)
+* Disable map snapshots by default [#83](https://github.com/track-asia/trackasia-native/pull/83)
 
 ## 5.11.0 - March 12, 2021
 
@@ -157,14 +157,14 @@ MapLibre welcomes participation and contributions from everyone. Please read [`C
 ### Bug Fixes
 
 * Fixed an issue that caused a crash when custom location managers did not implement `MLNLocationManager.accuracyAuthorization`. (cherry pick from [#474](https://github.com/mapbox/mapbox-gl-native-ios/pull/474))
-* Fixed an issue where symbols flickered when zooming out. [#16](https://github.com/maplibre/maplibre-native/issues/16)
+* Fixed an issue where symbols flickered when zooming out. [#16](https://github.com/track-asia/trackasia-native/issues/16)
 * Benchmark app updated and fixes to the latest xcode version
-* iOS performance improvements [#44](https://github.com/maplibre/maplibre-native/pull/44)
+* iOS performance improvements [#44](https://github.com/track-asia/trackasia-native/pull/44)
 
 ### Other
 
-* mapbox-gl-js submodule has been replaced with maplibre-gl-js
-* Removed Mapbox Mobile Events and Telemetry [#7](https://github.com/maplibre/maplibre-native/pull/7)
+* mapbox-gl-js submodule has been replaced with trackasia-gl-js
+* Removed Mapbox Mobile Events and Telemetry [#7](https://github.com/track-asia/trackasia-native/pull/7)
 
 ## 5.10.0 - January 6, 2021
 
@@ -1474,7 +1474,7 @@ This is the final scheduled version of the Mapbox iOS SDK that supports iOS 7. (
 - A two-finger vertical swipe now tilts the map into perspective mode. ([#2116](https://github.com/mapbox/mapbox-gl-native/pull/2116))
 - A new `MLNMapCamera` API allows you to transition multiple viewpoint properties, including rotation and pitch, simultaneously with an optional custom duration and timing function. ([#2193](https://github.com/mapbox/mapbox-gl-native/pull/2193))
 - A new user tracking mode, `MLNUserTrackingModeFollowWithCourse`, has been added for indicating the current direction of travel. ([#2068](https://github.com/mapbox/mapbox-gl-native/pull/2068))
-- Version 8 (`v8`) of the [Mapbox GL style spec](https://maplibre.org/maplibre-style-spec/) is now required. If you are using a custom `v7` style, it needs to be upgraded using [this migrator script](https://github.com/mapbox/mapbox-gl-style-spec/blob/mb-pages/migrations/v7.js). ([#2052](https://github.com/mapbox/mapbox-gl-native/pull/2052))
+- Version 8 (`v8`) of the [Mapbox GL style spec](https://trackasia.org/trackasia-style-spec/) is now required. If you are using a custom `v7` style, it needs to be upgraded using [this migrator script](https://github.com/mapbox/mapbox-gl-style-spec/blob/mb-pages/migrations/v7.js). ([#2052](https://github.com/mapbox/mapbox-gl-native/pull/2052))
 - Applications built with Mapbox GL no longer crash when Location Services launches them in background mode. ([#1821](https://github.com/mapbox/mapbox-gl-native/pull/1821), [#1869](https://github.com/mapbox/mapbox-gl-native/pull/1869))
 - Fixed a crash when adding annotations to an `MLNMapView` inside `-viewDidLoad`. ([#1874](https://github.com/mapbox/mapbox-gl-native/pull/1874))
 - The user location annotation view now indicates the location reading’s accuracy and the device’s heading. ([#2010](https://github.com/mapbox/mapbox-gl-native/pull/2010))

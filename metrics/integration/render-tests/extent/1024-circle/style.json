@@ -9,7 +9,7 @@
   ],
   "zoom": 0,
   "sources": {
-    "maplibre": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -26,9 +26,9 @@
       }
     },
     {
-      "id": "maplibre",
+      "id": "trackasia",
       "type": "circle",
-      "source": "maplibre",
+      "source": "trackasia",
       "source-layer": "poi_label",
       "paint": {
         "circle-color": "black",

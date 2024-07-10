@@ -1,14 +1,14 @@
 # Getting Started
 
-Setting up an Xcode project that uses MapLibre Native for iOS.
+Setting up an Xcode project that uses TrackAsia Native for iOS.
 
 ## Create a new iOS project
 
 Create a new (SwiftUI) iOS project with Xcode. Go to *File > New > Project...*.
 
-## Add MapLibre Native as a dependency
+## Add TrackAsia Native as a dependency
 
-MapLibre Native for iOS is available on [Cocoapods](https://cocoapods.org) and on the [Swift Package Index](https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution) (for use with the Swift Package Manager). However, for this guide we will add the MapLibre Native as a package dependency directly.
+TrackAsia Native for iOS is available on [Cocoapods](https://cocoapods.org) and on the [Swift Package Index](https://swiftpackageindex.com/track-asia/trackasia-native-distribution) (for use with the Swift Package Manager). However, for this guide we will add the TrackAsia Native as a package dependency directly.
 
 In Xcode, right click your project and select "Add Package Dependencies...":
 
@@ -17,20 +17,20 @@ In Xcode, right click your project and select "Add Package Dependencies...":
 Paste the following URL and click Add Package:
 
 ```
-https://github.com/maplibre/maplibre-gl-native-distribution
+https://github.com/track-asia/trackasia-native-distribution
 ```
 
-> Note: The [maplibre-gl-native-distributon](https://github.com/maplibre/maplibre-gl-native-distribution) repository only exists for distributing the iOS package of MapLibre Native. To report issues and ask questions, use the [maplibre-native](https://github.com/maplibre/maplibre-native) repository.
+> Note: The [trackasia-native-distributon](https://github.com/track-asia/trackasia-native-distribution) repository only exists for distributing the iOS package of TrackAsia Native. To report issues and ask questions, use the [trackasia-native](https://github.com/track-asia/trackasia-native) repository.
 
-Verify you can import MapLibre in your app:
+Verify you can import TrackAsia in your app:
 
 ```swift
-import MapLibre
+import TrackAsia
 ```
 
 ## SwiftUI
 
-To use MapLibre with SwiftUI we need to create a wrapper for the UIKit view that MapLibre provides (using UIViewRepresentable. The simplest way to implement this protocol is as follows:
+To use TrackAsia with SwiftUI we need to create a wrapper for the UIKit view that TrackAsia provides (using UIViewRepresentable. The simplest way to implement this protocol is as follows:
 
 <!-- include-example(SimpleMap) -->
 
@@ -52,19 +52,19 @@ struct MyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MapLibreMapView().edgesIgnoringSafeArea(.all)
+            TrackAsiaMapView().edgesIgnoringSafeArea(.all)
         }
     }
 }
 ```
 
-When running your app in the simulator you should be greeted with the default [Demotiles](https://demotiles.maplibre.org/) style:
+When running your app in the simulator you should be greeted with the default [Demotiles](https://demotiles.trackasia.org/) style:
 
 ![](DemotilesScreenshot.png)
 
 ## UIKit
 
-You can use the following `UIViewController` to get started with MapLibre Native iOS with UIKit.
+You can use the following `UIViewController` to get started with TrackAsia Native iOS with UIKit.
 
 ```swift
 class SimpleMap: UIViewController, MLNMapViewDelegate {

@@ -1,8 +1,8 @@
-# MapLibre Rendering Modularization Design Proposal
+# TrackAsia Rendering Modularization Design Proposal
 
-Before we dive in, a bit about our process.  Stamen Design, with a sub-contract to Wet Dog Weather, has been contracted by Amazon (AWS) to develop two proposals to upgrade MapLibre Native.  The goal is Metal support and the first proposal is this one: Modularizing the rendering support.
+Before we dive in, a bit about our process.  Stamen Design, with a sub-contract to Wet Dog Weather, has been contracted by Amazon (AWS) to develop two proposals to upgrade TrackAsia Native.  The goal is Metal support and the first proposal is this one: Modularizing the rendering support.
 
-We started with a sparse proposal, laying out the goals first.  Our intent was to let the MapLibre community add their own feedback and discussion.  We have finished our update to the PR and now look for more formal feedback on the way to adoption of the design.
+We started with a sparse proposal, laying out the goals first.  Our intent was to let the TrackAsia community add their own feedback and discussion.  We have finished our update to the PR and now look for more formal feedback on the way to adoption of the design.
 
 The mechanism for this will be a Pull Request, which we have obviously opened.  This will result in as much discussion as the community would like here, on the OSM Slack and by email or video call (we're available, so reach out).  As we wrap up our specific proposal, that discussion will hopefully reach a consensus and we'll be ready for a Yes or No on the PR by the 21st of November.  
 
@@ -10,14 +10,14 @@ Then we do it again for Metal.
 
 ## Motivation
 
-MapLibre Native is currently depending on a deprecated rendering SDK (OpenGL) for iOS. It needs to move to Metal for iOS in some form. Moreover, there are other graphics SDKs to consider, like Vulkan for Android or Direct3D for Windows. Metal is an existential crisis on iOS, the others are desired but not required.
+TrackAsia Native is currently depending on a deprecated rendering SDK (OpenGL) for iOS. It needs to move to Metal for iOS in some form. Moreover, there are other graphics SDKs to consider, like Vulkan for Android or Direct3D for Windows. Metal is an existential crisis on iOS, the others are desired but not required.
 
-Thus the graphics implementations must diverge, either by doing so within MapLibre Native or depending on another toolkit to do the rendering entirely. We are proposing the former approach, with support for multiple rendering SDKs in the MapLibre Native toolkit itself.
+Thus the graphics implementations must diverge, either by doing so within TrackAsia Native or depending on another toolkit to do the rendering entirely. We are proposing the former approach, with support for multiple rendering SDKs in the TrackAsia Native toolkit itself.
 
-This is the MapLibre Rendering Modularization Design Plan and the biggest goal is to pave the way for Metal support on iOS. But while we’ve got the hood open, so to speak, we’d also like to fix a few other things. So let’s get to it!
+This is the TrackAsia Rendering Modularization Design Plan and the biggest goal is to pave the way for Metal support on iOS. But while we’ve got the hood open, so to speak, we’d also like to fix a few other things. So let’s get to it!
 
 But before that, a quick note on terminology.
-- "toolkit" usually refers to MapLibre Native, but may also be used in context for another project at a similar level.
+- "toolkit" usually refers to TrackAsia Native, but may also be used in context for another project at a similar level.
 - "SDK" or Software Development Kit usually refers to the rendering library, like OpenGL or Metal, at least in this document.
 - "API" refers to an Application Programming Interface.  In this context it refers to the classes and methods made available to a developer.
 - "Snapshot" refers to taking a picture of the active display buffer at a specific time.
@@ -42,7 +42,7 @@ It is useful to split our goals into three sections to articulate what this prop
 ### <a name="core">Core Functionality</a>
 
 1. Shader (program) code will be implemented in a modular fashion, such that replacement of any given shader can happen without impacting other shaders.
-2. Shader (program) code may no longer be compiled from the [webgl source](https://github.com/maplibre/maplibre-gl-js/tree/main/src/shaders), and should be organized within the maplibre-native repo (as a compile time option).
+2. Shader (program) code may no longer be compiled from the [webgl source](https://github.com/track-asia/trackasia-gl-js/tree/main/src/shaders), and should be organized within the trackasia-native repo (as a compile time option).
 3. Layer rendering logic should be replaceable at the dev level.  All the necessary support should be exposed and a developer should be able to take over representation of any given layer.
 4. Developers should be able to associate specific styles with specific layer rendering.  The style sheet should be able to call out the type of representation it would like beyond the default.
 5. Developers should be able to add new visual representations fed by existing geometry types.  Such as data display driven by tile sets or animated markers.
@@ -53,7 +53,7 @@ It is useful to split our goals into three sections to articulate what this prop
 1. Developers should be able to continue using the OpenGL renderer with this refactor.
 2. The resulting binary from the modularized refactor should not increase more than 5% when compiled.
 3. The modularization refactor should be visually identical to the current implementation when using OpenGL. All existing render tests should pass, and developers that continue to use this library with an OpenGL renderer should not experience any visual degradation such as artifacts.
-4. After refactor, the startup time for applications built with this library should not increase. This will be measured by the startup time of [this](https://github.com/maplibre/maplibre-native/blob/main/platform/ios/platform/ios/iosapp%20UITests/iosapp_UITests.swift) iOS test app.
+4. After refactor, the startup time for applications built with this library should not increase. This will be measured by the startup time of [this](https://github.com/track-asia/trackasia-native/blob/main/platform/ios/platform/ios/iosapp%20UITests/iosapp_UITests.swift) iOS test app.
 5. When implemented with a given style and set of tilesets, the compiled library should not decrease the rendering frame rate.
 6. This refactor will not introduce data loading or other bottlenecks that will negatively impact rendering performance.
 7. Developers currently using this library will not see any breaking API changes, and will be able to seamlessly upgrade versions.
@@ -75,7 +75,7 @@ The shaders need a representation visible outside the toolkit and we need to cha
 
 Individual shaders are represented by an object class with massive amounts of template logic and a minimum of in-line comments.  They’re opaque from the outside and only controllable through vector tile data and styles. 
 
-The [render_raster_layer](https://github.com/maplibre/maplibre-native/blob/main/src/mbgl/renderer/layers/render_raster_layer.cpp), as an example, asks for the instantiation of (eventually) RasterProgram.  Rather than having the source for the program, that then pokes into a compressed chunk of memory that contains the source, which is then uncompressed and fed into OpenGL for compilation.
+The [render_raster_layer](https://github.com/track-asia/trackasia-native/blob/main/src/mbgl/renderer/layers/render_raster_layer.cpp), as an example, asks for the instantiation of (eventually) RasterProgram.  Rather than having the source for the program, that then pokes into a compressed chunk of memory that contains the source, which is then uncompressed and fed into OpenGL for compilation.
 
 All of this makes sense in context, but is completely inaccessible outside the toolkit and rather incomprehensible when making changes.
 
@@ -134,9 +134,9 @@ Modern graphics pipelines use more than one pass to create a visual representati
 Without getting too deep into specifics, early rendering passes allow the developer to use the power of the rasterizer for their own data.  Later rendering passes are typically used to decorate the map with effects.
 
 #### The way it is now:
-The [low level rendering logic](https://github.com/maplibre/maplibre-native/blob/main/src/mbgl/renderer/renderer_impl.cpp) in the toolkit seems to only support one explicit rendering pass.  
+The [low level rendering logic](https://github.com/track-asia/trackasia-native/blob/main/src/mbgl/renderer/renderer_impl.cpp) in the toolkit seems to only support one explicit rendering pass.  
 
-However, there is the [RenderPass](https://github.com/maplibre/maplibre-native/blob/main/src/mbgl/gl/render_pass.hpp) so some notion of this exists in the toolkit, but it's not clear how complete that is.  It may depend on ordering to work things out, rather than the explicit command buffer filling and fences we would use in a more modern approach.
+However, there is the [RenderPass](https://github.com/track-asia/trackasia-native/blob/main/src/mbgl/gl/render_pass.hpp) so some notion of this exists in the toolkit, but it's not clear how complete that is.  It may depend on ordering to work things out, rather than the explicit command buffer filling and fences we would use in a more modern approach.
 
 In any case, we need this filled out more explicitly for the render targets.
 
@@ -171,7 +171,7 @@ To support Rendering Passes we’ll need Render Targets we can access in a way s
 This may seem a bit of a detour, but it’s fairly easy to get the basics of it in place and allow for further development as developers might add new shaders and varieties of targets.
 
 #### Benefits
-It's a core idea in many rendering toolkits, but for MapLibre Native it will let us:
+It's a core idea in many rendering toolkits, but for TrackAsia Native it will let us:
 - Reach into the rendering pipeline to make use of processed data without adding a GPU<->CPU round trip.
 - Make it easier to assemble things like videos in real time.
 - Help define how the rendering passes work with fixed points of output.
@@ -205,13 +205,13 @@ In WhirlyGlobe we’ve always called out separate objects for drawing certain ki
 
 Which is to say that Drawable is a good concept which can encapsulate a lot of complexity.  So much so that it eventually encapsulates ALL the complexity, at least at that level of rendering.  It’s a good interface between the things that construct geometry and the things that render geometry.
 
-To keep the Drawable somewhat manageable, we added the concept of a Drawable Builder.  This is an object that you throw geometry at in a somewhat disordered way and it emits Drawables when you’re done.  MapLibre's [Buckets](https://github.com/maplibre/maplibre-native/blob/main/src/mbgl/renderer/bucket.hpp) are similar, but not quite the same.  Perhaps they'll be adaptable.  We'll see.
+To keep the Drawable somewhat manageable, we added the concept of a Drawable Builder.  This is an object that you throw geometry at in a somewhat disordered way and it emits Drawables when you’re done.  TrackAsia's [Buckets](https://github.com/track-asia/trackasia-native/blob/main/src/mbgl/renderer/bucket.hpp) are similar, but not quite the same.  Perhaps they'll be adaptable.  We'll see.
 
 Drawables and Builders have a subclass for each supported rendering SDK.  One mistake we won’t bring over is using multiple inheritance for that.  You’re welcome.  
 
 It’s kind of obvious why you’d have a subclass of Drawable for each SDK.  You want to let the SDK represent data the way it wants (interleaved or not, 16 bit or 32 bit floats, all sorts of things), but it’s less obvious why the Builders need one subclass per SDK.
 
-Builders are actually doing the most specific SDK related work.  For OpenGL you build up fairly simple arrays of data, which MapLibre has good support for.  But for Metal, you can (and should) allocate space off a shared heap and put the data in there.  Each of these ends up looking fairly different and the way you wire things up at the low level is very different.  So Builders are very specific and let us hide all that.
+Builders are actually doing the most specific SDK related work.  For OpenGL you build up fairly simple arrays of data, which TrackAsia has good support for.  But for Metal, you can (and should) allocate space off a shared heap and put the data in there.  Each of these ends up looking fairly different and the way you wire things up at the low level is very different.  So Builders are very specific and let us hide all that.
 
 ![Layer + Builder + Drawables](resources/fig2.png)
 
@@ -221,7 +221,7 @@ Builders will be used primarily by Layers to emit Drawables for rendering.
 
 This is a big topic because it gets to the very heart of the critical changes we want to make to the toolkit.  There are a couple of different categories that are revealing and we'll use some examples.
 
-Most commonly there are *render layers*.  These are individual classes that know how to render, for instance, the [fill layer](https://github.com/maplibre/maplibre-native/blob/main/src/mbgl/renderer/layers/render_fill_layer.cpp).  You'll see a bunch of these that start with "render" and end with "layer".
+Most commonly there are *render layers*.  These are individual classes that know how to render, for instance, the [fill layer](https://github.com/track-asia/trackasia-native/blob/main/src/mbgl/renderer/layers/render_fill_layer.cpp).  You'll see a bunch of these that start with "render" and end with "layer".
 
 What's going on here is that the toolkit has broken out a bunch of features from a tile, consolidated them together in a Bucket and then handed them off to a Layer to render.  Sure enough, if you look in the render_*_layer you can see it doing just that.
 
@@ -230,7 +230,7 @@ Now it's not redoing the work of consolidation each frame, but it is doing a lot
 - This is more specific logic than we'd want to see in a rendering loop.  Remember, this runs every frame.
 - If your data is not in tile form, it's going to be hard to render.
 
-That last one is really interesting and we can find an example in MapLibre Native itself.  Look to the [Render Location Indicator Layer](https://github.com/maplibre/maplibre-native/blob/main/src/mbgl/renderer/layers/render_location_indicator_layer.cpp).  Here's where this approach trips up... rolls down the hill... into a pile of broken glass.  You can feel the developers' pain in this module.
+That last one is really interesting and we can find an example in TrackAsia Native itself.  Look to the [Render Location Indicator Layer](https://github.com/track-asia/trackasia-native/blob/main/src/mbgl/renderer/layers/render_location_indicator_layer.cpp).  Here's where this approach trips up... rolls down the hill... into a pile of broken glass.  You can feel the developers' pain in this module.
 
 If you're not familiar with real time rendering toolkits, I'll put it this way.  Managing the logic for a location puck that updates every time the user moves should not involve direct OpenGL calls.  It should be abstracted, at least a little.
 
@@ -260,7 +260,7 @@ In any case the Drawable acts as a basic container that is handed around between
 Each SDK specific Drawable subclass will do things like:
 - Upload/Bind their data to the SDK.    
     Ideally this can happen on non-rendering threads, but you never know.
-    This includes figuring out what the shader is asking for and providing it, or convincing defaults.  The way MapLibre Native does this now is a bit static, with templates.  Clever, but perhaps too clever.  It’s okay to wire things up dynamically.
+    This includes figuring out what the shader is asking for and providing it, or convincing defaults.  The way TrackAsia Native does this now is a bit static, with templates.  Clever, but perhaps too clever.  It’s okay to wire things up dynamically.
 - Draw directly.    
     OpenGL is big on this.  You have to set things up, draw, then tear them down.
     It has the virtue of being simple.  If you’re making changes, you just do them directly.
@@ -275,7 +275,7 @@ Each SDK specific Drawable subclass will do things like:
 - Tear down their data.    
     Pretty simple for OpenGL, but with Metal when you’re using heaps (and you should) you actually want another thread to do this.  Thus it’s SDK specific.
 
-Now there is already logic to do a lot of this spread throughout various classes in MapLibre Native.  Buckets have some of it, Programs actually own the draw() method, and so forth.  To switch to this approach we'll need to cut across the gl and gfx levels of the toolkit, even a bit higher, to capture everything that builds geometry.  We'll need to convert that over to this approach and make sure we didn't miss anything, like all the fiddly per-program state.
+Now there is already logic to do a lot of this spread throughout various classes in TrackAsia Native.  Buckets have some of it, Programs actually own the draw() method, and so forth.  To switch to this approach we'll need to cut across the gl and gfx levels of the toolkit, even a bit higher, to capture everything that builds geometry.  We'll need to convert that over to this approach and make sure we didn't miss anything, like all the fiddly per-program state.
 
 #### Benefits
 
@@ -289,7 +289,7 @@ By moving to this approach we can let the rendering logic deal only with its own
 
 _Addresses core functionality [#3](#core)._
 
-Having a lot of little textures floating around is inefficient.  This was very much the case in OpenGL, but it's still true in Metal and other SDKs.  There's a long conversation to be had about that, but it's somewhat moot.  MapLibre Native uses atlases, so we need to consider them.
+Having a lot of little textures floating around is inefficient.  This was very much the case in OpenGL, but it's still true in Metal and other SDKs.  There's a long conversation to be had about that, but it's somewhat moot.  TrackAsia Native uses atlases, so we need to consider them.
 
 All of these atlases are essentially Texture Atlases.  That is, a group of individual textures gathered together for efficiency.  Shaders reference these with a little offset into a larger texture.  The shaders may not even be aware of it.
 
@@ -317,9 +317,9 @@ _Addresses refactoring that make migration easier, particularly our [north stars
 
 Every real time rendering toolkit has a main rendering loop or something like it.  It's not actually a loop anymore, it's a callback.  Years ago there actually was a main rendering loop where the program in question would draw a frame, wait for a defined period and then draw another frame.  With modern OS' and the rise of modern UI toolkits, that loop has been replaced by time or event based callbacks.  We will still sometimes refer to it as a "rendering loop", however.
 
-On iOS this runs on the main thread and on Android this runs on its own separate thread.  You might think the latter is better, but it has its own problems (gesture lag).  In any case, MapLibre Native handles both just fine.
+On iOS this runs on the main thread and on Android this runs on its own separate thread.  You might think the latter is better, but it has its own problems (gesture lag).  In any case, TrackAsia Native handles both just fine.
 
-The toolkit's main rendering "loop" lives in [renderer_impl](https://github.com/maplibre/maplibre-native/blob/main/src/mbgl/renderer/renderer_impl.cpp) and it's worth a look.  It serves as a central point to begin examining the real time rendering.
+The toolkit's main rendering "loop" lives in [renderer_impl](https://github.com/track-asia/trackasia-native/blob/main/src/mbgl/renderer/renderer_impl.cpp) and it's worth a look.  It serves as a central point to begin examining the real time rendering.
 
 As you might suspect, the rendering loop logic and implementation are heavily influenced by OpenGL.
 
@@ -350,7 +350,7 @@ These changes will allow us to go in very different directions between OpenGL an
 
 _Addresses refactoring that make migration easier, particularly our [north stars](#north-stars)._
 
-The observer classes in MapLibre Native let the developer know when something has happened or is about to happen.  The class for the Renderer mostly just lets the developer know:
+The observer classes in TrackAsia Native let the developer know when something has happened or is about to happen.  The class for the Renderer mostly just lets the developer know:
 - About the renderer starting and stopping
 - When an individual frame is begun and finished
 
@@ -374,7 +374,7 @@ By opening up access to some of the low level rendering events and objects we wo
 
 An example might be Apple's Metal based image processing.  Much of that works in real time and produces Metal textures which can be reused directly, rather than going through a GPU->CPU->GPU copy cycle.
 
-Another example is new functionality.  Rather than having to hack the toolkit itself, if we provide enough callbacks, developers can work on new functionality entirely outside MapLibre Native and then merge it in later if it seems important enough.  Ideally we could use that ourselves for features we may not need in a particular app, like heat maps.
+Another example is new functionality.  Rather than having to hack the toolkit itself, if we provide enough callbacks, developers can work on new functionality entirely outside TrackAsia Native and then merge it in later if it seems important enough.  Ideally we could use that ourselves for features we may not need in a particular app, like heat maps.
 
 ### Optimization
 

@@ -502,7 +502,7 @@
 				{
 					"directoryIndex" : 8,
 					"id" : "mbgl-benchmark::@3e2e920e28e9d6b4e283",
-					"jsonFile" : "target-mbgl-benchmark-Debug-f2679a63bfea6eab53c8.json",
+					"jsonFile" : "target-mbgl-benchmark-Debug-408676b229453b54cd4e.json",
 					"name" : "mbgl-benchmark",
 					"projectIndex" : 0
 				},
@@ -516,7 +516,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "mbgl-core::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-mbgl-core-Debug-0468d3aaeac1d5eb5bc6.json",
+					"jsonFile" : "target-mbgl-core-Debug-8947bdd83ad697aeba38.json",
 					"name" : "mbgl-core",
 					"projectIndex" : 0
 				},
@@ -530,7 +530,7 @@
 				{
 					"directoryIndex" : 9,
 					"id" : "mbgl-render-test::@6e3b0ce576d379659bc0",
-					"jsonFile" : "target-mbgl-render-test-Debug-13b3243836144d32313f.json",
+					"jsonFile" : "target-mbgl-render-test-Debug-76cffe2b0fe40a18218b.json",
 					"name" : "mbgl-render-test",
 					"projectIndex" : 0
 				},
@@ -544,7 +544,7 @@
 				{
 					"directoryIndex" : 7,
 					"id" : "mbgl-test::@36f028580bb02cc8272a",
-					"jsonFile" : "target-mbgl-test-Debug-dccf3b79943f61e7b111.json",
+					"jsonFile" : "target-mbgl-test-Debug-7613015595892ff25272.json",
 					"name" : "mbgl-test",
 					"projectIndex" : 0
 				},

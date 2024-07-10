@@ -1,8 +1,8 @@
-These integration tests verify the correctness and consistency of [MapLibre Native](https://github.com/maplibre/maplibre-native) rendering.
+These integration tests verify the correctness and consistency of [TrackAsia Native](https://github.com/track-asia/trackasia-native) rendering.
 
 ## Organization
 
-Tests are contained in a directory tree, generally organized by [style specification](https://maplibre.org/maplibre-style-spec/)
+Tests are contained in a directory tree, generally organized by [style specification](https://trackasia.org/trackasia-style-spec/)
 property: `background-color`, `line-width`, etc., with a second level of directories below that for individual tests. For example, the test for specifying a literal `circle-radius` value lives in [`test/integration/render-tests/circle-radius/literal/`](https://github.com/mapbox/mapbox-gl-js/tree/master/test/integration/render-tests/circle-radius/literal).
 
 Within a leaf directory is a `style.json` file (e.g. [`circle-radius/literal/style.json`](https://github.com/mapbox/mapbox-gl-js/blob/master/test/integration/render-tests/circle-radius/literal/style.json)), which contains the minimal style needed for the given test case. The style can specify the map size, center, bearing, and pitch, and additional test metadata (e.g. output image dimensions).
@@ -16,7 +16,7 @@ The contents of vector tile fixtures can be read using the [`vt2geojson`](https:
 
 ## Running tests
 
-To run the entire integration test suite (both render or query tests), from within the maplibre-native directory on Linux run the command:
+To run the entire integration test suite (both render or query tests), from within the trackasia-native directory on Linux run the command:
 
 ```
 ./build/mbgl-render-test-runner --manifestPath metrics/linux-clang8-release-style.json

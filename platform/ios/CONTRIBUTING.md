@@ -5,8 +5,8 @@
 Download the source and install all submodules if you have not already, by running the following from the root of the repository. 
 
 ```
-git clone --recurse-submodules git@github.com:maplibre/maplibre-native.git
-cd maplibre-native
+git clone --recurse-submodules git@github.com:track-asia/trackasia-native.git
+cd trackasia-native
 ```
 
 ## Bazel
@@ -43,13 +43,13 @@ Run the following commands:
 
 ```
 bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
-xed platform/ios/MapLibre.xcodeproj
+xed platform/ios/TrackAsia.xcodeproj
 ```
 
-Then once in Xcode, click on "MapLibre" on the left, then "App" under Targets, then "Signing & Capabilities" in the tabbed menu. 
+Then once in Xcode, click on "TrackAsia" on the left, then "App" under Targets, then "Signing & Capabilities" in the tabbed menu. 
 Confirm that no errors are shown.
 
-<img width="921" alt="image" src="https://github.com/polvi/maplibre-native/assets/649392/a1ef30cb-97fc-429a-acee-194436f3fb8a">
+<img width="921" alt="image" src="https://github.com/polvi/trackasia-native/assets/649392/a1ef30cb-97fc-429a-acee-194436f3fb8a">
 
 Try to run the example App in the simulator and on a device to confirm your setup works.
 
@@ -79,7 +79,7 @@ To run the render tests, run the `RenderTest` target from iOS.
 When running in a simulator, use
 
 ```
-# check for 'DataContainer' of the app with `*.maplibre.RenderTestApp` id
+# check for 'DataContainer' of the app with `*.trackasia.RenderTestApp` id
 xcrun simctl listapps booted
 ```
 
@@ -91,14 +91,14 @@ Run the tests from the `CppUnitTests` target in Xcode to run the C++ Unit Tests 
 
 ## Swift App
 
-There is also an example app built with Swift instead of Objective-C. The target is called `MapLibreApp` and the source code lives in `platform/ios/app-swift`.
+There is also an example app built with Swift instead of Objective-C. The target is called `TrackAsiaApp` and the source code lives in `platform/ios/app-swift`.
 
 ## Documentation
 
 We use [DocC](https://www.swift.org/documentation/docc) for documentation. You need to have [aws-cli](https://github.com/aws/aws-cli) installed to download the resources from S3 (see below). Run the following command:
 
 ```
-aws s3 sync --no-sign-request "s3://maplibre-native/ios-documentation-resources" "platform/ios/MapLibre.docc/Resources"
+aws s3 sync --no-sign-request "s3://trackasia-native/ios-documentation-resources" "platform/ios/TrackAsia.docc/Resources"
 ```
 
 Then, to build the documentation locally, run the following command:
@@ -109,7 +109,7 @@ platform/ios/scripts/docc.sh preview
 
 ### Resources
 
-Resources like images should not be checked in but should be uploaded to the [S3 Bucket](https://s3.eu-central-1.amazonaws.com/maplibre-native/index.html#ios-documentation-resources/). You can share a `.zip` with all files that should be added in the PR.
+Resources like images should not be checked in but should be uploaded to the [S3 Bucket](https://s3.eu-central-1.amazonaws.com/trackasia-native/index.html#ios-documentation-resources/). You can share a `.zip` with all files that should be added in the PR.
 
 If you want to get direct access you need an AWS account to get permissions to upload files. Create an account and authenticate with aws-cli. Share the account ARN that you can get with
 

@@ -1,4 +1,4 @@
-# Install script for directory: /Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native
+# Install script for directory: /Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,17 +44,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/_deps/tracy-build/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/_deps/tracy-build/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/unordered_dense/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/unordered_dense/cmake_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -64,7 +64,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmbgl-render-test-runner.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/RelWithDebInfo/3k5l5140/obj/x86/libmbgl-render-test-runner.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/RelWithDebInfo/3k5l5140/obj/x86/libmbgl-render-test-runner.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmbgl-render-test-runner.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmbgl-render-test-runner.so")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -78,17 +78,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/test/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/test/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/benchmark/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/benchmark/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/render-test/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/render-test/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -99,5 +99,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

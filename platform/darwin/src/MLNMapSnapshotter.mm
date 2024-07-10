@@ -134,7 +134,7 @@ private:
 
 /**
  :nodoc:
- Whether to include the MapLibre logo. Note this is not required.
+ Whether to include the TrackAsia logo. Note this is not required.
  */
 @property (nonatomic, readwrite) BOOL showsLogo;
 @end
@@ -382,7 +382,7 @@ MLNImage *MLNAttributedSnapshot(mbgl::MapSnapshotter::Attributions attributions,
     CGPoint attributionOrigin = CGPointMake(mglImage.size.width - 10 - attributionBackgroundSize.width,
                                             logoImageRect.origin.y + (logoImageRect.size.height / 2) - (attributionBackgroundSize.height / 2) + 1);
     if (!logoImage) {
-        CGSize defaultLogoSize = [MLNMapSnapshotter maplibreLongStyleLogo].size;
+        CGSize defaultLogoSize = [MLNMapSnapshotter trackasiaLongStyleLogo].size;
         logoImageRect = CGRectMake(0, mglImage.size.height - (MLNLogoImagePosition.y + defaultLogoSize.height), 0, defaultLogoSize.height);
         attributionOrigin = CGPointMake(10, logoImageRect.origin.y + (logoImageRect.size.height / 2) - (attributionBackgroundSize.height / 2) + 1);
     }
@@ -455,7 +455,7 @@ MLNImage *MLNAttributedSnapshot(mbgl::MapSnapshotter::Attributions attributions,
     CGPoint attributionOrigin = CGPointMake(targetFrame.size.width - 10 - attributionBackgroundSize.width,
                                             MLNLogoImagePosition.y + 1);
     if (!logoImage) {
-        CGSize defaultLogoSize = [MLNMapSnapshotter maplibreLongStyleLogo].size;
+        CGSize defaultLogoSize = [MLNMapSnapshotter trackasiaLongStyleLogo].size;
         logoImageRect = CGRectMake(0, MLNLogoImagePosition.y, 0, defaultLogoSize.height);
         attributionOrigin = CGPointMake(10, attributionOrigin.y);
     }
@@ -624,11 +624,11 @@ NSArray<MLNAttributionInfo *> *MLNAttributionInfosFromAttributions(mbgl::MapSnap
     MLNImage *logoImage;
     switch (style) {
         case MLNAttributionInfoStyleLong:
-            logoImage = [MLNMapSnapshotter maplibreLongStyleLogo];
+            logoImage = [MLNMapSnapshotter trackasiaLongStyleLogo];
             break;
         case MLNAttributionInfoStyleMedium:
 #if TARGET_OS_IPHONE
-            logoImage = [UIImage imageNamed:@"maplibre-logo-icon" inBundle:[NSBundle mgl_frameworkBundle] compatibleWithTraitCollection:nil];
+            logoImage = [UIImage imageNamed:@"trackasia-logo-icon" inBundle:[NSBundle mgl_frameworkBundle] compatibleWithTraitCollection:nil];
 #else
             logoImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mgl_frameworkBundle] pathForResource:@"mapbox_helmet" ofType:@"pdf"]];
 #endif
@@ -640,11 +640,11 @@ NSArray<MLNAttributionInfo *> *MLNAttributionInfosFromAttributions(mbgl::MapSnap
     return logoImage;
 }
 
-+ (MLNImage *)maplibreLongStyleLogo
++ (MLNImage *)trackasiaLongStyleLogo
 {
     MLNImage *logoImage;
 #if TARGET_OS_IPHONE
-    logoImage =[UIImage imageNamed:@"maplibre-logo-stroke-gray" inBundle:[NSBundle mgl_frameworkBundle] compatibleWithTraitCollection:nil];
+    logoImage =[UIImage imageNamed:@"trackasia-logo-stroke-gray" inBundle:[NSBundle mgl_frameworkBundle] compatibleWithTraitCollection:nil];
 #else
     logoImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mgl_frameworkBundle] pathForResource:@"mapbox" ofType:@"pdf"]];
 #endif

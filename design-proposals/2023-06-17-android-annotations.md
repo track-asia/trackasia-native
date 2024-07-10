@@ -2,9 +2,9 @@
 
 ## Motivation
 
-`maplibre-native` contains a deprecated variant of annotation methods that work with objects such as `Marker`, `Polygon` and more that imitate the Google Maps API. On the other hand, `maplibre-plugins-android` repository contains an implementation that works with the objects `Symbol`, `Fill` and more. This situation is confusing to developers and users and should be cleaned up.
+`trackasia-native` contains a deprecated variant of annotation methods that work with objects such as `Marker`, `Polygon` and more that imitate the Google Maps API. On the other hand, `trackasia-plugins-android` repository contains an implementation that works with the objects `Symbol`, `Fill` and more. This situation is confusing to developers and users and should be cleaned up.
 
-A first approach was to simply move code from the plugins repository to `maplibre-native` (https://github.com/maplibre/maplibre-native/issues/1154), but the codebases had derived too much to be feasible on the go (there is no obvious path towards moving the new code whilst un-deprecating the deprecated methods; these two goals are incompatible).
+A first approach was to simply move code from the plugins repository to `trackasia-native` (https://github.com/track-asia/trackasia-native/issues/1154), but the codebases had derived too much to be feasible on the go (there is no obvious path towards moving the new code whilst un-deprecating the deprecated methods; these two goals are incompatible).
 
 A better idea is to create a new and improved annotations API that combines the best of both worlds. 
 
@@ -14,7 +14,7 @@ A better idea is to create a new and improved annotations API that combines the 
 
 The following ideas drive the design proposal for the improved API.
 
-* (G1 **`maplibre-native`**) The annotation API should be a part of `maplibre-native`.
+* (G1 **`trackasia-native`**) The annotation API should be a part of `trackasia-native`.
 * (G2 **frictionless migration**) The new API should create as few friction as necessary for existing users of the annotations plugin during migrations.
 * (G3 **Kotlin-first**) The API should facilitate Kotlin langauge features where appropriate.
 * (G4 **power**) The annotations API should be as powereful as it was before. No functionality should be lost.
@@ -45,9 +45,9 @@ Users should be able to set click, drag and long-click listeners directly on ann
 
 A second advantage is that the user need not worry about multiple managers for different types of objects. For instance, when adding a polygon as well as a marker, they would need to handle a `SymbolManger` as well as a `FillManager`.
 
-Note that the direction in which things are added is reversed: in this proposal, we add `Symbol` to map, and not map creates `Symbol`. If a user decides to use `SymbolManager` directly, they add the `SymbolManager` to the map instead of passing the map to the `SymbolManager` during instantiation. This is possible only because we are implementing the API as a part of `maplibre-native` (G1).
+Note that the direction in which things are added is reversed: in this proposal, we add `Symbol` to map, and not map creates `Symbol`. If a user decides to use `SymbolManager` directly, they add the `SymbolManager` to the map instead of passing the map to the `SymbolManager` during instantiation. This is possible only because we are implementing the API as a part of `trackasia-native` (G1).
 
-This reversed approach allows us to rewrite similar calls to the ancient, Google Maps-style API that is currently part of `maplibre-native` to redirect them to the new implementation. This way, we can remove the legacy implementation and deduplicate the codebase.
+This reversed approach allows us to rewrite similar calls to the ancient, Google Maps-style API that is currently part of `trackasia-native` to redirect them to the new implementation. This way, we can remove the legacy implementation and deduplicate the codebase.
 
 A dependency injection pattern should be used to add a reference to the map to the annotation, such that it can notify the map on updates of itself. No annotation can be added to multiple maps, otherwise an exception is thrown.
 
@@ -256,7 +256,7 @@ The following list shows concrete public properties or functions that should be 
     * `var textIgnorePlacement: Boolean` (default `false`)
     * `var textOptional: Boolean` (default `false`)
     * `var textVariableAnchor: Anchor[]?` (throws on empty array)
-* `MapLibreMap` (in addition to its other methods)
+* `TrackAsiaMap` (in addition to its other methods)
     * `add(Annotation...)`
     * `remove(Annotation...)`
     * `removeAllAnnotations()`
@@ -272,10 +272,10 @@ The following list shows concrete public properties or functions that should be 
 
 Users who do not wish to migrate can continue using the old Plugins Annotation API, which is to be deprecated.
 
-Long-term, we aim for a removal of duplicate API from `maplibre-native`, as it had been deprecated for a while and we are to offer a similarly user-friendly alternative. As a migration path, we can rewrite existing old code to map to new code. This also allows us to deduplicate the internal implementation.
+Long-term, we aim for a removal of duplicate API from `trackasia-native`, as it had been deprecated for a while and we are to offer a similarly user-friendly alternative. As a migration path, we can rewrite existing old code to map to new code. This also allows us to deduplicate the internal implementation.
 
 One remaining task is to consider supporting an `InfoWindow`-like feature with our new API. This should be the last piece missing for feature parity with the very old version.
 
 ## Rejected Alternatives
 
-* Moving the existing code to `maplibre-native` without further considerations leads to chaos, because it would leave users with the choice between two rather mediocre APIs – one being mediocre by design, the other because it is deprecated. Additionally, it would leave the codebase with two confusingly similar codebases. With this proposal, we can offer one new and clean API, and redirect calls to the old API to the new one.
+* Moving the existing code to `trackasia-native` without further considerations leads to chaos, because it would leave users with the choice between two rather mediocre APIs – one being mediocre by design, the other because it is deprecated. Additionally, it would leave the codebase with two confusingly similar codebases. With this proposal, we can offer one new and clean API, and redirect calls to the old API to the new one.

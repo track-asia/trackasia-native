@@ -211,16 +211,16 @@ const std::string& TileServerOptions::defaultStyle() const {
 }
 
 TileServerOptions TileServerOptions::DefaultConfiguration() {
-    return MapLibreConfiguration();
+    return TrackAsiaConfiguration();
 }
 
-TileServerOptions TileServerOptions::MapLibreConfiguration() {
+TileServerOptions TileServerOptions::TrackAsiaConfiguration() {
     std::vector<mbgl::util::DefaultStyle> styles{// https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public
                                                  mbgl::util::DefaultStyle("https://tiles.track-asia.com/tiles/v3/style-streets.json?key=public", "Basic", 1)};
 
     TileServerOptions options = TileServerOptions()
-                                    .withBaseURL("https://demotiles.maplibre.org")
-                                    .withUriSchemeAlias("maplibre")
+                                    .withBaseURL("https://demotiles.trackasia.org")
+                                    .withUriSchemeAlias("trackasia")
                                     .withApiKeyParameterName("")
                                     .withSourceTemplate("/tiles/{domain}.json", "", {})
                                     .withStyleTemplate("{path}.json", "maps", {})

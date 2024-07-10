@@ -1,21 +1,21 @@
 Pod::Spec.new do |s|
     version = "#{ENV['VERSION']}"
 
-    s.name = 'MapLibre'
+    s.name = 'TrackAsia'
     s.version = version
     s.license = { :type => 'BSD', :file => "LICENSE.md" }
-    s.homepage = 'https://maplibre.org/'
-    s.authors = { 'MapLibre' => '' }
+    s.homepage = 'https://trackasia.org/'
+    s.authors = { 'TrackAsia' => '' }
     s.summary = 'Open source vector map solution for iOS with full styling capabilities.'
     s.platform = :ios
     s.source = { 
-        :http => "https://github.com/maplibre/maplibre-native/releases/download/ios-v#{version.to_s}/MapLibre.dynamic.xcframework.zip",
+        :http => "https://github.com/track-asia/trackasia-native/releases/download/ios-v#{version.to_s}/TrackAsia.dynamic.xcframework.zip",
         :type => "zip"
     }
-    s.social_media_url  = 'https://mastodon.social/@maplibre'
+    s.social_media_url  = 'https://mastodon.social/@trackasia'
     s.ios.deployment_target = '12.0'
-    s.ios.vendored_frameworks = "MapLibre.xcframework"
+    s.ios.vendored_frameworks = "TrackAsia.xcframework"
     s.resource_bundle = {
-        "MapLibre_Privacy" => "PrivacyInfo.xcprivacy"
+        "TrackAsia_Privacy" => "PrivacyInfo.xcprivacy"
     }
 end

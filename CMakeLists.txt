@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 option(MLN_WITH_CORE_ONLY "Build only the core bits, no platform code" OFF)
 option(MLN_WITH_CLANG_TIDY "Build with clang-tidy checks enabled" OFF)
 option(MLN_WITH_COVERAGE "Enable code coverage collection" OFF)
-option(MLN_WITH_QT "Build MapLibre Native Qt bindings" OFF)
-option(MLN_WITH_NODE "Build MapLibre Native Node.js bindings" OFF)
+option(MLN_WITH_QT "Build TrackAsia Native Qt bindings" OFF)
+option(MLN_WITH_NODE "Build TrackAsia Native Node.js bindings" OFF)
 option(MLN_WITH_SANITIZER "Use [address|thread|undefined] here" OFF)
 option(MLN_WITH_RTTI "Compile with runtime type information" OFF)
 option(MLN_WITH_OPENGL "Build with OpenGL renderer" ON)
@@ -40,7 +40,7 @@ endif()
 project("Mapbox GL Native" LANGUAGES CXX C)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER MapLibre)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER TrackAsia)
 
 set(
     MEMORYCHECK_COMMAND_OPTIONS
@@ -1424,12 +1424,12 @@ set_target_properties(
     mbgl-core
     PROPERTIES
         INTERFACE_MAPBOX_NAME "Mapbox GL Native"
-        INTERFACE_MAPBOX_URL "https://github.com/maplibre/maplibre-native"
+        INTERFACE_MAPBOX_URL "https://github.com/track-asia/trackasia-native"
         INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE.md
 )
 
-set_property(TARGET mbgl-core PROPERTY FOLDER MapLibre)
+set_property(TARGET mbgl-core PROPERTY FOLDER TrackAsia)
 
 add_library(
     Mapbox::Map ALIAS mbgl-core

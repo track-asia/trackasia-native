@@ -16,7 +16,7 @@ pkg_search_module(WEBP libwebp REQUIRED)
 pkg_search_module(LIBUV libuv REQUIRED)
 
 if(MLN_WITH_WAYLAND)
-    # See https://github.com/maplibre/maplibre-native/pull/2022
+    # See https://github.com/track-asia/trackasia-native/pull/2022
 
     # MLN_WITH_EGL needs to be set for Wayland, otherwise this CMakeLists will
     # call find_package(OpenGL REQUIRED GLX), which is for X11.

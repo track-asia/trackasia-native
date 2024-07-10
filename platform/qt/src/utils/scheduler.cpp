@@ -5,7 +5,7 @@
 
 #include <cassert>
 
-namespace QMapLibre {
+namespace QTrackAsia {
 
 Scheduler::Scheduler() = default;
 
@@ -57,4 +57,4 @@ void Scheduler::waitForEmpty([[maybe_unused]] const mbgl::util::SimpleIdentity t
     assert(m_taskQueue.size() + pendingItems == 0);
 }
 
-} // namespace QMapLibre
+} // namespace QTrackAsia

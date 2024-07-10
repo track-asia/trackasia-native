@@ -1,12 +1,12 @@
-message(STATUS "Configuring MapLibre Native with Qt platform")
+message(STATUS "Configuring TrackAsia Native with Qt platform")
 
-option(MLN_QT_LIBRARY_ONLY "Build only MapLibre Native Qt bindings libraries" OFF)
-option(MLN_QT_WITH_INTERNAL_SQLITE "Build MapLibre Native Qt bindings with internal sqlite" OFF)
+option(MLN_QT_LIBRARY_ONLY "Build only TrackAsia Native Qt bindings libraries" OFF)
+option(MLN_QT_WITH_INTERNAL_SQLITE "Build TrackAsia Native Qt bindings with internal sqlite" OFF)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     find_package(Threads REQUIRED)
 
-    option(MLN_QT_WITH_INTERNAL_ICU "Build MapLibre GL Qt bindings with internal ICU" OFF)
+    option(MLN_QT_WITH_INTERNAL_ICU "Build TrackAsia GL Qt bindings with internal ICU" OFF)
     if(NOT MLN_QT_WITH_INTERNAL_ICU)
         # find ICU ignoring Qt paths
         option(MLN_QT_IGNORE_ICU "Ignore Qt-provided ICU library" ON)

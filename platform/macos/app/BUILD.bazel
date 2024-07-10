@@ -14,7 +14,7 @@ objc_library(
 
 macos_application(
     name = "macos_app",
-    bundle_id = "org.maplibre.macosapp",
+    bundle_id = "org.trackasia.macosapp",
     infoplists = [
         "Info.plist",
     ],

@@ -24,7 +24,7 @@ FOUNDATION_EXTERN MLN_EXPORT MLNExceptionName const MLNRedundantSourceIdentifier
  The proxy object for the current map style.
 
  MLNStyle provides a set of convenience methods for changing default styles included
- with MapLibre.
+ with TrackAsia.
 
  It is also possible to directly manipulate the current map style
  via `MLNMapView.style` by updating the style's data sources or layers.

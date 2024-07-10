@@ -1,4 +1,4 @@
-# Install script for directory: /Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base
+# Install script for directory: /Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,9 +44,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base/extras/cmake_install.cmake")
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base/include/cmake_install.cmake")
-  include("/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base/deps/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base/extras/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base/include/cmake_install.cmake")
+  include("/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base/deps/cmake_install.cmake")
 
 endif()
 

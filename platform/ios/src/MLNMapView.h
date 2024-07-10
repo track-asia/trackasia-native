@@ -148,9 +148,9 @@ FOUNDATION_EXTERN MLN_EXPORT MLNExceptionName const MLNUserLocationAnnotationTyp
  The map view loads scalable vector tiles that conform to the
  <a href="https://github.com/mapbox/vector-tile-spec">Mapbox Vector Tile Specification</a>.
  It styles them with a style that conforms to the
- <a href="https://maplibre.org/maplibre-style-spec/">MapLibre Style Spec</a>.
+ <a href="https://trackasia.org/trackasia-style-spec/">TrackAsia Style Spec</a>.
  Such styles can be designed with
- <a href="https://maplibre.org/maputnik/">Maputnik</a>.
+ <a href="https://trackasia.org/maputnik/">Maputnik</a>.
 
 
  Because `MLNMapView` loads asynchronously, several delegate methods are available
@@ -334,7 +334,7 @@ MLN_EXPORT
 @property (nonatomic, assign) CGPoint compassViewMargins;
 
 /**
- A logo, the MapLibre logo by default, positioned in the lower-left corner.
+ A logo, the TrackAsia logo by default, positioned in the lower-left corner.
  You are not required to display this, but some vector-sources may require attribution.
  */
 @property (nonatomic, readonly) UIImageView *logoView;
@@ -1965,7 +1965,7 @@ MLN_EXPORT
  point, even if the road extends into other tiles.
 
  To find out the layer names in a particular style, view the style in
- <a href="https://maplibre.org/maputnik">Maputnik</a>.
+ <a href="https://trackasia.org/maputnik">Maputnik</a>.
 
  Only visible features are returned. To obtain features regardless of
  visibility, use the
@@ -2074,7 +2074,7 @@ MLN_EXPORT
  the road within each map tile is included individually.
 
  To find out the layer names in a particular style, view the style in
- <a href="https://maplibre.org/maputnik">Maputnik</a>.
+ <a href="https://trackasia.org/maputnik">Maputnik</a>.
 
  Only visible features are returned. To obtain features regardless of
  visibility, use the

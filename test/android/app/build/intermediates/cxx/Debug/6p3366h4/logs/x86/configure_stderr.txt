@@ -1,0 +1,3 @@
+Parsing public/common/TracyVersion.hpp file
+VERSION 0.10.0
+Target platform does not support HTTP tests or dependencies not found.

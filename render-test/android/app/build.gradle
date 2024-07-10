@@ -8,13 +8,13 @@ android {
     }
 
     defaultConfig {
-        applicationId = 'org.maplibre.render_test_runner'
+        applicationId = 'org.trackasia.render_test_runner'
         compileSdk 34
         minSdkVersion 21
         targetSdkVersion 33
         def abi = 'all'
-        if (project.hasProperty('maplibre.abis')) {
-            abi = project.getProperty('maplibre.abis')
+        if (project.hasProperty('trackasia.abis')) {
+            abi = project.getProperty('trackasia.abis')
         }
         ndk {
             if (abi != 'all' && abi != 'none') {

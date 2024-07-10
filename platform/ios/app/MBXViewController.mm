@@ -1519,7 +1519,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
 - (NSURL*)radarImageURL:(int)index
 {
     return [NSURL URLWithString:
-            [NSString stringWithFormat:@"https://maplibre.org/maplibre-gl-js/docs/assets/radar%d.gif", index]];
+            [NSString stringWithFormat:@"https://trackasia.org/trackasia-gl-js/docs/assets/radar%d.gif", index]];
 }
 
 - (void)styleImageSource
@@ -2149,10 +2149,10 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
     self.styleURLs = [NSMutableArray array];
     
     /// Style that does not require an `apiKey` nor any further configuration
-    [self.styleNames addObject:@"MapLibre Basic"];
-    [self.styleURLs addObject:[NSURL URLWithString:@"https://demotiles.maplibre.org/style.json"]];
+    [self.styleNames addObject:@"TrackAsia Basic"];
+    [self.styleURLs addObject:[NSURL URLWithString:@"https://demotiles.trackasia.org/style.json"]];
 
-    /// Add MapLibre Styles if an `apiKey` exists
+    /// Add TrackAsia Styles if an `apiKey` exists
     NSString* apiKey = [MLNSettings apiKey];
     if (apiKey.length)
     {
@@ -2432,7 +2432,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
 
 - (void)mapView:(MLNMapView *)mapView didFinishLoadingStyle:(MLNStyle *)style
 {
-    // Default MapLibre styles use {name_en} as their label language, which means
+    // Default TrackAsia styles use {name_en} as their label language, which means
     // that a device with an English-language locale is already effectively
     // using locale-based country labels.
     _localizingLabels = [[self bestLanguageForUser] isEqualToString:@"en"];
@@ -2578,7 +2578,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
 }
 
 - (void)alertAccuracyChanges {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"MapLibre works best with your precise location."
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"TrackAsia works best with your precise location."
                                    message:@"You'll get turn-by-turn directions."
                                    preferredStyle:UIAlertControllerStyleAlert];
 

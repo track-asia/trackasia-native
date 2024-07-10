@@ -94,7 +94,7 @@ android {
 
 dependencies {
     // implementation project(':TrackAsiaAndroid')
-    implementation 'com.github.track-asia:trackasia-native:android-v2.0.0'
+    implementation 'io.github.track-asia:android-sdk:2.0.0'
     implementation libs.trackasiaJavaTurf
 
     implementation libs.supportAppcompatV7

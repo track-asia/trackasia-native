@@ -18,7 +18,7 @@ const MLNExceptionName MLNBundleNotFoundException = @"MLNBundleNotFoundException
             bundle = [self bundleWithPath:bundlePath];
         } else {
             [NSException raise:MLNBundleNotFoundException
-                        format:@"The MapLibre framework bundle could not be found. If using the MapLibre Native for iOS as a static framework, make sure that MapLibre bundle is copied into the root of the app bundle."];
+                        format:@"The TrackAsia framework bundle could not be found. If using the TrackAsia Native for iOS as a static framework, make sure that TrackAsia bundle is copied into the root of the app bundle."];
         }
     }
 #endif

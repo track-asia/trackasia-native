@@ -90,8 +90,8 @@ public_hdrs = [
 ]
 
 apple_static_xcframework(
-    name = "MapLibre.static",
-    bundle_name = "MapLibre",
+    name = "TrackAsia.static",
+    bundle_name = "TrackAsia",
     ios = {
         "simulator": [
             "x86_64",
@@ -106,20 +106,20 @@ apple_static_xcframework(
 )
 
 apple_bundle_version(
-    name = "maplibre_ios_version",
-    build_label_pattern = "maplibre_ios_{version}",
+    name = "trackasia_ios_version",
+    build_label_pattern = "trackasia_ios_{version}",
     build_version = "{version}",
     capture_groups = {
         "version": "[0-9]+.[0-9]+.[0-9]+",
     },
-    fallback_build_label = "maplibre_ios_1.2.3456789",
+    fallback_build_label = "trackasia_ios_1.2.3456789",
     short_version_string = "{version}",
 )
 
 apple_xcframework(
-    name = "MapLibre.dynamic",
-    bundle_id = "com.maplibre.mapbox",
-    bundle_name = "MapLibre",
+    name = "TrackAsia.dynamic",
+    bundle_id = "com.trackasia.mapbox",
+    bundle_name = "TrackAsia",
     data = glob([
         "resources/*.lproj/**",
         "resources/*.xcassets/**",
@@ -135,15 +135,15 @@ apple_xcframework(
     },
     minimum_os_versions = {"ios": "12.0"},
     public_hdrs = public_hdrs,
-    version = ":maplibre_ios_version",
+    version = ":trackasia_ios_version",
     visibility = ["//visibility:public"],
     deps = ["//platform:ios-sdk-dynamic"],
 )
 
 ios_framework(
-    name = "MapLibre.link",
+    name = "TrackAsia.link",
     testonly = True,
-    bundle_id = "com.maplibre.link",
+    bundle_id = "com.trackasia.link",
     families = ["iphone"],
     infoplists = ["info_plist"],
     linkopts = [""],
@@ -154,7 +154,7 @@ ios_framework(
 
 apple_resource_bundle(
     name = "resources",
-    bundle_id = "com.maplibre.mapbox",
+    bundle_id = "com.trackasia.mapbox",
     bundle_name = "Mapbox",
     infoplists = ["info_static_plist"],
     resources = glob([
@@ -184,7 +184,7 @@ _IOS_APPLICATION_RESOURCES = [
 
 ios_application(
     name = "App",
-    bundle_id = "{}.maplibre.app".format(BUNDLE_ID_PREFIX),
+    bundle_id = "{}.trackasia.app".format(BUNDLE_ID_PREFIX),
     families = [
         "iphone",
         "ipad",
@@ -201,13 +201,13 @@ ios_application(
 
 ios_application(
     name = "AppDynamicLib",
-    bundle_id = "org.maplibre.app",
+    bundle_id = "org.trackasia.app",
     families = [
         "iphone",
         "ipad",
     ],
     frameworks = [
-        "MapLibre.link",
+        "TrackAsia.link",
     ],
     infoplists = ["app/Info.plist"],
     minimum_os_version = "12.0",
@@ -245,7 +245,7 @@ filegroup(
     srcs = [
         "BAZEL.md",
         "CHANGELOG.md",
-        "MapLibre.podspec",
+        "TrackAsia.podspec",
         "PrivacyInfo.xcprivacy",
         "README.md",
         "RELEASE.md",
@@ -262,7 +262,7 @@ xcodeproj(
         ":extra_files",
     ],
     minimum_xcode_version = "14",
-    project_name = "MapLibre",
+    project_name = "TrackAsia",
     tags = ["manual"],
     top_level_targets = [
         top_level_target(
@@ -273,7 +273,7 @@ xcodeproj(
             ],
         ),
         top_level_target(
-            "//platform/ios/app-swift:MapLibreApp",
+            "//platform/ios/app-swift:TrackAsiaApp",
             target_environments = [
                 "simulator",
                 "device",

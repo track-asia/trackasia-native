@@ -17,11 +17,11 @@ Hello! Thanks for contributing.  For the fastest response and resolution, please
 
  - Check the console for relevant errors and warnings
 
- - Only post to report a bug. For feature requests, please use https://github.com/maplibre/maplibre-gl-js/issues/new?template=Feature_request.md instead.  Direct all other questions to https://stackoverflow.com/questions/tagged/maplibre-gl-js
+ - Only post to report a bug. For feature requests, please use https://github.com/track-asia/trackasia-gl-js/issues/new?template=Feature_request.md instead.  Direct all other questions to https://stackoverflow.com/questions/tagged/trackasia-gl-js
 
 -->
 
-**maplibre-gl-js version**:
+**trackasia-gl-js version**:
 
 **browser**:
 
@@ -39,7 +39,7 @@ Providing a minimal, complete, verifiable demonstration *dramatically* improves 
 We recommend using https://jsbin.com.
 
 Consider using the non-minified version for this demo to create better error messages. 
-E.g. `<script src='https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl-dev.js'></script><link href='https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.css' rel='stylesheet' />`
+E.g. `<script src='https://unpkg.com/trackasia-gl@1.15.2/dist/trackasia-gl-dev.js'></script><link href='https://unpkg.com/trackasia-gl@1.15.2/dist/trackasia-gl.css' rel='stylesheet' />`
 
 See https://stackoverflow.com/help/mcve for guidelines on creating an effective example.
 -->

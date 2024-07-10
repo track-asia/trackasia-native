@@ -5,7 +5,7 @@
 
 #include <QtGlobal>
 
-namespace QMapLibre {
+namespace QTrackAsia {
 
 class RendererBackend final : public mbgl::gl::RendererBackend, public mbgl::gfx::Renderable {
 public:
@@ -35,4 +35,4 @@ private:
     Q_DISABLE_COPY(RendererBackend)
 };
 
-} // namespace QMapLibre
+} // namespace QTrackAsia

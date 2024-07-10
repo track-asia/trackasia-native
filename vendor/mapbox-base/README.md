@@ -1,9 +1,9 @@
-![MapLibre Logo](https://maplibre.org/img/maplibre-logo-big.svg)
+![TrackAsia Logo](https://trackasia.org/img/trackasia-logo-big.svg)
 
-# MapLibre Native Base C++ Libraries
+# TrackAsia Native Base C++ Libraries
 
-maplibre-native-base
+trackasia-native-base
 
 A collection of common static and header-only C++ libraries used among our native SDKs.
 
-Part of the [Maplibre](https://maplibre.org) organization
+Part of the [Trackasia](https://trackasia.org) organization

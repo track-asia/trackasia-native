@@ -824,7 +824,7 @@ void TestRunner::run(TestMetadata& metadata) {
                     });
 
 // TODO: remove usage of std::codecvt_utf8
-// https://github.com/maplibre/maplibre-native/issues/1269
+// https://github.com/track-asia/trackasia-native/issues/1269
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"

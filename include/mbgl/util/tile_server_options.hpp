@@ -284,9 +284,9 @@ public:
     static TileServerOptions DefaultConfiguration();
 
     /**
-     * @brief Get the tile server options configured for MapLibre.
+     * @brief Get the tile server options configured for TrackAsia.
      */
-    static TileServerOptions MapLibreConfiguration();
+    static TileServerOptions TrackAsiaConfiguration();
 
     /**
      * @brief Get the tile server options configured for Mapbox.

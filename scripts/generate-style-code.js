@@ -12,7 +12,7 @@ require('./style-code');
 // Parse command line
 const args = (() => {
   const parser = new ArgumentParser({
-      description: "MapLibre Shader Tools"
+      description: "TrackAsia Shader Tools"
   });
   parser.add_argument("--out", "--o", {
       help: "Directory root to write generated code.",

@@ -187,7 +187,7 @@ GLFWView::GLFWView(bool fullscreen_,
         glfwWindowHint(GLFW_DEPTH_BITS, 16);
     }
 
-    window = glfwCreateWindow(width, height, "MapLibre Native", monitor, nullptr);
+    window = glfwCreateWindow(width, height, "TrackAsia Native", monitor, nullptr);
     if (!window) {
         glfwTerminate();
         mbgl::Log::Error(mbgl::Event::OpenGL, "failed to initialize window");
@@ -463,7 +463,7 @@ void GLFWView::onKey(GLFWwindow *window, int key, int /*scancode*/, int action, 
                 auto &style = view->map->getStyle();
                 if (!style.getSource("states")) {
                     std::string url =
-                        "https://maplibre.org/maplibre-gl-js-docs/assets/"
+                        "https://trackasia.org/trackasia-gl-js-docs/assets/"
                         "us_states.geojson";
                     auto source = std::make_unique<GeoJSONSource>("states");
                     source->setURL(url);
@@ -1126,7 +1126,7 @@ void GLFWView::setShouldClose() {
 void GLFWView::setWindowTitle(const std::string &title) {
     MLN_TRACE_FUNC();
 
-    glfwSetWindowTitle(window, (std::string{"MapLibre Native (GLFW): "} + title).c_str());
+    glfwSetWindowTitle(window, (std::string{"TrackAsia Native (GLFW): "} + title).c_str());
 }
 
 void GLFWView::onDidFinishLoadingStyle() {

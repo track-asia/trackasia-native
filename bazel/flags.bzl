@@ -105,13 +105,13 @@ CPP_FLAGS = select({
     "@platforms//os:windows": MSVC_CPP_FLAGS + WARNING_FLAGS["windows"],
 })
 
-# Compilation flags related to the Maplibre codebase. Relevant for all .cpp .mm and .m code
+# Compilation flags related to the Trackasia codebase. Relevant for all .cpp .mm and .m code
 #  - src/*
 #  - include/*
 #  - platform/*
 # Not important for any vendors that are imported.
 
-MAPLIBRE_FLAGS = select({
+TRACKASIA_FLAGS = select({
     "@platforms//os:windows": [
         "/DMBGL_USE_GLES2=1",
         "/DMBGL_RENDER_BACKEND_OPENGL=1",

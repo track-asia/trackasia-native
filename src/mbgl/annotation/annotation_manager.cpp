@@ -32,9 +32,9 @@ namespace mbgl {
 
 using namespace style;
 
-const std::string AnnotationManager::SourceID = "org.maplibre.annotations";
-const std::string AnnotationManager::PointLayerID = "org.maplibre.annotations.points";
-const std::string AnnotationManager::ShapeLayerID = "org.maplibre.annotations.shape.";
+const std::string AnnotationManager::SourceID = "org.trackasia.annotations";
+const std::string AnnotationManager::PointLayerID = "org.trackasia.annotations.points";
+const std::string AnnotationManager::ShapeLayerID = "org.trackasia.annotations.shape.";
 
 AnnotationManager::AnnotationManager(Style& style_)
     : style(style_) {}
@@ -235,7 +235,7 @@ void AnnotationManager::removeTile(AnnotationTile& tile) {
 }
 
 // To ensure that annotation images do not collide with images from the style,
-// we prefix input image IDs with "org.maplibre.annotations".
+// we prefix input image IDs with "org.trackasia.annotations".
 static std::string prefixedImageID(const std::string& id) {
     return AnnotationManager::SourceID + "." + id;
 }

@@ -2,7 +2,7 @@
 
 <div class="warning">
 
-In versions prior to the (upcoming) MapLibre Native for Android 11.0 release, you need to use `com.mapbox.mapboxsdk.*` for imports instead of `org.maplibre.android.*`. Classes with `Mapbox` in the name are replaced with `MapLibre`. Details can be found in the [changelog](https://github.com/maplibre/maplibre-native/blob/main/platform/android/CHANGELOG.md).
+In versions prior to the (upcoming) TrackAsia Native for Android 11.0 release, you need to use `com.mapbox.mapboxsdk.*` for imports instead of `org.trackasia.android.*`. Classes with `Mapbox` in the name are replaced with `TrackAsia`. Details can be found in the [changelog](https://github.com/track-asia/trackasia-native/blob/main/platform/android/CHANGELOG.md).
 
 </div>
 
@@ -17,12 +17,12 @@ In versions prior to the (upcoming) MapLibre Native for Android 11.0 release, yo
     }
     ```
 
-2. Add the library as a dependency into your module Gradle file (usually `<project>/<app-module>/build.gradle`). Replace `<version>` with the latest MapLibre Native version (e.g.: `org.maplibre.gl:android-sdk:10.0.2`). Visit [https://mvnrepository.com/artifact/org.maplibre.gl/android-sdk](https://mvnrepository.com/artifact/org.maplibre.gl/android-sdk) to view the version history of MapLibre Native for android. 
+2. Add the library as a dependency into your module Gradle file (usually `<project>/<app-module>/build.gradle`). Replace `<version>` with the latest TrackAsia Native version (e.g.: `org.trackasia.gl:android-sdk:10.0.2`). Visit [https://mvnrepository.com/artifact/org.trackasia.gl/android-sdk](https://mvnrepository.com/artifact/org.trackasia.gl/android-sdk) to view the version history of TrackAsia Native for android. 
 
     ```gradle
     dependencies {
         ...
-        implementation 'org.maplibre.gl:android-sdk:<version>'
+        implementation 'org.trackasia.gl:android-sdk:<version>'
         ...
     }
     ```
@@ -33,7 +33,7 @@ In versions prior to the (upcoming) MapLibre Native for Android 11.0 release, yo
 
     ```xml
     ...
-    <org.maplibre.android.maps.MapView
+    <org.trackasia.android.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,11 +47,11 @@ In versions prior to the (upcoming) MapLibre Native for Android 11.0 release, yo
     import androidx.appcompat.app.AppCompatActivity
     import android.os.Bundle
     import android.view.LayoutInflater
-    import org.maplibre.android.Maplibre
-    import org.maplibre.android.camera.CameraPosition
-    import org.maplibre.android.geometry.LatLng
-    import org.maplibre.android.maps.MapView
-    import org.maplibre.android.testapp.R
+    import org.trackasia.android.Trackasia
+    import org.trackasia.android.camera.CameraPosition
+    import org.trackasia.android.geometry.LatLng
+    import org.trackasia.android.maps.MapView
+    import org.trackasia.android.testapp.R
 
     class MainActivity : AppCompatActivity() {
 
@@ -61,8 +61,8 @@ In versions prior to the (upcoming) MapLibre Native for Android 11.0 release, yo
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
-            // Init MapLibre
-            MapLibre.getInstance(this)
+            // Init TrackAsia
+            TrackAsia.getInstance(this)
 
             // Init layout view
             val inflater = LayoutInflater.from(this)
@@ -72,7 +72,7 @@ In versions prior to the (upcoming) MapLibre Native for Android 11.0 release, yo
             // Init the MapView
             mapView = rootView.findViewById(R.id.mapView)
             mapView.getMapAsync { map ->
-                map.setStyle("https://demotiles.maplibre.org/style.json")
+                map.setStyle("https://demotiles.trackasia.org/style.json")
                 map.cameraPosition = CameraPosition.Builder().target(LatLng(0.0,0.0)).zoom(1.0).build()
             }
         }

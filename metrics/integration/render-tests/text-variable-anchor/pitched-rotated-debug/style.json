@@ -14,7 +14,7 @@
   "pitch": 60,
   "bearing": 90,
   "sources": {
-    "maplibre": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -35,7 +35,7 @@
     {
       "id": "top",
       "type": "symbol",
-      "source": "maplibre",
+      "source": "trackasia",
       "source-layer": "poi_label",
       "filter": [
         "==",

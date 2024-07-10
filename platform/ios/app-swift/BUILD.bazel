@@ -22,8 +22,8 @@ swift_library(
 )
 
 ios_application(
-    name = "MapLibreApp",
-    bundle_id = "org.maplibre.swiftapp",
+    name = "TrackAsiaApp",
+    bundle_id = "org.trackasia.swiftapp",
     families = [
         "iphone",
         "ipad",

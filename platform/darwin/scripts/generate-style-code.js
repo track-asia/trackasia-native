@@ -13,7 +13,7 @@ require('../../../scripts/style-code');
 // Parse command line
 const args = (() => {
     const parser = new ArgumentParser({
-        description: "MapLibre Shader Tools"
+        description: "TrackAsia Shader Tools"
     });
     parser.add_argument("--out", "--o", {
         help: "Directory root to write generated code.",
@@ -411,7 +411,7 @@ global.propertyDoc = function (propertyName, property, layerType, kind) {
                     anchor = `paint-${property.original}`;
                     break;
             }
-            doc += `\n\nThis attribute corresponds to the <a href="https://maplibre.org/maplibre-style-spec/#${anchor}"><code>${property.original}</code></a> layout property in the MapLibre Style Spec.`;
+            doc += `\n\nThis attribute corresponds to the <a href="https://maplibre.org/maplibre-style-spec/#${anchor}"><code>${property.original}</code></a> layout property in the TrackAsia Style Spec.`;
         }
         doc += '\n\nYou can set this property to an expression containing any of the following:\n\n';
         doc += `* Constant ${describeType(property)} values`;

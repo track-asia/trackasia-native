@@ -79,7 +79,7 @@ public:
 }
 
 - (MLNLoggingBlockHandler)defaultBlockHandler {
-    MLNLoggingBlockHandler maplibreHandler = ^(MLNLoggingLevel level, NSString *fileName, NSUInteger line, NSString *message) {
+    MLNLoggingBlockHandler trackasiaHandler = ^(MLNLoggingLevel level, NSString *fileName, NSUInteger line, NSString *message) {
         
         if (@available(iOS 10.0, macOS 10.12.0, *)) {
             static dispatch_once_t once;
@@ -96,7 +96,7 @@ public:
 #endif
                                                     OS_LOG_TYPE_ERROR,
                                                     OS_LOG_TYPE_FAULT };
-            constexpr const char* const subsystem = "org.maplibre.Native";
+            constexpr const char* const subsystem = "org.trackasia.Native";
             dispatch_once(&once, ^ {
                 info_log = os_log_create(subsystem, "INFO");
 #if MLN_LOGGING_ENABLE_DEBUG
@@ -106,22 +106,22 @@ public:
                 fault_log = os_log_create(subsystem, "FAULT");
             });
             
-            os_log_t maplibre_log;
+            os_log_t trackasia_log;
             switch (level) {
                 case MLNLoggingLevelInfo:
                 case MLNLoggingLevelWarning:
-                    maplibre_log = info_log;
+                    trackasia_log = info_log;
                     break;
 #if MLN_LOGGING_ENABLE_DEBUG
                 case MLNLoggingLevelDebug:
-                    maplibre_log = debug_log;
+                    trackasia_log = debug_log;
                     break;
 #endif
                 case MLNLoggingLevelError:
-                    maplibre_log = error_log;
+                    trackasia_log = error_log;
                     break;
                 case MLNLoggingLevelFault:
-                    maplibre_log = fault_log;
+                    trackasia_log = fault_log;
                     break;
                 case MLNLoggingLevelNone:
                 default:
@@ -129,7 +129,7 @@ public:
             }
 
             os_log_type_t logType = log_types[level];
-            os_log_with_type(maplibre_log, logType, "%@ - %lu: %@", fileName, (unsigned long)line, message);
+            os_log_with_type(trackasia_log, logType, "%@ - %lu: %@", fileName, (unsigned long)line, message);
         } else {
             NSString *category;
             switch (level) {
@@ -157,7 +157,7 @@ public:
         }
     };
     
-    return maplibreHandler;
+    return trackasiaHandler;
 }
 
 @end

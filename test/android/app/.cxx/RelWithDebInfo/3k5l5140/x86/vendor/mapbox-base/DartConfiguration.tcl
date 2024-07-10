@@ -4,8 +4,8 @@
 
 
 # Configuration directories and files
-SourceDirectory: /Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base
-BuildDirectory: /Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base
+SourceDirectory: /Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base
+BuildDirectory: /Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/RelWithDebInfo/3k5l5140/x86/vendor/mapbox-base
 
 # Where to place the cost data store
 CostDataFile: 
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/cmake" "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base"
+ConfigureCommand: "/Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/cmake" "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base"
 MakeCommand: /Users/sangnguyen/Library/Android/sdk/cmake/3.22.1/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
@@ -76,7 +76,7 @@ CudaSanitizerCommandOptions:
 MemoryCheckType: 
 MemoryCheckSanitizerOptions: 
 MemoryCheckCommand: MEMORYCHECK_COMMAND-NOTFOUND
-MemoryCheckCommandOptions: --leak-check=full --gen-suppressions=all --error-exitcode=1 --suppressions=/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/scripts/valgrind.sup
+MemoryCheckCommandOptions: --leak-check=full --gen-suppressions=all --error-exitcode=1 --suppressions=/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/scripts/valgrind.sup
 MemoryCheckSuppressionFile: 
 
 # Coverage

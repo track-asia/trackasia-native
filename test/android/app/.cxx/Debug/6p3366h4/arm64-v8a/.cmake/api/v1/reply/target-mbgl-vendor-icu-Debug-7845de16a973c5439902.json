@@ -137,7 +137,7 @@
 				{
 					"backtrace" : 8,
 					"isSystem" : true,
-					"path" : "/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/icu/include"
+					"path" : "/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/icu/include"
 				}
 			],
 			"language" : "CXX",

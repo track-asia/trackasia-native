@@ -16,10 +16,10 @@ function step { >&2 echo -e "\033[1m\033[36m* $@\033[0m"; }
 function finish { >&2 echo -en "\033[0m"; }
 trap finish EXIT
 
-export GITHUB_USER=maplibre
-export GITHUB_REPO=maplibre-native
+export GITHUB_USER=trackasia
+export GITHUB_REPO=trackasia-native
 export BUILDTYPE=Release
-export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/maplibre/maplibre-gl-native-distribution
+export DISTRIBUTION_GITHUB_REPO=https://api.github.com/repos/track-asia/trackasia-native-distribution
 
 VERSION_TAG=${VERSION_TAG:-''}
 PUBLISH_VERSION=
@@ -82,12 +82,12 @@ npm install --ignore-scripts
 mkdir -p ${BINARY_DIRECTORY}
 
 step "Building XCFramework"
-bazel build //platform/ios:MapLibre.dynamic
+bazel build //platform/ios:TrackAsia.dynamic
 
 step "Copying Bazel output"
-BUILT_XCFRAMEWORK="$(bazel info execution_root)/$(bazel cquery --output=files //platform/ios:MapLibre.dynamic)"
-MAPLIBRE_ZIP_FILE="MapLibre-${PUBLISH_VERSION}.zip"
-cp "$BUILT_XCFRAMEWORK" "$MAPLIBRE_ZIP_FILE"
+BUILT_XCFRAMEWORK="$(bazel info execution_root)/$(bazel cquery --output=files //platform/ios:TrackAsia.dynamic)"
+TRACKASIA_ZIP_FILE="TrackAsia-${PUBLISH_VERSION}.zip"
+cp "$BUILT_XCFRAMEWORK" "$TRACKASIA_ZIP_FILE"
 
 step "Create GitHub release…"
 RELEASE_NOTES=$( ./scripts/release-notes.js github )
@@ -102,9 +102,9 @@ github-release release \
     --name "ios-v${PUBLISH_VERSION}" \
     --description "${RELEASE_NOTES}"
 
-step "Uploading ${BINARY_DIRECTORY}/${MAPLIBRE_ZIP_FILE} to github release [${VERSION_TAG}]"
-uploadToGithub "${BINARY_DIRECTORY}/${MAPLIBRE_ZIP_FILE}" "${VERSION_TAG}"
-MAPLIBRE_ZIP_FILE_URL=$EXT_TARGET_GITHUB_URL
+step "Uploading ${BINARY_DIRECTORY}/${TRACKASIA_ZIP_FILE} to github release [${VERSION_TAG}]"
+uploadToGithub "${BINARY_DIRECTORY}/${TRACKASIA_ZIP_FILE}" "${VERSION_TAG}"
+TRACKASIA_ZIP_FILE_URL=$EXT_TARGET_GITHUB_URL
 
 step "Creating Swift package…"
 
@@ -125,7 +125,7 @@ setTarget() {
     sed -i '' -e 's|'"${token}_PACKAGE_CHECKSUM"'|'"${checksum}"'|g' Package.swift
 }
 
-setTarget "MAPLIBRE" "${BINARY_DIRECTORY}/${MAPLIBRE_ZIP_FILE}" "${MAPLIBRE_ZIP_FILE_URL}"
+setTarget "TRACKASIA" "${BINARY_DIRECTORY}/${TRACKASIA_ZIP_FILE}" "${TRACKASIA_ZIP_FILE_URL}"
 
 step "Publishing Swift package…"
 
@@ -153,4 +153,4 @@ curl -v -X POST \
 
 step "Finished deploying ${PUBLISH_VERSION} in $(($SECONDS / 60)) minutes and $(($SECONDS % 60)) seconds"
 
-pod trunk push MapLibre.podspec
+pod trunk push TrackAsia.podspec

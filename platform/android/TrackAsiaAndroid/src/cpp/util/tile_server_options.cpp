@@ -91,7 +91,7 @@ jni::Local<jni::Object<TileServerOptions>> TileServerOptions::MapTilerConfigurat
 
 jni::Local<jni::Object<TileServerOptions>> TileServerOptions::TrackAsiaConfiguration(
     jni::JNIEnv& env, const jni::Class<TileServerOptions>& jOptions) {
-    auto options = mbgl::TileServerOptions::MapLibreConfiguration();
+    auto options = mbgl::TileServerOptions::TrackAsiaConfiguration();
     return TileServerOptions::New(env, options);
 }
 

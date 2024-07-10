@@ -1,6 +1,6 @@
-MapLibre Native iOS
+TrackAsia Native iOS
 
-Copyright (c) 2021 MapLibre contributors
+Copyright (c) 2021 TrackAsia contributors
 
 Copyright (c) 2014-2020 Mapbox
 
@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of Boost.
+TrackAsia Native iOS uses portions of Boost.
 
 Distributed under the Boost Software License, Version 1.0.
 
@@ -37,7 +37,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of Clipper.
+TrackAsia Native iOS uses portions of Clipper.
 
 Author    :  Angus Johnson
 Version   :  6.1.3a
@@ -70,7 +70,7 @@ http://www.me.berkeley.edu/~mcmains/pubs/DAC05OffsetPolygon.pdf
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of BugshotKit.
+TrackAsia Native iOS uses portions of BugshotKit.
 
 The MIT License (MIT)
 
@@ -95,7 +95,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of CSS Color Parser.
+TrackAsia Native iOS uses portions of CSS Color Parser.
 
 (c) Dean McNamee <dean@gmail.com>, 2012.
 C++ port by Konstantin Käfer <mail@kkaefer.com>, 2014.
@@ -123,7 +123,7 @@ IN THE SOFTWARE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of GLFW.
+TrackAsia Native iOS uses portions of GLFW.
 
 Copyright (c) 2002-2006 Marcus Geelnard
 Copyright (c) 2006-2010 Camilla Berglund <elmindreda@elmindreda.org>
@@ -149,7 +149,7 @@ freely, subject to the following restrictions:
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of libc++.
+TrackAsia Native iOS uses portions of libc++.
 
 The libc++ library is dual licensed under both the University of Illinois
 "BSD-Like" license and the MIT license.  As a user of this code you may choose
@@ -226,7 +226,7 @@ THE SOFTWARE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of libcurl.
+TrackAsia Native iOS uses portions of libcurl.
 
 COPYRIGHT AND PERMISSION NOTICE
 
@@ -252,7 +252,7 @@ in this Software without prior written authorization of the copyright holder.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of libjpeg-turbo.
+TrackAsia Native iOS uses portions of libjpeg-turbo.
 
 This software is based in part on the work of the Independent JPEG Group.
 
@@ -286,7 +286,7 @@ TurboJPEG/LJT: this implements the TurboJPEG API using libjpeg or libjpeg-turbo
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of libpng.
+TrackAsia Native iOS uses portions of libpng.
 
 This copy of the libpng notices is provided for your convenience.  In case of
 any discrepancy between this copy and the notices in the file png.h that is
@@ -381,7 +381,7 @@ appreciated.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of libuv.
+TrackAsia Native iOS uses portions of libuv.
 
 libuv is part of the Node project: http://nodejs.org/
 libuv may be distributed alone under Node's license:
@@ -432,7 +432,7 @@ The externally maintained libraries used by libuv are:
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of libzip.
+TrackAsia Native iOS uses portions of libzip.
 
 Copyright (C) 1999-2014 Dieter Baron and Thomas Klausner
 
@@ -468,7 +468,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of the Mapbox iOS SDK, which was derived from the
+TrackAsia Native iOS uses portions of the Mapbox iOS SDK, which was derived from the
 Route-Me open source project, including the Alpstein fork of it.
 
 The Route-Me license appears below.
@@ -499,7 +499,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of nunicode.
+TrackAsia Native iOS uses portions of nunicode.
 
 Copyright (c) 2013 Aleksey Tulinov <aleksey.tulinov@gmail.com>
 
@@ -523,7 +523,7 @@ THE SOFTWARE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of OpenSSL.
+TrackAsia Native iOS uses portions of OpenSSL.
 
 LICENSE ISSUES
 ==============
@@ -648,7 +648,7 @@ copied and put under another distribution licence
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of RapidJSON.
+TrackAsia Native iOS uses portions of RapidJSON.
 
 Tencent is pleased to support the open source community by making RapidJSON
 available.
@@ -755,7 +755,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of Reachability.
+TrackAsia Native iOS uses portions of Reachability.
 
 Copyright (c) 2011, Tony Million.
 All rights reserved.
@@ -784,7 +784,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of SVPulsingAnnotationView.
+TrackAsia Native iOS uses portions of SVPulsingAnnotationView.
 
 Copyright (c) 2013, Sam Vermette <hello@samvermette.com>
 
@@ -802,7 +802,7 @@ THIS SOFTWARE.
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of zlib.
+TrackAsia Native iOS uses portions of zlib.
 
 Acknowledgments:
 
@@ -836,7 +836,7 @@ freely, subject to the following restrictions:
 
 ===========================================================================
 
-MapLibre Native iOS uses portions of SMCalloutView.
+TrackAsia Native iOS uses portions of SMCalloutView.
 
 Copyright 2016 Nick Farina. 
 
@@ -846,12 +846,12 @@ https://github.com/nfarina/calloutview/blob/master/LICENSE
 
 ===========================================================================
 
-### [Maplibre Native](https://github.com/maplibre/maplibre-native/)
+### [Trackasia Native](https://github.com/track-asia/trackasia-native/)
 
 ```
 BSD 2-Clause License
 
-Copyright (c) 2021 MapLibre contributors
+Copyright (c) 2021 TrackAsia contributors
 
 Copyright (c) 2018-2021 MapTiler.com
 

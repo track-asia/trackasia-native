@@ -1,9 +1,9 @@
-### [Mapbox GL Native](https://github.com/maplibre/maplibre-native) by Mapbox
+### [Mapbox GL Native](https://github.com/track-asia/trackasia-native) by Mapbox
 
 ```
 BSD 2-Clause License
 
-Copyright (c) 2021 MapLibre contributors
+Copyright (c) 2021 TrackAsia contributors
 
 Copyright (c) 2018-2021 MapTiler.com
 
@@ -370,7 +370,7 @@ DEALINGS IN THE SOFTWARE.
 ### [vector-tile](https://github.com/mapbox/vector-tile) by Mapbox
 
 ```
-Copyright (c) 2024 MapLibre contributors
+Copyright (c) 2024 TrackAsia contributors
 
 Copyright (c) 2016, Mapbox
 
@@ -440,7 +440,7 @@ DEALINGS IN THE SOFTWARE.
 ### [mapbox-base](https://github.com/mapbox/mapbox-base) by Mapbox
 
 ```
-Copyright (c) 2022 MapLibre contributors
+Copyright (c) 2022 TrackAsia contributors
 Copyright (c) MapBox
 All rights reserved.
 

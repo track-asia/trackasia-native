@@ -7,7 +7,7 @@
 #   - $HASH is the hash value computed from this text.
 #   - $CMAKE is the path to CMake 3.19.1.
 #   - $NINJA is the path to Ninja.
--H/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native
+-H/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 -DCMAKE_SYSTEM_VERSION=28

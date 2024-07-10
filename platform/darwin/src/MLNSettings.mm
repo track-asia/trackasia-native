@@ -113,8 +113,8 @@
         case MLNMapTiler:
             [MLNSettings setTileServerOptionsInternal:mbgl::TileServerOptions::MapTilerConfiguration()];
             break;
-        case MLNMapLibre:
-            [MLNSettings setTileServerOptionsInternal:mbgl::TileServerOptions::MapLibreConfiguration()];
+        case MLNTrackAsia:
+            [MLNSettings setTileServerOptionsInternal:mbgl::TileServerOptions::TrackAsiaConfiguration()];
             break;
         case MLNMapbox:
             [MLNSettings setTileServerOptionsInternal:mbgl::TileServerOptions::MapboxConfiguration()];

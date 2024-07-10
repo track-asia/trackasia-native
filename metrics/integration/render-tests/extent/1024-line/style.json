@@ -11,7 +11,7 @@
   ],
   "zoom": 0,
   "sources": {
-    "maplibre": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -28,9 +28,9 @@
       }
     },
     {
-      "id": "maplibre",
+      "id": "trackasia",
       "type": "line",
-      "source": "maplibre",
+      "source": "trackasia",
       "source-layer": "road",
       "paint": {
         "line-color": "black",

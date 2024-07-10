@@ -11,7 +11,7 @@
   ],
   "zoom": 18,
   "sources": {
-    "maplibre": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -31,13 +31,13 @@
     {
       "id": "lines_pole_of_inaccessibility",
       "type": "line",
-      "source": "maplibre",
+      "source": "trackasia",
       "source-layer": "building"
     },
     {
       "id": "pole_of_inaccessibility",
       "type": "symbol",
-      "source": "maplibre",
+      "source": "trackasia",
       "source-layer": "building",
       "layout": {
         "symbol-placement": "point",
