@@ -2,7 +2,7 @@
 
 // Copyright (c) 2017 Adam Wulkiewicz, Lodz, Poland.
 
-// Copyright (c) 2014-2021, Oracle and/or its affiliates.
+// Copyright (c) 2014-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
@@ -20,29 +20,24 @@
 #include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/point_order.hpp>
-#include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/util/order_as_direction.hpp>
 #include <boost/geometry/util/range.hpp>
+
+#include <boost/geometry/algorithms/equals.hpp>
 
 #include <boost/geometry/views/closeable_view.hpp>
 
 #include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/algorithms/intersects.hpp>
 #include <boost/geometry/algorithms/validity_failure_type.hpp>
-#include <boost/geometry/algorithms/detail/equals/point_point.hpp>
 #include <boost/geometry/algorithms/detail/num_distinct_consecutive_points.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/has_duplicates.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/has_invalid_coordinate.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/has_spikes.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/has_valid_self_turns.hpp>
-#include <boost/geometry/algorithms/dispatch/is_valid.hpp>
 
-// TEMP - with UmberllaStrategy this will be not needed
-#include <boost/geometry/strategy/area.hpp>
-#include <boost/geometry/strategies/area/services.hpp>
-// TODO: use point_order instead of area
-
+#include <boost/geometry/strategies/area.hpp>
 
 #ifdef BOOST_GEOMETRY_TEST_DEBUG
 #include <boost/geometry/io/dsv/write.hpp>
@@ -58,11 +53,11 @@ namespace detail { namespace is_valid
 
 
 // struct to check whether a ring is topologically closed
-template <typename Ring, closure_selector Closure = geometry::closure<Ring>::value>
+template <typename Ring, closure_selector Closure /* open */>
 struct is_topologically_closed
 {
-    template <typename VisitPolicy, typename Strategy>
-    static inline bool apply(Ring const&, VisitPolicy& visitor, Strategy const&)
+    template <typename VisitPolicy>
+    static inline bool apply(Ring const&, VisitPolicy& visitor)
     {
         boost::ignore_unused(visitor);
 
@@ -73,13 +68,12 @@ struct is_topologically_closed
 template <typename Ring>
 struct is_topologically_closed<Ring, closed>
 {
-    template <typename VisitPolicy, typename Strategy>
-    static inline bool apply(Ring const& ring, VisitPolicy& visitor, Strategy const& strategy)
+    template <typename VisitPolicy>
+    static inline bool apply(Ring const& ring, VisitPolicy& visitor)
     {
         boost::ignore_unused(visitor);
 
-        using geometry::detail::equals::equals_point_point;
-        if (equals_point_point(range::front(ring), range::back(ring), strategy))
+        if (geometry::equals(range::front(ring), range::back(ring)))
         {
             return visitor.template apply<no_failure>();
         }
@@ -91,7 +85,21 @@ struct is_topologically_closed<Ring, closed>
 };
 
 
-// TODO: use calculate_point_order here
+
+template <typename ResultType, bool IsInteriorRing /* false */>
+struct ring_area_predicate
+{
+    typedef std::greater<ResultType> type;
+};
+
+template <typename ResultType>
+struct ring_area_predicate<ResultType, true>
+{
+    typedef std::less<ResultType> type;
+};
+
+
+
 template <typename Ring, bool IsInteriorRing>
 struct is_properly_oriented
 {
@@ -101,11 +109,28 @@ struct is_properly_oriented
     {
         boost::ignore_unused(visitor);
 
-        // Check area
-        auto const area = detail::area::ring_area::apply(ring, strategy);
-        decltype(area) const zero = 0;
+        typedef detail::area::ring_area
+            <
+                order_as_direction<geometry::point_order<Ring>::value>::value,
+                geometry::closure<Ring>::value
+            > ring_area_type;
 
-        if (IsInteriorRing ? (area < zero) : (area > zero))
+        typedef typename Strategy::template area_strategy
+            <
+                Ring
+            >::type::template result_type<Ring>::type area_result_type;
+
+        typename ring_area_predicate
+            <
+                area_result_type, IsInteriorRing
+            >::type predicate;
+
+        // Check area
+        area_result_type const zero = 0;
+        area_result_type const area
+            = ring_area_type::apply(ring,
+                                    strategy.template get_area_strategy<Ring>());
+        if (predicate(area, zero))
         {
             return visitor.template apply<no_failure>();
         }
@@ -149,17 +174,21 @@ struct is_valid_ring
             return false;
         }
 
-        if (boost::size(ring) < detail::minimum_ring_size<Ring>::value)
+        closure_selector const closure = geometry::closure<Ring>::value;
+        typedef typename closeable_view<Ring const, closure>::type view_type;
+
+        if (boost::size(ring)
+            < core_detail::closure::minimum_ring_size<closure>::value)
         {
             return visitor.template apply<failure_few_points>();
         }
 
-        detail::closed_view<Ring const> const view(ring);
-
+        view_type const view(ring);
         if (detail::num_distinct_consecutive_points
                 <
-                    decltype(view), 4u, true
-                >::apply(view, strategy)
+                    view_type, 4u, true,
+                    not_equal_to<typename point_type<Ring>::type>
+                >::apply(view)
             < 4u)
         {
             return
@@ -167,11 +196,11 @@ struct is_valid_ring
         }
 
         return
-            is_topologically_closed<Ring>::apply(ring, visitor, strategy)
-            && ! has_duplicates<Ring>::apply(ring, visitor, strategy)
-            && ! has_spikes<Ring>::apply(ring, visitor, strategy)
+            is_topologically_closed<Ring, closure>::apply(ring, visitor)
+            && ! has_duplicates<Ring, closure>::apply(ring, visitor)
+            && ! has_spikes<Ring, closure>::apply(ring, visitor, strategy.get_side_strategy())
             && (! CheckSelfIntersections
-                || has_valid_self_turns<Ring, typename Strategy::cs_tag>::apply(ring, visitor, strategy))
+                || has_valid_self_turns<Ring>::apply(ring, visitor, strategy))
             && is_properly_oriented<Ring, IsInteriorRing>::apply(ring, visitor, strategy);
     }
 };

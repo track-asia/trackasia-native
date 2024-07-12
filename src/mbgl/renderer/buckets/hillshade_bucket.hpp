@@ -11,6 +11,7 @@
 #include <mbgl/util/tileset.hpp>
 #include <mbgl/util/image.hpp>
 #include <mbgl/util/mat4.hpp>
+#include <mbgl/util/optional.hpp>
 
 namespace mbgl {
 
@@ -27,37 +28,30 @@ public:
     void clear();
     void setMask(TileMask&&);
 
-    std::optional<gfx::Texture> dem;
-    std::optional<gfx::Texture> texture;
+    optional<gfx::Texture> dem;
+    optional<gfx::Texture> texture;
 
-#if MLN_DRAWABLE_RENDERER
-    RenderTargetPtr renderTarget;
-    bool renderTargetPrepared = false;
-#endif
-
-    TileMask mask{{0, 0, 0}};
+    TileMask mask{ { 0, 0, 0 } };
 
     const DEMData& getDEMData() const;
     DEMData& getDEMData();
 
-    bool isPrepared() const { return prepared; }
+    bool isPrepared() const {
+        return prepared;
+    }
 
-    void setPrepared(bool preparedState) { prepared = preparedState; }
+    void setPrepared (bool preparedState) {
+        prepared = preparedState;
+    }
 
     // Raster-DEM Tile Sources use the default buffers from Painter
-    using VertexVector = gfx::VertexVector<HillshadeLayoutVertex>;
-    std::shared_ptr<VertexVector> sharedVertices = std::make_shared<VertexVector>();
-    VertexVector& vertices = *sharedVertices;
-
+    gfx::VertexVector<HillshadeLayoutVertex> vertices;
     gfx::IndexVector<gfx::Triangles> indices;
     SegmentVector<HillshadeAttributes> segments;
 
-#if MLN_LEGACY_RENDERER
-    std::optional<gfx::VertexBuffer<HillshadeLayoutVertex>> vertexBuffer;
-    std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
-
-private:
+    optional<gfx::VertexBuffer<HillshadeLayoutVertex>> vertexBuffer;
+    optional<gfx::IndexBuffer> indexBuffer;
+private: 
     DEMData demdata;
     bool prepared = false;
 };

@@ -1,31 +1,12 @@
-option(MLN_WITH_X11 "Build with X11 Support" ON)
-option(MLN_WITH_WAYLAND "Build with Wayland Support" OFF)
-
 find_package(CURL REQUIRED)
 find_package(ICU OPTIONAL_COMPONENTS i18n)
 find_package(ICU OPTIONAL_COMPONENTS uc)
 find_package(JPEG REQUIRED)
 find_package(PNG REQUIRED)
 find_package(PkgConfig REQUIRED)
-if (MLN_WITH_X11)
-    find_package(X11 REQUIRED)
-endif ()
-find_package(Threads REQUIRED)
+find_package(X11 REQUIRED)
 
-pkg_search_module(WEBP libwebp REQUIRED)
 pkg_search_module(LIBUV libuv REQUIRED)
-
-if(MLN_WITH_WAYLAND)
-    # See https://github.com/track-asia/trackasia-native/pull/2022
-
-    # MLN_WITH_EGL needs to be set for Wayland, otherwise this CMakeLists will
-    # call find_package(OpenGL REQUIRED GLX), which is for X11.
-    set(MLN_WITH_EGL TRUE)
-
-    # OPENGL_USE_GLES2 or OPENGL_USE_GLES3 need to be set, otherwise
-    # FindOpenGL.cmake will include the GLVND library, which is for X11.
-    set(OPENGL_USE_GLES3 TRUE)
-endif()
 
 target_sources(
     mbgl-core
@@ -41,7 +22,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/database_file_source.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/file_source_manager.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/file_source_request.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/http_file_source.cpp
+        $<$<BOOL:${MBGL_PUBLIC_BUILD}>:${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/http_file_source.cpp>
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/local_file_request.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/local_file_source.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/mbtiles_file_source.cpp
@@ -55,10 +36,8 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/local_glyph_rasterizer.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/async_task.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/compression.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/filesystem.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/image.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/jpeg_reader.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/webp_reader.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/logging_stderr.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/monotonic_timer.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/png_reader.cpp
@@ -72,7 +51,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/linux/src/gl_functions.cpp
 )
 
-if(MLN_WITH_EGL)
+if(MBGL_WITH_EGL)
     find_package(OpenGL REQUIRED EGL)
     target_sources(
         mbgl-core
@@ -84,13 +63,6 @@ if(MLN_WITH_EGL)
         PRIVATE
             OpenGL::EGL
     )
-    if (MLN_WITH_WAYLAND)
-        target_compile_definitions(mbgl-core PUBLIC
-                EGL_NO_X11
-                MESA_EGL_NO_X11_HEADERS
-                WL_EGL_PLATFORM
-        )
-    endif()
 else()
     find_package(OpenGL REQUIRED GLX)
     target_sources(
@@ -105,15 +77,6 @@ else()
     )
 endif()
 
-if (DEFINED ENV{CI})
-    message("Building for CI")
-    target_compile_definitions(
-        mbgl-core
-        PRIVATE
-            CI_BUILD=1
-    )
-endif()
-
 # FIXME: Should not be needed, but now needed by node because of the headless frontend.
 target_include_directories(
     mbgl-core
@@ -123,7 +86,6 @@ target_include_directories(
         ${JPEG_INCLUDE_DIRS}
         ${LIBUV_INCLUDE_DIRS}
         ${X11_INCLUDE_DIRS}
-        ${WEBP_INCLUDE_DIRS}
 )
 
 include(${PROJECT_SOURCE_DIR}/vendor/nunicode.cmake)
@@ -132,7 +94,7 @@ include(${PROJECT_SOURCE_DIR}/vendor/sqlite.cmake)
 if(NOT ${ICU_FOUND} OR "${ICU_VERSION}" VERSION_LESS 62.0)
     message(STATUS "ICU not found or too old, using builtin.")
 
-    set(MLN_USE_BUILTIN_ICU TRUE)
+    set(MBGL_USE_BUILTIN_ICU TRUE)
     include(${PROJECT_SOURCE_DIR}/vendor/icu.cmake)
 
     set_source_files_properties(
@@ -150,11 +112,9 @@ target_link_libraries(
         ${JPEG_LIBRARIES}
         ${LIBUV_LIBRARIES}
         ${X11_LIBRARIES}
-        ${CMAKE_THREAD_LIBS_INIT}
-        ${WEBP_LIBRARIES}
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::i18n>
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::uc>
-        $<$<BOOL:${MLN_USE_BUILTIN_ICU}>:mbgl-vendor-icu>
+        $<$<NOT:$<BOOL:${MBGL_USE_BUILTIN_ICU}>>:ICU::i18n>
+        $<$<NOT:$<BOOL:${MBGL_USE_BUILTIN_ICU}>>:ICU::uc>
+        $<$<BOOL:${MBGL_USE_BUILTIN_ICU}>:mbgl-vendor-icu>
         PNG::PNG
         mbgl-vendor-nunicode
         mbgl-vendor-sqlite
@@ -163,9 +123,7 @@ target_link_libraries(
 add_subdirectory(${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(${PROJECT_SOURCE_DIR}/expression-test)
 add_subdirectory(${PROJECT_SOURCE_DIR}/platform/glfw)
-if(MLN_WITH_NODE)
-    add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
-endif()
+add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
 
 add_executable(
     mbgl-test-runner
@@ -174,18 +132,8 @@ add_executable(
 
 target_compile_definitions(
     mbgl-test-runner
-    PRIVATE
-        WORK_DIRECTORY=${PROJECT_SOURCE_DIR}
+    PRIVATE WORK_DIRECTORY=${PROJECT_SOURCE_DIR}
 )
-
-if (DEFINED ENV{CI})
-    message("Building for CI")
-    target_compile_definitions(
-        mbgl-test-runner
-        PRIVATE
-            CI_BUILD=1
-    )
-endif()
 
 target_link_libraries(
     mbgl-test-runner

@@ -4,11 +4,6 @@
 #include <mbgl/renderer/source_state.hpp>
 #include <mbgl/renderer/tile_pyramid.hpp>
 #include <mbgl/style/sources/vector_source_impl.hpp>
-#include <mbgl/renderer/render_tree.hpp>
-
-#if MLN_DRAWABLE_RENDERER
-#include <mbgl/gfx/context.hpp>
-#endif
 
 namespace mbgl {
 
@@ -30,28 +25,28 @@ public:
     RenderTiles getRenderTilesSortedByYPosition() const override;
     const Tile* getRenderedTile(const UnwrappedTileID&) const override;
 
-    std::unordered_map<std::string, std::vector<Feature>> queryRenderedFeatures(
-        const ScreenLineString& geometry,
-        const TransformState& transformState,
-        const std::unordered_map<std::string, const RenderLayer*>& layers,
-        const RenderedQueryOptions& options,
-        const mat4& projMatrix) const override;
+    std::unordered_map<std::string, std::vector<Feature>>
+    queryRenderedFeatures(const ScreenLineString& geometry,
+                          const TransformState& transformState,
+                          const std::unordered_map<std::string, const RenderLayer*>& layers,
+                          const RenderedQueryOptions& options,
+                          const mat4& projMatrix) const override;
 
-    std::vector<Feature> querySourceFeatures(const SourceQueryOptions&) const override;
+    std::vector<Feature>
+    querySourceFeatures(const SourceQueryOptions&) const override;
 
-    void setFeatureState(const std::optional<std::string>&, const std::string&, const FeatureState&) override;
+    void setFeatureState(const optional<std::string>&, const std::string&, const FeatureState&) override;
 
-    void getFeatureState(FeatureState& state, const std::optional<std::string>&, const std::string&) const override;
+    void getFeatureState(FeatureState& state, const optional<std::string>&, const std::string&) const override;
 
-    void removeFeatureState(const std::optional<std::string>&,
-                            const std::optional<std::string>&,
-                            const std::optional<std::string>&) override;
+    void removeFeatureState(const optional<std::string>&, const optional<std::string>&,
+                            const optional<std::string>&) override;
 
     void reduceMemoryUse() override;
     void dumpDebugLogs() const override;
 
 protected:
-    RenderTileSource(Immutable<style::Source::Impl>, const TaggedScheduler&);
+    RenderTileSource(Immutable<style::Source::Impl>);
     TilePyramid tilePyramid;
     Immutable<std::vector<RenderTile>> renderTiles;
     mutable RenderTiles filteredRenderTiles;
@@ -67,7 +62,7 @@ private:
  */
 class RenderTileSetSource : public RenderTileSource {
 protected:
-    RenderTileSetSource(Immutable<style::Source::Impl>, const TaggedScheduler&);
+    RenderTileSetSource(Immutable<style::Source::Impl>);
     ~RenderTileSetSource() override;
 
     virtual void updateInternal(const Tileset&,
@@ -76,7 +71,7 @@ protected:
                                 bool needsRelayout,
                                 const TileParameters&) = 0;
     // Returns tileset from the current impl.
-    virtual const std::optional<Tileset>& getTileset() const = 0;
+    virtual const optional<Tileset>& getTileset() const = 0;
 
 private:
     uint8_t getMaxZoom() const final;
@@ -86,27 +81,7 @@ private:
                 bool needsRelayout,
                 const TileParameters&) final;
 
-    std::optional<Tileset> cachedTileset;
-};
-
-class TileSourceRenderItem : public RenderItem {
-public:
-    TileSourceRenderItem(Immutable<std::vector<RenderTile>> renderTiles_, std::string name_)
-        : renderTiles(std::move(renderTiles_)),
-          name(std::move(name_)) {}
-
-private:
-    void upload(gfx::UploadPass&) const override;
-    void render(PaintParameters&) const override;
-    bool hasRenderPass(RenderPass) const override { return false; }
-    const std::string& getName() const override { return name; }
-
-#if MLN_DRAWABLE_RENDERER
-    void updateDebugDrawables(DebugLayerGroupMap&, PaintParameters&) const override;
-#endif
-
-    Immutable<std::vector<RenderTile>> renderTiles;
-    std::string name;
+    optional<Tileset> cachedTileset;
 };
 
 } // namespace mbgl

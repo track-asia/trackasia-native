@@ -10,13 +10,19 @@
 #include <cstring>
 #include <stdexcept>
 
+#if defined(__GNUC__)
+#define MBGL_UNUSED __attribute__((unused))
+#else
+#define MBGL_UNUSED
+#endif
+
 // Check zlib library version.
-[[maybe_unused]] const static bool zlibVersionCheck = []() {
+const static bool zlibVersionCheck MBGL_UNUSED = []() {
     const char *const version = zlibVersion();
     if (version[0] != ZLIB_VERSION[0]) {
         char message[96];
-        snprintf(
-            message, 96, "zlib version mismatch: headers report %s, but library reports %s", ZLIB_VERSION, version);
+        snprintf(message, 96, "zlib version mismatch: headers report %s, but library reports %s",
+                 ZLIB_VERSION, version);
         throw std::runtime_error(message);
     }
 
@@ -100,20 +106,5 @@ std::string decompress(const std::string &raw, int windowBits) {
 
     return result;
 }
-
-std::uint32_t crc32(const void *raw, size_t size) noexcept {
-    auto hash = ::crc32(0L, Z_NULL, 0);
-    if (raw) {
-        const auto *p = static_cast<const Bytef *>(raw);
-        while (size > 0) {
-            const auto blockSize = static_cast<uInt>(size);
-            hash = ::crc32(hash, p, blockSize);
-            p += blockSize;
-            size -= blockSize;
-        }
-    }
-    return static_cast<std::uint32_t>(hash);
-}
-
 } // namespace util
 } // namespace mbgl

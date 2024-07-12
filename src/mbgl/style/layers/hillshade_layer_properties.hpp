@@ -21,7 +21,7 @@ struct HillshadeAccentColor : PaintProperty<Color> {
 };
 
 struct HillshadeExaggeration : PaintProperty<float> {
-    static float defaultValue() { return 0.5f; }
+    static float defaultValue() { return 0.5; }
 };
 
 struct HillshadeHighlightColor : PaintProperty<Color> {
@@ -33,7 +33,7 @@ struct HillshadeIlluminationAnchor : PaintProperty<HillshadeIlluminationAnchorTy
 };
 
 struct HillshadeIlluminationDirection : PaintProperty<float> {
-    static float defaultValue() { return 335.f; }
+    static float defaultValue() { return 335; }
 };
 
 struct HillshadeShadowColor : PaintProperty<Color> {
@@ -59,9 +59,7 @@ public:
 
     unsigned long constantsMask() const override;
 
-    expression::Dependency getDependencies() const noexcept override;
-
-    const HillshadeLayer::Impl& layerImpl() const noexcept;
+    const HillshadeLayer::Impl& layerImpl() const;
     // Data members.
     HillshadePaintProperties::PossiblyEvaluated evaluated;
 };

@@ -5,10 +5,6 @@
 // Copyright (c) 2013 Mateusz Loskot, London, UK.
 // Copyright (c) 2013 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2020.
-// Modifications copyright (c) 2020 Oracle and/or its affiliates.
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
-
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -21,10 +17,13 @@
 
 #include <boost/concept/requires.hpp>
 #include <boost/concept_check.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/numeric/conversion/bounds.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/range/iterator.hpp>
 #include <boost/range/size.hpp>
 
 #include <boost/geometry/arithmetic/arithmetic.hpp>
@@ -106,10 +105,13 @@ struct range_to_range
         typedef recalculate_point<geometry::dimension<point_type>::value> per_point;
         geometry::clear(destination);
 
-        for (auto const& source_point : source)
+        for (typename boost::range_iterator<Range2 const>::type it
+                = boost::begin(source);
+            it != boost::end(source);
+            ++it)
         {
             point_type p;
-            per_point::apply(p, source_point, strategy);
+            per_point::apply(p, *it, strategy);
             geometry::append(destination, p);
         }
     }

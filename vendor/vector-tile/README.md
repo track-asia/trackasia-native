@@ -1,14 +1,8 @@
-[![TrackAsia Logo](https://trackasia.org/img/trackasia-logo-big.svg)](https://trackasia.org/)
-
-## mvt-cpp
-
-[![](https://img.shields.io/badge/Slack-%23trackasia--native-2EB67D?logo=slack)](https://slack.openstreetmap.us/)
+## Vector Tile Library
 
 C++14 library for decoding [Mapbox Vector Tiles](https://www.mapbox.com/vector-tiles/).
 
-This is a dependency of [TrackAsia Native](https://github.com/track-asia/trackasia-native).
-
-Forked from [`mapbox/vector-tile`](https://github.com/mapbox/vector-tile).
+[![Build Status](https://travis-ci.org/mapbox/vector-tile.svg?branch=master)](https://travis-ci.org/mapbox/vector-tile)
 
 ## Depends
 
@@ -52,3 +46,11 @@ Or also like:
 cd demo
 make
 ```
+
+# Who is using vector-tile?
+
+These are the applications targeted to upgrade to this library:
+
+* [Mapbox GL Native](https://github.com/mapbox/mapbox-gl-native)
+* [Mapnik Vector Tile](https://github.com/mapbox/mapnik-vector-tile)
+* [Tippecanoe](https://github.com/mapbox/tippecanoe)

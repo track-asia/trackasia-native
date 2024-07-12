@@ -5,10 +5,10 @@
 // Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
 // Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2014-2020.
-// Modifications copyright (c) 2014-2020, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -22,13 +22,14 @@
 
 #include <cstddef>
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 
 #include <boost/geometry/util/range.hpp>
+
+#include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 
 
 namespace boost { namespace geometry
@@ -65,8 +66,10 @@ struct polygon_count
     {
         std::size_t n = RangeCount::apply(exterior_ring(poly));
 
-        auto const& rings = interior_rings(poly);
-        for (auto it = boost::begin(rings); it != boost::end(rings); ++it)
+        typename interior_return_type<Polygon const>::type
+            rings = interior_rings(poly);
+        for (typename detail::interior_iterator<Polygon const>::type
+                it = boost::begin(rings); it != boost::end(rings); ++it)
         {
             n += RangeCount::apply(*it);
         }
@@ -80,10 +83,13 @@ template <typename SingleCount>
 struct multi_count
 {
     template <typename MultiGeometry>
-    static inline std::size_t apply(MultiGeometry const& multi)
+    static inline std::size_t apply(MultiGeometry const& geometry)
     {
         std::size_t n = 0;
-        for (auto it = boost::begin(multi); it != boost::end(multi); ++it)
+        for (typename boost::range_iterator<MultiGeometry const>::type
+                 it = boost::begin(geometry);
+             it != boost::end(geometry);
+             ++it)
         {
             n += SingleCount::apply(*it);
         }

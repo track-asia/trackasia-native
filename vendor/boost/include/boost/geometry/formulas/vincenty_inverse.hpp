@@ -159,10 +159,11 @@ public:
         } while ( geometry::math::abs(previous_lambda - lambda) > c_e_12
                && geometry::math::abs(lambda) < pi
                && counter < BOOST_GEOMETRY_DETAIL_VINCENTY_MAX_STEPS ); // robustness
-
+    
         if ( BOOST_GEOMETRY_CONDITION(EnableDistance) )
         {
-            // Some types cannot divide by doubles
+            // Oops getting hard here
+            // (again, problem is that ttmath cannot divide by doubles, which is OK)
             CT const c6 = 6;
             CT const c47 = 47;
             CT const c74 = 74;
@@ -187,7 +188,7 @@ public:
 
             result.distance = radius_b * A * (sigma - delta_sigma); // (19)
         }
-
+    
         if ( BOOST_GEOMETRY_CONDITION(CalcAzimuths) )
         {
             if (BOOST_GEOMETRY_CONDITION(CalcFwdAzimuth))

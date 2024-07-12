@@ -8,10 +8,9 @@
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2016-2020.
-// Modifications copyright (c) 2016-2020 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2016.
+// Modifications copyright (c) 2016 Oracle and/or its affiliates.
 // Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -20,8 +19,7 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_CALCULATE_SUM_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_CALCULATE_SUM_HPP
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+#include <boost/range.hpp>
 
 namespace boost { namespace geometry
 {
@@ -37,7 +35,8 @@ class calculate_polygon_sum
     static inline ReturnType sum_interior_rings(Rings const& rings, Strategy const& strategy)
     {
         ReturnType sum = ReturnType(0);
-        for (auto it = boost::begin(rings); it != boost::end(rings); ++it)
+        for (typename boost::range_iterator<Rings const>::type
+                it = boost::begin(rings); it != boost::end(rings); ++it)
         {
             sum += Policy::apply(*it, strategy);
         }

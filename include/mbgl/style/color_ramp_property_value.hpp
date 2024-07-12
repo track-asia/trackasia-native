@@ -15,40 +15,35 @@ class ColorRampPropertyValue {
 private:
     std::shared_ptr<expression::Expression> value;
 
-    friend bool operator==(const ColorRampPropertyValue& lhs, const ColorRampPropertyValue& rhs) noexcept {
+    friend bool operator==(const ColorRampPropertyValue& lhs, const ColorRampPropertyValue& rhs) {
         return (lhs.isUndefined() && rhs.isUndefined()) || (lhs.value && rhs.value && *(lhs.value) == *(rhs.value));
     }
 
-    friend bool operator!=(const ColorRampPropertyValue& lhs, const ColorRampPropertyValue& rhs) noexcept {
+    friend bool operator!=(const ColorRampPropertyValue& lhs, const ColorRampPropertyValue& rhs) {
         return !(lhs == rhs);
     }
 
 public:
-    ColorRampPropertyValue() noexcept = default;
-    ColorRampPropertyValue(std::shared_ptr<expression::Expression> value_) noexcept
-        : value(std::move(value_)) {}
+    ColorRampPropertyValue() : value(nullptr) {}
+    ColorRampPropertyValue(std::shared_ptr<expression::Expression> value_) : value(std::move(value_)) {}
 
-    bool isUndefined() const noexcept { return value == nullptr; }
+    bool isUndefined() const { return value == nullptr; }
 
     // noop, needed for batch evaluation of paint property values to compile
     template <typename Evaluator>
-    Color evaluate(const Evaluator&, TimePoint = {}) const noexcept {
-        return {};
-    }
+    Color evaluate(const Evaluator&, TimePoint = {}) const { return {}; }
 
     Color evaluate(double rampEvaluationParameter) const {
         const auto result = value->evaluate(expression::EvaluationContext({}, nullptr, {rampEvaluationParameter}));
         return *expression::fromExpressionValue<Color>(*result);
     }
 
-    bool isDataDriven() const noexcept { return false; }
-    bool hasDataDrivenPropertyDifference(const ColorRampPropertyValue&) const noexcept { return false; }
+    bool isDataDriven() const { return false; }
+    bool hasDataDrivenPropertyDifference(const ColorRampPropertyValue&) const { return false; }
 
-    const expression::Expression& getExpression() const noexcept { return *value; }
-
-    using Dependency = style::expression::Dependency;
-    Dependency getDependencies() const noexcept { return value ? value->dependencies : Dependency::None; }
+    const expression::Expression& getExpression() const { return *value; }
 };
+
 
 } // namespace style
 } // namespace mbgl

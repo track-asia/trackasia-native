@@ -21,76 +21,75 @@ bool setObjectMember(std::unique_ptr<Layer>& layer, const Convertible& value, co
 }
 } // namespace
 
-std::optional<Error> setPaintProperties(Layer& layer, const Convertible& value) {
+optional<Error> setPaintProperties(Layer& layer, const Convertible& value) {
     auto paintValue = objectMember(value, "paint");
     if (!paintValue) {
-        return std::nullopt;
+        return nullopt;
     }
     if (!isObject(*paintValue)) {
-        return {{"paint must be an object"}};
+        return { { "paint must be an object" } };
     }
     return eachMember(*paintValue, [&](const std::string& k, const Convertible& v) { return layer.setProperty(k, v); });
 }
 
-std::optional<std::unique_ptr<Layer>> Converter<std::unique_ptr<Layer>>::operator()(const Convertible& value,
-                                                                                    Error& error) const {
+optional<std::unique_ptr<Layer>> Converter<std::unique_ptr<Layer>>::operator()(const Convertible& value, Error& error) const {
     if (!isObject(value)) {
         error.message = "layer must be an object";
-        return std::nullopt;
+        return nullopt;
     }
 
     auto idValue = objectMember(value, "id");
     if (!idValue) {
         error.message = "layer must have an id";
-        return std::nullopt;
+        return nullopt;
     }
 
-    std::optional<std::string> id = toString(*idValue);
+    optional<std::string> id = toString(*idValue);
     if (!id) {
         error.message = "layer id must be a string";
-        return std::nullopt;
+        return nullopt;
     }
 
     auto typeValue = objectMember(value, "type");
     if (!typeValue) {
         error.message = "layer must have a type";
-        return std::nullopt;
+        return nullopt;
     }
 
-    auto type = toString(*typeValue);
+    optional<std::string> type = toString(*typeValue);
     if (!type) {
         error.message = "layer type must be a string";
-        return std::nullopt;
+        return nullopt;
     }
 
     std::unique_ptr<Layer> layer = LayerManager::get()->createLayer(*type, *id, value, error);
-    if (!layer) return std::nullopt;
+    if (!layer) return nullopt;
 
-    if (!setObjectMember(layer, value, "minzoom", error)) return std::nullopt;
-    if (!setObjectMember(layer, value, "maxzoom", error)) return std::nullopt;
-    if (!setObjectMember(layer, value, "filter", error)) return std::nullopt;
+    if (!setObjectMember(layer, value, "minzoom", error)) return nullopt;
+    if (!setObjectMember(layer, value, "maxzoom", error)) return nullopt;
+    if (!setObjectMember(layer, value, "filter", error)) return nullopt;
     if (layer->getTypeInfo()->source == LayerTypeInfo::Source::Required) {
-        if (!setObjectMember(layer, value, "source-layer", error)) return std::nullopt;
+        if (!setObjectMember(layer, value, "source-layer", error)) return nullopt;
     }
 
     auto layoutValue = objectMember(value, "layout");
     if (layoutValue) {
         if (!isObject(*layoutValue)) {
             error.message = "layout must be an object";
-            return std::nullopt;
+            return nullopt;
         }
-        auto error_ = eachMember(*layoutValue,
-                                 [&](const std::string& k, const Convertible& v) { return layer->setProperty(k, v); });
+        optional<Error> error_ = eachMember(
+            *layoutValue, [&](const std::string& k, const Convertible& v) { return layer->setProperty(k, v); });
         if (error_) {
             error = *error_;
-            return std::nullopt;
+            return nullopt;
         }
     }
 
-    auto error_ = setPaintProperties(*layer, value);
+    optional<Error> error_ = setPaintProperties(*layer, value);
     if (error_) {
         error = *error_;
-        return std::nullopt;
+        return nullopt;
     }
 
     return layer;

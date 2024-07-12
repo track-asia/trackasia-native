@@ -11,7 +11,7 @@ class GeoJSONData;
 
 class RenderGeoJSONSource final : public RenderTileSource {
 public:
-    explicit RenderGeoJSONSource(Immutable<style::GeoJSONSource::Impl>, const TaggedScheduler&);
+    explicit RenderGeoJSONSource(Immutable<style::GeoJSONSource::Impl>);
     ~RenderGeoJSONSource() override;
 
     void update(Immutable<style::Source::Impl>,
@@ -20,11 +20,11 @@ public:
                 bool needsRelayout,
                 const TileParameters&) override;
 
-    FeatureExtensionValue queryFeatureExtensions(
-        const Feature& feature,
-        const std::string& extension,
-        const std::string& extensionField,
-        const std::optional<std::map<std::string, Value>>& args) const override;
+    FeatureExtensionValue
+    queryFeatureExtensions(const Feature& feature,
+                           const std::string& extension,
+                           const std::string& extensionField,
+                           const optional<std::map<std::string, Value>>& args) const override;
 
 private:
     const style::GeoJSONSource::Impl& impl() const;

@@ -17,49 +17,40 @@ using namespace mbgl::style;
 
 class StubSpriteLoaderObserver : public SpriteLoaderObserver {
 public:
-    void onSpriteLoaded(std::optional<Sprite>, std::vector<Immutable<style::Image::Impl>> images) override {
+    void onSpriteLoaded(std::vector<Immutable<style::Image::Impl>> images) override {
         if (spriteLoaded) spriteLoaded(std::move(images));
     }
 
-    void onSpriteError(std::optional<Sprite>, std::exception_ptr error) override {
+    void onSpriteError(std::exception_ptr error) override {
         if (spriteError) spriteError(error);
     }
 
     std::function<void(std::vector<Immutable<style::Image::Impl>>)> spriteLoaded;
-    std::function<void(std::exception_ptr)> spriteError;
+    std::function<void (std::exception_ptr)> spriteError;
 };
 
 class SpriteLoaderTest {
 public:
-    SpriteLoaderTest()
-        : threadPool(Scheduler::GetBackground(), uniqueID),
-          spriteLoader(1, threadPool) {}
+    SpriteLoaderTest() = default;
 
-    ~SpriteLoaderTest() {
-        threadPool.waitForEmpty();
-        threadPool.runRenderJobs(true);
-    }
-
-    util::SimpleIdentity uniqueID;
     util::RunLoop loop;
     StubFileSource fileSource;
     StubSpriteLoaderObserver observer;
-    TaggedScheduler threadPool;
-    SpriteLoader spriteLoader;
+    SpriteLoader spriteLoader{ 1 };
 
     void run() {
         // Squelch logging.
         Log::setObserver(std::make_unique<Log::NullObserver>());
 
         spriteLoader.setObserver(&observer);
-
-        Sprite sprite = Sprite("default", "test/fixtures/resources/sprite");
-        spriteLoader.load(sprite, fileSource);
+        spriteLoader.load("test/fixtures/resources/sprite", fileSource);
 
         loop.run();
     }
 
-    void end() { loop.stop(); }
+    void end() {
+        loop.stop();
+    }
 };
 
 Response successfulSpriteImageResponse(const Resource& resource) {
@@ -78,7 +69,9 @@ Response successfulSpriteJSONResponse(const Resource& resource) {
 
 Response failedSpriteResponse(const Resource&) {
     Response response;
-    response.error = std::make_unique<Response::Error>(Response::Error::Reason::Other, "Failed by the test case");
+    response.error = std::make_unique<Response::Error>(
+        Response::Error::Reason::Other,
+        "Failed by the test case");
     return response;
 }
 
@@ -94,7 +87,7 @@ TEST(SpriteLoader, LoadingSuccess) {
     test.fileSource.spriteImageResponse = successfulSpriteImageResponse;
     test.fileSource.spriteJSONResponse = successfulSpriteJSONResponse;
 
-    test.observer.spriteError = [&](std::exception_ptr error) {
+    test.observer.spriteError = [&] (std::exception_ptr error) {
         FAIL() << util::toString(error);
         test.end();
     };
@@ -113,7 +106,7 @@ TEST(SpriteLoader, JSONLoadingFail) {
     test.fileSource.spriteImageResponse = successfulSpriteImageResponse;
     test.fileSource.spriteJSONResponse = failedSpriteResponse;
 
-    test.observer.spriteError = [&](std::exception_ptr error) {
+    test.observer.spriteError = [&] (std::exception_ptr error) {
         EXPECT_TRUE(error != nullptr);
         EXPECT_EQ("Failed by the test case", util::toString(error));
         test.end();
@@ -128,7 +121,7 @@ TEST(SpriteLoader, ImageLoadingFail) {
     test.fileSource.spriteImageResponse = failedSpriteResponse;
     test.fileSource.spriteJSONResponse = successfulSpriteJSONResponse;
 
-    test.observer.spriteError = [&](std::exception_ptr error) {
+    test.observer.spriteError = [&] (std::exception_ptr error) {
         EXPECT_TRUE(error != nullptr);
         EXPECT_EQ("Failed by the test case", util::toString(error));
         test.end();
@@ -143,7 +136,7 @@ TEST(SpriteLoader, JSONLoadingCorrupted) {
     test.fileSource.spriteImageResponse = successfulSpriteImageResponse;
     test.fileSource.spriteJSONResponse = corruptSpriteResponse;
 
-    test.observer.spriteError = [&](std::exception_ptr error) {
+    test.observer.spriteError = [&] (std::exception_ptr error) {
         EXPECT_TRUE(error != nullptr);
         EXPECT_EQ("Failed to parse JSON: Invalid value. at offset 0", util::toString(error));
         test.end();
@@ -158,7 +151,7 @@ TEST(SpriteLoader, ImageLoadingCorrupted) {
     test.fileSource.spriteImageResponse = corruptSpriteResponse;
     test.fileSource.spriteJSONResponse = successfulSpriteJSONResponse;
 
-    test.observer.spriteError = [&](std::exception_ptr error) {
+    test.observer.spriteError = [&] (std::exception_ptr error) {
         EXPECT_TRUE(error != nullptr);
         // Not asserting on platform-specific error text.
         test.end();
@@ -170,9 +163,10 @@ TEST(SpriteLoader, ImageLoadingCorrupted) {
 TEST(SpriteLoader, LoadingCancel) {
     SpriteLoaderTest test;
 
-    test.fileSource.spriteImageResponse = test.fileSource.spriteJSONResponse = [&](const Resource&) {
+    test.fileSource.spriteImageResponse =
+    test.fileSource.spriteJSONResponse = [&] (const Resource&) {
         test.end();
-        return std::optional<Response>();
+        return optional<Response>();
     };
 
     test.observer.spriteLoaded = [&](std::vector<Immutable<style::Image::Impl>>) {

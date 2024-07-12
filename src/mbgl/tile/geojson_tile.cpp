@@ -3,9 +3,7 @@
 #include <mbgl/style/sources/geojson_source.hpp>
 #include <mbgl/tile/geojson_tile.hpp>
 #include <mbgl/tile/geojson_tile_data.hpp>
-#include <mbgl/util/instrumentation.hpp>
 #include <utility>
-
 namespace mbgl {
 
 GeoJSONTile::GeoJSONTile(const OverscaledTileID& overscaledTileID,
@@ -17,8 +15,6 @@ GeoJSONTile::GeoJSONTile(const OverscaledTileID& overscaledTileID,
 }
 
 void GeoJSONTile::updateData(std::shared_ptr<style::GeoJSONData> data_, bool needsRelayout) {
-    MLN_TRACE_FUNC();
-
     assert(data_);
     data = std::move(data_);
     if (needsRelayout) reset();
@@ -32,8 +28,9 @@ void GeoJSONTile::updateData(std::shared_ptr<style::GeoJSONData> data_, bool nee
         });
 }
 
-void GeoJSONTile::querySourceFeatures(std::vector<Feature>& result, const SourceQueryOptions& options) {
-    MLN_TRACE_FUNC();
+void GeoJSONTile::querySourceFeatures(
+    std::vector<Feature>& result,
+    const SourceQueryOptions& options) {
 
     // Ignore the sourceLayer, there is only one
     if (auto tileData = getData()) {
@@ -43,8 +40,7 @@ void GeoJSONTile::querySourceFeatures(std::vector<Feature>& result, const Source
                 auto feature = layer->getFeature(i);
 
                 // Apply filter, if any
-                if (options.filter && !(*options.filter)(style::expression::EvaluationContext{
-                                          static_cast<float>(this->id.overscaledZ), feature.get()})) {
+                if (options.filter && !(*options.filter)(style::expression::EvaluationContext { static_cast<float>(this->id.overscaledZ), feature.get() })) {
                     continue;
                 }
 

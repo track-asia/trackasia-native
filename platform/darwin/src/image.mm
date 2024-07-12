@@ -1,4 +1,4 @@
-#include <mbgl/util/image+MLNAdditions.hpp>
+#include <mbgl/util/image+MGLAdditions.hpp>
 
 #import <ImageIO/ImageIO.h>
 
@@ -11,7 +11,7 @@ using CGDataProviderHandle = CFHandle<CGDataProviderRef, CGDataProviderRef, CGDa
 using CGColorSpaceHandle = CFHandle<CGColorSpaceRef, CGColorSpaceRef, CGColorSpaceRelease>;
 using CGContextHandle = CFHandle<CGContextRef, CGContextRef, CGContextRelease>;
 
-CGImageRef CGImageCreateWithMLNPremultipliedImage(mbgl::PremultipliedImage&& src) {
+CGImageRef CGImageCreateWithMGLPremultipliedImage(mbgl::PremultipliedImage&& src) {
     // We're converting the PremultipliedImage's backing store to a CGDataProvider, and are taking
     // over ownership of the memory.
     CGDataProviderHandle provider(CGDataProviderCreateWithData(
@@ -37,12 +37,11 @@ CGImageRef CGImageCreateWithMLNPremultipliedImage(mbgl::PremultipliedImage&& src
 
     return CGImageCreate(src.size.width, src.size.height, bitsPerComponent, bitsPerPixel,
                          bytesPerRow, *colorSpace,
-                         // NOLINTNEXTLINE(bugprone-suspicious-enum-usage)
                          kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast, *provider,
                          NULL, false, kCGRenderingIntentDefault);
 }
 
-mbgl::PremultipliedImage MLNPremultipliedImageFromCGImage(CGImageRef src) {
+mbgl::PremultipliedImage MGLPremultipliedImageFromCGImage(CGImageRef src) {
     const size_t width = CGImageGetWidth(src);
     const size_t height = CGImageGetHeight(src);
 
@@ -59,7 +58,6 @@ mbgl::PremultipliedImage MLNPremultipliedImageFromCGImage(CGImageRef src) {
 
     CGContextHandle context(CGBitmapContextCreate(
         image.data.get(), width, height, bitsPerComponent, bytesPerRow, *colorSpace,
-        // NOLINTNEXTLINE(bugprone-suspicious-enum-usage)
         kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast));
     if (!context) {
         throw std::runtime_error("CGBitmapContextCreate failed");
@@ -91,7 +89,7 @@ PremultipliedImage decodeImage(const std::string& source) {
         throw std::runtime_error("CGImageSourceCreateImageAtIndex failed");
     }
 
-    return MLNPremultipliedImageFromCGImage(*image);
+    return MGLPremultipliedImageFromCGImage(*image);
 }
 
 } // namespace mbgl

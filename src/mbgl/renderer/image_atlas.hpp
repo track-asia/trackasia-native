@@ -6,7 +6,6 @@
 #include <mapbox/shelf-pack.hpp>
 
 #include <array>
-#include <optional>
 
 namespace mbgl {
 
@@ -27,7 +26,7 @@ public:
     uint32_t version;
     style::ImageStretches stretchX;
     style::ImageStretches stretchY;
-    std::optional<style::ImageContent> content;
+    optional<style::ImageContent> content;
 
     std::array<uint16_t, 2> tl() const {
         return {{static_cast<uint16_t>(paddedRect.x + padding), static_cast<uint16_t>(paddedRect.y + padding)}};
@@ -41,7 +40,7 @@ public:
     std::array<uint16_t, 4> tlbr() const {
         const auto _tl = tl();
         const auto _br = br();
-        return {{_tl[0], _tl[1], _br[0], _br[1]}};
+        return {{ _tl[0], _tl[1], _br[0], _br[1] }};
     }
 
     std::array<float, 2> displaySize() const {
@@ -52,13 +51,12 @@ public:
     }
 };
 
-using ImagePositions = mbgl::unordered_map<std::string, ImagePosition>;
+using ImagePositions = std::map<std::string, ImagePosition>;
 
 class ImagePatch {
 public:
     ImagePatch(Immutable<style::Image::Impl> image_, const Rect<uint16_t>& paddedRect_)
-        : image(std::move(image_)),
-          paddedRect(paddedRect_) {}
+        : image(std::move(image_)), paddedRect(paddedRect_) {}
 
     Immutable<style::Image::Impl> image;
     Rect<uint16_t> paddedRect;
@@ -73,6 +71,6 @@ public:
     std::vector<ImagePatch> getImagePatchesAndUpdateVersions(const ImageManager&);
 };
 
-ImageAtlas makeImageAtlas(const ImageMap&, const ImageMap&, const ImageVersionMap& versionMap);
+ImageAtlas makeImageAtlas(const ImageMap&, const ImageMap&, const std::unordered_map<std::string, uint32_t>& versionMap);
 
 } // namespace mbgl

@@ -17,7 +17,7 @@ std::string getCurrentThreadName() {
 }
 
 void setCurrentThreadName(const std::string& name) {
-    std::string qualifiedName = "org.trackasia.mbgl." + name;
+    std::string qualifiedName = "com.mapbox.mbgl." + name;
     pthread_setname_np(qualifiedName.c_str());
 }
 

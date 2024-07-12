@@ -1,90 +1,0 @@
-C/C++ Structured LogV
-T
-R/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/CMakeLists.txtC
-A
-?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	¡ÚŠ‰2Éš Èì÷·ˆ2`
-^
-\/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/benchmark/CMakeLists.txt	¡ÚŠ‰2à Èì÷·ˆ2f
-d
-b/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/platform/android/android.cmake	¡ÚŠ‰2üL ³æÚ¹ˆ2b
-`
-^/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/render-test/CMakeLists.txt	¡ÚŠ‰2Ä ˜ü÷·ˆ2]
-[
-Y/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/scripts/license.cmake	¡ÚŠ‰2 ˜ü÷·ˆ2[
-Y
-W/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/CMakeLists.txt	¡ÚŠ‰2«T ˜ü÷·ˆ2—
-”
-‘/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/_deps/tracy-src/CMakeLists.txt	¡ÚŠ‰2ë: øÇ‰‰2•
-’
-/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/additional_project_files.txt	¡ÚŠ‰2	Š îªÈ‰‰2’
-
-Œ/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/android_gradle_build.json	¡ÚŠ‰2
-øl òªÈ‰‰2—
-”
-‘/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/android_gradle_build_mini.json	¡ÚŠ‰2åf £³È‰‰2ƒ
-€
-~/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/build.ninja	¡ÚŠ‰2óµ¦ §¦È‰‰2ˆ
-…
-‚/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/build.ninja.txt	¡ÚŠ‰2
-Š
-‡/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/build_file_index.txt	¡ÚŠ‰2¸ ²³È‰‰2
-‹
-ˆ/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/compile_commands.json	¡ÚŠ‰2—â  §¦È‰‰2’
-
-Œ/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/compile_commands.json.bin	¡ÚŠ‰2ÍÏ §¦È‰‰2˜
-•
-’/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/metadata_generation_command.txt	¡ÚŠ‰2¢ °³È‰‰2‹
-ˆ
-…/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/prefab_config.json	¡ÚŠ‰2… °³È‰‰2
-
-Š/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/arm64-v8a/symbol_folder_index.txt	¡ÚŠ‰2‰ °³È‰‰2Æ
-Ã
-À/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/boringssl/boringsslConfig.cmake	¡ÚŠ‰2ğ	 ¼®Ç‰‰2¼
-¹
-¶/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/curl/curlConfig.cmake	¡ÚŠ‰2¹ ¼®Ç‰‰2^
-\
-Z/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/benchmark.cmake	¡ÚŠ‰2ô ˜ü÷·ˆ2Z
-X
-V/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/boost.cmake	¡ÚŠ‰2ı ˜ü÷·ˆ2`
-^
-\/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/cpp-httplib.cmake	¡ÚŠ‰2ä ˜ü÷·ˆ2c
-a
-_/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/csscolorparser.cmake	¡ÚŠ‰2Ä ˜ü÷·ˆ2_
-]
-[/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/earcut.hpp.cmake	¡ÚŠ‰2’ ˜ü÷·ˆ2\
-Z
-X/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/eternal.cmake	¡ÚŠ‰2ı ˜ü÷·ˆ2_
-]
-[/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest.cmake	¡ÚŠ‰2· ˜ü÷·ˆ2X
-V
-T/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/icu.cmake	¡ÚŠ‰2ª ˜ü÷·ˆ2`
-^
-\/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base.cmake	¡ÚŠ‰2¶ ˜ü÷·ˆ2i
-g
-e/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/CMakeLists.txt	¡ÚŠ‰2ê è‚û·ˆ2n
-l
-j/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/CMakeLists.txt	¡ÚŠ‰2 ê è‚û·ˆ2p
-n
-l/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/CMakeLists.txt	¡ÚŠ‰2!ö è‚û·ˆ2q
-o
-m/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/rapidjson.cmake	¡ÚŠ‰2"À è‚û·ˆ2q
-o
-m/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/include/CMakeLists.txt	¡ÚŠ‰2#… è‚û·ˆ2^
-\
-Z/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/parsedate.cmake	¡ÚŠ‰2$ ˜ü÷·ˆ2^
-\
-Z/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/polylabel.cmake	¡ÚŠ‰2%Š ˜ü÷·ˆ2^
-\
-Z/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/protozero.cmake	¡ÚŠ‰2& ˜ü÷·ˆ2[
-Y
-W/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/sqlite.cmake	¡ÚŠ‰2'İ ˜ü÷·ˆ2Z
-X
-V/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/tracy.cmake	¡ÚŠ‰2(ã ˜ü÷·ˆ2d
-b
-`/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/unique_resource.cmake	¡ÚŠ‰2)À ˜ü÷·ˆ2m
-k
-i/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/unordered_dense/CMakeLists.txt	¡ÚŠ‰2*„ ¸†ÿ·ˆ2`
-^
-\/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/vector-tile.cmake	¡ÚŠ‰2+š ˜ü÷·ˆ2Z
-X
-V/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/vendor/wagyu.cmake	¡ÚŠ‰2,€ ˜ü÷·ˆ2

@@ -1,5 +1,3 @@
-#if MLN_RENDER_BACKEND_OPENGL
-
 #include <mbgl/test/util.hpp>
 #include <mbgl/test/stub_geometry_tile_feature.hpp>
 
@@ -45,16 +43,16 @@ PropertyMap properties;
 } // namespace
 
 TEST(Buckets, CircleBucket) {
-    gl::HeadlessBackend backend({512, 256});
-    gfx::BackendScope scope{backend};
+    gl::HeadlessBackend backend({ 512, 256 });
+    gfx::BackendScope scope { backend };
 
-    gl::Context context{backend};
+    gl::Context context{ backend };
     CircleBucket bucket{{}, MapMode::Static, 1.0};
     ASSERT_FALSE(bucket.hasData());
     ASSERT_FALSE(bucket.needsUpload());
 
     // CircleBucket::addFeature() is a no-op.
-    GeometryCollection point{{{0, 0}}};
+    GeometryCollection point { { { 0, 0 } } };
     bucket.addFeature(StubGeometryTileFeature{{}, FeatureType::Point, point, properties},
                       point,
                       {},
@@ -69,23 +67,23 @@ TEST(Buckets, CircleBucket) {
     ASSERT_TRUE(bucket.needsUpload());
 
     auto commandEncoder = context.createCommandEncoder();
-    auto uploadPass = commandEncoder->createUploadPass("upload", backend.getDefaultRenderable());
+    auto uploadPass = commandEncoder->createUploadPass("upload");
     bucket.upload(*uploadPass);
     ASSERT_TRUE(bucket.hasData());
     ASSERT_FALSE(bucket.needsUpload());
 }
 
 TEST(Buckets, FillBucket) {
-    gl::HeadlessBackend backend({512, 256});
-    gfx::BackendScope scope{backend};
+    gl::HeadlessBackend backend({ 512, 256 });
+    gfx::BackendScope scope { backend };
     FillBucket::PossiblyEvaluatedLayoutProperties layout;
 
-    gl::Context context{backend};
-    FillBucket bucket{layout, {}, 5.0f, 1};
+    gl::Context context{ backend };
+    FillBucket bucket { layout, {}, 5.0f, 1};
     ASSERT_FALSE(bucket.hasData());
     ASSERT_FALSE(bucket.needsUpload());
 
-    GeometryCollection polygon{{{0, 0}, {0, 1}, {1, 1}}};
+    GeometryCollection polygon { { { 0, 0 }, { 0, 1 }, { 1, 1 } } };
     bucket.addFeature(StubGeometryTileFeature{{}, FeatureType::Polygon, polygon, properties},
                       polygon,
                       {},
@@ -96,23 +94,23 @@ TEST(Buckets, FillBucket) {
     ASSERT_TRUE(bucket.needsUpload());
 
     auto commandEncoder = context.createCommandEncoder();
-    auto uploadPass = commandEncoder->createUploadPass("upload", backend.getDefaultRenderable());
+    auto uploadPass = commandEncoder->createUploadPass("upload");
     bucket.upload(*uploadPass);
     ASSERT_FALSE(bucket.needsUpload());
 }
 
 TEST(Buckets, LineBucket) {
-    gl::HeadlessBackend backend({512, 256});
-    gfx::BackendScope scope{backend};
+    gl::HeadlessBackend backend({ 512, 256 });
+    gfx::BackendScope scope { backend };
     LineBucket::PossiblyEvaluatedLayoutProperties layout;
 
-    gl::Context context{backend};
-    LineBucket bucket{layout, {}, 10.0f, 1};
+    gl::Context context{ backend };
+    LineBucket bucket { layout, {}, 10.0f, 1 };
     ASSERT_FALSE(bucket.hasData());
     ASSERT_FALSE(bucket.needsUpload());
 
     // Ignore invalid feature type.
-    GeometryCollection point{{{0, 0}}};
+    GeometryCollection point { { { 0, 0 } } };
     bucket.addFeature(StubGeometryTileFeature{{}, FeatureType::Point, point, properties},
                       point,
                       {},
@@ -121,7 +119,7 @@ TEST(Buckets, LineBucket) {
                       CanonicalTileID(0, 0, 0));
     ASSERT_FALSE(bucket.hasData());
 
-    GeometryCollection line{{{0, 0}, {1, 1}}};
+    GeometryCollection line { { { 0, 0 }, { 1, 1 } } };
     bucket.addFeature(StubGeometryTileFeature{{}, FeatureType::LineString, line, properties},
                       line,
                       {},
@@ -132,14 +130,14 @@ TEST(Buckets, LineBucket) {
     ASSERT_TRUE(bucket.needsUpload());
 
     auto commandEncoder = context.createCommandEncoder();
-    auto uploadPass = commandEncoder->createUploadPass("upload", backend.getDefaultRenderable());
+    auto uploadPass = commandEncoder->createUploadPass("upload");
     bucket.upload(*uploadPass);
     ASSERT_FALSE(bucket.needsUpload());
 }
 
 TEST(Buckets, SymbolBucket) {
-    gl::HeadlessBackend backend({512, 256});
-    gfx::BackendScope scope{backend};
+    gl::HeadlessBackend backend({ 512, 256 });
+    gfx::BackendScope scope { backend };
 
     auto layout = makeMutable<style::SymbolLayoutProperties::PossiblyEvaluated>();
     bool iconsNeedLinear = false;
@@ -148,7 +146,7 @@ TEST(Buckets, SymbolBucket) {
     std::vector<SymbolInstance> symbolInstances;
     std::vector<SortKeyRange> symbolRanges;
 
-    gl::Context context{backend};
+    gl::Context context{ backend };
     SymbolBucket bucket{std::move(layout),
                         {},
                         16.0f,
@@ -174,7 +172,7 @@ TEST(Buckets, SymbolBucket) {
     ASSERT_FALSE(bucket.needsUpload());
 
     // SymbolBucket::addFeature() is a no-op.
-    GeometryCollection point{{{0, 0}}};
+    GeometryCollection point { { { 0, 0 } } };
     bucket.addFeature(StubGeometryTileFeature{{}, FeatureType::Point, std::move(point), properties},
                       point,
                       {},
@@ -190,25 +188,25 @@ TEST(Buckets, SymbolBucket) {
     ASSERT_TRUE(bucket.needsUpload());
 
     auto commandEncoder = context.createCommandEncoder();
-    auto uploadPass = commandEncoder->createUploadPass("upload", backend.getDefaultRenderable());
+    auto uploadPass = commandEncoder->createUploadPass("upload");
     bucket.upload(*uploadPass);
     ASSERT_FALSE(bucket.needsUpload());
 }
 
 TEST(Buckets, RasterBucket) {
-    gl::HeadlessBackend backend({512, 256});
-    gfx::BackendScope scope{backend};
+    gl::HeadlessBackend backend({ 512, 256 });
+    gfx::BackendScope scope { backend };
 
-    gl::Context context{backend};
-    PremultipliedImage rgba({1, 1});
+    gl::Context context{ backend };
+    PremultipliedImage rgba({ 1, 1 });
 
     // RasterBucket::hasData() is always true.
-    RasterBucket bucket = {std::move(rgba)};
+    RasterBucket bucket = { std::move(rgba) };
     ASSERT_TRUE(bucket.hasData());
     ASSERT_TRUE(bucket.needsUpload());
 
     auto commandEncoder = context.createCommandEncoder();
-    auto uploadPass = commandEncoder->createUploadPass("upload", backend.getDefaultRenderable());
+    auto uploadPass = commandEncoder->createUploadPass("upload");
     bucket.upload(*uploadPass);
     ASSERT_FALSE(bucket.needsUpload());
 
@@ -217,7 +215,7 @@ TEST(Buckets, RasterBucket) {
 }
 
 TEST(Buckets, RasterBucketMaskEmpty) {
-    RasterBucket bucket{nullptr};
+    RasterBucket bucket{ nullptr };
     bucket.setMask({});
     EXPECT_EQ((std::vector<RasterLayoutVertex>{}), bucket.vertices.vector());
     EXPECT_EQ((std::vector<uint16_t>{}), bucket.indices.vector());
@@ -227,8 +225,8 @@ TEST(Buckets, RasterBucketMaskEmpty) {
 }
 
 TEST(Buckets, RasterBucketMaskNoChildren) {
-    RasterBucket bucket{nullptr};
-    bucket.setMask({CanonicalTileID{0, 0, 0}});
+    RasterBucket bucket{ nullptr };
+    bucket.setMask({ CanonicalTileID{ 0, 0, 0 } });
 
     // A mask of 0/0/0 doesn't produce buffers since we're instead using the global shared buffers.
     EXPECT_EQ((std::vector<RasterLayoutVertex>{}), bucket.vertices.vector());
@@ -236,151 +234,121 @@ TEST(Buckets, RasterBucketMaskNoChildren) {
     EXPECT_EQ((SegmentVector<RasterAttributes>{}), bucket.segments);
 }
 
-TEST(Buckets, RasterBucketMaskTwoChildren) {
-    RasterBucket bucket{nullptr};
-    bucket.setMask({CanonicalTileID{1, 0, 0}, CanonicalTileID{1, 1, 1}});
+ TEST(Buckets, RasterBucketMaskTwoChildren) {
+     RasterBucket bucket{ nullptr };
+     bucket.setMask(
+         { CanonicalTileID{ 1, 0, 0 }, CanonicalTileID{ 1, 1, 1 } });
 
-    EXPECT_EQ((std::vector<RasterLayoutVertex>{
-                  // 1/0/1
-                  RasterProgram::layoutVertex({0, 0}, {0, 0}),
-                  RasterProgram::layoutVertex({4096, 0}, {4096, 0}),
-                  RasterProgram::layoutVertex({0, 4096}, {0, 4096}),
-                  RasterProgram::layoutVertex({4096, 4096}, {4096, 4096}),
+     EXPECT_EQ(
+         (std::vector<RasterLayoutVertex>{
+             // 1/0/1
+             RasterProgram::layoutVertex({ 0, 0 }, { 0, 0 }),
+             RasterProgram::layoutVertex({ 4096, 0 }, { 4096, 0 }),
+             RasterProgram::layoutVertex({ 0, 4096 }, { 0, 4096 }),
+             RasterProgram::layoutVertex({ 4096, 4096 }, { 4096, 4096 }),
 
-                  // 1/1/1
-                  RasterProgram::layoutVertex({4096, 4096}, {4096, 4096}),
-                  RasterProgram::layoutVertex({8192, 4096}, {8192, 4096}),
-                  RasterProgram::layoutVertex({4096, 8192}, {4096, 8192}),
-                  RasterProgram::layoutVertex({8192, 8192}, {8192, 8192}),
-              }),
-              bucket.vertices.vector());
+             // 1/1/1
+             RasterProgram::layoutVertex({ 4096, 4096 }, { 4096, 4096 }),
+             RasterProgram::layoutVertex({ 8192, 4096 }, { 8192, 4096 }),
+             RasterProgram::layoutVertex({ 4096, 8192 }, { 4096, 8192 }),
+             RasterProgram::layoutVertex({ 8192, 8192 }, { 8192, 8192 }),
+         }),
+         bucket.vertices.vector());
 
-    EXPECT_EQ((std::vector<uint16_t>{
-                  // 1/0/1
-                  0,
-                  1,
-                  2,
-                  1,
-                  2,
-                  3,
+     EXPECT_EQ(
+         (std::vector<uint16_t>{
+             // 1/0/1
+             0, 1, 2,
+             1, 2, 3,
 
-                  // 1/1/1
-                  4,
-                  5,
-                  6,
-                  5,
-                  6,
-                  7,
-              }),
-              bucket.indices.vector());
+             // 1/1/1
+             4, 5, 6,
+             5, 6, 7,
+         }),
+         bucket.indices.vector());
 
-    SegmentVector<RasterAttributes> expectedSegments;
-    expectedSegments.emplace_back(0, 0, 8, 12);
-    EXPECT_EQ(expectedSegments, bucket.segments);
-}
 
-TEST(Buckets, RasterBucketMaskComplex) {
-    RasterBucket bucket{nullptr};
-    bucket.setMask({CanonicalTileID{1, 0, 1},
-                    CanonicalTileID{1, 1, 0},
-                    CanonicalTileID{2, 2, 3},
-                    CanonicalTileID{2, 3, 2},
-                    CanonicalTileID{3, 6, 7},
-                    CanonicalTileID{3, 7, 6}});
+     SegmentVector<RasterAttributes> expectedSegments;
+     expectedSegments.emplace_back(0, 0, 8, 12);
+     EXPECT_EQ(expectedSegments, bucket.segments);
+ }
 
-    EXPECT_EQ((std::vector<RasterLayoutVertex>{
-                  // 1/0/1
-                  RasterProgram::layoutVertex({0, 4096}, {0, 4096}),
-                  RasterProgram::layoutVertex({4096, 4096}, {4096, 4096}),
-                  RasterProgram::layoutVertex({0, 8192}, {0, 8192}),
-                  RasterProgram::layoutVertex({4096, 8192}, {4096, 8192}),
+ TEST(Buckets, RasterBucketMaskComplex) {
+     RasterBucket bucket{ nullptr };
+     bucket.setMask(
+         { CanonicalTileID{ 1, 0, 1 }, CanonicalTileID{ 1, 1, 0 }, CanonicalTileID{ 2, 2, 3 },
+           CanonicalTileID{ 2, 3, 2 }, CanonicalTileID{ 3, 6, 7 }, CanonicalTileID{ 3, 7, 6 } });
 
-                  // 1/1/0
-                  RasterProgram::layoutVertex({4096, 0}, {4096, 0}),
-                  RasterProgram::layoutVertex({8192, 0}, {8192, 0}),
-                  RasterProgram::layoutVertex({4096, 4096}, {4096, 4096}),
-                  RasterProgram::layoutVertex({8192, 4096}, {8192, 4096}),
+     EXPECT_EQ(
+         (std::vector<RasterLayoutVertex>{
+             // 1/0/1
+             RasterProgram::layoutVertex({ 0, 4096 }, { 0, 4096 }),
+             RasterProgram::layoutVertex({ 4096, 4096 }, { 4096, 4096 }),
+             RasterProgram::layoutVertex({ 0, 8192 }, { 0, 8192 }),
+             RasterProgram::layoutVertex({ 4096, 8192 }, { 4096, 8192 }),
 
-                  // 2/2/3
-                  RasterProgram::layoutVertex({4096, 6144}, {4096, 6144}),
-                  RasterProgram::layoutVertex({6144, 6144}, {6144, 6144}),
-                  RasterProgram::layoutVertex({4096, 8192}, {4096, 8192}),
-                  RasterProgram::layoutVertex({6144, 8192}, {6144, 8192}),
+             // 1/1/0
+             RasterProgram::layoutVertex({ 4096, 0 }, { 4096, 0 }),
+             RasterProgram::layoutVertex({ 8192, 0 }, { 8192, 0 }),
+             RasterProgram::layoutVertex({ 4096, 4096 }, { 4096, 4096 }),
+             RasterProgram::layoutVertex({ 8192, 4096 }, { 8192, 4096 }),
 
-                  // 2/3/2
-                  RasterProgram::layoutVertex({6144, 4096}, {6144, 4096}),
-                  RasterProgram::layoutVertex({8192, 4096}, {8192, 4096}),
-                  RasterProgram::layoutVertex({6144, 6144}, {6144, 6144}),
-                  RasterProgram::layoutVertex({8192, 6144}, {8192, 6144}),
+             // 2/2/3
+             RasterProgram::layoutVertex({ 4096, 6144 }, { 4096, 6144 }),
+             RasterProgram::layoutVertex({ 6144, 6144 }, { 6144, 6144 }),
+             RasterProgram::layoutVertex({ 4096, 8192 }, { 4096, 8192 }),
+             RasterProgram::layoutVertex({ 6144, 8192 }, { 6144, 8192 }),
 
-                  // 3/6/7
-                  RasterProgram::layoutVertex({6144, 7168}, {6144, 7168}),
-                  RasterProgram::layoutVertex({7168, 7168}, {7168, 7168}),
-                  RasterProgram::layoutVertex({6144, 8192}, {6144, 8192}),
-                  RasterProgram::layoutVertex({7168, 8192}, {7168, 8192}),
+             // 2/3/2
+             RasterProgram::layoutVertex({ 6144, 4096 }, { 6144, 4096 }),
+             RasterProgram::layoutVertex({ 8192, 4096 }, { 8192, 4096 }),
+             RasterProgram::layoutVertex({ 6144, 6144 }, { 6144, 6144 }),
+             RasterProgram::layoutVertex({ 8192, 6144 }, { 8192, 6144 }),
 
-                  // 3/7/6
-                  RasterProgram::layoutVertex({7168, 6144}, {7168, 6144}),
-                  RasterProgram::layoutVertex({8192, 6144}, {8192, 6144}),
-                  RasterProgram::layoutVertex({7168, 7168}, {7168, 7168}),
-                  RasterProgram::layoutVertex({8192, 7168}, {8192, 7168}),
-              }),
-              bucket.vertices.vector());
+             // 3/6/7
+             RasterProgram::layoutVertex({ 6144, 7168 }, { 6144, 7168 }),
+             RasterProgram::layoutVertex({ 7168, 7168 }, { 7168, 7168 }),
+             RasterProgram::layoutVertex({ 6144, 8192 }, { 6144, 8192 }),
+             RasterProgram::layoutVertex({ 7168, 8192 }, { 7168, 8192 }),
 
-    EXPECT_EQ((std::vector<uint16_t>{
-                  // 1/0/1
-                  0,
-                  1,
-                  2,
-                  1,
-                  2,
-                  3,
+             // 3/7/6
+             RasterProgram::layoutVertex({ 7168, 6144 }, { 7168, 6144 }),
+             RasterProgram::layoutVertex({ 8192, 6144 }, { 8192, 6144 }),
+             RasterProgram::layoutVertex({ 7168, 7168 }, { 7168, 7168 }),
+             RasterProgram::layoutVertex({ 8192, 7168 }, { 8192, 7168 }),
+         }),
+         bucket.vertices.vector());
 
-                  // 1/1/0
-                  4,
-                  5,
-                  6,
-                  5,
-                  6,
-                  7,
+     EXPECT_EQ(
+         (std::vector<uint16_t>{
+             // 1/0/1
+             0, 1, 2,
+             1, 2, 3,
 
-                  // 2/2/3
-                  8,
-                  9,
-                  10,
-                  9,
-                  10,
-                  11,
+             // 1/1/0
+             4, 5, 6,
+             5, 6, 7,
 
-                  // 2/3/2
-                  12,
-                  13,
-                  14,
-                  13,
-                  14,
-                  15,
+             // 2/2/3
+             8, 9, 10,
+             9, 10, 11,
 
-                  // 3/6/7
-                  16,
-                  17,
-                  18,
-                  17,
-                  18,
-                  19,
+             // 2/3/2
+             12, 13, 14,
+             13, 14, 15,
 
-                  // 3/7/6
-                  20,
-                  21,
-                  22,
-                  21,
-                  22,
-                  23,
-              }),
-              bucket.indices.vector());
+             // 3/6/7
+             16, 17, 18,
+             17, 18, 19,
 
-    SegmentVector<RasterAttributes> expectedSegments;
-    expectedSegments.emplace_back(0, 0, 24, 36);
-    EXPECT_EQ(expectedSegments, bucket.segments);
-}
+             // 3/7/6
+             20, 21, 22,
+             21, 22, 23,
+         }),
+         bucket.indices.vector());
 
-#endif
+
+     SegmentVector<RasterAttributes> expectedSegments;
+     expectedSegments.emplace_back(0, 0, 24, 36);
+     EXPECT_EQ(expectedSegments, bucket.segments);
+ }

@@ -21,7 +21,6 @@ add_library(
     ${PROJECT_SOURCE_DIR}/test/programs/symbol_program.test.cpp
     ${PROJECT_SOURCE_DIR}/test/renderer/image_manager.test.cpp
     ${PROJECT_SOURCE_DIR}/test/renderer/pattern_atlas.test.cpp
-    ${PROJECT_SOURCE_DIR}/test/renderer/shader_registry.test.cpp
     ${PROJECT_SOURCE_DIR}/test/sprite/sprite_loader.test.cpp
     ${PROJECT_SOURCE_DIR}/test/sprite/sprite_parser.test.cpp
     ${PROJECT_SOURCE_DIR}/test/src/mbgl/test/fixture_log_observer.cpp
@@ -51,7 +50,6 @@ add_library(
     ${PROJECT_SOURCE_DIR}/test/style/conversion/property_value.test.cpp
     ${PROJECT_SOURCE_DIR}/test/style/conversion/stringify.test.cpp
     ${PROJECT_SOURCE_DIR}/test/style/conversion/tileset.test.cpp
-    ${PROJECT_SOURCE_DIR}/test/style/expression/dependency.test.cpp
     ${PROJECT_SOURCE_DIR}/test/style/expression/expression.test.cpp
     ${PROJECT_SOURCE_DIR}/test/style/expression/util.test.cpp
     ${PROJECT_SOURCE_DIR}/test/style/filter.test.cpp
@@ -62,7 +60,7 @@ add_library(
     ${PROJECT_SOURCE_DIR}/test/style/style_image.test.cpp
     ${PROJECT_SOURCE_DIR}/test/style/style_layer.test.cpp
     ${PROJECT_SOURCE_DIR}/test/style/style_parser.test.cpp
-    $<$<AND:$<NOT:$<BOOL:MBGL_WITH_QT>>,$<NOT:$<PLATFORM_ID:Windows>>>:${PROJECT_SOURCE_DIR}/test/text/bidi.test.cpp>
+    $<$<NOT:$<PLATFORM_ID:Windows>>:${PROJECT_SOURCE_DIR}/test/text/bidi.test.cpp>
     ${PROJECT_SOURCE_DIR}/test/text/calculate_tile_distances.test.cpp
     ${PROJECT_SOURCE_DIR}/test/text/cross_tile_symbol_index.test.cpp
     ${PROJECT_SOURCE_DIR}/test/text/formatted.test.cpp
@@ -89,26 +87,24 @@ add_library(
     ${PROJECT_SOURCE_DIR}/test/util/dtoa.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/geo.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/grid_index.test.cpp
-    ${PROJECT_SOURCE_DIR}/test/util/hash.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/http_timeout.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/image.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/mapbox.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/memory.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/merge_lines.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/number_conversions.test.cpp
+    ${PROJECT_SOURCE_DIR}/test/util/pass.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/position.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/projection.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/rotation.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/run_loop.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/string.test.cpp
-    ${PROJECT_SOURCE_DIR}/test/util/string_indexer.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/text_conversions.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/thread.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/thread_local.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/tile_cover.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/tile_range.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/timer.test.cpp
-    ${PROJECT_SOURCE_DIR}/test/util/tiny_map.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/token.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/url.test.cpp
     ${PROJECT_SOURCE_DIR}/test/util/tile_server_options.test.cpp
@@ -117,7 +113,7 @@ add_library(
 # MapSnapshotter uses headless backend that is rendering image on a background thread. QT / macOS adaptation for headless backend creates
 # new window and updates it's parameters, which is not allowed since macOS mohave 10.14. Following block disables snapshotter unit tests for
 # QT on macOS. https://github.com/mapbox/mapbox-gl-native/issues/16267
-if(NOT (MLN_WITH_QT AND CMAKE_SYSTEM_NAME STREQUAL Darwin))
+if(NOT (MBGL_WITH_QT AND CMAKE_SYSTEM_NAME STREQUAL Darwin))
     target_sources(
         mbgl-test
         PRIVATE
@@ -125,14 +121,12 @@ if(NOT (MLN_WITH_QT AND CMAKE_SYSTEM_NAME STREQUAL Darwin))
     )
 endif()
 
-if(MLN_WITH_OPENGL)
+if(MBGL_WITH_OPENGL)
     target_sources(
         mbgl-test
         PRIVATE
             ${PROJECT_SOURCE_DIR}/test/api/custom_layer.test.cpp
-            ${PROJECT_SOURCE_DIR}/test/api/custom_drawable_layer.test.cpp
             ${PROJECT_SOURCE_DIR}/test/gl/bucket.test.cpp
-            ${PROJECT_SOURCE_DIR}/test/gl/enum.test.cpp
             ${PROJECT_SOURCE_DIR}/test/gl/context.test.cpp
             ${PROJECT_SOURCE_DIR}/test/gl/gl_functions.test.cpp
             ${PROJECT_SOURCE_DIR}/test/gl/object.test.cpp
@@ -141,16 +135,16 @@ if(MLN_WITH_OPENGL)
     )
     target_compile_definitions(
         mbgl-test
-        PRIVATE MLN_RENDER_BACKEND_OPENGL=1
+        PRIVATE MBGL_RENDER_BACKEND_OPENGL=1
     )
 endif()
 
-if(WIN32 OR CMAKE_SYSTEM_NAME STREQUAL Android)
+if(WIN32 OR CMAKE_SYSTEM_NAME STREQUAL Android AND ANDROID_NATIVE_API_LEVEL VERSION_LESS 24)
     message("Target platform does not support HTTP tests or dependencies not found.")
 
-    set(MLN_TEST_HAS_TEST_SERVER 0)
+    set(MBGL_TEST_HAS_TEST_SERVER 0)
 else()
-    set(MLN_TEST_HAS_TEST_SERVER 1)
+    set(MBGL_TEST_HAS_TEST_SERVER 1)
     target_sources(
         mbgl-test
         PRIVATE ${PROJECT_SOURCE_DIR}/test/src/mbgl/test/http_server.cpp
@@ -170,14 +164,14 @@ else()
 endif()
 
 if(NOT DEFINED ENV{CI})
-    set(MLN_TEST_BUILD_ON_CI 0)
+    set(MBGL_TEST_BUILD_ON_CI 0)
 else()
-    set(MLN_TEST_BUILD_ON_CI 1)
+    set(MBGL_TEST_BUILD_ON_CI 1)
 endif()
 
 target_compile_definitions(
     mbgl-test
-    PRIVATE TEST_HAS_SERVER=${MLN_TEST_HAS_TEST_SERVER} CI_BUILD=${MLN_TEST_BUILD_ON_CI}
+    PRIVATE TEST_HAS_SERVER=${MBGL_TEST_HAS_TEST_SERVER} CI_BUILD=${MBGL_TEST_BUILD_ON_CI}
 )
 
 target_include_directories(
@@ -193,6 +187,18 @@ target_include_directories(
 include(${PROJECT_SOURCE_DIR}/vendor/cpp-httplib.cmake)
 include(${PROJECT_SOURCE_DIR}/vendor/googletest.cmake)
 
+if(CMAKE_SYSTEM_NAME STREQUAL iOS)
+    set_target_properties(mbgl-vendor-googletest PROPERTIES XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "${IOS_DEPLOYMENT_TARGET}")
+    set_target_properties(mbgl-vendor-googletest PROPERTIES XCODE_ATTRIBUTE_ENABLE_BITCODE "YES")
+    set_target_properties(mbgl-vendor-googletest PROPERTIES XCODE_ATTRIBUTE_BITCODE_GENERATION_MODE bitcode)
+    set_target_properties(mbgl-vendor-googletest PROPERTIES XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH $<$<CONFIG:Debug>:YES>)
+
+    set_target_properties(mbgl-test PROPERTIES XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "${IOS_DEPLOYMENT_TARGET}")
+    set_target_properties(mbgl-test PROPERTIES XCODE_ATTRIBUTE_ENABLE_BITCODE "YES")
+    set_target_properties(mbgl-test PROPERTIES XCODE_ATTRIBUTE_BITCODE_GENERATION_MODE bitcode)
+    set_target_properties(mbgl-test PROPERTIES XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH $<$<CONFIG:Debug>:YES>)
+endif()
+
 if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
     set_target_properties(mbgl-test mbgl-vendor-googletest PROPERTIES XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH $<$<CONFIG:Debug>:YES>)
     set_target_properties(mbgl-test mbgl-vendor-googletest
@@ -204,12 +210,12 @@ if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
 endif()
 
 # Needed for testing private classes
-get_target_property(MLN_CORE_PRIVATE_LIBRARIES mbgl-core LINK_LIBRARIES)
+get_target_property(MBGL_CORE_PRIVATE_LIBRARIES mbgl-core LINK_LIBRARIES)
 
 target_link_libraries(
     mbgl-test
     PRIVATE
-        ${MLN_CORE_PRIVATE_LIBRARIES}
+        ${MBGL_CORE_PRIVATE_LIBRARIES}
         Mapbox::Base::Extras::args
         Mapbox::Base::pixelmatch-cpp
         mbgl-compiler-options
@@ -223,22 +229,11 @@ target_link_libraries(
     $<$<AND:$<PLATFORM_ID:Windows>,$<BOOL:MINGW>>:psapi>
 )
 
-if(WIN32)
+if(MSVC)
     target_compile_definitions(
         mbgl-test
         PRIVATE MBGL_BUILDING_LIB
     )
 endif()
 
-set_property(TARGET mbgl-test PROPERTY FOLDER TrackAsia)
-
-if (MLN_WITH_CLANG_TIDY)
-    set_target_properties(mbgl-test PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
-endif()
-
-if (CMAKE_SYSTEM_NAME STREQUAL Linux)
-    target_compile_definitions(
-        mbgl-test
-        PRIVATE USE_CPP_TEST_SERVER
-    )
-endif()
+set_property(TARGET mbgl-test PROPERTY FOLDER Core)

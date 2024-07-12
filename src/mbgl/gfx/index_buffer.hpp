@@ -8,17 +8,16 @@ namespace gfx {
 
 class IndexBufferResource {
 protected:
-    IndexBufferResource() noexcept = default;
-
+    IndexBufferResource() = default;
 public:
-    virtual ~IndexBufferResource() noexcept = default;
+    virtual ~IndexBufferResource() = default;
 };
 
 class IndexBuffer {
 public:
     IndexBuffer(const std::size_t elements_, std::unique_ptr<IndexBufferResource>&& resource_)
-        : elements(elements_),
-          resource(std::move(resource_)) {}
+        : elements(elements_), resource(std::move(resource_)) {
+    }
 
     std::size_t elements;
 

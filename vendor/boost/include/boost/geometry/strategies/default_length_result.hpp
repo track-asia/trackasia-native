@@ -4,10 +4,10 @@
 // Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2014-2021.
-// Modifications copyright (c) 2014-2021, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -19,11 +19,13 @@
 #ifndef BOOST_GEOMETRY_STRATEGIES_DEFAULT_LENGTH_RESULT_HPP
 #define BOOST_GEOMETRY_STRATEGIES_DEFAULT_LENGTH_RESULT_HPP
 
+#include <boost/variant/variant_fwd.hpp>
 
-#include <boost/geometry/algorithms/detail/select_geometry_type.hpp>
 #include <boost/geometry/core/coordinate_type.hpp>
+
+#include <boost/geometry/util/compress_variant.hpp>
 #include <boost/geometry/util/select_most_precise.hpp>
-#include <boost/geometry/util/type_traits.hpp>
+#include <boost/geometry/util/transform_variant.hpp>
 
 
 namespace boost { namespace geometry
@@ -33,38 +35,39 @@ namespace boost { namespace geometry
 namespace resolve_strategy
 {
 
-// NOTE: The implementation was simplified greately preserving the old
-//   behavior. In general case the result types of Strategies should be
-//   taken into account.
-// It would probably be enough to use distance_result and
-//   default_distance_result here.
+template <typename Geometry>
+struct default_length_result
+{
+    typedef typename select_most_precise
+        <
+            typename coordinate_type<Geometry>::type,
+            long double
+        >::type type;
+};
 
 } // namespace resolve_strategy
 
 
-namespace resolve_dynamic
+namespace resolve_variant
 {
-
-template <typename Sequence>
-struct default_length_result_impl;
-
-template <typename ...Geometries>
-struct default_length_result_impl<util::type_sequence<Geometries...>>
-{
-    using type = typename select_most_precise
-        <
-            typename coordinate_type<Geometries>::type...,
-            long double
-        >::type;
-};
 
 template <typename Geometry>
 struct default_length_result
-    : default_length_result_impl<typename detail::geometry_types<Geometry>::type>
+    : resolve_strategy::default_length_result<Geometry>
 {};
 
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct default_length_result<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+{
+    typedef typename compress_variant<
+        typename transform_variant<
+            boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>,
+            resolve_strategy::default_length_result<boost::mpl::placeholders::_>
+        >::type
+    >::type type;
+};
 
-} // namespace resolve_dynamic
+} // namespace resolve_variant
 
 
 /*!
@@ -77,7 +80,7 @@ struct default_length_result
  */
 template <typename Geometry>
 struct default_length_result
-    : resolve_dynamic::default_length_result<Geometry>
+    : resolve_variant::default_length_result<Geometry>
 {};
 
 

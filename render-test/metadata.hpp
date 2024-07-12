@@ -60,9 +60,7 @@ inline std::tuple<bool, float> checkValue(float expected, float actual, float to
 struct FileSizeProbe {
     FileSizeProbe() = default;
     FileSizeProbe(std::string path_, uintmax_t size_, float tolerance_)
-        : path(std::move(path_)),
-          size(size_),
-          tolerance(tolerance_) {}
+        : path(std::move(path_)), size(size_), tolerance(tolerance_) {}
 
     std::string path;
     uintmax_t size;
@@ -71,10 +69,7 @@ struct FileSizeProbe {
 
 struct MemoryProbe {
     MemoryProbe() = default;
-    MemoryProbe(size_t peak_, size_t allocations_)
-        : peak(peak_),
-          allocations(allocations_),
-          tolerance(0.0f) {}
+    MemoryProbe(size_t peak_, size_t allocations_) : peak(peak_), allocations(allocations_), tolerance(0.0f) {}
 
     size_t peak;
     size_t allocations;
@@ -85,8 +80,7 @@ struct MemoryProbe {
     }
 
     static std::tuple<bool, float> checkAllocations(const MemoryProbe& expected, const MemoryProbe& actual) {
-        return checkValue(
-            static_cast<float>(expected.allocations), static_cast<float>(actual.allocations), actual.tolerance);
+        return checkValue(static_cast<float>(expected.allocations), static_cast<float>(actual.allocations), actual.tolerance);
     }
 };
 
@@ -98,9 +92,7 @@ struct FpsProbe {
 
 struct NetworkProbe {
     NetworkProbe() = default;
-    NetworkProbe(size_t requests_, size_t transferred_)
-        : requests(requests_),
-          transferred(transferred_) {}
+    NetworkProbe(size_t requests_, size_t transferred_) : requests(requests_), transferred(transferred_) {}
 
     size_t requests;
     size_t transferred;
@@ -109,9 +101,7 @@ struct NetworkProbe {
 struct GfxProbe {
     struct Memory {
         Memory() = default;
-        Memory(int allocated_, int peak_)
-            : allocated(allocated_),
-              peak(peak_) {}
+        Memory(int allocated_, int peak_) : allocated(allocated_), peak(peak_) {}
 
         int allocated;
         int peak;
@@ -152,13 +142,9 @@ struct TestMetadata {
     // error message: "Failed to find expectations for..., to prevent
     // unit test error by missing metric.json, can turn on 'ignoreProbing'
     // to prevent the unit test fail, and just verify the render result.
-#if MLN_LEGACY_RENDERER
     bool ignoreProbing = false;
-#else
-    bool ignoreProbing = true;
-#endif
 
-    mbgl::Size size{512u, 512u};
+    mbgl::Size size{ 512u, 512u };
     float pixelRatio = 1.0f;
     double allowed = 0.00015; // diff
     std::string description;
@@ -199,6 +185,7 @@ struct TestMetadata {
 
     std::string errorMessage;
     double difference = 0.0;
+
 };
 
 class TestContext {

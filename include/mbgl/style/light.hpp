@@ -22,7 +22,7 @@ public:
     ~Light();
 
     // Dynamic properties
-    std::optional<conversion::Error> setProperty(const std::string& name, const conversion::Convertible& value);
+    optional<conversion::Error> setProperty(const std::string& name, const conversion::Convertible& value);
     StyleProperty getProperty(const std::string&) const;
 
     static LightAnchorType getDefaultAnchor();

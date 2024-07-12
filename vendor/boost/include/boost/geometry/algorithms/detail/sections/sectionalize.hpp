@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 // Copyright (c) 2014-2015 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2013-2021.
-// Modifications copyright (c) 2013-2021 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -22,22 +22,22 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_SECTIONS_SECTIONALIZE_HPP
 
 #include <cstddef>
-#include <type_traits>
 #include <vector>
 
 #include <boost/concept/requires.hpp>
 #include <boost/core/ignore_unused.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/range/size.hpp>
-#include <boost/range/value_type.hpp>
-
-#include <boost/geometry/core/config.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/vector_c.hpp>
+#include <boost/range.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 
 #include <boost/geometry/algorithms/assign.hpp>
 #include <boost/geometry/algorithms/envelope.hpp>
 #include <boost/geometry/algorithms/expand.hpp>
-#include <boost/geometry/algorithms/detail/expand_by_epsilon.hpp>
+
+#include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 #include <boost/geometry/algorithms/detail/recalculate.hpp>
 #include <boost/geometry/algorithms/detail/ring_identifier.hpp>
 #include <boost/geometry/algorithms/detail/signed_size_type.hpp>
@@ -46,22 +46,18 @@
 #include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/point_order.hpp>
-#include <boost/geometry/core/static_assert.hpp>
 #include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
-#include <boost/geometry/geometries/box.hpp>
-#include <boost/geometry/geometries/segment.hpp>
+#include <boost/geometry/util/math.hpp>
 #include <boost/geometry/policies/robustness/no_rescale_policy.hpp>
 #include <boost/geometry/policies/robustness/robust_point_type.hpp>
-#include <boost/geometry/util/math.hpp>
-#include <boost/geometry/util/normalize_spheroidal_coordinates.hpp>
-#include <boost/geometry/util/sequence.hpp>
-#include <boost/geometry/views/detail/closed_clockwise_view.hpp>
+#include <boost/geometry/views/closeable_view.hpp>
+#include <boost/geometry/views/reversible_view.hpp>
+#include <boost/geometry/geometries/segment.hpp>
 
-// TEMP
-#include <boost/geometry/strategy/envelope.hpp>
-#include <boost/geometry/strategy/expand.hpp>
+#include <boost/geometry/algorithms/detail/expand_by_epsilon.hpp>
+#include <boost/geometry/strategies/envelope.hpp>
 
 namespace boost { namespace geometry
 {
@@ -85,7 +81,7 @@ template
 >
 struct section
 {
-    using box_type = Box;
+    typedef Box box_type;
     static std::size_t const dimension_count = DimensionCount;
 
     int directions[DimensionCount];
@@ -132,7 +128,7 @@ struct section
 template <typename Box, std::size_t DimensionCount>
 struct sections : std::vector<section<Box, DimensionCount> >
 {
-    using box_type = Box;
+    typedef Box box_type;
     static std::size_t const value = DimensionCount;
 };
 
@@ -159,14 +155,16 @@ template
 >
 struct get_direction_loop
 {
-    using dimension = typename util::sequence_element<Index, DimensionVector>::type;
+    typedef typename boost::mpl::at_c<DimensionVector, Index>::type dimension;
 
     template <typename Segment>
     static inline void apply(Segment const& seg,
                 int directions[Count])
     {
-        auto const& c0 = geometry::get<0, dimension::value>(seg);
-        auto const& c1 = geometry::get<1, dimension::value>(seg);
+        typedef typename coordinate_type<Segment>::type coordinate_type;
+
+        coordinate_type const c0 = geometry::get<0, dimension::value>(seg);
+        coordinate_type const c1 = geometry::get<1, dimension::value>(seg);
 
         directions[Index] = c1 > c0 ? 1 : c1 < c0 ? -1 : 0;
 
@@ -189,14 +187,14 @@ template
 >
 struct get_direction_loop<Point, DimensionVector, 0, Count, spherical_tag>
 {
-    using dimension = typename util::sequence_element<0, DimensionVector>::type;
+    typedef typename boost::mpl::at_c<DimensionVector, 0>::type dimension;
 
     template <typename Segment>
     static inline void apply(Segment const& seg,
                 int directions[Count])
     {
-        using coordinate_type = typename coordinate_type<Segment>::type;
-        using units_t = typename coordinate_system<Point>::type::units;
+        typedef typename coordinate_type<Segment>::type coordinate_type;
+        typedef typename coordinate_system<Point>::type::units units_t;
 
         coordinate_type const diff = math::longitude_distance_signed
                                         <
@@ -346,10 +344,10 @@ struct box_first_in_section<cartesian_tag>
 {
     template <typename Box, typename Point, typename Strategy>
     static inline void apply(Box & box, Point const& prev, Point const& curr,
-                             Strategy const& strategy)
+                             Strategy const& )
     {
-        geometry::envelope(prev, box, strategy);
-        geometry::expand(box, curr, strategy);
+        geometry::envelope(prev, box);
+        geometry::expand(box, curr);
     }
 };
 
@@ -370,50 +368,73 @@ struct box_next_in_section<cartesian_tag>
 {
     template <typename Box, typename Point, typename Strategy>
     static inline void apply(Box & box, Point const& , Point const& curr,
-                             Strategy const& strategy)
+                             Strategy const& )
     {
-        geometry::expand(box, curr, strategy);
+        geometry::expand(box, curr);
     }
 };
 
 /// @brief Helper class to create sections of a part of a range, on the fly
-template<typename DimensionVector>
+template
+<
+    typename Point,
+    typename DimensionVector
+>
 struct sectionalize_part
 {
     static const std::size_t dimension_count
-        = util::sequence_size<DimensionVector>::value;
+        = boost::mpl::size<DimensionVector>::value;
+
+    template
+    <
+        typename Iterator,
+        typename RobustPolicy,
+        typename Sections
+    >
+    static inline void apply(Sections& sections,
+                             Iterator begin, Iterator end,
+                             RobustPolicy const& robust_policy,
+                             ring_identifier ring_id,
+                             std::size_t max_count)
+    {
+        typedef typename strategy::envelope::services::default_strategy
+            <
+                typename cs_tag<typename Sections::box_type>::type
+            >::type envelope_strategy_type;
+
+        apply(sections, begin, end,
+              robust_policy, envelope_strategy_type(),
+              ring_id, max_count);
+    }
 
     template
     <
         typename Iterator,
         typename RobustPolicy,
         typename Sections,
-        typename Strategy
+        typename EnvelopeStrategy
     >
     static inline void apply(Sections& sections,
                              Iterator begin, Iterator end,
                              RobustPolicy const& robust_policy,
-                             Strategy const& strategy,
+                             EnvelopeStrategy const& strategy,
                              ring_identifier ring_id,
                              std::size_t max_count)
     {
         boost::ignore_unused(robust_policy);
 
-        using section_type = typename boost::range_value<Sections>::type;
-        using box_type = typename section_type::box_type;
-        using point_type = typename geometry::point_type<box_type>::type;
-
+        typedef typename boost::range_value<Sections>::type section_type;
         BOOST_STATIC_ASSERT
             (
-                section_type::dimension_count
-                 == util::sequence_size<DimensionVector>::value
+                (static_cast<std::size_t>(section_type::dimension_count)
+                 == static_cast<std::size_t>(boost::mpl::size<DimensionVector>::value))
             );
 
-        using robust_point_type = typename geometry::robust_point_type
-            <
-                point_type,
-                RobustPolicy
-            >::type;
+        typedef typename geometry::robust_point_type
+        <
+            Point,
+            RobustPolicy
+        >::type robust_point_type;
 
         std::size_t const count = std::distance(begin, end);
         if (count == 0)
@@ -431,7 +452,7 @@ struct sectionalize_part
         Iterator it = begin;
         robust_point_type previous_robust_point;
         geometry::recalculate(previous_robust_point, *it, robust_policy);
-
+        
         for(Iterator previous = it++;
             it != end;
             ++previous, ++it, index++)
@@ -444,7 +465,7 @@ struct sectionalize_part
             int direction_classes[dimension_count] = {0};
             get_direction_loop
             <
-                point_type, DimensionVector, 0, dimension_count
+                Point, DimensionVector, 0, dimension_count
             >::apply(robust_segment, direction_classes);
 
             // if "dir" == 0 for all point-dimensions, it is duplicate.
@@ -458,7 +479,7 @@ struct sectionalize_part
                 // (dimension_count might be < dimension<P>::value)
                 if (check_duplicate_loop
                     <
-                        0, geometry::dimension<point_type>::type::value
+                        0, geometry::dimension<Point>::type::value
                     >::apply(robust_segment)
                     )
                 {
@@ -557,6 +578,7 @@ template
 <
     closure_selector Closure,
     bool Reverse,
+    typename Point,
     typename DimensionVector
 >
 struct sectionalize_range
@@ -566,21 +588,24 @@ struct sectionalize_range
         typename Range,
         typename RobustPolicy,
         typename Sections,
-        typename Strategy
+        typename EnvelopeStrategy
     >
     static inline void apply(Range const& range,
                              RobustPolicy const& robust_policy,
                              Sections& sections,
-                             Strategy const& strategy,
+                             EnvelopeStrategy const& strategy,
                              ring_identifier ring_id,
                              std::size_t max_count)
     {
-        detail::closed_clockwise_view
-            <
-                Range const,
-                Closure,
-                Reverse ? counterclockwise : clockwise
-            > const view(range);
+        typedef typename closeable_view<Range const, Closure>::type cview_type;
+        typedef typename reversible_view
+        <
+            cview_type const,
+            Reverse ? iterate_reverse : iterate_forward
+        >::type view_type;
+
+        cview_type cview(range);
+        view_type view(cview);
 
         std::size_t const n = boost::size(view);
         if (n == 0)
@@ -595,10 +620,9 @@ struct sectionalize_range
             return;
         }
 
-        sectionalize_part<DimensionVector>::apply(sections,
+        sectionalize_part<Point, DimensionVector>::apply(sections,
             boost::begin(view), boost::end(view),
-            robust_policy, strategy,
-            ring_id, max_count);
+            robust_policy, strategy, ring_id, max_count);
     }
 };
 
@@ -614,31 +638,32 @@ struct sectionalize_polygon
         typename Polygon,
         typename RobustPolicy,
         typename Sections,
-        typename Strategy
+        typename EnvelopeStrategy
     >
     static inline void apply(Polygon const& poly,
                 RobustPolicy const& robust_policy,
                 Sections& sections,
-                Strategy const& strategy,
+                EnvelopeStrategy const& strategy,
                 ring_identifier ring_id,
                 std::size_t max_count)
     {
-        using sectionalizer = sectionalize_range
-            <
-                closure<Polygon>::value, Reverse, DimensionVector
-            >;
+        typedef typename point_type<Polygon>::type point_type;
+        typedef sectionalize_range
+        <
+                closure<Polygon>::value, Reverse,
+                point_type, DimensionVector
+        > per_range;
 
         ring_id.ring_index = -1;
-        sectionalizer::apply(exterior_ring(poly), robust_policy, sections,
-                         strategy, ring_id, max_count);
+        per_range::apply(exterior_ring(poly), robust_policy, sections, strategy, ring_id, max_count);
 
         ring_id.ring_index++;
-        auto const& rings = interior_rings(poly);
-        for (auto it = boost::begin(rings); it != boost::end(rings);
-             ++it, ++ring_id.ring_index)
+        typename interior_return_type<Polygon const>::type
+            rings = interior_rings(poly);
+        for (typename detail::interior_iterator<Polygon const>::type
+                it = boost::begin(rings); it != boost::end(rings); ++it, ++ring_id.ring_index)
         {
-            sectionalizer::apply(*it, robust_policy, sections,
-                             strategy, ring_id, max_count);
+            per_range::apply(*it, robust_policy, sections, strategy, ring_id, max_count);
         }
     }
 };
@@ -651,15 +676,15 @@ struct sectionalize_box
         typename Box,
         typename RobustPolicy,
         typename Sections,
-        typename Strategy
+        typename EnvelopeStrategy
     >
     static inline void apply(Box const& box,
                 RobustPolicy const& robust_policy,
                 Sections& sections,
-                Strategy const& strategy,
+                EnvelopeStrategy const& ,
                 ring_identifier const& ring_id, std::size_t max_count)
     {
-        using point_type = typename point_type<Box>::type;
+        typedef typename point_type<Box>::type point_type;
 
         assert_dimension<Box, 2>();
 
@@ -684,10 +709,13 @@ struct sectionalize_box
         // NOTE: Use cartesian envelope strategy in all coordinate systems
         //       because edges of a box are not geodesic segments
         sectionalize_range
-            <
-                closed, false, DimensionVector
-            >::apply(points, robust_policy, sections,
-                     strategy, ring_id, max_count);
+        <
+                closed, false,
+            point_type,
+            DimensionVector
+        >::apply(points, robust_policy, sections,
+                 strategy::envelope::cartesian_segment<>(),
+                 ring_id, max_count);
     }
 };
 
@@ -699,47 +727,45 @@ struct sectionalize_multi
         typename MultiGeometry,
         typename RobustPolicy,
         typename Sections,
-        typename Strategy
+        typename EnvelopeStrategy
     >
     static inline void apply(MultiGeometry const& multi,
                 RobustPolicy const& robust_policy,
                 Sections& sections,
-                Strategy const& strategy,
+                EnvelopeStrategy const& strategy,
                 ring_identifier ring_id,
                 std::size_t max_count)
     {
         ring_id.multi_index = 0;
-        for (auto it = boost::begin(multi); it != boost::end(multi); ++it, ++ring_id.multi_index)
+        for (typename boost::range_iterator<MultiGeometry const>::type
+                    it = boost::begin(multi);
+            it != boost::end(multi);
+            ++it, ++ring_id.multi_index)
         {
-            Policy::apply(*it, robust_policy, sections,
-                          strategy,
-                          ring_id, max_count);
+            Policy::apply(*it, robust_policy, sections, strategy, ring_id, max_count);
         }
     }
 };
 
-template <typename Sections, typename Strategy>
-inline void enlarge_sections(Sections& sections, Strategy const&)
+template <typename Sections>
+inline void enlarge_sections(Sections& sections)
 {
-    // Expand the box to avoid missing any intersection. The amount is
-    // should be larger than epsilon. About the value itself: the smaller
-    // it is, the higher the risk to miss intersections. The larger it is,
-    // the more comparisons are made, which is not harmful for the result
-    // (but it might be for the performance).
-    // So it should be on the high side.
-
-    // Use a compilable and workable epsilon for all types, for example:
-    // - for double :~ 2.22e-13
-    // - for float  :~ 1e-4
-    // - for Boost.Multiprecision (50) :~ 5.35e-48
-    // - for Boost.Rational : 0/1
-
-    for (auto& section : sections)
+    // Robustness issue. Increase sections a tiny bit such that all points are really within (and not on border)
+    // Reason: turns might, rarely, be missed otherwise (case: "buffer_mp1")
+    // Drawback: not really, range is now completely inside the section. Section is a tiny bit too large,
+    // which might cause (a small number) of more comparisons
+    
+    // NOTE: above is old comment to the not used code expanding the Boxes by relaxed_epsilon(10)
+    
+    // Enlarge sections by scaled epsilon, this should be consistent with math::equals().
+    // Points and Segments are equal-compared WRT machine epsilon, but Boxes aren't
+    // Enlarging Boxes ensures that they correspond to the bound objects,
+    // Segments in this case, since Sections are collections of Segments.
+    for (typename boost::range_iterator<Sections>::type it = boost::begin(sections);
+        it != boost::end(sections);
+        ++it)
     {
-        using gt = decltype(section.bounding_box);
-        using ct = typename geometry::coordinate_type<gt>::type;
-        static ct const eps = math::scaled_epsilon<ct>(1000);
-        expand_by_epsilon(section.bounding_box, eps);
+        detail::expand_by_epsilon(it->bounding_box);
     }
 }
 
@@ -761,9 +787,11 @@ template
 >
 struct sectionalize
 {
-    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
-        "Not or not yet implemented for this Geometry type.",
-        Tag, Geometry);
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry>)
+        );
 };
 
 template
@@ -788,7 +816,12 @@ struct sectionalize
         false,
         DimensionVector
     >
-    : detail::sectionalize::sectionalize_range<closed, false, DimensionVector>
+    : detail::sectionalize::sectionalize_range
+        <
+            closed, false,
+            typename point_type<LineString>::type,
+            DimensionVector
+        >
 {};
 
 template
@@ -801,6 +834,7 @@ struct sectionalize<ring_tag, Ring, Reverse, DimensionVector>
     : detail::sectionalize::sectionalize_range
         <
             geometry::closure<Ring>::value, Reverse,
+            typename point_type<Ring>::type,
             DimensionVector
         >
 {};
@@ -847,7 +881,12 @@ struct sectionalize<multi_linestring_tag, MultiLinestring, Reverse, DimensionVec
     : detail::sectionalize::sectionalize_multi
         <
             DimensionVector,
-            detail::sectionalize::sectionalize_range<closed, false, DimensionVector>
+            detail::sectionalize::sectionalize_range
+                <
+                    closed, false,
+                    typename point_type<MultiLinestring>::type,
+                    DimensionVector
+                >
         >
 
 {};
@@ -864,8 +903,6 @@ struct sectionalize<multi_linestring_tag, MultiLinestring, Reverse, DimensionVec
     \param geometry geometry to create sections from
     \param robust_policy policy to handle robustness issues
     \param sections structure with sections
-    \param strategy strategy for envelope calculation
-    \param expand_strategy strategy for partitions
     \param source_index index to assign to the ring_identifiers
     \param max_count maximal number of points per section
         (defaults to 10, this seems to give the fastest results)
@@ -878,16 +915,38 @@ template
     typename Geometry,
     typename Sections,
     typename RobustPolicy,
-    typename Strategy
+    typename EnvelopeStrategy
 >
 inline void sectionalize(Geometry const& geometry,
                 RobustPolicy const& robust_policy,
                 Sections& sections,
-                Strategy const& strategy,
+                EnvelopeStrategy const& strategy,
                 int source_index = 0,
                 std::size_t max_count = 10)
 {
+    BOOST_STATIC_ASSERT((! boost::is_fundamental<EnvelopeStrategy>::value));
+
     concepts::check<Geometry const>();
+
+    typedef typename boost::range_value<Sections>::type section_type;
+
+    // Compiletime check for point type of section boxes
+    // and point type related to robust policy
+    typedef typename geometry::coordinate_type
+    <
+        typename section_type::box_type
+    >::type ctype1;
+    typedef typename geometry::coordinate_type
+    <
+        typename geometry::robust_point_type
+        <
+            typename geometry::point_type<Geometry>::type,
+            RobustPolicy
+        >::type
+    >::type ctype2;
+
+    BOOST_MPL_ASSERT((boost::is_same<ctype1, ctype2>));
+
 
     sections.clear();
 
@@ -900,11 +959,9 @@ inline void sectionalize(Geometry const& geometry,
             Geometry,
             Reverse,
             DimensionVector
-        >::apply(geometry, robust_policy, sections,
-                 strategy,
-                 ring_id, max_count);
+        >::apply(geometry, robust_policy, sections, strategy, ring_id, max_count);
 
-    detail::sectionalize::enlarge_sections(sections, strategy);
+    detail::sectionalize::enlarge_sections(sections);
 }
 
 
@@ -922,18 +979,16 @@ inline void sectionalize(Geometry const& geometry,
                          int source_index = 0,
                          std::size_t max_count = 10)
 {
-    using box_type = typename Sections::box_type;
-    using strategy_type = typename strategies::envelope::services::default_strategy
+    typedef typename strategy::envelope::services::default_strategy
         <
-            Geometry,
-            box_type
-        >::type;
+            typename cs_tag<Geometry>::type
+        >::type envelope_strategy_type;
 
     boost::geometry::sectionalize
         <
             Reverse, DimensionVector
         >(geometry, robust_policy, sections,
-          strategy_type(),
+          envelope_strategy_type(),
           source_index, max_count);
 }
 

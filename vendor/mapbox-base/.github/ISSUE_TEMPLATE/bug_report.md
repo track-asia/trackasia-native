@@ -17,7 +17,7 @@ Hello! Thanks for contributing.  For the fastest response and resolution, please
 
  - Check the console for relevant errors and warnings
 
- - Only post to report a bug. For feature requests, please use https://github.com/track-asia/trackasia-gl-js/issues/new?template=Feature_request.md instead.  Direct all other questions to https://stackoverflow.com/questions/tagged/trackasia-gl-js
+ - Only post to report a bug. For feature requests, please use https://github.com/trackasia/trackasia-gl-js/issues/new?template=Feature_request.md instead.  Direct all other questions to https://stackoverflow.com/questions/tagged/trackasia-gl-js
 
 -->
 

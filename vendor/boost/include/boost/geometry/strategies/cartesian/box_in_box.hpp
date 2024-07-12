@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 // Copyright (c) 2013-2015 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2015-2020.
-// Modifications copyright (c) 2016-2020, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2015, 2016, 2017.
+// Modifications copyright (c) 2016-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -36,11 +36,6 @@ namespace within
 {
 
 
-#ifndef DOXYGEN_NO_DETAIL
-namespace detail
-{
-
-
 struct box_within_coord
 {
     template <typename BoxContainedValue, typename BoxContainingValue>
@@ -66,6 +61,18 @@ struct box_covered_by_coord
         return bed_min >= bing_min && bed_max <= bing_max;
     }
 };
+
+
+template <typename Geometry, std::size_t Dimension, typename CSTag>
+struct box_within_range
+    : box_within_coord
+{};
+
+
+template <typename Geometry, std::size_t Dimension, typename CSTag>
+struct box_covered_by_range
+    : box_covered_by_coord
+{};
 
 
 struct box_within_longitude_diff
@@ -102,7 +109,7 @@ struct box_longitude_range
                 BoxContainedValue,
                 BoxContainingValue
             >::type calc_t;
-        typedef typename geometry::detail::cs_angular_units<Geometry>::type units_t;
+        typedef typename coordinate_system<Geometry>::type::units units_t;
         typedef math::detail::constants_on_spheroid<calc_t, units_t> constants;
 
         if (CoordCheck::apply(bed_min, bed_max, bing_min, bing_max))
@@ -113,7 +120,7 @@ struct box_longitude_range
         // min <= max <=> diff >= 0
         calc_t const diff_ed = bed_max - bed_min;
         calc_t const diff_ing = bing_max - bing_min;
-
+        
         // if containing covers the whole globe it contains all
         if (diff_ing >= constants::period())
         {
@@ -137,21 +144,35 @@ struct box_longitude_range
 };
 
 
+// spherical_equatorial_tag, spherical_polar_tag and geographic_cat are casted to spherical_tag
+template <typename Geometry>
+struct box_within_range<Geometry, 0, spherical_tag>
+    : box_longitude_range<Geometry, box_within_coord, box_within_longitude_diff>
+{};
+
+
+template <typename Geometry>
+struct box_covered_by_range<Geometry, 0, spherical_tag>
+    : box_longitude_range<Geometry, box_covered_by_coord, box_covered_by_longitude_diff>
+{};
+
+
 template
 <
     template <typename, std::size_t, typename> class SubStrategy,
-    typename CSTag,
+    typename Box1,
+    typename Box2,
     std::size_t Dimension,
     std::size_t DimensionCount
 >
 struct relate_box_box_loop
 {
-    template <typename Box1, typename Box2>
     static inline bool apply(Box1 const& b_contained, Box2 const& b_containing)
     {
         assert_dimension_equal<Box1, Box2>();
+        typedef typename tag_cast<typename cs_tag<Box1>::type, spherical_tag>::type cs_tag_t;
 
-        if (! SubStrategy<Box1, Dimension, CSTag>::apply(
+        if (! SubStrategy<Box1, Dimension, cs_tag_t>::apply(
                     get<min_corner, Dimension>(b_contained),
                     get<max_corner, Dimension>(b_contained),
                     get<min_corner, Dimension>(b_containing),
@@ -162,9 +183,10 @@ struct relate_box_box_loop
             return false;
         }
 
-        return within::detail::relate_box_box_loop
+        return relate_box_box_loop
             <
-                SubStrategy, CSTag,
+                SubStrategy,
+                Box1, Box2,
                 Dimension + 1, DimensionCount
             >::apply(b_contained, b_containing);
     }
@@ -173,124 +195,38 @@ struct relate_box_box_loop
 template
 <
     template <typename, std::size_t, typename> class SubStrategy,
-    typename CSTag,
+    typename Box1,
+    typename Box2,
     std::size_t DimensionCount
 >
-struct relate_box_box_loop<SubStrategy, CSTag, DimensionCount, DimensionCount>
+struct relate_box_box_loop<SubStrategy, Box1, Box2, DimensionCount, DimensionCount>
 {
-    template <typename Box1, typename Box2>
     static inline bool apply(Box1 const& , Box2 const& )
     {
         return true;
     }
 };
 
-
-template <typename Geometry, std::size_t Dimension, typename CSTag>
-struct box_within_range
-    : within::detail::box_within_coord
-{};
-
-
-template <typename Geometry, std::size_t Dimension, typename CSTag>
-struct box_covered_by_range
-    : within::detail::box_covered_by_coord
-{};
-
-
-// spherical_equatorial_tag, spherical_polar_tag and geographic_cat are casted to spherical_tag
-template <typename Geometry>
-struct box_within_range<Geometry, 0, spherical_tag>
-    : within::detail::box_longitude_range
-        <
-            Geometry,
-            within::detail::box_within_coord,
-            within::detail::box_within_longitude_diff
-        >
-{};
-
-
-template <typename Geometry>
-struct box_covered_by_range<Geometry, 0, spherical_tag>
-    : within::detail::box_longitude_range
-        <
-            Geometry,
-            within::detail::box_covered_by_coord,
-            within::detail::box_covered_by_longitude_diff
-        >
-{};
-
-
-} // namespace detail
-#endif // DOXYGEN_NO_DETAIL
-
-
-struct cartesian_box_box
+template
+<
+    typename Box1,
+    typename Box2,
+    template <typename, std::size_t, typename> class SubStrategy = box_within_range
+>
+struct box_in_box
 {
-    template <typename Box1, typename Box2>
     static inline bool apply(Box1 const& box1, Box2 const& box2)
     {
-        return within::detail::relate_box_box_loop
+        return relate_box_box_loop
             <
-                within::detail::box_within_range,
-                cartesian_tag,
-                0, dimension<Box1>::type::value
-            >::apply(box1, box2);
-    }
-};
-
-struct spherical_box_box
-{
-    template <typename Box1, typename Box2>
-    static inline bool apply(Box1 const& box1, Box2 const& box2)
-    {
-        return within::detail::relate_box_box_loop
-            <
-                within::detail::box_within_range,
-                spherical_tag,
-                0, dimension<Box1>::type::value
+                SubStrategy,
+                Box1, Box2, 0, dimension<Box1>::type::value
             >::apply(box1, box2);
     }
 };
 
 
 } // namespace within
-
-
-namespace covered_by
-{
-
-
-struct cartesian_box_box
-{
-    template <typename Box1, typename Box2>
-    static inline bool apply(Box1 const& box1, Box2 const& box2)
-    {
-        return within::detail::relate_box_box_loop
-            <
-                within::detail::box_covered_by_range,
-                cartesian_tag,
-                0, dimension<Box1>::type::value
-            >::apply(box1, box2);
-    }
-};
-
-struct spherical_box_box
-{
-    template <typename Box1, typename Box2>
-    static inline bool apply(Box1 const& box1, Box2 const& box2)
-    {
-        return within::detail::relate_box_box_loop
-            <
-                within::detail::box_covered_by_range,
-                spherical_tag,
-                0, dimension<Box1>::type::value
-            >::apply(box1, box2);
-    }
-};
-
-
-}
 
 
 #ifndef DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
@@ -308,7 +244,7 @@ struct default_strategy
         cartesian_tag, cartesian_tag
     >
 {
-    typedef cartesian_box_box type;
+    typedef within::box_in_box<BoxContained, BoxContaining> type;
 };
 
 // spherical_equatorial_tag, spherical_polar_tag and geographic_cat are casted to spherical_tag
@@ -321,7 +257,7 @@ struct default_strategy
         spherical_tag, spherical_tag
     >
 {
-    typedef spherical_box_box type;
+    typedef within::box_in_box<BoxContained, BoxContaining> type;
 };
 
 
@@ -339,7 +275,11 @@ struct default_strategy
         cartesian_tag, cartesian_tag
     >
 {
-    typedef cartesian_box_box type;
+    typedef within::box_in_box
+                <
+                    BoxContained, BoxContaining,
+                    within::box_covered_by_range
+                > type;
 };
 
 // spherical_equatorial_tag, spherical_polar_tag and geographic_cat are casted to spherical_tag
@@ -352,7 +292,11 @@ struct default_strategy
         spherical_tag, spherical_tag
     >
 {
-    typedef spherical_box_box type;
+    typedef within::box_in_box
+                <
+                    BoxContained, BoxContaining,
+                    within::box_covered_by_range
+                > type;
 };
 
 

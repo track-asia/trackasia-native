@@ -2,7 +2,6 @@
 #include <mbgl/annotation/annotation_tile.hpp>
 #include <mbgl/renderer/render_tile.hpp>
 #include <mbgl/renderer/paint_parameters.hpp>
-#include <mbgl/util/instrumentation.hpp>
 
 #include <mbgl/layermanager/layer_manager.hpp>
 
@@ -10,9 +9,8 @@ namespace mbgl {
 
 using namespace style;
 
-RenderAnnotationSource::RenderAnnotationSource(Immutable<AnnotationSource::Impl> impl_,
-                                               const TaggedScheduler& threadPool_)
-    : RenderTileSource(std::move(impl_), threadPool_) {
+RenderAnnotationSource::RenderAnnotationSource(Immutable<AnnotationSource::Impl> impl_)
+    : RenderTileSource(std::move(impl_)) {
     assert(LayerManager::annotationsEnabled);
     tilePyramid.setObserver(this);
 }
@@ -26,8 +24,6 @@ void RenderAnnotationSource::update(Immutable<style::Source::Impl> baseImpl_,
                                     const bool needsRendering,
                                     const bool needsRelayout,
                                     const TileParameters& parameters) {
-    MLN_TRACE_FUNC();
-
     std::swap(baseImpl, baseImpl_);
 
     enabled = needsRendering;
@@ -42,21 +38,22 @@ void RenderAnnotationSource::update(Immutable<style::Source::Impl> baseImpl_,
         // Zoom level 16 is typically sufficient for annotations.
         // See https://github.com/mapbox/mapbox-gl-native/issues/10197
         {0, 16},
-        std::nullopt,
+        optional<LatLngBounds>{},
         [&](const OverscaledTileID& tileID) { return std::make_unique<AnnotationTile>(tileID, parameters); });
 }
 
-std::unordered_map<std::string, std::vector<Feature>> RenderAnnotationSource::queryRenderedFeatures(
-    const ScreenLineString& geometry,
-    const TransformState& transformState,
-    const std::unordered_map<std::string, const RenderLayer*>& layers,
-    const RenderedQueryOptions& options,
-    const mat4& projMatrix) const {
+std::unordered_map<std::string, std::vector<Feature>>
+RenderAnnotationSource::queryRenderedFeatures(const ScreenLineString& geometry,
+                                              const TransformState& transformState,
+                                              const std::unordered_map<std::string, const RenderLayer*>& layers,
+                                              const RenderedQueryOptions& options,
+                                              const mat4& projMatrix) const {
     return tilePyramid.queryRenderedFeatures(geometry, transformState, layers, options, projMatrix, {});
 }
 
 std::vector<Feature> RenderAnnotationSource::querySourceFeatures(const SourceQueryOptions&) const {
     return {};
 }
+
 
 } // namespace mbgl

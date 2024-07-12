@@ -5,7 +5,7 @@
 namespace mbgl {
 namespace util {
 
-float interpolationFactor(float base, Range<float> range, float z) noexcept {
+float interpolationFactor(float base, Range<float> range, float z) {
     const float zoomDiff = range.max - range.min;
     const float zoomProgress = z - range.min;
     if (zoomDiff == 0) {
@@ -13,8 +13,10 @@ float interpolationFactor(float base, Range<float> range, float z) noexcept {
     } else if (base == 1.0f) {
         return zoomProgress / zoomDiff;
     } else {
-        return static_cast<float>((std::pow(static_cast<double>(base), zoomProgress) - 1) /
-                                  (std::pow(static_cast<double>(base), zoomDiff) - 1));
+        return static_cast<float>(
+            (std::pow(static_cast<double>(base), zoomProgress) - 1) /
+            (std::pow(static_cast<double>(base), zoomDiff) - 1)
+        );
     }
 }
 

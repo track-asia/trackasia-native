@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 // Copyright (c) 2013-2015 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2013-2022.
-// Modifications copyright (c) 2013-2022, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -23,18 +23,19 @@
 
 #include <deque>
 
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
 #include <boost/geometry/core/reverse_dispatch.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
 #include <boost/geometry/core/tags.hpp>
-#include <boost/geometry/core/visit.hpp>
 
-#include <boost/geometry/geometries/adapted/boost_variant.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/strategies/default_strategy.hpp>
-#include <boost/geometry/strategies/detail.hpp>
-#include <boost/geometry/strategies/relate/services.hpp>
+#include <boost/geometry/strategies/relate.hpp>
 
 
 namespace boost { namespace geometry
@@ -83,14 +84,9 @@ struct touches<Geometry1, Geometry2, Tag1, Tag2, CastedTag1, CastedTag2, true>
 namespace resolve_strategy
 {
 
-template
-<
-    typename Strategy,
-    bool IsUmbrella = strategies::detail::is_umbrella_strategy<Strategy>::value
->
 struct touches
 {
-    template <typename Geometry1, typename Geometry2>
+    template <typename Geometry1, typename Geometry2, typename Strategy>
     static inline bool apply(Geometry1 const& geometry1,
                              Geometry2 const& geometry2,
                              Strategy const& strategy)
@@ -100,35 +96,13 @@ struct touches
                 Geometry1, Geometry2
             >::apply(geometry1, geometry2, strategy);
     }
-};
 
-template <typename Strategy>
-struct touches<Strategy, false>
-{
-    template <typename Geometry1, typename Geometry2>
-    static inline bool apply(Geometry1 const& geometry1,
-                             Geometry2 const& geometry2,
-                             Strategy const& strategy)
-    {
-        using strategies::relate::services::strategy_converter;
-
-        return dispatch::touches
-            <
-                Geometry1, Geometry2
-            >::apply(geometry1, geometry2,
-                     strategy_converter<Strategy>::get(strategy));
-    }
-};
-
-template <>
-struct touches<default_strategy, false>
-{
     template <typename Geometry1, typename Geometry2>
     static inline bool apply(Geometry1 const& geometry1,
                              Geometry2 const& geometry2,
                              default_strategy)
     {
-        typedef typename strategies::relate::services::default_strategy
+        typedef typename strategy::relate::services::default_strategy
             <
                 Geometry1,
                 Geometry2
@@ -144,111 +118,135 @@ struct touches<default_strategy, false>
 } // namespace resolve_strategy
 
 
-namespace resolve_dynamic {
+namespace resolve_variant {
 
-template
-<
-    typename Geometry1, typename Geometry2,
-    typename Tag1 = typename geometry::tag<Geometry1>::type,
-    typename Tag2 = typename geometry::tag<Geometry2>::type
->
+template <typename Geometry1, typename Geometry2>
 struct touches
 {
     template <typename Strategy>
-    static bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2,
-                      Strategy const& strategy)
+    static bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2, Strategy const& strategy)
     {
         concepts::check<Geometry1 const>();
         concepts::check<Geometry2 const>();
 
-        return resolve_strategy::touches
-                <
-                    Strategy
-                >::apply(geometry1, geometry2, strategy);
+        return resolve_strategy::touches::apply(geometry1, geometry2, strategy);
     }
 };
 
-template <typename Geometry1, typename Geometry2, typename Tag2>
-struct touches<Geometry1, Geometry2, dynamic_geometry_tag, Tag2>
+template <BOOST_VARIANT_ENUM_PARAMS(typename T), typename Geometry2>
+struct touches<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
 {
     template <typename Strategy>
-    static bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2,
-                      Strategy const& strategy)
+    struct visitor: boost::static_visitor<bool>
     {
-        bool result = false;
-        traits::visit<Geometry1>::apply([&](auto const& g1)
+        Geometry2 const& m_geometry2;
+        Strategy const& m_strategy;
+
+        visitor(Geometry2 const& geometry2, Strategy const& strategy)
+            : m_geometry2(geometry2)
+            , m_strategy(strategy)
+        {}
+
+        template <typename Geometry1>
+        bool operator()(Geometry1 const& geometry1) const
         {
-            result = touches
-                <
-                    util::remove_cref_t<decltype(g1)>,
-                    Geometry2
-                >::apply(g1, geometry2, strategy);
-        }, geometry1);
-        return result;
+            return touches<Geometry1, Geometry2>::apply(geometry1, m_geometry2, m_strategy);
+        }
+    };
+
+    template <typename Strategy>
+    static inline bool apply(boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
+    {
+        return boost::apply_visitor(visitor<Strategy>(geometry2, strategy), geometry1);
     }
 };
 
-template <typename Geometry1, typename Geometry2, typename Tag1>
-struct touches<Geometry1, Geometry2, Tag1, dynamic_geometry_tag>
+template <typename Geometry1, BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct touches<Geometry1, boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
 {
     template <typename Strategy>
-    static bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2,
-                      Strategy const& strategy)
+    struct visitor: boost::static_visitor<bool>
     {
-        bool result = false;
-        traits::visit<Geometry2>::apply([&](auto const& g2)
+        Geometry1 const& m_geometry1;
+        Strategy const& m_strategy;
+
+        visitor(Geometry1 const& geometry1, Strategy const& strategy)
+            : m_geometry1(geometry1)
+            , m_strategy(strategy)
+        {}
+
+        template <typename Geometry2>
+        bool operator()(Geometry2 const& geometry2) const
         {
-            result = touches
-                <
-                    Geometry1,
-                    util::remove_cref_t<decltype(g2)>
-                >::apply(geometry1, g2, strategy);
-        }, geometry2);
-        return result;
+            return touches<Geometry1, Geometry2>::apply(m_geometry1, geometry2, m_strategy);
+        }
+    };
+
+    template <typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry2,
+                             Strategy const& strategy)
+    {
+        return boost::apply_visitor(visitor<Strategy>(geometry1, strategy), geometry2);
     }
 };
 
-template <typename Geometry1, typename Geometry2>
-struct touches<Geometry1, Geometry2, dynamic_geometry_tag, dynamic_geometry_tag>
+template <BOOST_VARIANT_ENUM_PARAMS(typename T1),
+          BOOST_VARIANT_ENUM_PARAMS(typename T2)>
+struct touches<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T1)>,
+               boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)> >
 {
     template <typename Strategy>
-    static bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2,
-                      Strategy const& strategy)
+    struct visitor: boost::static_visitor<bool>
     {
-        bool result = false;
-        traits::visit<Geometry1, Geometry2>::apply([&](auto const& g1, auto const& g2)
+        Strategy const& m_strategy;
+
+        visitor(Strategy const& strategy)
+            : m_strategy(strategy)
+        {}
+
+        template <typename Geometry1, typename Geometry2>
+        bool operator()(Geometry1 const& geometry1,
+                        Geometry2 const& geometry2) const
         {
-            result = touches
-                <
-                    util::remove_cref_t<decltype(g1)>,
-                    util::remove_cref_t<decltype(g2)>
-                >::apply(g1, g2, strategy);
-        }, geometry1, geometry2);
-        return result;
+            return touches<Geometry1, Geometry2>::apply(geometry1, geometry2, m_strategy);
+        }
+    };
+
+    template <typename Strategy>
+    static inline bool apply(boost::variant<BOOST_VARIANT_ENUM_PARAMS(T1)> const& geometry1,
+                             boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2,
+                             Strategy const& strategy)
+    {
+        return boost::apply_visitor(visitor<Strategy>(strategy), geometry1, geometry2);
     }
 };
-
-template <typename Geometry, typename Tag = typename geometry::tag<Geometry>::type>
-struct self_touches;
 
 template <typename Geometry>
-struct self_touches<Geometry, dynamic_geometry_tag>
+struct self_touches;
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct self_touches<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
 {
-    static bool apply(Geometry const& geometry)
+    struct visitor: boost::static_visitor<bool>
     {
-        bool result = false;
-        traits::visit<Geometry>::apply([&](auto const& g)
+        template <typename Geometry>
+        bool operator()(Geometry const& geometry) const
         {
-            result = self_touches
-                <
-                    util::remove_cref_t<decltype(g)>
-                >::apply(g);
-        }, geometry);
-        return result;
+            return self_touches<Geometry>::apply(geometry);
+        }
+    };
+
+    static inline bool
+    apply(boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry)
+    {
+        return boost::apply_visitor(visitor(), geometry);
     }
 };
 
-} // namespace resolve_dynamic
+} // namespace resolve_variant
 
 
 /*!
@@ -263,16 +261,11 @@ struct self_touches<Geometry, dynamic_geometry_tag>
 \qbk{distinguish,one geometry}
 \qbk{[def __one_parameter__]}
 \qbk{[include reference/algorithms/touches.qbk]}
-\qbk{
-[heading Examples]
-[touches_one_geometry]
-[touches_one_geometry_output]
-}
 */
 template <typename Geometry>
 inline bool touches(Geometry const& geometry)
 {
-    return resolve_dynamic::self_touches<Geometry>::apply(geometry);
+    return resolve_variant::self_touches<Geometry>::apply(geometry);
 }
 
 
@@ -287,16 +280,11 @@ inline bool touches(Geometry const& geometry)
 
 \qbk{distinguish,two geometries}
 \qbk{[include reference/algorithms/touches.qbk]}
-\qbk{
-[heading Examples]
-[touches_two_geometries]
-[touches_two_geometries_output]
-}
  */
 template <typename Geometry1, typename Geometry2>
 inline bool touches(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
-    return resolve_dynamic::touches
+    return resolve_variant::touches
         <
             Geometry1, Geometry2
         >::apply(geometry1, geometry2, default_strategy());
@@ -321,7 +309,7 @@ inline bool touches(Geometry1 const& geometry1,
                     Geometry2 const& geometry2,
                     Strategy const& strategy)
 {
-    return resolve_dynamic::touches
+    return resolve_variant::touches
         <
             Geometry1, Geometry2
         >::apply(geometry1, geometry2, strategy);

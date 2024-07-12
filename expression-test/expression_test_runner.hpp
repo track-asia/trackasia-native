@@ -6,8 +6,7 @@
 class TestData;
 
 struct TestRunOutput {
-    TestRunOutput(std::string id_)
-        : id(std::move(id_)) {}
+    TestRunOutput(std::string id_) : id(std::move(id_)) {}
     std::string id;
     bool passed = false;
     std::string text;
@@ -18,7 +17,8 @@ struct TestRunOutput {
 class TestStats {
 public:
     std::size_t testCount() const {
-        return passed.size() + failed.size() + errored.size() + ignorePassed.size() + ignoreFailed.size();
+        return passed.size() + failed.size() + errored.size() +
+               ignorePassed.size() + ignoreFailed.size();
     }
 
     std::vector<TestRunOutput> passed;

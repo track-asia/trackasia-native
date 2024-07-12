@@ -9,25 +9,28 @@
 
 namespace mbgl {
 
-template <typename T, bool useIntegerZoom_ = false>
+template <typename T, bool useIntegerZoom = false>
 class DataDrivenPropertyEvaluator {
 public:
     using ResultType = PossiblyEvaluatedPropertyValue<T>;
-    static constexpr bool useIntegerZoom = useIntegerZoom_;
 
     DataDrivenPropertyEvaluator(const PropertyEvaluationParameters& parameters_, T defaultValue_)
         : parameters(parameters_),
           defaultValue(std::move(defaultValue_)) {}
 
-    ResultType operator()(const style::Undefined&) const { return ResultType(defaultValue); }
+    ResultType operator()(const style::Undefined&) const {
+        return ResultType(defaultValue);
+    }
 
-    ResultType operator()(const T& constant) const { return ResultType(constant); }
+    ResultType operator()(const T& constant) const {
+        return ResultType(constant);
+    }
 
     ResultType operator()(const style::PropertyExpression<T>& expression) const {
-        if constexpr (useIntegerZoom) { // Compiler will optimize out the unused branch.
+        if (useIntegerZoom) {  // Compiler will optimize out the unused branch.
             if (!expression.isFeatureConstant() || !expression.isRuntimeConstant()) {
                 auto returnExpression = expression;
-                returnExpression.setUseIntegerZoom(true);
+                returnExpression.useIntegerZoom = true;
                 return ResultType(returnExpression);
             }
             return ResultType(expression.evaluate(std::floor(parameters.z)));
@@ -48,15 +51,16 @@ template <typename T>
 class DataDrivenPropertyEvaluator<Faded<T>> {
 public:
     using ResultType = PossiblyEvaluatedPropertyValue<Faded<T>>;
-    static constexpr bool useIntegerZoom = false;
 
     DataDrivenPropertyEvaluator(const PropertyEvaluationParameters& parameters_, T defaultValue_)
-        : parameters(parameters_),
-          defaultValue(std::move(defaultValue_)) {}
+    : parameters(parameters_),
+      defaultValue(std::move(defaultValue_)) {}
 
-    ResultType operator()(const T& constant) const { return ResultType(calculate(constant, constant, constant)); }
+    ResultType operator()(const T& constant) const {
+        return ResultType(calculate(constant, constant, constant));
+    }
 
-    ResultType operator()(const style::Undefined&) const {
+    ResultType operator()(const style::Undefined& ) const {
         return ResultType(calculate(defaultValue, defaultValue, defaultValue));
     }
 
@@ -69,10 +73,13 @@ public:
         }
     }
 
+
 private:
     Faded<T> calculate(const T& min, const T& mid, const T& max) const {
         const float z = parameters.z;
-        return z > parameters.zoomHistory.lastIntegerZoom ? Faded<T>{min, mid} : Faded<T>{max, mid};
+        return z > parameters.zoomHistory.lastIntegerZoom
+            ? Faded<T> { min, mid }
+            : Faded<T> { max, mid };
     };
 
     const PropertyEvaluationParameters& parameters;

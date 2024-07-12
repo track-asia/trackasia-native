@@ -25,12 +25,8 @@ unsigned long SymbolLayerProperties::constantsMask() const {
     return evaluated.constantsMask();
 }
 
-const SymbolLayer::Impl& SymbolLayerProperties::layerImpl() const noexcept {
+const SymbolLayer::Impl& SymbolLayerProperties::layerImpl() const {
     return static_cast<const SymbolLayer::Impl&>(*baseImpl);
-}
-
-expression::Dependency SymbolLayerProperties::getDependencies() const noexcept {
-    return layerImpl().paint.getDependencies() | layerImpl().layout.getDependencies();
 }
 
 } // namespace style

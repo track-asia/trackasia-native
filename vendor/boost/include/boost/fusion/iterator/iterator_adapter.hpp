@@ -19,11 +19,6 @@
 #include <boost/fusion/iterator/value_of.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
-#ifdef _MSC_VER
-#  pragma warning(push)
-#  pragma warning(disable: 4512) // assignment operator could not be generated.
-#endif
-
 namespace boost { namespace fusion
 {
     template <typename Derived_, typename Iterator_,
@@ -139,10 +134,6 @@ namespace boost { namespace fusion
         };
     };
 }}
-
-#ifdef _MSC_VER
-#  pragma warning(pop)
-#endif
 
 #ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
 namespace std

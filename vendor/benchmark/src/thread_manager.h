@@ -11,7 +11,7 @@ namespace internal {
 
 class ThreadManager {
  public:
-  explicit ThreadManager(int num_threads)
+  ThreadManager(int num_threads)
       : alive_threads_(num_threads), start_stop_barrier_(num_threads) {}
 
   Mutex& GetBenchmarkMutex() const RETURN_CAPABILITY(benchmark_mutex_) {
@@ -36,6 +36,7 @@ class ThreadManager {
                         [this]() { return alive_threads_ == 0; });
   }
 
+ public:
   struct Result {
     IterationCount iterations = 0;
     double real_time_used = 0;
@@ -43,8 +44,8 @@ class ThreadManager {
     double manual_time_used = 0;
     int64_t complexity_n = 0;
     std::string report_label_;
-    std::string skip_message_;
-    internal::Skipped skipped_ = internal::NotSkipped;
+    std::string error_message_;
+    bool has_error_ = false;
     UserCounters counters;
   };
   GUARDED_BY(GetBenchmarkMutex()) Result results;

@@ -2,9 +2,10 @@
 
 namespace mbgl {
 
-class LocalGlyphRasterizer::Impl {};
+class LocalGlyphRasterizer::Impl {
+};
 
-LocalGlyphRasterizer::LocalGlyphRasterizer(const std::optional<std::string>&) {}
+LocalGlyphRasterizer::LocalGlyphRasterizer(const optional<std::string>&) {}
 
 LocalGlyphRasterizer::~LocalGlyphRasterizer() = default;
 

@@ -1,6 +1,5 @@
 #include <mbgl/gfx/backend_scope.hpp>
 #include <mbgl/gfx/renderer_backend.hpp>
-#include <mbgl/util/instrumentation.hpp>
 #include <mbgl/util/thread_local.hpp>
 
 #include <cassert>
@@ -23,8 +22,6 @@ BackendScope::BackendScope(RendererBackend& backend_, ScopeType scopeType_)
       nextScope(nullptr),
       backend(backend_),
       scopeType(scopeType_) {
-    MLN_TRACE_FUNC();
-
     if (priorScope) {
         assert(priorScope->nextScope == nullptr);
         priorScope->nextScope = this;
@@ -37,8 +34,6 @@ BackendScope::BackendScope(RendererBackend& backend_, ScopeType scopeType_)
 }
 
 BackendScope::~BackendScope() {
-    MLN_TRACE_FUNC();
-
     assert(nextScope == nullptr);
     deactivate();
 
@@ -53,10 +48,9 @@ BackendScope::~BackendScope() {
 }
 
 void BackendScope::activate() {
-    MLN_TRACE_FUNC();
-
-    if (scopeType == ScopeType::Explicit && !(priorScope && this->backend == priorScope->backend) &&
-        !(nextScope && this->backend == nextScope->backend)) {
+    if (scopeType == ScopeType::Explicit &&
+            !(priorScope && this->backend == priorScope->backend) &&
+            !(nextScope && this->backend == nextScope->backend)) {
         // Only activate when set to Explicit and
         // only once per RenderBackend
         backend.activate();
@@ -65,7 +59,8 @@ void BackendScope::activate() {
 }
 
 void BackendScope::deactivate() {
-    if (activated && !(nextScope && this->backend == nextScope->backend)) {
+    if (activated &&
+        !(nextScope && this->backend == nextScope->backend)) {
         // Only deactivate when set to Explicit and
         // only once per RenderBackend
         backend.deactivate();

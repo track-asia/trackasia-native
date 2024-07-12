@@ -4,8 +4,8 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef BOOST_SPIRIT_QI_DETAIL_PERMUTE_FUNCTION_HPP
-#define BOOST_SPIRIT_QI_DETAIL_PERMUTE_FUNCTION_HPP
+#if !defined(SPIRIT_PERMUTE_FUNCTION_MARCH_13_2007_1129AM)
+#define SPIRIT_PERMUTE_FUNCTION_MARCH_13_2007_1129AM
 
 #if defined(_MSC_VER)
 #pragma once
@@ -16,10 +16,6 @@
 
 namespace boost { namespace spirit { namespace qi { namespace detail
 {
-#ifdef _MSC_VER
-#  pragma warning(push)
-#  pragma warning(disable: 4512) // assignment operator could not be generated.
-#endif
     template <typename Iterator, typename Context, typename Skipper>
     struct permute_function
     {
@@ -66,10 +62,11 @@ namespace boost { namespace spirit { namespace qi { namespace detail
         Context& context;
         Skipper const& skipper;
         bool* taken;
+
+    private:
+        // silence MSVC warning C4512: assignment operator could not be generated
+        permute_function& operator= (permute_function const&);
     };
-#ifdef _MSC_VER
-#  pragma warning(pop)
-#endif
 }}}}
 
 #endif

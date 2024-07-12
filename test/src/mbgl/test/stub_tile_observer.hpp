@@ -5,8 +5,7 @@
 using namespace mbgl;
 
 /**
- * An implementation of TileObserver that forwards all methods to
- * dynamically-settable lambas.
+ * An implementation of TileObserver that forwards all methods to dynamically-settable lambas.
  */
 class StubTileObserver : public TileObserver {
 public:
@@ -18,6 +17,6 @@ public:
         if (tileError) tileError(tile, error);
     }
 
-    std::function<void(Tile&)> tileChanged;
-    std::function<void(Tile&, std::exception_ptr)> tileError;
+    std::function<void (Tile&)> tileChanged;
+    std::function<void (Tile&, std::exception_ptr)> tileError;
 };

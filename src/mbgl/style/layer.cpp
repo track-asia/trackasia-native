@@ -23,7 +23,8 @@ static LayerObserver nullObserver;
 
 Layer::Layer(Immutable<Impl> impl)
     : baseImpl(std::move(impl)),
-      observer(&nullObserver) {}
+      observer(&nullObserver) {
+}
 
 Layer::~Layer() = default;
 
@@ -70,7 +71,8 @@ VisibilityType Layer::getVisibility() const {
 }
 
 void Layer::setVisibility(VisibilityType value) {
-    if (value == getVisibility()) return;
+    if (value == getVisibility())
+        return;
     auto impl_ = mutableBaseImpl();
     impl_->visibility = value;
     baseImpl = std::move(impl_);
@@ -153,79 +155,74 @@ void Layer::setObserver(LayerObserver* observer_) {
     observer = observer_ ? observer_ : &nullObserver;
 }
 
-std::optional<conversion::Error> Layer::setProperty(const std::string& name, const conversion::Convertible& value) {
+optional<conversion::Error> Layer::setProperty(const std::string& name, const conversion::Convertible& value) {
     using namespace conversion;
-    std::optional<Error> error = setPropertyInternal(name, value);
+    optional<Error> error = setPropertyInternal(name, value);
     if (!error) return error; // Successfully set by the derived class implementation.
     if (name == "visibility") return setVisibility(value);
     if (name == "minzoom") {
         if (auto zoom = convert<float>(value, *error)) {
             setMinZoom(*zoom);
-            return std::nullopt;
+            return nullopt;
         }
     } else if (name == "maxzoom") {
         if (auto zoom = convert<float>(value, *error)) {
             setMaxZoom(*zoom);
-            return std::nullopt;
+            return nullopt;
         }
     } else if (name == "filter") {
         if (auto filter = convert<Filter>(value, *error)) {
             setFilter(*filter);
-            return std::nullopt;
+            return nullopt;
         }
     } else if (name == "source-layer") {
         if (auto sourceLayer = convert<std::string>(value, *error)) {
             if (getTypeInfo()->source != LayerTypeInfo::Source::Required) {
                 Log::Warning(mbgl::Event::General,
                              "'source-layer' property cannot be set to"
-                             "the layer " +
-                                 baseImpl->id);
-                return std::nullopt;
+                             "the layer %s",
+                             baseImpl->id.c_str());
+                return nullopt;
             }
             setSourceLayer(*sourceLayer);
-            return std::nullopt;
+            return nullopt;
         }
     } else if (name == "source") {
         if (auto sourceID = convert<std::string>(value, *error)) {
             if (getTypeInfo()->source != LayerTypeInfo::Source::Required) {
                 Log::Warning(mbgl::Event::General,
                              "'source' property cannot be set to"
-                             "the layer " +
-                                 baseImpl->id);
-                return std::nullopt;
+                             "the layer %s",
+                             baseImpl->id.c_str());
+                return nullopt;
             }
             setSourceID(*sourceID);
-            return std::nullopt;
+            return nullopt;
         }
     }
     return error;
 }
 
-std::optional<conversion::Error> Layer::setVisibility(const conversion::Convertible& value) {
+optional<conversion::Error> Layer::setVisibility(const conversion::Convertible& value) {
     using namespace conversion;
 
     if (isUndefined(value)) {
         setVisibility(VisibilityType::Visible);
-        return std::nullopt;
+        return nullopt;
     }
 
     Error error;
-    std::optional<VisibilityType> visibility = convert<VisibilityType>(value, error);
+    optional<VisibilityType> visibility = convert<VisibilityType>(value, error);
     if (!visibility) {
         return error;
     }
 
     setVisibility(*visibility);
-    return std::nullopt;
+    return nullopt;
 }
 
 const LayerTypeInfo* Layer::getTypeInfo() const noexcept {
     return baseImpl->getTypeInfo();
-}
-
-/// Collect dependencies
-expression::Dependency Layer::getDependencies() const noexcept {
-    return baseImpl->getDependencies();
 }
 
 } // namespace style

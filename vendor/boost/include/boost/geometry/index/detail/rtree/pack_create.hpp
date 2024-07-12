@@ -2,13 +2,7 @@
 //
 // R-tree initial packing
 //
-// Copyright (c) 2011-2023 Adam Wulkiewicz, Lodz, Poland.
-// Copyright (c) 2020 Caian Benedicto, Campinas, Brazil.
-//
-// This file was modified by Oracle on 2019-2023.
-// Modifications copyright (c) 2019-2023 Oracle and/or its affiliates.
-// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+// Copyright (c) 2011-2017 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,17 +13,11 @@
 
 #include <boost/core/ignore_unused.hpp>
 
-#include <boost/geometry/algorithms/centroid.hpp>
-#include <boost/geometry/algorithms/detail/expand_by_epsilon.hpp>
 #include <boost/geometry/algorithms/expand.hpp>
-
 #include <boost/geometry/index/detail/algorithms/bounds.hpp>
-#include <boost/geometry/index/detail/algorithms/content.hpp>
-#include <boost/geometry/index/detail/algorithms/is_valid.hpp>
 #include <boost/geometry/index/detail/algorithms/nth_element.hpp>
-#include <boost/geometry/index/detail/rtree/node/node_elements.hpp>
-#include <boost/geometry/index/detail/rtree/node/subtree_destroyer.hpp>
-#include <boost/geometry/index/parameters.hpp>
+
+#include <boost/geometry/algorithms/detail/expand_by_epsilon.hpp>
 
 namespace boost { namespace geometry { namespace index { namespace detail { namespace rtree {
 
@@ -78,28 +66,23 @@ template <std::size_t I, std::size_t Dimension>
 struct nth_element_and_half_boxes
 {
     template <typename EIt, typename Box>
-    static inline void apply(EIt first, EIt median, EIt last, Box const& box,
-                             Box & left, Box & right, std::size_t dim_index)
+    static inline void apply(EIt first, EIt median, EIt last, Box const& box, Box & left, Box & right, std::size_t dim_index)
     {
-        if (I == dim_index)
+        if ( I == dim_index )
         {
             index::detail::nth_element(first, median, last, point_entries_comparer<I>());
 
             geometry::convert(box, left);
             geometry::convert(box, right);
-            auto const mi = geometry::get<min_corner, I>(box);
-            auto const ma = geometry::get<max_corner, I>(box);
-            auto const center = mi + (ma - mi) / 2;
-            geometry::set<max_corner, I>(left, center);
-            geometry::set<min_corner, I>(right, center);
+            typename coordinate_type<Box>::type edge_len
+                = geometry::get<max_corner, I>(box) - geometry::get<min_corner, I>(box);
+            typename coordinate_type<Box>::type median
+                = geometry::get<min_corner, I>(box) + edge_len / 2;
+            geometry::set<max_corner, I>(left, median);
+            geometry::set<min_corner, I>(right, median);
         }
         else
-        {
-            nth_element_and_half_boxes
-                <
-                    I + 1, Dimension
-                >::apply(first, median, last, box, left, right, dim_index);
-        }
+            nth_element_and_half_boxes<I+1, Dimension>::apply(first, median, last, box, left, right, dim_index);
     }
 };
 
@@ -139,78 +122,50 @@ struct nth_element_and_half_boxes<Dimension, Dimension>
 // L2  25  25  25  25  25   25  17    10
 // L3  5x5 5x5 5x5 5x5 5x5  5x5 3x5+2 2x5
 
-template <typename MembersHolder>
+template <typename Value, typename Options, typename Translator, typename Box, typename Allocators>
 class pack
 {
-    typedef typename MembersHolder::node node;
-    typedef typename MembersHolder::internal_node internal_node;
-    typedef typename MembersHolder::leaf leaf;
+    typedef typename rtree::node<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type node;
+    typedef typename rtree::internal_node<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type internal_node;
+    typedef typename rtree::leaf<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type leaf;
 
-    typedef typename MembersHolder::node_pointer node_pointer;
-    typedef typename MembersHolder::size_type size_type;
-    typedef typename MembersHolder::parameters_type parameters_type;
-    typedef typename MembersHolder::translator_type translator_type;
-    typedef typename MembersHolder::allocators_type allocators_type;
+    typedef typename Allocators::node_pointer node_pointer;
+    typedef rtree::subtree_destroyer<Value, Options, Translator, Box, Allocators> subtree_destroyer;
+    typedef typename Allocators::size_type size_type;
 
-    typedef typename MembersHolder::box_type box_type;
-    typedef typename geometry::point_type<box_type>::type point_type;
+    typedef typename geometry::point_type<Box>::type point_type;
     typedef typename geometry::coordinate_type<point_type>::type coordinate_type;
-    typedef typename detail::default_content_result<box_type>::type content_type;
-    typedef typename detail::strategy_type<parameters_type>::type strategy_type;
+    typedef typename detail::default_content_result<Box>::type content_type;
+    typedef typename Options::parameters_type parameters_type;
     static const std::size_t dimension = geometry::dimension<point_type>::value;
 
     typedef typename rtree::container_from_elements_type<
         typename rtree::elements_type<leaf>::type,
-        size_type
+        std::size_t
     >::type values_counts_container;
 
     typedef typename rtree::elements_type<internal_node>::type internal_elements;
     typedef typename internal_elements::value_type internal_element;
 
-    typedef rtree::subtree_destroyer<MembersHolder> subtree_destroyer;
-
 public:
     // Arbitrary iterators
     template <typename InIt> inline static
-    node_pointer apply(InIt first, InIt last,
-                       size_type & values_count,
-                       size_type & leafs_level,
-                       parameters_type const& parameters,
-                       translator_type const& translator,
-                       allocators_type & allocators)
-    {
-        return apply(first, last, values_count, leafs_level, parameters, translator,
-                     allocators, boost::container::new_allocator<void>());
-    }
-
-    template <typename InIt, typename TmpAlloc> inline static
-    node_pointer apply(InIt first, InIt last,
-                       size_type & values_count,
-                       size_type & leafs_level,
-                       parameters_type const& parameters,
-                       translator_type const& translator,
-                       allocators_type & allocators,
-                       TmpAlloc const& temp_allocator)
+    node_pointer apply(InIt first, InIt last, size_type & values_count, size_type & leafs_level,
+                       parameters_type const& parameters, Translator const& translator, Allocators & allocators)
     {
         typedef typename std::iterator_traits<InIt>::difference_type diff_type;
-
+            
         diff_type diff = std::distance(first, last);
         if ( diff <= 0 )
             return node_pointer(0);
 
         typedef std::pair<point_type, InIt> entry_type;
-        typedef typename boost::container::allocator_traits<TmpAlloc>::
-            template rebind_alloc<entry_type> temp_entry_allocator_type;
-
-        temp_entry_allocator_type temp_entry_allocator(temp_allocator);
-        boost::container::vector<entry_type, temp_entry_allocator_type> entries(temp_entry_allocator);
+        std::vector<entry_type> entries;
 
         values_count = static_cast<size_type>(diff);
         entries.reserve(values_count);
-
-        auto const& strategy = index::detail::get_strategy(parameters);
-
-        expandable_box<box_type, strategy_type> hint_box(strategy);
+        
+        expandable_box<Box> hint_box;
         for ( ; first != last ; ++first )
         {
             // NOTE: support for iterators not returning true references adapted
@@ -218,7 +173,7 @@ public:
             // An alternative would be to dereference the iterator and translate
             // in one expression each time the indexable was needed.
             typename std::iterator_traits<InIt>::reference in_ref = *first;
-            typename translator_type::result_type indexable = translator(in_ref);
+            typename Translator::result_type indexable = translator(in_ref);
 
             // NOTE: added for consistency with insert()
             // CONSIDER: alternative - ignore invalid indexable or throw an exception
@@ -227,7 +182,7 @@ public:
             hint_box.expand(indexable);
 
             point_type pt;
-            geometry::centroid(indexable, pt, strategy);
+            geometry::centroid(indexable, pt);
             entries.push_back(std::make_pair(pt, first));
         }
 
@@ -239,19 +194,19 @@ public:
     }
 
 private:
-    template <typename BoxType, typename Strategy>
+    template <typename BoxType>
     class expandable_box
     {
     public:
-        explicit expandable_box(Strategy const& strategy)
-            : m_strategy(strategy), m_initialized(false)
+        expandable_box()
+            : m_initialized(false)
         {}
 
         template <typename Indexable>
-        explicit expandable_box(Indexable const& indexable, Strategy const& strategy)
-            : m_strategy(strategy), m_initialized(true)
+        explicit expandable_box(Indexable const& indexable)
+            : m_initialized(true)
         {
-            detail::bounds(indexable, m_box, m_strategy);
+            detail::bounds(indexable, m_box);
         }
 
         template <typename Indexable>
@@ -262,12 +217,12 @@ private:
                 // it's guaranteed that the Box will be initialized
                 // only for Points, Boxes and Segments but that's ok
                 // since only those Geometries can be stored
-                detail::bounds(indexable, m_box, m_strategy);
+                detail::bounds(indexable, m_box);
                 m_initialized = true;
             }
             else
             {
-                detail::expand(m_box, indexable, m_strategy);
+                geometry::expand(m_box, indexable);
             }
         }
 
@@ -283,28 +238,22 @@ private:
         }
 
     private:
-        BoxType m_box;
-        Strategy m_strategy;
         bool m_initialized;
+        BoxType m_box;
     };
 
     struct subtree_elements_counts
     {
-        subtree_elements_counts(size_type ma, size_type mi) : maxc(ma), minc(mi) {}
-        size_type maxc;
-        size_type minc;
+        subtree_elements_counts(std::size_t ma, std::size_t mi) : maxc(ma), minc(mi) {}
+        std::size_t maxc;
+        std::size_t minc;
     };
 
     template <typename EIt> inline static
-    internal_element per_level(EIt first, EIt last,
-                               box_type const& hint_box,
-                               size_type values_count,
-                               subtree_elements_counts const& subtree_counts,
-                               parameters_type const& parameters,
-                               translator_type const& translator,
-                               allocators_type & allocators)
+    internal_element per_level(EIt first, EIt last, Box const& hint_box, std::size_t values_count, subtree_elements_counts const& subtree_counts,
+                               parameters_type const& parameters, Translator const& translator, Allocators & allocators)
     {
-        BOOST_GEOMETRY_INDEX_ASSERT(0 < std::distance(first, last) && static_cast<size_type>(std::distance(first, last)) == values_count,
+        BOOST_GEOMETRY_INDEX_ASSERT(0 < std::distance(first, last) && static_cast<std::size_t>(std::distance(first, last)) == values_count,
                                     "unexpected parameters");
 
         if ( subtree_counts.maxc <= 1 )
@@ -315,7 +264,7 @@ private:
             // if !root check m_parameters.get_min_elements() <= count
 
             // create new leaf node
-            node_pointer n = rtree::create_node<allocators_type, leaf>::apply(allocators);                       // MAY THROW (A)
+            node_pointer n = rtree::create_node<Allocators, leaf>::apply(allocators);                       // MAY THROW (A)
             subtree_destroyer auto_remover(n, allocators);
             leaf & l = rtree::get<leaf>(*n);
 
@@ -324,14 +273,13 @@ private:
 
             // calculate values box and copy values
             //   initialize the box explicitly to avoid GCC-4.4 uninitialized variable warnings with O2
-            expandable_box<box_type, strategy_type> elements_box(translator(*(first->second)),
-                                                                 detail::get_strategy(parameters));
+            expandable_box<Box> elements_box(translator(*(first->second)));
             rtree::elements(l).push_back(*(first->second));                                                 // MAY THROW (A?,C)
             for ( ++first ; first != last ; ++first )
             {
                 // NOTE: push_back() must be called at the end in order to support move_iterator.
                 //       The iterator is dereferenced 2x (no temporary reference) to support
-                //       non-true reference types and move_iterator without std::forward<>.
+                //       non-true reference types and move_iterator without boost::forward<>.
                 elements_box.expand(translator(*(first->second)));
                 rtree::elements(l).push_back(*(first->second));                                             // MAY THROW (A?,C)
             }
@@ -346,7 +294,7 @@ private:
             if ( BOOST_GEOMETRY_CONDITION((
                     ! index::detail::is_bounding_geometry
                         <
-                            typename indexable_type<translator_type>::type
+                            typename indexable_type<Translator>::type
                         >::value )) )
             {
                 elements_box.expand_by_epsilon();
@@ -363,16 +311,16 @@ private:
         next_subtree_counts.minc /= parameters.get_max_elements();
 
         // create new internal node
-        node_pointer n = rtree::create_node<allocators_type, internal_node>::apply(allocators);                  // MAY THROW (A)
+        node_pointer n = rtree::create_node<Allocators, internal_node>::apply(allocators);                  // MAY THROW (A)
         subtree_destroyer auto_remover(n, allocators);
         internal_node & in = rtree::get<internal_node>(*n);
 
         // reserve space for values
-        size_type nodes_count = calculate_nodes_count(values_count, subtree_counts);
+        std::size_t nodes_count = calculate_nodes_count(values_count, subtree_counts);
         rtree::elements(in).reserve(nodes_count);                                                           // MAY THROW (A)
         // calculate values box and copy values
-        expandable_box<box_type, strategy_type> elements_box(detail::get_strategy(parameters));
-
+        expandable_box<Box> elements_box;
+        
         per_level_packets(first, last, hint_box, values_count, subtree_counts, next_subtree_counts,
                           rtree::elements(in), elements_box,
                           parameters, translator, allocators);
@@ -382,18 +330,14 @@ private:
     }
 
     template <typename EIt, typename ExpandableBox> inline static
-    void per_level_packets(EIt first, EIt last,
-                           box_type const& hint_box,
-                           size_type values_count,
+    void per_level_packets(EIt first, EIt last, Box const& hint_box,
+                           std::size_t values_count,
                            subtree_elements_counts const& subtree_counts,
                            subtree_elements_counts const& next_subtree_counts,
-                           internal_elements & elements,
-                           ExpandableBox & elements_box,
-                           parameters_type const& parameters,
-                           translator_type const& translator,
-                           allocators_type & allocators)
+                           internal_elements & elements, ExpandableBox & elements_box,
+                           parameters_type const& parameters, Translator const& translator, Allocators & allocators)
     {
-        BOOST_GEOMETRY_INDEX_ASSERT(0 < std::distance(first, last) && static_cast<size_type>(std::distance(first, last)) == values_count,
+        BOOST_GEOMETRY_INDEX_ASSERT(0 < std::distance(first, last) && static_cast<std::size_t>(std::distance(first, last)) == values_count,
                                     "unexpected parameters");
 
         BOOST_GEOMETRY_INDEX_ASSERT(subtree_counts.minc <= values_count,
@@ -417,17 +361,17 @@ private:
             elements_box.expand(el.first);
             return;
         }
-
-        size_type median_count = calculate_median_count(values_count, subtree_counts);
+        
+        std::size_t median_count = calculate_median_count(values_count, subtree_counts);
         EIt median = first + median_count;
 
         coordinate_type greatest_length;
         std::size_t greatest_dim_index = 0;
         pack_utils::biggest_edge<dimension>::apply(hint_box, greatest_length, greatest_dim_index);
-        box_type left, right;
+        Box left, right;
         pack_utils::nth_element_and_half_boxes<0, dimension>
             ::apply(first, median, last, hint_box, left, right, greatest_dim_index);
-
+        
         per_level_packets(first, median, left,
                           median_count, subtree_counts, next_subtree_counts,
                           elements, elements_box,
@@ -439,14 +383,14 @@ private:
     }
 
     inline static
-    subtree_elements_counts calculate_subtree_elements_counts(size_type elements_count, parameters_type const& parameters, size_type & leafs_level)
+    subtree_elements_counts calculate_subtree_elements_counts(std::size_t elements_count, parameters_type const& parameters, size_type & leafs_level)
     {
         boost::ignore_unused(parameters);
 
         subtree_elements_counts res(1, 1);
         leafs_level = 0;
 
-        size_type smax = parameters.get_max_elements();
+        std::size_t smax = parameters.get_max_elements();
         for ( ; smax < elements_count ; smax *= parameters.get_max_elements(), ++leafs_level )
             res.maxc = smax;
 
@@ -456,15 +400,15 @@ private:
     }
 
     inline static
-    size_type calculate_nodes_count(size_type count,
-                                    subtree_elements_counts const& subtree_counts)
+    std::size_t calculate_nodes_count(std::size_t count,
+                                      subtree_elements_counts const& subtree_counts)
     {
-        size_type n = count / subtree_counts.maxc;
-        size_type r = count % subtree_counts.maxc;
+        std::size_t n = count / subtree_counts.maxc;
+        std::size_t r = count % subtree_counts.maxc;
 
         if ( 0 < r && r < subtree_counts.minc )
         {
-            size_type count_minus_min = count - subtree_counts.minc;
+            std::size_t count_minus_min = count - subtree_counts.minc;
             n = count_minus_min / subtree_counts.maxc;
             r = count_minus_min % subtree_counts.maxc;
             ++n;
@@ -477,14 +421,14 @@ private:
     }
 
     inline static
-    size_type calculate_median_count(size_type count,
-                                     subtree_elements_counts const& subtree_counts)
+    std::size_t calculate_median_count(std::size_t count,
+                                       subtree_elements_counts const& subtree_counts)
     {
         // e.g. for max = 5, min = 2, count = 52, subtree_max = 25, subtree_min = 10
 
-        size_type n = count / subtree_counts.maxc; // e.g. 52 / 25 = 2
-        size_type r = count % subtree_counts.maxc; // e.g. 52 % 25 = 2
-        size_type median_count = (n / 2) * subtree_counts.maxc; // e.g. 2 / 2 * 25 = 25
+        std::size_t n = count / subtree_counts.maxc; // e.g. 52 / 25 = 2
+        std::size_t r = count % subtree_counts.maxc; // e.g. 52 % 25 = 2
+        std::size_t median_count = (n / 2) * subtree_counts.maxc; // e.g. 2 / 2 * 25 = 25
 
         if ( 0 != r ) // e.g. 0 != 2
         {
@@ -495,7 +439,7 @@ private:
             }
             else // r < subtree_counts.second  // e.g. 2 < 10 == true
             {
-                size_type count_minus_min = count - subtree_counts.minc; // e.g. 52 - 10 = 42
+                std::size_t count_minus_min = count - subtree_counts.minc; // e.g. 52 - 10 = 42
                 n = count_minus_min / subtree_counts.maxc; // e.g. 42 / 25 = 1
                 r = count_minus_min % subtree_counts.maxc; // e.g. 42 % 25 = 17
                 if ( r == 0 )                               // e.g. false

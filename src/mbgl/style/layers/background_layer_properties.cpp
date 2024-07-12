@@ -27,12 +27,8 @@ unsigned long BackgroundLayerProperties::constantsMask() const {
     return evaluated.constantsMask();
 }
 
-const BackgroundLayer::Impl& BackgroundLayerProperties::layerImpl() const noexcept {
+const BackgroundLayer::Impl& BackgroundLayerProperties::layerImpl() const {
     return static_cast<const BackgroundLayer::Impl&>(*baseImpl);
-}
-
-expression::Dependency BackgroundLayerProperties::getDependencies() const noexcept {
-    return layerImpl().paint.getDependencies();
 }
 
 } // namespace style

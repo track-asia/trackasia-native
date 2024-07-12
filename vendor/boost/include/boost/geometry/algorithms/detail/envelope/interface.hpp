@@ -4,8 +4,8 @@
 // Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2015-2021.
-// Modifications copyright (c) 2015-2021, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2015, 2016, 2017.
+// Modifications copyright (c) 2015-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -21,24 +21,19 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_ENVELOPE_INTERFACE_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_ENVELOPE_INTERFACE_HPP
 
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
+#include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/algorithms/dispatch/envelope.hpp>
 
-#include <boost/geometry/core/coordinate_system.hpp>
-#include <boost/geometry/core/tag.hpp>
-#include <boost/geometry/core/tags.hpp>
-#include <boost/geometry/core/visit.hpp>
-
-#include <boost/geometry/geometries/adapted/boost_variant.hpp> // For backward compatibility
-#include <boost/geometry/geometries/concepts/check.hpp>
-
 #include <boost/geometry/strategies/default_strategy.hpp>
-#include <boost/geometry/strategies/detail.hpp>
-#include <boost/geometry/strategies/envelope/services.hpp>
-
-#include <boost/geometry/util/select_most_precise.hpp>
-#include <boost/geometry/util/type_traits_std.hpp>
-
+#include <boost/geometry/strategies/envelope.hpp>
+#include <boost/geometry/strategies/cartesian/envelope_segment.hpp>
+#include <boost/geometry/strategies/spherical/envelope_segment.hpp>
+#include <boost/geometry/strategies/geographic/envelope_segment.hpp>
 
 namespace boost { namespace geometry
 {
@@ -46,49 +41,29 @@ namespace boost { namespace geometry
 namespace resolve_strategy
 {
 
-template
-<
-    typename Strategy,
-    bool IsUmbrella = strategies::detail::is_umbrella_strategy<Strategy>::value
->
+template <typename Geometry>
 struct envelope
 {
-    template <typename Geometry, typename Box>
+    template <typename Box, typename Strategy>
     static inline void apply(Geometry const& geometry,
                              Box& box,
                              Strategy const& strategy)
     {
         dispatch::envelope<Geometry>::apply(geometry, box, strategy);
     }
-};
 
-template <typename Strategy>
-struct envelope<Strategy, false>
-{
-    template <typename Geometry, typename Box>
-    static inline void apply(Geometry const& geometry,
-                             Box& box,
-                             Strategy const& strategy)
-    {
-        using strategies::envelope::services::strategy_converter;
-        return dispatch::envelope
-            <
-                Geometry
-            >::apply(geometry, box, strategy_converter<Strategy>::get(strategy));
-    }
-};
-
-template <>
-struct envelope<default_strategy, false>
-{
-    template <typename Geometry, typename Box>
+    template <typename Box>
     static inline void apply(Geometry const& geometry,
                              Box& box,
                              default_strategy)
     {
-        typedef typename strategies::envelope::services::default_strategy
+        typedef typename point_type<Geometry>::type point_type;
+        typedef typename coordinate_type<point_type>::type coordinate_type;
+
+        typedef typename strategy::envelope::services::default_strategy
             <
-                Geometry, Box
+                typename cs_tag<point_type>::type,
+                coordinate_type
             >::type strategy_type;
 
         dispatch::envelope<Geometry>::apply(geometry, box, strategy_type());
@@ -97,10 +72,10 @@ struct envelope<default_strategy, false>
 
 } // namespace resolve_strategy
 
-namespace resolve_dynamic
+namespace resolve_variant
 {
 
-template <typename Geometry, typename Tag = typename tag<Geometry>::type>
+template <typename Geometry>
 struct envelope
 {
     template <typename Box, typename Strategy>
@@ -111,28 +86,43 @@ struct envelope
         concepts::check<Geometry const>();
         concepts::check<Box>();
 
-        resolve_strategy::envelope<Strategy>::apply(geometry, box, strategy);
+        resolve_strategy::envelope<Geometry>::apply(geometry, box, strategy);
     }
 };
 
 
-template <typename Geometry>
-struct envelope<Geometry, dynamic_geometry_tag>
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct envelope<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
 {
     template <typename Box, typename Strategy>
-    static inline void apply(Geometry const& geometry,
-                             Box& box,
-                             Strategy const& strategy)
+    struct visitor: boost::static_visitor<void>
     {
-        traits::visit<Geometry>::apply([&](auto const& g)
+        Box& m_box;
+        Strategy const& m_strategy;
+
+        visitor(Box& box, Strategy const& strategy)
+            : m_box(box)
+            , m_strategy(strategy)
+        {}
+
+        template <typename Geometry>
+        void operator()(Geometry const& geometry) const
         {
-            envelope<util::remove_cref_t<decltype(g)>>::apply(g, box, strategy);
-        }, geometry);
+            envelope<Geometry>::apply(geometry, m_box, m_strategy);
+        }
+    };
+
+    template <typename Box, typename Strategy>
+    static inline void
+    apply(boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry,
+          Box& box,
+          Strategy const& strategy)
+    {
+        boost::apply_visitor(visitor<Box, Strategy>(box, strategy), geometry);
     }
 };
 
-} // namespace resolve_dynamic
-
+} // namespace resolve_variant
 
 /*!
 \brief \brief_calc{envelope (with strategy)}
@@ -155,7 +145,7 @@ struct envelope<Geometry, dynamic_geometry_tag>
 template<typename Geometry, typename Box, typename Strategy>
 inline void envelope(Geometry const& geometry, Box& mbr, Strategy const& strategy)
 {
-    resolve_dynamic::envelope<Geometry>::apply(geometry, mbr, strategy);
+    resolve_variant::envelope<Geometry>::apply(geometry, mbr, strategy);
 }
 
 /*!
@@ -176,7 +166,7 @@ inline void envelope(Geometry const& geometry, Box& mbr, Strategy const& strateg
 template<typename Geometry, typename Box>
 inline void envelope(Geometry const& geometry, Box& mbr)
 {
-    resolve_dynamic::envelope<Geometry>::apply(geometry, mbr, default_strategy());
+    resolve_variant::envelope<Geometry>::apply(geometry, mbr, default_strategy());
 }
 
 
@@ -202,7 +192,7 @@ template<typename Box, typename Geometry, typename Strategy>
 inline Box return_envelope(Geometry const& geometry, Strategy const& strategy)
 {
     Box mbr;
-    resolve_dynamic::envelope<Geometry>::apply(geometry, mbr, strategy);
+    resolve_variant::envelope<Geometry>::apply(geometry, mbr, strategy);
     return mbr;
 }
 
@@ -225,7 +215,7 @@ template<typename Box, typename Geometry>
 inline Box return_envelope(Geometry const& geometry)
 {
     Box mbr;
-    resolve_dynamic::envelope<Geometry>::apply(geometry, mbr, default_strategy());
+    resolve_variant::envelope<Geometry>::apply(geometry, mbr, default_strategy());
     return mbr;
 }
 

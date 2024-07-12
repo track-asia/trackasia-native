@@ -36,13 +36,7 @@ public:
 
 class TestRunner {
 public:
-    enum class UpdateResults {
-        NO,
-        DEFAULT,
-        PLATFORM,
-        METRICS,
-        REBASELINE
-    };
+    enum class UpdateResults { NO, DEFAULT, PLATFORM, METRICS, REBASELINE };
 
     TestRunner(Manifest, UpdateResults);
     void run(TestMetadata&);

@@ -3,9 +3,8 @@
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2017 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2017-2023.
-// Modifications copyright (c) 2017-2023 Oracle and/or its affiliates.
-// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017 Oracle and/or its affiliates.
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
@@ -15,22 +14,17 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_ASSIGN_PARENTS_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_ASSIGN_PARENTS_HPP
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+#include <boost/range.hpp>
 
-#include <boost/geometry/core/coordinate_type.hpp>
-
-#include <boost/geometry/algorithms/area_result.hpp>
+#include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/algorithms/envelope.hpp>
 #include <boost/geometry/algorithms/expand.hpp>
-#include <boost/geometry/algorithms/detail/covered_by/implementation.hpp>
 #include <boost/geometry/algorithms/detail/partition.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_ring.hpp>
 #include <boost/geometry/algorithms/detail/overlay/range_in_geometry.hpp>
+#include <boost/geometry/algorithms/covered_by.hpp>
 
 #include <boost/geometry/geometries/box.hpp>
-
-#include <boost/geometry/util/for_each_with_index.hpp>
 
 namespace boost { namespace geometry
 {
@@ -132,42 +126,24 @@ struct ring_info_helper
 };
 
 
-template <typename Strategy>
 struct ring_info_helper_get_box
 {
-    ring_info_helper_get_box(Strategy const& strategy)
-        : m_strategy(strategy)
-    {}
-
     template <typename Box, typename InputItem>
-    inline void apply(Box& total, InputItem const& item) const
+    static inline void apply(Box& total, InputItem const& item)
     {
-        assert_coordinate_type_equal(total, item.envelope);
-        geometry::expand(total, item.envelope, m_strategy);
+        geometry::expand(total, item.envelope);
     }
-
-    Strategy const& m_strategy;
 };
 
-template <typename Strategy>
-struct ring_info_helper_overlaps_box
+struct ring_info_helper_ovelaps_box
 {
-    ring_info_helper_overlaps_box(Strategy const& strategy)
-        : m_strategy(strategy)
-    {}
-
     template <typename Box, typename InputItem>
-    inline bool apply(Box const& box, InputItem const& item) const
+    static inline bool apply(Box const& box, InputItem const& item)
     {
-        assert_coordinate_type_equal(box, item.envelope);
-        return ! geometry::detail::disjoint::disjoint_box_box(
-                    box, item.envelope, m_strategy);
+        return ! geometry::detail::disjoint::disjoint_box_box(box, item.envelope);
     }
-
-    Strategy const& m_strategy;
 };
 
-// Segments intersection Strategy
 template
 <
     typename Geometry1,
@@ -213,7 +189,7 @@ struct assign_visitor
         {
             ring_info_type& inner_in_map = m_ring_map[inner.id];
 
-            if (geometry::covered_by(inner_in_map.point, outer.envelope, m_strategy)
+            if (geometry::covered_by(inner_in_map.point, outer.envelope)
                && within_selected_input(inner_in_map, inner.id, outer.id,
                                         m_geometry1, m_geometry2, m_collection,
                                         m_strategy)
@@ -260,37 +236,44 @@ inline void assign_parents(Geometry1 const& geometry1,
     typedef typename RingMap::mapped_type ring_info_type;
     typedef typename ring_info_type::point_type point_type;
     typedef model::box<point_type> box_type;
-    typedef typename geometry::area_result
+    typedef typename Strategy::template area_strategy
         <
-            point_type, Strategy // TODO: point_type is technically incorrect
-        >::type area_result_type;
+            point_type
+        >::type::template result_type<point_type>::type area_result_type;
+
+    typedef typename RingMap::iterator map_iterator_type;
 
     {
+        typedef ring_info_helper<point_type, area_result_type> helper;
+        typedef std::vector<helper> vector_type;
+        typedef typename boost::range_iterator<vector_type const>::type vector_iterator_type;
+
         std::size_t count_total = ring_map.size();
         std::size_t count_positive = 0;
         std::size_t index_positive = 0; // only used if count_positive>0
+        std::size_t index = 0;
 
-        // Copy to vector (this might be obsolete, using the map directly)
-        using helper = ring_info_helper<point_type, area_result_type>;
-        std::vector<helper> vector(count_total);
+        // Copy to vector (with new approach this might be obsolete as well, using the map directly)
+        vector_type vector(count_total);
 
-        for_each_with_index(ring_map, [&](std::size_t index, auto const& pair)
+        for (map_iterator_type it = boost::begin(ring_map);
+            it != boost::end(ring_map); ++it, ++index)
         {
-            vector[index] = helper(pair.first, pair.second.get_area());
+            vector[index] = helper(it->first, it->second.get_area());
             helper& item = vector[index];
-            switch(pair.first.source_index)
+            switch(it->first.source_index)
             {
                 case 0 :
-                    geometry::envelope(get_ring<tag1>::apply(pair.first, geometry1),
-                                       item.envelope, strategy);
+                    geometry::envelope(get_ring<tag1>::apply(it->first, geometry1),
+                                       item.envelope, strategy.get_envelope_strategy());
                     break;
                 case 1 :
-                    geometry::envelope(get_ring<tag2>::apply(pair.first, geometry2),
-                                       item.envelope, strategy);
+                    geometry::envelope(get_ring<tag2>::apply(it->first, geometry2),
+                                       item.envelope, strategy.get_envelope_strategy());
                     break;
                 case 2 :
-                    geometry::envelope(get_ring<void>::apply(pair.first, collection),
-                                       item.envelope, strategy);
+                    geometry::envelope(get_ring<void>::apply(it->first, collection),
+                                       item.envelope, strategy.get_envelope_strategy());
                     break;
             }
 
@@ -302,7 +285,7 @@ inline void assign_parents(Geometry1 const& geometry1,
                 count_positive++;
                 index_positive = index;
             }
-        });
+        }
 
         if (! check_for_orientation)
         {
@@ -323,15 +306,17 @@ inline void assign_parents(Geometry1 const& geometry1,
                 // located outside the outer ring, this cannot be done
                 ring_identifier id_of_positive = vector[index_positive].id;
                 ring_info_type& outer = ring_map[id_of_positive];
-                for_each_with_index(vector, [&](std::size_t index, auto const& item)
+                index = 0;
+                for (vector_iterator_type it = boost::begin(vector);
+                    it != boost::end(vector); ++it, ++index)
                 {
                     if (index != index_positive)
                     {
-                        ring_info_type& inner = ring_map[item.id];
+                        ring_info_type& inner = ring_map[it->id];
                         inner.parent = id_of_positive;
-                        outer.children.push_back(item.id);
+                        outer.children.push_back(it->id);
                     }
-                });
+                }
                 return;
             }
         }
@@ -346,16 +331,16 @@ inline void assign_parents(Geometry1 const& geometry1,
         geometry::partition
             <
                 box_type
-            >::apply(vector, visitor,
-                     ring_info_helper_get_box<Strategy>(strategy),
-                     ring_info_helper_overlaps_box<Strategy>(strategy));
+            >::apply(vector, visitor, ring_info_helper_get_box(),
+                     ring_info_helper_ovelaps_box());
     }
 
     if (check_for_orientation)
     {
-        for (auto& pair : ring_map)
+        for (map_iterator_type it = boost::begin(ring_map);
+            it != boost::end(ring_map); ++it)
         {
-            ring_info_type& info = pair.second;
+            ring_info_type& info = it->second;
             if (geometry::math::equals(info.get_area(), 0))
             {
                 info.discarded = true;
@@ -392,11 +377,12 @@ inline void assign_parents(Geometry1 const& geometry1,
     }
 
     // Assign childlist
-    for (auto& pair : ring_map)
+    for (map_iterator_type it = boost::begin(ring_map);
+        it != boost::end(ring_map); ++it)
     {
-        if (pair.second.parent.source_index >= 0)
+        if (it->second.parent.source_index >= 0)
         {
-            ring_map[pair.second.parent].children.push_back(pair.first);
+            ring_map[it->second.parent].children.push_back(it->first);
         }
     }
 }

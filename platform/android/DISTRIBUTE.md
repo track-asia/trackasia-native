@@ -1,6 +1,6 @@
-# Distributing TrackAsia Native for Android
+# Distributing Mapbox GL Native for Android
 
-Depending on your use case, you may want to support all or just a subset of [Android ABIs](http://developer.android.com/ndk/guides/abis.html). This document covers building an `.aar` file from the TrackAsia Native for Android and building `.so` files for specific ABIs. In normal circumstances an application developer will use [APK splits](https://developer.android.com/studio/build/configure-apk-splits.html) to optimize this at application level.
+Depending on your use case, you may want to support all or just a subset of [Android ABIs](http://developer.android.com/ndk/guides/abis.html). This document covers building an `.aar` file from the Mapbox Maps SDK for Android and building `.so` files for specific ABIs. In normal circumstances an application developer will use [APK splits](https://developer.android.com/studio/build/configure-apk-splits.html) to optimize this at application level.
 
 ##### Build types
 
@@ -24,7 +24,7 @@ This will build native libraries to support following ABIs:
 - x86_64
 - mips
 
-After successfully finish building the native libraries, Gradle will build the MapboxAndroidSDK module and generate an Android Archive file in `MapboxAndroidSDK/build/outputs/aar `. The packaged native libraries can be found in `MapboxAndroidSDK/src/main/jniLibs/<abi>`.
+After succesfully finish building the native libraries, gradle will build the MapboxAndroidSDK module and generate an Android Archive file in `MapboxAndroidSDK/build/outputs/aar `. The packaged native libraries can be found in `MapboxAndroidSDK/src/main/jniLibs/<abi>`.
 
 ##### Build native libraries for a specific ABI
 
@@ -55,17 +55,3 @@ It's also possible to build multiple ABI (without having to build them all) by r
 make android-lib-arm-v8
 make android-lib-arm-x86-64
 ```
-
-mvn dependency:purge-local-repository
-mvn deploy
-
-md5sum android-sdk-2.0.0-sources.jar | cut -d ' ' -f 1 > android-sdk-2.0.0-sources.jar.md5
-md5sum android-sdk-2.0.0.aar | cut -d ' ' -f 1 > android-sdk-2.0.0.aar.md5
-md5sum android-sdk-2.0.0.module | cut -d ' ' -f 1 > android-sdk-2.0.0.module.md5
-md5sum android-sdk-2.0.0.pom | cut -d ' ' -f 1 > android-sdk-2.0.0.pom.md5
-
-
-sha1sum android-sdk-2.0.0-sources.jar | cut -d ' ' -f 1 > android-sdk-2.0.0-sources.jar.sha1
-sha1sum android-sdk-2.0.0.aar | cut -d ' ' -f 1 > android-sdk-2.0.0.aar.sha1
-sha1sum android-sdk-2.0.0.module | cut -d ' ' -f 1 > android-sdk-2.0.0.module.sha1
-sha1sum android-sdk-2.0.0.pom | cut -d ' ' -f 1 > android-sdk-2.0.0.pom.sha1

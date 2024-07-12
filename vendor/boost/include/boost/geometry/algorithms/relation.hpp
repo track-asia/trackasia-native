@@ -13,6 +13,5 @@
 
 #include <boost/geometry/algorithms/detail/relation/interface.hpp>
 #include <boost/geometry/algorithms/detail/relation/implementation.hpp>
-#include <boost/geometry/algorithms/detail/relate/implementation_gc.hpp>
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_RELATION_HPP

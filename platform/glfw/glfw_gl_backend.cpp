@@ -2,25 +2,19 @@
 
 #include <mbgl/gfx/backend_scope.hpp>
 #include <mbgl/gl/renderable_resource.hpp>
-#include <mbgl/util/instrumentation.hpp>
 
 #include <GLFW/glfw3.h>
 
 class GLFWGLRenderableResource final : public mbgl::gl::RenderableResource {
 public:
-    explicit GLFWGLRenderableResource(GLFWGLBackend& backend_)
-        : backend(backend_) {}
+    explicit GLFWGLRenderableResource(GLFWGLBackend& backend_) : backend(backend_) {}
 
     void bind() override {
-        MLN_TRACE_FUNC();
-
         backend.setFramebufferBinding(0);
         backend.setViewport(0, 0, backend.getSize());
     }
 
     void swap() override {
-        MLN_TRACE_FUNC();
-
         backend.swap();
     }
 
@@ -35,12 +29,10 @@ GLFWGLBackend::GLFWGLBackend(GLFWwindow* window_, const bool capFrameRate)
               int fbWidth;
               int fbHeight;
               glfwGetFramebufferSize(window_, &fbWidth, &fbHeight);
-              return mbgl::Size{static_cast<uint32_t>(fbWidth), static_cast<uint32_t>(fbHeight)};
+              return mbgl::Size{ static_cast<uint32_t>(fbWidth), static_cast<uint32_t>(fbHeight) };
           }(),
           std::make_unique<GLFWGLRenderableResource>(*this)),
       window(window_) {
-    MLN_TRACE_FUNC();
-
     glfwMakeContextCurrent(window);
     if (!capFrameRate) {
         // Disables vsync on platforms that support it.
@@ -53,14 +45,10 @@ GLFWGLBackend::GLFWGLBackend(GLFWwindow* window_, const bool capFrameRate)
 GLFWGLBackend::~GLFWGLBackend() = default;
 
 void GLFWGLBackend::activate() {
-    MLN_TRACE_FUNC();
-
     glfwMakeContextCurrent(window);
 }
 
 void GLFWGLBackend::deactivate() {
-    MLN_TRACE_FUNC();
-
     glfwMakeContextCurrent(nullptr);
 }
 
@@ -69,8 +57,6 @@ mbgl::gl::ProcAddress GLFWGLBackend::getExtensionFunctionPointer(const char* nam
 }
 
 void GLFWGLBackend::updateAssumedState() {
-    MLN_TRACE_FUNC();
-
     assumeFramebufferBinding(0);
     setViewport(0, 0, size);
 }
@@ -84,8 +70,6 @@ void GLFWGLBackend::setSize(const mbgl::Size newSize) {
 }
 
 void GLFWGLBackend::swap() {
-    MLN_TRACE_FUNC();
-
     glfwSwapBuffers(window);
 }
 
@@ -93,9 +77,8 @@ namespace mbgl {
 namespace gfx {
 
 template <>
-std::unique_ptr<GLFWBackend> Backend::Create<mbgl::gfx::Backend::Type::OpenGL>(GLFWwindow* window, bool capFrameRate) {
-    MLN_TRACE_FUNC();
-
+std::unique_ptr<GLFWBackend>
+Backend::Create<mbgl::gfx::Backend::Type::OpenGL>(GLFWwindow* window, bool capFrameRate) {
     return std::make_unique<GLFWGLBackend>(window, capFrameRate);
 }
 

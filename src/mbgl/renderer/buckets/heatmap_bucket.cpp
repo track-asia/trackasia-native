@@ -10,30 +10,27 @@ namespace mbgl {
 
 using namespace style;
 
-HeatmapBucket::HeatmapBucket(const BucketParameters& parameters,
-                             const std::vector<Immutable<style::LayerProperties>>& layers)
+HeatmapBucket::HeatmapBucket(const BucketParameters& parameters, const std::vector<Immutable<style::LayerProperties>>& layers)
     : mode(parameters.mode) {
     for (const auto& layer : layers) {
         paintPropertyBinders.emplace(
             std::piecewise_construct,
             std::forward_as_tuple(layer->baseImpl->id),
-            std::forward_as_tuple(getEvaluated<HeatmapLayerProperties>(layer), parameters.tileID.overscaledZ));
+            std::forward_as_tuple(
+                getEvaluated<HeatmapLayerProperties>(layer),
+                parameters.tileID.overscaledZ));
     }
 }
 
-HeatmapBucket::~HeatmapBucket() {
-    sharedVertices->release();
-}
+HeatmapBucket::~HeatmapBucket() = default;
 
-void HeatmapBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
-#if MLN_LEGACY_RENDERER
+void HeatmapBucket::upload(gfx::UploadPass& uploadPass) {
     vertexBuffer = uploadPass.createVertexBuffer(std::move(vertices));
     indexBuffer = uploadPass.createIndexBuffer(std::move(triangles));
 
     for (auto& pair : paintPropertyBinders) {
         pair.second.upload(uploadPass);
     }
-#endif // MLN_LEGACY_RENDERER
 
     uploaded = true;
 }
@@ -51,7 +48,7 @@ void HeatmapBucket::addFeature(const GeometryTileFeature& feature,
     constexpr const uint16_t vertexLength = 4;
 
     for (auto& points : geometry) {
-        for (auto& point : points) {
+        for(auto& point : points) {
             auto x = point.x;
             auto y = point.y;
 
@@ -60,8 +57,7 @@ void HeatmapBucket::addFeature(const GeometryTileFeature& feature,
                 continue;
             }
 
-            if (segments.empty() ||
-                segments.back().vertexLength + vertexLength > std::numeric_limits<uint16_t>::max()) {
+            if (segments.empty() || segments.back().vertexLength + vertexLength > std::numeric_limits<uint16_t>::max()) {
                 // Move to a new segments because the old one can't hold the geometry.
                 segments.emplace_back(vertices.elements(), triangles.elements());
             }
@@ -76,9 +72,9 @@ void HeatmapBucket::addFeature(const GeometryTileFeature& feature,
             // └─────────┘
             //
             vertices.emplace_back(HeatmapProgram::vertex(point, -1, -1)); // 1
-            vertices.emplace_back(HeatmapProgram::vertex(point, 1, -1));  // 2
-            vertices.emplace_back(HeatmapProgram::vertex(point, 1, 1));   // 3
-            vertices.emplace_back(HeatmapProgram::vertex(point, -1, 1));  // 4
+            vertices.emplace_back(HeatmapProgram::vertex(point,  1, -1)); // 2
+            vertices.emplace_back(HeatmapProgram::vertex(point,  1,  1)); // 3
+            vertices.emplace_back(HeatmapProgram::vertex(point, -1,  1)); // 4
 
             auto& segment = segments.back();
             assert(segment.vertexLength <= std::numeric_limits<uint16_t>::max());

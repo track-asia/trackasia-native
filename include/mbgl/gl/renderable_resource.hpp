@@ -12,9 +12,11 @@ protected:
     explicit RenderableResource() = default;
 
 public:
+    virtual void bind() = 0;
+
     virtual void swap() {
-        // Renderable resources that require a swap function to be called
-        // explicitly can override this method.
+        // Renderable resources that require a swap function to be called explicitly
+        // can override this method.
     }
 };
 

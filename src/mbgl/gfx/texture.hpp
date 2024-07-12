@@ -8,22 +8,20 @@
 #include <memory>
 #include <cassert>
 
-#define MBGL_DEFINE_TEXTURE(name_)                 \
-    struct name_ {                                 \
-        using Value = ::mbgl::gfx::TextureBinding; \
-        static constexpr auto name() {             \
-            return #name_;                         \
-        }                                          \
+#define MBGL_DEFINE_TEXTURE(name_)                                                                 \
+    struct name_ {                                                                                 \
+        using Value = ::mbgl::gfx::TextureBinding;                                                 \
+        static constexpr auto name() {                                                             \
+            return #name_;                                                                         \
+        }                                                                                          \
     }
 
 namespace mbgl {
 namespace gfx {
 
-constexpr int32_t MaxActiveTextureUnits = 8;
 class TextureResource {
 protected:
     TextureResource() = default;
-
 public:
     virtual ~TextureResource() = default;
 };
@@ -31,16 +29,14 @@ public:
 class Texture {
 public:
     Texture(const Size size_, std::unique_ptr<TextureResource>&& resource_)
-        : size(size_),
-          resource(std::move(resource_)) {}
+        : size(size_), resource(std::move(resource_)) {
+    }
 
     template <typename T = TextureResource>
     T& getResource() const {
         assert(resource);
         return static_cast<T&>(*resource);
     }
-
-    const Size& getSize() const noexcept { return size; }
 
     Size size;
 
@@ -55,11 +51,8 @@ public:
                    TextureMipMapType mipmap_ = TextureMipMapType::No,
                    TextureWrapType wrapX_ = TextureWrapType::Clamp,
                    TextureWrapType wrapY_ = TextureWrapType::Clamp)
-        : resource(&resource_),
-          filter(filter_),
-          mipmap(mipmap_),
-          wrapX(wrapX_),
-          wrapY(wrapY_) {}
+        : resource(&resource_), filter(filter_), mipmap(mipmap_), wrapX(wrapX_), wrapY(wrapY_) {
+    }
 
     TextureResource* resource;
     TextureFilterType filter;
@@ -78,8 +71,8 @@ class TextureBindings<TypeList<Ts...>> final
 
 public:
     template <class... Args>
-    TextureBindings(Args&&... args)
-        : Base(std::forward<Args>(args)...) {}
+    TextureBindings(Args&&... args) : Base(std::forward<Args>(args)...) {
+    }
 };
 
 } // namespace gfx

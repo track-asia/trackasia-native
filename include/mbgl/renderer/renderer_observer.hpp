@@ -2,14 +2,8 @@
 
 #include <cstdint>
 #include <exception>
-#include <functional>
-#include <string>
 
 namespace mbgl {
-
-namespace gfx {
-class ShaderRegistry;
-}
 
 class RendererObserver {
 public:
@@ -35,15 +29,6 @@ public:
     /// End of frame, booleans flags that a repaint is required and that placement changed.
     virtual void onDidFinishRenderingFrame(RenderMode, bool /*repaint*/, bool /*placementChanged*/) {}
 
-    /// End of frame, booleans flags that a repaint is required and that placement changed.
-    virtual void onDidFinishRenderingFrame(RenderMode mode,
-                                           bool repaint,
-                                           bool placementChanged,
-                                           double /*frameEncodingTime*/,
-                                           double /*frameRenderingTime*/) {
-        onDidFinishRenderingFrame(mode, repaint, placementChanged);
-    }
-
     /// Final frame
     virtual void onDidFinishRenderingMap() {}
 
@@ -51,9 +36,6 @@ public:
     using StyleImageMissingCallback = std::function<void()>;
     virtual void onStyleImageMissing(const std::string&, const StyleImageMissingCallback& done) { done(); }
     virtual void onRemoveUnusedStyleImages(const std::vector<std::string>&) {}
-
-    // Entry point for custom shader registration
-    virtual void onRegisterShaders(gfx::ShaderRegistry&) {};
 };
 
 } // namespace mbgl

@@ -5,10 +5,10 @@
 #include <mbgl/style/expression/type.hpp>
 #include <mbgl/style/expression/value.hpp>
 #include <mbgl/style/conversion.hpp>
+#include <mbgl/util/optional.hpp>
 
 #include <memory>
 #include <vector>
-#include <optional>
 
 namespace mbgl {
 namespace style {
@@ -33,13 +33,13 @@ public:
 
     std::string getOperator() const override;
     EvaluationResult evaluate(const EvaluationContext& evaluationParams) const override;
-    std::vector<std::optional<Value>> possibleOutputs() const override { return {std::nullopt}; }
+    std::vector<optional<Value>> possibleOutputs() const override;
     void eachChild(const std::function<void(const Expression&)>& visit) const override;
-    bool operator==(const Expression& e) const noexcept override;
+    bool operator==(const Expression& e) const override;
 
-    std::optional<std::size_t> getParameterCount() const noexcept;
+    optional<std::size_t> getParameterCount() const;
 
-    static bool exists(const std::string& name) noexcept;
+    static bool exists(const std::string& name);
 
 protected:
     const detail::SignatureBase& signature;

@@ -12,8 +12,7 @@
 #endif
 
 #include <boost/call_traits.hpp>
-#include <iterator> // for std::iterator_traits
-#include <string>
+#include <boost/detail/iterator.hpp>
 
 namespace boost { namespace spirit { namespace qi { namespace detail
 {
@@ -75,7 +74,7 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             while (p && i != last)
             {
                 typename
-                    std::iterator_traits<Iterator>::value_type
+                    boost::detail::iterator_traits<Iterator>::value_type
                 c = filter(*i); // filter only the input
 
                 if (c == p->id)
@@ -119,7 +118,7 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             for(;;)
             {
                 typename
-                    std::iterator_traits<Iterator>::value_type
+                    boost::detail::iterator_traits<Iterator>::value_type
                 c = *first;
 
                 if (*pp == 0)
@@ -155,7 +154,7 @@ namespace boost { namespace spirit { namespace qi { namespace detail
                 return;
 
             typename
-                std::iterator_traits<Iterator>::value_type
+                boost::detail::iterator_traits<Iterator>::value_type
             c = *first;
 
             if (c == p->id)

@@ -403,21 +403,21 @@ global.supportsPropertyFunction = function (property) {
 // Template processing //
 
 // Java + JNI Light (Peer model)
-const lightJava = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/main/java/org/trackasia/android/style/light/light.java.ejs', 'utf8'), { strict: true });
-const lightJavaUnitTests = ejs.compile(fs.readFileSync('TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/style/light.junit.ejs', 'utf8'), { strict: true });
-writeIfModified(`TrackAsiaAndroid/src/main/java/org/trackasia/android/style/light/Light.java`, lightJava({ properties: lightProperties }));
-writeIfModified(`TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/style/LightTest.java`, lightJavaUnitTests({ properties: lightProperties }));
+const lightJava = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/light/light.java.ejs', 'utf8'), { strict: true });
+const lightJavaUnitTests = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/style/light.junit.ejs', 'utf8'), { strict: true });
+writeIfModified(`TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/light/Light.java`, lightJava({ properties: lightProperties }));
+writeIfModified(`TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/style/LightTest.java`, lightJavaUnitTests({ properties: lightProperties }));
 
 // Java
-const layerJava = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/layer.java.ejs', 'utf8'), { strict: true });
-const layerJavaUnitTests = ejs.compile(fs.readFileSync('TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/style/layer.junit.ejs', 'utf8'), { strict: true });
+const layerJava = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/layer.java.ejs', 'utf8'), { strict: true });
+const layerJavaUnitTests = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/style/layer.junit.ejs', 'utf8'), { strict: true });
 
 for (const layer of layers) {
-  var srcDir = 'TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/'
-  var testDir = 'TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/style/'
+  var srcDir = 'TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/'
+  var testDir = 'TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/style/'
   if (layer.type === 'location-indicator') {
-    srcDir = 'TrackAsiaAndroid/src/main/java/org/trackasia/android/location/'
-    testDir = 'TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/location/'
+    srcDir = 'TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/location/'
+    testDir = 'TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/location/'
   }
 
   writeIfModified(srcDir + `${camelize(layer.type)}Layer.java`, layerJava(layer));
@@ -425,34 +425,34 @@ for (const layer of layers) {
 }
 
 // Jni
-const layerHpp = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/cpp/style/layers/layer.hpp.ejs', 'utf8'), { strict: true });
-const layerCpp = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/cpp/style/layers/layer.cpp.ejs', 'utf8'), { strict: true });
+const layerHpp = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/cpp/style/layers/layer.hpp.ejs', 'utf8'), { strict: true });
+const layerCpp = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/cpp/style/layers/layer.cpp.ejs', 'utf8'), { strict: true });
 
 for (const layer of layers) {
   const layerFileName = layer.type.replace('-', '_');
 
-  writeIfModified(`TrackAsiaAndroid/src/cpp/style/layers/${layerFileName}_layer.hpp`, layerHpp(layer));
-  writeIfModified(`TrackAsiaAndroid/src/cpp/style/layers/${layerFileName}_layer.cpp`, layerCpp(layer));
+  writeIfModified(`TrackAsiaGLAndroidSDK/src/cpp/style/layers/${layerFileName}_layer.hpp`, layerHpp(layer));
+  writeIfModified(`TrackAsiaGLAndroidSDK/src/cpp/style/layers/${layerFileName}_layer.cpp`, layerCpp(layer));
 }
 
 // Java PropertyFactory
-const propertyFactoryTemplate = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/property_factory.java.ejs', 'utf8'), { strict: true });
+const propertyFactoryTemplate = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/property_factory.java.ejs', 'utf8'), { strict: true });
 
-var propertyFactorySrcDir = 'TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/PropertyFactory.java'
+var propertyFactorySrcDir = 'TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/PropertyFactory.java'
 writeIfModified(
   propertyFactorySrcDir,
   propertyFactoryTemplate({ layoutProperties: layoutProperties, paintProperties: paintProperties, locationIndicator: false })
 );
 
-var locationPropertyFactorySrcDir = 'TrackAsiaAndroid/src/main/java/org/trackasia/android/location/LocationPropertyFactory.java'
+var locationPropertyFactorySrcDir = 'TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/location/LocationPropertyFactory.java'
 writeIfModified(
   locationPropertyFactorySrcDir,
   propertyFactoryTemplate({ layoutProperties: locationLayoutProperties, paintProperties: locationPaintProperties, locationIndicator: true })
 );
 
 // Java Property
-const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/property.java.ejs', 'utf8'), { strict: true });
+const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/property.java.ejs', 'utf8'), { strict: true });
 writeIfModified(
-  `TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/Property.java`,
+  `TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/Property.java`,
   enumPropertyJavaTemplate({ properties: enumProperties })
 );

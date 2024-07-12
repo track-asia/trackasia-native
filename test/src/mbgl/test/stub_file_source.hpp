@@ -29,10 +29,10 @@ public:
     void setProperty(const std::string&, const mapbox::base::Value&) override;
     mapbox::base::Value getProperty(const std::string&) const override;
 
-    using ResponseFunction = std::function<std::optional<Response>(const Resource&)>;
+    using ResponseFunction = std::function<optional<Response> (const Resource&)>;
 
     // You can set the response callback on a global level by assigning this callback:
-    ResponseFunction response = [this](const Resource& resource) {
+    ResponseFunction response = [this] (const Resource& resource) {
         return defaultResponse(resource);
     };
 
@@ -55,7 +55,7 @@ private:
     friend class StubOnlineFileSource;
 
     // The default behavior is to throw if no per-kind callback has been set.
-    std::optional<Response> defaultResponse(const Resource&);
+    optional<Response> defaultResponse(const Resource&);
 
     std::unordered_map<AsyncRequest*, std::tuple<Resource, ResponseFunction, Callback>> pending;
     ResponseType type;

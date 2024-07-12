@@ -5,25 +5,22 @@
 
 #include <QObject>
 
-#include <condition_variable>
 #include <memory>
 #include <mutex>
 #include <queue>
 
-namespace QTrackAsia {
+namespace QTrackAsiaGL {
 
-class Scheduler : public QObject, public mbgl::Scheduler {
+class Scheduler : public QObject, public mbgl::Scheduler
+{
     Q_OBJECT
 
 public:
     Scheduler();
-    ~Scheduler() override;
+    virtual ~Scheduler();
 
     // mbgl::Scheduler implementation.
-    void schedule(std::function<void()>&& function) final;
-
-    void waitForEmpty(const mbgl::util::SimpleIdentity tag = mbgl::util::SimpleIdentity::Empty) override;
-
+    void schedule(std::function<void()> scheduled) final;
     mapbox::base::WeakPtr<mbgl::Scheduler> makeWeakPtr() override { return weakFactory.makeWeakPtr(); }
 
     void processEvents();
@@ -35,10 +32,8 @@ private:
     MBGL_STORE_THREAD(tid);
 
     std::mutex m_taskQueueMutex;
-    std::condition_variable cvEmpty;
-    std::atomic<std::size_t> pendingItems;
     std::queue<std::function<void()>> m_taskQueue;
     mapbox::base::WeakPtrFactory<Scheduler> weakFactory{this};
 };
 
-} // namespace QTrackAsia
+} // namepace QTrackAsiaGL

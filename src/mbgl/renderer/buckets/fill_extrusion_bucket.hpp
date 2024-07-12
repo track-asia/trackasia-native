@@ -39,21 +39,13 @@ public:
 
     void update(const FeatureStates&, const GeometryTileLayer&, const std::string&, const ImagePositions&) override;
 
-    using VertexVector = gfx::VertexVector<FillExtrusionLayoutVertex>;
-    const std::shared_ptr<VertexVector> sharedVertices = std::make_shared<VertexVector>();
-    VertexVector& vertices = *sharedVertices;
-
-    using TriangleIndexVector = gfx::IndexVector<gfx::Triangles>;
-    const std::shared_ptr<TriangleIndexVector> sharedTriangles = std::make_shared<TriangleIndexVector>();
-    TriangleIndexVector& triangles = *sharedTriangles;
-
+    gfx::VertexVector<FillExtrusionLayoutVertex> vertices;
+    gfx::IndexVector<gfx::Triangles> triangles;
     SegmentVector<FillExtrusionAttributes> triangleSegments;
 
-#if MLN_LEGACY_RENDERER
-    std::optional<gfx::VertexBuffer<FillExtrusionLayoutVertex>> vertexBuffer;
-    std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
-
+    optional<gfx::VertexBuffer<FillExtrusionLayoutVertex>> vertexBuffer;
+    optional<gfx::IndexBuffer> indexBuffer;
+    
     std::unordered_map<std::string, FillExtrusionProgram::Binders> paintPropertyBinders;
 };
 

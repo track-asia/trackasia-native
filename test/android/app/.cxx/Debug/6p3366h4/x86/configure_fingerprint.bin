@@ -1,91 +1,0 @@
-C/C++ Structured LogV
-T
-R/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/CMakeLists.txtC
-A
-?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	éºÂﬁâ2–ö ≥∑˙›â2`
-^
-\/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/benchmark/CMakeLists.txt	éºÂﬁâ2· ‰Œ¬›â2f
-d
-b/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/platform/android/android.cmake	éºÂﬁâ2¸L ˜Ä∆›â2b
-`
-^/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/render-test/CMakeLists.txt	éºÂﬁâ2≈ √Ë–›â2]
-[
-Y/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/scripts/license.cmake	éºÂﬁâ2ç ∏——›â2[
-Y
-W/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/CMakeLists.txt	éºÂﬁâ2¨T †Ùƒ›â2Ω
-∫
-∑/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/prefab/x86/prefab/lib/i686-linux-android/cmake/boringssl/boringsslConfig.cmake	éºÂﬁâ2‰	 ¨…≈›â2≥
-∞
-≠/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/prefab/x86/prefab/lib/i686-linux-android/cmake/curl/curlConfig.cmake	éºÂﬁâ2	õ ß…≈›â2ë
-é
-ã/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/_deps/tracy-src/CMakeLists.txt	éºÂﬁâ2
-Î: ﬁúòﬁâ2è
-å
-â/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/additional_project_files.txt	éºÂﬁâ2•á Ÿ´òﬁâ2å
-â
-Ü/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/android_gradle_build.json	éºÂﬁâ2Úi ›´òﬁâ2ë
-é
-ã/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/android_gradle_build_mini.json	éºÂﬁâ2ﬂc àÆòﬁâ2|
-z
-x/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/build.ninja	éºÂﬁâ2ùí¶ ô´òﬁâ2Ä
-~
-|/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/build.ninja.txt	éºÂﬁâ2á
-Ñ
-Å/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/build_file_index.txt	éºÂﬁâ2† åÆòﬁâ2à
-Ö
-Ç/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/compile_commands.json	éºÂﬁâ2˘ú† ô´òﬁâ2å
-â
-Ü/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/compile_commands.json.bin	éºÂﬁâ2∏œ ô´òﬁâ2í
-è
-å/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/metadata_generation_command.txt	éºÂﬁâ2˛
- åÆòﬁâ2Ñ
-Å
-/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/prefab_config.json	éºÂﬁâ2Ö åÆòﬁâ2ä
-á
-Ñ/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/.cxx/Debug/6p3366h4/x86/symbol_folder_index.txt	éºÂﬁâ2É åÆòﬁâ2^
-\
-Z/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/benchmark.cmake	éºÂﬁâ2Ù À ◊›â2Z
-X
-V/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/boost.cmake	éºÂﬁâ2˝ ÂŒ“›â2`
-^
-\/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/cpp-httplib.cmake	éºÂﬁâ2‰ é∏¬›â2c
-a
-_/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/csscolorparser.cmake	éºÂﬁâ2ƒ ‰ó◊›â2_
-]
-[/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/earcut.hpp.cmake	éºÂﬁâ2í •©¬›â2\
-Z
-X/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/eternal.cmake	èºÂﬁâ2˝ ¿ ◊›â2_
-]
-[/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/googletest.cmake	èºÂﬁâ2∑ « ◊›â2X
-V
-T/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/icu.cmake	èºÂﬁâ2™ ù±¬›â2`
-^
-\/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base.cmake	èºÂﬁâ2∂ ËÀ“›â2i
-g
-e/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/CMakeLists.txt	èºÂﬁâ2Í Ì’”›â2n
-l
-j/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/deps/CMakeLists.txt	èºÂﬁâ2 Í Å◊”›â2p
-n
-l/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/CMakeLists.txt	èºÂﬁâ2!ˆ ıı’›â2q
-o
-m/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/extras/rapidjson.cmake	èºÂﬁâ2"¿ ˘ı’›â2q
-o
-m/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/mapbox-base/include/CMakeLists.txt	èºÂﬁâ2#Ö ™÷”›â2^
-\
-Z/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/parsedate.cmake	èºÂﬁâ2$ç ä∏¬›â2^
-\
-Z/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/polylabel.cmake	èºÂﬁâ2%ä ñ±¬›â2^
-\
-Z/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/protozero.cmake	èºÂﬁâ2&ç ‰À“›â2[
-Y
-W/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/sqlite.cmake	èºÂﬁâ2'› ∆µ¬›â2Z
-X
-V/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/tracy.cmake	èºÂﬁâ2(„ ›Œ“›â2d
-b
-`/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unique_resource.cmake	èºÂﬁâ2)¿ ‡ó◊›â2m
-k
-i/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/unordered_dense/CMakeLists.txt	èºÂﬁâ2*Ñ ê¬÷›â2`
-^
-\/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/vector-tile.cmake	èºÂﬁâ2+ö È’”›â2Z
-X
-V/Volumes/DATA/MAPLIBRE_NATIVE_V2/trackasia-native/track-asia-native/vendor/wagyu.cmake	èºÂﬁâ2,Ä °±¬›â2

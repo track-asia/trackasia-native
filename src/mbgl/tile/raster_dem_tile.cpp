@@ -14,32 +14,28 @@
 
 namespace mbgl {
 
-RasterDEMTile::RasterDEMTile(const OverscaledTileID& id_, const TileParameters& parameters, const Tileset& tileset)
+RasterDEMTile::RasterDEMTile(const OverscaledTileID& id_,
+                       const TileParameters& parameters,
+                       const Tileset& tileset)
     : Tile(Kind::RasterDEM, id_),
       loader(*this, id_, parameters, tileset),
-      threadPool(parameters.threadPool),
       mailbox(std::make_shared<Mailbox>(*Scheduler::GetCurrent())),
-      worker(parameters.threadPool, ActorRef<RasterDEMTile>(*this, mailbox)) {
+      worker(Scheduler::GetBackground(),
+             ActorRef<RasterDEMTile>(*this, mailbox)) {
+
     encoding = tileset.encoding;
-    if (id.canonical.y == 0) {
+    if ( id.canonical.y == 0 ){
         // this tile doesn't have upper neighboring tiles so marked those as backfilled
         neighboringTiles = neighboringTiles | DEMTileNeighbors::NoUpper;
     }
 
-    if (id.canonical.y + 1 == std::pow(2, id.canonical.z)) {
+    if (id.canonical.y + 1 == std::pow(2, id.canonical.z)){
         // this tile doesn't have lower neighboring tiles so marked those as backfilled
         neighboringTiles = neighboringTiles | DEMTileNeighbors::NoLower;
     }
 }
 
-RasterDEMTile::~RasterDEMTile() {
-    markObsolete();
-
-    // The bucket has resources that need to be released on the render thread.
-    if (bucket) {
-        threadPool.runOnRenderThread([bucket_{std::move(bucket)}]() {});
-    }
-}
+RasterDEMTile::~RasterDEMTile() = default;
 
 std::unique_ptr<TileRenderData> RasterDEMTile::createRenderData() {
     return std::make_unique<SharedBucketTileRenderData<HillshadeBucket>>(bucket);
@@ -50,29 +46,25 @@ void RasterDEMTile::setError(std::exception_ptr err) {
     observer->onTileError(*this, std::move(err));
 }
 
-void RasterDEMTile::setMetadata(std::optional<Timestamp> modified_, std::optional<Timestamp> expires_) {
+void RasterDEMTile::setMetadata(optional<Timestamp> modified_, optional<Timestamp> expires_) {
     modified = std::move(modified_);
     expires = std::move(expires_);
 }
 
 void RasterDEMTile::setData(const std::shared_ptr<const std::string>& data) {
-    if (!obsolete) {
-        pending = true;
-        ++correlationID;
-        worker.self().invoke(&RasterDEMTileWorker::parse, data, correlationID, encoding);
-    }
+    pending = true;
+    ++correlationID;
+    worker.self().invoke(&RasterDEMTileWorker::parse, data, correlationID, encoding);
 }
 
 void RasterDEMTile::onParsed(std::unique_ptr<HillshadeBucket> result, const uint64_t resultCorrelationID) {
-    if (!obsolete) {
-        bucket = std::move(result);
-        loaded = true;
-        if (resultCorrelationID == correlationID) {
-            pending = false;
-        }
-        renderable = static_cast<bool>(bucket);
-        observer->onTileChanged(*this);
+    bucket = std::move(result);
+    loaded = true;
+    if (resultCorrelationID == correlationID) {
+        pending = false;
     }
+    renderable = static_cast<bool>(bucket);
+    observer->onTileChanged(*this);
 }
 
 void RasterDEMTile::onError(std::exception_ptr err, const uint64_t resultCorrelationID) {
@@ -93,8 +85,8 @@ HillshadeBucket* RasterDEMTile::getBucket() const {
 
 void RasterDEMTile::backfillBorder(const RasterDEMTile& borderTile, const DEMTileNeighbors mask) {
     int32_t dx = static_cast<int32_t>(borderTile.id.canonical.x) - static_cast<int32_t>(id.canonical.x);
-    const auto dy = static_cast<int8_t>(static_cast<int32_t>(borderTile.id.canonical.y) -
-                                        static_cast<int32_t>(id.canonical.y));
+    const auto dy =
+        static_cast<int8_t>(static_cast<int32_t>(borderTile.id.canonical.y) - static_cast<int32_t>(id.canonical.y));
     const auto dim = static_cast<uint32_t>(pow(2, id.canonical.z));
     if (dx == 0 && dy == 0) return;
     if (std::abs(dy) > 1) return;
@@ -114,12 +106,9 @@ void RasterDEMTile::backfillBorder(const RasterDEMTile& borderTile, const DEMTil
         tileDEM.backfillBorder(borderDEM, dx, dy);
         // update the bitmask to indicate that this tiles have been backfilled by flipping the relevant bit
         this->neighboringTiles = this->neighboringTiles | mask;
-        // mark HillshadeBucket.prepared as false so it runs through the prepare
-        // render pass with the new texture data we just backfilled
+        // mark HillshadeBucket.prepared as false so it runs through the prepare render pass
+        // with the new texture data we just backfilled
         bucket->setPrepared(false);
-#if MLN_DRAWABLE_RENDERER
-        bucket->renderTargetPrepared = false;
-#endif
     }
 }
 
@@ -135,16 +124,6 @@ void RasterDEMTile::setNecessity(TileNecessity necessity) {
 
 void RasterDEMTile::setUpdateParameters(const TileUpdateParameters& params) {
     loader.setUpdateParameters(params);
-}
-
-void RasterDEMTile::cancel() {
-    markObsolete();
-}
-
-void RasterDEMTile::markObsolete() {
-    obsolete = true;
-    pending = false;
-    mailbox->abandon();
 }
 
 } // namespace mbgl

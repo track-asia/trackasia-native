@@ -112,7 +112,7 @@ void LocationIndicatorLayer::setTopImage(const PropertyValue<expression::Image>&
 // Paint properties
 
 PropertyValue<float> LocationIndicatorLayer::getDefaultAccuracyRadius() {
-    return {0.f};
+    return {0};
 }
 
 const PropertyValue<float>& LocationIndicatorLayer::getAccuracyRadius() const {
@@ -220,7 +220,7 @@ TransitionOptions LocationIndicatorLayer::getBearingTransition() const {
 }
 
 PropertyValue<float> LocationIndicatorLayer::getDefaultBearingImageSize() {
-    return {1.f};
+    return {1};
 }
 
 const PropertyValue<float>& LocationIndicatorLayer::getBearingImageSize() const {
@@ -247,7 +247,7 @@ TransitionOptions LocationIndicatorLayer::getBearingImageSizeTransition() const 
 }
 
 PropertyValue<float> LocationIndicatorLayer::getDefaultImageTiltDisplacement() {
-    return {0.f};
+    return {0};
 }
 
 const PropertyValue<float>& LocationIndicatorLayer::getImageTiltDisplacement() const {
@@ -274,7 +274,7 @@ TransitionOptions LocationIndicatorLayer::getImageTiltDisplacementTransition() c
 }
 
 PropertyValue<std::array<double, 3>> LocationIndicatorLayer::getDefaultLocation() {
-    return {{{0.f, 0.f, 0.f}}};
+    return {{{0, 0, 0}}};
 }
 
 const PropertyValue<std::array<double, 3>>& LocationIndicatorLayer::getLocation() const {
@@ -328,7 +328,7 @@ TransitionOptions LocationIndicatorLayer::getPerspectiveCompensationTransition()
 }
 
 PropertyValue<float> LocationIndicatorLayer::getDefaultShadowImageSize() {
-    return {1.f};
+    return {1};
 }
 
 const PropertyValue<float>& LocationIndicatorLayer::getShadowImageSize() const {
@@ -355,7 +355,7 @@ TransitionOptions LocationIndicatorLayer::getShadowImageSizeTransition() const {
 }
 
 PropertyValue<float> LocationIndicatorLayer::getDefaultTopImageSize() {
-    return {1.f};
+    return {1};
 }
 
 const PropertyValue<float>& LocationIndicatorLayer::getTopImageSize() const {
@@ -418,7 +418,7 @@ constexpr uint8_t toUint8(T t) noexcept {
     return uint8_t(mbgl::underlying_type(t));
 }
 
-constexpr const auto layerProperties = mapbox::eternal::hash_map<mapbox::eternal::string, uint8_t>(
+MAPBOX_ETERNAL_CONSTEXPR const auto layerProperties = mapbox::eternal::hash_map<mapbox::eternal::string, uint8_t>(
     {{"accuracy-radius", toUint8(Property::AccuracyRadius)},
      {"accuracy-radius-border-color", toUint8(Property::AccuracyRadiusBorderColor)},
      {"accuracy-radius-color", toUint8(Property::AccuracyRadiusColor)},
@@ -516,7 +516,7 @@ Value LocationIndicatorLayer::serialize() const {
     return result;
 }
 
-std::optional<Error> LocationIndicatorLayer::setPropertyInternal(const std::string& name, const Convertible& value) {
+optional<Error> LocationIndicatorLayer::setPropertyInternal(const std::string& name, const Convertible& value) {
     const auto it = layerProperties.find(name.c_str());
     if (it == layerProperties.end()) return Error{"layer doesn't support this property"};
 
@@ -533,32 +533,32 @@ std::optional<Error> LocationIndicatorLayer::setPropertyInternal(const std::stri
 
         if (property == Property::AccuracyRadius) {
             setAccuracyRadius(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
 
         if (property == Property::BearingImageSize) {
             setBearingImageSize(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
 
         if (property == Property::ImageTiltDisplacement) {
             setImageTiltDisplacement(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
 
         if (property == Property::PerspectiveCompensation) {
             setPerspectiveCompensation(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
 
         if (property == Property::ShadowImageSize) {
             setShadowImageSize(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
 
         if (property == Property::TopImageSize) {
             setTopImageSize(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
     }
     if (property == Property::AccuracyRadiusBorderColor || property == Property::AccuracyRadiusColor) {
@@ -570,12 +570,12 @@ std::optional<Error> LocationIndicatorLayer::setPropertyInternal(const std::stri
 
         if (property == Property::AccuracyRadiusBorderColor) {
             setAccuracyRadiusBorderColor(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
 
         if (property == Property::AccuracyRadiusColor) {
             setAccuracyRadiusColor(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
     }
     if (property == Property::Bearing) {
@@ -586,7 +586,7 @@ std::optional<Error> LocationIndicatorLayer::setPropertyInternal(const std::stri
         }
 
         setBearing(*typedValue);
-        return std::nullopt;
+        return nullopt;
     }
     if (property == Property::Location) {
         Error error;
@@ -596,7 +596,7 @@ std::optional<Error> LocationIndicatorLayer::setPropertyInternal(const std::stri
         }
 
         setLocation(*typedValue);
-        return std::nullopt;
+        return nullopt;
     }
     if (property == Property::BearingImage || property == Property::ShadowImage || property == Property::TopImage) {
         Error error;
@@ -607,74 +607,74 @@ std::optional<Error> LocationIndicatorLayer::setPropertyInternal(const std::stri
 
         if (property == Property::BearingImage) {
             setBearingImage(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
 
         if (property == Property::ShadowImage) {
             setShadowImage(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
 
         if (property == Property::TopImage) {
             setTopImage(*typedValue);
-            return std::nullopt;
+            return nullopt;
         }
     }
 
     Error error;
-    std::optional<TransitionOptions> transition = convert<TransitionOptions>(value, error);
+    optional<TransitionOptions> transition = convert<TransitionOptions>(value, error);
     if (!transition) {
         return error;
     }
 
     if (property == Property::AccuracyRadiusTransition) {
         setAccuracyRadiusTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::AccuracyRadiusBorderColorTransition) {
         setAccuracyRadiusBorderColorTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::AccuracyRadiusColorTransition) {
         setAccuracyRadiusColorTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::BearingTransition) {
         setBearingTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::BearingImageSizeTransition) {
         setBearingImageSizeTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::ImageTiltDisplacementTransition) {
         setImageTiltDisplacementTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::LocationTransition) {
         setLocationTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::PerspectiveCompensationTransition) {
         setPerspectiveCompensationTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::ShadowImageSizeTransition) {
         setShadowImageSizeTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     if (property == Property::TopImageSizeTransition) {
         setTopImageSizeTransition(*transition);
-        return std::nullopt;
+        return nullopt;
     }
 
     return Error{"layer doesn't support this property"};

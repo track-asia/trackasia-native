@@ -29,7 +29,7 @@ class SourcePrepareParameters;
 
 class TilePyramid {
 public:
-    TilePyramid(const TaggedScheduler& threadPool_);
+    TilePyramid();
     ~TilePyramid();
 
     bool isLoaded() const;
@@ -41,7 +41,7 @@ public:
                 const style::Source::Impl&,
                 uint16_t tileSize,
                 Range<uint8_t> zoomRange,
-                std::optional<LatLngBounds> bounds,
+                optional<LatLngBounds> bounds,
                 std::function<std::unique_ptr<Tile>(const OverscaledTileID&)> createTile);
 
     const std::map<UnwrappedTileID, std::reference_wrapper<Tile>>& getRenderedTiles() const { return renderedTiles; }
@@ -51,12 +51,9 @@ public:
     void handleWrapJump(float lng);
 
     std::unordered_map<std::string, std::vector<Feature>> queryRenderedFeatures(
-        const ScreenLineString& geometry,
-        const TransformState& transformState,
-        const std::unordered_map<std::string, const RenderLayer*>&,
-        const RenderedQueryOptions& options,
-        const mat4& projMatrix,
-        const mbgl::SourceFeatureState& featureState) const;
+        const ScreenLineString& geometry, const TransformState& transformState,
+        const std::unordered_map<std::string, const RenderLayer*>&, const RenderedQueryOptions& options,
+        const mat4& projMatrix, const mbgl::SourceFeatureState& featureState) const;
 
     std::vector<Feature> querySourceFeatures(const SourceQueryOptions&) const;
 

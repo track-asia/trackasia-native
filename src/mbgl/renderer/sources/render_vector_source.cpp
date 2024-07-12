@@ -8,10 +8,11 @@ namespace mbgl {
 
 using namespace style;
 
-RenderVectorSource::RenderVectorSource(Immutable<style::VectorSource::Impl> impl_, const TaggedScheduler& threadPool_)
-    : RenderTileSetSource(std::move(impl_), threadPool_) {}
+RenderVectorSource::RenderVectorSource(Immutable<style::VectorSource::Impl> impl_)
+    : RenderTileSetSource(std::move(impl_)) {
+}
 
-const std::optional<Tileset>& RenderVectorSource::getTileset() const {
+const optional<Tileset>& RenderVectorSource::getTileset() const {
     return static_cast<const style::VectorSource::Impl&>(*baseImpl).tileset;
 }
 

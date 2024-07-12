@@ -9,7 +9,6 @@
 #include <memory>
 #include <map>
 #include <cmath>
-#include <optional>
 
 namespace mbgl {
 namespace style {
@@ -24,8 +23,8 @@ public:
                 std::unique_ptr<Expression> input_,
                 std::map<double, std::unique_ptr<Expression>> stops_);
 
-    const std::unique_ptr<Expression>& getInput() const noexcept { return input; }
-    const Interpolator& getInterpolator() const noexcept { return interpolator; }
+    const std::unique_ptr<Expression>& getInput() const { return input; }
+    const Interpolator& getInterpolator() const { return interpolator; }
 
     void eachChild(const std::function<void(const Expression&)>& visit) const override {
         visit(*input);
@@ -34,28 +33,30 @@ public:
         }
     }
 
-    std::size_t getStopCount() const { return stops.size(); }
-
     void eachStop(const std::function<void(double, const Expression&)>& visit) const {
         for (const auto& stop : stops) {
             visit(stop.first, *stop.second);
         }
     }
-
+    
     // Return the smallest range of stops that covers the interval [lower, upper]
-    Range<float> getCoveringStops(const double lower, const double upper) const noexcept {
+    Range<float> getCoveringStops(const double lower, const double upper) const {
         return ::mbgl::style::expression::getCoveringStops(stops, lower, upper);
     }
-
+    
     double interpolationFactor(const Range<double>& inputLevels, const double inputValue) const {
         return interpolator.match(
-            [&](const auto& interp) { return interp.interpolationFactor(inputLevels, inputValue); });
+            [&](const auto& interp) { return interp.interpolationFactor(inputLevels, inputValue); }
+        );
     }
 
-    bool operator==(const Expression& e) const noexcept override {
+    bool operator==(const Expression& e) const override {
         if (e.getKind() == Kind::Interpolate) {
-            const auto* rhs = static_cast<const Interpolate*>(&e);
-            if (interpolator != rhs->interpolator || *input != *(rhs->input) || stops.size() != rhs->stops.size()) {
+            auto rhs = static_cast<const Interpolate*>(&e);
+            if (interpolator != rhs->interpolator ||
+                *input != *(rhs->input) ||
+                stops.size() != rhs->stops.size())
+            {
                 return false;
             }
 
@@ -64,7 +65,7 @@ public:
         return false;
     }
 
-    std::vector<std::optional<Value>> possibleOutputs() const override;
+    std::vector<optional<Value>> possibleOutputs() const override;
     mbgl::Value serialize() const override;
     std::string getOperator() const override { return "interpolate"; }
 

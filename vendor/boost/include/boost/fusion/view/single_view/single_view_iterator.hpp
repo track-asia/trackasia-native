@@ -20,9 +20,9 @@
 #include <boost/fusion/view/single_view/detail/value_of_impl.hpp>
 #include <boost/config.hpp>
 
-#ifdef _MSC_VER
+#if defined (BOOST_MSVC)
 #  pragma warning(push)
-#  pragma warning(disable: 4512) // assignment operator could not be generated.
+#  pragma warning (disable: 4512) // assignment operator could not be generated.
 #endif
 
 namespace boost { namespace fusion
@@ -45,12 +45,11 @@ namespace boost { namespace fusion
             : view(in_view) {}
 
         SingleView& view;
+
+    private:
+        single_view_iterator& operator=(single_view_iterator const&);
     };
 }}
-
-#ifdef _MSC_VER
-#  pragma warning(pop)
-#endif
 
 #ifdef BOOST_FUSION_WORKAROUND_FOR_LWG_2408
 namespace std
@@ -59,6 +58,10 @@ namespace std
     struct iterator_traits< ::boost::fusion::single_view_iterator<SingleView, Pos> >
     { };
 }
+#endif
+
+#if defined (BOOST_MSVC)
+#  pragma warning(pop)
 #endif
 
 #endif

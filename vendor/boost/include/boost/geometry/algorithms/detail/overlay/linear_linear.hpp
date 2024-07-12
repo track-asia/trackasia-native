@@ -1,11 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2022, Oracle and/or its affiliates.
-// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+// Copyright (c) 2014-2017, Oracle and/or its affiliates.
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_LINEAR_LINEAR_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_LINEAR_LINEAR_HPP
@@ -13,8 +15,7 @@
 #include <algorithm>
 #include <vector>
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -30,7 +31,7 @@
 
 #include <boost/geometry/algorithms/convert.hpp>
 
-#include <boost/geometry/geometries/helper_geometry.hpp>
+
 
 namespace boost { namespace geometry
 {
@@ -82,7 +83,9 @@ struct linear_linear_no_intersections
     static inline OutputIterator apply(MultiLineString const& multilinestring,
                                        OutputIterator oit)
     {
-        for (auto it = boost::begin(multilinestring); it != boost::end(multilinestring); ++it)
+        for (typename boost::range_iterator<MultiLineString const>::type
+                 it = boost::begin(multilinestring);
+             it != boost::end(multilinestring); ++it)
         {
             LineStringOut ls_out;
             geometry::convert(*it, ls_out);
@@ -136,7 +139,18 @@ protected:
         static bool const include_no_turn = false;
         static bool const include_degenerate = EnableDegenerateTurns;
         static bool const include_opposite = false;
-        static bool const include_start_turn = false;
+
+        template
+        <
+            typename Info,
+            typename Point1,
+            typename Point2,
+            typename IntersectionInfo
+        >
+        static inline void apply(Info& , Point1 const& , Point2 const& ,
+                                 IntersectionInfo const& )
+        {
+        }
     };
 
 
@@ -145,13 +159,13 @@ protected:
         typename Turns,
         typename LinearGeometry1,
         typename LinearGeometry2,
-        typename Strategy,
+        typename IntersectionStrategy,
         typename RobustPolicy
     >
     static inline void compute_turns(Turns& turns,
                                      LinearGeometry1 const& linear1,
                                      LinearGeometry2 const& linear2,
-                                     Strategy const& strategy,
+                                     IntersectionStrategy const& strategy,
                                      RobustPolicy const& robust_policy)
     {
         turns.clear();
@@ -167,7 +181,8 @@ protected:
                     LinearGeometry1,
                     LinearGeometry2,
                     assign_policy
-                >
+                >,
+                RobustPolicy
             >::apply(turns, linear1, linear2, interrupt_policy, strategy, robust_policy);
     }
 
@@ -180,14 +195,14 @@ protected:
         typename LinearGeometry1,
         typename LinearGeometry2,
         typename OutputIterator,
-        typename Strategy
+        typename IntersectionStrategy
     >
     static inline OutputIterator
     sort_and_follow_turns(Turns& turns,
                           LinearGeometry1 const& linear1,
                           LinearGeometry2 const& linear2,
                           OutputIterator oit,
-                          Strategy const& strategy)
+                          IntersectionStrategy const& strategy)
     {
         // remove turns that have no added value
         turns::filter_continue_turns
@@ -204,7 +219,7 @@ protected:
         turns::remove_duplicate_turns
             <
                 Turns, EnableRemoveDuplicateTurns
-            >::apply(turns, strategy);
+            >::apply(turns);
 
         return detail::overlay::following::linear::follow
             <
@@ -215,7 +230,7 @@ protected:
                 FollowIsolatedPoints,
                 !EnableFilterContinueTurns || OverlayType == overlay_intersection
             >::apply(linear1, linear2, boost::begin(turns), boost::end(turns),
-                     oit, strategy);
+                     oit, strategy.get_side_strategy());
     }
 
 public:
@@ -234,12 +249,13 @@ public:
                 Linear1,
                 Linear2,
                 detail::get_turns::get_turn_info_type
-                    <
-                        Linear1,
-                        Linear2,
-                        assign_policy
-                    >
-            >::template turn_info_type<Strategy, RobustPolicy>::type turn_info;
+                <
+                    Linear1,
+                    Linear2,
+                    assign_policy
+                >,
+                RobustPolicy
+            >::turn_info turn_info;
 
         typedef std::vector<turn_info> turns_container;
 

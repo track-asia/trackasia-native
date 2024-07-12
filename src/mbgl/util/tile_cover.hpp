@@ -3,10 +3,10 @@
 #include <mbgl/tile/tile_id.hpp>
 #include <mbgl/style/types.hpp>
 #include <mbgl/util/geometry.hpp>
+#include <mbgl/util/optional.hpp>
 
 #include <vector>
 #include <memory>
-#include <optional>
 
 namespace mbgl {
 
@@ -23,7 +23,7 @@ public:
     TileCover(const Geometry<double>&, uint8_t z, bool project = true);
     ~TileCover();
 
-    std::optional<UnwrappedTileID> next();
+    optional<UnwrappedTileID> next();
     bool hasNext();
 
 private:
@@ -31,16 +31,16 @@ private:
     std::unique_ptr<Impl> impl;
 };
 
-int32_t coveringZoomLevel(double z, style::SourceType type, uint16_t tileSize) noexcept;
+int32_t coveringZoomLevel(double z, style::SourceType type, uint16_t tileSize);
 
 std::vector<OverscaledTileID> tileCover(const TransformState&,
                                         uint8_t z,
-                                        const std::optional<uint8_t>& overscaledZ = std::nullopt);
+                                        const optional<uint8_t>& overscaledZ = nullopt);
 std::vector<UnwrappedTileID> tileCover(const LatLngBounds&, uint8_t z);
 std::vector<UnwrappedTileID> tileCover(const Geometry<double>&, uint8_t z);
 
 // Compute only the count of tiles needed for tileCover
-uint64_t tileCount(const LatLngBounds&, uint8_t z) noexcept;
+uint64_t tileCount(const LatLngBounds&, uint8_t z);
 uint64_t tileCount(const Geometry<double>&, uint8_t z);
 
 } // namespace util

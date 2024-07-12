@@ -13,9 +13,9 @@ public:
 
     uint16_t getTileSize() const;
 
-    std::optional<std::string> getAttribution() const final;
+    optional<std::string> getAttribution() const final;
 
-    const std::optional<Tileset> tileset;
+    const optional<Tileset> tileset;
 
 private:
     uint16_t tileSize;

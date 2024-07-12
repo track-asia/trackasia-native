@@ -4,10 +4,10 @@
 // Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2014-2021.
-// Modifications copyright (c) 2014-2021, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -20,8 +20,9 @@
 #define BOOST_GEOMETRY_STRATEGIES_DISTANCE_HPP
 
 
+#include <boost/mpl/assert.hpp>
+
 #include <boost/geometry/core/cs.hpp>
-#include <boost/geometry/core/static_assert.hpp>
 #include <boost/geometry/strategies/tags.hpp>
 
 
@@ -33,43 +34,36 @@ namespace strategy { namespace distance { namespace services
 {
 
 
-template <typename Strategy> struct tag
-{
-    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
-        "Not implemented for this Strategy.",
-        Strategy);
-};
+template <typename Strategy> struct tag {};
 
 template <typename Strategy, typename P1, typename P2>
 struct return_type
 {
-    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
-        "Not implemented for this Strategy.",
-        Strategy, P1, P2);
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_IMPLEMENTED_FOR_THIS_STRATEGY, (types<Strategy, P1, P2>)
+        );
 };
 
 
 template <typename Strategy> struct comparable_type
 {
-    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
-        "Not implemented for this Strategy.",
-        Strategy);
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_IMPLEMENTED_FOR_THIS_STRATEGY, (types<Strategy>)
+        );
 };
 
 template <typename Strategy> struct get_comparable
 {
-    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
-        "Not implemented for this Strategy.",
-        Strategy);
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_IMPLEMENTED_FOR_THIS_STRATEGY, (types<Strategy>)
+        );
 };
 
 template <typename Strategy, typename P1, typename P2>
-struct result_from_distance
-{
-    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
-        "Not implemented for this Strategy.",
-        Strategy, P1, P2);
-};
+struct result_from_distance {};
 
 
 
@@ -100,9 +94,11 @@ template
 >
 struct default_strategy
 {
-    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
-        "Not implemented for this Point type combination.",
-        Point1, Point2, CsTag1, CsTag2);
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_IMPLEMENTED_FOR_THIS_POINT_TYPE_COMBINATION
+            , (types<Point1, Point2, CsTag1, CsTag2>)
+        );
 };
 
 

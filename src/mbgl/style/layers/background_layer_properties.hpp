@@ -21,7 +21,7 @@ struct BackgroundColor : PaintProperty<Color> {
 };
 
 struct BackgroundOpacity : PaintProperty<float> {
-    static float defaultValue() { return 1.f; }
+    static float defaultValue() { return 1; }
 };
 
 struct BackgroundPattern : CrossFadedPaintProperty<expression::Image> {
@@ -45,9 +45,7 @@ public:
 
     unsigned long constantsMask() const override;
 
-    expression::Dependency getDependencies() const noexcept override;
-
-    const BackgroundLayer::Impl& layerImpl() const noexcept;
+    const BackgroundLayer::Impl& layerImpl() const;
     // Data members.
     CrossfadeParameters crossfade;
     BackgroundPaintProperties::PossiblyEvaluated evaluated;

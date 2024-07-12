@@ -27,23 +27,18 @@ MapSnapshotterObserver& MapSnapshotterObserver::nullObserver() {
 class ForwardingRendererObserver final : public RendererObserver {
 public:
     explicit ForwardingRendererObserver(RendererObserver& delegate_)
-        : mailbox(std::make_shared<Mailbox>(*Scheduler::GetCurrent())),
-          delegate(delegate_, mailbox) {}
+        : mailbox(std::make_shared<Mailbox>(*Scheduler::GetCurrent())), delegate(delegate_, mailbox) {}
 
     ~ForwardingRendererObserver() override { mailbox->close(); }
 
-    void onInvalidate() override { delegate.invoke(&RendererObserver::onInvalidate); }
+    void onInvalidate() override {
+      delegate.invoke(&RendererObserver::onInvalidate);
+    }
 
     void onResourceError(std::exception_ptr err) override { delegate.invoke(&RendererObserver::onResourceError, err); }
 
-    void onDidFinishRenderingFrame(RenderMode mode,
-                                   bool repaintNeeded,
-                                   bool placementChanged,
-                                   double frameEncodingTime,
-                                   double frameRenderingTime) override {
-        void (RendererObserver::*f)(
-            RenderMode, bool, bool, double, double) = &RendererObserver::onDidFinishRenderingFrame;
-        delegate.invoke(f, mode, repaintNeeded, placementChanged, frameEncodingTime, frameRenderingTime);
+    void onDidFinishRenderingFrame(RenderMode mode, bool repaintNeeded, bool placementChanged) override {
+        delegate.invoke(&RendererObserver::onDidFinishRenderingFrame, mode, repaintNeeded, placementChanged);
     }
 
     void onStyleImageMissing(const std::string& image, const StyleImageMissingCallback& cb) override {
@@ -57,7 +52,7 @@ private:
 
 class SnapshotterRenderer final : public RendererObserver {
 public:
-    SnapshotterRenderer(Size size, float pixelRatio, const std::optional<std::string>& localFontFamily)
+    SnapshotterRenderer(Size size, float pixelRatio, const optional<std::string>& localFontFamily)
         : frontend(size,
                    pixelRatio,
                    gfx::HeadlessBackend::SwapBehaviour::NoFlush,
@@ -69,7 +64,9 @@ public:
         frontend.reset();
     }
 
-    void onInvalidate() override { rendererObserver->onInvalidate(); }
+    void onInvalidate() override {
+      rendererObserver->onInvalidate();
+    }
 
     void onResourceError(std::exception_ptr err) override {
         hasPendingStillImageRequest = false;
@@ -81,18 +78,6 @@ public:
             stillImage = frontend.readStillImage();
         }
         rendererObserver->onDidFinishRenderingFrame(mode, repaintNeeded, placementChanged);
-    }
-
-    void onDidFinishRenderingFrame(RenderMode mode,
-                                   bool repaintNeeded,
-                                   bool placementChanged,
-                                   double frameEncodingTime,
-                                   double frameRenderingTime) override {
-        if (mode == RenderMode::Full && hasPendingStillImageRequest) {
-            stillImage = frontend.readStillImage();
-        }
-        rendererObserver->onDidFinishRenderingFrame(
-            mode, repaintNeeded, placementChanged, frameEncodingTime, frameRenderingTime);
     }
 
     void onStyleImageMissing(const std::string& id, const StyleImageMissingCallback& done) override {
@@ -118,8 +103,6 @@ public:
         return std::move(stillImage);
     }
 
-    const TaggedScheduler& getThreadPool() const { return frontend.getThreadPool(); }
-
 private:
     PremultipliedImage stillImage;
     bool hasPendingStillImageRequest = false;
@@ -129,7 +112,7 @@ private:
 
 class SnapshotterRendererFrontend final : public RendererFrontend {
 public:
-    SnapshotterRendererFrontend(Size size, float pixelRatio, std::optional<std::string> localFontFamily)
+    SnapshotterRendererFrontend(Size size, float pixelRatio, optional<std::string> localFontFamily)
         : renderer(std::make_unique<util::Thread<SnapshotterRenderer>>(
               "Snapshotter", size, pixelRatio, std::move(localFontFamily))) {}
 
@@ -158,10 +141,6 @@ public:
 
     PremultipliedImage takeImage() { return renderer->actor().ask(&SnapshotterRenderer::takeImage).get(); }
 
-    const mbgl::TaggedScheduler& getThreadPool() const override {
-        return renderer->actor().ask(&SnapshotterRenderer::getThreadPool).get();
-    }
-
 private:
     std::shared_ptr<UpdateParameters> updateParameters;
     const std::unique_ptr<util::Thread<SnapshotterRenderer>> renderer;
@@ -174,7 +153,7 @@ public:
          const ResourceOptions& resourceOptions,
          const ClientOptions& clientOptions,
          MapSnapshotterObserver& observer_,
-         std::optional<std::string> localFontFamily)
+         optional<std::string> localFontFamily)
         : observer(observer_),
           frontend(size, pixelRatio, std::move(localFontFamily)),
           map(frontend,
@@ -230,11 +209,11 @@ public:
             // Create lambda that captures the current transform state
             // and can be used to translate for geographic to screen
             // coordinates
-            LatLngForFn latLngForFn =
-                [transformState = frontend.getTransformState()](const ScreenCoordinate& screenCoordinate) {
-                    Transform transform{transformState};
-                    return transform.screenCoordinateToLatLng(screenCoordinate);
-                };
+            LatLngForFn latLngForFn = [transformState =
+                                           frontend.getTransformState()](const ScreenCoordinate& screenCoordinate) {
+                Transform transform{transformState};
+                return transform.screenCoordinateToLatLng(screenCoordinate);
+            };
 
             // Collect all source attributions
             std::vector<std::string> attributions;
@@ -277,14 +256,11 @@ MapSnapshotter::MapSnapshotter(Size size,
                                const ResourceOptions& resourceOptions,
                                const ClientOptions& clientOptions,
                                MapSnapshotterObserver& observer,
-                               std::optional<std::string> localFontFamily)
+                               optional<std::string> localFontFamily)
     : impl(std::make_unique<MapSnapshotter::Impl>(
           size, pixelRatio, resourceOptions, clientOptions, observer, std::move(localFontFamily))) {}
 
-MapSnapshotter::MapSnapshotter(Size size,
-                               float pixelRatio,
-                               const ResourceOptions& resourceOptions,
-                               const ClientOptions& clientOptions)
+MapSnapshotter::MapSnapshotter(Size size, float pixelRatio, const ResourceOptions& resourceOptions, const ClientOptions& clientOptions)
     : MapSnapshotter(size, pixelRatio, resourceOptions, clientOptions, MapSnapshotterObserver::nullObserver()) {}
 
 MapSnapshotter::~MapSnapshotter() = default;

@@ -2,7 +2,7 @@
 
 // Copyright (c) 2018 Adam Wulkiewicz, Lodz, Poland.
 
-// Copyright (c) 2015-2020 Oracle and/or its affiliates.
+// Copyright (c) 2015-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -106,8 +106,7 @@ public:
 
             CT const one_minus_cos_d = c1 - cos_d;
             CT const one_plus_cos_d = c1 + cos_d;
-            // cos_d = 1 means that the points are very close
-            // cos_d = -1 means that the points are antipodal
+            // cos_d = 1 or cos_d = -1 means that the points are antipodal
 
             CT const H = math::equals(one_minus_cos_d, c0) ?
                             c0 :
@@ -125,7 +124,7 @@ public:
 
         if ( BOOST_GEOMETRY_CONDITION(CalcAzimuths) )
         {
-            // sin_d = 0 <=> antipodal points (incl. poles) or very close
+            // sin_d = 0 <=> antipodal points (incl. poles)
             if (math::equals(sin_d, c0))
             {
                 // T = inf
@@ -141,26 +140,16 @@ public:
                 // The most correct way of fixing it is to handle antipodal regions
                 // correctly and consistently across all formulas.
 
-                // points very close
-                if (cos_d >= c0)
+                // Set azimuth to 0 unless the first endpoint is the north pole
+                if (! math::equals(sin_lat1, c1))
                 {
                     result.azimuth = c0;
-                    result.reverse_azimuth = c0;
+                    result.reverse_azimuth = pi;
                 }
-                // antipodal points
                 else
                 {
-                    // Set azimuth to 0 unless the first endpoint is the north pole
-                    if (! math::equals(sin_lat1, c1))
-                    {
-                        result.azimuth = c0;
-                        result.reverse_azimuth = pi;
-                    }
-                    else
-                    {
-                        result.azimuth = pi;
-                        result.reverse_azimuth = c0;
-                    }
+                    result.azimuth = pi;
+                    result.reverse_azimuth = 0;
                 }
             }
             else

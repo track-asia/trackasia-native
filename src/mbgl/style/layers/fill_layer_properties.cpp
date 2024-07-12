@@ -27,12 +27,8 @@ unsigned long FillLayerProperties::constantsMask() const {
     return evaluated.constantsMask();
 }
 
-const FillLayer::Impl& FillLayerProperties::layerImpl() const noexcept {
+const FillLayer::Impl& FillLayerProperties::layerImpl() const {
     return static_cast<const FillLayer::Impl&>(*baseImpl);
-}
-
-expression::Dependency FillLayerProperties::getDependencies() const noexcept {
-    return layerImpl().paint.getDependencies() | layerImpl().layout.getDependencies();
 }
 
 } // namespace style

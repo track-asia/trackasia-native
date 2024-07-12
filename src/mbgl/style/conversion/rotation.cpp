@@ -6,11 +6,11 @@ namespace mbgl {
 namespace style {
 namespace conversion {
 
-std::optional<style::Rotation> Converter<style::Rotation>::operator()(const Convertible& value, Error& error) const {
-    std::optional<double> converted = toDouble(value);
+optional<style::Rotation> Converter<style::Rotation>::operator()(const Convertible& value, Error& error) const {
+    optional<double> converted = toDouble(value);
     if (!converted) {
         error.message = "value must be a number";
-        return std::nullopt;
+        return nullopt;
     }
     return {*converted};
 }

@@ -67,7 +67,7 @@ public:
     CGLPixelFormatObj pixelFormat = nullptr;
 };
 
-class CGLBackendImpl final : public HeadlessBackend::Impl {
+class CGLBackendImpl : public HeadlessBackend::Impl {
 public:
     CGLBackendImpl() {
         CGLError error = CGLCreateContext(cglDisplay->pixelFormat, nullptr, &glContext);

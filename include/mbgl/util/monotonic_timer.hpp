@@ -1,7 +1,9 @@
 #pragma once
 
 #include <chrono>
-#include <utility>
+#include <functional>
+#include <mbgl/util/noncopyable.hpp>
+#include <memory>
 
 namespace mbgl {
 namespace util {

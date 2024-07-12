@@ -2,13 +2,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MLNNativeNetworkManager;
+@class MGLNativeNetworkManager;
 
-@protocol MLNNativeNetworkDelegate <NSObject>
+@protocol MGLNativeNetworkDelegate <NSObject>
 
 @optional
 
-- (NSURLSession *)sessionForNetworkManager:(MLNNativeNetworkManager *)networkManager;
+- (NSURLSession *)sessionForNetworkManager:(MGLNativeNetworkManager *)networkManager;
 
 @required
 
@@ -26,13 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#define MLN_APPLE_EXPORT __attribute__((visibility("default")))
+#define MGL_APPLE_EXPORT __attribute__((visibility ("default")))
 
-@interface MLNNativeNetworkManager : NSObject
+@interface MGLNativeNetworkManager: NSObject
 
-+ (MLNNativeNetworkManager *)sharedManager;
++ (MGLNativeNetworkManager *)sharedManager;
 
-@property (nonatomic, weak) id<MLNNativeNetworkDelegate> delegate;
+@property (nonatomic, weak) id<MGLNativeNetworkDelegate> delegate;
 
 @property (nonatomic, readonly) NSURLSessionConfiguration *sessionConfiguration;
 

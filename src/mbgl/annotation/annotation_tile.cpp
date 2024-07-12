@@ -7,7 +7,8 @@
 
 namespace mbgl {
 
-AnnotationTile::AnnotationTile(const OverscaledTileID& overscaledTileID, const TileParameters& parameters)
+AnnotationTile::AnnotationTile(const OverscaledTileID& overscaledTileID,
+                               const TileParameters& parameters)
     : GeometryTile(overscaledTileID, AnnotationManager::SourceID, parameters),
       annotationManager(parameters.annotationManager) {
     auto guard = annotationManager.lock();
@@ -32,7 +33,8 @@ public:
         : id(id_),
           type(type_),
           geometries(std::move(geometries_)),
-          properties(std::move(properties_)) {}
+          properties(std::move(properties_)) {
+    }
 
     AnnotationID id;
     FeatureType type;
@@ -41,7 +43,8 @@ public:
 };
 
 AnnotationTileFeature::AnnotationTileFeature(std::shared_ptr<const AnnotationTileFeatureData> data_)
-    : data(std::move(data_)) {}
+    : data(std::move(data_)) {
+}
 
 AnnotationTileFeature::~AnnotationTileFeature() = default;
 
@@ -49,12 +52,12 @@ FeatureType AnnotationTileFeature::getType() const {
     return data->type;
 }
 
-std::optional<Value> AnnotationTileFeature::getValue(const std::string& key) const {
+optional<Value> AnnotationTileFeature::getValue(const std::string& key) const {
     auto it = data->properties.find(key);
     if (it != data->properties.end()) {
-        return std::optional<Value>(it->second);
+        return optional<Value>(it->second);
     }
-    return std::nullopt;
+    return optional<Value>();
 }
 
 FeatureIdentifier AnnotationTileFeature::getID() const {
@@ -67,15 +70,14 @@ const GeometryCollection& AnnotationTileFeature::getGeometries() const {
 
 class AnnotationTileLayerData {
 public:
-    explicit AnnotationTileLayerData(std::string name_)
-        : name(std::move(name_)) {}
+    explicit AnnotationTileLayerData(std::string name_) : name(std::move(name_)) {}
 
     const std::string name;
     std::vector<std::shared_ptr<const AnnotationTileFeatureData>> features;
 };
 
-AnnotationTileLayer::AnnotationTileLayer(std::shared_ptr<AnnotationTileLayerData> layer_)
-    : layer(std::move(layer_)) {}
+AnnotationTileLayer::AnnotationTileLayer(std::shared_ptr<AnnotationTileLayerData> layer_) : layer(std::move(layer_)) {
+}
 
 std::size_t AnnotationTileLayer::featureCount() const {
     return layer->features.size();
@@ -93,8 +95,9 @@ void AnnotationTileLayer::addFeature(const AnnotationID id,
                                      FeatureType type,
                                      GeometryCollection geometries,
                                      std::unordered_map<std::string, std::string> properties) {
-    layer->features.emplace_back(
-        std::make_shared<AnnotationTileFeatureData>(id, type, std::move(geometries), std::move(properties)));
+
+    layer->features.emplace_back(std::make_shared<AnnotationTileFeatureData>(
+        id, type, std::move(geometries), std::move(properties)));
 }
 
 std::unique_ptr<GeometryTileData> AnnotationTileData::clone() const {

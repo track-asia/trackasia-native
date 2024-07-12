@@ -3,7 +3,7 @@ authors = ["TrackAsia Contributors"]
 language = "en"
 multilingual = false
 src = "src"
-title = "TrackAsia Native Documentation"
+title = "TrackAsia GL Native Documentation"
 
 [output.html]
 additional-css = ["diff.css"]

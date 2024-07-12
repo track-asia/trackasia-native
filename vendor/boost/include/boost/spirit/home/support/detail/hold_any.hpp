@@ -25,12 +25,12 @@
 #include <boost/static_assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/assert.hpp>
-#include <boost/core/typeinfo.hpp>
+#include <boost/detail/sp_typeinfo.hpp>
 
-#include <algorithm>
-#include <iosfwd>
 #include <stdexcept>
 #include <typeinfo>
+#include <algorithm>
+#include <iosfwd>
 
 ///////////////////////////////////////////////////////////////////////////////
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)
@@ -45,14 +45,11 @@ namespace boost { namespace spirit
     struct bad_any_cast
       : std::bad_cast
     {
-        bad_any_cast(boost::core::typeinfo const& src, boost::core::typeinfo const& dest)
+        bad_any_cast(boost::detail::sp_typeinfo const& src, boost::detail::sp_typeinfo const& dest)
           : from(src.name()), to(dest.name())
         {}
 
-        const char* what() const BOOST_NOEXCEPT_OR_NOTHROW BOOST_OVERRIDE
-        { 
-            return "bad any cast";
-        }
+        virtual const char* what() const throw() { return "bad any cast"; }
 
         const char* from;
         const char* to;
@@ -64,7 +61,7 @@ namespace boost { namespace spirit
         template <typename Char>
         struct fxn_ptr_table
         {
-            boost::core::typeinfo const& (*get_type)();
+            boost::detail::sp_typeinfo const& (*get_type)();
             void (*static_delete)(void**);
             void (*destruct)(void**);
             void (*clone)(void* const*, void**);
@@ -83,9 +80,9 @@ namespace boost { namespace spirit
             template<typename T, typename Char>
             struct type
             {
-                static boost::core::typeinfo const& get_type()
+                static boost::detail::sp_typeinfo const& get_type()
                 {
-                    return BOOST_CORE_TYPEID(T);
+                    return BOOST_SP_TYPEID(T);
                 }
                 static void static_delete(void** x)
                 {
@@ -126,39 +123,39 @@ namespace boost { namespace spirit
             template<typename T, typename Char>
             struct type
             {
-                static boost::core::typeinfo const& get_type()
+                static boost::detail::sp_typeinfo const& get_type()
                 {
-                    return BOOST_CORE_TYPEID(T);
+                    return BOOST_SP_TYPEID(T);
                 }
                 static void static_delete(void** x)
                 {
                     // destruct and free memory
-                    delete static_cast<T*>(*x);
+                    delete (*reinterpret_cast<T**>(x));
                 }
                 static void destruct(void** x)
                 {
                     // destruct only, we'll reuse memory
-                    static_cast<T*>(*x)->~T();
+                    (*reinterpret_cast<T**>(x))->~T();
                 }
                 static void clone(void* const* src, void** dest)
                 {
-                    *dest = new T(*static_cast<T const*>(*src));
+                    *dest = new T(**reinterpret_cast<T* const*>(src));
                 }
                 static void move(void* const* src, void** dest)
                 {
-                    *static_cast<T*>(*dest) =
-                        *static_cast<T const*>(*src);
+                    **reinterpret_cast<T**>(dest) =
+                        **reinterpret_cast<T* const*>(src);
                 }
                 static std::basic_istream<Char>&
                 stream_in(std::basic_istream<Char>& i, void** obj)
                 {
-                    i >> *static_cast<T*>(*obj);
+                    i >> **reinterpret_cast<T**>(obj);
                     return i;
                 }
                 static std::basic_ostream<Char>&
                 stream_out(std::basic_ostream<Char>& o, void* const* obj)
                 {
-                    o << *static_cast<T const*>(*obj);
+                    o << **reinterpret_cast<T* const*>(obj);
                     return o;
                 }
             };
@@ -344,7 +341,7 @@ namespace boost { namespace spirit
             return *this;
         }
 
-        boost::core::typeinfo const& type() const
+        boost::detail::sp_typeinfo const& type() const
         {
             return table->get_type();
         }
@@ -352,8 +349,8 @@ namespace boost { namespace spirit
         template <typename T>
         T const& cast() const
         {
-            if (type() != BOOST_CORE_TYPEID(T))
-              throw bad_any_cast(type(), BOOST_CORE_TYPEID(T));
+            if (type() != BOOST_SP_TYPEID(T))
+              throw bad_any_cast(type(), BOOST_SP_TYPEID(T));
 
             return spirit::detail::get_table<T>::is_small::value ?
                 *reinterpret_cast<T const*>(&object) :
@@ -416,7 +413,7 @@ namespace boost { namespace spirit
     template <typename T, typename Char>
     inline T* any_cast (basic_hold_any<Char>* operand)
     {
-        if (operand && operand->type() == BOOST_CORE_TYPEID(T)) {
+        if (operand && operand->type() == BOOST_SP_TYPEID(T)) {
             return spirit::detail::get_table<T>::is_small::value ?
                 reinterpret_cast<T*>(&operand->object) :
                 reinterpret_cast<T*>(operand->object);
@@ -438,7 +435,7 @@ namespace boost { namespace spirit
 
         nonref* result = any_cast<nonref>(&operand);
         if(!result)
-            boost::throw_exception(bad_any_cast(operand.type(), BOOST_CORE_TYPEID(T)));
+            boost::throw_exception(bad_any_cast(operand.type(), BOOST_SP_TYPEID(T)));
         return *result;
     }
 

@@ -44,7 +44,10 @@ afterEvaluate {
                 artifactId project.ext.trackAsiaArtifactId
                 version this.version
                 
-                from components.drawableRelease               
+                from components.release
+
+                artifact androidSourcesJar
+                artifact androidJavadocsJar                
 
                 pom {
                     name = project.ext.trackAsiaArtifactTitle
@@ -77,7 +80,7 @@ afterEvaluate {
 afterEvaluate { project ->
     android.libraryVariants.all { variant ->
         tasks.androidJavadocs.doFirst {
-            classpath += files(variant.javaCompileProvider.get().classpath.files)
+            classpath += files(variant.javaCompile.classpath.files)
         }
     }
 }

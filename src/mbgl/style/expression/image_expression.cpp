@@ -7,8 +7,7 @@ namespace style {
 namespace expression {
 
 ImageExpression::ImageExpression(std::unique_ptr<Expression> imageID_)
-    : Expression(Kind::ImageExpression, type::Image, depsOf(imageID_) | Dependency::Image),
-      imageID(std::move(imageID_)) {
+    : Expression(Kind::ImageExpression, type::Image), imageID(std::move(imageID_)) {
     assert(imageID);
 }
 
@@ -35,9 +34,9 @@ void ImageExpression::eachChild(const std::function<void(const Expression&)>& fn
     fn(*imageID);
 }
 
-bool ImageExpression::operator==(const Expression& e) const noexcept {
+bool ImageExpression::operator==(const Expression& e) const {
     if (e.getKind() == Kind::ImageExpression) {
-        const auto* rhs = static_cast<const ImageExpression*>(&e);
+        auto rhs = static_cast<const ImageExpression*>(&e);
         return *imageID == *rhs->imageID;
     }
     return false;
@@ -55,7 +54,7 @@ EvaluationResult ImageExpression::evaluate(const EvaluationContext& ctx) const {
         return imageIDResult.error();
     }
 
-    std::optional<std::string> evaluatedImageID = toString(*imageIDResult);
+    optional<std::string> evaluatedImageID = toString(*imageIDResult);
     if (!evaluatedImageID) {
         return EvaluationError({"Could not evaluate ID for 'image' expression."});
     }

@@ -17,7 +17,7 @@ namespace mbgl {
 namespace style {
 
 struct FillExtrusionBase : DataDrivenPaintProperty<float, attributes::base, uniforms::base> {
-    static float defaultValue() { return 0.f; }
+    static float defaultValue() { return 0; }
 };
 
 struct FillExtrusionColor : DataDrivenPaintProperty<Color, attributes::color, uniforms::color> {
@@ -25,11 +25,11 @@ struct FillExtrusionColor : DataDrivenPaintProperty<Color, attributes::color, un
 };
 
 struct FillExtrusionHeight : DataDrivenPaintProperty<float, attributes::height, uniforms::height> {
-    static float defaultValue() { return 0.f; }
+    static float defaultValue() { return 0; }
 };
 
 struct FillExtrusionOpacity : PaintProperty<float> {
-    static float defaultValue() { return 1.f; }
+    static float defaultValue() { return 1; }
 };
 
 struct FillExtrusionPattern : CrossFadedDataDrivenPaintProperty<expression::Image, attributes::pattern_to, uniforms::pattern_to, attributes::pattern_from, uniforms::pattern_from> {
@@ -37,7 +37,7 @@ struct FillExtrusionPattern : CrossFadedDataDrivenPaintProperty<expression::Imag
 };
 
 struct FillExtrusionTranslate : PaintProperty<std::array<float, 2>> {
-    static std::array<float, 2> defaultValue() { return {{0.f, 0.f}}; }
+    static std::array<float, 2> defaultValue() { return {{0, 0}}; }
 };
 
 struct FillExtrusionTranslateAnchor : PaintProperty<TranslateAnchorType> {
@@ -70,9 +70,7 @@ public:
 
     unsigned long constantsMask() const override;
 
-    expression::Dependency getDependencies() const noexcept override;
-
-    const FillExtrusionLayer::Impl& layerImpl() const noexcept;
+    const FillExtrusionLayer::Impl& layerImpl() const;
     // Data members.
     CrossfadeParameters crossfade;
     FillExtrusionPaintProperties::PossiblyEvaluated evaluated;

@@ -15,12 +15,33 @@
 #include <mbgl/geometry/feature_index.hpp>
 #include <mbgl/annotation/annotation_manager.hpp>
 #include <mbgl/renderer/image_manager.hpp>
-#include <mbgl/test/vector_tile_test.hpp>
 #include <mbgl/text/glyph_manager.hpp>
 
 #include <memory>
 
 using namespace mbgl;
+
+class VectorTileTest {
+public:
+    std::shared_ptr<FileSource> fileSource = std::make_shared<FakeFileSource>(ResourceOptions::Default(), ClientOptions());
+    TransformState transformState;
+    util::RunLoop loop;
+    style::Style style{fileSource, 1};
+    AnnotationManager annotationManager { style };
+    ImageManager imageManager;
+    GlyphManager glyphManager;
+    Tileset tileset { { "https://example.com" }, { 0, 22 }, "none" };
+
+    TileParameters tileParameters{1.0,
+                                  MapDebugOptions(),
+                                  transformState,
+                                  fileSource,
+                                  MapMode::Continuous,
+                                  annotationManager.makeWeakPtr(),
+                                  imageManager,
+                                  glyphManager,
+                                  0};
+};
 
 TEST(VectorTile, setError) {
     VectorTileTest test;
@@ -47,7 +68,7 @@ TEST(VectorTile, Issue8542) {
 
     // Query before data is set
     std::vector<Feature> result;
-    tile.querySourceFeatures(result, {{{"layer"}}, {}});
+    tile.querySourceFeatures(result, { { {"layer"} }, {} });
 }
 
 TEST(VectorTileData, ParseResults) {
@@ -82,5 +103,5 @@ TEST(VectorTileData, ParseResults) {
     ASSERT_EQ(properties.size(), 3u);
     ASSERT_EQ(properties.at("disputed"), *feature->getValue("disputed"));
 
-    ASSERT_EQ(feature->getValue("invalid"), std::nullopt);
+    ASSERT_EQ(feature->getValue("invalid"), nullopt);
 }

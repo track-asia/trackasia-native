@@ -17,9 +17,9 @@ public:
 
     void eachChild(const std::function<void(const Expression&)>&) const override;
 
-    bool operator==(const Expression& e) const noexcept override;
+    bool operator==(const Expression& e) const override;
 
-    std::vector<std::optional<Value>> possibleOutputs() const override { return {std::nullopt}; }
+    std::vector<optional<Value>> possibleOutputs() const override { return {nullopt}; }
 
     mbgl::Value serialize() const override;
     std::string getOperator() const override { return "image"; }

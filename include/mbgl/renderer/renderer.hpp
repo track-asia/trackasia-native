@@ -25,9 +25,9 @@ struct PlacedSymbolData {
     /// Contents of the label
     std::u16string key;
     /// If symbol contains text, text collision box in viewport coordinates
-    std::optional<mapbox::geometry::box<float>> textCollisionBox;
+    optional<mapbox::geometry::box<float>> textCollisionBox;
     /// If symbol contains icon, icon collision box in viewport coordinates
-    std::optional<mapbox::geometry::box<float>> iconCollisionBox;
+    optional<mapbox::geometry::box<float>> iconCollisionBox;
     /// Symbol text was placed
     bool textPlaced;
     /// Symbol icon was placed
@@ -42,9 +42,7 @@ struct PlacedSymbolData {
 
 class Renderer {
 public:
-    Renderer(gfx::RendererBackend&,
-             float pixelRatio_,
-             const std::optional<std::string>& localFontFamily = std::nullopt);
+    Renderer(gfx::RendererBackend&, float pixelRatio_, const optional<std::string>& localFontFamily = {});
     ~Renderer();
 
     void markContextLost();
@@ -55,8 +53,7 @@ public:
 
     /// Feature queries
     std::vector<Feature> queryRenderedFeatures(const ScreenLineString&, const RenderedQueryOptions& options = {}) const;
-    std::vector<Feature> queryRenderedFeatures(const ScreenCoordinate& point,
-                                               const RenderedQueryOptions& options = {}) const;
+    std::vector<Feature> queryRenderedFeatures(const ScreenCoordinate& point, const RenderedQueryOptions& options = {}) const;
     std::vector<Feature> queryRenderedFeatures(const ScreenBox& box, const RenderedQueryOptions& options = {}) const;
     std::vector<Feature> querySourceFeatures(const std::string& sourceID, const SourceQueryOptions& options = {}) const;
     AnnotationIDs queryPointAnnotations(const ScreenBox& box) const;
@@ -64,42 +61,39 @@ public:
     AnnotationIDs getAnnotationIDs(const std::vector<Feature>&) const;
 
     /// Feature extension query
-    FeatureExtensionValue queryFeatureExtensions(
-        const std::string& sourceID,
-        const Feature& feature,
-        const std::string& extension,
-        const std::string& extensionField,
-        const std::optional<std::map<std::string, Value>>& args = std::nullopt) const;
+    FeatureExtensionValue queryFeatureExtensions(const std::string& sourceID,
+                                                 const Feature& feature,
+                                                 const std::string& extension,
+                                                 const std::string& extensionField,
+                                                 const optional<std::map<std::string, Value>>& args = {}) const;
 
-    void setFeatureState(const std::string& sourceID,
-                         const std::optional<std::string>& sourceLayerID,
-                         const std::string& featureID,
-                         const FeatureState& state);
+    void setFeatureState(const std::string& sourceID, const optional<std::string>& sourceLayerID,
+                         const std::string& featureID, const FeatureState& state);
 
     void getFeatureState(FeatureState& state,
                          const std::string& sourceID,
-                         const std::optional<std::string>& sourceLayerID,
+                         const optional<std::string>& sourceLayerID,
                          const std::string& featureID) const;
 
     void removeFeatureState(const std::string& sourceID,
-                            const std::optional<std::string>& sourceLayerID,
-                            const std::optional<std::string>& featureID,
-                            const std::optional<std::string>& stateKey);
+                            const optional<std::string>& sourceLayerID,
+                            const optional<std::string>& featureID,
+                            const optional<std::string>& stateKey);
 
     // Debug
     void dumpDebugLogs();
 
     /**
-     * @brief In Tile map mode, enables or disables collecting of the placed
-     * symbols data, which can be obtained with `getPlacedSymbolsData()`.
+     * @brief In Tile map mode, enables or disables collecting of the placed symbols data,
+     * which can be obtained with `getPlacedSymbolsData()`.
      *
      * The placed symbols data collecting is disabled by default.
      */
     void collectPlacedSymbolData(bool enable);
 
     /**
-     * @brief If collecting of the placed symbols data is enabled, returns the
-     * reference to the `PlacedSymbolData` vector holding the collected data.
+     * @brief If collecting of the placed symbols data is enabled, returns the reference
+     * to the `PlacedSymbolData` vector holding the collected data.
      *
      * Note: the returned vector gets re-populated at every `render()` call.
      *

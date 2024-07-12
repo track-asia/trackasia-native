@@ -1,9 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2020, Oracle and/or its affiliates.
+// Copyright (c) 2014, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -12,10 +11,11 @@
 #define BOOST_GEOMETRY_GEOMETRIES_POINTING_SEGMENT_HPP
 
 #include <cstddef>
-#include <type_traits>
 
 #include <boost/concept/assert.hpp>
 #include <boost/core/addressof.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_const.hpp>
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/assert.hpp>
@@ -41,9 +41,9 @@ template <typename ConstOrNonConstPoint>
 class pointing_segment
 {
     BOOST_CONCEPT_ASSERT( (
-        typename std::conditional
+        typename boost::mpl::if_
             <
-                std::is_const<ConstOrNonConstPoint>::value,
+                boost::is_const<ConstOrNonConstPoint>,
                 concepts::Point<ConstOrNonConstPoint>,
                 concepts::ConstPoint<ConstOrNonConstPoint>
             >

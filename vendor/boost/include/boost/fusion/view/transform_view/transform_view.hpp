@@ -27,11 +27,6 @@
 #include <boost/fusion/sequence/intrinsic/size.hpp>
 #include <boost/mpl/bool.hpp>
 
-#ifdef _MSC_VER
-#  pragma warning(push)
-#  pragma warning(disable: 4512) // assignment operator could not be generated.
-#endif
-
 namespace boost { namespace fusion
 {
     struct void_;
@@ -80,6 +75,10 @@ namespace boost { namespace fusion
         transform_type f;
         typename mpl::if_<traits::is_view<Sequence1>, Sequence1, Sequence1&>::type seq1;
         typename mpl::if_<traits::is_view<Sequence2>, Sequence2, Sequence2&>::type seq2;
+
+    private:
+        // silence MSVC warning C4512: assignment operator could not be generated
+        transform_view& operator= (transform_view const&);
     };
 
     // Unary Version
@@ -113,12 +112,12 @@ namespace boost { namespace fusion
         last_type last() const { return fusion::end(seq); }
         typename mpl::if_<traits::is_view<Sequence>, Sequence, Sequence&>::type seq;
         transform_type f;
+
+    private:
+        // silence MSVC warning C4512: assignment operator could not be generated
+        transform_view& operator= (transform_view const&);
     };
 }}
-
-#ifdef _MSC_VER
-#  pragma warning(pop)
-#endif
 
 #endif
 

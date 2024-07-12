@@ -29,9 +29,7 @@ public:
           mbtilesFileSource(std::move(mbtilesFileSource_)) {}
 
     void request(AsyncRequest* req, const Resource& resource, const ActorRef<FileSourceRequest>& ref) {
-        auto callback = [ref](const Response& res) {
-            ref.invoke(&FileSourceRequest::setResponse, res);
-        };
+        auto callback = [ref](const Response& res) { ref.invoke(&FileSourceRequest::setResponse, res); };
 
         auto requestFromNetwork = [=](const Resource& res,
                                       std::unique_ptr<AsyncRequest> parent) -> std::unique_ptr<AsyncRequest> {
@@ -50,10 +48,11 @@ public:
                 if (res.kind == Resource::Kind::Tile) {
                     // onlineResponse.data will be null if data not modified
                     MBGL_TIMING_FINISH(watch,
-                                       " Action: " << "Requesting,"
-                                                   << " URL: " << res.url.c_str() << " Size: "
-                                                   << (response.data != nullptr ? response.data->size() : 0) << "B,"
-                                                   << " Time")
+                                       " Action: "
+                                           << "Requesting,"
+                                           << " URL: " << res.url.c_str() << " Size: "
+                                           << (response.data != nullptr ? response.data->size() : 0) << "B,"
+                                           << " Time")
                 }
                 callback(response);
             });
@@ -89,10 +88,9 @@ public:
                             // Set the priority of existing resource to low if it's expired but usable.
                             res.setPriority(Resource::Priority::Low);
                         } else {
-                            // Set prior data only if it was not returned to
-                            // the requester. Once we get 304 response from
-                            // the network, we will forward response to the
-                            // requester.
+                            // Set prior data only if it was not returned to the requester.
+                            // Once we get 304 response from the network, we will forward response
+                            // to the requester.
                             res.priorData = response.data;
                         }
 
@@ -114,8 +112,8 @@ public:
         if (tasks.size() == tasksSize) {
             Response response;
             response.noContent = true;
-            response.error = std::make_unique<Response::Error>(Response::Error::Reason::Other,
-                                                               "Unsupported resource request.");
+            response.error =
+                std::make_unique<Response::Error>(Response::Error::Reason::Other, "Unsupported resource request.");
             callback(response);
         }
     }
@@ -157,8 +155,8 @@ public:
               localFileSource,
               onlineFileSource,
               mbtilesFileSource)),
-          resourceOptions(resourceOptions_.clone()),
-          clientOptions(clientOptions_.clone()) {}
+          resourceOptions (resourceOptions_.clone()),
+          clientOptions (clientOptions_.clone()) {}
 
     std::unique_ptr<AsyncRequest> request(const Resource& resource, Callback callback) {
         auto req = std::make_unique<FileSourceRequest>(std::move(callback));
@@ -228,15 +226,14 @@ private:
     ClientOptions clientOptions;
 };
 
-MainResourceLoader::MainResourceLoader(const ResourceOptions& resourceOptions, const ClientOptions& clientOptions)
-    : impl(std::make_unique<Impl>(
-          resourceOptions.clone(),
-          clientOptions.clone(),
-          FileSourceManager::get()->getFileSource(FileSourceType::Asset, resourceOptions, clientOptions),
-          FileSourceManager::get()->getFileSource(FileSourceType::Database, resourceOptions, clientOptions),
-          FileSourceManager::get()->getFileSource(FileSourceType::FileSystem, resourceOptions, clientOptions),
-          FileSourceManager::get()->getFileSource(FileSourceType::Network, resourceOptions, clientOptions),
-          FileSourceManager::get()->getFileSource(FileSourceType::Mbtiles, resourceOptions, clientOptions))) {}
+MainResourceLoader::MainResourceLoader(const ResourceOptions& resourceOptions, const ClientOptions& clientOptions):
+    impl(std::make_unique<Impl>(resourceOptions.clone(),
+                                clientOptions.clone(),
+                                FileSourceManager::get()->getFileSource(FileSourceType::Asset, resourceOptions, clientOptions),
+                                FileSourceManager::get()->getFileSource(FileSourceType::Database, resourceOptions, clientOptions),
+                                FileSourceManager::get()->getFileSource(FileSourceType::FileSystem, resourceOptions, clientOptions),
+                                FileSourceManager::get()->getFileSource(FileSourceType::Network, resourceOptions, clientOptions),
+                                FileSourceManager::get()->getFileSource(FileSourceType::Mbtiles, resourceOptions, clientOptions))) {}
 
 MainResourceLoader::~MainResourceLoader() = default;
 

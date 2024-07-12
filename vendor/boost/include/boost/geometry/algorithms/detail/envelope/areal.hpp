@@ -1,9 +1,8 @@
 // Boost.Geometry
 
-// Copyright (c) 2018-2021 Oracle and/or its affiliates.
+// Copyright (c) 2018 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -22,8 +21,6 @@
 
 #include <boost/geometry/algorithms/dispatch/envelope.hpp>
 
-#include <boost/geometry/views/reversible_view.hpp>
-
 namespace boost { namespace geometry
 {
 
@@ -31,24 +28,7 @@ namespace boost { namespace geometry
 namespace detail { namespace envelope
 {
 
-
-struct envelope_hole
-{
-    template <typename Range, typename Box, typename Strategies>
-    static inline void apply(Range const& range, Box& mbr, Strategies const& strategies)
-    {
-        // Reverse holes to avoid calculating the envelope for the outside
-        // in spherical and geographic coordinate systems
-        detail::clockwise_view
-            <
-                Range const,
-                geometry::point_order<Range>::value == counterclockwise
-                    ? clockwise : counterclockwise
-            > view(range);
-        strategies.envelope(range, mbr).apply(view, mbr);
-    }
-};
-
+template <typename EnvelopePolicy>
 struct envelope_polygon
 {
     template <typename Polygon, typename Box, typename Strategy>
@@ -59,19 +39,16 @@ struct envelope_polygon
 
         if (geometry::is_empty(ext_ring))
         {
-            // use dummy multi polygon to get the strategy because there is no multi ring concept
-            using strategy_t = decltype(strategy.envelope(detail::dummy_multi_polygon(),
-                                                          detail::dummy_box()));
             // if the exterior ring is empty, consider the interior rings
             envelope_multi_range
                 <
-                    envelope_hole
-                >::template apply<strategy_t>(interior_rings(polygon), mbr, strategy);
+                    EnvelopePolicy
+                >::apply(interior_rings(polygon), mbr, strategy);
         }
         else
         {
             // otherwise, consider only the exterior ring
-            envelope_range::apply(ext_ring, mbr, strategy);
+            EnvelopePolicy::apply(ext_ring, mbr, strategy);
         }
     }
 };
@@ -85,21 +62,77 @@ namespace dispatch
 {
 
 
-template <typename Ring>
-struct envelope<Ring, ring_tag>
+template <typename Ring, typename CS_Tag>
+struct envelope<Ring, ring_tag, CS_Tag>
     : detail::envelope::envelope_range
 {};
 
-template <typename Polygon>
-struct envelope<Polygon, polygon_tag>
-    : detail::envelope::envelope_polygon
+template <typename Ring>
+struct envelope<Ring, ring_tag, spherical_equatorial_tag>
+    : detail::envelope::envelope_linestring_or_ring_on_spheroid
 {};
 
-template <typename MultiPolygon>
-struct envelope<MultiPolygon, multi_polygon_tag>
+template <typename Ring>
+struct envelope<Ring, ring_tag, geographic_tag>
+    : detail::envelope::envelope_linestring_or_ring_on_spheroid
+{};
+
+
+template <typename Polygon, typename CS_Tag>
+struct envelope<Polygon, polygon_tag, CS_Tag>
+    : detail::envelope::envelope_polygon
+        <
+            detail::envelope::envelope_range
+        >
+{};
+
+template <typename Polygon>
+struct envelope<Polygon, polygon_tag, spherical_equatorial_tag>
+    : detail::envelope::envelope_polygon
+        <
+            detail::envelope::envelope_linestring_or_ring_on_spheroid
+        >
+{};
+
+template <typename Polygon>
+struct envelope<Polygon, polygon_tag, geographic_tag>
+    : detail::envelope::envelope_polygon
+        <
+            detail::envelope::envelope_linestring_or_ring_on_spheroid
+        >
+{};
+
+
+template <typename MultiPolygon, typename CS_Tag>
+struct envelope<MultiPolygon, multi_polygon_tag, CS_Tag>
     : detail::envelope::envelope_multi_range
         <
             detail::envelope::envelope_polygon
+              <
+                  detail::envelope::envelope_range
+              >
+        >
+{};
+
+template <typename MultiPolygon>
+struct envelope<MultiPolygon, multi_polygon_tag, spherical_equatorial_tag>
+    : detail::envelope::envelope_multi_range
+        <
+            detail::envelope::envelope_polygon
+              <
+                  detail::envelope::envelope_linestring_or_ring_on_spheroid
+              >
+        >
+{};
+
+template <typename MultiPolygon>
+struct envelope<MultiPolygon, multi_polygon_tag, geographic_tag>
+    : detail::envelope::envelope_multi_range
+        <
+            detail::envelope::envelope_polygon
+              <
+                  detail::envelope::envelope_linestring_or_ring_on_spheroid
+              >
         >
 {};
 

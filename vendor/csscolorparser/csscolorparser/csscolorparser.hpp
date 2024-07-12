@@ -25,7 +25,8 @@
 #ifndef CSS_COLOR_PARSER_CPP
 #define CSS_COLOR_PARSER_CPP
 
-#include <optional>
+#include <optional.hpp>
+
 #include <string>
 #include <cmath>
 
@@ -49,7 +50,7 @@ inline bool operator!=(const Color& lhs, const Color& rhs) {
     return !(lhs == rhs);
 }
 
-std::optional<Color> parse(const std::string& css_str);
+std::experimental::optional<Color> parse(const std::string& css_str);
 
 } // namespace CSSColorParser
 

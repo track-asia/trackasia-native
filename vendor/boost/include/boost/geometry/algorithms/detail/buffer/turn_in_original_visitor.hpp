@@ -2,9 +2,8 @@
 
 // Copyright (c) 2014 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2016-2023.
-// Modifications copyright (c) 2016-2023 Oracle and/or its affiliates.
-// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
+// This file was modified by Oracle on 2016.
+// Modifications copyright (c) 2016 Oracle and/or its affiliates.
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
@@ -16,10 +15,7 @@
 
 
 #include <boost/core/ignore_unused.hpp>
-#include <boost/geometry/core/coordinate_type.hpp>
 
-#include <boost/geometry/algorithms/detail/buffer/buffer_policies.hpp>
-#include <boost/geometry/algorithms/detail/disjoint/interface.hpp>
 #include <boost/geometry/algorithms/expand.hpp>
 #include <boost/geometry/strategies/agnostic/point_in_poly_winding.hpp>
 #include <boost/geometry/strategies/buffer.hpp>
@@ -33,40 +29,22 @@ namespace boost { namespace geometry
 namespace detail { namespace buffer
 {
 
-
-template <typename Strategy>
 struct original_get_box
 {
-    explicit original_get_box(Strategy const& strategy)
-        : m_strategy(strategy)
-    {}
-
     template <typename Box, typename Original>
-    inline void apply(Box& total, Original const& original) const
+    static inline void apply(Box& total, Original const& original)
     {
-        assert_coordinate_type_equal(total, original.m_box);
-        geometry::expand(total, original.m_box, m_strategy);
+        geometry::expand(total, original.m_box);
     }
-
-    Strategy const& m_strategy;
 };
 
-template <typename Strategy>
-struct original_overlaps_box
+struct original_ovelaps_box
 {
-    explicit original_overlaps_box(Strategy const& strategy)
-        : m_strategy(strategy)
-    {}
-
     template <typename Box, typename Original>
-    inline bool apply(Box const& box, Original const& original) const
+    static inline bool apply(Box const& box, Original const& original)
     {
-        assert_coordinate_type_equal(box, original.m_box);
-        return ! detail::disjoint::disjoint_box_box(box, original.m_box,
-                                                    m_strategy);
+        return ! detail::disjoint::disjoint_box_box(box, original.m_box);
     }
-
-    Strategy const& m_strategy;
 };
 
 struct include_turn_policy
@@ -74,31 +52,24 @@ struct include_turn_policy
     template <typename Turn>
     static inline bool apply(Turn const& turn)
     {
-        return turn.is_turn_traversable;
+        return turn.location == location_ok;
     }
 };
 
-template <typename Strategy>
-struct turn_in_original_overlaps_box
+struct turn_in_original_ovelaps_box
 {
-    explicit turn_in_original_overlaps_box(Strategy const& strategy)
-        : m_strategy(strategy)
-    {}
-
     template <typename Box, typename Turn>
-    inline bool apply(Box const& box, Turn const& turn) const
+    static inline bool apply(Box const& box, Turn const& turn)
     {
-        if (! turn.is_turn_traversable || turn.within_original)
+        if (turn.location != location_ok || turn.within_original)
         {
             // Skip all points already processed
             return false;
         }
 
         return ! geometry::detail::disjoint::disjoint_point_box(
-                    turn.point, box, m_strategy);
+                    turn.robust_point, box);
     }
-
-    Strategy const& m_strategy;
 };
 
 //! Check if specified is in range of specified iterators
@@ -175,11 +146,16 @@ inline bool point_in_section(Strategy& strategy, State& state,
 }
 
 
-template <typename Point, typename Original, typename PointInGeometryStrategy>
-inline int point_in_original(Point const& point, Original const& original,
-                             PointInGeometryStrategy const& strategy)
+template <typename Point, typename Original>
+inline int point_in_original(Point const& point, Original const& original)
 {
-    typename PointInGeometryStrategy::state_type state;
+    // The winding strategy is scanning in x direction
+    // therefore it's critical to pass direction calculated
+    // for x dimension below.
+    typedef strategy::within::winding<Point> strategy_type;
+
+    typename strategy_type::state_type state;
+    strategy_type strategy;
 
     if (boost::size(original.m_sections) == 0
         || boost::size(original.m_ring) - boost::size(original.m_sections) < 16)
@@ -192,11 +168,20 @@ inline int point_in_original(Point const& point, Original const& original,
         return strategy.result(state);
     }
 
-    auto const point_x = geometry::get<0>(point);
+    typedef typename Original::sections_type sections_type;
+    typedef typename boost::range_iterator<sections_type const>::type iterator_type;
+    typedef typename boost::range_value<sections_type const>::type section_type;
+    typedef typename geometry::coordinate_type<Point>::type coordinate_type;
+
+    coordinate_type const point_x = geometry::get<0>(point);
 
     // Walk through all monotonic sections of this original
-    for (auto const& section : original.m_sections)
+    for (iterator_type it = boost::begin(original.m_sections);
+        it != boost::end(original.m_sections);
+        ++it)
     {
+        section_type const& section = *it;
+
         if (! section.duplicate
             && section.begin_index < section.end_index
             && point_x >= geometry::get<min_corner, 0>(section.bounding_box)
@@ -218,38 +203,32 @@ inline int point_in_original(Point const& point, Original const& original,
 }
 
 
-template <typename Turns, typename Strategy>
+template <typename Turns>
 class turn_in_original_visitor
 {
 public:
-    turn_in_original_visitor(Turns& turns, Strategy const& strategy)
+    turn_in_original_visitor(Turns& turns)
         : m_mutable_turns(turns)
-        , m_strategy(strategy)
     {}
 
     template <typename Turn, typename Original>
-    inline bool apply(Turn const& turn, Original const& original)
+    inline bool apply(Turn const& turn, Original const& original, bool first = true)
     {
-        if (boost::empty(original.m_ring))
-        {
-            // Skip empty rings
-            return true;
-        }
+        boost::ignore_unused(first);
 
-        if (! turn.is_turn_traversable || turn.within_original)
+        if (turn.location != location_ok || turn.within_original)
         {
             // Skip all points already processed
             return true;
         }
 
-        if (geometry::disjoint(turn.point, original.m_box, m_strategy))
+        if (geometry::disjoint(turn.robust_point, original.m_box))
         {
             // Skip all disjoint
             return true;
         }
 
-        int const code = point_in_original(turn.point, original,
-                                           m_strategy.relate(turn.point, original.m_ring));
+        int const code = point_in_original(turn.robust_point, original);
 
         if (code == -1)
         {
@@ -261,7 +240,7 @@ public:
         if (code == 0)
         {
             // On border of original: always discard
-            mutable_turn.is_turn_traversable = false;
+            mutable_turn.location = location_discard;
         }
 
         // Point is inside an original ring
@@ -286,7 +265,6 @@ public:
 
 private :
     Turns& m_mutable_turns;
-    Strategy const& m_strategy;
 };
 
 

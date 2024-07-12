@@ -1,1 +1,1 @@
-libboost 1.83 for TrackAsia Native
+libboost 1.69 for Mapbox GL Native

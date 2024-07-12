@@ -11,8 +11,7 @@ RasterTileWorker::RasterTileWorker(const ActorRef<RasterTileWorker>&, ActorRef<R
 
 void RasterTileWorker::parse(const std::shared_ptr<const std::string>& data, uint64_t correlationID) {
     if (!data) {
-        parent.invoke(&RasterTile::onParsed, nullptr,
-                      correlationID); // No data; empty tile.
+        parent.invoke(&RasterTile::onParsed, nullptr, correlationID); // No data; empty tile.
         return;
     }
 

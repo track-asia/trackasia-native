@@ -8,10 +8,6 @@
 
 namespace mbgl {
 
-namespace gfx {
-class ShaderRegistry;
-}
-
 enum class MapLoadError {
     StyleParseError,
     StyleLoadError,
@@ -42,8 +38,6 @@ public:
         RenderMode mode;
         bool needsRepaint; // In continous mode, shows that there are ongoig transitions.
         bool placementChanged;
-        double frameEncodingTime;
-        double frameRenderingTime;
     };
 
     virtual void onCameraWillChange(CameraChangeMode) {}
@@ -63,9 +57,6 @@ public:
     /// This method should return true if unused image can be removed,
     /// false otherwise. By default, unused image will be removed.
     virtual bool onCanRemoveUnusedStyleImage(const std::string&) { return true; }
-    // Observe this event to easily mutate or observe shaders as soon
-    // as the registry becomes available.
-    virtual void onRegisterShaders(gfx::ShaderRegistry&) {};
 };
 
 } // namespace mbgl

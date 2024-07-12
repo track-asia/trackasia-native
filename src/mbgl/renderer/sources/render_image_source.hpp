@@ -11,7 +11,9 @@ class RasterBucket;
 
 class ImageSourceRenderData final : public RenderItem {
 public:
-    ImageSourceRenderData(std::shared_ptr<RasterBucket> bucket_, std::vector<mat4> matrices_, std::string name_)
+    ImageSourceRenderData(std::shared_ptr<RasterBucket> bucket_,
+                          std::vector<mat4> matrices_,
+                          std::string name_)
         : bucket(std::move(bucket_)),
           matrices(std::move(matrices_)),
           name(std::move(name_)) {}
@@ -25,10 +27,7 @@ private:
     bool hasRenderPass(RenderPass) const override { return false; }
     const std::string& getName() const override { return name; }
     std::string name;
-#if MLN_DRAWABLE_RENDERER
-    void updateDebugDrawables(DebugLayerGroupMap&, PaintParameters&) const override {};
-#endif
-    mutable std::optional<gfx::Texture> debugTexture;
+    mutable optional<gfx::Texture> debugTexture;
 };
 
 class RenderImageSource final : public RenderSource {
@@ -49,18 +48,21 @@ public:
                 bool needsRelayout,
                 const TileParameters&) final;
 
-    const ImageSourceRenderData* getImageRenderData() const override { return renderData.get(); }
+    const ImageSourceRenderData* getImageRenderData() const override { 
+        return renderData.get();
+    }
 
-    std::unordered_map<std::string, std::vector<Feature>> queryRenderedFeatures(
-        const ScreenLineString& geometry,
-        const TransformState& transformState,
-        const std::unordered_map<std::string, const RenderLayer*>& layers,
-        const RenderedQueryOptions& options,
-        const mat4& projMatrix) const final;
+    std::unordered_map<std::string, std::vector<Feature>>
+    queryRenderedFeatures(const ScreenLineString& geometry,
+                          const TransformState& transformState,
+                          const std::unordered_map<std::string, const RenderLayer*>& layers,
+                          const RenderedQueryOptions& options,
+                          const mat4& projMatrix) const final;
 
     std::vector<Feature> querySourceFeatures(const SourceQueryOptions&) const final;
 
-    void reduceMemoryUse() final {}
+    void reduceMemoryUse() final {
+    }
     void dumpDebugLogs() const final;
 
 private:

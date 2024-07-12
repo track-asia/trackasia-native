@@ -4,11 +4,6 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2020-2023.
-// Modifications copyright (c) 2020-2023, Oracle and/or its affiliates.
-// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
-
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -20,16 +15,19 @@
 #define BOOST_GEOMETRY_ALGORITHMS_CLEAR_HPP
 
 
-#include <type_traits>
+#include <boost/type_traits/remove_const.hpp>
+
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
 
 #include <boost/geometry/algorithms/not_implemented.hpp>
+#include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/mutable_range.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
 #include <boost/geometry/core/tags.hpp>
-#include <boost/geometry/core/visit.hpp>
-#include <boost/geometry/geometries/adapted/boost_variant.hpp> // for backward compatibility
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 
@@ -56,14 +54,14 @@ struct polygon_clear
     {
         traits::clear
             <
-                typename std::remove_reference
+                typename boost::remove_reference
                     <
                         typename traits::interior_mutable_type<Polygon>::type
                     >::type
             >::apply(interior_rings(polygon));
         traits::clear
             <
-                typename std::remove_reference
+                typename boost::remove_reference
                     <
                         typename traits::ring_mutable_type<Polygon>::type
                     >::type
@@ -135,31 +133,40 @@ struct clear<Geometry, multi_tag>
 {};
 
 
-template <typename Geometry>
-struct clear<Geometry, dynamic_geometry_tag>
-{
-    static void apply(Geometry& geometry)
-    {
-        traits::visit<Geometry>::apply([](auto & g)
-        {
-            clear<std::remove_reference_t<decltype(g)>>::apply(g);
-        }, geometry);
-    }
-};
-
-
-template <typename Geometry>
-struct clear<Geometry, geometry_collection_tag>
-{
-    static void apply(Geometry& geometry)
-    {
-        traits::clear<Geometry>::apply(geometry);
-    }
-};
-
-
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
+
+
+namespace resolve_variant {
+
+template <typename Geometry>
+struct clear
+{
+    static inline void apply(Geometry& geometry)
+    {
+        dispatch::clear<Geometry>::apply(geometry);
+    }
+};
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct clear<variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+{
+    struct visitor: static_visitor<void>
+    {
+        template <typename Geometry>
+        inline void operator()(Geometry& geometry) const
+        {
+            clear<Geometry>::apply(geometry);
+        }
+    };
+
+    static inline void apply(variant<BOOST_VARIANT_ENUM_PARAMS(T)>& geometry)
+    {
+        boost::apply_visitor(visitor(), geometry);
+    }
+};
+
+} // namespace resolve_variant
 
 
 /*!
@@ -180,7 +187,7 @@ inline void clear(Geometry& geometry)
 {
     concepts::check<Geometry>();
 
-    dispatch::clear<Geometry>::apply(geometry);
+    resolve_variant::clear<Geometry>::apply(geometry);
 }
 
 

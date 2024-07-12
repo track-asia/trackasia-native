@@ -18,7 +18,7 @@ public class NativeActivityTest {
     @Rule
     public ActivityTestRule<NativeActivity> mActivityTestRule = new ActivityTestRule<>(NativeActivity.class, false, false);
 
-    @Test(timeout = 600000L)
+    @Test(timeout = 1200000L)
     public void runRenderTests() throws Exception {
         Log.v("Test", "Start the test");
         mActivityTestRule.launchActivity(null);

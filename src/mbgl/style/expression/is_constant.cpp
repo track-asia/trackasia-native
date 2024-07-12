@@ -1,6 +1,7 @@
 #include <mbgl/style/expression/is_constant.hpp>
 #include <mbgl/style/expression/collator_expression.hpp>
 
+
 namespace mbgl {
 namespace style {
 namespace expression {
@@ -11,7 +12,7 @@ bool isFeatureConstant(const Expression& expression) {
     if (expression.getKind() == Kind::CompoundExpression) {
         auto e = static_cast<const CompoundExpression*>(&expression);
         const std::string name = e->getOperator();
-        std::optional<std::size_t> parameterCount = e->getParameterCount();
+        optional<std::size_t> parameterCount = e->getParameterCount();
         if (name == "get" && parameterCount && *parameterCount == 1) {
             return false;
         } else if (name == "has" && parameterCount && *parameterCount == 1) {
@@ -52,11 +53,8 @@ bool isFeatureConstant(const Expression& expression) {
     return featureConstant;
 }
 
-namespace {
-const auto zoomProperty = std::array<std::string_view, 1>{"zoom"};
-}
 bool isZoomConstant(const Expression& e) {
-    return isGlobalPropertyConstant(e, zoomProperty);
+    return isGlobalPropertyConstant(e, std::array<std::string, 1>{{"zoom"}});
 }
 
 bool isRuntimeConstant(const Expression& expression) {

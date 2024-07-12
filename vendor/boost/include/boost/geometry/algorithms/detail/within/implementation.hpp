@@ -4,8 +4,8 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2013-2022.
-// Modifications copyright (c) 2013-2022 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2017.
+// Modifications copyright (c) 2013-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -20,17 +20,11 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_WITHIN_IMPLEMENTATION_HPP
 
 #include <cstddef>
-#include <deque>
 
 #include <boost/core/ignore_unused.hpp>
+#include <boost/range.hpp>
 
-#include <boost/geometry/algorithms/detail/overlay/get_turns.hpp>
-#include <boost/geometry/algorithms/detail/overlay/do_reverse.hpp>
 #include <boost/geometry/algorithms/detail/within/interface.hpp>
-#include <boost/geometry/algorithms/detail/within/multi_point.hpp>
-#include <boost/geometry/algorithms/detail/within/point_in_geometry.hpp>
-#include <boost/geometry/algorithms/detail/relate/implementation.hpp>
-#include <boost/geometry/algorithms/detail/relate/relate_impl.hpp>
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/closure.hpp>
@@ -42,12 +36,19 @@
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/tags.hpp>
 
-#include <boost/geometry/strategies/relate/cartesian.hpp>
-#include <boost/geometry/strategies/relate/geographic.hpp>
-#include <boost/geometry/strategies/relate/spherical.hpp>
-
 #include <boost/geometry/util/math.hpp>
 #include <boost/geometry/util/order_as_direction.hpp>
+#include <boost/geometry/views/closeable_view.hpp>
+#include <boost/geometry/views/reversible_view.hpp>
+
+#include <boost/geometry/algorithms/detail/within/multi_point.hpp>
+#include <boost/geometry/algorithms/detail/within/point_in_geometry.hpp>
+#include <boost/geometry/algorithms/relate.hpp>
+
+#include <boost/geometry/algorithms/detail/overlay/get_turns.hpp>
+#include <boost/geometry/algorithms/detail/overlay/do_reverse.hpp>
+#include <deque>
+
 
 namespace boost { namespace geometry
 {
@@ -60,7 +61,7 @@ struct use_point_in_geometry
     template <typename Geometry1, typename Geometry2, typename Strategy>
     static inline bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2, Strategy const& strategy)
     {
-        return detail::within::within_point_geometry(geometry1, geometry2, strategy);
+        return detail::within::point_in_geometry(geometry1, geometry2, strategy) == 1;
     }
 };
 
@@ -69,12 +70,11 @@ struct use_relate
     template <typename Geometry1, typename Geometry2, typename Strategy>
     static inline bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2, Strategy const& strategy)
     {
-        return detail::relate::relate_impl
+        typedef typename detail::de9im::static_mask_within_type
             <
-                detail::de9im::static_mask_within_type,
-                Geometry1,
-                Geometry2
-            >::apply(geometry1, geometry2, strategy);
+                Geometry1, Geometry2
+            >::type within_mask;
+        return geometry::relate(geometry1, geometry2, within_mask(), strategy);
     }
 };
 
@@ -91,7 +91,8 @@ struct within<Point, Box, point_tag, box_tag>
     template <typename Strategy>
     static inline bool apply(Point const& point, Box const& box, Strategy const& strategy)
     {
-        return strategy.within(point, box).apply(point, box);
+        boost::ignore_unused(strategy);
+        return strategy.apply(point, box);
     }
 };
 
@@ -102,7 +103,8 @@ struct within<Box1, Box2, box_tag, box_tag>
     static inline bool apply(Box1 const& box1, Box2 const& box2, Strategy const& strategy)
     {
         assert_dimension_equal<Box1, Box2>();
-        return strategy.within(box1, box2).apply(box1, box2);
+        boost::ignore_unused(strategy);
+        return strategy.apply(box1, box2);
     }
 };
 

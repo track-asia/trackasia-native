@@ -22,28 +22,23 @@ using namespace mbgl::style;
 
 class CustomTileTest {
 public:
-    util::SimpleIdentity uniqueID;
     std::shared_ptr<FileSource> fileSource = std::make_shared<FakeFileSource>();
     TransformState transformState;
     util::RunLoop loop;
-    AnnotationManager annotationManager{style};
-    std::shared_ptr<ImageManager> imageManager = std::make_shared<ImageManager>();
-    std::shared_ptr<GlyphManager> glyphManager = std::make_shared<GlyphManager>();
-    TileParameters tileParameters;
-    style::Style style;
+    style::Style style{fileSource, 1};
+    AnnotationManager annotationManager { style };
+    ImageManager imageManager;
+    GlyphManager glyphManager;
 
-    CustomTileTest()
-        : tileParameters{1.0,
-                         MapDebugOptions(),
-                         transformState,
-                         fileSource,
-                         MapMode::Continuous,
-                         annotationManager.makeWeakPtr(),
-                         imageManager,
-                         glyphManager,
-                         0,
-                         {Scheduler::GetBackground(), uniqueID}},
-          style{fileSource, 1, tileParameters.threadPool} {}
+    TileParameters tileParameters{1.0,
+                                  MapDebugOptions(),
+                                  transformState,
+                                  fileSource,
+                                  MapMode::Continuous,
+                                  annotationManager.makeWeakPtr(),
+                                  imageManager,
+                                  glyphManager,
+                                  0};
 };
 
 TEST(CustomGeometryTile, InvokeFetchTile) {
@@ -52,16 +47,16 @@ TEST(CustomGeometryTile, InvokeFetchTile) {
     CircleLayer layer("circle", "source");
 
     mapbox::feature::feature_collection<double> features;
-    features.push_back(mapbox::feature::feature<double>{mapbox::geometry::point<double>(0, 0)});
-    CustomTileLoader loader(
-        [&](const CanonicalTileID& tileId) {
-            EXPECT_EQ(tileId, CanonicalTileID(0, 0, 0));
-            test.loop.stop();
-        },
-        [&](const CanonicalTileID&) {
+    features.push_back(mapbox::feature::feature<double> {
+        mapbox::geometry::point<double>(0, 0)
+    });
+    CustomTileLoader loader([&](const CanonicalTileID& tileId) {
+        EXPECT_EQ(tileId, CanonicalTileID(0,0,0));
+        test.loop.stop();
+    }, [&](const CanonicalTileID&) {
 
-        });
-    auto mb = std::make_shared<Mailbox>(*Scheduler::GetCurrent());
+    });
+    auto mb =std::make_shared<Mailbox>(*Scheduler::GetCurrent());
     ActorRef<CustomTileLoader> loaderActor(loader, mb);
 
     CustomGeometryTile tile(OverscaledTileID(0, 0, 0),
@@ -81,14 +76,15 @@ TEST(CustomGeometryTile, InvokeCancelTile) {
     CircleLayer layer("circle", "source");
 
     mapbox::feature::feature_collection<double> features;
-    features.push_back(mapbox::feature::feature<double>{mapbox::geometry::point<double>(0, 0)});
+    features.push_back(mapbox::feature::feature<double> {
+        mapbox::geometry::point<double>(0, 0)
+    });
 
-    CustomTileLoader loader([&](const CanonicalTileID&) {},
-                            [&](const CanonicalTileID& tileId) {
-                                EXPECT_EQ(tileId, CanonicalTileID(0, 0, 0));
-                                test.loop.stop();
-                            });
-    auto mb = std::make_shared<Mailbox>(*Scheduler::GetCurrent());
+    CustomTileLoader loader([&](const CanonicalTileID&) { }, [&](const CanonicalTileID& tileId) {
+        EXPECT_EQ(tileId, CanonicalTileID(0,0,0));
+        test.loop.stop();
+    });
+    auto mb =std::make_shared<Mailbox>(*Scheduler::GetCurrent());
     ActorRef<CustomTileLoader> loaderActor(loader, mb);
 
     CustomGeometryTile tile(OverscaledTileID(0, 0, 0),
@@ -108,10 +104,12 @@ TEST(CustomGeometryTile, InvokeTileChanged) {
     CircleLayer layer("circle", "source");
 
     mapbox::feature::feature_collection<double> features;
-    features.push_back(mapbox::feature::feature<double>{mapbox::geometry::point<double>(0, 0)});
+    features.push_back(mapbox::feature::feature<double> {
+        mapbox::geometry::point<double>(0, 0)
+    });
 
     CustomTileLoader loader(nullptr, nullptr);
-    auto mb = std::make_shared<Mailbox>(*Scheduler::GetCurrent());
+    auto mb =std::make_shared<Mailbox>(*Scheduler::GetCurrent());
     ActorRef<CustomTileLoader> loaderActor(loader, mb);
 
     CustomGeometryTile tile(OverscaledTileID(0, 0, 0),
@@ -120,16 +118,15 @@ TEST(CustomGeometryTile, InvokeTileChanged) {
                             makeMutable<CustomGeometrySource::TileOptions>(),
                             loaderActor);
 
-    Immutable<LayerProperties> layerProperties = makeMutable<CircleLayerProperties>(
-        staticImmutableCast<CircleLayer::Impl>(layer.baseImpl));
+    Immutable<LayerProperties> layerProperties = makeMutable<CircleLayerProperties>(staticImmutableCast<CircleLayer::Impl>(layer.baseImpl));
     StubTileObserver observer;
-    observer.tileChanged = [&](const Tile&) {
+    observer.tileChanged = [&] (const Tile&) {
         // Once present, the bucket should never "disappear", which would cause
         // flickering.
         ASSERT_TRUE(tile.layerPropertiesUpdated(layerProperties));
     };
 
-    std::vector<Immutable<LayerProperties>> layers{layerProperties};
+    std::vector<Immutable<LayerProperties>> layers { layerProperties };
     tile.setLayers(layers);
     tile.setObserver(&observer);
     tile.setTileData(features);

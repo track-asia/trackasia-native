@@ -5,10 +5,6 @@
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 // Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2020.
-// Modifications copyright (c) 2020 Oracle and/or its affiliates.
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
-
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -21,9 +17,10 @@
 
 #include <algorithm>
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+#include <boost/range.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
+#include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/mutable_range.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -45,7 +42,7 @@ struct range_unique
     template <typename Range, typename ComparePolicy>
     static inline void apply(Range& range, ComparePolicy const& policy)
     {
-        auto it
+        typename boost::range_iterator<Range>::type it
             = std::unique
                 (
                     boost::begin(range),
@@ -65,9 +62,11 @@ struct polygon_unique
     {
         range_unique::apply(exterior_ring(polygon), policy);
 
-        auto&& rings = interior_rings(polygon);
+        typename interior_return_type<Polygon>::type
+            rings = interior_rings(polygon);
 
-        for (auto it = boost::begin(rings); it != boost::end(rings); ++it)
+        for (typename detail::interior_iterator<Polygon>::type
+                it = boost::begin(rings); it != boost::end(rings); ++it)
         {
             range_unique::apply(*it, policy);
         }
@@ -81,7 +80,10 @@ struct multi_unique
     template <typename MultiGeometry, typename ComparePolicy>
     static inline void apply(MultiGeometry& multi, ComparePolicy const& compare)
     {
-        for (auto it = boost::begin(multi); it != boost::end(multi); ++it)
+        for (typename boost::range_iterator<MultiGeometry>::type
+                it = boost::begin(multi);
+            it != boost::end(multi);
+            ++it)
         {
             Policy::apply(*it, compare);
         }

@@ -5,19 +5,22 @@
 
 #include <QtGlobal>
 
-namespace QTrackAsia {
+namespace QTrackAsiaGL {
 
-class RendererBackend final : public mbgl::gl::RendererBackend, public mbgl::gfx::Renderable {
+class RendererBackend final : public mbgl::gl::RendererBackend,
+                                       public mbgl::gfx::Renderable {
 public:
-    explicit RendererBackend(mbgl::gfx::ContextMode mode);
+    RendererBackend(mbgl::gfx::ContextMode);
     ~RendererBackend() override;
 
-    void updateFramebuffer(quint32 fbo, const mbgl::Size &newSize);
+    void updateFramebuffer(quint32 fbo, const mbgl::Size&);
     void restoreFramebufferBinding();
 
     // mbgl::gfx::RendererBackend implementation
 public:
-    mbgl::gfx::Renderable &getDefaultRenderable() override { return *this; }
+    mbgl::gfx::Renderable& getDefaultRenderable() override {
+        return *this;
+    }
 
 protected:
     // No-op, implicit mode.
@@ -26,7 +29,7 @@ protected:
 
     // mbgl::gl::RendererBackend implementation
 protected:
-    mbgl::gl::ProcAddress getExtensionFunctionPointer(const char *name) override;
+    mbgl::gl::ProcAddress getExtensionFunctionPointer(const char*) override;
     void updateAssumedState() override;
 
 private:
@@ -35,4 +38,4 @@ private:
     Q_DISABLE_COPY(RendererBackend)
 };
 
-} // namespace QTrackAsia
+} // namespace QTrackAsiaGL

@@ -14,12 +14,13 @@ TEST(ActorRef, CanOutliveActor) {
     struct TestActorRef {
         bool& died;
 
-        TestActorRef(ActorRef<TestActorRef>, bool& died_)
-            : died(died_) {}
+        TestActorRef(ActorRef<TestActorRef>, bool& died_) : died(died_) {}
 
         ~TestActorRef() { died = true; }
 
-        void receive() { FAIL(); }
+        void receive() {
+            FAIL();
+        }
     };
 
     bool died = false;
@@ -38,9 +39,13 @@ TEST(ActorRef, Ask) {
     struct TestActorRef {
         TestActorRef(ActorRef<TestActorRef>) {}
 
-        int gimme() { return 20; }
+        int gimme() {
+            return 20;
+        }
 
-        int echo(int i) { return i; }
+        int echo(int i) {
+            return i;
+        }
     };
 
     Actor<TestActorRef> actor(Scheduler::GetBackground());
@@ -56,10 +61,11 @@ TEST(ActorRef, AskVoid) {
     struct TestActorRef {
         bool& executed;
 
-        TestActorRef(bool& executed_)
-            : executed(executed_) {}
+        TestActorRef(bool& executed_) : executed(executed_) {}
 
-        void doIt() { executed = true; }
+        void doIt() {
+            executed = true;
+        }
     };
 
     bool executed = false;
@@ -77,12 +83,13 @@ TEST(ActorRef, AskOnDestroyedActor) {
     struct TestActorRef {
         bool& died;
 
-        TestActorRef(ActorRef<TestActorRef>, bool& died_)
-            : died(died_) {}
+        TestActorRef(ActorRef<TestActorRef>, bool& died_) : died(died_) {}
 
         ~TestActorRef() { died = true; }
 
-        int receive() { return 1; }
+        int receive() {
+            return 1;
+        }
     };
     bool died = false;
 
@@ -92,13 +99,6 @@ TEST(ActorRef, AskOnDestroyedActor) {
     actor.reset();
     EXPECT_TRUE(died);
 
-    // the code below does not compile with newer versions of gcc due to
-    // (correctly) identifying a -Werror=use-after-free situation
-    // the problem is that the ActorRef has a pointer to the actor
-    // whose memory is managed by AspiringActor, which has been destroyed
-    // mitigation would require getting rid of the raw pointer
-    // See https://github.com/track-asia/trackasia-native/issues/876
-
-    // auto result = ref.ask(&TestActorRef::receive);
-    // EXPECT_ANY_THROW(result.get());
+    auto result = ref.ask(&TestActorRef::receive);
+    EXPECT_ANY_THROW(result.get());
 }

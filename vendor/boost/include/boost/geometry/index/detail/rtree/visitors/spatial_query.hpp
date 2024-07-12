@@ -4,11 +4,6 @@
 //
 // Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
-// This file was modified by Oracle on 2019-2023.
-// Modifications copyright (c) 2019-2023 Oracle and/or its affiliates.
-// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
-//
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -16,145 +11,116 @@
 #ifndef BOOST_GEOMETRY_INDEX_DETAIL_RTREE_VISITORS_SPATIAL_QUERY_HPP
 #define BOOST_GEOMETRY_INDEX_DETAIL_RTREE_VISITORS_SPATIAL_QUERY_HPP
 
-#include <boost/geometry/index/detail/rtree/node/node_elements.hpp>
-#include <boost/geometry/index/detail/rtree/node/weak_visitor.hpp>
-#include <boost/geometry/index/detail/predicates.hpp>
-#include <boost/geometry/index/parameters.hpp>
-
 namespace boost { namespace geometry { namespace index {
 
 namespace detail { namespace rtree { namespace visitors {
 
-template <typename MembersHolder, typename Predicates, typename OutIter>
+template <typename Value, typename Options, typename Translator, typename Box, typename Allocators, typename Predicates, typename OutIter>
 struct spatial_query
+    : public rtree::visitor<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag, true>::type
 {
-    typedef typename MembersHolder::parameters_type parameters_type;
-    typedef typename MembersHolder::translator_type translator_type;
-    typedef typename MembersHolder::allocators_type allocators_type;
+    typedef typename rtree::node<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type node;
+    typedef typename rtree::internal_node<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type internal_node;
+    typedef typename rtree::leaf<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type leaf;
 
-    typedef typename index::detail::strategy_type<parameters_type>::type strategy_type;
+    typedef typename Allocators::size_type size_type;
 
-    typedef typename MembersHolder::node node;
-    typedef typename MembersHolder::internal_node internal_node;
-    typedef typename MembersHolder::leaf leaf;
+    static const unsigned predicates_len = index::detail::predicates_length<Predicates>::value;
 
-    typedef typename allocators_type::node_pointer node_pointer;
-    typedef typename allocators_type::size_type size_type;
-
-    spatial_query(MembersHolder const& members, Predicates const& p, OutIter out_it)
-        : m_tr(members.translator())
-        , m_strategy(index::detail::get_strategy(members.parameters()))
-        , m_pred(p)
-        , m_out_iter(out_it)
-        , m_found_count(0)
+    inline spatial_query(Translator const& t, Predicates const& p, OutIter out_it)
+        : tr(t), pred(p), out_iter(out_it), found_count(0)
     {}
 
-    size_type apply(node_pointer ptr, size_type reverse_level)
+    inline void operator()(internal_node const& n)
     {
-        namespace id = index::detail;
-        if (reverse_level > 0)
-        {
-            internal_node& n = rtree::get<internal_node>(*ptr);
-            // traverse nodes meeting predicates
-            for (auto const& p : rtree::elements(n))
-            {
-                // if node meets predicates (0 is dummy value)
-                if (id::predicates_check<id::bounds_tag>(m_pred, 0, p.first, m_strategy))
-                {
-                    apply(p.second, reverse_level - 1);
-                }
-            }
-        }
-        else
-        {
-            leaf& n = rtree::get<leaf>(*ptr);
-            // get all values meeting predicates
-            for (auto const& v : rtree::elements(n))
-            {
-                // if value meets predicates
-                if (id::predicates_check<id::value_tag>(m_pred, v, m_tr(v), m_strategy))
-                {
-                    *m_out_iter = v;
-                    ++m_out_iter;
-                    ++m_found_count;
-                }
-            }
-        }
+        typedef typename rtree::elements_type<internal_node>::type elements_type;
+        elements_type const& elements = rtree::elements(n);
 
-        return m_found_count;
+        // traverse nodes meeting predicates
+        for (typename elements_type::const_iterator it = elements.begin();
+            it != elements.end(); ++it)
+        {
+            // if node meets predicates
+            // 0 - dummy value
+            if ( index::detail::predicates_check<index::detail::bounds_tag, 0, predicates_len>(pred, 0, it->first) )
+                rtree::apply_visitor(*this, *it->second);
+        }
     }
 
-    size_type apply(MembersHolder const& members)
+    inline void operator()(leaf const& n)
     {
-        return apply(members.root, members.leafs_level);
+        typedef typename rtree::elements_type<leaf>::type elements_type;
+        elements_type const& elements = rtree::elements(n);
+
+        // get all values meeting predicates
+        for (typename elements_type::const_iterator it = elements.begin();
+            it != elements.end(); ++it)
+        {
+            // if value meets predicates
+            if ( index::detail::predicates_check<index::detail::value_tag, 0, predicates_len>(pred, *it, tr(*it)) )
+            {
+                *out_iter = *it;
+                ++out_iter;
+
+                ++found_count;
+            }
+        }
     }
 
-private:
-    translator_type const& m_tr;
-    strategy_type m_strategy;
+    Translator const& tr;
 
-    Predicates const& m_pred;
-    OutIter m_out_iter;
+    Predicates pred;
 
-    size_type m_found_count;
+    OutIter out_iter;
+    size_type found_count;
 };
 
-template <typename MembersHolder, typename Predicates>
+template <typename Value, typename Options, typename Translator, typename Box, typename Allocators, typename Predicates>
 class spatial_query_incremental
+    : public rtree::visitor<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag, true>::type
 {
-    typedef typename MembersHolder::value_type value_type;
-    typedef typename MembersHolder::parameters_type parameters_type;
-    typedef typename MembersHolder::translator_type translator_type;
-    typedef typename MembersHolder::allocators_type allocators_type;
+public:
+    typedef typename rtree::node<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type node;
+    typedef typename rtree::internal_node<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type internal_node;
+    typedef typename rtree::leaf<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type leaf;
 
-    typedef typename index::detail::strategy_type<parameters_type>::type strategy_type;
-
-    typedef typename MembersHolder::node node;
-    typedef typename MembersHolder::internal_node internal_node;
-    typedef typename MembersHolder::leaf leaf;
-
-    typedef typename allocators_type::size_type size_type;
-    typedef typename allocators_type::const_reference const_reference;
-    typedef typename allocators_type::node_pointer node_pointer;
+    typedef typename Allocators::size_type size_type;
+    typedef typename Allocators::const_reference const_reference;
+    typedef typename Allocators::node_pointer node_pointer;
 
     typedef typename rtree::elements_type<internal_node>::type::const_iterator internal_iterator;
     typedef typename rtree::elements_type<leaf>::type leaf_elements;
     typedef typename rtree::elements_type<leaf>::type::const_iterator leaf_iterator;
 
-    struct internal_data
-    {
-        internal_data(internal_iterator f, internal_iterator l, size_type rl)
-            : first(f), last(l), reverse_level(rl)
-        {}
-        internal_iterator first;
-        internal_iterator last;
-        size_type reverse_level;
-    };
+    static const unsigned predicates_len = index::detail::predicates_length<Predicates>::value;
 
-public:
-    spatial_query_incremental()
-        : m_translator(nullptr)
-//        , m_strategy()
+    inline spatial_query_incremental()
+        : m_translator(NULL)
 //        , m_pred()
-        , m_values(nullptr)
+        , m_values(NULL)
         , m_current()
     {}
 
-    spatial_query_incremental(Predicates const& p)
-        : m_translator(nullptr)
-//        , m_strategy()
+    inline spatial_query_incremental(Translator const& t, Predicates const& p)
+        : m_translator(::boost::addressof(t))
         , m_pred(p)
-        , m_values(nullptr)
+        , m_values(NULL)
         , m_current()
     {}
 
-    spatial_query_incremental(MembersHolder const& members, Predicates const& p)
-        : m_translator(::boost::addressof(members.translator()))
-        , m_strategy(index::detail::get_strategy(members.parameters()))
-        , m_pred(p)
-        , m_values(nullptr)
-        , m_current()
-    {}
+    inline void operator()(internal_node const& n)
+    {
+        typedef typename rtree::elements_type<internal_node>::type elements_type;
+        elements_type const& elements = rtree::elements(n);
+
+        m_internal_stack.push_back(std::make_pair(elements.begin(), elements.end()));
+    }
+
+    inline void operator()(leaf const& n)
+    {
+        m_values = ::boost::addressof(rtree::elements(n));
+        m_current = rtree::elements(n).begin();
+    }
 
     const_reference dereference() const
     {
@@ -162,9 +128,9 @@ public:
         return *m_current;
     }
 
-    void initialize(MembersHolder const& members)
+    void initialize(node_pointer root)
     {
-        apply(members.root, members.leafs_level);
+        rtree::apply_visitor(*this, *root);
         search_value();
     }
 
@@ -174,38 +140,8 @@ public:
         search_value();
     }
 
-    bool is_end() const
-    {
-        return 0 == m_values;
-    }
-
-    friend bool operator==(spatial_query_incremental const& l, spatial_query_incremental const& r)
-    {
-        return (l.m_values == r.m_values) && (0 == l.m_values || l.m_current == r.m_current);
-    }
-
-private:
-    void apply(node_pointer ptr, size_type reverse_level)
-    {
-        namespace id = index::detail;
-
-        if (reverse_level > 0)
-        {
-            internal_node& n = rtree::get<internal_node>(*ptr);
-            auto const& elements = rtree::elements(n);
-            m_internal_stack.push_back(internal_data(elements.begin(), elements.end(), reverse_level - 1));
-        }
-        else
-        {
-            leaf& n = rtree::get<leaf>(*ptr);
-            m_values = ::boost::addressof(rtree::elements(n));
-            m_current = rtree::elements(n).begin();
-        }
-    }
-
     void search_value()
     {
-        namespace id = index::detail;
         for (;;)
         {
             // if leaf is choosen, move to the next value in leaf
@@ -214,11 +150,9 @@ private:
                 if ( m_current != m_values->end() )
                 {
                     // return if next value is found
-                    value_type const& v = *m_current;
-                    if (id::predicates_check<id::value_tag>(m_pred, v, (*m_translator)(v), m_strategy))
-                    {
+                    Value const& v = *m_current;
+                    if ( index::detail::predicates_check<index::detail::value_tag, 0, predicates_len>(m_pred, v, (*m_translator)(v)) )
                         return;
-                    }
 
                     ++m_current;
                 }
@@ -232,38 +166,43 @@ private:
             else
             {
                 // return if there is no more nodes to traverse
-                if (m_internal_stack.empty())
-                {
+                if ( m_internal_stack.empty() )
                     return;
-                }
-
-                internal_data& current_data = m_internal_stack.back();
 
                 // no more children in current node, remove it from stack
-                if (current_data.first == current_data.last)
+                if ( m_internal_stack.back().first == m_internal_stack.back().second )
                 {
                     m_internal_stack.pop_back();
                     continue;
                 }
 
-                internal_iterator it = current_data.first;
-                ++current_data.first;
+                internal_iterator it = m_internal_stack.back().first;
+                ++m_internal_stack.back().first;
 
                 // next node is found, push it to the stack
-                if (id::predicates_check<id::bounds_tag>(m_pred, 0, it->first, m_strategy))
-                {
-                    apply(it->second, current_data.reverse_level);
-                }
+                if ( index::detail::predicates_check<index::detail::bounds_tag, 0, predicates_len>(m_pred, 0, it->first) )
+                    rtree::apply_visitor(*this, *(it->second));
             }
         }
     }
 
-    const translator_type * m_translator;
-    strategy_type m_strategy;
+    bool is_end() const
+    {
+        return 0 == m_values;
+    }
+
+    friend bool operator==(spatial_query_incremental const& l, spatial_query_incremental const& r)
+    {
+        return (l.m_values == r.m_values) && (0 == l.m_values || l.m_current == r.m_current );
+    }
+
+private:
+
+    const Translator * m_translator;
 
     Predicates m_pred;
 
-    std::vector<internal_data> m_internal_stack;
+    std::vector< std::pair<internal_iterator, internal_iterator> > m_internal_stack;
     const leaf_elements * m_values;
     leaf_iterator m_current;
 };

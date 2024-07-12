@@ -25,12 +25,8 @@ unsigned long LocationIndicatorLayerProperties::constantsMask() const {
     return evaluated.constantsMask();
 }
 
-const LocationIndicatorLayer::Impl& LocationIndicatorLayerProperties::layerImpl() const noexcept {
+const LocationIndicatorLayer::Impl& LocationIndicatorLayerProperties::layerImpl() const {
     return static_cast<const LocationIndicatorLayer::Impl&>(*baseImpl);
-}
-
-expression::Dependency LocationIndicatorLayerProperties::getDependencies() const noexcept {
-    return layerImpl().paint.getDependencies() | layerImpl().layout.getDependencies();
 }
 
 } // namespace style

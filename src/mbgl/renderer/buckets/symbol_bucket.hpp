@@ -13,7 +13,6 @@
 #include <mbgl/text/glyph_range.hpp>
 #include <mbgl/text/placement.hpp>
 
-#include <memory>
 #include <vector>
 
 namespace mbgl {
@@ -30,7 +29,7 @@ public:
                  WritingModeType writingModes_,
                  GeometryCoordinates line_,
                  std::vector<float> tileDistances_,
-                 std::optional<size_t> placedIconIndex_ = std::nullopt)
+                 optional<size_t> placedIconIndex_ = nullopt)
         : anchorPoint(anchorPoint_),
           segment(segment_),
           lowerSize(lowerSize_),
@@ -55,13 +54,13 @@ public:
     size_t vertexStartIndex;
     // The crossTileID is only filled/used on the foreground for variable text anchors
     uint32_t crossTileID = 0u;
-    // The placedOrientation is only used when symbol layer's property is set to
-    // support placement for orientation variants.
-    std::optional<style::TextWritingModeType> placedOrientation;
+    // The placedOrientation is only used when symbol layer's property is set to support
+    // placement for orientation variants.
+    optional<style::TextWritingModeType> placedOrientation;
     float angle = 0;
 
     // Reference to placed icon, only applicable for text symbols.
-    std::optional<size_t> placedIconIndex;
+    optional<size_t> placedIconIndex;
 };
 
 class SymbolBucket final : public Bucket {
@@ -100,10 +99,9 @@ public:
     void sortFeatures(float angle);
     // Returns references to the `symbolInstances` items, sorted by viewport Y.
     SymbolInstanceReferences getSortedSymbols(float angle) const;
-    // Returns references to the `symbolInstances` items, which belong to the
-    // `sortKeyRange` range; returns references to all the symbols if
-    // |sortKeyRange| is `std::nullopt`.
-    SymbolInstanceReferences getSymbols(const std::optional<SortKeyRange>& sortKeyRange = std::nullopt) const;
+    // Returns references to the `symbolInstances` items, which belong to the `sortKeyRange` range;
+    // returns references to all the symbols if |sortKeyRange| is `nullopt`.
+    SymbolInstanceReferences getSymbols(const optional<SortKeyRange>& sortKeyRange = nullopt) const;
 
     Immutable<style::SymbolLayoutProperties::PossiblyEvaluated> layout;
     const std::string bucketLeaderID;
@@ -133,79 +131,37 @@ public:
 
     std::unique_ptr<SymbolSizeBinder> textSizeBinder;
 
-    using VertexVector = gfx::VertexVector<SymbolLayoutVertex>;
-    using VertexBuffer = gfx::VertexBuffer<SymbolLayoutVertex>;
-    using DynamicVertexVector = gfx::VertexVector<gfx::Vertex<SymbolDynamicLayoutAttributes>>;
-    using DynamicVertexBuffer = gfx::VertexBuffer<gfx::Vertex<SymbolDynamicLayoutAttributes>>;
-    using OpacityVertexVector = gfx::VertexVector<gfx::Vertex<SymbolOpacityAttributes>>;
-    using OpacityVertexBuffer = gfx::VertexBuffer<gfx::Vertex<SymbolOpacityAttributes>>;
-
-    struct Buffer final {
-        ~Buffer() {
-            sharedVertices->release();
-            sharedDynamicVertices->release();
-            sharedOpacityVertices->release();
-        }
-        std::shared_ptr<VertexVector> sharedVertices = std::make_shared<VertexVector>();
-        VertexVector& vertices() { return *sharedVertices; }
-        const VertexVector& vertices() const { return *sharedVertices; }
-
-        std::shared_ptr<DynamicVertexVector> sharedDynamicVertices = std::make_shared<DynamicVertexVector>();
-        DynamicVertexVector& dynamicVertices() { return *sharedDynamicVertices; }
-        const DynamicVertexVector& dynamicVertices() const { return *sharedDynamicVertices; }
-
-        std::shared_ptr<OpacityVertexVector> sharedOpacityVertices = std::make_shared<OpacityVertexVector>();
-        OpacityVertexVector& opacityVertices() { return *sharedOpacityVertices; }
-        const OpacityVertexVector& opacityVertices() const { return *sharedOpacityVertices; }
-
-        using TriangleIndexVector = gfx::IndexVector<gfx::Triangles>;
-        const std::shared_ptr<TriangleIndexVector> sharedTriangles = std::make_shared<TriangleIndexVector>();
-        TriangleIndexVector& triangles = *sharedTriangles;
-
+    struct Buffer {
+        gfx::VertexVector<SymbolLayoutVertex> vertices;
+        gfx::VertexVector<gfx::Vertex<SymbolDynamicLayoutAttributes>> dynamicVertices;
+        gfx::VertexVector<gfx::Vertex<SymbolOpacityAttributes>> opacityVertices;
+        gfx::IndexVector<gfx::Triangles> triangles;
         SegmentVector<SymbolTextAttributes> segments;
         std::vector<PlacedSymbol> placedSymbols;
 
-#if MLN_LEGACY_RENDERER
-        std::optional<VertexBuffer> vertexBuffer;
-        std::optional<DynamicVertexBuffer> dynamicVertexBuffer;
-        std::optional<OpacityVertexBuffer> opacityVertexBuffer;
-        std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+        optional<gfx::VertexBuffer<SymbolLayoutVertex>> vertexBuffer;
+        optional<gfx::VertexBuffer<gfx::Vertex<SymbolDynamicLayoutAttributes>>> dynamicVertexBuffer;
+        optional<gfx::VertexBuffer<gfx::Vertex<SymbolOpacityAttributes>>> opacityVertexBuffer;
+        optional<gfx::IndexBuffer> indexBuffer;
     } text;
 
     std::unique_ptr<SymbolSizeBinder> iconSizeBinder;
 
     Buffer icon;
     Buffer sdfIcon;
-
-    using CollisionVertexVector = gfx::VertexVector<gfx::Vertex<CollisionBoxLayoutAttributes>>;
-    using CollisionDynamicVertexVector = gfx::VertexVector<gfx::Vertex<CollisionBoxDynamicAttributes>>;
-
+    
     struct CollisionBuffer {
-        std::shared_ptr<CollisionVertexVector> sharedVertices = std::make_shared<CollisionVertexVector>();
-        CollisionVertexVector& vertices() { return *sharedVertices; }
-        const CollisionVertexVector& vertices() const { return *sharedVertices; }
-
-        std::shared_ptr<CollisionDynamicVertexVector> sharedDynamicVertices =
-            std::make_shared<CollisionDynamicVertexVector>();
-        CollisionDynamicVertexVector& dynamicVertices() { return *sharedDynamicVertices; }
-        const CollisionDynamicVertexVector& dynamicVertices() const { return *sharedDynamicVertices; }
-
+        gfx::VertexVector<gfx::Vertex<CollisionBoxLayoutAttributes>> vertices;
+        gfx::VertexVector<gfx::Vertex<CollisionBoxDynamicAttributes>> dynamicVertices;
         SegmentVector<CollisionBoxProgram::AttributeList> segments;
 
-#if MLN_LEGACY_RENDERER
-        std::optional<gfx::VertexBuffer<gfx::Vertex<CollisionBoxLayoutAttributes>>> vertexBuffer;
-        std::optional<gfx::VertexBuffer<gfx::Vertex<CollisionBoxDynamicAttributes>>> dynamicVertexBuffer;
-#endif // MLN_LEGACY_RENDERER
+        optional<gfx::VertexBuffer<gfx::Vertex<CollisionBoxLayoutAttributes>>> vertexBuffer;
+        optional<gfx::VertexBuffer<gfx::Vertex<CollisionBoxDynamicAttributes>>> dynamicVertexBuffer;
     };
 
     struct CollisionBoxBuffer : public CollisionBuffer {
-        using LineIndexVector = gfx::IndexVector<gfx::Lines>;
-        const std::shared_ptr<LineIndexVector> sharedLines = std::make_shared<LineIndexVector>();
-        LineIndexVector& lines = *sharedLines;
-#if MLN_LEGACY_RENDERER
-        std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+        gfx::IndexVector<gfx::Lines> lines;
+        optional<gfx::IndexBuffer> indexBuffer;
     };
     std::unique_ptr<CollisionBoxBuffer> iconCollisionBox;
     std::unique_ptr<CollisionBoxBuffer> textCollisionBox;
@@ -221,12 +177,8 @@ public:
     }
 
     struct CollisionCircleBuffer : public CollisionBuffer {
-        using TriangleIndexVector = gfx::IndexVector<gfx::Triangles>;
-        const std::shared_ptr<TriangleIndexVector> sharedTriangles = std::make_shared<TriangleIndexVector>();
-        TriangleIndexVector& triangles = *sharedTriangles;
-#if MLN_LEGACY_RENDERER
-        std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+        gfx::IndexVector<gfx::Triangles> triangles;
+        optional<gfx::IndexBuffer> indexBuffer;
     };
     std::unique_ptr<CollisionCircleBuffer> iconCollisionCircle;
     std::unique_ptr<CollisionCircleBuffer> textCollisionCircle;
@@ -245,7 +197,7 @@ public:
     uint32_t bucketInstanceId;
     const bool allowVerticalPlacement;
     const std::vector<style::TextWritingModeType> placementModes;
-    mutable std::optional<bool> hasFormatSectionOverrides_;
+    mutable optional<bool> hasFormatSectionOverrides_;
 
     FeatureSortOrder featureSortOrder;
 };

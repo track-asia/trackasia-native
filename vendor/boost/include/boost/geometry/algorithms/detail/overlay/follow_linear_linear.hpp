@@ -2,7 +2,7 @@
 
 // Copyright (c) 2017 Adam Wulkiewicz, Lodz, Poland.
 
-// Copyright (c) 2014-2020, Oracle and/or its affiliates.
+// Copyright (c) 2014-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
@@ -18,10 +18,7 @@
 #include <algorithm>
 #include <iterator>
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/range/size.hpp>
-#include <boost/range/value_type.hpp>
+#include <boost/range.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <boost/geometry/core/assert.hpp>
@@ -37,12 +34,9 @@
 
 #include <boost/geometry/algorithms/detail/turns/debug_turn.hpp>
 
-#include <boost/geometry/algorithms/detail/tupled_output.hpp>
-
 #include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/algorithms/not_implemented.hpp>
 
-#include <boost/geometry/util/condition.hpp>
 
 namespace boost { namespace geometry
 {
@@ -74,7 +68,7 @@ static inline bool is_entering(Turn const& turn,
 
 template <typename Turn, typename Operation>
 static inline bool is_staying_inside(Turn const& turn,
-                                     Operation const& operation,
+                                     Operation const& operation, 
                                      bool entered)
 {
     if ( !entered )
@@ -167,36 +161,29 @@ static inline bool is_isolated_point(Turn const& turn,
 
 
 
-// GeometryOut - linestring or tuple of at least point and linestring
+
+
+
+
 template
 <
-    typename GeometryOut,
+    typename LinestringOut,
     typename Linestring,
     typename Linear,
     overlay_type OverlayType,
     bool FollowIsolatedPoints,
     bool FollowContinueTurns
 >
-class follow_linestring_linear
+class follow_linestring_linear_linestring
 {
 protected:
     // allow spikes (false indicates: do not remove spikes)
     typedef following::action_selector<OverlayType, false> action;
 
-    typedef geometry::detail::output_geometry_access
-        <
-            GeometryOut, linestring_tag, linestring_tag
-        > linear;
-    typedef geometry::detail::output_geometry_access
-        <
-            GeometryOut, point_tag, linestring_tag
-        > pointlike;
-
     template
     <
         typename TurnIterator,
         typename TurnOperationIterator,
-        typename LinestringOut,
         typename SegmentIdentifier,
         typename OutputIterator,
         typename SideStrategy
@@ -222,12 +209,10 @@ protected:
             entered = true;
             if ( enter_count == 0 )
             {
-                action::enter(current_piece,
-                              linestring,
+                action::enter(current_piece, linestring,
                               current_segment_id,
                               op_it->seg_id.segment_index,
-                              it->point, *op_it, strategy, robust_policy,
-                              linear::get(oit));
+                              it->point, *op_it, strategy, robust_policy, oit);
             }
             ++enter_count;
         }
@@ -239,25 +224,23 @@ protected:
             if ( enter_count == 0 )
             {
                 entered = false;
-                action::leave(current_piece,
-                              linestring,
+                action::leave(current_piece, linestring,
                               current_segment_id,
                               op_it->seg_id.segment_index,
-                              it->point, *op_it, strategy, robust_policy,
-                              linear::get(oit));
+                              it->point, *op_it, strategy, robust_policy, oit);
             }
         }
-        else if ( BOOST_GEOMETRY_CONDITION(FollowIsolatedPoints)
+        else if ( FollowIsolatedPoints
                   && is_isolated_point(*it, *op_it, entered) )
         {
             detail::turns::debug_turn(*it, *op_it, "-> Isolated point");
 
-            action::template isolated_point
-                <
-                    typename pointlike::type
-                >(it->point, pointlike::get(oit));
+            action::isolated_point(current_piece, linestring,
+                                   current_segment_id,
+                                   op_it->seg_id.segment_index,
+                                   it->point, *op_it, oit);
         }
-        else if ( BOOST_GEOMETRY_CONDITION(FollowContinueTurns)
+        else if ( FollowContinueTurns
                   && is_staying_inside(*it, *op_it, entered) )
         {
             detail::turns::debug_turn(*it, *op_it, "-> Staying inside");
@@ -270,7 +253,6 @@ protected:
     template
     <
         typename SegmentIdentifier,
-        typename LinestringOut,
         typename OutputIterator,
         typename SideStrategy
     >
@@ -301,7 +283,7 @@ protected:
         // Output the last one, if applicable
         if (::boost::size(current_piece) > 1)
         {
-            *linear::get(oit)++ = current_piece;
+            *oit++ = current_piece;
         }
 
         return oit;
@@ -318,7 +300,7 @@ public:
         // Iterate through all intersection points (they are
         // ordered along the each line)
 
-        typename linear::type current_piece;
+        LinestringOut current_piece;
         geometry::segment_identifier current_segment_id(0, -1, -1, -1);
 
         bool entered = false;
@@ -327,17 +309,21 @@ public:
         for (TurnIterator it = first; it != beyond; ++it)
         {
             oit = process_turn(it, boost::begin(it->operations),
-                               entered, enter_count,
+                               entered, enter_count, 
                                linestring,
                                current_piece, current_segment_id,
                                oit,
                                strategy);
         }
 
+#if ! defined(BOOST_GEOMETRY_OVERLAY_NO_THROW)
         if (enter_count != 0)
         {
-           return oit;
+            BOOST_THROW_EXCEPTION(inconsistent_turns_exception());
         }
+#else
+        BOOST_GEOMETRY_ASSERT(enter_count == 0);
+#endif
 
         return process_end(entered, linestring,
                            current_segment_id, current_piece,
@@ -358,8 +344,8 @@ template
     bool FollowIsolatedPoints,
     bool FollowContinueTurns
 >
-class follow_multilinestring_linear
-    : follow_linestring_linear
+class follow_multilinestring_linear_linestring
+    : follow_linestring_linear_linestring
         <
             LinestringOut,
             typename boost::range_value<MultiLinestring>::type,
@@ -372,7 +358,7 @@ class follow_multilinestring_linear
 protected:
     typedef typename boost::range_value<MultiLinestring>::type Linestring;
 
-    typedef follow_linestring_linear
+    typedef follow_linestring_linear_linestring
         <
             LinestringOut, Linestring, Linear,
             OverlayType, FollowIsolatedPoints, FollowContinueTurns
@@ -506,10 +492,11 @@ template
     overlay_type OverlayType,
     bool FollowIsolatedPoints,
     bool FollowContinueTurns,
+    typename TagOut = typename tag<LinestringOut>::type,
     typename TagIn1 = typename tag<Geometry1>::type
 >
 struct follow
-    : not_implemented<Geometry1>
+    : not_implemented<LinestringOut, Geometry1>
 {};
 
 
@@ -527,8 +514,8 @@ struct follow
     <
         LinestringOut, Linestring, Linear,
         OverlayType, FollowIsolatedPoints, FollowContinueTurns,
-        linestring_tag
-    > : follow_linestring_linear
+        linestring_tag, linestring_tag
+    > : follow_linestring_linear_linestring
         <
             LinestringOut, Linestring, Linear,
             OverlayType, FollowIsolatedPoints, FollowContinueTurns
@@ -549,8 +536,8 @@ struct follow
     <
         LinestringOut, MultiLinestring, Linear,
         OverlayType, FollowIsolatedPoints, FollowContinueTurns,
-        multi_linestring_tag
-    > : follow_multilinestring_linear
+        linestring_tag, multi_linestring_tag
+    > : follow_multilinestring_linear_linestring
         <
             LinestringOut, MultiLinestring, Linear,
             OverlayType, FollowIsolatedPoints, FollowContinueTurns

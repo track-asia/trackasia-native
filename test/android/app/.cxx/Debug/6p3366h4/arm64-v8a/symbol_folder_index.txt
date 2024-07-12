@@ -1,1 +1,0 @@
-/Volumes/DATA/TRACKASIA_NATIVE_V2/trackasia-native/track-asia-native/test/android/app/build/intermediates/cxx/Debug/6p3366h4/obj/arm64-v8a

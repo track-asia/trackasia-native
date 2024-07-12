@@ -2,6 +2,7 @@
 
 #include <mbgl/util/client_options.hpp>
 #include <mbgl/util/image.hpp>
+#include <mbgl/util/optional.hpp>
 #include <mbgl/util/geo.hpp>
 
 #include <exception>
@@ -9,8 +10,6 @@
 #include <string>
 #include <vector>
 #include <functional>
-#include <optional>
-
 namespace mbgl {
 
 struct CameraOptions;
@@ -39,7 +38,7 @@ public:
                    const ResourceOptions&,
                    const ClientOptions&,
                    MapSnapshotterObserver&,
-                   std::optional<std::string> localFontFamily = std::nullopt);
+                   optional<std::string> localFontFamily = nullopt);
 
     MapSnapshotter(Size size, float pixelRatio, const ResourceOptions&, const ClientOptions& = ClientOptions());
 
@@ -63,10 +62,10 @@ public:
     style::Style& getStyle();
     const style::Style& getStyle() const;
 
-    using PointForFn = std::function<ScreenCoordinate(const LatLng&)>;
-    using LatLngForFn = std::function<LatLng(const ScreenCoordinate&)>;
+    using PointForFn = std::function<ScreenCoordinate (const LatLng&)>;
+    using LatLngForFn = std::function<LatLng (const ScreenCoordinate&)>;
     using Attributions = std::vector<std::string>;
-    using Callback = std::function<void(std::exception_ptr, PremultipliedImage, Attributions, PointForFn, LatLngForFn)>;
+    using Callback = std::function<void (std::exception_ptr, PremultipliedImage, Attributions, PointForFn, LatLngForFn)>;
     void snapshot(Callback);
     void cancel();
 

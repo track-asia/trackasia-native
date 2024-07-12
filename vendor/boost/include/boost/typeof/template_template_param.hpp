@@ -93,7 +93,7 @@ namespace boost { namespace type_of {
 
 #define BOOST_TYPEOF_TYPEDEF_INT_PN(z,n,Params) typedef int BOOST_PP_CAT(P,n);
 
-#if defined(__BORLANDC__) && !defined(__clang__)
+#ifdef __BORLANDC__
 #define BOOST_TYPEOF_DECODE_NESTED_TEMPLATE_HELPER_NAME BOOST_PP_CAT(\
         BOOST_PP_CAT(\
             BOOST_PP_CAT(\

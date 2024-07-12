@@ -4,42 +4,8 @@
 #include <mbgl/storage/file_source.hpp>
 #include <mbgl/style/style_impl.hpp>
 #include <mbgl/util/exception.hpp>
-#include <mbgl/util/logging.hpp>
-#include <mbgl/util/traits.hpp>
 
 namespace mbgl {
-
-#if !defined(NDEBUG)
-namespace {
-void logStyleDependencies(EventSeverity severity, Event event, const style::Style& style) {
-    using Dependency = style::expression::Dependency;
-    constexpr auto maskCount = underlying_type(Dependency::MaskCount);
-    std::array<std::size_t, maskCount + 1> counts = {0};
-    const auto layers = style.getLayers();
-    for (const auto& layer : layers) {
-        const auto deps = layer->getDependencies();
-        if (deps == Dependency::None) {
-            counts[0]++;
-        } else {
-            for (size_t i = 0; i < maskCount; ++i) {
-                if (deps & Dependency{1u << i}) {
-                    counts[i + 1]++;
-                }
-            }
-        }
-    }
-    std::ostringstream ss;
-    ss << "Style '" << style.getName() << "' has " << layers.size() << " layers:\n";
-    ss << "  " << Dependency::None << ": " << counts[0] << "\n";
-    for (size_t i = 0; i < maskCount; ++i) {
-        if (counts[i + 1]) {
-            ss << "  " << Dependency{1u << i} << ": " << counts[i + 1] << "\n";
-        }
-    }
-    Log::Record(severity, event, ss.str());
-}
-} // namespace
-#endif
 
 Map::Impl::Impl(RendererFrontend& frontend_,
                 MapObserver& observer_,
@@ -52,7 +18,7 @@ Map::Impl::Impl(RendererFrontend& frontend_,
       pixelRatio(mapOptions.pixelRatio()),
       crossSourceCollisions(mapOptions.crossSourceCollisions()),
       fileSource(std::move(fileSource_)),
-      style(std::make_unique<style::Style>(fileSource, pixelRatio, frontend_.getThreadPool())),
+      style(std::make_unique<style::Style>(fileSource, pixelRatio)),
       annotationManager(*style) {
     transform.setNorthOrientation(mapOptions.northOrientation());
     style->impl->setObserver(this);
@@ -89,7 +55,7 @@ void Map::Impl::onUpdate() {
                                timePoint,
                                transform.getState(),
                                style->impl->getGlyphURL(),
-                               style->impl->areSpritesLoaded(),
+                               style->impl->spriteLoaded,
                                style->impl->getTransitionOptions(),
                                style->impl->getLight()->impl,
                                style->impl->getImageImpls(),
@@ -118,10 +84,6 @@ void Map::Impl::onStyleLoaded() {
         annotationManager.onStyleLoaded();
     }
     observer.onDidFinishLoadingStyle();
-
-#if !defined(NDEBUG)
-    logStyleDependencies(EventSeverity::Info, Event::Style, *style);
-#endif
 }
 
 void Map::Impl::onStyleError(std::exception_ptr error) {
@@ -166,19 +128,11 @@ void Map::Impl::onWillStartRenderingFrame() {
     }
 }
 
-void Map::Impl::onDidFinishRenderingFrame(RenderMode renderMode,
-                                          bool needsRepaint,
-                                          bool placemenChanged,
-                                          double frameEncodingTime,
-                                          double frameRenderingTime) {
+void Map::Impl::onDidFinishRenderingFrame(RenderMode renderMode, bool needsRepaint, bool placemenChanged) {
     rendererFullyLoaded = renderMode == RenderMode::Full;
 
     if (mode == MapMode::Continuous) {
-        observer.onDidFinishRenderingFrame({MapObserver::RenderMode(renderMode),
-                                            needsRepaint,
-                                            placemenChanged,
-                                            frameEncodingTime,
-                                            frameRenderingTime});
+        observer.onDidFinishRenderingFrame({MapObserver::RenderMode(renderMode), needsRepaint, placemenChanged});
 
         if (needsRepaint || transform.inTransition()) {
             onUpdate();
@@ -226,10 +180,6 @@ void Map::Impl::onRemoveUnusedStyleImages(const std::vector<std::string>& unused
             style->removeImage(unusedImageID);
         }
     }
-}
-
-void Map::Impl::onRegisterShaders(gfx::ShaderRegistry& registry) {
-    observer.onRegisterShaders(registry);
 }
 
 } // namespace mbgl

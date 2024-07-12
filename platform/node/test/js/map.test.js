@@ -17,11 +17,10 @@ test('Map', function(t) {
         t.end();
     });
 
-    t.test('must be constructed with no options or with options object', function(t) {
-        t.doesNotThrow(function() {
-            var map = new mbgl.Map();
-            map.release();
-        });
+    t.test('must be constructed with options object', function(t) {
+        t.throws(function() {
+            new mbgl.Map();
+        }, /Requires an options object as first argument/);
 
         t.throws(function() {
             new mbgl.Map('options');
@@ -30,18 +29,17 @@ test('Map', function(t) {
         t.end();
     });
 
-    t.test('requires request property to be a function', function(t) {
+    t.test('requires request property', function(t) {
         var options = {};
 
-        t.doesNotThrow(function() {
-            var map = new mbgl.Map(options);
-            map.release();
-        });
+        t.throws(function() {
+            new mbgl.Map(options);
+        }, /Options object must have a 'request' method/);
 
         options.request = 'test';
         t.throws(function() {
             new mbgl.Map(options);
-        }, /Options object 'request' property must be a function/);
+        }, /Options object must have a 'request' method/);
 
         options.request = function() {};
         t.doesNotThrow(function() {
@@ -53,7 +51,9 @@ test('Map', function(t) {
     });
 
     t.test('optional cancel property must be a function', function(t) {
-        var options = {};
+        var options = {
+            request: function() {}
+        };
 
         options.cancel = 'test';
         t.throws(function() {
@@ -71,7 +71,9 @@ test('Map', function(t) {
 
 
     t.test('optional ratio property must be a number', function(t) {
-        var options = {};
+        var options = {
+            request: function() {}
+        };
 
         options.ratio = 'test';
         t.throws(function() {
@@ -116,7 +118,6 @@ test('Map', function(t) {
             'setLayoutProperty',
             'setPaintProperty',
             'setFilter',
-            'setSize',
             'setCenter',
             'setZoom',
             'setBearing',
@@ -414,16 +415,16 @@ test('Map', function(t) {
             ratio: 1
         };
 
-        t.test('requires an object or a callback function as the first parameter', function(t) {
+        t.test('requires an object as the first parameter', function(t) {
             var map = new mbgl.Map(options);
 
             t.throws(function() {
                 map.render();
-            }, /First argument must be an options object or a callback function/);
+            }, /First argument must be an options object/);
 
             t.throws(function() {
                 map.render('invalid');
-            }, /First argument must be an options object or a callback function/);
+            }, /First argument must be an options object/);
 
             map.release();
             t.end();
@@ -455,17 +456,6 @@ test('Map', function(t) {
             t.end();
         });
 
-        t.test('requires a style to be set (without render options object)', function(t) {
-            var map = new mbgl.Map(options);
-
-            t.throws(function() {
-                map.render(function() {});
-            }, /Style is not loaded/);
-
-            map.release();
-            t.end();
-        });
-
         t.test('returns an error delayed', function(t) {
             var delay = 0;
             var map = new mbgl.Map({
@@ -486,43 +476,10 @@ test('Map', function(t) {
             });
         });
 
-        t.test('returns an error delayed (without render options object)', function(t) {
-            var delay = 0;
-            var map = new mbgl.Map({
-                request: function(req, callback) {
-                    delay += 100;
-                    setTimeout(function() {
-                        callback(new Error('not found'));
-                    }, delay);
-                },
-                ratio: 1
-            });
-            map.load(style);
-            map.setZoom(1);
-            map.render(function(err, data) {
-                map.release();
-
-                t.ok(err, 'returns error');
-                t.end();
-            });
-        });
-
         t.test('returns an error', function(t) {
             var map = new mbgl.Map(options);
             map.load(style);
             map.render({ zoom: 1 }, function(err, data) {
-                map.release();
-
-                t.ok(err, 'returns error');
-                t.end();
-            });
-        });
-
-        t.test('returns an error (without render options object)', function(t) {
-            var map = new mbgl.Map(options);
-            map.load(style);
-            map.setZoom(1);
-            map.render(function(err, data) {
                 map.release();
 
                 t.ok(err, 'returns error');
@@ -545,19 +502,6 @@ test('Map', function(t) {
             var map = new mbgl.Map(options);
             map.load(style);
             map.render({}, function(err, pixels) {
-                t.error(err);
-                map.release();
-                t.ok(pixels);
-                t.ok(pixels instanceof Buffer);
-                t.equal(pixels.length, 512 * 512 * 4)
-                t.end();
-            });
-        });
-
-        t.test('returns an image (without render options object)', function(t) {
-            var map = new mbgl.Map(options);
-            map.load(style);
-            map.render(function(err, pixels) {
                 t.error(err);
                 map.release();
                 t.ok(pixels);
@@ -592,31 +536,6 @@ test('Map', function(t) {
             render();
         });
 
-        t.test('can be called several times in serial (without render options object)', function(t) {
-            var completed = 0;
-            var remaining = 10;
-            var start = +new Date;
-
-            var map = new mbgl.Map(options);
-            map.load(style);
-
-            function render() {
-                map.render(function(err, data) {
-                    t.error(err);
-
-                    t.ok(true, 'render @ ' + ((+new Date) - start) + 'ms');
-                    if (++completed === remaining) {
-                        map.release();
-                        t.end();
-                    } else {
-                        render();
-                    }
-                });
-            }
-
-            render();
-        });
-
         t.test('throws if called in parallel', function(t) {
             var map = new mbgl.Map(options);
             map.load(style);
@@ -624,19 +543,6 @@ test('Map', function(t) {
             t.throws(function() {
                 map.render({}, function() {});
                 map.render({}, function() {});
-            }, /Map is currently processing a RenderRequest/);
-
-            map.release();
-            t.end();
-        });
-
-        t.test('throws if called in parallel (without render options object)', function(t) {
-            var map = new mbgl.Map(options);
-            map.load(style);
-
-            t.throws(function() {
-                map.render(function() {});
-                map.render(function() {});
             }, /Map is currently processing a RenderRequest/);
 
             map.release();
@@ -683,50 +589,7 @@ test('Map', function(t) {
                 t.equal(numPixels, 0);
                 t.end();
             });
-        });
-
-        t.test('sets zoom before center (without render options object)', function(t) {
-            var map = new mbgl.Map(options);
-            map.load({
-                "version": 8,
-                "sources": {
-                    "geojson": {
-                        "type": "geojson",
-                        "data": {
-                            "type": "Point",
-                            "coordinates": [
-                                18.05489,
-                                59.32744
-                            ]
-                        }
-                    }
-                },
-                "layers": [
-                    {
-                        "id": "circle",
-                        "type": "circle",
-                        "source": "geojson",
-                        "paint": {
-                            "circle-color": "red"
-                        }
-                    }
-                ]
-            });
-            map.setSize([400, 400]);
-            map.setZoom(5);
-            map.setCenter([18.05489, 59.32744]);
-            map.render(function(err, actual) {
-                t.error(err);
-
-                var PNG = require('pngjs').PNG;
-                var pixelmatch = require('pixelmatch');
-                var expected = PNG.sync.read(
-                    fs.readFileSync(path.join(__dirname, '../fixtures/zoom-center/expected.png'))).data;
-                var numPixels = pixelmatch(actual, expected, undefined, 400, 400, { threshold: 0.13 });
-                t.equal(numPixels, 0);
-                t.end();
-            });
-        });
+        })
     });
 
     t.test('request callback', function (t) {

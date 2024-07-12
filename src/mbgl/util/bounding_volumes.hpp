@@ -15,21 +15,21 @@ enum class IntersectionResult : int {
 
 class AABB {
 public:
-    AABB() noexcept;
-    AABB(const vec3& min_, const vec3& max_) noexcept;
+    AABB();
+    AABB(const vec3& min_, const vec3& max_);
 
-    constexpr vec3 closestPoint(const vec3& point) const noexcept;
+    vec3 closestPoint(const vec3& point) const;
 
     // Computes the shortest manhattan distance to the provided point
-    vec3 distanceXYZ(const vec3& point) const noexcept;
+    vec3 distanceXYZ(const vec3& point) const;
 
     // Creates an aabb covering one quadrant of the aabb on XZ-plane.
-    AABB quadrant(int idx) const noexcept;
+    AABB quadrant(int idx) const;
 
-    bool intersects(const AABB& aabb) const noexcept;
+    bool intersects(const AABB& aabb) const;
 
-    bool operator==(const AABB& aabb) const noexcept;
-    bool operator!=(const AABB& aabb) const noexcept;
+    bool operator==(const AABB& aabb) const;
+    bool operator!=(const AABB& aabb) const;
 
     vec3 min;
     vec3 max;

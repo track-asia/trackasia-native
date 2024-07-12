@@ -30,20 +30,12 @@ public:
 
     float getQueryRadius(const RenderLayer&) const override;
 
-    using VertexVector = gfx::VertexVector<HeatmapLayoutVertex>;
-    const std::shared_ptr<VertexVector> sharedVertices = std::make_shared<VertexVector>();
-    VertexVector& vertices = *sharedVertices;
-
-    using TriangleIndexVector = gfx::IndexVector<gfx::Triangles>;
-    const std::shared_ptr<TriangleIndexVector> sharedTriangles = std::make_shared<TriangleIndexVector>();
-    TriangleIndexVector& triangles = *sharedTriangles;
-
+    gfx::VertexVector<HeatmapLayoutVertex> vertices;
+    gfx::IndexVector<gfx::Triangles> triangles;
     SegmentVector<HeatmapAttributes> segments;
 
-#if MLN_LEGACY_RENDERER
-    std::optional<gfx::VertexBuffer<HeatmapLayoutVertex>> vertexBuffer;
-    std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+    optional<gfx::VertexBuffer<HeatmapLayoutVertex>> vertexBuffer;
+    optional<gfx::IndexBuffer> indexBuffer;
 
     std::map<std::string, HeatmapProgram::Binders> paintPropertyBinders;
 

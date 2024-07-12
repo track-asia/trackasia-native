@@ -30,20 +30,12 @@ public:
 
     void update(const FeatureStates&, const GeometryTileLayer&, const std::string&, const ImagePositions&) override;
 
-    using VertexVector = gfx::VertexVector<CircleLayoutVertex>;
-    const std::shared_ptr<VertexVector> sharedVertices = std::make_shared<VertexVector>();
-    VertexVector& vertices = *sharedVertices;
-
-    using TriangleIndexVector = gfx::IndexVector<gfx::Triangles>;
-    const std::shared_ptr<TriangleIndexVector> sharedTriangles = std::make_shared<TriangleIndexVector>();
-    TriangleIndexVector& triangles = *sharedTriangles;
-
+    gfx::VertexVector<CircleLayoutVertex> vertices;
+    gfx::IndexVector<gfx::Triangles> triangles;
     SegmentVector<CircleAttributes> segments;
 
-#if MLN_LEGACY_RENDERER
-    std::optional<gfx::VertexBuffer<CircleLayoutVertex>> vertexBuffer;
-    std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+    optional<gfx::VertexBuffer<CircleLayoutVertex>> vertexBuffer;
+    optional<gfx::IndexBuffer> indexBuffer;
 
     std::map<std::string, CircleProgram::Binders> paintPropertyBinders;
 

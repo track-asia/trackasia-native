@@ -8,23 +8,19 @@ namespace gfx {
 
 class VertexBufferResource {
 protected:
-    VertexBufferResource() noexcept = default;
-
+    VertexBufferResource() = default;
 public:
-    virtual ~VertexBufferResource() noexcept = default;
+    virtual ~VertexBufferResource() = default;
 };
 
-using UniqueVertexBufferResource = std::unique_ptr<VertexBufferResource>;
-
-// This class has a template argument that we use to specify the vertex type. It
-// is not used by the implementation, but serves type checking purposes during
-// build time.
+// This class has a template argument that we use to specify the vertex type. It is not used by
+// the implementation, but serves type checking purposes during build time.
 template <class>
 class VertexBuffer {
 public:
-    VertexBuffer(const std::size_t elements_, UniqueVertexBufferResource&& resource_)
-        : elements(elements_),
-          resource(std::move(resource_)) {}
+    VertexBuffer(const std::size_t elements_, std::unique_ptr<VertexBufferResource>&& resource_)
+        : elements(elements_), resource(std::move(resource_)) {
+    }
 
     std::size_t elements;
 
@@ -35,7 +31,7 @@ public:
     }
 
 protected:
-    UniqueVertexBufferResource resource;
+    std::unique_ptr<VertexBufferResource> resource;
 };
 
 } // namespace gfx

@@ -1,18 +1,17 @@
-plugins {
-    id 'com.android.application'
-}
+apply plugin: 'com.android.application'
 
 android {
+    compileSdkVersion androidVersions.compileSdkVersion
     ndkVersion androidSdkVersions.ndkVersion
+    buildToolsVersion androidSdkVersions.buildToolsVersion
 
     defaultConfig {
         applicationId = 'com.mapbox.mapboxsdk.maps.benchmark_runner'
-        compileSdk 34
         minSdkVersion 21
         targetSdkVersion 33
         def abi = 'all'
-        if (project.hasProperty('trackasia.abis')) {
-            abi = project.getProperty('trackasia.abis')
+        if (project.hasProperty('mapbox.abis')) {
+            abi = project.getProperty('mapbox.abis')
         }
         ndk {
             if (abi != 'all') {

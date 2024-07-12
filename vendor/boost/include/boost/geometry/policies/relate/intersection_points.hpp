@@ -2,9 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2016, 2022.
-// Modifications copyright (c) 2016-2022 Oracle and/or its affiliates.
-// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
+// This file was modified by Oracle on 2016.
+// Modifications copyright (c) 2016 Oracle and/or its affiliates.
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
@@ -69,7 +68,7 @@ struct segments_intersection_points
         Ratio const& rb_from_wrt_a, Ratio const& rb_to_wrt_a)
     {
         return_type result;
-        unsigned int index = 0;
+        unsigned int index = 0, count_a = 0, count_b = 0;
         Ratio on_a[2];
 
         // The conditions "index < 2" are necessary for non-robust handling,
@@ -88,6 +87,7 @@ struct segments_intersection_points
             result.fractions[index].assign(Ratio::zero(), ra_from_wrt_b);
             on_a[index] = Ratio::zero();
             index++;
+            count_a++;
         }
         if (b1_wrt_a == 2 //rb_from_wrt_a.in_segment()
             && index < 2)
@@ -103,6 +103,7 @@ struct segments_intersection_points
             result.fractions[index].assign(rb_from_wrt_a, Ratio::zero());
             on_a[index] = rb_from_wrt_a;
             index++;
+            count_b++;
         }
 
         if (a2_wrt_b >= 1 && a2_wrt_b <= 3 //ra_to_wrt_b.on_segment()
@@ -115,6 +116,7 @@ struct segments_intersection_points
             result.fractions[index].assign(Ratio::one(), ra_to_wrt_b);
             on_a[index] = Ratio::one();
             index++;
+            count_a++;
         }
         if (b2_wrt_a == 2 // rb_to_wrt_a.in_segment()
             && index < 2)
@@ -123,6 +125,7 @@ struct segments_intersection_points
             result.fractions[index].assign(rb_to_wrt_a, Ratio::one());
             on_a[index] = rb_to_wrt_a;
             index++;
+            count_b++;
         }
 
         // TEMPORARY

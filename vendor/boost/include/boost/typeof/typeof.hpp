@@ -13,7 +13,6 @@
 #   error both typeof emulation and native mode requested
 #endif
 
-#include <boost/typeof/detail/requires_cxx11.hpp>
 #include <boost/config.hpp>
 #include <boost/config/workaround.hpp>
 
@@ -85,7 +84,7 @@
 #           define BOOST_TYPEOF_KEYWORD __typeof__
 #       endif
 #   endif
-#elif defined BOOST_CODEGEARC
+#elif defined __CODEGEARC__
 #   ifndef BOOST_TYPEOF_EMULATION
 #       ifndef BOOST_TYPEOF_NATIVE
 #           define BOOST_TYPEOF_EMULATION_UNSUPPORTED
@@ -93,7 +92,7 @@
 #   else
 #       define BOOST_TYPEOF_EMULATION_UNSUPPORTED
 #   endif
-#elif defined BOOST_BORLANDC
+#elif defined __BORLANDC__
 #   ifndef BOOST_TYPEOF_EMULATION
 #       ifndef BOOST_TYPEOF_NATIVE
 #           define BOOST_TYPEOF_EMULATION_UNSUPPORTED
@@ -143,8 +142,8 @@
 #       error native typeof is not supported
 #   endif
 
-#elif defined(BOOST_BORLANDC)
-#   if (BOOST_BORLANDC < 0x590)
+#elif defined(__BORLANDC__)
+#   if (__BORLANDC__ < 0x590)
 #       define BOOST_TYPEOF_NO_FUNCTION_TYPES
 #       define BOOST_TYPEOF_NO_MEMBER_FUNCTION_TYPES
 #   endif

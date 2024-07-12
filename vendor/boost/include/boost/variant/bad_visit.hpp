@@ -13,8 +13,6 @@
 #ifndef BOOST_VARIANT_BAD_VISIT_HPP
 #define BOOST_VARIANT_BAD_VISIT_HPP
 
-#include <boost/config.hpp>
-
 #include <exception>
 
 namespace boost {
@@ -30,7 +28,7 @@ struct BOOST_SYMBOL_VISIBLE bad_visit
 {
 public: // std::exception interface
 
-    const char * what() const BOOST_NOEXCEPT_OR_NOTHROW BOOST_OVERRIDE
+    virtual const char * what() const BOOST_NOEXCEPT_OR_NOTHROW
     {
         return "boost::bad_visit: "
                "failed visitation using boost::apply_visitor";

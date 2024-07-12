@@ -1,8 +1,8 @@
-// Boost.Geometry
+// Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2021, Oracle and/or its affiliates.
+// Copyright (c) 2014, Oracle and/or its affiliates.
+
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -13,18 +13,18 @@
 #include <iterator>
 #include <utility>
 
-#include <boost/geometry/algorithms/detail/closest_feature/range_to_range.hpp>
-#include <boost/geometry/algorithms/detail/distance/is_comparable.hpp>
-#include <boost/geometry/algorithms/detail/distance/iterator_selector.hpp>
-#include <boost/geometry/algorithms/detail/distance/strategy_utils.hpp>
-#include <boost/geometry/algorithms/dispatch/distance.hpp>
-
 #include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/point_type.hpp>
 
-#include <boost/geometry/iterators/detail/has_one_element.hpp>
+#include <boost/geometry/iterators/has_one_element.hpp>
 
 #include <boost/geometry/strategies/distance.hpp>
+
+#include <boost/geometry/algorithms/dispatch/distance.hpp>
+
+#include <boost/geometry/algorithms/detail/closest_feature/range_to_range.hpp>
+#include <boost/geometry/algorithms/detail/distance/is_comparable.hpp>
+#include <boost/geometry/algorithms/detail/distance/iterator_selector.hpp>
 
 
 namespace boost { namespace geometry
@@ -40,7 +40,7 @@ template
 <
     typename PointOrSegmentIterator,
     typename Geometry,
-    typename Strategies
+    typename Strategy
 >
 class point_or_segment_range_to_geometry_rtree
 {
@@ -54,27 +54,37 @@ private:
 
     typedef detail::closest_feature::range_to_range_rtree range_to_range;
 
-    typedef distance::strategy_t<point_or_segment_type, Geometry, Strategies> strategy_type;
-
 public:
-    typedef distance::return_t<point_or_segment_type, Geometry, Strategies> return_type;
+    typedef typename strategy::distance::services::return_type
+        <
+            Strategy,
+            typename point_type<point_or_segment_type>::type,
+            typename point_type<Geometry>::type
+        >::type return_type;
 
     static inline return_type apply(PointOrSegmentIterator first,
                                     PointOrSegmentIterator last,
                                     Geometry const& geometry,
-                                    Strategies const& strategies)
+                                    Strategy const& strategy)
     {
+        namespace sds = strategy::distance::services;
+
         BOOST_GEOMETRY_ASSERT( first != last );
 
-        if ( detail::has_one_element(first, last) )
+        if ( geometry::has_one_element(first, last) )
         {
             return dispatch::distance
                 <
-                    point_or_segment_type, Geometry, Strategies
-                >::apply(*first, geometry, strategies);
+                    point_or_segment_type, Geometry, Strategy
+                >::apply(*first, geometry, strategy);
         }
 
-        distance::creturn_t<point_or_segment_type, Geometry, Strategies> cd_min;
+        typename sds::return_type
+            <
+                typename sds::comparable_type<Strategy>::type,
+                typename point_type<point_or_segment_type>::type,
+                typename point_type<Geometry>::type
+            >::type cd_min;
 
         std::pair
             <
@@ -85,25 +95,28 @@ public:
                                     last,
                                     selector_type::begin(geometry),
                                     selector_type::end(geometry),
-                                    strategies,
+                                    sds::get_comparable
+                                        <
+                                            Strategy
+                                        >::apply(strategy),
                                     cd_min);
 
         return
-            is_comparable<strategy_type>::value
+            is_comparable<Strategy>::value
             ?
             cd_min
             :
             dispatch::distance
                 <
-                    point_or_segment_type,
+                    point_or_segment_type,                    
                     typename std::iterator_traits
                         <
                             typename selector_type::iterator_type
                         >::value_type,
-                    Strategies
+                    Strategy
                 >::apply(closest_features.first,
                          *closest_features.second,
-                         strategies);
+                         strategy);
     }
 };
 

@@ -14,6 +14,7 @@
 #include <boost/variant/variant.hpp>
 #include <boost/variant/recursive_variant.hpp>
 #include <boost/variant/apply_visitor.hpp>
+#include <boost/foreach.hpp>
 #include <boost/spirit/home/support/utf8.hpp>
 #include <list>
 #include <iterator>
@@ -68,10 +69,6 @@ namespace boost { namespace spirit
         value_type value;
     };
 
-#ifdef _MSC_VER
-#  pragma warning(push)
-#  pragma warning(disable: 4512) // assignment operator could not be generated.
-#endif
     template <typename Callback>
     struct basic_info_walker
     {
@@ -109,17 +106,20 @@ namespace boost { namespace spirit
         void operator()(std::list<info> const& l) const
         {
             callback.element(tag, "", depth);
-            for (std::list<info>::const_iterator it = l.begin(),
-                                                 end = l.end(); it != end; ++it)
+            BOOST_FOREACH(info const& what, l)
             {
                 boost::apply_visitor(
-                    this_type(callback, it->tag, depth+1), it->value);
+                    this_type(callback, what.tag, depth+1), what.value);
             }
         }
 
         Callback& callback;
         utf8_string const& tag;
         int depth;
+
+    private:
+        // silence MSVC warning C4512: assignment operator could not be generated
+        basic_info_walker& operator= (basic_info_walker const&);
     };
 
     // bare-bones print support
@@ -133,17 +133,18 @@ namespace boost { namespace spirit
 
         void element(string const& tag, string const& value, int /*depth*/) const
         {
-            if (value.empty())
+            if (value == "")
                 out << '<' << tag << '>';
             else
                 out << '"' << value << '"';
         }
 
         Out& out;
+
+    private:
+        // silence MSVC warning C4512: assignment operator could not be generated
+        simple_printer& operator= (simple_printer const&);
     };
-#ifdef _MSC_VER
-#  pragma warning(pop)
-#endif
 
     template <typename Out>
     Out& operator<<(Out& out, info const& what)

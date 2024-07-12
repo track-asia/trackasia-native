@@ -9,7 +9,6 @@
 #include <mbgl/util/async_request.hpp>
 #include <mbgl/util/logging.hpp>
 #include <mbgl/util/thread_pool.hpp>
-#include <mbgl/util/identity.hpp>
 
 namespace mbgl {
 namespace style {
@@ -21,8 +20,7 @@ Immutable<GeoJSONOptions> GeoJSONOptions::defaultOptions() {
 }
 
 GeoJSONSource::GeoJSONSource(std::string id, Immutable<GeoJSONOptions> options)
-    : Source(makeMutable<Impl>(std::move(id), std::move(options))),
-      sequencedScheduler(Scheduler::GetSequenced()) {}
+    : Source(makeMutable<Impl>(std::move(id), std::move(options))), threadPool(Scheduler::GetBackground()) {}
 
 GeoJSONSource::~GeoJSONSource() = default;
 
@@ -41,8 +39,20 @@ void GeoJSONSource::setURL(const std::string& url_) {
     }
 }
 
+namespace {
+
+inline std::shared_ptr<GeoJSONData> createGeoJSONData(const mapbox::geojson::geojson& geoJSON,
+                                                      const GeoJSONSource::Impl& impl) {
+    if (auto data = impl.getData().lock()) {
+        return GeoJSONData::create(geoJSON, impl.getOptions(), data->getScheduler());
+    }
+    return GeoJSONData::create(geoJSON, impl.getOptions());
+}
+
+} // namespace
+
 void GeoJSONSource::setGeoJSON(const mapbox::geojson::geojson& geoJSON) {
-    setGeoJSONData(GeoJSONData::create(geoJSON, sequencedScheduler, impl().getOptions()));
+    setGeoJSONData(createGeoJSONData(geoJSON, impl()));
 }
 
 void GeoJSONSource::setGeoJSONData(std::shared_ptr<GeoJSONData> geoJSONData) {
@@ -51,7 +61,7 @@ void GeoJSONSource::setGeoJSONData(std::shared_ptr<GeoJSONData> geoJSONData) {
     observer->onSourceChanged(*this);
 }
 
-std::optional<std::string> GeoJSONSource::getURL() const {
+optional<std::string> GeoJSONSource::getURL() const {
     return url;
 }
 
@@ -71,43 +81,37 @@ void GeoJSONSource::loadDescription(FileSource& fileSource) {
 
     req = fileSource.request(Resource::source(*url), [this](const Response& res) {
         if (res.error) {
-            observer->onSourceError(*this, std::make_exception_ptr(std::runtime_error(res.error->message)));
+            observer->onSourceError(
+                *this, std::make_exception_ptr(std::runtime_error(res.error->message)));
         } else if (res.notModified) {
             return;
         } else if (res.noContent) {
-            observer->onSourceError(*this, std::make_exception_ptr(std::runtime_error("unexpectedly empty GeoJSON")));
+            observer->onSourceError(
+                *this, std::make_exception_ptr(std::runtime_error("unexpectedly empty GeoJSON")));
         } else {
-            // Note: This task appears to be safe enough to schedule on the generic background queue.
-            // This task does not reference other objects who's lifetimes are coupled with a map.
-            Scheduler::GetBackground()->scheduleAndReplyValue(
-                util::SimpleIdentity::Empty,
-                /* makeImplInBackground */
-                [currentImpl = baseImpl,
-                 data = res.data,
-                 seqScheduler{sequencedScheduler}]() -> Immutable<Source::Impl> {
-                    assert(data);
-                    auto& current = static_cast<const Impl&>(*currentImpl);
-                    conversion::Error error;
-                    std::shared_ptr<GeoJSONData> geoJSONData;
-                    if (std::optional<GeoJSON> geoJSON = conversion::convertJSON<GeoJSON>(*data, error)) {
-                        geoJSONData = GeoJSONData::create(*geoJSON, std::move(seqScheduler), current.getOptions());
-                    } else {
-                        // Create an empty GeoJSON VT object to make sure we're not
-                        // infinitely waiting for tiles to load.
-                        Log::Error(Event::ParseStyle, "Failed to parse GeoJSON data: " + error.message);
-                    }
-                    return makeMutable<Impl>(current, std::move(geoJSONData));
-                },
-                /* onImplReady */
-                [this, self = makeWeakPtr(), capturedReq = req.get()](Immutable<Source::Impl> newImpl) {
-                    assert(capturedReq);
-                    if (!self) return;                    // This source has been deleted.
-                    if (capturedReq != req.get()) return; // A new request is being processed, ignore this impl.
+            auto makeImplInBackground = [currentImpl = baseImpl, data = res.data]() -> Immutable<Source::Impl> {
+                assert(data);
+                auto& current = static_cast<const Impl&>(*currentImpl);
+                conversion::Error error;
+                std::shared_ptr<GeoJSONData> geoJSONData;
+                if (optional<GeoJSON> geoJSON = conversion::convertJSON<GeoJSON>(*data, error)) {
+                    geoJSONData = createGeoJSONData(*geoJSON, current);
+                } else {
+                    // Create an empty GeoJSON VT object to make sure we're not infinitely waiting for tiles to load.
+                    Log::Error(Event::ParseStyle, "Failed to parse GeoJSON data: %s", error.message.c_str());
+                }
+                return makeMutable<Impl>(current, std::move(geoJSONData));
+            };
+            auto onImplReady = [this, self = makeWeakPtr(), capturedReq = req.get()](Immutable<Source::Impl> newImpl) {
+                assert(capturedReq);
+                if (!self) return;                    // This source has been deleted.
+                if (capturedReq != req.get()) return; // A new request is being processed, ignore this impl.
 
-                    baseImpl = std::move(newImpl);
-                    loaded = true;
-                    observer->onSourceLoaded(*this);
-                });
+                baseImpl = std::move(newImpl);
+                loaded = true;
+                observer->onSourceLoaded(*this);
+            };
+            threadPool->scheduleAndReplyValue(makeImplInBackground, onImplReady);
         }
     });
 }

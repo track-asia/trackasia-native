@@ -1,18 +1,13 @@
 // Boost.Geometry Index
 //
-// Copyright (c) 2011-2023 Adam Wulkiewicz, Lodz, Poland.
-//
-// This file was modified by Oracle on 2020.
-// Modifications copyright (c) 2020 Oracle and/or its affiliates.
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <type_traits>
-
-#include <boost/core/swap.hpp>
+#include <boost/swap.hpp>
+//#include <boost/type_traits/is_empty.hpp>
 
 #ifndef BOOST_GEOMETRY_INDEX_DETAIL_UTILITIES_HPP
 #define BOOST_GEOMETRY_INDEX_DETAIL_UTILITIES_HPP
@@ -20,31 +15,31 @@
 namespace boost { namespace geometry { namespace index { namespace detail {
 
 template<class T>
-static inline void assign_cond(T & l, T const& r, std::true_type)
+static inline void assign_cond(T & l, T const& r, boost::mpl::bool_<true> const&)
 {
     l = r;
 }
 
 template<class T>
-static inline void assign_cond(T &, T const&, std::false_type) {}
+static inline void assign_cond(T &, T const&, boost::mpl::bool_<false> const&) {}
 
 template<class T>
-static inline void move_cond(T & l, T & r, std::true_type)
+static inline void move_cond(T & l, T & r, boost::mpl::bool_<true> const&)
 {
-    l = std::move(r);
+    l = ::boost::move(r);
 }
 
 template<class T>
-static inline void move_cond(T &, T &, std::false_type) {}
+static inline void move_cond(T &, T &, boost::mpl::bool_<false> const&) {}
 
 template <typename T> inline
-void swap_cond(T & l, T & r, std::true_type)
+void swap_cond(T & l, T & r, boost::mpl::bool_<true> const&)
 {
     ::boost::swap(l, r);
 }
 
 template <typename T> inline
-void swap_cond(T &, T &, std::false_type) {}
+void swap_cond(T &, T &, boost::mpl::bool_<false> const&) {}
 
 }}}} // namespace boost::geometry::index::detail
 

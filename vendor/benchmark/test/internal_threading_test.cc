@@ -3,7 +3,6 @@
 
 #include <chrono>
 #include <thread>
-
 #include "../src/timers.h"
 #include "benchmark/benchmark.h"
 #include "output_test.h"

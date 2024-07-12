@@ -11,7 +11,7 @@ std::string uppercase(const std::string &string) {
                                                       encoding:NSUTF8StringEncoding
                                                   freeWhenDone:NO];
     NSString *uppercase = [original uppercaseString];
-    std::string result{[uppercase cStringUsingEncoding : NSUTF8StringEncoding],
+    const std::string result{[uppercase cStringUsingEncoding : NSUTF8StringEncoding],
                              [uppercase lengthOfBytesUsingEncoding:NSUTF8StringEncoding]};
     return result;
 }
@@ -22,8 +22,8 @@ std::string lowercase(const std::string &string) {
                                                       encoding:NSUTF8StringEncoding
                                                   freeWhenDone:NO];
     NSString *lowercase = [original lowercaseString];
-    std::string result{[lowercase cStringUsingEncoding : NSUTF8StringEncoding],
-                          [lowercase lengthOfBytesUsingEncoding:NSUTF8StringEncoding]};
+    const std::string result{[lowercase cStringUsingEncoding : NSUTF8StringEncoding],
+                             [lowercase lengthOfBytesUsingEncoding:NSUTF8StringEncoding]};
     return result;
 }
 

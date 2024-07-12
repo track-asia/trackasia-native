@@ -1,10 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2023, Oracle and/or its affiliates.
+// Copyright (c) 2014, Oracle and/or its affiliates.
 
-// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -21,7 +19,6 @@
 
 #include <boost/core/addressof.hpp>
 
-#include <boost/geometry/algorithms/detail/signed_size_type.hpp>
 #include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/policies/compare.hpp>
 
@@ -33,7 +30,7 @@ namespace detail { namespace is_valid
 {
 
 
-template <typename TurnPoint, typename Strategy>
+template <typename TurnPoint>
 class complement_graph_vertex
 {
 public:
@@ -56,7 +53,7 @@ public:
         {
             return geometry::less
                 <
-                    TurnPoint, -1, Strategy
+                    TurnPoint
                 >()(*m_turn_point, *other.m_turn_point);
         }
         if ( m_turn_point == NULL && other.m_turn_point == NULL )
@@ -78,11 +75,11 @@ private:
 
 
 
-template <typename TurnPoint, typename Strategy>
+template <typename TurnPoint>
 class complement_graph
 {
 private:
-    typedef complement_graph_vertex<TurnPoint, Strategy> vertex;
+    typedef complement_graph_vertex<TurnPoint> vertex;
     typedef std::set<vertex> vertex_container;
 
 public:
@@ -224,12 +221,9 @@ public:
         return false;
     }
 
-#ifdef BOOST_GEOMETRY_TEST_DEBUG
-    template <typename OutputStream>
+    template <typename OStream, typename TP>
     friend inline
-    void debug_print_complement_graph(OutputStream&,
-                                      complement_graph<TurnPoint, Strategy> const&);
-#endif // BOOST_GEOMETRY_TEST_DEBUG
+    void debug_print_complement_graph(OStream&, complement_graph<TP> const&);
 
 private:
     std::size_t m_num_rings, m_num_turns;

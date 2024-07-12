@@ -1,14 +1,11 @@
-# TrackAsia Native for iOS
+# TrackAsia GL Native for iOS and macOS
 
-[![GitHub Action build status](https://github.com/track-asia/trackasia-native/actions/workflows/ios-ci.yml/badge.svg)](https://github.com/track-asia/trackasia-native/actions/workflows/ios-ci.yml) [![CocoaPods Package](https://img.shields.io/cocoapods/v/TrackAsia.svg)](https://github.com/CocoaPods/Specs/tree/master/Specs/b/0/0/TrackAsia) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftrackasia%2Ftrackasia-native-distribution%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/track-asia/trackasia-native-distribution)
+TrackAsia GL Native for iOS and macOS is an open-source framework for embedding interactive map views with scalable, customizable vector maps into Cocoa Touch applications on iOS 9.0 and above using Objective-C, Swift, or Interface Builder. It takes stylesheets that conform to the [TrackAsia GL Style Specification](https://track-asia.com/trackasia-gl-js-docs/style-spec/), applies them to vector tiles that conform to the [Mapbox Vector Tile Specification](https://www.mapbox.com/developers/vector-tiles/), and renders them using OpenGL. It is based on the TrackAsia GL Native library.
 
-Embed interactive maps with scalable, customizable vector maps into iOS Applications. Uses [Metal](https://developer.apple.com/metal/) for real-time rendering.
+- [TrackAsia GL Native for iOS](platform/ios/README.md)
+- [TrackAsia GL Native for macOS](platform/macos/README.md)
 
-## Documentation
 
-- See the [Getting Started](https://trackasia.org/trackasia-native/ios/latest/documentation/trackasia-native-for-ios/gettingstarted) Guide in the documentation.
-- [TrackAsia Native iOS Documentation](https://trackasia.org/trackasia-native/ios/latest/documentation/track-asia/)
+## License
 
-# Contributing
-
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for instructions on how to build the project or how to work on the documentation.
+TrackAsia GL Native is licensed under the [2-Clause BSD license](LICENSE.md).
