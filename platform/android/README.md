@@ -18,17 +18,3 @@ See [`DEVELOPING.md`](./DEVELOPING.md) for instructions on how to get started wo
 
 
 
-mvn dependency:purge-local-repository
-mvn deploy
-
-md5sum android-sdk-2.0.0-sources.jar | cut -d ' ' -f 1 > android-sdk-2.0.0-sources.jar.md5
-md5sum android-sdk-2.0.0.aar | cut -d ' ' -f 1 > android-sdk-2.0.0.aar.md5
-md5sum android-sdk-2.0.0.module | cut -d ' ' -f 1 > android-sdk-2.0.0.module.md5
-md5sum android-sdk-2.0.0.pom | cut -d ' ' -f 1 > android-sdk-2.0.0.pom.md5
-
-
-sha1sum android-sdk-2.0.0-sources.jar | cut -d ' ' -f 1 > android-sdk-2.0.0-sources.jar.sha1
-sha1sum android-sdk-2.0.0.aar | cut -d ' ' -f 1 > android-sdk-2.0.0.aar.sha1
-sha1sum android-sdk-2.0.0.module | cut -d ' ' -f 1 > android-sdk-2.0.0.module.sha1
-sha1sum android-sdk-2.0.0.pom | cut -d ' ' -f 1 > android-sdk-2.0.0.pom.sha1
-
