@@ -11,21 +11,22 @@
 
 namespace mbgl {
 
-optional<std::string> LayerFactory::getSource(const style::conversion::Convertible& value) const noexcept {
+std::optional<std::string> LayerFactory::getSource(const style::conversion::Convertible& value) const noexcept {
     auto sourceValue = objectMember(value, "source");
     if (!sourceValue) {
-        return nullopt;
+        return std::nullopt;
     }
 
-    optional<std::string> source = toString(*sourceValue);
+    auto source = toString(*sourceValue);
     if (!source) {
-        return nullopt;
+        return std::nullopt;
     }
 
     return source;
 }
 
-std::unique_ptr<Bucket> LayerFactory::createBucket(const BucketParameters&, const std::vector<Immutable<style::LayerProperties>>&) noexcept {
+std::unique_ptr<Bucket> LayerFactory::createBucket(const BucketParameters&,
+                                                   const std::vector<Immutable<style::LayerProperties>>&) noexcept {
     assert(false);
     return nullptr;
 }

@@ -13,11 +13,11 @@ namespace mbgl {
 void TaggedString::addTextSection(const std::u16string& sectionText,
                                   double scale,
                                   const FontStack& fontStack,
-                                  optional<Color> textColor) {
+                                  std::optional<Color> textColor) {
     styledText.first += sectionText;
     sections.emplace_back(scale, fontStack, std::move(textColor));
     styledText.second.resize(styledText.first.size(), static_cast<uint8_t>(sections.size() - 1));
-    supportsVerticalWritingMode = nullopt;
+    supportsVerticalWritingMode = std::nullopt;
 }
 
 void TaggedString::addImageSection(const std::string& imageID) {
@@ -32,14 +32,14 @@ void TaggedString::addImageSection(const std::string& imageID) {
     styledText.second.resize(styledText.first.size(), static_cast<uint8_t>(sections.size() - 1));
 }
 
-optional<char16_t> TaggedString::getNextImageSectionCharCode() {
+std::optional<char16_t> TaggedString::getNextImageSectionCharCode() {
     if (imageSectionID == 0u) {
         imageSectionID = PUAbegin;
         return imageSectionID;
     }
 
     if (++imageSectionID > PUAend) {
-        return nullopt;
+        return std::nullopt;
     }
 
     return imageSectionID;
@@ -55,7 +55,8 @@ void TaggedString::trim() {
         std::size_t trailingWhitespace = styledText.first.find_last_not_of(u" \t\n\v\f\r") + 1;
 
         styledText.first = styledText.first.substr(beginningWhitespace, trailingWhitespace - beginningWhitespace);
-        styledText.second = std::vector<uint8_t>(styledText.second.begin() + beginningWhitespace, styledText.second.begin() + trailingWhitespace);
+        styledText.second = std::vector<uint8_t>(styledText.second.begin() + beginningWhitespace,
+                                                 styledText.second.begin() + trailingWhitespace);
     }
 }
 
@@ -66,7 +67,7 @@ double TaggedString::getMaxScale() const {
     }
     return maxScale;
 }
-    
+
 void TaggedString::verticalizePunctuation() {
     // Relies on verticalization changing characters in place so that style indices don't need updating
     styledText.first = util::i18n::verticalizePunctuation(styledText.first);

@@ -10,7 +10,8 @@ VectorTile::VectorTile(const OverscaledTileID& id_,
                        std::string sourceID_,
                        const TileParameters& parameters,
                        const Tileset& tileset)
-    : GeometryTile(id_, std::move(sourceID_), parameters), loader(*this, id_, parameters, tileset) {}
+    : GeometryTile(id_, std::move(sourceID_), parameters),
+      loader(*this, id_, parameters, tileset) {}
 
 void VectorTile::setNecessity(TileNecessity necessity) {
     loader.setNecessity(necessity);
@@ -20,7 +21,7 @@ void VectorTile::setUpdateParameters(const TileUpdateParameters& params) {
     loader.setUpdateParameters(params);
 }
 
-void VectorTile::setMetadata(optional<Timestamp> modified_, optional<Timestamp> expires_) {
+void VectorTile::setMetadata(std::optional<Timestamp> modified_, std::optional<Timestamp> expires_) {
     modified = std::move(modified_);
     expires = std::move(expires_);
 }

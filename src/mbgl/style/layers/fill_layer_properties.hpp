@@ -18,7 +18,7 @@ namespace style {
 
 struct FillSortKey : DataDrivenLayoutProperty<float> {
     static constexpr const char *name() { return "fill-sort-key"; }
-    static float defaultValue() { return 0; }
+    static float defaultValue() { return 0.f; }
 };
 
 struct FillAntialias : PaintProperty<bool> {
@@ -30,7 +30,7 @@ struct FillColor : DataDrivenPaintProperty<Color, attributes::color, uniforms::c
 };
 
 struct FillOpacity : DataDrivenPaintProperty<float, attributes::opacity, uniforms::opacity> {
-    static float defaultValue() { return 1; }
+    static float defaultValue() { return 1.f; }
 };
 
 struct FillOutlineColor : DataDrivenPaintProperty<Color, attributes::outline_color, uniforms::outline_color> {
@@ -42,7 +42,7 @@ struct FillPattern : CrossFadedDataDrivenPaintProperty<expression::Image, attrib
 };
 
 struct FillTranslate : PaintProperty<std::array<float, 2>> {
-    static std::array<float, 2> defaultValue() { return {{0, 0}}; }
+    static std::array<float, 2> defaultValue() { return {{0.f, 0.f}}; }
 };
 
 struct FillTranslateAnchor : PaintProperty<TranslateAnchorType> {
@@ -74,7 +74,9 @@ public:
 
     unsigned long constantsMask() const override;
 
-    const FillLayer::Impl& layerImpl() const;
+    expression::Dependency getDependencies() const noexcept override;
+
+    const FillLayer::Impl& layerImpl() const noexcept;
     // Data members.
     CrossfadeParameters crossfade;
     FillPaintProperties::PossiblyEvaluated evaluated;

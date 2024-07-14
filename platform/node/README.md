@@ -1,16 +1,17 @@
 # @trackasia/trackasia-gl-native
 
 [![Version](https://img.shields.io/npm/v/@trackasia/trackasia-gl-native?style=flat)](https://www.npmjs.com/package/@trackasia/trackasia-gl-native)
-[![node-ci](https://github.com/trackasia/trackasia-gl-native/actions/workflows/node-ci.yml/badge.svg)](https://github.com/trackasia/trackasia-gl-native/actions/workflows/node-ci.yml)
+[![node-ci](https://github.com/trackasia/trackasia-native/actions/workflows/node-ci.yml/badge.svg)](https://github.com/trackasia/trackasia-native/actions/workflows/node-ci.yml)
 
 ## Installing
 
 Binaries are available and downloaded during install for the following platforms:
 
 - Operating systems:
-  - Ubuntu 20.04 (amd64/arm64)
+  - Ubuntu 22.04 (amd64/arm64)
   - macOS 12 (amd64/arm64)
-- Node.js 14, 16, 18
+  - Windows (amd64)
+- Node.js 16, 18, 20
 
 Run:
 
@@ -18,16 +19,47 @@ Run:
 npm install @trackasia/trackasia-gl-native
 ```
 
-Further platforms might work [with additional libraries installed](https://github.com/trackasia/trackasia-gl-native/tree/main/platform/linux#prerequisites).
+Further platforms might work [with additional libraries installed](https://github.com/trackasia/trackasia-native/tree/main/platform/linux#prerequisites).
 
 ## Testing
 
 ```
 npm test
-npm run test-suite
 ```
 
 ## Rendering a map tile
+
+The minimal example requires only the instantiation of the `mbgl.Map` object, loading a style and calling the `map.render` method:
+
+```js
+var mbgl = require('@trackasia/trackasia-gl-native');
+var sharp = require('sharp');
+
+var map = new mbgl.Map();
+
+map.load(require('./test/fixtures/style.json'));
+
+map.render(function(err, buffer) {
+    if (err) throw err;
+
+    map.release();
+
+    var image = sharp(buffer, {
+        raw: {
+            width: 512,
+            height: 512,
+            channels: 4
+        }
+    });
+
+    // Convert raw image buffer to PNG
+    image.toFile('image.png', function(err) {
+        if (err) throw err;
+    });
+});
+```
+
+But you can customize the map providing an options object to `mbgl.Map` constructor and to `map.render` method:
 
 ```js
 var fs = require('fs');
@@ -86,7 +118,7 @@ When you are finished using a map object, you can call `map.release()` to perman
 
 ## Implementing a file source
 
-When creating a `Map`, you must pass an options object (with a required `request` method and optional 'ratio' number) as the first parameter.
+When creating a `Map`, you can optionally pass an options object (with an optional `request` method and optional `ratio` number) as the first parameter. The `request()` method handles a request for a resource. The `ratio` sets the scale at which the map will render tiles, such as `2.0` for rendering images for high pixel density displays:
 
 ```js
 var map = new mbgl.Map({
@@ -97,7 +129,7 @@ var map = new mbgl.Map({
 });
 ```
 
-The `request()` method handles a request for a resource. The `ratio` sets the scale at which the map will render tiles, such as `2.0` for rendering images for high pixel density displays. The `req` parameter has two properties:
+If you omit the `request` method, the `map` object will use the default internal request handlers, which is ok for most cases. However, if you have specific needs, you can implement your own `request` handler. When a `request` method is provided, all `map` resources will be requested by calling the `request` method with two parameters, called `req` and `callback` respectively in this example. The `req` parameter has two properties:
 
 ```json
 {
@@ -106,7 +138,7 @@ The `request()` method handles a request for a resource. The `ratio` sets the sc
 }
 ```
 
-The `kind` is an enum and defined in [`mbgl.Resource`](https://github.com/trackasia/trackasia-gl-native/blob/main/include/mbgl/storage/resource.hpp):
+The `kind` is an enum and defined in [`mbgl.Resource`](https://github.com/trackasia/trackasia-native/blob/main/include/mbgl/storage/resource.hpp):
 
 ```json
 {
@@ -122,7 +154,18 @@ The `kind` is an enum and defined in [`mbgl.Resource`](https://github.com/tracka
 
 The `kind` enum has no significance for anything but serves as a hint to your implemention as to what sort of resource to expect. E.g., your implementation could choose caching strategies based on the expected file type.
 
-The `request` implementation should pass uncompressed data to `callback`. If you are downloading assets from a source that applies gzip transport encoding, the implementation must decompress the results before passing them on.
+The `callback` parameter is a function that must be called with two parameters: an error message (if there are no errors, then you must pass `null`), and a response object:
+
+```js
+{
+    data: {data}, // required, must be a byte array, usually a Buffer object
+    modified: {modified}, // Date, optional
+    expires: {expires}, // Date, optional
+    etag: {etag} // string, optional
+}
+```
+
+If there is no data to be sent to the `callback` (empty data, or `no-content` respose), then it must be called without parameters. The `request` implementation should pass uncompressed data to `callback`. If you are downloading assets from a source that applies gzip transport encoding, the implementation must decompress the results before passing them on.
 
 A sample implementation that reads files from disk would look like the following:
 
@@ -172,6 +215,8 @@ var map = new mbgl.Map({
                 response.data = body;
 
                 callback(null, response);
+            } else if (res.statusCode == 204) {
+                callback();
             } else {
                 callback(new Error(JSON.parse(body).message));
             }
@@ -184,7 +229,7 @@ Stylesheets are free to use any protocols, but your implementation of `request` 
 
 ## Listening for log events
 
-The module imported with `require('trackasia-gl-native')` inherits from [`EventEmitter`](https://nodejs.org/api/events.html), and the `NodeLogObserver` will push log events to this. Log messages can have [`class`](https://github.com/trackasia/trackasia-gl-native/blob/node-v2.1.0/include/mbgl/platform/event.hpp#L43-L60), [`severity`](https://github.com/trackasia/trackasia-gl-native/blob/node-v2.1.0/include/mbgl/platform/event.hpp#L17-L23), `code` ([HTTP status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)), and `text` parameters.
+The module imported with `require('trackasia-gl-native')` inherits from [`EventEmitter`](https://nodejs.org/api/events.html), and the `NodeLogObserver` will push log events to this. Log messages can have [`class`](https://github.com/trackasia/trackasia-native/blob/node-v2.1.0/include/mbgl/platform/event.hpp#L43-L60), [`severity`](https://github.com/trackasia/trackasia-native/blob/node-v2.1.0/include/mbgl/platform/event.hpp#L17-L23), `code` ([HTTP status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)), and `text` parameters.
 
 ```js
 var mbgl = require('@trackasia/trackasia-gl-native');

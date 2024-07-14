@@ -27,7 +27,9 @@ int severityToPriority(EventSeverity severity) {
 template <class T>
 class JavaWrapper {
 public:
-    JavaWrapper(JNIEnv* env_, T obj_) : env(env_), obj(obj_) {}
+    JavaWrapper(JNIEnv* env_, T obj_)
+        : env(env_),
+          obj(obj_) {}
     ~JavaWrapper() {
         env->DeleteLocalRef(obj);
         env = nullptr;
@@ -94,13 +96,13 @@ bool copyFile(JNIEnv* env,
 
     bool stateOk = true;
     if (env->CallBooleanMethod(fileToCopy.get(), fileExists)) {
-        mbgl::Log::Warning(mbgl::Event::General, "File '%s' already exists", filePath.c_str());
+        mbgl::Log::Warning(mbgl::Event::General, "File '" + filePath + "' already exists");
     } else {
         std::unique_ptr<AAsset, std::function<void(AAsset*)>> fileAsset(
             AAssetManager_open(assetManager, fileName.c_str(), AASSET_MODE_BUFFER),
             [](AAsset* asset) { AAsset_close(asset); });
         if (fileAsset == nullptr) {
-            mbgl::Log::Warning(mbgl::Event::General, "Failed to open asset file %s", fileName.c_str());
+            mbgl::Log::Warning(mbgl::Event::General, "Failed to open asset file " + fileName);
             return false;
         }
         const void* fileData = AAsset_getBuffer(fileAsset.get());
@@ -111,12 +113,11 @@ bool copyFile(JNIEnv* env,
         stateOk = newFile != nullptr;
 
         if (!stateOk) {
-            mbgl::Log::Warning(mbgl::Event::General, "Failed to create new file entry %s", fileName.c_str());
+            mbgl::Log::Warning(mbgl::Event::General, "Failed to create new file entry " + fileName);
         } else {
             auto res = static_cast<off_t>(std::fwrite(fileData, sizeof(char), fileLen, newFile.get()));
             if (fileLen != res) {
-                mbgl::Log::Warning(
-                    mbgl::Event::General, "Failed to generate file entry %s from assets", fileName.c_str());
+                mbgl::Log::Warning(mbgl::Event::General, "Failed to generate file entry" + fileName + "from assets");
             }
         }
     }
@@ -179,22 +180,21 @@ void unZipFile(JNIEnv* env, const std::string& zipFilePath, const std::string& d
             if (!(env->CallBooleanMethod(f, fileIsDirectory))) {
                 jmethodID mkdirs = env->GetMethodID(fileClass, "mkdirs", "()Z");
                 bool success = (env->CallBooleanMethod(f, mkdirs));
-                std::string fileNameStr =
-                    jstringToStdString(env, static_cast<jstring>(env->CallObjectMethod(f, fileGetName)));
+                std::string fileNameStr = jstringToStdString(
+                    env, static_cast<jstring>(env->CallObjectMethod(f, fileGetName)));
 
                 if (!success) {
-                    mbgl::Log::Warning(
-                        mbgl::Event::General, "Failed to create folder entry %s from zip", fileNameStr.c_str());
+                    mbgl::Log::Warning(mbgl::Event::General,
+                                       "Failed to create folder entry " + fileNameStr + " from zip");
                 }
             }
         } else if (!(env->CallBooleanMethod(f, fileExists))) {
             bool success = env->CallBooleanMethod(f, createNewFile);
-            std::string fileNameStr =
-                jstringToStdString(env, static_cast<jstring>(env->CallObjectMethod(f, fileGetName)));
+            std::string fileNameStr = jstringToStdString(env,
+                                                         static_cast<jstring>(env->CallObjectMethod(f, fileGetName)));
 
             if (!success) {
-                mbgl::Log::Warning(
-                    mbgl::Event::General, "Failed to create folder entry %s from zip", fileNameStr.c_str());
+                mbgl::Log::Warning(mbgl::Event::General, "Failed to create folder entry" + fileNameStr + "from zip");
                 continue;
             }
 
@@ -215,7 +215,7 @@ void unZipFile(JNIEnv* env, const std::string& zipFilePath, const std::string& d
     if (env->CallBooleanMethod(fileToDelete.get(), fileExists)) {
         jboolean success = (env->CallBooleanMethod(fileToDelete.get(), deleteFile));
         if (!success) {
-            mbgl::Log::Warning(mbgl::Event::General, "Failed to delete file entry %s", zipFilePath.c_str());
+            mbgl::Log::Warning(mbgl::Event::General, "Failed to delete file entry " + zipFilePath);
         }
     }
 }

@@ -44,10 +44,7 @@ afterEvaluate {
                 artifactId project.ext.trackAsiaArtifactId
                 version this.version
                 
-                from components.release
-
-                artifact androidSourcesJar
-                artifact androidJavadocsJar                
+                from components.drawableRelease               
 
                 pom {
                     name = project.ext.trackAsiaArtifactTitle

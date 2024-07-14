@@ -1,8 +1,13 @@
 // Boost.Geometry
 
 // Copyright (c) 2018 Yaghyavardhan Singh Khangarot, Hyderabad, India.
+// Contributed and/or modified by Yaghyavardhan Singh Khangarot,
+//   as part of Google Summer of Code 2018 program.
 
-// Contributed and/or modified by Yaghyavardhan Singh Khangarot, as part of Google Summer of Code 2018 program.
+// This file was modified by Oracle on 2018-2023.
+// Modifications copyright (c) 2018-2023 Oracle and/or its affiliates.
+// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -11,24 +16,25 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DISCRETE_FRECHET_DISTANCE_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DISCRETE_FRECHET_DISTANCE_HPP
 
-#include <algorithm>
-
 #ifdef BOOST_GEOMETRY_DEBUG_FRECHET_DISTANCE
 #include <iostream>
 #endif
 
-#include <iterator>
-#include <utility>
 #include <vector>
-#include <limits>
 
-#include <boost/geometry/geometry.hpp>
-#include <boost/geometry/geometries/linestring.hpp>
-#include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/geometries/polygon.hpp>
-#include <boost/range.hpp>
-#include <boost/mpl/assert.hpp>
+#include <boost/geometry/algorithms/detail/dummy_geometries.hpp>
+#include <boost/geometry/algorithms/detail/throw_on_empty_input.hpp>
+#include <boost/geometry/algorithms/not_implemented.hpp>
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/tag.hpp>
+#include <boost/geometry/core/tags.hpp>
+#include <boost/geometry/core/point_type.hpp>
+#include <boost/geometry/strategies/detail.hpp>
+#include <boost/geometry/strategies/discrete_distance/cartesian.hpp>
+#include <boost/geometry/strategies/discrete_distance/geographic.hpp>
+#include <boost/geometry/strategies/discrete_distance/spherical.hpp>
+#include <boost/geometry/strategies/distance_result.hpp>
+#include <boost/geometry/util/range.hpp>
 
 
 namespace boost { namespace geometry
@@ -38,76 +44,78 @@ namespace boost { namespace geometry
 namespace detail { namespace discrete_frechet_distance
 {
 
-template <typename size_type1 , typename size_type2,typename result_type>
+// TODO: The implementation should calculate comparable distances
+
+template <typename SizeType1, typename SizeType2, typename ResultType>
 class coup_mat
 {
 public:
-    coup_mat(size_type1 w, size_type2 h)
+    coup_mat(SizeType1 w, SizeType2 h)
         : m_data(w * h,-1), m_width(w), m_height(h)
     {}
 
-    result_type & operator()(size_type1 i, size_type2 j)
+    ResultType & operator()(SizeType1 i, SizeType2 j)
     {
-        BOOST_ASSERT(i < m_width && j < m_height);
+        BOOST_GEOMETRY_ASSERT(i < m_width && j < m_height);
         return m_data[j * m_width + i];
     }
 
 private:
-    std::vector<result_type> m_data;
-    size_type1 m_width;
-    size_type2 m_height;
+    std::vector<ResultType> m_data;
+    SizeType1 m_width;
+    SizeType2 m_height;
 };
 
 struct linestring_linestring
 {
-    template <typename Linestring1, typename Linestring2, typename Strategy>
-    static inline typename distance_result
-        <
-            typename point_type<Linestring1>::type,
-            typename point_type<Linestring2>::type,
-            Strategy
-        >::type apply(Linestring1 const& ls1, Linestring2 const& ls2, Strategy const& strategy)
+    template <typename Linestring1, typename Linestring2, typename Strategies>
+    static inline auto apply(Linestring1 const& ls1, Linestring2 const& ls2,
+                             Strategies const& strategies)
     {
         typedef typename distance_result
             <
                 typename point_type<Linestring1>::type,
                 typename point_type<Linestring2>::type,
-                Strategy
+                Strategies
             >::type result_type;
         typedef typename boost::range_size<Linestring1>::type size_type1;
         typedef typename boost::range_size<Linestring2>::type size_type2;
 
-
         boost::geometry::detail::throw_on_empty_input(ls1);
         boost::geometry::detail::throw_on_empty_input(ls2);
+
+        // We can assume the inputs are not empty
+        auto const strategy = strategies.distance(dummy_point(), dummy_point());
 
         size_type1 const a = boost::size(ls1);
         size_type2 const b = boost::size(ls2);
 
-
         //Coupling Matrix CoupMat(a,b,-1);
-        coup_mat<size_type1,size_type2,result_type>  coup_matrix(a,b);
+        coup_mat<size_type1, size_type2, result_type> coup_matrix(a, b);
 
         result_type const not_feasible = -100;
         //findin the Coupling Measure
-        for(size_type1 i=0;i<a;i++)
+        for (size_type1 i = 0 ; i < a ; i++ )
         {
-            for(size_type2 j=0;j<b;j++)
+            for (size_type2 j = 0 ; j < b ; j++ )
             {
-                result_type dis = geometry::distance(range::at(ls1,i),range::at(ls2,j),strategy);
+                result_type dis = strategy.apply(range::at(ls1,i), range::at(ls2,j));
                 if(i==0 && j==0)
-                    coup_matrix(i,j)= dis;
+                    coup_matrix(i,j) = dis;
                 else if(i==0 && j>0)
-                    coup_matrix(i,j)=
-                    (std::max)(coup_matrix(i,j-1),dis);
+                    coup_matrix(i,j) =
+                        (std::max)(coup_matrix(i,j-1), dis);
                 else if(i>0 && j==0)
-                    coup_matrix(i,j)=
-                    (std::max)(coup_matrix(i-1,j),dis);
+                    coup_matrix(i,j) =
+                        (std::max)(coup_matrix(i-1,j), dis);
                 else if(i>0 && j>0)
-                    coup_matrix(i,j)=
-                    (std::max)((std::min)(coup_matrix(i,j-1),(std::min)(coup_matrix(i-1,j),coup_matrix(i-1,j-1))),dis);
+                    coup_matrix(i,j) =
+                        (std::max)((std::min)(coup_matrix(i,j-1),
+                                              (std::min)(coup_matrix(i-1,j),
+                                                         coup_matrix(i-1,j-1))),
+                                   dis);
                 else
-                    coup_matrix(i,j)=not_feasible;
+                    coup_matrix(i,j) = not_feasible;
             }
         }
 
@@ -140,8 +148,15 @@ template
 >
 struct discrete_frechet_distance : not_implemented<Tag1, Tag2>
 {};
+
 template <typename Linestring1, typename Linestring2>
-struct discrete_frechet_distance<Linestring1,Linestring2,linestring_tag,linestring_tag>
+struct discrete_frechet_distance
+    <
+        Linestring1,
+        Linestring2,
+        linestring_tag,
+        linestring_tag
+    >
     : detail::discrete_frechet_distance::linestring_linestring
 {};
 
@@ -149,9 +164,67 @@ struct discrete_frechet_distance<Linestring1,Linestring2,linestring_tag,linestri
 #endif // DOXYGEN_NO_DISPATCH
 
 
+namespace resolve_strategy {
+
+template
+<
+    typename Strategies,
+    bool IsUmbrella = strategies::detail::is_umbrella_strategy<Strategies>::value
+>
+struct discrete_frechet_distance
+{
+    template <typename Geometry1, typename Geometry2>
+    static inline auto apply(Geometry1 const& geometry1, Geometry2 const& geometry2,
+                             Strategies const& strategies)
+    {
+        return dispatch::discrete_frechet_distance
+            <
+                Geometry1, Geometry2
+            >::apply(geometry1, geometry2, strategies);
+    }
+};
+
+template <typename Strategy>
+struct discrete_frechet_distance<Strategy, false>
+{
+    template <typename Geometry1, typename Geometry2>
+    static inline auto apply(Geometry1 const& geometry1, Geometry2 const& geometry2,
+                             Strategy const& strategy)
+    {
+        using strategies::discrete_distance::services::strategy_converter;
+        return dispatch::discrete_frechet_distance
+            <
+                Geometry1, Geometry2
+            >::apply(geometry1, geometry2,
+                     strategy_converter<Strategy>::get(strategy));
+    }
+};
+
+template <>
+struct discrete_frechet_distance<default_strategy, false>
+{
+    template <typename Geometry1, typename Geometry2>
+    static inline auto apply(Geometry1 const& geometry1, Geometry2 const& geometry2,
+                             default_strategy const&)
+    {
+        typedef typename strategies::discrete_distance::services::default_strategy
+            <
+                Geometry1, Geometry2
+            >::type strategies_type;
+
+        return dispatch::discrete_frechet_distance
+            <
+                Geometry1, Geometry2
+            >::apply(geometry1, geometry2, strategies_type());
+    }
+};
+
+} // namespace resolve_strategy
+
+
 /*!
 \brief Calculate discrete Frechet distance between two geometries (currently
-    works for LineString-LineString) using specified strategy.
+       works for LineString-LineString) using specified strategy.
 \ingroup discrete_frechet_distance
 \tparam Geometry1 \tparam_geometry
 \tparam Geometry2 \tparam_geometry
@@ -175,22 +248,21 @@ struct discrete_frechet_distance<Linestring1,Linestring2,linestring_tag,linestri
 }
 */
 template <typename Geometry1, typename Geometry2, typename Strategy>
-inline typename distance_result
-        <
-            typename point_type<Geometry1>::type,
-            typename point_type<Geometry2>::type,
-            Strategy
-        >::type
-discrete_frechet_distance(Geometry1 const& geometry1, Geometry2 const& geometry2, Strategy const& strategy)
+inline auto discrete_frechet_distance(Geometry1 const& geometry1,
+                                      Geometry2 const& geometry2,
+                                      Strategy const& strategy)
 {
-    return dispatch::discrete_frechet_distance<Geometry1, Geometry2>::apply(geometry1, geometry2, strategy);
+    return resolve_strategy::discrete_frechet_distance
+            <
+                Strategy
+            >::apply(geometry1, geometry2, strategy);
 }
 
 // Algorithm overload using default Pt-Pt distance strategy
 
 /*!
 \brief Calculate discrete Frechet distance between two geometries (currently
-    work for LineString-LineString).
+       work for LineString-LineString).
 \ingroup discrete_frechet_distance
 \tparam Geometry1 \tparam_geometry
 \tparam Geometry2 \tparam_geometry
@@ -206,21 +278,13 @@ discrete_frechet_distance(Geometry1 const& geometry1, Geometry2 const& geometry2
 }
 */
 template <typename Geometry1, typename Geometry2>
-inline typename distance_result
-        <
-            typename point_type<Geometry1>::type,
-            typename point_type<Geometry2>::type
-        >::type
-discrete_frechet_distance(Geometry1 const& geometry1, Geometry2 const& geometry2)
+inline auto discrete_frechet_distance(Geometry1 const& geometry1,
+                                      Geometry2 const& geometry2)
 {
-    typedef typename strategy::distance::services::default_strategy
-              <
-                  point_tag, point_tag,
-                  typename point_type<Geometry1>::type,
-                  typename point_type<Geometry2>::type
-              >::type strategy_type;
-
-    return discrete_frechet_distance(geometry1, geometry2, strategy_type());
+    return resolve_strategy::discrete_frechet_distance
+            <
+                default_strategy
+            >::apply(geometry1, geometry2, default_strategy());
 }
 
 }} // namespace boost::geometry

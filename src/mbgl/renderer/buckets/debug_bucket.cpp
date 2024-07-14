@@ -12,30 +12,27 @@ namespace mbgl {
 DebugBucket::DebugBucket(const OverscaledTileID& id,
                          const bool renderable_,
                          const bool complete_,
-                         optional<Timestamp> modified_,
-                         optional<Timestamp> expires_,
+                         std::optional<Timestamp> modified_,
+                         std::optional<Timestamp> expires_,
                          MapDebugOptions debugMode_)
     : renderable(renderable_),
       complete(complete_),
       modified(std::move(modified_)),
       expires(std::move(expires_)),
       debugMode(debugMode_) {
-    auto addText = [&] (const std::string& text, double left, double baseline, double scale) {
+    auto addText = [&](const std::string& text, double left, double baseline, double scale) {
         for (uint8_t c : text) {
-            if (c < 32 || c >= 127)
-                continue;
+            if (c < 32 || c >= 127) continue;
 
-            optional<Point<int16_t>> prev;
+            std::optional<Point<int16_t>> prev;
 
             const glyph& glyph = simplex[c - 32];
             for (int32_t j = 0; j < glyph.length; j += 2) {
                 if (glyph.data[j] == -1 && glyph.data[j + 1] == -1) {
                     prev = {};
                 } else {
-                    Point<int16_t> p {
-                        int16_t(::round(left + glyph.data[j] * scale)),
-                        int16_t(::round(baseline - glyph.data[j + 1] * scale))
-                    };
+                    Point<int16_t> p{int16_t(::round(left + glyph.data[j] * scale)),
+                                     int16_t(::round(baseline - glyph.data[j + 1] * scale))};
 
                     vertices.emplace_back(FillProgram::layoutVertex(p));
 
@@ -55,7 +52,9 @@ DebugBucket::DebugBucket(const OverscaledTileID& id,
     double baseline = 200;
     if (debugMode & MapDebugOptions::ParseStatus) {
         const std::string text = util::toString(id) + " - " +
-                                 (complete ? "complete" : renderable ? "renderable" : "pending");
+                                 (complete     ? "complete"
+                                  : renderable ? "renderable"
+                                               : "pending");
         addText(text, 50, baseline, 5);
         baseline += 200;
     }
@@ -71,7 +70,8 @@ DebugBucket::DebugBucket(const OverscaledTileID& id,
     segments.emplace_back(0, 0, vertices.elements(), indices.elements());
 }
 
-void DebugBucket::upload(gfx::UploadPass& uploadPass) {
+void DebugBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
+#if MLN_LEGACY_RENDERER
     if (!vertices.empty()) {
         vertexBuffer = uploadPass.createVertexBuffer(std::move(vertices));
         indexBuffer = uploadPass.createIndexBuffer(std::move(indices));
@@ -81,6 +81,7 @@ void DebugBucket::upload(gfx::UploadPass& uploadPass) {
         static const PremultipliedImage emptyImage{Size(1, 1), data.data(), data.size()};
         texture = uploadPass.createTexture(emptyImage);
     }
+#endif // MLN_LEGACY_RENDERER
 }
 
 } // namespace mbgl

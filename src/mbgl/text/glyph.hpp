@@ -5,7 +5,6 @@
 #include <mbgl/util/font_stack.hpp>
 #include <mbgl/util/rect.hpp>
 #include <mbgl/util/traits.hpp>
-#include <mbgl/util/optional.hpp>
 #include <mbgl/util/immutable.hpp>
 #include <mbgl/util/image.hpp>
 #include <mbgl/util/util.hpp>
@@ -33,17 +32,14 @@ struct GlyphMetrics {
 };
 
 inline bool operator==(const GlyphMetrics& lhs, const GlyphMetrics& rhs) {
-    return lhs.width == rhs.width &&
-        lhs.height == rhs.height &&
-        lhs.left == rhs.left &&
-        lhs.top == rhs.top &&
-        lhs.advance == rhs.advance;
+    return lhs.width == rhs.width && lhs.height == rhs.height && lhs.left == rhs.left && lhs.top == rhs.top &&
+           lhs.advance == rhs.advance;
 }
 
 class Glyph {
 public:
-    // We're using this value throughout the Mapbox GL ecosystem. If this is different, the glyphs
-    // also need to be reencoded.
+    // We're using this value throughout the Mapbox GL ecosystem. If this is
+    // different, the glyphs also need to be reencoded.
     static constexpr const uint8_t borderSize = 3;
 
     GlyphID id = 0;
@@ -55,7 +51,7 @@ public:
     GlyphMetrics metrics;
 };
 
-using Glyphs = std::map<GlyphID, optional<Immutable<Glyph>>>;
+using Glyphs = std::map<GlyphID, std::optional<Immutable<Glyph>>>;
 using GlyphMap = std::map<FontStackHash, Glyphs>;
 
 class PositionedGlyph {
@@ -68,7 +64,7 @@ public:
                              float scale_,
                              Rect<uint16_t> rect_,
                              GlyphMetrics metrics_,
-                             optional<std::string> imageID_,
+                             std::optional<std::string> imageID_,
                              std::size_t sectionIndex_ = 0)
         : glyph(glyph_),
           x(x_),
@@ -89,7 +85,7 @@ public:
     float scale = 0.0;
     Rect<uint16_t> rect;
     GlyphMetrics metrics;
-    optional<std::string> imageID;
+    std::optional<std::string> imageID;
     // Maps positioned glyph to TaggedString section
     std::size_t sectionIndex;
 };
@@ -102,10 +98,14 @@ struct PositionedLine {
 };
 
 class Shaping {
-    public:
+public:
     Shaping() = default;
     explicit Shaping(float x, float y, WritingModeType writingMode_)
-        : top(y), bottom(y), left(x), right(x), writingMode(writingMode_) {}
+        : top(y),
+          bottom(y),
+          left(x),
+          right(x),
+          writingMode(writingMode_) {}
     std::vector<PositionedLine> positionedLines;
     float top = 0;
     float bottom = 0;

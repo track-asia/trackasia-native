@@ -18,7 +18,7 @@ const lightProperties = Object.keys(spec[`light`]).reduce((memo, name) => {
   var property = spec[`light`][name];
   property.name = name;
   property['light-property'] = true;
-  property.doc = property.doc.replace(/°/g, '&#xB0;');
+  property.doc = property.doc.replace(/°/g,'&#xB0;');
   memo.push(property);
   return memo;
 }, []);
@@ -80,76 +80,76 @@ const paintProperties = _(layers).map('paintProperties').flatten().value();
 const locationLayoutProperties = _(layers).map('locationLayoutProperties').flatten().value();
 const locationPaintProperties = _(layers).map('locationPaintProperties').flatten().value();
 const allProperties = _(layoutProperties).union(paintProperties).union(lightProperties).value();
-let allEnumProperties = _(allProperties).filter({ 'type': 'enum' }).value();
-const uniqueArrayEnumProperties = _(allProperties).filter({ 'type': 'array' }).filter(prop => uniqueArrayEnum(prop, allEnumProperties)).value();
+let allEnumProperties = _(allProperties).filter({'type': 'enum'}).value();
+const uniqueArrayEnumProperties = _(allProperties).filter({'type': 'array'}).filter(prop => uniqueArrayEnum(prop, allEnumProperties)).value();
 const enumProperties = _(allEnumProperties).union(uniqueArrayEnumProperties).value();
 
 
 global.propertyType = function propertyType(property) {
   switch (property.type) {
-    case 'boolean':
-      return 'Boolean';
-    case 'number':
-      if (/bearing$/.test(property.name) &&
-        property.period == 360 &&
-        property.units == 'degrees') {
-        return 'Double';
-      }
-      return /location$/.test(property.name) ? 'Double' : 'Float';
-    case 'formatted':
-      return 'Formatted';
-    case 'string':
-    case 'resolvedImage':
-      return 'String';
-    case 'enum':
-      return 'String';
-    case 'color':
-      return 'String';
-    case 'array':
-      return `${propertyType({ type: property.value, name: property.name })}[]`;
-    default:
-      throw new Error(`unknown type for ${property.name}`);
+      case 'boolean':
+        return 'Boolean';
+      case 'number':
+        if (/bearing$/.test(property.name) &&
+            property.period == 360 &&
+            property.units =='degrees') {
+          return 'Double';
+        }
+        return /location$/.test(property.name) ? 'Double' : 'Float';
+      case 'formatted':
+        return 'Formatted';
+      case 'string':
+      case 'resolvedImage':
+        return 'String';
+      case 'enum':
+        return 'String';
+      case 'color':
+        return 'String';
+      case 'array':
+        return `${propertyType({type:property.value, name: property.name})}[]`;
+      default:
+        throw new Error(`unknown type for ${property.name}`);
   }
 }
 
 global.propertyJavaType = function propertyType(property) {
-  switch (property.type) {
-    case 'boolean':
-      return 'boolean';
-    case 'number':
-      return 'float';
-    case 'formatted':
-      return 'Formatted';
-    case 'string':
-    case 'resolvedImage':
-      return 'String';
-    case 'enum':
-      return 'String';
-    case 'color':
-      return 'String';
-    case 'array':
-      return `${propertyJavaType({ type: property.value })}[]`;
-    default:
-      throw new Error(`unknown type for ${property.name}`);
-  }
-}
+   switch (property.type) {
+       case 'boolean':
+         return 'boolean';
+       case 'number':
+         return 'float';
+       case 'formatted':
+         return 'Formatted';
+       case 'string':
+       case 'resolvedImage':
+         return 'String';
+       case 'enum':
+         return 'String';
+       case 'color':
+         return 'String';
+       case 'array':
+         return `${propertyJavaType({type:property.value})}[]`;
+       default:
+         throw new Error(`unknown type for ${property.name}`);
+   }
+ }
 
 global.propertyJNIType = function propertyJNIType(property) {
   switch (property.type) {
-    case 'boolean':
-      return 'jboolean';
-    case 'number':
-      return 'jfloat';
-    case 'String':
-      return 'String';
-    case 'enum':
-      return 'String';
-    case 'color':
-      return 'String';
-    case 'array':
-      return `jarray<${propertyType({ type: property.value })}[]>`;
-    default:
-      return 'jobject*';
+      case 'boolean':
+        return 'jboolean';
+      case 'number':
+        return 'jfloat';
+      case 'String':
+        return 'String';
+      case 'enum':
+        return 'String';
+      case 'color':
+        return 'String';
+      case 'array':
+        return `jarray<${propertyType({type:property.value})}[]>`;
+      default:
+        return 'jobject*';
   }
 }
 
@@ -164,137 +164,137 @@ global.propertyNativeType = function (property) {
     return 'SymbolAnchorType';
   }
   switch (property.type) {
-    case 'boolean':
-      return 'bool';
-    case 'number':
-      return 'float';
-    case 'formatted':
-    case 'string':
-    case 'resolvedImage': // TODO: replace once we implement image expressions
-      return 'std::string';
-    case 'enum':
-      if (property['light-property']) {
-        return `Light${camelize(property.name)}Type`;
-      }
-      return `${camelize(property.name)}Type`;
-    case 'color':
-      return `Color`;
-    case 'array':
-      if (property.length) {
-        return `std::array<${propertyType({ type: property.value })}, ${property.length}>`;
-      } else {
-        return `std::vector<${propertyType({ type: property.value })}>`;
-      }
-    default: throw new Error(`unknown type for ${property.name}`)
+  case 'boolean':
+    return 'bool';
+  case 'number':
+    return 'float';
+  case 'formatted':
+  case 'string':
+  case 'resolvedImage': // TODO: replace once we implement image expressions
+    return 'std::string';
+  case 'enum':
+    if(property['light-property']){
+       return `Light${camelize(property.name)}Type`;
+    }
+    return `${camelize(property.name)}Type`;
+  case 'color':
+    return `Color`;
+  case 'array':
+    if (property.length) {
+      return `std::array<${propertyType({type: property.value})}, ${property.length}>`;
+    } else {
+      return `std::vector<${propertyType({type: property.value})}>`;
+    }
+  default: throw new Error(`unknown type for ${property.name}`)
   }
 }
 
 global.propertyTypeAnnotation = function propertyTypeAnnotation(property) {
   switch (property.type) {
-    case 'enum':
-      return `@Property.${snakeCaseUpper(property.name)}`;
-    default:
-      return "";
+      case 'enum':
+        return `@Property.${snakeCaseUpper(property.name)}`;
+      default:
+        return "";
   }
 };
 
-global.defaultExpressionJava = function (property) {
-  switch (property.type) {
-    case 'boolean':
-      return 'boolean';
-    case 'number':
-      return 'number';
-    case 'formatted':
-      return 'format';
-    case 'resolvedImage':
-      return "image";
-    case 'string':
-    case 'image':
-      return "string";
-    case 'enum':
-      return "string";
-    case 'color':
-      return 'toColor';
-    case 'array':
-      return "array";
-    default: return "string";
-  }
+global.defaultExpressionJava = function(property) {
+    switch (property.type) {
+      case 'boolean':
+        return 'boolean';
+      case 'number':
+        return 'number';
+      case 'formatted':
+        return 'format';
+      case 'resolvedImage':
+        return "image";
+      case 'string':
+      case 'image':
+        return "string";
+      case 'enum':
+        return "string";
+      case 'color':
+        return 'toColor';
+      case 'array':
+        return "array";
+      default: return "string";
+      }
 }
 
-global.defaultValueJava = function (property) {
-  if (property.name.endsWith("-pattern")) {
-    return '"pedestrian-polygon"';
-  }
-  if (property.name.endsWith("-font")) {
-    return 'new String[]{"Open Sans Regular", "Arial Unicode MS Regular"}';
-  }
-  switch (property.type) {
-    case 'boolean':
-      return 'true';
-    case 'number':
-      if (/bearing$/.test(property.name) &&
-        property.period == 360 &&
-        property.units == 'degrees') {
-        return '0.3';
+global.defaultValueJava = function(property) {
+    if(property.name.endsWith("-pattern")) {
+        return '"pedestrian-polygon"';
+    }
+    if(property.name.endsWith("-font")) {
+        return 'new String[]{"Open Sans Regular", "Arial Unicode MS Regular"}';
+    }
+     switch (property.type) {
+      case 'boolean':
+        return 'true';
+      case 'number':
+        if (/bearing$/.test(property.name) &&
+            property.period == 360 &&
+            property.units =='degrees') {
+          return '0.3';
+        }
+        return '0.3f';
+      case 'formatted':
+        return 'new Formatted(new FormattedSection("default"))'
+      case 'string':
+      case 'resolvedImage':
+        return '"' + property['default'] + '"';
+      case 'enum':
+        return snakeCaseUpper(property.name) + "_" + snakeCaseUpper(Object.keys(property.values)[0]);
+      case 'color':
+        return '"rgba(255,128,0,0.7)"';
+      case 'array':
+             switch (property.value) {
+              case 'string':
+              case 'enum':
+                if (property['default'] !== undefined) {
+                    return '[' + property['default'] + ']';
+                } else {
+                    return 'new String[0]';
+                }
+              case 'number':
+                var isDouble = /location$/.test(property.name)
+                console.log(isDouble)
+                var result = 'new ' + (isDouble ? 'Double' : 'Float') + '[] {';
+                for (var i = 0; i < property.length; i++) {
+                    result += isDouble ? '0.0' : '0f';
+                    if (i +1 != property.length) {
+                        result += ', ';
+                    }
+                }
+                return result + '}';
+             }
+      default: throw new Error(`unknown type for ${property.name}`)
       }
-      return '0.3f';
-    case 'formatted':
-      return 'new Formatted(new FormattedSection("default"))'
-    case 'string':
-    case 'resolvedImage':
-      return '"' + property['default'] + '"';
-    case 'enum':
-      return snakeCaseUpper(property.name) + "_" + snakeCaseUpper(Object.keys(property.values)[0]);
-    case 'color':
-      return '"rgba(255,128,0,0.7)"';
-    case 'array':
-      switch (property.value) {
-        case 'string':
-        case 'enum':
-          if (property['default'] !== undefined) {
-            return '[' + property['default'] + ']';
-          } else {
-            return 'new String[0]';
-          }
-        case 'number':
-          var isDouble = /location$/.test(property.name)
-          console.log(isDouble)
-          var result = 'new ' + (isDouble ? 'Double' : 'Float') + '[] {';
-          for (var i = 0; i < property.length; i++) {
-            result += isDouble ? '0.0' : '0f';
-            if (i + 1 != property.length) {
-              result += ', ';
-            }
-          }
-          return result + '}';
-      }
-    default: throw new Error(`unknown type for ${property.name}`)
-  }
 }
 
 /**
  * Produces documentation for property factory methods
  */
 global.propertyFactoryMethodDoc = function (property) {
-  var replaceIfPixels = function (doc) {
-    return doc.replace('pixels', 'density-independent pixels')
-  }
-  let doc = replaceIfPixels(property.doc);
-  // Match other items in back ticks
-  doc = doc.replace(/`(.+?)`/g, function (m, symbol, offset, str) {
-    if (str.substr(offset - 4, 3) !== 'CSS' && symbol[0].toUpperCase() != symbol[0] && _(enumProperties).filter({ 'name': symbol }).value().length > 0) {
-      // Property 'enums'
-      symbol = snakeCaseUpper(symbol);
-      return '{@link Property.' + symbol + '}';
-    } else if (_(allProperties).filter({ 'name': symbol }).value().length > 0) {
-      // Other properties
-      return '{@link PropertyFactory#' + camelizeWithLeadingLowercase(symbol) + '}';
-    } else {
-      // Left overs
-      return '`' + symbol + '`';
+    var replaceIfPixels = function (doc) {
+      return doc.replace('pixels', 'density-independent pixels')
     }
-  });
-  return doc;
+    let doc = replaceIfPixels(property.doc);
+    // Match other items in back ticks
+    doc = doc.replace(/`(.+?)`/g, function (m, symbol, offset, str) {
+        if (str.substr(offset - 4, 3) !== 'CSS' && symbol[0].toUpperCase() != symbol[0] && _(enumProperties).filter({'name': symbol}).value().length > 0) {
+            // Property 'enums'
+            symbol = snakeCaseUpper(symbol);
+            return '{@link Property.' + symbol + '}';
+        } else if( _(allProperties).filter({'name': symbol}).value().length > 0) {
+            // Other properties
+            return '{@link PropertyFactory#' + camelizeWithLeadingLowercase(symbol) + '}';
+        } else {
+            // Left overs
+            return '`' + symbol + '`';
+        }
+    });
+    return doc;
 };
 
 /**
@@ -302,47 +302,47 @@ global.propertyFactoryMethodDoc = function (property) {
  */
 global.propertyValueDoc = function (property, value) {
 
-  // Match references to other property names & values.
-  // Requires the format 'When `foo` is set to `bar`,'.
-  let doc = property.values[value].doc.replace(/When `(.+?)` is set to `(.+?)`(?: or `([^`]+?)`)?,/g, function (m, peerPropertyName, propertyValue, secondPropertyValue, offset, str) {
-    let otherProperty = snakeCaseUpper(peerPropertyName);
-    let otherValue = snakeCaseUpper(peerPropertyName) + '_' + snakeCaseUpper(propertyValue);
-    const firstPropertyValue = 'When {@link ' + `${otherProperty}` + '} is set to {@link Property#' + `${otherValue}` + '}';
-    if (secondPropertyValue) {
-      return firstPropertyValue + ` or {@link Property#${snakeCaseUpper(peerPropertyName) + '_' + snakeCaseUpper(secondPropertyValue)}},`;
-    } else {
-      return firstPropertyValue + ',';
-    }
-  });
+    // Match references to other property names & values.
+    // Requires the format 'When `foo` is set to `bar`,'.
+    let doc = property.values[value].doc.replace(/When `(.+?)` is set to `(.+?)`(?: or `([^`]+?)`)?,/g, function (m, peerPropertyName, propertyValue, secondPropertyValue, offset, str) {
+        let otherProperty = snakeCaseUpper(peerPropertyName);
+        let otherValue = snakeCaseUpper(peerPropertyName) + '_' + snakeCaseUpper(propertyValue);
+        const firstPropertyValue = 'When {@link ' + `${otherProperty}` + '} is set to {@link Property#' + `${otherValue}` + '}';
+        if (secondPropertyValue) {
+            return firstPropertyValue + ` or {@link Property#${snakeCaseUpper(peerPropertyName) + '_' + snakeCaseUpper(secondPropertyValue)}},`;
+        } else {
+            return firstPropertyValue + ',';
+        }
+    });
 
-  // Match references to our own property values.
-  // Requires the format 'is equivalent to `bar`'.
-  doc = doc.replace(/is equivalent to `(.+?)`/g, function (m, propertyValue, offset, str) {
-    propertyValue = snakeCaseUpper(property.name) + '_' + snakeCaseUpper(propertyValue);
-    return 'is equivalent to {@link Property#' + propertyValue + '}';
-  });
+    // Match references to our own property values.
+    // Requires the format 'is equivalent to `bar`'.
+    doc = doc.replace(/is equivalent to `(.+?)`/g, function(m, propertyValue, offset, str) {
+        propertyValue = snakeCaseUpper(property.name) + '_' + snakeCaseUpper(propertyValue);
+        return 'is equivalent to {@link Property#' + propertyValue + '}';
+    });
 
-  // Match other items in back ticks
-  doc = doc.replace(/`(.+?)`/g, function (m, symbol, offset, str) {
-    if ('values' in property && Object.keys(property.values).indexOf(symbol) !== -1) {
-      // Property values
-      propertyValue = snakeCaseUpper(property.name) + '_' + snakeCaseUpper(symbol);
-      console.log("Transforming", symbol, propertyValue);
-      return '{@link Property#' + `${propertyValue}` + '}';
-    } else if (str.substr(offset - 4, 3) !== 'CSS' && symbol[0].toUpperCase() != symbol[0]) {
-      // Property 'enums'
-      if (symbol === 'symbol-sort-key') {
-        return 'symbol sort key';
-      }
+    // Match other items in back ticks
+    doc = doc.replace(/`(.+?)`/g, function (m, symbol, offset, str) {
+        if ('values' in property && Object.keys(property.values).indexOf(symbol) !== -1) {
+            // Property values
+            propertyValue = snakeCaseUpper(property.name) + '_' + snakeCaseUpper(symbol);
+            console.log("Transforming", symbol, propertyValue);
+            return '{@link Property#' + `${propertyValue}` + '}';
+        } else if (str.substr(offset - 4, 3) !== 'CSS' && symbol[0].toUpperCase() != symbol[0]) {
+            // Property 'enums'
+            if (symbol === 'symbol-sort-key') {
+               return 'symbol sort key';
+            }
 
-      symbol = snakeCaseUpper(symbol);
-      return '{@link ' + symbol + '}';
-    } else {
-      // Left overs
-      return symbol
-    }
-  });
-  return doc;
+            symbol = snakeCaseUpper(symbol);
+            return '{@link ' + symbol + '}';
+        } else {
+            // Left overs
+            return symbol
+        }
+    });
+    return doc;
 };
 
 global.isLightProperty = function (property) {
@@ -370,25 +370,25 @@ global.evaluatedType = function (property) {
     return 'Position';
   }
   switch (property.type) {
-    case 'boolean':
-      return 'bool';
-    case 'number':
-      return 'float';
-    case 'formatted':
-    case 'string':
-    case 'image':
-      return 'std::string';
-    case 'enum':
-      return (isLightProperty(property) ? 'Light' : '') + `${camelize(property.name)}Type`;
-    case 'color':
-      return `Color`;
-    case 'array':
-      if (property.length) {
-        return `std::array<${evaluatedType({ type: property.value })}, ${property.length}>`;
-      } else {
-        return `std::vector<${evaluatedType({ type: property.value })}>`;
-      }
-    default: throw new Error(`unknown type for ${property.name}`)
+  case 'boolean':
+    return 'bool';
+  case 'number':
+    return 'float';
+  case 'formatted':
+  case 'string':
+  case 'image':
+    return 'std::string';
+  case 'enum':
+    return (isLightProperty(property) ? 'Light' : '') + `${camelize(property.name)}Type`;
+  case 'color':
+    return `Color`;
+  case 'array':
+    if (property.length) {
+      return `std::array<${evaluatedType({type: property.value})}, ${property.length}>`;
+    } else {
+      return `std::vector<${evaluatedType({type: property.value})}>`;
+    }
+  default: throw new Error(`unknown type for ${property.name}`)
   }
 };
 
@@ -403,21 +403,21 @@ global.supportsPropertyFunction = function (property) {
 // Template processing //
 
 // Java + JNI Light (Peer model)
-const lightJava = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/light/light.java.ejs', 'utf8'), { strict: true });
-const lightJavaUnitTests = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/style/light.junit.ejs', 'utf8'), { strict: true });
-writeIfModified(`TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/light/Light.java`, lightJava({ properties: lightProperties }));
-writeIfModified(`TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/style/LightTest.java`, lightJavaUnitTests({ properties: lightProperties }));
+const lightJava = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/main/java/org/trackasia/android/style/light/light.java.ejs', 'utf8'), {strict: true});
+const lightJavaUnitTests = ejs.compile(fs.readFileSync('TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/style/light.junit.ejs', 'utf8'), {strict: true});
+writeIfModified(`TrackAsiaAndroid/src/main/java/org/trackasia/android/style/light/Light.java`, lightJava({properties: lightProperties}));
+writeIfModified(`TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/style/LightTest.java`, lightJavaUnitTests({properties: lightProperties}));
 
 // Java
-const layerJava = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/layer.java.ejs', 'utf8'), { strict: true });
-const layerJavaUnitTests = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/style/layer.junit.ejs', 'utf8'), { strict: true });
+const layerJava = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/layer.java.ejs', 'utf8'), {strict: true});
+const layerJavaUnitTests = ejs.compile(fs.readFileSync('TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/style/layer.junit.ejs', 'utf8'), {strict: true});
 
 for (const layer of layers) {
-  var srcDir = 'TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/'
-  var testDir = 'TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/testapp/style/'
+  var srcDir = 'TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/'
+  var testDir = 'TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/style/'
   if (layer.type === 'location-indicator') {
-    srcDir = 'TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/location/'
-    testDir = 'TrackAsiaGLAndroidSDKTestApp/src/androidTest/java/com/mapbox/mapboxsdk/location/'
+    srcDir = 'TrackAsiaAndroid/src/main/java/org/trackasia/android/location/'
+    testDir = 'TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/location/'
   }
 
   writeIfModified(srcDir + `${camelize(layer.type)}Layer.java`, layerJava(layer));
@@ -425,34 +425,34 @@ for (const layer of layers) {
 }
 
 // Jni
-const layerHpp = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/cpp/style/layers/layer.hpp.ejs', 'utf8'), { strict: true });
-const layerCpp = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/cpp/style/layers/layer.cpp.ejs', 'utf8'), { strict: true });
+const layerHpp = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/cpp/style/layers/layer.hpp.ejs', 'utf8'), {strict: true});
+const layerCpp = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/cpp/style/layers/layer.cpp.ejs', 'utf8'), {strict: true});
 
 for (const layer of layers) {
   const layerFileName = layer.type.replace('-', '_');
 
-  writeIfModified(`TrackAsiaGLAndroidSDK/src/cpp/style/layers/${layerFileName}_layer.hpp`, layerHpp(layer));
-  writeIfModified(`TrackAsiaGLAndroidSDK/src/cpp/style/layers/${layerFileName}_layer.cpp`, layerCpp(layer));
+  writeIfModified(`TrackAsiaAndroid/src/cpp/style/layers/${layerFileName}_layer.hpp`, layerHpp(layer));
+  writeIfModified(`TrackAsiaAndroid/src/cpp/style/layers/${layerFileName}_layer.cpp`, layerCpp(layer));
 }
 
 // Java PropertyFactory
-const propertyFactoryTemplate = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/property_factory.java.ejs', 'utf8'), { strict: true });
+const propertyFactoryTemplate = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/property_factory.java.ejs', 'utf8'), {strict: true});
 
-var propertyFactorySrcDir = 'TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/PropertyFactory.java'
+var propertyFactorySrcDir = 'TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/PropertyFactory.java'
 writeIfModified(
-  propertyFactorySrcDir,
-  propertyFactoryTemplate({ layoutProperties: layoutProperties, paintProperties: paintProperties, locationIndicator: false })
+    propertyFactorySrcDir,
+    propertyFactoryTemplate({layoutProperties: layoutProperties, paintProperties: paintProperties, locationIndicator: false})
 );
 
-var locationPropertyFactorySrcDir = 'TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/location/LocationPropertyFactory.java'
+var locationPropertyFactorySrcDir = 'TrackAsiaAndroid/src/main/java/org/trackasia/android/location/LocationPropertyFactory.java'
 writeIfModified(
-  locationPropertyFactorySrcDir,
-  propertyFactoryTemplate({ layoutProperties: locationLayoutProperties, paintProperties: locationPaintProperties, locationIndicator: true })
+    locationPropertyFactorySrcDir,
+    propertyFactoryTemplate({layoutProperties: locationLayoutProperties, paintProperties: locationPaintProperties, locationIndicator: true})
 );
 
 // Java Property
-const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync('TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/property.java.ejs', 'utf8'), { strict: true });
+const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync('TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/property.java.ejs', 'utf8'), {strict: true});
 writeIfModified(
-  `TrackAsiaGLAndroidSDK/src/main/java/com/mapbox/mapboxsdk/style/layers/Property.java`,
-  enumPropertyJavaTemplate({ properties: enumProperties })
+    `TrackAsiaAndroid/src/main/java/org/trackasia/android/style/layers/Property.java`,
+    enumPropertyJavaTemplate({properties: enumProperties})
 );

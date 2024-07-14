@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <map>
+#include <optional>
 
 namespace mbgl {
 namespace style {
@@ -15,20 +16,18 @@ namespace expression {
 
 class Step : public Expression {
 public:
-    Step(const type::Type& type_,
-         std::unique_ptr<Expression> input_,
-         std::map<double, std::unique_ptr<Expression>> stops_);
+    Step(type::Type type_, std::unique_ptr<Expression> input_, std::map<double, std::unique_ptr<Expression>> stops_);
 
     EvaluationResult evaluate(const EvaluationContext& params) const override;
     void eachChild(const std::function<void(const Expression&)>& visit) const override;
     void eachStop(const std::function<void(double, const Expression&)>& visit) const;
 
-    const std::unique_ptr<Expression>& getInput() const { return input; }
-    Range<float> getCoveringStops(double lower, double upper) const;
+    const std::unique_ptr<Expression>& getInput() const noexcept { return input; }
+    Range<float> getCoveringStops(double lower, double upper) const noexcept;
 
-    bool operator==(const Expression& e) const override;
+    bool operator==(const Expression& e) const noexcept override;
 
-    std::vector<optional<Value>> possibleOutputs() const override;
+    std::vector<std::optional<Value>> possibleOutputs() const override;
 
     static ParseResult parse(const mbgl::style::conversion::Convertible& value, ParsingContext& ctx);
 

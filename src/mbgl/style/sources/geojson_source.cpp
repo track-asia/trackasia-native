@@ -20,7 +20,9 @@ Immutable<GeoJSONOptions> GeoJSONOptions::defaultOptions() {
 }
 
 GeoJSONSource::GeoJSONSource(std::string id, Immutable<GeoJSONOptions> options)
-    : Source(makeMutable<Impl>(std::move(id), std::move(options))), threadPool(Scheduler::GetBackground()) {}
+    : Source(makeMutable<Impl>(std::move(id), std::move(options))),
+      threadPool(Scheduler::GetBackground()),
+      sequencedScheduler(Scheduler::GetSequenced()) {}
 
 GeoJSONSource::~GeoJSONSource() = default;
 
@@ -39,20 +41,8 @@ void GeoJSONSource::setURL(const std::string& url_) {
     }
 }
 
-namespace {
-
-inline std::shared_ptr<GeoJSONData> createGeoJSONData(const mapbox::geojson::geojson& geoJSON,
-                                                      const GeoJSONSource::Impl& impl) {
-    if (auto data = impl.getData().lock()) {
-        return GeoJSONData::create(geoJSON, impl.getOptions(), data->getScheduler());
-    }
-    return GeoJSONData::create(geoJSON, impl.getOptions());
-}
-
-} // namespace
-
 void GeoJSONSource::setGeoJSON(const mapbox::geojson::geojson& geoJSON) {
-    setGeoJSONData(createGeoJSONData(geoJSON, impl()));
+    setGeoJSONData(GeoJSONData::create(geoJSON, sequencedScheduler, impl().getOptions()));
 }
 
 void GeoJSONSource::setGeoJSONData(std::shared_ptr<GeoJSONData> geoJSONData) {
@@ -61,7 +51,7 @@ void GeoJSONSource::setGeoJSONData(std::shared_ptr<GeoJSONData> geoJSONData) {
     observer->onSourceChanged(*this);
 }
 
-optional<std::string> GeoJSONSource::getURL() const {
+std::optional<std::string> GeoJSONSource::getURL() const {
     return url;
 }
 
@@ -81,24 +71,25 @@ void GeoJSONSource::loadDescription(FileSource& fileSource) {
 
     req = fileSource.request(Resource::source(*url), [this](const Response& res) {
         if (res.error) {
-            observer->onSourceError(
-                *this, std::make_exception_ptr(std::runtime_error(res.error->message)));
+            observer->onSourceError(*this, std::make_exception_ptr(std::runtime_error(res.error->message)));
         } else if (res.notModified) {
             return;
         } else if (res.noContent) {
-            observer->onSourceError(
-                *this, std::make_exception_ptr(std::runtime_error("unexpectedly empty GeoJSON")));
+            observer->onSourceError(*this, std::make_exception_ptr(std::runtime_error("unexpectedly empty GeoJSON")));
         } else {
-            auto makeImplInBackground = [currentImpl = baseImpl, data = res.data]() -> Immutable<Source::Impl> {
+            auto makeImplInBackground = [currentImpl = baseImpl,
+                                         data = res.data,
+                                         seqScheduler{sequencedScheduler}]() -> Immutable<Source::Impl> {
                 assert(data);
                 auto& current = static_cast<const Impl&>(*currentImpl);
                 conversion::Error error;
                 std::shared_ptr<GeoJSONData> geoJSONData;
-                if (optional<GeoJSON> geoJSON = conversion::convertJSON<GeoJSON>(*data, error)) {
-                    geoJSONData = createGeoJSONData(*geoJSON, current);
+                if (std::optional<GeoJSON> geoJSON = conversion::convertJSON<GeoJSON>(*data, error)) {
+                    geoJSONData = GeoJSONData::create(*geoJSON, std::move(seqScheduler), current.getOptions());
                 } else {
-                    // Create an empty GeoJSON VT object to make sure we're not infinitely waiting for tiles to load.
-                    Log::Error(Event::ParseStyle, "Failed to parse GeoJSON data: %s", error.message.c_str());
+                    // Create an empty GeoJSON VT object to make sure we're not
+                    // infinitely waiting for tiles to load.
+                    Log::Error(Event::ParseStyle, "Failed to parse GeoJSON data: " + error.message);
                 }
                 return makeMutable<Impl>(current, std::move(geoJSONData));
             };

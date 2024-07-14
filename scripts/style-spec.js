@@ -1,4 +1,4 @@
-const referenceSpec = require('../trackasia-gl-js/src/style-spec/reference/v8');
+const referenceSpec = require('../scripts/style-spec-reference/v8');
 
 referenceSpec.layer.type.values["location-indicator"] = {};
 referenceSpec["layout_location-indicator"] = {
@@ -72,7 +72,7 @@ referenceSpec["paint_location-indicator"] = {
         "property-type": "data-constant",
         "expression": {
             "interpolated": false,
-            "parameters": []
+            "parameters": [ ]
         },
         "transition": true,
         "doc": "The bearing of the location indicator."
@@ -186,7 +186,7 @@ referenceSpec["paint_location-indicator"] = {
         "property-type": "data-constant",
         "expression": {
             "interpolated": false,
-            "parameters": []
+            "parameters": [ ]
         },
         "transition": false,
         "doc": "The bearing of the location indicator."

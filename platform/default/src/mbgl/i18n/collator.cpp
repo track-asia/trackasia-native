@@ -51,8 +51,9 @@ namespace platform {
 
 class Collator::Impl {
 public:
-    Impl(bool caseSensitive_, bool diacriticSensitive_, const optional<std::string>&)
-        : caseSensitive(caseSensitive_), diacriticSensitive(diacriticSensitive_) {}
+    Impl(bool caseSensitive_, bool diacriticSensitive_, const std::optional<std::string>&)
+        : caseSensitive(caseSensitive_),
+          diacriticSensitive(diacriticSensitive_) {}
 
     bool operator==(const Impl& other) const {
         return caseSensitive == other.caseSensitive && diacriticSensitive == other.diacriticSensitive;
@@ -60,11 +61,9 @@ public:
 
     int compare(const std::string& lhs, const std::string& rhs) const {
         if (caseSensitive && diacriticSensitive) {
-            return nu_strcoll(lhs.c_str(), rhs.c_str(),
-                              nu_utf8_read, nu_utf8_read);
+            return nu_strcoll(lhs.c_str(), rhs.c_str(), nu_utf8_read, nu_utf8_read);
         } else if (!caseSensitive && diacriticSensitive) {
-            return nu_strcasecoll(lhs.c_str(), rhs.c_str(),
-                                  nu_utf8_read, nu_utf8_read);
+            return nu_strcasecoll(lhs.c_str(), rhs.c_str(), nu_utf8_read, nu_utf8_read);
         } else if (caseSensitive && !diacriticSensitive) {
             return nu_strcoll(unaccent(lhs).c_str(), unaccent(rhs).c_str(), nu_utf8_read, nu_utf8_read);
         } else {
@@ -72,9 +71,7 @@ public:
         }
     }
 
-    std::string resolvedLocale() const {
-        return "";
-    }
+    std::string resolvedLocale() const { return ""; }
 
 private:
     bool caseSensitive;
@@ -93,7 +90,7 @@ std::string Collator::resolvedLocale() const {
     return impl->resolvedLocale();
 }
 
-Collator::Collator(bool caseSensitive, bool diacriticSensitive, const optional<std::string>& locale)
+Collator::Collator(bool caseSensitive, bool diacriticSensitive, const std::optional<std::string>& locale)
     : impl(std::make_shared<Impl>(caseSensitive, diacriticSensitive, locale)) {}
 
 } // namespace platform

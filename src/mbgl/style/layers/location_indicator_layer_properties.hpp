@@ -56,7 +56,7 @@ struct ImageTiltDisplacement : PaintProperty<float> {
 };
 
 struct Location : PaintProperty<std::array<double, 3>> {
-    static std::array<double, 3> defaultValue() { return {{0, 0, 0}}; }
+    static std::array<double, 3> defaultValue() { return {{0.f, 0.f, 0.f}}; }
 };
 
 struct PerspectiveCompensation : PaintProperty<float> {
@@ -100,7 +100,9 @@ public:
 
     unsigned long constantsMask() const override;
 
-    const LocationIndicatorLayer::Impl& layerImpl() const;
+    expression::Dependency getDependencies() const noexcept override;
+
+    const LocationIndicatorLayer::Impl& layerImpl() const noexcept;
     // Data members.
     LocationIndicatorPaintProperties::PossiblyEvaluated evaluated;
 };

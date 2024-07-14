@@ -1,4 +1,4 @@
-import { run } from '../../../trackasia-gl-js/test/integration/lib/query';
+import {run} from '../../../metrics/integration/lib/query';
 import implementation from './suite_implementation';
 import ignores from './ignores.json';
 
@@ -8,4 +8,4 @@ if (process.argv[1] === __filename && process.argv.length > 2) {
     tests = process.argv.slice(2);
 }
 
-run('native', { tests, ignores }, implementation);
+run('native', {tests, ignores}, implementation);

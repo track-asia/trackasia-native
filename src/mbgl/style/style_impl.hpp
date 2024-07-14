@@ -15,7 +15,6 @@
 #include <mbgl/map/camera.hpp>
 
 #include <mbgl/util/noncopyable.hpp>
-#include <mbgl/util/optional.hpp>
 #include <mbgl/util/geo.hpp>
 
 #include <memory>
@@ -50,22 +49,20 @@ public:
 
     bool isLoaded() const;
 
-    std::exception_ptr getLastError() const {
-        return lastError;
-    }
+    std::exception_ptr getLastError() const { return lastError; }
 
-    std::vector<      Source*> getSources();
+    std::vector<Source*> getSources();
     std::vector<const Source*> getSources() const;
     Source* getSource(const std::string& id) const;
 
     void addSource(std::unique_ptr<Source>);
     std::unique_ptr<Source> removeSource(const std::string& sourceID);
 
-    std::vector<      Layer*> getLayers();
+    std::vector<Layer*> getLayers();
     std::vector<const Layer*> getLayers() const;
     Layer* getLayer(const std::string& id) const;
 
-    Layer* addLayer(std::unique_ptr<Layer>, const optional<std::string>& beforeLayerID = {});
+    Layer* addLayer(std::unique_ptr<Layer>, const std::optional<std::string>& beforeLayerID = std::nullopt);
     std::unique_ptr<Layer> removeLayer(const std::string& layerID);
 
     std::string getName() const;
@@ -77,7 +74,7 @@ public:
     void setLight(std::unique_ptr<Light>);
     Light* getLight() const;
 
-    optional<Immutable<style::Image::Impl>> getImage(const std::string&) const;
+    std::optional<Immutable<style::Image::Impl>> getImage(const std::string&) const;
     void addImage(std::unique_ptr<style::Image>);
     void removeImage(const std::string&);
 
@@ -89,10 +86,10 @@ public:
     Immutable<std::vector<Immutable<Layer::Impl>>> getLayerImpls() const;
 
     void dumpDebugLogs() const;
+    bool areSpritesLoaded() const;
 
     bool mutated = false;
     bool loaded = false;
-    bool spriteLoaded = false;
 
 private:
     void parse(const std::string&);
@@ -111,14 +108,15 @@ private:
     Collection<Layer> layers;
     TransitionOptions transitionOptions;
     std::unique_ptr<Light> light;
+    std::unordered_map<std::string, bool> spritesLoadingStatus;
 
     // Defaults
     std::string name;
     CameraOptions defaultCamera;
 
     // SpriteLoaderObserver implementation.
-    void onSpriteLoaded(std::vector<Immutable<style::Image::Impl>>) override;
-    void onSpriteError(std::exception_ptr) override;
+    void onSpriteLoaded(std::optional<style::Sprite> sprite, std::vector<Immutable<style::Image::Impl>>) override;
+    void onSpriteError(std::optional<style::Sprite> sprite, std::exception_ptr) override;
 
     // SourceObserver implementation.
     void onSourceLoaded(Source&) override;

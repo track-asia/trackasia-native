@@ -15,7 +15,6 @@
 #pragma warning(pop)
 #endif
 
-
 namespace mbgl {
 namespace test {
 
@@ -34,14 +33,12 @@ void checkImage(const std::string& base,
     try {
         expected_image = util::read_file(base + "/expected.png");
     } catch (std::exception& ex) {
-        Log::Error(Event::Setup, "Failed to load expected image %s: %s",
-                   (base + "/expected.png").c_str(), ex.what());
+        Log::Error(Event::Setup, "Failed to load expected image " + base + "/expected.png" + ": " + ex.what());
         throw;
     }
 
     PremultipliedImage expected = decodeImage(expected_image);
-    PremultipliedImage diff { expected.size };
-
+    PremultipliedImage diff{expected.size};
 
 #if !TEST_READ_ONLY
     util::write_file(base + "/actual.png", encodePNG(actual));

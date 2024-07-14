@@ -5,13 +5,13 @@
 #include <mbgl/style/image_impl.hpp>
 #include <mbgl/text/glyph.hpp>
 #include <mbgl/actor/actor_ref.hpp>
-#include <mbgl/util/optional.hpp>
 #include <mbgl/util/immutable.hpp>
 #include <mbgl/style/layer_properties.hpp>
 #include <mbgl/geometry/feature_index.hpp>
 #include <mbgl/renderer/bucket.hpp>
 #include <mbgl/renderer/render_layer.hpp>
 #include <mbgl/tile/tile.hpp>
+#include <mbgl/util/containers.hpp>
 
 #include <atomic>
 #include <memory>
@@ -57,12 +57,12 @@ private:
     void coalesced();
     void parse();
     void finalizeLayout();
-    
+
     void coalesce();
 
     void requestNewGlyphs(const GlyphDependencies&);
     void requestNewImages(const ImageDependencies&);
-   
+
     void symbolDependenciesChanged();
     bool hasPendingDependencies() const;
     bool hasPendingParseResult() const;
@@ -77,9 +77,9 @@ private:
     const std::atomic<bool>& obsolete;
     const MapMode mode;
     const float pixelRatio;
-    
+
     std::unique_ptr<FeatureIndex> featureIndex;
-    std::unordered_map<std::string, LayerRenderData> renderData;
+    mbgl::unordered_map<std::string, LayerRenderData> renderData;
 
     enum State {
         Idle,
@@ -92,9 +92,9 @@ private:
     uint64_t correlationID = 0;
     uint64_t imageCorrelationID = 0;
 
-    // Outer optional indicates whether we've received it or not.
-    optional<std::vector<Immutable<style::LayerProperties>>> layers;
-    optional<std::unique_ptr<const GeometryTileData>> data;
+    // Outer std::optional indicates whether we've received it or not.
+    std::optional<std::vector<Immutable<style::LayerProperties>>> layers;
+    std::optional<std::unique_ptr<const GeometryTileData>> data;
 
     std::vector<std::unique_ptr<Layout>> layouts;
 

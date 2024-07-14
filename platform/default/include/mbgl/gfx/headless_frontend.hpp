@@ -5,10 +5,10 @@
 #include <mbgl/map/camera.hpp>
 #include <mbgl/renderer/renderer_frontend.hpp>
 #include <mbgl/util/async_task.hpp>
-#include <mbgl/util/optional.hpp>
 
 #include <atomic>
 #include <memory>
+#include <optional>
 
 namespace mbgl {
 
@@ -26,12 +26,13 @@ public:
     HeadlessFrontend(float pixelRatio_,
                      gfx::HeadlessBackend::SwapBehaviour swapBehavior = gfx::HeadlessBackend::SwapBehaviour::NoFlush,
                      gfx::ContextMode mode = gfx::ContextMode::Unique,
-                     const optional<std::string>& localFontFamily = {});
+                     const std::optional<std::string>& localFontFamily = std::nullopt);
     HeadlessFrontend(Size,
                      float pixelRatio_,
                      gfx::HeadlessBackend::SwapBehaviour swapBehavior = gfx::HeadlessBackend::SwapBehaviour::NoFlush,
                      gfx::ContextMode mode = gfx::ContextMode::Unique,
-                     const optional<std::string>& localFontFamily = {});
+                     const std::optional<std::string>& localFontFamily = std::nullopt,
+                     bool invalidateOnUpdate_ = true);
     ~HeadlessFrontend() override;
 
     void reset() override;
@@ -56,8 +57,9 @@ public:
     PremultipliedImage readStillImage();
     RenderResult render(Map&);
     void renderOnce(Map&);
+    void renderFrame();
 
-    optional<TransformState> getTransformState() const;
+    std::optional<TransformState> getTransformState() const;
 
 private:
     Size size;
@@ -66,6 +68,7 @@ private:
     std::atomic<double> frameTime;
     std::unique_ptr<gfx::HeadlessBackend> backend;
     util::AsyncTask asyncInvalidate;
+    bool invalidateOnUpdate;
 
     std::unique_ptr<Renderer> renderer;
     std::shared_ptr<UpdateParameters> updateParameters;

@@ -7,12 +7,10 @@ namespace mbgl {
 using namespace style;
 
 AnnotationSource::AnnotationSource()
-    : Source(makeMutable<Impl>()) {
-}
+    : Source(makeMutable<Impl>()) {}
 
 AnnotationSource::Impl::Impl()
-    : Source::Impl(SourceType::Annotations, AnnotationManager::SourceID) {
-}
+    : Source::Impl(SourceType::Annotations, AnnotationManager::SourceID) {}
 
 const AnnotationSource::Impl& AnnotationSource::impl() const {
     return static_cast<const Impl&>(*baseImpl);
@@ -22,7 +20,7 @@ void AnnotationSource::loadDescription(FileSource&) {
     loaded = true;
 }
 
-optional<std::string> AnnotationSource::Impl::getAttribution() const {
+std::optional<std::string> AnnotationSource::Impl::getAttribution() const {
     return {};
 }
 

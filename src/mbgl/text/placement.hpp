@@ -42,26 +42,27 @@ public:
     float height;
     style::TextVariableAnchorType anchor;
     float textBoxScale;
-    optional<style::TextVariableAnchorType> prevAnchor;
+    std::optional<style::TextVariableAnchorType> prevAnchor;
 };
 
 class JointPlacement {
 public:
     JointPlacement(bool text_, bool icon_, bool skipFade_)
-        : text(text_), icon(icon_), skipFade(skipFade_)
-    {}
+        : text(text_),
+          icon(icon_),
+          skipFade(skipFade_) {}
 
     bool placed() const { return text || icon; }
 
     const bool text;
     const bool icon;
-    // skipFade = outside viewport, but within CollisionIndex::viewportPadding px of the edge
-    // Because these symbols aren't onscreen yet, we can skip the "fade in" animation,
-    // and if a subsequent viewport change brings them into view, they'll be fully
-    // visible right away.
+    // skipFade = outside viewport, but within CollisionIndex::viewportPadding
+    // px of the edge Because these symbols aren't onscreen yet, we can skip the
+    // "fade in" animation, and if a subsequent viewport change brings them into
+    // view, they'll be fully visible right away.
     const bool skipFade;
 };
-  
+
 struct RetainedQueryData {
     uint32_t bucketInstanceId;
     std::shared_ptr<FeatureIndex> featureIndex;
@@ -69,21 +70,22 @@ struct RetainedQueryData {
     mutable FeatureSortOrder featureSortOrder;
 
     RetainedQueryData(uint32_t bucketInstanceId_, std::shared_ptr<FeatureIndex> featureIndex_, OverscaledTileID tileID_)
-        : bucketInstanceId(bucketInstanceId_), featureIndex(std::move(featureIndex_)), tileID(tileID_) {}
+        : bucketInstanceId(bucketInstanceId_),
+          featureIndex(std::move(featureIndex_)),
+          tileID(tileID_) {}
 };
-    
+
 class CollisionGroups {
 public:
     using Predicate = std::function<bool(const IndexedSubfeature&)>;
-    using CollisionGroup = std::pair<uint16_t, optional<Predicate>>;
-    
+    using CollisionGroup = std::pair<uint16_t, std::optional<Predicate>>;
+
     CollisionGroups(const bool crossSourceCollisions_)
-        : maxGroupID(0)
-        , crossSourceCollisions(crossSourceCollisions_)
-    {}
-    
+        : maxGroupID(0),
+          crossSourceCollisions(crossSourceCollisions_) {}
+
     const CollisionGroup& get(const std::string& sourceID);
-    
+
 private:
     std::map<std::string, CollisionGroup> collisionGroups;
     uint16_t maxGroupID;
@@ -98,7 +100,7 @@ public:
     void setPlacement(Immutable<Placement>);
     const Immutable<Placement>& getPlacement() const { return placement; }
     void setPlacementStale() { stale = true; }
-    bool placementIsRecent(TimePoint now, float zoom, optional<Duration> periodOverride = nullopt) const;
+    bool placementIsRecent(TimePoint now, float zoom, std::optional<Duration> periodOverride = std::nullopt) const;
     bool hasTransitions(TimePoint now) const;
 
 private:
@@ -109,13 +111,14 @@ private:
 class Placement {
 public:
     /**
-     * @brief creates a new placement instance, from the given update parameters and the previous placement instance.
+     * @brief creates a new placement instance, from the given update parameters
+     * and the previous placement instance.
      *
      * Different placement implementations are created based on `updateParameters->mapMode`.
      * In Continuous map mode, `prevPlacement` must be provided.
      */
     static Mutable<Placement> create(std::shared_ptr<const UpdateParameters> updateParameters,
-                                     optional<Immutable<Placement>> prevPlacement = nullopt);
+                                     std::optional<Immutable<Placement>> prevPlacement = std::nullopt);
 
     virtual ~Placement();
     virtual void placeLayers(const RenderLayerReferences&);
@@ -137,7 +140,7 @@ public:
 
     // Public constructors are required for makeMutable(), shall not be called directly.
     Placement();
-    Placement(std::shared_ptr<const UpdateParameters>, optional<Immutable<Placement>> prevPlacement);
+    Placement(std::shared_ptr<const UpdateParameters>, std::optional<Immutable<Placement>> prevPlacement);
 
 protected:
     friend SymbolBucket;
@@ -150,10 +153,11 @@ protected:
                                  const JointPlacement&,
                                  style::SymbolPlacementType,
                                  const std::vector<ProjectedCollisionBox>& /*textBoxes*/,
-                                 const std::vector<ProjectedCollisionBox>& /*iconBoxes*/) {}
+                                 const std::vector<ProjectedCollisionBox>& /*iconBoxes*/
+    ) {}
     // Implentation specific hooks, which get called during a symbol bucket placement.
-    virtual optional<CollisionBoundaries> getAvoidEdges(const SymbolBucket&, const mat4& /*posMatrix*/) {
-        return nullopt;
+    virtual std::optional<CollisionBoundaries> getAvoidEdges(const SymbolBucket&, const mat4& /*posMatrix*/) {
+        return std::nullopt;
     }
     SymbolInstanceReferences getSortedSymbols(const BucketPlacementData&, float pixelRatio);
     virtual bool canPlaceAtVariableAnchor(const CollisionBox&,
@@ -161,7 +165,8 @@ protected:
                                           Point<float> /*shift*/,
                                           std::vector<style::TextVariableAnchorType>&,
                                           const mat4& /*posMatrix*/,
-                                          float /*textPixelRatio*/) {
+                                          float /*textPixelRatio*/
+    ) {
         return true;
     }
 
@@ -193,7 +198,7 @@ protected:
 
     std::unordered_map<uint32_t, RetainedQueryData> retainedQueryData;
     CollisionGroups collisionGroups;
-    mutable optional<Immutable<Placement>> prevPlacement;
+    mutable std::optional<Immutable<Placement>> prevPlacement;
     bool showCollisionBoxes = false;
 
     // Cache being used by placeSymbol()

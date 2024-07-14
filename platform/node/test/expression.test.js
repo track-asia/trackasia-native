@@ -1,4 +1,4 @@
-const { run } = require('../../../trackasia-gl-js/test/integration/lib/expression');
+const {run} = require('../../../metrics/integration/lib/expression');
 const mbgl = require('../index');
 const ignores = require('./ignores.json');
 
@@ -25,10 +25,10 @@ function getExpectedType(spec) {
         return { kind: 'string' };
     }
 
-    return typeof spec.type === 'string' ? { kind: spec.type } : null;
+    return typeof spec.type === 'string' ? {kind: spec.type} : null;
 }
 
-run('native', { ignores, tests }, (fixture) => {
+run('native', {ignores, tests}, (fixture) => {
     const compiled = {};
     const recompiled = {};
     const result = {

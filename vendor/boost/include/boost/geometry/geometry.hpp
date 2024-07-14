@@ -4,8 +4,8 @@
 // Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2014-2018.
-// Modifications copyright (c) 2014-2018 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014-2021.
+// Modifications copyright (c) 2014-2021 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -20,6 +20,12 @@
 #ifndef BOOST_GEOMETRY_GEOMETRY_HPP
 #define BOOST_GEOMETRY_GEOMETRY_HPP
 
+#include <boost/config.hpp>
+
+#if defined(BOOST_NO_CXX14_CONSTEXPR)
+#error "Use C++14 or higher to compile Boost.Geometry, or use Boost 1.72 or lower."
+#endif
+
 // Shortcut to include all header files
 
 #include <boost/geometry/core/closure.hpp>
@@ -27,6 +33,7 @@
 #include <boost/geometry/core/coordinate_system.hpp>
 #include <boost/geometry/core/coordinate_type.hpp>
 #include <boost/geometry/core/cs.hpp>
+#include <boost/geometry/core/geometry_types.hpp>
 #include <boost/geometry/core/interior_type.hpp>
 #include <boost/geometry/core/point_order.hpp>
 #include <boost/geometry/core/point_type.hpp>
@@ -34,6 +41,7 @@
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
 #include <boost/geometry/core/tags.hpp>
+#include <boost/geometry/core/visit.hpp>
 
 // Core algorithms
 #include <boost/geometry/core/access.hpp>
@@ -51,9 +59,11 @@
 #include <boost/geometry/algorithms/append.hpp>
 #include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/algorithms/assign.hpp>
+#include <boost/geometry/algorithms/azimuth.hpp>
 #include <boost/geometry/algorithms/buffer.hpp>
 #include <boost/geometry/algorithms/centroid.hpp>
 #include <boost/geometry/algorithms/clear.hpp>
+#include <boost/geometry/algorithms/closest_points.hpp>
 #include <boost/geometry/algorithms/comparable_distance.hpp>
 #include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/algorithms/convex_hull.hpp>
@@ -72,10 +82,12 @@
 #include <boost/geometry/algorithms/for_each.hpp>
 #include <boost/geometry/algorithms/intersection.hpp>
 #include <boost/geometry/algorithms/intersects.hpp>
+#include <boost/geometry/algorithms/is_convex.hpp>
 #include <boost/geometry/algorithms/is_empty.hpp>
 #include <boost/geometry/algorithms/is_simple.hpp>
 #include <boost/geometry/algorithms/is_valid.hpp>
 #include <boost/geometry/algorithms/length.hpp>
+#include <boost/geometry/algorithms/line_interpolate.hpp>
 #include <boost/geometry/algorithms/make.hpp>
 #include <boost/geometry/algorithms/num_geometries.hpp>
 #include <boost/geometry/algorithms/num_interior_rings.hpp>
@@ -83,6 +95,7 @@
 #include <boost/geometry/algorithms/num_segments.hpp>
 #include <boost/geometry/algorithms/overlaps.hpp>
 #include <boost/geometry/algorithms/perimeter.hpp>
+#include <boost/geometry/algorithms/point_on_surface.hpp>
 #include <boost/geometry/algorithms/relate.hpp>
 #include <boost/geometry/algorithms/relation.hpp>
 #include <boost/geometry/algorithms/remove_spikes.hpp>
@@ -117,5 +130,8 @@
 #include <boost/geometry/io/svg/write.hpp>
 #include <boost/geometry/io/wkt/read.hpp>
 #include <boost/geometry/io/wkt/write.hpp>
+
+#include <boost/geometry/algorithms/is_convex.hpp>
+#include <boost/geometry/algorithms/point_on_surface.hpp>
 
 #endif // BOOST_GEOMETRY_GEOMETRY_HPP

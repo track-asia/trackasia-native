@@ -17,13 +17,13 @@ Anchors getAnchors(const GeometryCoordinates& line,
                    float boxScale,
                    float overscaling);
 
-optional<Anchor> getCenterAnchor(const GeometryCoordinates& line,
-                                 float maxAngle,
-                                 float textLeft,
-                                 float textRight,
-                                 float iconLeft,
-                                 float iconRight,
-                                 float glyphSize,
-                                 float boxScale);
+std::optional<Anchor> getCenterAnchor(const GeometryCoordinates& line,
+                                      float maxAngle,
+                                      float textLeft,
+                                      float textRight,
+                                      float iconLeft,
+                                      float iconRight,
+                                      float glyphSize,
+                                      float boxScale);
 
 } // namespace mbgl

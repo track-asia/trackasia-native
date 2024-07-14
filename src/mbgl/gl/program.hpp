@@ -16,8 +16,7 @@
 
 #include <mbgl/util/logging.hpp>
 #include <mbgl/programs/program_parameters.hpp>
-#include <mbgl/programs/gl/shader_source.hpp>
-#include <mbgl/programs/gl/shaders.hpp>
+#include <mbgl/shaders/shader_manifest.hpp>
 
 #include <string>
 
@@ -32,47 +31,53 @@ public:
     using TextureList = typename Name::TextureList;
 
     Program(ProgramParameters programParameters_)
-        : programParameters(std::move(programParameters_)) {
-    }
+        : programParameters(std::move(programParameters_)) {}
 
     const ProgramParameters programParameters;
-
-    static constexpr const auto vertexOffset = programs::gl::ShaderSource<Name>::vertexOffset;
-    static constexpr const auto fragmentOffset = programs::gl::ShaderSource<Name>::fragmentOffset;
 
     class Instance {
     public:
         Instance(Context& context,
                  const std::initializer_list<const char*>& vertexSource,
                  const std::initializer_list<const char*>& fragmentSource)
-            : program(context.createProgram(
-                  context.createShader(ShaderType::Vertex, vertexSource),
-                  context.createShader(ShaderType::Fragment, fragmentSource),
-                  attributeLocations.getFirstAttribName())) {
+            : program(context.createProgram(context.createShader(ShaderType::Vertex, vertexSource),
+                                            context.createShader(ShaderType::Fragment, fragmentSource),
+                                            attributeLocations.getFirstAttribName())) {
             attributeLocations.queryLocations(program);
             uniformStates.queryLocations(program);
             // Texture units are specified via uniforms as well, so we need query their locations
             textureStates.queryLocations(program);
         }
 
-        static std::unique_ptr<Instance>
-        createInstance(gl::Context& context,
-                       const ProgramParameters& programParameters,
-                       const std::string& additionalDefines) {
+        static std::unique_ptr<Instance> createInstance(gl::Context& context,
+                                                        const ProgramParameters& programParameters,
+                                                        const std::string& additionalDefines) {
+#if MLN_RENDER_BACKEND_OPENGL
+            constexpr auto backend = gfx::Backend::Type::OpenGL;
+#elif MLN_RENDER_BACKEND_METAL
+            constexpr auto backend = gfx::Backend::Type::Metal;
+#endif
+
+#if MLN_RENDER_BACKEND_METAL
+            return std::make_unique<Instance>(context);
+#else
             // Compile the shader
-            const std::initializer_list<const char*> vertexSource = {
-                programParameters.getDefines().c_str(),
+            std::initializer_list<const char*> vertexSource = {
+                "#version 300 es\n",
+                programParameters.getDefinesString().c_str(),
                 additionalDefines.c_str(),
-                (programs::gl::shaderSource() + programs::gl::vertexPreludeOffset),
-                (programs::gl::shaderSource() + vertexOffset)
-            };
-            const std::initializer_list<const char*> fragmentSource = {
-                programParameters.getDefines().c_str(),
+                shaders::ShaderSource<shaders::BuiltIn::Prelude, backend>::vertex,
+                programParameters.vertexSource(gfx::Backend::Type::OpenGL).c_str()};
+
+            std::initializer_list<const char*> fragmentSource = {
+                "#version 300 es\n",
+                programParameters.getDefinesString().c_str(),
                 additionalDefines.c_str(),
-                (programs::gl::shaderSource() + programs::gl::fragmentPreludeOffset),
-                (programs::gl::shaderSource() + fragmentOffset)
-            };
+                shaders::ShaderSource<shaders::BuiltIn::Prelude, backend>::fragment,
+                programParameters.fragmentSource(gfx::Backend::Type::OpenGL).c_str()};
+
             return std::make_unique<Instance>(context, vertexSource, fragmentSource);
+#endif
         }
 
         UniqueProgram program;
@@ -105,13 +110,17 @@ public:
         const uint32_t key = gl::AttributeKey<AttributeList>::compute(attributeBindings);
         auto it = instances.find(key);
         if (it == instances.end()) {
-            it = instances
-                     .emplace(key,
-                              Instance::createInstance(
-                                  context,
-                                  programParameters,
-                                  gl::AttributeKey<AttributeList>::defines(attributeBindings)))
-                     .first;
+            try {
+                it = instances
+                         .emplace(key,
+                                  Instance::createInstance(context,
+                                                           programParameters,
+                                                           gl::AttributeKey<AttributeList>::defines(attributeBindings)))
+                         .first;
+            } catch (const std::runtime_error& e) {
+                Log::Error(Event::OpenGL, e.what());
+                return;
+            }
         }
 
         auto& instance = *it->second;
@@ -122,13 +131,9 @@ public:
         instance.textureStates.bind(context, textureBindings);
 
         auto& vertexArray = drawScope.getResource<gl::DrawScopeResource>().vertexArray;
-        vertexArray.bind(context,
-                        indexBuffer,
-                        instance.attributeLocations.toBindingArray(attributeBindings));
+        vertexArray.bind(context, indexBuffer, instance.attributeLocations.toBindingArray(attributeBindings));
 
-        context.draw(drawMode,
-                     indexOffset,
-                     indexLength);
+        context.draw(drawMode, indexOffset, indexLength);
     }
 
 private:

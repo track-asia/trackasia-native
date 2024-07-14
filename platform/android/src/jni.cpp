@@ -7,7 +7,7 @@ namespace android {
 
 JavaVM* theJVM;
 
-//TODO: remove
+// TODO: remove
 bool attach_jni_thread(JavaVM* vm, JNIEnv** env, std::string threadName) {
     assert(vm != nullptr);
     assert(env != nullptr);
@@ -17,15 +17,15 @@ bool attach_jni_thread(JavaVM* vm, JNIEnv** env, std::string threadName) {
     jint ret;
     *env = nullptr;
     bool detach = false;
-    ret = vm->GetEnv(reinterpret_cast<void **>(env), JNI_VERSION_1_6);
+    ret = vm->GetEnv(reinterpret_cast<void**>(env), JNI_VERSION_1_6);
     if (ret != JNI_OK) {
         if (ret != JNI_EDETACHED) {
-            mbgl::Log::Error(mbgl::Event::JNI, "GetEnv() failed with %i", ret);
+            mbgl::Log::Error(mbgl::Event::JNI, "GetEnv() failed with " + std::to_string(ret));
             throw std::runtime_error("GetEnv() failed");
         } else {
             ret = vm->AttachCurrentThread(env, &args);
             if (ret != JNI_OK) {
-                mbgl::Log::Error(mbgl::Event::JNI, "AttachCurrentThread() failed with %i", ret);
+                mbgl::Log::Error(mbgl::Event::JNI, "AttachCurrentThread() failed with " + std::to_string(ret));
                 throw std::runtime_error("AttachCurrentThread() failed");
             }
             detach = true;
@@ -35,7 +35,7 @@ bool attach_jni_thread(JavaVM* vm, JNIEnv** env, std::string threadName) {
     return detach;
 }
 
-//TODO: remove
+// TODO: remove
 void detach_jni_thread(JavaVM* vm, JNIEnv** env, bool detach) {
     if (detach) {
         assert(vm != nullptr);
@@ -43,7 +43,7 @@ void detach_jni_thread(JavaVM* vm, JNIEnv** env, bool detach) {
 
         jint ret;
         if ((ret = vm->DetachCurrentThread()) != JNI_OK) {
-            mbgl::Log::Error(mbgl::Event::JNI, "DetachCurrentThread() failed with %i", ret);
+            mbgl::Log::Error(mbgl::Event::JNI, "DetachCurrentThread() failed with " + std::to_string(ret));
             throw std::runtime_error("DetachCurrentThread() failed");
         }
     }

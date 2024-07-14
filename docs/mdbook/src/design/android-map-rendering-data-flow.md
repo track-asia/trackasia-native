@@ -6,7 +6,7 @@
 Figure 5 shows a simplified data flow diagram of initializing a map. The
 device section of this data flow diagram is based on Android platform.
 
-Before the map initialization request makes it to TrackAsia GL Native
+Before the map initialization request makes it to TrackAsia Native
 Core, the request initializes a set of peer components in the platform
 or device runtime. Especially for Android, we have parts written in C++
 using *Android Native Development Kit* and parts written in Java.
@@ -25,13 +25,13 @@ the generic Map Component. For Android, this maintains the JNI method
 contract established from the Java runtime. The render thread this
 document talked about before is seen in the form of *MapRenderer*. This
 is an Actor that passes the rendering events from the device runtime to
-*TrackAsia GL Native* renderer.
+*TrackAsia Native* renderer.
 
 ![](media/workflow-of-rendering-tiles.jpg)    
 *Figure 6: Workflow of rendering tiles*
 
 Before the frame-by-frame map rendering
-starts with *TrackAsia GL Native* renderer, the generic map component
+starts with *TrackAsia Native* renderer, the generic map component
 gets initialized. Rendering each frame of a map tile or initializing the
 map view requires a set of *Transforms.* Through transform basic
 mutations like rotation, tilt, projection is accomplished. Transforms
@@ -46,7 +46,7 @@ like other components inside TrackAsia works as a state machine. The
 to the map. To simplify to change the camera orientation, zoom, or pitch
 a Map View will update the state of the Transform class. And the
 Transform class will use observers to send a transform event to
-*TrackAsia GL Native* renderer. This overall transform directive, such as
+*TrackAsia Native* renderer. This overall transform directive, such as
 change camera location from point A to point B will translate to a set
 of transformations deduced by the *Renderer* component.
 
@@ -66,14 +66,14 @@ actors.
 
 The key philosophy of rendering tiles is tiles are rendered layer by
 layer. A collection of tiles is called a tile set. To optimize tile
-rendering, TrackAsia Native GL only renders *dirty* tiles. A dirty tile
+rendering, TrackAsia Native only renders *dirty* tiles. A dirty tile
 is a tile rendered in the viewport that has changed due to user
-interaction. To initiate this process, TrackAsia Native GL loads the
+interaction. To initiate this process, TrackAsia Native loads the
 tileset to be rendered first. In a rendering request, if the tileset is
-already loaded, TrackAsia GL Native will use a cached tile set.
+already loaded, TrackAsia Native will use a cached tile set.
 
 The next decision to make here is which tiles are to be rendered on the
-viewport. To deduce this, TrackAsia GL Native translates the device
+viewport. To deduce this, TrackAsia Native translates the device
 viewport coordinates[^20] to a tile cover. A tile cover loads all the
 tiles that will rendered to current viewport. If the viewport already
 has all the tiles that is needed to be rendered by the deduced tile

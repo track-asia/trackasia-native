@@ -1,10 +1,10 @@
 import mbgl from '../index';
 import request from 'request';
-import { PNG } from 'pngjs';
+import {PNG} from 'pngjs';
 import * as fs from 'fs';
 import * as path from 'path';
 
-mbgl.on('message', function (msg) {
+mbgl.on('message', function(msg) {
     console.log('%s (%s): %s', msg.severity, msg.class, msg.text);
 });
 
@@ -60,7 +60,7 @@ export default function (style, options, callback) {
     map.load(style, { defaultStyleCamera: true });
 
     function mapRequest(req, callback) {
-        request(req.url, { encoding: null }, function (err, response, body) {
+        request(req.url, {encoding: null}, function (err, response, body) {
             if (err) {
                 callback(err);
             } else if (response.statusCode === 404) {
@@ -68,16 +68,16 @@ export default function (style, options, callback) {
             } else if (response.statusCode !== 200) {
                 callback(new Error(response.statusMessage));
             } else {
-                callback(null, { data: body });
+                callback(null, {data: body});
             }
         });
     }
 
-    applyOperations(options.operations, function () {
+    applyOperations(options.operations, function() {
         map.render(options, function (err, pixels) {
             const results = options.queryGeometry ?
-                map.queryRenderedFeatures(options.queryGeometry, options.queryOptions || {}) :
-                [];
+              map.queryRenderedFeatures(options.queryGeometry, options.queryOptions || {}) :
+              [];
             if (!options.recycleMap) {
                 map.release();
             }
@@ -104,7 +104,7 @@ export default function (style, options, callback) {
                 applyOperations(operations.slice(1), callback);
             }, operation[1]);
         } else if (operation[0] === 'addImage' || operation[0] === 'updateImage') {
-            const img = PNG.sync.read(fs.readFileSync(path.join(__dirname, '../../../trackasia-gl-js/test/integration', operation[2])));
+            const img = PNG.sync.read(fs.readFileSync(path.join(__dirname, '../../../metrics/integration', operation[2])));
             const testOpts = (operation.length > 3) ? operation[3] : {};
 
             const options = {
@@ -122,7 +122,7 @@ export default function (style, options, callback) {
             map.load(operation[1]);
             applyOperations(operations.slice(1), callback);
 
-        } else if (operation[0] === 'setFeatureState' || operation[0] === 'getFeatureState' || operation[0] === 'removeFeatureState') {
+        } else if (operation[0] ==='setFeatureState' || operation[0] ==='getFeatureState' || operation[0] ==='removeFeatureState') {
             map.render(options, function () {
                 map[operation[0]].apply(map, operation.slice(1));
                 applyOperations(operations.slice(1), callback);
