@@ -106,7 +106,7 @@ jobs:
       - name: Run Android unit tests
         run: make run-android-unit-test
 
-      - name: Build libmaplibre.so for arm-v8
+      - name: Build libtrackasia.so for arm-v8
         run: make android-lib-arm-v8
 
       - name: Build documentation
@@ -115,18 +115,18 @@ jobs:
       - name: Copy developer config with API key for UI tests
         if: github.ref == 'refs/heads/main'
         run: |
-          MAPLIBRE_DEVELOPER_CONFIG_XML='${{ secrets.MAPLIBRE_DEVELOPER_CONFIG_XML }}'
-          if [ -n "${MAPLIBRE_DEVELOPER_CONFIG_XML}" ]; then
-            echo "${MAPLIBRE_DEVELOPER_CONFIG_XML}" > MapLibreAndroidTestApp/src/main/res/values/developer-config.xml
+          TRACKASIA_DEVELOPER_CONFIG_XML='${{ secrets.TRACKASIA_DEVELOPER_CONFIG_XML }}'
+          if [ -n "${TRACKASIA_DEVELOPER_CONFIG_XML}" ]; then
+            echo "${TRACKASIA_DEVELOPER_CONFIG_XML}" > TrackAsiaAndroidTestApp/src/main/res/values/developer-config.xml
           else
-            echo "No secrets.MAPLIBRE_DEVELOPER_CONFIG_XML variable set, not copying..."
+            echo "No secrets.TRACKASIA_DEVELOPER_CONFIG_XML variable set, not copying..."
           fi
 
       - name: Build Benchmark, copy to platform/android
         run: |
           ./gradlew assembleDrawableRelease assembleDrawableReleaseAndroidTest -PtestBuildType=release
-          cp MapLibreAndroidTestApp/build/outputs/apk/drawable/release/MapLibreAndroidTestApp-drawable-release.apk .
-          cp MapLibreAndroidTestApp/build/outputs/apk/androidTest/drawable/release/MapLibreAndroidTestApp-drawable-release-androidTest.apk .
+          cp TrackAsiaAndroidTestApp/build/outputs/apk/drawable/release/TrackAsiaAndroidTestApp-drawable-release.apk .
+          cp TrackAsiaAndroidTestApp/build/outputs/apk/androidTest/drawable/release/TrackAsiaAndroidTestApp-drawable-release-androidTest.apk .
 
       - name: Create artifact for benchmark APKs 
         uses: actions/upload-artifact@v4
@@ -134,8 +134,8 @@ jobs:
           if-no-files-found: error
           name: benchmarkAPKs
           path: |
-            platform/android/MapLibreAndroidTestApp-drawable-release.apk
-            platform/android/MapLibreAndroidTestApp-drawable-release-androidTest.apk
+            platform/android/TrackAsiaAndroidTestApp-drawable-release.apk
+            platform/android/TrackAsiaAndroidTestApp-drawable-release-androidTest.apk
 
       - if: github.event_name == 'pull_request'
         uses: ./.github/actions/save-pr-number
@@ -143,8 +143,8 @@ jobs:
       - name: Build Instrumentation Tests, copy to platform/android
         run: |
           ./gradlew assembleLegacyDebug assembleLegacyDebugAndroidTest -PtestBuildType=debug
-          cp MapLibreAndroidTestApp/build/outputs/apk/legacy/debug/MapLibreAndroidTestApp-legacy-debug.apk InstrumentationTestApp.apk
-          cp MapLibreAndroidTestApp/build/outputs/apk/androidTest/legacy/debug/MapLibreAndroidTestApp-legacy-debug-androidTest.apk InstrumentationTests.apk
+          cp TrackAsiaAndroidTestApp/build/outputs/apk/legacy/debug/TrackAsiaAndroidTestApp-legacy-debug.apk InstrumentationTestApp.apk
+          cp TrackAsiaAndroidTestApp/build/outputs/apk/androidTest/legacy/debug/TrackAsiaAndroidTestApp-legacy-debug-androidTest.apk InstrumentationTests.apk
 
       - name: Upload android-ui-test
         uses: actions/upload-artifact@v4

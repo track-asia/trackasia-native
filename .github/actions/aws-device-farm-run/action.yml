@@ -116,7 +116,7 @@ runs:
         run: |
           arn="$(aws devicefarm schedule-run \
             --project-arn ${{ inputs.AWS_DEVICE_FARM_PROJECT_ARN }} \
-            --name "MapLibre Native ${{ matrix.test.name }}" \
+            --name "TrackAsia Native ${{ matrix.test.name }}" \
             --app-arn ${{ env.app_arn }} \
             --device-pool-arn ${{ inputs.AWS_DEVICE_FARM_DEVICE_POOL_ARN }} \
             --test type=${{ inputs.testType }},testPackageArn=${{ env.test_package_arn }}${{ inputs.testFilter && ',filter=' }}${{ inputs.testFilter }}${{ inputs.testSpecArn && ',testSpecArn=' }}${{ inputs.testSpecArn }} \

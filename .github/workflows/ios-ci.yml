@@ -82,7 +82,7 @@ jobs:
           path: ~/.cache/bazel
 
       - name: Build Example (Swift) App
-        run: bazel build //platform/ios/app-swift:MapLibreApp --//:renderer=metal
+        run: bazel build //platform/ios/app-swift:TrackAsiaApp --//:renderer=metal
 
       - name: Check debug symbols
         run: bazel run //platform:check-public-symbols --//:renderer=metal
@@ -107,7 +107,7 @@ jobs:
           set -e
           bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
           build_dir="$(mktemp -d)"
-          xcodebuild build-for-testing  -scheme RenderTest -project MapLibre.xcodeproj -derivedDataPath "$build_dir"
+          xcodebuild build-for-testing  -scheme RenderTest -project TrackAsia.xcodeproj -derivedDataPath "$build_dir"
           render_test_app_dir="$(dirname "$(find "$build_dir" -name RenderTestApp.app)")"
           cd "$render_test_app_dir"
           mkdir Payload
@@ -134,7 +134,7 @@ jobs:
           set -e
           bazel run --//:renderer=metal //platform/ios:xcodeproj
           build_dir="$(mktemp -d)"
-          xcodebuild build-for-testing  -scheme CppUnitTests -project MapLibre.xcodeproj -derivedDataPath "$build_dir"
+          xcodebuild build-for-testing  -scheme CppUnitTests -project TrackAsia.xcodeproj -derivedDataPath "$build_dir"
           ios_cpp_test_app_dir="$(dirname "$(find "$build_dir" -name CppUnitTestsApp.app)")"
           cd "$ios_cpp_test_app_dir"
           mkdir Payload
@@ -158,11 +158,11 @@ jobs:
 
       - name: Build dynamic library for size test (Bloaty)
         run: |
-          bazel build //platform/ios:MapLibre.dynamic --//:renderer=metal --compilation_mode="opt" --copt -g --copt="-Oz" --strip never --output_groups=+dsyms --apple_generate_dsym
+          bazel build //platform/ios:TrackAsia.dynamic --//:renderer=metal --compilation_mode="opt" --copt -g --copt="-Oz" --strip never --output_groups=+dsyms --apple_generate_dsym
           bazel_bin="$(bazel info --compilation_mode="opt" bazel-bin)"
-          unzip "$bazel_bin"/platform/ios/MapLibre.dynamic.xcframework.zip
-          cp "$bazel_bin"/platform/ios/MapLibre.dynamic_dsyms/MapLibre_ios_device.framework.dSYM/Contents/Resources/DWARF/MapLibre_ios_device MapLibre_DWARF
-          cp MapLibre.xcframework/ios-arm64/MapLibre.framework/MapLibre MapLibre_dynamic
+          unzip "$bazel_bin"/platform/ios/TrackAsia.dynamic.xcframework.zip
+          cp "$bazel_bin"/platform/ios/TrackAsia.dynamic_dsyms/TrackAsia_ios_device.framework.dSYM/Contents/Resources/DWARF/TrackAsia_ios_device TrackAsia_DWARF
+          cp TrackAsia.xcframework/ios-arm64/TrackAsia.framework/TrackAsia TrackAsia_dynamic
 
       - name: Upload size test as artifact (Bloaty)
         if: github.event_name == 'pull_request'
@@ -172,8 +172,8 @@ jobs:
           retention-days: 3
           if-no-files-found: error
           path: |
-            platform/ios/MapLibre_DWARF
-            platform/ios/MapLibre_dynamic
+            platform/ios/TrackAsia_DWARF
+            platform/ios/TrackAsia_dynamic
 
       - name: Configure AWS Credentials
         if: github.ref == 'refs/heads/main' && vars.OIDC_AWS_ROLE_TO_ASSUME 
@@ -183,11 +183,11 @@ jobs:
           role-to-assume: ${{ vars.OIDC_AWS_ROLE_TO_ASSUME }}
           role-session-name: ${{ github.run_id }}
       
-      - name: Upload MapLibre_DWARF & MapLibre_dynamic to S3
+      - name: Upload TrackAsia_DWARF & TrackAsia_dynamic to S3
         if: github.ref == 'refs/heads/main' && vars.OIDC_AWS_ROLE_TO_ASSUME 
         run: | 
-          aws s3 cp MapLibre_DWARF s3://maplibre-native/size-test-ios/MapLibre_DWARF-main
-          aws s3 cp MapLibre_dynamic s3://maplibre-native/size-test-ios/MapLibre_dynamic-main
+          aws s3 cp TrackAsia_DWARF s3://trackasia-native/size-test-ios/TrackAsia_DWARF-main
+          aws s3 cp TrackAsia_dynamic s3://trackasia-native/size-test-ios/TrackAsia_dynamic-main
 
       - if: github.event_name == 'pull_request'
         uses: ./.github/actions/save-pr-number
@@ -195,7 +195,7 @@ jobs:
       - name: Build DocC documentation
         working-directory: .
         run: |
-          HOSTING_BASE_PATH="maplibre-native/ios/latest" platform/ios/scripts/docc.sh
+          HOSTING_BASE_PATH="trackasia-native/ios/latest" platform/ios/scripts/docc.sh
 
       - name: Deploy DocC documentation (main) 🚀
         if: github.ref == 'refs/heads/main'
@@ -236,15 +236,15 @@ jobs:
         if: env.make_release
         run: |
           bazel build --compilation_mode=opt --features=dead_strip,thin_lto --objc_enable_binary_stripping \
-            --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:MapLibre.dynamic --embed_label=maplibre_ios_"$(cat VERSION)"
-          echo xcframework="$(bazel info execution_root)"/"$(bazel cquery --output=files --compilation_mode=opt --//:renderer=metal //platform/ios:MapLibre.dynamic)" >> "$GITHUB_ENV"
+            --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:TrackAsia.dynamic --embed_label=trackasia_ios_"$(cat VERSION)"
+          echo xcframework="$(bazel info execution_root)"/"$(bazel cquery --output=files --compilation_mode=opt --//:renderer=metal //platform/ios:TrackAsia.dynamic)" >> "$GITHUB_ENV"
           
       - name: Create .zip with debug symbols
         if: env.make_release
-        working-directory: ./bazel-bin/platform/ios/MapLibre.dynamic_dsyms
+        working-directory: ./bazel-bin/platform/ios/TrackAsia.dynamic_dsyms
         run: |
-          zip MapLibre_ios_device.framework.dSYM.zip MapLibre_ios_device.framework.dSYM/Contents/Resources/DWARF/MapLibre_ios_device MapLibre_ios_device.framework.dSYM/Contents/Info.plist
-          echo debug_symbols_ios="$(realpath MapLibre_ios_device.framework.dSYM.zip)" >> "$GITHUB_ENV"
+          zip TrackAsia_ios_device.framework.dSYM.zip TrackAsia_ios_device.framework.dSYM/Contents/Resources/DWARF/TrackAsia_ios_device TrackAsia_ios_device.framework.dSYM/Contents/Info.plist
+          echo debug_symbols_ios="$(realpath TrackAsia_ios_device.framework.dSYM.zip)" >> "$GITHUB_ENV"
 
       - name: Get version (release)
         if: github.event.inputs.release == 'full' || steps.version-file-ios-changed.outputs.any_changed == 'true'
@@ -277,7 +277,7 @@ jobs:
 
       - name: Upload changelog to S3
         if: env.make_release
-        run: aws s3 cp changelog_for_version.md s3://maplibre-native/changelogs/ios-${{ env.version }}.md
+        run: aws s3 cp changelog_for_version.md s3://trackasia-native/changelogs/ios-${{ env.version }}.md
 
       - name: Create tag
         if: env.make_release
@@ -288,9 +288,9 @@ jobs:
       - name: Add license to XCFramework zip
         if: env.make_release
         run: |
-          cp ${{ env.xcframework }} MapLibre.dynamic.xcframework.zip
-          chmod +w MapLibre.dynamic.xcframework.zip
-          zip MapLibre.dynamic.xcframework.zip LICENSE.md  # add license to zip
+          cp ${{ env.xcframework }} TrackAsia.dynamic.xcframework.zip
+          chmod +w TrackAsia.dynamic.xcframework.zip
+          zip TrackAsia.dynamic.xcframework.zip LICENSE.md  # add license to zip
         working-directory: .
 
       - name: Release (GitHub)
@@ -300,7 +300,7 @@ jobs:
         with:
           name: ios-v${{ env.version }}
           files: |
-            MapLibre.dynamic.xcframework.zip
+            TrackAsia.dynamic.xcframework.zip
             ${{ env.debug_symbols_ios }}
           tag_name: ios-v${{ env.version }}
           prerelease: ${{ github.event.inputs.release == 'pre' }}
@@ -313,8 +313,8 @@ jobs:
         id: generate_token
         uses: tibdex/github-app-token@v2
         with:
-          app_id: ${{ secrets.MAPLIBRE_NATIVE_BOT_APP_ID }}
-          private_key: ${{ secrets.MAPLIBRE_NATIVE_BOT_PRIVATE_KEY }}
+          app_id: ${{ secrets.TRACKASIA_NATIVE_BOT_APP_ID }}
+          private_key: ${{ secrets.TRACKASIA_NATIVE_BOT_PRIVATE_KEY }}
 
       - name: Release (Swift Package Index)
         if: env.make_release
@@ -326,9 +326,9 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: token ${{ steps.generate_token.outputs.token }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/maplibre/maplibre-gl-native-distribution/actions/workflows/$release_workflow_id/dispatches \
+            https://api.github.com/repos/trackasia/trackasia-gl-native-distribution/actions/workflows/$release_workflow_id/dispatches \
             -d '{"ref":"main","inputs":{
-              "changelog_url": "https://maplibre-native.s3.eu-central-1.amazonaws.com/changelogs/ios-${{ env.version }}.md",
+              "changelog_url": "https://trackasia-native.s3.eu-central-1.amazonaws.com/changelogs/ios-${{ env.version }}.md",
               "version":"${{ env.version }}",
               "download_url":"${{ fromJSON(steps.github_release.outputs.assets)[0].browser_download_url }}"}}'
 
@@ -336,7 +336,7 @@ jobs:
         shell: bash -leo pipefail {0}  # so pod is found
         if: env.make_release
         run: |
-          VERSION=${{ env.version }} COCOAPODS_TRUNK_TOKEN=${{ secrets.COCOAPODS_PASSWORD }} pod trunk push MapLibre.podspec
+          VERSION=${{ env.version }} COCOAPODS_TRUNK_TOKEN=${{ secrets.COCOAPODS_PASSWORD }} pod trunk push TrackAsia.podspec
 
   ios-ci-result:
     runs-on: ubuntu-latest

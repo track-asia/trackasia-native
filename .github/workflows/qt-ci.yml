@@ -235,7 +235,7 @@ jobs:
           key: Qt_${{ matrix.name }}_${{ matrix.qt_version }}
           max-size: 200M
 
-      - name: Build maplibre-native (macOS)
+      - name: Build trackasia-native (macOS)
         if: runner.os == 'macOS' && matrix.qt_target == 'desktop'
         run: |
           mkdir build && cd build
@@ -249,15 +249,15 @@ jobs:
             -DMLN_WITH_QT=ON
           ninja
 
-      - name: Build maplibre-native (Linux, Qt5)
+      - name: Build trackasia-native (Linux, Qt5)
         if: runner.os == 'Linux' && matrix.qt_version == '5.15.2'
         uses: ./source/.github/actions/qt5-build
 
-      - name: Build maplibre-native (Linux, Qt6)
+      - name: Build trackasia-native (Linux, Qt6)
         if: runner.os == 'Linux' && matrix.qt_version != '5.15.2' && matrix.compiler == ''
         uses: ./source/.github/actions/qt6-build
 
-      - name: Build maplibre-native (Linux, Qt6, custom compiler)
+      - name: Build trackasia-native (Linux, Qt6, custom compiler)
         if: runner.os == 'Linux' && matrix.qt_version != '5.15.2' && matrix.compiler != ''
         run: |
           mkdir build && cd build
@@ -269,7 +269,7 @@ jobs:
             -DMLN_WITH_QT=ON
           ninja
 
-      - name: Build maplibre-native (Linux, Qt6, custom compiler, internal libraries)
+      - name: Build trackasia-native (Linux, Qt6, custom compiler, internal libraries)
         if: runner.os == 'Linux' && matrix.qt_version != '5.15.2' && matrix.compiler != ''
         run: |
           mkdir build-internal && cd build-internal
@@ -290,7 +290,7 @@ jobs:
           run: ctest --output-on-failure
           working-directory: build
 
-      - name: Build maplibre-native (Windows)
+      - name: Build trackasia-native (Windows)
         if: runner.os == 'Windows'
         shell: bash
         run: |

@@ -91,7 +91,7 @@ jobs:
       - if: matrix.renderer == 'legacy'
         run: echo renderer_flag_cmake=-DMLN_LEGACY_RENDERER=ON >> "$GITHUB_ENV"
 
-      - name: Build MapLibre Native Core
+      - name: Build TrackAsia Native Core
         env:
           CI: 1
         run: |
@@ -128,8 +128,8 @@ jobs:
       - name: Upload mbgl-render & mbgl-benchmark-runner to S3
         if: matrix.renderer == 'drawable' && github.ref == 'refs/heads/main' && vars.OIDC_AWS_ROLE_TO_ASSUME 
         run: | 
-          aws s3 cp build/bin/mbgl-render s3://maplibre-native/mbgl-render-main
-          aws s3 cp build/mbgl-benchmark-runner s3://maplibre-native/mbgl-benchmark-runner-main
+          aws s3 cp build/bin/mbgl-render s3://trackasia-native/mbgl-render-main
+          aws s3 cp build/mbgl-benchmark-runner s3://trackasia-native/mbgl-benchmark-runner-main
 
       # CodeQL
 

@@ -7,8 +7,8 @@ on:
     types:
       - completed
 env:
-  download_url: https://maplibre-native.s3.eu-central-1.amazonaws.com
-  legacy_maplibre_sha: d38709084a9865fe0bb8300aec70ebf8243b3d43
+  download_url: https://trackasia-native.s3.eu-central-1.amazonaws.com
+  legacy_trackasia_sha: d38709084a9865fe0bb8300aec70ebf8243b3d43
   bloaty_sha: 8be8b448550b37c978e8defd9d421c0464c52cc7
 
 permissions:
@@ -48,7 +48,7 @@ jobs:
 
       - name: Download mbgl-render-legacy
         id: download-mbgl-render-legacy
-        run: wget -O mbgl-render-legacy "${download_url}/mbgl-render-${legacy_maplibre_sha}"
+        run: wget -O mbgl-render-legacy "${download_url}/mbgl-render-${legacy_trackasia_sha}"
         continue-on-error: true
 
       - name: Get latest CMake and Ninja
@@ -93,7 +93,7 @@ jobs:
       - name: Prepare Bloaty message (main)
         run: |
           report_path=bloaty-results/pr-${{ steps.get-pr-number.outputs.pr-number }}-compared-to-main.txt
-          aws s3 cp tlus_diff_main.txt s3://maplibre-native/"$report_path"
+          aws s3 cp tlus_diff_main.txt s3://trackasia-native/"$report_path"
           {
             echo "# Bloaty Results 🐋"
             echo 'Compared to main'
@@ -107,9 +107,9 @@ jobs:
       - name: Prepare Bloaty message (legacy)
         run: |
           report_path=bloaty-results/pr-${{ steps.get-pr-number.outputs.pr-number }}-compared-to-legacy.txt
-          aws s3 cp tlus_diff_legacy.txt s3://maplibre-native/"$report_path"
+          aws s3 cp tlus_diff_legacy.txt s3://trackasia-native/"$report_path"
           {
-            echo "Compared to $legacy_maplibre_sha (legacy)"
+            echo "Compared to $legacy_trackasia_sha (legacy)"
             echo '```'
             awk 'NR <= 2; END { print }' tlus_diff_legacy.txt
             echo '```'
@@ -163,7 +163,7 @@ jobs:
             libopengl0
 
       - name: Run Benchmarks
-        # excluding the API tests because they hang https://github.com/maplibre/maplibre-native/issues/1808
+        # excluding the API tests because they hang https://github.com/trackasia/trackasia-native/issues/1808
         run: python3 vendor/benchmark/tools/compare.py --no-color benchmarks ./mbgl-benchmark-runner-main ./mbgl-benchmark-runner --benchmark_filter='^[^A][^P][^I].*' > benchmark_out.txt
 
       - name: Configure AWS Credentials
@@ -178,7 +178,7 @@ jobs:
         run: |
           sed -n '/Comparing/,$p' benchmark_out.txt | tail -n +2 > benchmark_diff.txt
           report_path=benchmark-results/pr-${{ steps.get-pr-number.outputs.pr-number }}-compared-to-main.txt
-          aws s3 cp benchmark_diff.txt s3://maplibre-native/"$report_path"
+          aws s3 cp benchmark_diff.txt s3://trackasia-native/"$report_path"
           {
             echo "Benchmark Results ⚡"
             echo '```'
