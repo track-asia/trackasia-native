@@ -66,12 +66,12 @@ public class HttpRequestImpl implements HttpRequest {
         return;
       }
 
-      final String host = httpUrl.host().toLowerCase(TrackAsiaConstants.MAPLIBRE_LOCALE);
+      final String host = httpUrl.host().toLowerCase(TrackAsiaConstants.TRACKASIA_LOCALE);
       resourceUrl = HttpRequestUrl.buildResourceUrl(host, resourceUrl, httpUrl.querySize(), offlineUsage);
 
       final Request.Builder builder = new Request.Builder()
         .url(resourceUrl)
-        .tag(resourceUrl.toLowerCase(TrackAsiaConstants.MAPLIBRE_LOCALE))
+        .tag(resourceUrl.toLowerCase(TrackAsiaConstants.TRACKASIA_LOCALE))
         .addHeader("User-Agent", userAgentString);
       if (etag.length() > 0) {
         builder.addHeader("If-None-Match", etag);

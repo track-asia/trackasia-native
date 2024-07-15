@@ -19,7 +19,7 @@ load(
     "MLN_PRIVATE_GENERATED_STYLE_HEADERS",
     "MLN_PUBLIC_GENERATED_STYLE_HEADERS",
 )
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "TRACKASIA_FLAGS")
 
 # Generate code required by the core
 
@@ -86,7 +86,7 @@ cc_library(
         ":metal_renderer": MLN_DRAWABLES_HEADERS + MLN_DRAWABLES_MTL_HEADERS,
         "//conditions:default": [],
     }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + TRACKASIA_FLAGS,
     defines = select({
         ":legacy_renderer": [
             "MLN_RENDER_BACKEND_OPENGL=1",

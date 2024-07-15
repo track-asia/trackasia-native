@@ -259,7 +259,7 @@ public final class TrackAsia {
       return false;
     }
 
-    apiKey = apiKey.trim().toLowerCase(TrackAsiaConstants.MAPLIBRE_LOCALE);
+    apiKey = apiKey.trim().toLowerCase(TrackAsiaConstants.TRACKASIA_LOCALE);
     return apiKey.length() != 0;
   }
 

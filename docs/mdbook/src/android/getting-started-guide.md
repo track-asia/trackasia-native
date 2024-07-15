@@ -72,7 +72,7 @@ In versions prior to the (upcoming) TrackAsia Native for Android 11.0 release, y
             // Init the MapView
             mapView = rootView.findViewById(R.id.mapView)
             mapView.getMapAsync { map ->
-                map.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=publi")
+                map.setStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
                 map.cameraPosition = CameraPosition.Builder().target(LatLng(0.0,0.0)).zoom(1.0).build()
             }
         }

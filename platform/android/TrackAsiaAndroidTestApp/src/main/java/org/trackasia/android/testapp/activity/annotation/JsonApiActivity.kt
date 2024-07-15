@@ -52,7 +52,7 @@ class JsonApiActivity : AppCompatActivity() {
         mapView.getMapAsync { map ->
             trackasiaMap = map
 
-            trackasiaMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=publi")
+            trackasiaMap.setStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
 
             // Fetch data from USGS
             getEarthQuakeDataFromUSGS()

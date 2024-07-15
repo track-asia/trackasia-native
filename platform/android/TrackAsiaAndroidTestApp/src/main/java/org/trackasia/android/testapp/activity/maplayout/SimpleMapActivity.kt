@@ -22,7 +22,7 @@ class SimpleMapActivity : AppCompatActivity() {
             OnMapReadyCallback { trackasiaMap: TrackAsiaMap ->
                 var key = ApiKeyUtils.getApiKey(applicationContext)
                 if (key == null || key == "YOUR_API_KEY_GOES_HERE") {
-                    trackasiaMap.setStyle(Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=publi"))
+                    trackasiaMap.setStyle(Style.Builder().fromUri("https://maps.track-asia.com/styles/v1/streets.json?key=public_key"))
                 } else {
                     val styles = Style.getPredefinedStyles()
                     if (styles != null && styles.size > 0) {

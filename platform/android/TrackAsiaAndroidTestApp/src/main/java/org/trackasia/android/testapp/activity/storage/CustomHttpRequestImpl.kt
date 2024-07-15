@@ -36,7 +36,7 @@ class CustomHttpRequestImplActivity : AppCompatActivity() {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
             OnMapReadyCallback { trackasiaMap: TrackAsiaMap ->
-                trackasiaMap.setStyle(Style.Builder().fromUri("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=publi"))
+                trackasiaMap.setStyle(Style.Builder().fromUri("https://maps.track-asia.com/styles/v1/streets.json?key=public_key"))
             }
         )
     }

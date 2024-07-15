@@ -109,7 +109,7 @@ CPP_FLAGS = select({
 #  - platform/*
 # Not important for any vendors that are imported.
 
-MAPLIBRE_FLAGS = select({
+TRACKASIA_FLAGS = select({
     "@platforms//os:windows": [
         "/DMBGL_USE_GLES2=1",
         "/DMBGL_RENDER_BACKEND_OPENGL=1",

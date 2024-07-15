@@ -107,7 +107,7 @@ public class FileSource {
   @NonNull
   private static String getCachePath(@NonNull Context context) {
     SharedPreferences preferences = context.getSharedPreferences(
-      TrackAsiaConstants.MAPLIBRE_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+      TrackAsiaConstants.TRACKASIA_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     String cachePath = preferences.getString(MAPBOX_SHARED_PREFERENCE_RESOURCES_CACHE_PATH, null);
 
     if (!isPathWritable(cachePath)) {
@@ -116,7 +116,7 @@ public class FileSource {
 
       // Reset stored cache path
       SharedPreferences.Editor editor =
-        context.getSharedPreferences(TrackAsiaConstants.MAPLIBRE_SHARED_PREFERENCES, Context.MODE_PRIVATE).edit();
+        context.getSharedPreferences(TrackAsiaConstants.TRACKASIA_SHARED_PREFERENCES, Context.MODE_PRIVATE).edit();
       editor.remove(MAPBOX_SHARED_PREFERENCE_RESOURCES_CACHE_PATH).apply();
     }
 
@@ -304,7 +304,7 @@ public class FileSource {
         @Override
         public void onWritePermissionGranted() {
           final SharedPreferences.Editor editor =
-            applicationContext.getSharedPreferences(TrackAsiaConstants.MAPLIBRE_SHARED_PREFERENCES,
+            applicationContext.getSharedPreferences(TrackAsiaConstants.TRACKASIA_SHARED_PREFERENCES,
               Context.MODE_PRIVATE).edit();
           editor.putString(MAPBOX_SHARED_PREFERENCE_RESOURCES_CACHE_PATH, path);
           editor.apply();

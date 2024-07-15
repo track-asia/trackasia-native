@@ -306,7 +306,7 @@ TEST(Mapbox, CanonicalizeVectorTileset) {
 // TrackAsia tests
 TEST(TrackAsia, CanonicalURL) {
     EXPECT_EQ(
-        "https://tiles.track-asia.com/tiles/v1/style-streets.json?key=publi",
+        "https://maps.track-asia.com/styles/v1/streets.json?key=public_key",
         mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://maps/style", ""));
     EXPECT_EQ(
         "https://demotiles.track-asia.com/tiles/tiles.json",

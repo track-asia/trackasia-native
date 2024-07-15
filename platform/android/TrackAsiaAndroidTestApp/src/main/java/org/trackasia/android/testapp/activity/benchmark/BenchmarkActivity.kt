@@ -178,7 +178,7 @@ class BenchmarkActivity : AppCompatActivity() {
         // return default
         return BenchmarkInputData(
             styleNames = listOf("TrackAsia Demotiles"),
-            styleURLs = listOf("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=publi")
+            styleURLs = listOf("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
         )
     }
 

@@ -29,7 +29,7 @@ public class MapFragmentUtils {
   @NonNull
   public static Bundle createFragmentArgs(TrackAsiaMapOptions options) {
     Bundle bundle = new Bundle();
-    bundle.putParcelable(TrackAsiaConstants.FRAG_ARG_MAPLIBREMAPOPTIONS, options);
+    bundle.putParcelable(TrackAsiaConstants.FRAG_ARG_TRACKASIAMAPOPTIONS, options);
     return bundle;
   }
 
@@ -43,8 +43,8 @@ public class MapFragmentUtils {
   @Nullable
   public static TrackAsiaMapOptions resolveArgs(@NonNull Context context, @Nullable Bundle args) {
     TrackAsiaMapOptions options;
-    if (args != null && args.containsKey(TrackAsiaConstants.FRAG_ARG_MAPLIBREMAPOPTIONS)) {
-      options = args.getParcelable(TrackAsiaConstants.FRAG_ARG_MAPLIBREMAPOPTIONS);
+    if (args != null && args.containsKey(TrackAsiaConstants.FRAG_ARG_TRACKASIAMAPOPTIONS)) {
+      options = args.getParcelable(TrackAsiaConstants.FRAG_ARG_TRACKASIAMAPOPTIONS);
     } else {
       // load default options
       options = TrackAsiaMapOptions.createFromAttributes(context);
