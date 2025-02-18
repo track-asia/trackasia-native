@@ -6,9 +6,9 @@ Also see the current [release policy](../release-policy.md).
 
 ## Making a release
 
-1. Prepare a PR, see [this PR](https://github.com/trackasia/trackasia-native/pull/3193) as an example.
+1. Prepare a PR, see [this PR](https://github.com/track-asia/trackasia-native/pull/3193) as an example.
 
-    - Update the [changelog](https://github.com/trackasia/trackasia-native/blob/main/platform/ios/CHANGELOG.md). The changelog should contain links to all relevant PRs for iOS since the last release. You can use the script below with a [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with the `public_repo` scope. You will need to filter out PRs that do not relate to iOS.
+    - Update the [changelog](https://github.com/track-asia/trackasia-native/blob/main/platform/ios/CHANGELOG.md). The changelog should contain links to all relevant PRs for iOS since the last release. You can use the script below with a [GitHub access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with the `public_repo` scope. You will need to filter out PRs that do not relate to iOS.
       ```
       GITHUB_ACCESS_TOKEN=... node scripts/generate-changelog.mjs ios
       ```

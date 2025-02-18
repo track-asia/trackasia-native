@@ -15,7 +15,7 @@ To install the required Visual Studio components, open Visual Studio Installer a
 Open `x64 Native Tools Command Prompt for VS 2022` and then clone the repository:
 
 ```cmd
-git clone --config core.longpaths=true --recurse-submodules -j8 https://github.com/trackasia/trackasia-native.git
+git clone --config core.longpaths=true --recurse-submodules -j8 https://github.com/track-asia/trackasia-native.git
 cd trackasia-native
 ```
 
@@ -84,7 +84,7 @@ If all went well and target `mbgl-render` or `ALL_BUILD` was chosen, there shoul
 .\build\bin\mbgl-render.exe --style https://raw.githubusercontent.com/trackasia/demotiles/gh-pages/style.json --output out.png
 ```
 
-This should produce an `out.png` map tile image with the default TrackAsia styling from [the TrackAsia demo](https://trackasia.org/).
+This should produce an `out.png` map tile image with the default TrackAsia styling from [the TrackAsia demo](https://track-asia.com/).
 
 ![Sample image of world from mbgl-render command](/misc/sample-trackasia-style-mbgl-render-out.png)
 

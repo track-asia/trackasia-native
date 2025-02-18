@@ -1,4 +1,4 @@
-[![TrackAsia Logo](https://trackasia.org/img/trackasia-logo-big.svg)](https://trackasia.org/)
+[![TrackAsia Logo](https://track-asia.com/img/trackasia-logo-big.svg)](https://track-asia.com/)
 
 ## mvt-cpp
 
@@ -6,7 +6,7 @@
 
 C++14 library for decoding [Mapbox Vector Tiles](https://www.mapbox.com/vector-tiles/).
 
-This is a dependency of [TrackAsia Native](https://github.com/trackasia/trackasia-native).
+This is a dependency of [TrackAsia Native](https://github.com/track-asia/trackasia-native).
 
 Forked from [`mapbox/vector-tile`](https://github.com/mapbox/vector-tile).
 

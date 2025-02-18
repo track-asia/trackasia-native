@@ -15,7 +15,7 @@ To follow this example from scratch, in Android Studio create a new "Empty Views
 
    A newly-created app will likely already have `mavenCentral()` in a top-level `settings.gradle` file, and you won't need to add it.
 
-2. Add the library as a dependency into your module Gradle file (usually `<project>/<app-module>/build.gradle`). Replace `<version>` with the [latest TrackAsia Android version](https://github.com/trackasia/trackasia-native/releases?q=android-v11&expanded=true) (e.g.: `io.github.track-asia:android-sdk:11.8.0`):
+2. Add the library as a dependency into your module Gradle file (usually `<project>/<app-module>/build.gradle`). Replace `<version>` with the [latest TrackAsia Android version](https://github.com/track-asia/trackasia-native/releases?q=android-v11&expanded=true) (e.g.: `io.github.track-asia:android-sdk:11.8.0`):
 
     ```gradle
     dependencies {

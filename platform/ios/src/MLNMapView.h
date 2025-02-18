@@ -151,7 +151,7 @@ FOUNDATION_EXTERN MLN_EXPORT MLNExceptionName const MLNUserLocationAnnotationTyp
  It styles them with a style that conforms to the
  <a href="https://trackasia.com/trackasia-style-spec/">TrackAsia Style Spec</a>.
  Such styles can be designed with
- <a href="https://trackasia.org/maputnik/">Maputnik</a>.
+ <a href="https://track-asia.com/maputnik/">Maputnik</a>.
 
 
  Because ``MLNMapView`` loads asynchronously, several delegate methods are available
@@ -1987,7 +1987,7 @@ vertically on the map.
  point, even if the road extends into other tiles.
 
  To find out the layer names in a particular style, view the style in
- <a href="https://trackasia.org/maputnik">Maputnik</a>.
+ <a href="https://track-asia.com/maputnik">Maputnik</a>.
 
  Only visible features are returned. To obtain features regardless of
  visibility, use the
@@ -2089,7 +2089,7 @@ vertically on the map.
  the road within each map tile is included individually.
 
  To find out the layer names in a particular style, view the style in
- <a href="https://trackasia.org/maputnik">Maputnik</a>.
+ <a href="https://track-asia.com/maputnik">Maputnik</a>.
 
  Only visible features are returned. To obtain features regardless of
  visibility, use the

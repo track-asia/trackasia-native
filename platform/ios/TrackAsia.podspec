@@ -2,17 +2,17 @@ Pod::Spec.new do |s|
     version = "#{ENV['VERSION']}"
 
     s.name = 'TrackAsia'
-    s.version = version
+    s.version = '2.0.0'
     s.license = { :type => 'BSD', :file => "LICENSE.md" }
-    s.homepage = 'https://trackasia.org/'
-    s.authors = { 'TrackAsia' => '' }
+    s.homepage = 'https://track-asia.com/'
+    s.authors = { 'TrackAsia' => 'support@track-asia.com' }
     s.summary = 'Open source vector map solution for iOS with full styling capabilities.'
     s.platform = :ios
     s.source = {
-        :http => "https://github.com/trackasia/trackasia-native/releases/download/ios-v#{version.to_s}/TrackAsia.dynamic.xcframework.zip",
+        :http => "https://github.com/track-asia/trackasia-native/releases/download/ios-v2.0.0/TrackAsia.dynamic.xcframework.zip",
         :type => "zip"
     }
-    s.social_media_url  = 'https://mastodon.social/@trackasia'
+    s.social_media_url  = 'support@track-asia.com'
     s.ios.deployment_target = '12.0'
     s.ios.vendored_frameworks = "TrackAsia.xcframework"
 end

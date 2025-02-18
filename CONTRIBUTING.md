@@ -7,7 +7,7 @@
 ## Source code checkout
 
 ```bash
-git clone --recurse-submodules https://github.com/trackasia/trackasia-native.git
+git clone --recurse-submodules https://github.com/track-asia/trackasia-native.git
 ```
 
 ## Guidelines
@@ -16,7 +16,7 @@ If you want to contribute code:
 
 1. Please familiarize yourself with the installation process of your chosen platform.
 
-1. Ensure that existing [pull requests](https://github.com/trackasia/trackasia-native/pulls) and [issues](https://github.com/trackasia/trackasia-native/issues) don’t already cover your contribution or question.
+1. Ensure that existing [pull requests](https://github.com/track-asia/trackasia-native/pulls) and [issues](https://github.com/track-asia/trackasia-native/issues) don’t already cover your contribution or question.
 
 1. Pull requests are gladly accepted. If there are any changes that developers using one of the platforms should be aware of, please update the **main** section of the relevant `CHANGELOG.md`.
 
@@ -37,7 +37,7 @@ The steps for a Design Proposal are the following:
 5. Call a vote on the Design Proposal once discussions have settled. People in favor of your Design Proposal shall approve the pull request. People against your Design Proposal shall comment on the pull request with something like "Rejected".
 6. Give the community at least 72 hours to vote. If a majority of the people who voted accept your Proposal, it can be merged.
 
-[Accepted design proposals](https://github.com/trackasia/trackasia-native/tree/main/design-proposals).
+[Accepted design proposals](https://github.com/track-asia/trackasia-native/tree/main/design-proposals).
 
 ## Pre-commit hooks
 

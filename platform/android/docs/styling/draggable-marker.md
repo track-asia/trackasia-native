@@ -29,7 +29,7 @@ The implementation of `DraggableSymbolsManager` follows. In its initializer we d
 We create a custom implementation of `MoveGestureDetector.OnMoveGestureListener` and pass this to an instance of `AndroidGesturesManager` linked to the map view.
 
 !!! tip
-      See [trackasia-gestures-android](https://github.com/trackasia/trackasia-gestures-android) for the implementation details of the gestures library used by TrackAsia Android.
+      See [trackasia-gestures-android](https://github.com/track-asia/trackasia-gestures-android) for the implementation details of the gestures library used by TrackAsia Android.
 
 ```kotlin
 --8<-- "TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/style/DraggableMarkerActivity.kt:DraggableSymbolsManager"

@@ -1,6 +1,6 @@
 # TrackAsia Native for Android
 
-[![GitHub Action build status](https://github.com/trackasia/trackasia-native/workflows/android-ci/badge.svg)](https://github.com/trackasia/trackasia-native/actions/workflows/android-ci.yml) [![GitHub Action build status](https://github.com/trackasia/trackasia-native/workflows/android-release/badge.svg)](https://github.com/trackasia/trackasia-native/actions/workflows/android-release.yml)
+[![GitHub Action build status](https://github.com/track-asia/trackasia-native/workflows/android-ci/badge.svg)](https://github.com/track-asia/trackasia-native/actions/workflows/android-ci.yml) [![GitHub Action build status](https://github.com/track-asia/trackasia-native/workflows/android-release/badge.svg)](https://github.com/track-asia/trackasia-native/actions/workflows/android-release.yml)
 
 TrackAsia Native for Android is a library for embedding interactive map views with scalable, customizable vector maps onto Android devices.
 

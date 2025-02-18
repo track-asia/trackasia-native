@@ -229,13 +229,13 @@ License: [BSD](https://opensource.org/licenses/BSD-2-Clause)
 ===========================================================================
 
 TrackAsia Native Android uses portions of TrackAsia Android Java Utilities.
-URL: [https://github.com/trackasia/trackasia-java](https://github.com/trackasia/trackasia-java)
+URL: [https://github.com/track-asia/trackasia-java](https://github.com/track-asia/trackasia-java)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
 TrackAsia Native Android uses portions of TrackAsia Android Java Utilities.
-URL: [https://github.com/trackasia/trackasia-java](https://github.com/trackasia/trackasia-java)
+URL: [https://github.com/track-asia/trackasia-java](https://github.com/track-asia/trackasia-java)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
@@ -276,7 +276,7 @@ License: [The Apache Software License, Version 2.0](http://www.apache.org/licens
 
 ===========================================================================
 
-### [Trackasia Native](https://github.com/trackasia/trackasia-native/)
+### [Trackasia Native](https://github.com/track-asia/trackasia-native/)
 
 ```
 BSD 2-Clause License

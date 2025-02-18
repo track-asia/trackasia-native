@@ -21,7 +21,7 @@ def define_env(env):
         return f"""
 !!! note
 
-    You can find the full source code of this example in [`{filename}`](https://github.com/trackasia/trackasia-native/blob/main/platform/android/{file_path}) of the TrackAsiaAndroidTestApp.
+    You can find the full source code of this example in [`{filename}`](https://github.com/track-asia/trackasia-native/blob/main/platform/android/{file_path}) of the TrackAsiaAndroidTestApp.
 """
 
     @env.macro

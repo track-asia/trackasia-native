@@ -1,5 +1,5 @@
 > [!NOTE]
-> These notes are partially outdated since the [renderer modularization](https://github.com/trackasia/trackasia-native/blob/main/design-proposals/2022-10-27-rendering-modularization.md).
+> These notes are partially outdated since the [renderer modularization](https://github.com/track-asia/trackasia-native/blob/main/design-proposals/2022-10-27-rendering-modularization.md).
 
 # Design
 

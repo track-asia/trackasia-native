@@ -19,7 +19,7 @@ class FragmentBackStackTest : BaseIntegrationTest() {
     var activityRule: ActivityTestRule<FragmentBackStackActivity> = ActivityTestRule(FragmentBackStackActivity::class.java)
 
     @Test
-    @Ignore("https://github.com/trackasia/trackasia-native/issues/2469")
+    @Ignore("https://github.com/track-asia/trackasia-native/issues/2469")
     @LargeTest
     fun backPressedOnBackStackResumed() {
         device.waitForIdle()

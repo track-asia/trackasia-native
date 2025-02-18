@@ -44,13 +44,13 @@ dokka {
             includes.from("Module.md")
 
             sourceLink {
-                remoteUrl("https://github.com/trackasia/trackasia-native/tree/main/platform/android/")
+                remoteUrl("https://github.com/track-asia/trackasia-native/tree/main/platform/android/")
                 localDirectory.set(rootDir)
             }
 
             // TODO add externalDocumentationLinks when these get dokka or javadocs:
-            // - https://github.com/trackasia/trackasia-java
-            // - https://github.com/trackasia/trackasia-gestures-android
+            // - https://github.com/track-asia/trackasia-java
+            // - https://github.com/track-asia/trackasia-gestures-android
         }
     }
 }

@@ -3,7 +3,7 @@
 ## Upcoming
 
 TrackAsia native Qt bindings have been moved to
-[trackasia-native-qt](https://github.com/trackasia/trackasia-native-qt) repository.
+[trackasia-native-qt](https://github.com/track-asia/trackasia-native-qt) repository.
 
 ## v2.0.1
 
@@ -16,5 +16,5 @@ TrackAsia native Qt bindings have been moved to
 ### ✨ New features
 
 - Full Qt5 and Qt6 support for macOS, Linux, Windows, iOS and Android.
-- Rename to `QTrackAsiaGL` ([#338](https://github.com/trackasia/trackasia-native/pull/338)).
-- Build user agent based on `ClientOptions`, if available ([#365](https://github.com/trackasia/trackasia-native/pull/365)).
+- Rename to `QTrackAsiaGL` ([#338](https://github.com/track-asia/trackasia-native/pull/338)).
+- Build user agent based on `ClientOptions`, if available ([#365](https://github.com/track-asia/trackasia-native/pull/365)).

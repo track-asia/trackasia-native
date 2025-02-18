@@ -7,7 +7,7 @@ This guide explains how to get started building and running TrackAsia Native on 
 First, clone the repository. This repository uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), that are required to build the project.
 
 ```bash
-git clone --recurse-submodules -j8 https://github.com/trackasia/trackasia-native.git
+git clone --recurse-submodules -j8 https://github.com/track-asia/trackasia-native.git
 cd trackasia-native
 ```
 
@@ -40,7 +40,7 @@ cmake --build build --target mbgl-render -j $(nproc 2>/dev/null || sysctl -n hw.
 ```
 
 ## Running `mbgl-render`
-Running `mbgl-render --style https://raw.githubusercontent.com/trackasia/demotiles/gh-pages/style.json` should produce a map tile image with the default TrackAsia styling from [the TrackAsia demo](https://trackasia.org/).
+Running `mbgl-render --style https://raw.githubusercontent.com/trackasia/demotiles/gh-pages/style.json` should produce a map tile image with the default TrackAsia styling from [the TrackAsia demo](https://track-asia.com/).
 
 ![Sample image of world from mbgl-render command](/misc/sample-trackasia-style-mbgl-render-out.png)
 

@@ -26,7 +26,7 @@ Welcome to the examples documentation of TrackAsia Android.
 
     Share your own examples with the community!
 
-    [:octicons-arrow-right-24: Documentation on GitHub](https://github.com/trackasia/trackasia-native/tree/main/platform/android/docs)
+    [:octicons-arrow-right-24: Documentation on GitHub](https://github.com/track-asia/trackasia-native/tree/main/platform/android/docs)
 
 </div>
 
@@ -37,12 +37,12 @@ You can learn how to use the API from TrackAsia Android by stuying the source co
 
 - [Streetcomplete](https://github.com/streetcomplete/StreetComplete) ([source code](https://github.com/search?q=repo%3Astreetcomplete%2FStreetComplete%20trackasia&type=code))
 - [The official Wikipedia app for Android](https://github.com/wikimedia/apps-android-wikipedia) ([source code](https://github.com/search?q=repo%3Awikimedia%2Fapps-android-wikipedia%20trackasia&type=code)).
-- [TrackAsiaAndroidTestApp](https://github.com/trackasia/trackasia-native/tree/main/platform/android/TrackAsiaAndroidTestApp). This app is part of the TrackAsia Native repository and is used for (automated) testing. Many of the examples in this documentation site come directly from this app.
+- [TrackAsiaAndroidTestApp](https://github.com/track-asia/trackasia-native/tree/main/platform/android/TrackAsiaAndroidTestApp). This app is part of the TrackAsia Native repository and is used for (automated) testing. Many of the examples in this documentation site come directly from this app.
 
 ## See Also
 
 - [TrackAsia Android API Documentation](https://trackasia.com/trackasia-native/android/api/)
-- [Source code on GitHub](https://github.com/trackasia/trackasia-native/tree/main/platform/android)
-- [Latest releases](https://github.com/trackasia/trackasia-native/releases?q=android-v11&expanded=true)
-- [GitHub Discussions](https://github.com/trackasia/trackasia-native/discussions/categories/q-a?discussions_q=is%3Aopen+category%3AQ%26A+label%3Aandroid)
+- [Source code on GitHub](https://github.com/track-asia/trackasia-native/tree/main/platform/android)
+- [Latest releases](https://github.com/track-asia/trackasia-native/releases?q=android-v11&expanded=true)
+- [GitHub Discussions](https://github.com/track-asia/trackasia-native/discussions/categories/q-a?discussions_q=is%3Aopen+category%3AQ%26A+label%3Aandroid)
 - [TrackAsia on Slack](https://slack.openstreetmap.us). Join the `#trackasia-native` and `#trackasia-android` channels.

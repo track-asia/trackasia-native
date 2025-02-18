@@ -289,7 +289,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testConstFormatExpression() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -313,7 +313,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testConstFormatExpressionFontScaleParam() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -337,7 +337,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testConstFormatExpressionTextFontParam() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -368,7 +368,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testConstFormatExpressionTextColorParam() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -398,7 +398,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testConstFormatExpressionAllParams() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -433,7 +433,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testConstFormatExpressionMultipleInputs() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -471,7 +471,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testVariableFormatExpression() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -503,7 +503,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testVariableFormatExpressionMultipleInputs() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -536,7 +536,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testFormatExpressionPlainTextCoercion() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -558,7 +558,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testTextFieldFormattedArgument() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -585,7 +585,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testNumberFormatCurrencyExpression() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -611,7 +611,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testNumberFormatMaxExpression() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -637,7 +637,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testNumberFormatMinExpression() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -663,7 +663,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testNumberFormatLocaleExpression() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {
@@ -690,7 +690,7 @@ public class ExpressionTest extends EspressoTest {
   }
 
   @Test
-  @Ignore("https://github.com/trackasia/trackasia-native/issues/2437")
+  @Ignore("https://github.com/track-asia/trackasia-native/issues/2437")
   public void testNumberFormatNonConstantExpression() {
     validateTestSetup();
     invoke(trackasiaMap, (uiController, trackasiaMap) -> {

@@ -10,7 +10,7 @@ In this example will show how to add a [Fill Extrusion](https://trackasia.com/tr
   {{ openmaptiles_caption() }}
 </figure>
 
-We use the [OpenFreeMap Bright](https://openfreemap.org/quick_start/) style which, unlike OpenFreeMap Libery, does not have a fill extrusion layer by default. However, if you inspect this style with [Maputnik](https://trackasia.org/maputnik) you will find that the multipolygons in the  `building` layer (of the `openfreemap` source) each have `render_min_height` and `render_height` properties.
+We use the [OpenFreeMap Bright](https://openfreemap.org/quick_start/) style which, unlike OpenFreeMap Libery, does not have a fill extrusion layer by default. However, if you inspect this style with [Maputnik](https://track-asia.com/maputnik) you will find that the multipolygons in the  `building` layer (of the `openfreemap` source) each have `render_min_height` and `render_height` properties.
 
 ```kotlin title="Setting up the fill extrusion layer"
 --8<-- "TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/style/BuildingFillExtrusionActivity.kt:setupBuildings"

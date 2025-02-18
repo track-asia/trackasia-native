@@ -60,7 +60,7 @@ function formatMessageToMarkdownLink(message) {
   // Check if a match is found
   if (match) {
     const issueNumber = match[1];
-    const link = `https://github.com/trackasia/trackasia-native/pull/${issueNumber}`;
+    const link = `https://github.com/track-asia/trackasia-native/pull/${issueNumber}`;
     // Replace the issue number in the message with the Markdown link
     return message.replace(regex, `[#${issueNumber}](${link})`);
   }

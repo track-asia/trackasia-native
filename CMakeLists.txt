@@ -1555,7 +1555,7 @@ set_target_properties(
     mbgl-core
     PROPERTIES
         INTERFACE_TRACKASIA_NAME "TrackAsia Native"
-        INTERFACE_TRACKASIA_URL "https://github.com/trackasia/trackasia-native"
+        INTERFACE_TRACKASIA_URL "https://github.com/track-asia/trackasia-native"
         INTERFACE_TRACKASIA_AUTHOR "TrackAsia"
         INTERFACE_TRACKASIA_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE.md
 )

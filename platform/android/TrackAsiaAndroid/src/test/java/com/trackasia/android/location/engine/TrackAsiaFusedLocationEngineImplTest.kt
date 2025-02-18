@@ -153,7 +153,7 @@ class TrackAsiaFusedLocationEngineImplTest {
         )
     }
 
-// J2k: // TODO: see https://github.com/trackasia/trackasia-native/issues/1949
+// J2k: // TODO: see https://github.com/track-asia/trackasia-native/issues/1949
 /*
     // J2K: rewrite test to not use "@get", rename to "getLastLocationNull"
     @Test(expected = NullPointerException::class)

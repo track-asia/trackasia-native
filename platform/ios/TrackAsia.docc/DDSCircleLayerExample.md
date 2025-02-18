@@ -6,7 +6,7 @@ Add and style a vector tile source
 
 This example shows how a vector data source can be added and a style for it can be configured dynamically.
 
-The tiles are [tiles around Innsbruck, Austria](https://github.com/trackasia/demotiles/tree/gh-pages/tiles-omt) that use the OpenMapTiles schema. We are interested in the [POIs](https://openmaptiles.org/schema/#poi) that are in the `poi` layer, and filter this further with an `NSPredicate` to only show POIs with a `class` of shop. Each POI has a `rank` which is normally used to reduce label density. In this example, we use it to demonstrate how a numeric attribute can be used for styling with the [step](https://trackasia.com/trackasia-style-spec/expressions/#step) expression. POIs with a rank between 0 and 10 get a red color, between 10 and 20 green, etc.
+The tiles are [tiles around Innsbruck, Austria](https://github.com/track-asia/demotiles/tree/gh-pages/tiles-omt) that use the OpenMapTiles schema. We are interested in the [POIs](https://openmaptiles.org/schema/#poi) that are in the `poi` layer, and filter this further with an `NSPredicate` to only show POIs with a `class` of shop. Each POI has a `rank` which is normally used to reduce label density. In this example, we use it to demonstrate how a numeric attribute can be used for styling with the [step](https://trackasia.com/trackasia-style-spec/expressions/#step) expression. POIs with a rank between 0 and 10 get a red color, between 10 and 20 green, etc.
 
 <!-- include-example(DDSCircleLayerExample) -->
 

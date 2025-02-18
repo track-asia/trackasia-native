@@ -17,10 +17,10 @@ In Xcode, right click your project and select "Add Package Dependencies...":
 Paste the following URL and click Add Package:
 
 ```
-https://github.com/trackasia/trackasia-gl-native-distribution
+https://github.com/track-asia/trackasia-gl-native-distribution
 ```
 
-> Note: The [trackasia-gl-native-distributon](https://github.com/trackasia/trackasia-gl-native-distribution) repository only exists for distributing the iOS package of TrackAsia Native. To report issues and ask questions, use the [trackasia-native](https://github.com/trackasia/trackasia-native) repository.
+> Note: The [trackasia-gl-native-distributon](https://github.com/track-asia/trackasia-gl-native-distribution) repository only exists for distributing the iOS package of TrackAsia Native. To report issues and ask questions, use the [trackasia-native](https://github.com/track-asia/trackasia-native) repository.
 
 Verify you can import TrackAsia in your app:
 

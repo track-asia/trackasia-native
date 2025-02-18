@@ -10,7 +10,7 @@ By default, the map renders characters using glyphs downloaded from the server. 
 
 Each font name in the list must match a font that is present on the server; otherwise, the text will not load, even if one of the fonts is available. Each font name must be included in the `{fontstack}` portion of the JSON stylesheet’s [`glyphs`](https://trackasia.com/trackasia-style-spec/glyphs/) property.
 
-[Martin](https://trackasia.org/martin/sources-fonts.html) can serve fonts directly. You can also generate fonts with [font-maker](https://github.com/trackasia/font-maker).
+[Martin](https://track-asia.com/martin/sources-fonts.html) can serve fonts directly. You can also generate fonts with [font-maker](https://github.com/track-asia/font-maker).
 
 ## Client-side fonts
 

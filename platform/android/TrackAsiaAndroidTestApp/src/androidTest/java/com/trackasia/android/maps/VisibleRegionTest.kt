@@ -13,7 +13,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Ignore
 import org.junit.Test
 
-@Ignore("https://github.com/trackasia/trackasia-native/issues/2468")
+@Ignore("https://github.com/track-asia/trackasia-native/issues/2468")
 class VisibleRegionTest : BaseTest() {
     override fun getActivityClass(): Class<*> = PixelTestActivity::class.java
 

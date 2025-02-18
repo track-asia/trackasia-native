@@ -77,7 +77,7 @@ val locationComponentOptions =
 Here is the final results with different color configurations. For the complete content of this demo, please refer to the source code of the [Test App].
 
 <figure markdown="span">
-  ![result](https://github.com/trackasia/trackasia-native/assets/19887090/03dfc87b-111b-4dd0-b4a3-d89e30ed6b63)
+  ![result](https://github.com/track-asia/trackasia-native/assets/19887090/03dfc87b-111b-4dd0-b4a3-d89e30ed6b63)
   {{ openmaptiles_caption() }}
 </figure>
 
@@ -91,8 +91,8 @@ Here is the final results with different color configurations. For the complete 
 [PermissionManager]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.permissions/-permissions-manager/index.html
 [LocationComponentOptions]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component-options/index.html
 [demotiles]: https://maps.track-asia.com/styles/v1/streets.json?key=public_key
-[predefined styles]: https://github.com/trackasia/trackasia-native/tree/main/src/mbgl/util/tile_server_options.cpp
+[predefined styles]: https://github.com/track-asia/trackasia-native/tree/main/src/mbgl/util/tile_server_options.cpp
 [LocationComponentActivationOptions]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component-activation-options/index.html
 [LocationEngine]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.engine/-location-engine/index.html
-[Test APP]: https://github.com/trackasia/trackasia-native/tree/main/platform/android/TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt
+[Test APP]: https://github.com/track-asia/trackasia-native/tree/main/platform/android/TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt
 [camera modes]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.modes/-camera-mode/index.html

@@ -6,7 +6,7 @@ authors = ["TrackAsia contributors"]
 description = "Core Rust utilities for TrackAsia Native"
 edition = "2021"
 license = "BSD-2-Clause"
-repository = "https://github.com/trackasia/trackasia-native"
+repository = "https://github.com/track-asia/trackasia-native"
 rust-version = "1.78.0"
 
 [lib]

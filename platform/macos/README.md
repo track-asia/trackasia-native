@@ -1,6 +1,6 @@
 # TrackAsia Native for macOS
 
-[![GitHub Action build status](https://github.com/trackasia/trackasia-native/workflows/macos-ci/badge.svg)](https://github.com/trackasia/trackasia-native/actions/workflows/macos-ci.yml)
+[![GitHub Action build status](https://github.com/track-asia/trackasia-native/workflows/macos-ci/badge.svg)](https://github.com/track-asia/trackasia-native/actions/workflows/macos-ci.yml)
 
 Clone the repo:
 
@@ -8,7 +8,7 @@ Clone the repo:
 git clone --recurse-submodules git@github.com:trackasia/trackasia-native.git
 ```
 
-Install needed tooling and dependencies with Homebrew. See [macos-ci.yml](https://github.com/trackasia/trackasia-native/blob/main/.github/workflows/macos-ci.yml) for the most up-to-date dependencies.
+Install needed tooling and dependencies with Homebrew. See [macos-ci.yml](https://github.com/track-asia/trackasia-native/blob/main/.github/workflows/macos-ci.yml) for the most up-to-date dependencies.
 
 Optionally configure Bazel:
 
@@ -31,4 +31,4 @@ bazel run //platform/macos/app:macos_app --//:renderer=metal
 
 ---
 
-The TrackAsia Organization does not officially support the macOS to the same extent as iOS (see [project tiers](https://github.com/trackasia/trackasia/blob/main/PROJECT_TIERS.md)). However, bug reports and pull requests are certainly welcome.
+The TrackAsia Organization does not officially support the macOS to the same extent as iOS (see [project tiers](https://github.com/track-asia/trackasia/blob/main/PROJECT_TIERS.md)). However, bug reports and pull requests are certainly welcome.

@@ -72,7 +72,7 @@ The meaning of the keys is as follows.
 
 ## Large Scale Benchmarks on AWS Device Farm
 
-Sometimes we do a large scale benchmark across a variety of devices on AWS Device Farm. We ran one such test in [November 2024](https://github.com/trackasia/trackasia-native/issues/2787#issuecomment-2466948888) to compare the performance of the then new Vulkan rendering backend against the OpenGL ES backend. There are some scripts in the repo to kick off the tests and to collect and plot the results:
+Sometimes we do a large scale benchmark across a variety of devices on AWS Device Farm. We ran one such test in [November 2024](https://github.com/track-asia/trackasia-native/issues/2787#issuecomment-2466948888) to compare the performance of the then new Vulkan rendering backend against the OpenGL ES backend. There are some scripts in the repo to kick off the tests and to collect and plot the results:
 
 ```
 scripts/aws-device-farm/aws-device-farm-run.sh

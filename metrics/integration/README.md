@@ -1,4 +1,4 @@
-These integration tests verify the correctness and consistency of [TrackAsia Native](https://github.com/trackasia/trackasia-native) rendering.
+These integration tests verify the correctness and consistency of [TrackAsia Native](https://github.com/track-asia/trackasia-native) rendering.
 
 ## Organization
 

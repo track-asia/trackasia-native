@@ -4,182 +4,182 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 
 ## 6.11.0
 
-- Add NSString initializer MLNVectorTileSource ([#3163](https://github.com/trackasia/trackasia-native/pull/3163)).
-- Support defining a custom style layer from iOS Swift ([#3154](https://github.com/trackasia/trackasia-native/pull/3154)).
-- Add iOS trigger repaint method ([#3182](https://github.com/trackasia/trackasia-native/pull/3182)).
-- Bind global uniform buffers at the end of the custom layer tweaker ([#3186](https://github.com/trackasia/trackasia-native/pull/3186)).
-- Change runtime error to the nullptr returning ([#3184](https://github.com/trackasia/trackasia-native/pull/3184)).
+- Add NSString initializer MLNVectorTileSource ([#3163](https://github.com/track-asia/trackasia-native/pull/3163)).
+- Support defining a custom style layer from iOS Swift ([#3154](https://github.com/track-asia/trackasia-native/pull/3154)).
+- Add iOS trigger repaint method ([#3182](https://github.com/track-asia/trackasia-native/pull/3182)).
+- Bind global uniform buffers at the end of the custom layer tweaker ([#3186](https://github.com/track-asia/trackasia-native/pull/3186)).
+- Change runtime error to the nullptr returning ([#3184](https://github.com/track-asia/trackasia-native/pull/3184)).
 
 ## 6.10.0
 
-- Fix icon label isn't centered with the icon for CJK/local glyphy on iOS ([#3108](https://github.com/trackasia/trackasia-native/pull/3108)).
-- Add support for [PMTiles](https://docs.protomaps.com/pmtiles/) with `pmtiles://` URL scheme ([#2882](https://github.com/trackasia/trackasia-native/pull/2882)).
-- Consolidate UBOs ([#3089](https://github.com/trackasia/trackasia-native/pull/3089)).
-- Allow constraining camera to maximum bounds ([#2475](https://github.com/trackasia/trackasia-native/pull/2475)).
+- Fix icon label isn't centered with the icon for CJK/local glyphy on iOS ([#3108](https://github.com/track-asia/trackasia-native/pull/3108)).
+- Add support for [PMTiles](https://docs.protomaps.com/pmtiles/) with `pmtiles://` URL scheme ([#2882](https://github.com/track-asia/trackasia-native/pull/2882)).
+- Consolidate UBOs ([#3089](https://github.com/track-asia/trackasia-native/pull/3089)).
+- Allow constraining camera to maximum bounds ([#2475](https://github.com/track-asia/trackasia-native/pull/2475)).
 
 ## 6.9.0
 
-- Batch up scheduling of deferred deletions ([#3030](https://github.com/trackasia/trackasia-native/pull/3030)).
-- Remove `Pass3D`  ([#3077](https://github.com/trackasia/trackasia-native/pull/3077)).
-- Add bold support for CJK characters ([#3069](https://github.com/trackasia/trackasia-native/pull/3069)).
+- Batch up scheduling of deferred deletions ([#3030](https://github.com/track-asia/trackasia-native/pull/3030)).
+- Remove `Pass3D`  ([#3077](https://github.com/track-asia/trackasia-native/pull/3077)).
+- Add bold support for CJK characters ([#3069](https://github.com/track-asia/trackasia-native/pull/3069)).
 
 ## 6.8.1
 
-- Update Bazel dependencies ([#3000](https://github.com/trackasia/trackasia-native/pull/3000)).
-- Reuse allocated descriptor sets ([#3002](https://github.com/trackasia/trackasia-native/pull/3002)).
-- Line SDF shader fix ([#3010](https://github.com/trackasia/trackasia-native/pull/3010)).
-- Revert "Encode the style URL in iOS. This change was causing several regressions with styles not loading ([#3024](https://github.com/trackasia/trackasia-native/pull/3024)).
+- Update Bazel dependencies ([#3000](https://github.com/track-asia/trackasia-native/pull/3000)).
+- Reuse allocated descriptor sets ([#3002](https://github.com/track-asia/trackasia-native/pull/3002)).
+- Line SDF shader fix ([#3010](https://github.com/track-asia/trackasia-native/pull/3010)).
+- Revert "Encode the style URL in iOS. This change was causing several regressions with styles not loading ([#3024](https://github.com/track-asia/trackasia-native/pull/3024)).
 
 ## 6.8.0
 
 ### Features
 
-- Add support for `text-variable-anchor-offset` property ([#2921](https://github.com/trackasia/trackasia-native/pull/2921)).
-- Encode the style URL in iOS ([#2965](https://github.com/trackasia/trackasia-native/pull/2965)).
+- Add support for `text-variable-anchor-offset` property ([#2921](https://github.com/track-asia/trackasia-native/pull/2921)).
+- Encode the style URL in iOS ([#2965](https://github.com/track-asia/trackasia-native/pull/2965)).
 
 ### Rendering Improvements
 
-- Revert index buffers to dirty flag instead of timestamps ([#2927](https://github.com/trackasia/trackasia-native/pull/2927)).
-- Group descriptor sets by binding frequency ([#2892](https://github.com/trackasia/trackasia-native/pull/2892)).
-- Change `parameters.currentLayer` to index instead of layerIndex ([#2956](https://github.com/trackasia/trackasia-native/pull/2956)).
+- Revert index buffers to dirty flag instead of timestamps ([#2927](https://github.com/track-asia/trackasia-native/pull/2927)).
+- Group descriptor sets by binding frequency ([#2892](https://github.com/track-asia/trackasia-native/pull/2892)).
+- Change `parameters.currentLayer` to index instead of layerIndex ([#2956](https://github.com/track-asia/trackasia-native/pull/2956)).
 
 ## 6.7.1
 
-- Fix line atlas, which was causing an issue with `line-pattern`s ([#2908](https://github.com/trackasia/trackasia-native/pull/2908)).
+- Fix line atlas, which was causing an issue with `line-pattern`s ([#2908](https://github.com/track-asia/trackasia-native/pull/2908)).
 
 ## 6.7.0
 
-- Add array support for icon-padding ([#2845](https://github.com/trackasia/trackasia-native/pull/2845)).
+- Add array support for icon-padding ([#2845](https://github.com/track-asia/trackasia-native/pull/2845)).
   More information can be found in the [TrackAsia Style Spec Documentation](https://trackasia.com/trackasia-style-spec/types/#padding). This is the first (code) contribution from [@random3940](https://github.com/random3940)! 🎉
-- Fix updates hillshade geometry ([#2842](https://github.com/trackasia/trackasia-native/pull/2842)).
-- Use `thread_local` for thread local scheduler ([#2863](https://github.com/trackasia/trackasia-native/pull/2863)).
+- Fix updates hillshade geometry ([#2842](https://github.com/track-asia/trackasia-native/pull/2842)).
+- Use `thread_local` for thread local scheduler ([#2863](https://github.com/track-asia/trackasia-native/pull/2863)).
 
 ## 6.6.0
 
-- Add `textFitWidth` and `textFitHeight` properties to sprites ([#2780](https://github.com/trackasia/trackasia-native/pull/2780)).
+- Add `textFitWidth` and `textFitHeight` properties to sprites ([#2780](https://github.com/track-asia/trackasia-native/pull/2780)).
   More information can be found in the [TrackAsia Style Spec](https://trackasia.com/trackasia-style-spec/sprite/#text-fit-properties).
-- Toggle tile cache final API ([#2723](https://github.com/trackasia/trackasia-native/pull/2723)).
+- Toggle tile cache final API ([#2723](https://github.com/track-asia/trackasia-native/pull/2723)).
   Using this API can reduce memory usage at the cost of having to parse tile data again when the zoom level changes.
-- Fixed annotation delay in demo app for 120Hz devices ([#2775](https://github.com/trackasia/trackasia-native/pull/2775)).
+- Fixed annotation delay in demo app for 120Hz devices ([#2775](https://github.com/track-asia/trackasia-native/pull/2775)).
   Some users reported synchronization issues when panning the map. The issue is only present on devices with ProMotion (120Hz) displays and can be fixed by updating the Info.plist for your app (see [Apple documentation](https://developer.apple.com/documentation/quartzcore/optimizing_promotion_refresh_rates_for_iphone_13_pro_and_ipad_pro?language=objc)).
-- Use timestamps for attribute updates ([#2629](https://github.com/trackasia/trackasia-native/pull/2629)).
-- Reuse prefetched tiles to avoid empty screen ([#2668](https://github.com/trackasia/trackasia-native/pull/2668)).
-- Cleanup mbgl/actor/mailbox* implementation for repetition in ensuring valid weakScheduler exists before usage ([#2733](https://github.com/trackasia/trackasia-native/pull/2733)).
-- Fix raster masking bug ([#2798](https://github.com/trackasia/trackasia-native/pull/2798)).
-- Ensure that all depth values are rendered before any color values ([#2811](https://github.com/trackasia/trackasia-native/pull/2811)).
-- Move UBO updates from render layers to tweakers ([#2703](https://github.com/trackasia/trackasia-native/pull/2703)).
-- Fix update time not being set when only drawable indexes are set ([#2743](https://github.com/trackasia/trackasia-native/pull/2743)).
-- Add guard blocks and checks to `SymbolInstance` ([#2744](https://github.com/trackasia/trackasia-native/pull/2744)).
-- Fix accidental regression conditional layer evaluation ([#2705](https://github.com/trackasia/trackasia-native/pull/2705)).
-- Use C++20 ([#2659](https://github.com/trackasia/trackasia-native/pull/2659)).
+- Use timestamps for attribute updates ([#2629](https://github.com/track-asia/trackasia-native/pull/2629)).
+- Reuse prefetched tiles to avoid empty screen ([#2668](https://github.com/track-asia/trackasia-native/pull/2668)).
+- Cleanup mbgl/actor/mailbox* implementation for repetition in ensuring valid weakScheduler exists before usage ([#2733](https://github.com/track-asia/trackasia-native/pull/2733)).
+- Fix raster masking bug ([#2798](https://github.com/track-asia/trackasia-native/pull/2798)).
+- Ensure that all depth values are rendered before any color values ([#2811](https://github.com/track-asia/trackasia-native/pull/2811)).
+- Move UBO updates from render layers to tweakers ([#2703](https://github.com/track-asia/trackasia-native/pull/2703)).
+- Fix update time not being set when only drawable indexes are set ([#2743](https://github.com/track-asia/trackasia-native/pull/2743)).
+- Add guard blocks and checks to `SymbolInstance` ([#2744](https://github.com/track-asia/trackasia-native/pull/2744)).
+- Fix accidental regression conditional layer evaluation ([#2705](https://github.com/track-asia/trackasia-native/pull/2705)).
+- Use C++20 ([#2659](https://github.com/track-asia/trackasia-native/pull/2659)).
 
 ## 6.5.4
 
-- Fix crash when feature contains invalid UTF-8 data ([#2693](https://github.com/trackasia/trackasia-native/pull/2693)).
-- Bazel updates ([#2696](https://github.com/trackasia/trackasia-native/pull/2696)).
+- Fix crash when feature contains invalid UTF-8 data ([#2693](https://github.com/track-asia/trackasia-native/pull/2693)).
+- Bazel updates ([#2696](https://github.com/track-asia/trackasia-native/pull/2696)).
 
 ## 6.5.3
 
-- Disabled iOS 14 metal options ([#2620](https://github.com/trackasia/trackasia-native/pull/2620)).
-- Don't unbind texture units in release builds ([#2630](https://github.com/trackasia/trackasia-native/pull/2630)).
-- Avoid re-creating fill extrusion drawables unnecessarily ([#2624](https://github.com/trackasia/trackasia-native/pull/2624)).
-- Take locks before signaling thread condition variables ([#2636](https://github.com/trackasia/trackasia-native/pull/2636)).
+- Disabled iOS 14 metal options ([#2620](https://github.com/track-asia/trackasia-native/pull/2620)).
+- Don't unbind texture units in release builds ([#2630](https://github.com/track-asia/trackasia-native/pull/2630)).
+- Avoid re-creating fill extrusion drawables unnecessarily ([#2624](https://github.com/track-asia/trackasia-native/pull/2624)).
+- Take locks before signaling thread condition variables ([#2636](https://github.com/track-asia/trackasia-native/pull/2636)).
 
 ## 6.5.2
 
-- Fix Cocoapods release ([#2599](https://github.com/trackasia/trackasia-native/pull/2599)).
-- Experimental API to toggle tile cache in map view ([#2590](https://github.com/trackasia/trackasia-native/pull/2590)). This can reduce memory usage at the cost of having to parse tile data again when the zoom level changes.
-- Allow changing color of scalebar on iOS ([#2614](https://github.com/trackasia/trackasia-native/pull/2614)).
-- Fix version in action sheet ([#2602](https://github.com/trackasia/trackasia-native/pull/2602)).
-- Fixed attribution link in action sheets ([#2587](https://github.com/trackasia/trackasia-native/pull/2587)).
-- Internal: Add TaggedScheduler, couple lifetime of tasks and orchestrator ([#2398](https://github.com/trackasia/trackasia-native/pull/2398)).
+- Fix Cocoapods release ([#2599](https://github.com/track-asia/trackasia-native/pull/2599)).
+- Experimental API to toggle tile cache in map view ([#2590](https://github.com/track-asia/trackasia-native/pull/2590)). This can reduce memory usage at the cost of having to parse tile data again when the zoom level changes.
+- Allow changing color of scalebar on iOS ([#2614](https://github.com/track-asia/trackasia-native/pull/2614)).
+- Fix version in action sheet ([#2602](https://github.com/track-asia/trackasia-native/pull/2602)).
+- Fixed attribution link in action sheets ([#2587](https://github.com/track-asia/trackasia-native/pull/2587)).
+- Internal: Add TaggedScheduler, couple lifetime of tasks and orchestrator ([#2398](https://github.com/track-asia/trackasia-native/pull/2398)).
 
 ## 6.5.1
 
-- Enable LTO ([#2504](https://github.com/trackasia/trackasia-native/pull/2504)).
-- Enable vertex instance drawing on simulator ([#2518](https://github.com/trackasia/trackasia-native/pull/2518)).
-- Change default `MLNMapSnapshotter` logo to the TrackAsia logo ([#2541](https://github.com/trackasia/trackasia-native/pull/2541)). Note that showing the TrackAsia logo is never required. You can configure whether to show the logo with the (now public) `showsLogo` property of `MLNMapSnapshotterOptions`. Check with your tile provider if you need to show a logo.
-- Add [Privacy Manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files). TrackAsia Native iOS has no built-in tracking, but it does use some system APIs for functional purposes that are marked by Apple as privacy sensitive ([#2480](https://github.com/trackasia/trackasia-native/pull/2480)).
-- Fixed attribution link in action sheets ([#2587](https://github.com/trackasia/trackasia-native/pull/2587)).
-- Update included third-party licenses ([#2491](https://github.com/trackasia/trackasia-native/pull/2491)).
+- Enable LTO ([#2504](https://github.com/track-asia/trackasia-native/pull/2504)).
+- Enable vertex instance drawing on simulator ([#2518](https://github.com/track-asia/trackasia-native/pull/2518)).
+- Change default `MLNMapSnapshotter` logo to the TrackAsia logo ([#2541](https://github.com/track-asia/trackasia-native/pull/2541)). Note that showing the TrackAsia logo is never required. You can configure whether to show the logo with the (now public) `showsLogo` property of `MLNMapSnapshotterOptions`. Check with your tile provider if you need to show a logo.
+- Add [Privacy Manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files). TrackAsia Native iOS has no built-in tracking, but it does use some system APIs for functional purposes that are marked by Apple as privacy sensitive ([#2480](https://github.com/track-asia/trackasia-native/pull/2480)).
+- Fixed attribution link in action sheets ([#2587](https://github.com/track-asia/trackasia-native/pull/2587)).
+- Update included third-party licenses ([#2491](https://github.com/track-asia/trackasia-native/pull/2491)).
 
 ## 6.5.0
 
-- Allow uses to handle authorization for location services ([#2453](https://github.com/trackasia/trackasia-native/pull/2453)). See [`MLNMapview.shouldRequestAuthorizationToUseLocationServices`](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia/mlnmapview/shouldrequestauthorizationtouselocationservices).
-- Fixed memory usage high in some cases ([#2442](https://github.com/trackasia/trackasia-native/pull/2442)).
-- Avoid processing raster tiles after destruction mailbox ([#2443](https://github.com/trackasia/trackasia-native/pull/2443)).
-- Annotation view recycling re-enabled ([#2454](https://github.com/trackasia/trackasia-native/pull/2454)). Fixes some issues with Annotations.
-- Increase the deferred cleanup timeout ([#2455](https://github.com/trackasia/trackasia-native/pull/2455)). Workaround for rare crash.
-- Fixes crash that happened with some PBF files ([#795](https://github.com/trackasia/trackasia-native/issues/795), [#2460](https://github.com/trackasia/trackasia-native/pull/2460)).
-- Allow using TrackAsia Native on iPad Air 2. Note: tests your styles! iPad Air 2 has one of the oldest GPUs that support Metal ([#2470](https://github.com/trackasia/trackasia-native/pull/2470)).
+- Allow uses to handle authorization for location services ([#2453](https://github.com/track-asia/trackasia-native/pull/2453)). See [`MLNMapview.shouldRequestAuthorizationToUseLocationServices`](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia/mlnmapview/shouldrequestauthorizationtouselocationservices).
+- Fixed memory usage high in some cases ([#2442](https://github.com/track-asia/trackasia-native/pull/2442)).
+- Avoid processing raster tiles after destruction mailbox ([#2443](https://github.com/track-asia/trackasia-native/pull/2443)).
+- Annotation view recycling re-enabled ([#2454](https://github.com/track-asia/trackasia-native/pull/2454)). Fixes some issues with Annotations.
+- Increase the deferred cleanup timeout ([#2455](https://github.com/track-asia/trackasia-native/pull/2455)). Workaround for rare crash.
+- Fixes crash that happened with some PBF files ([#795](https://github.com/track-asia/trackasia-native/issues/795), [#2460](https://github.com/track-asia/trackasia-native/pull/2460)).
+- Allow using TrackAsia Native on iPad Air 2. Note: tests your styles! iPad Air 2 has one of the oldest GPUs that support Metal ([#2470](https://github.com/track-asia/trackasia-native/pull/2470)).
 
 ## 6.4.2
 
-- Fix Metal frame glitch on older devices ([#2379](https://github.com/trackasia/trackasia-native/pull/2379)).
-- Fix style switching delay fix when annotations are visible ([#2395](https://github.com/trackasia/trackasia-native/pull/2395)).
+- Fix Metal frame glitch on older devices ([#2379](https://github.com/track-asia/trackasia-native/pull/2379)).
+- Fix style switching delay fix when annotations are visible ([#2395](https://github.com/track-asia/trackasia-native/pull/2395)).
 - Small performance and memory usage optimizations.
 
 ## 6.4.1
 
-- Update user agent from Mapbox to TrackAsiaNative ([#2367](https://github.com/trackasia/trackasia-native/pull/2367)).
-- Synchronous rendering on Metal when annotation views are visible ([#2334](https://github.com/trackasia/trackasia-native/pull/2334)).
+- Update user agent from Mapbox to TrackAsiaNative ([#2367](https://github.com/track-asia/trackasia-native/pull/2367)).
+- Synchronous rendering on Metal when annotation views are visible ([#2334](https://github.com/track-asia/trackasia-native/pull/2334)).
 - Various performance optimizations.
 
 ## 6.4.0
 
-- User-Agent in network requests can now be changed via `MLNNativeNetworkManager.sharedManager.sessionConfiguration` ([#2293](https://github.com/trackasia/trackasia-native/pull/2293)).
+- User-Agent in network requests can now be changed via `MLNNativeNetworkManager.sharedManager.sessionConfiguration` ([#2293](https://github.com/track-asia/trackasia-native/pull/2293)).
 
 ## 6.3.3
 
-- Fix memory leak in Metal shader compilation ([#2257](https://github.com/trackasia/trackasia-native/pull/2257)).
-- Improved iOS UI tests ([#2258](https://github.com/trackasia/trackasia-native/pull/2258))
-- Add wide vector shader option to Custom Drawable Layer ([#2183](https://github.com/trackasia/trackasia-native/pull/2183))
-- Guard against potential crash when the Metal drawable is now unavailable ([#2272](https://github.com/trackasia/trackasia-native/pull/2272))
-- Eliminate spurious log output when using triangulated fill outlines ([#2279](https://github.com/trackasia/trackasia-native/pull/2279))
-- Fix projection matrix for raster image drawables ([#2242](https://github.com/trackasia/trackasia-native/pull/2242))
+- Fix memory leak in Metal shader compilation ([#2257](https://github.com/track-asia/trackasia-native/pull/2257)).
+- Improved iOS UI tests ([#2258](https://github.com/track-asia/trackasia-native/pull/2258))
+- Add wide vector shader option to Custom Drawable Layer ([#2183](https://github.com/track-asia/trackasia-native/pull/2183))
+- Guard against potential crash when the Metal drawable is now unavailable ([#2272](https://github.com/track-asia/trackasia-native/pull/2272))
+- Eliminate spurious log output when using triangulated fill outlines ([#2279](https://github.com/track-asia/trackasia-native/pull/2279))
+- Fix projection matrix for raster image drawables ([#2242](https://github.com/track-asia/trackasia-native/pull/2242))
 
 ## 6.3.2
 
-- Fix potential memory leak ([#2254](https://github.com/trackasia/trackasia-native/pull/2254)).
+- Fix potential memory leak ([#2254](https://github.com/track-asia/trackasia-native/pull/2254)).
 
 ## 6.3.1
 
-- Add debug symbols to releases (see [Releases on GitHub](https://github.com/trackasia/trackasia-native/releases?q=ios&expanded=true)).
+- Add debug symbols to releases (see [Releases on GitHub](https://github.com/track-asia/trackasia-native/releases?q=ios&expanded=true)).
 
 ## 6.3.0
 
-- Temporary workaround for map display freeze / stutter when using annotation views with Metal backend. [Issue 2117](https://github.com/trackasia/trackasia-native/issues/2117) fixed by [PR 2148](https://github.com/trackasia/trackasia-native/pull/2148).
-- Make setURL method on MLNImageSource public ([#2197](https://github.com/trackasia/trackasia-native/pull/2197)).
-- Make setCoordinates method on MLNImageSource public ([#2198](https://github.com/trackasia/trackasia-native/pull/2198)).
+- Temporary workaround for map display freeze / stutter when using annotation views with Metal backend. [Issue 2117](https://github.com/track-asia/trackasia-native/issues/2117) fixed by [PR 2148](https://github.com/track-asia/trackasia-native/pull/2148).
+- Make setURL method on MLNImageSource public ([#2197](https://github.com/track-asia/trackasia-native/pull/2197)).
+- Make setCoordinates method on MLNImageSource public ([#2198](https://github.com/track-asia/trackasia-native/pull/2198)).
 
 ## 6.2.0
 
-- Add support for [multi sprites](https://github.com/trackasia/trackasia-native/pull/1858). More information on this feature can be found in the [Style Spec Documentation](https://trackasia.com/trackasia-style-spec/sprite/#multiple-sprite-sources).
-- Fix for C++ header in public Objective-C header ([#2156](https://github.com/trackasia/trackasia-native/pull/q 56)).
+- Add support for [multi sprites](https://github.com/track-asia/trackasia-native/pull/1858). More information on this feature can be found in the [Style Spec Documentation](https://trackasia.com/trackasia-style-spec/sprite/#multiple-sprite-sources).
+- Fix for C++ header in public Objective-C header ([#2156](https://github.com/track-asia/trackasia-native/pull/q 56)).
 
 ## 6.1.1
 
-- Tighten camera equality requirements ([#2139](https://github.com/trackasia/trackasia-native/pull/2139)).
+- Tighten camera equality requirements ([#2139](https://github.com/track-asia/trackasia-native/pull/2139)).
 
 ## 6.1.0
 
-- Addition of an MLNCustomStyleLayer that allows running custom Metal shaders and code. Example included in the PR. ([#2006](https://github.com/trackasia/trackasia-native/pull/2006))
+- Addition of an MLNCustomStyleLayer that allows running custom Metal shaders and code. Example included in the PR. ([#2006](https://github.com/track-asia/trackasia-native/pull/2006))
 - Various performance optimizations.
-  - Avoid redundant bindings/states based on Metal profiler feedback. ([#2006](https://github.com/trackasia/trackasia-native/pull/2006))
-  - Eliminate the remaining examples of tweakers being re-created on each update, which reduced reuse of uniform buffers. ([#2050](https://github.com/trackasia/trackasia-native/pull/2050))
-  - Eliminate an extra vector allocation for many attributes ([#2049](https://github.com/trackasia/trackasia-native/pull/2049))
-  - Don't save an extra copy of properties-as-uniforms set with symbol data, or re-build it when updating properties on existing drawables. ([#2054](https://github.com/trackasia/trackasia-native/pull/2054))
-  - Combine multiple segments into a drawable when `sortFeaturesByKey` is not used ([#2060](https://github.com/trackasia/trackasia-native/pull/2060))
-  - UBO by index instead of map ([#1980](https://github.com/trackasia/trackasia-native/pull/1980))
-  - Use `enableDepth` option ([#2073](https://github.com/trackasia/trackasia-native/pull/2073))
-  - Minor optimizations ([#2091](https://github.com/trackasia/trackasia-native/pull/2091))
+  - Avoid redundant bindings/states based on Metal profiler feedback. ([#2006](https://github.com/track-asia/trackasia-native/pull/2006))
+  - Eliminate the remaining examples of tweakers being re-created on each update, which reduced reuse of uniform buffers. ([#2050](https://github.com/track-asia/trackasia-native/pull/2050))
+  - Eliminate an extra vector allocation for many attributes ([#2049](https://github.com/track-asia/trackasia-native/pull/2049))
+  - Don't save an extra copy of properties-as-uniforms set with symbol data, or re-build it when updating properties on existing drawables. ([#2054](https://github.com/track-asia/trackasia-native/pull/2054))
+  - Combine multiple segments into a drawable when `sortFeaturesByKey` is not used ([#2060](https://github.com/track-asia/trackasia-native/pull/2060))
+  - UBO by index instead of map ([#1980](https://github.com/track-asia/trackasia-native/pull/1980))
+  - Use `enableDepth` option ([#2073](https://github.com/track-asia/trackasia-native/pull/2073))
+  - Minor optimizations ([#2091](https://github.com/track-asia/trackasia-native/pull/2091))
 
 ## 6.0.0
 
 * This is the first release that uses **Metal** for rendering. This is a graphics API from Apple that replaces OpenGL ES on Apple platforms.
-  * Note that the [snapshotter](https://github.com/trackasia/trackasia-native/issues/1862) has not been implemented yet for the Metal renderer. Hold off updating if your application requires this functionality.
+  * Note that the [snapshotter](https://github.com/track-asia/trackasia-native/issues/1862) has not been implemented yet for the Metal renderer. Hold off updating if your application requires this functionality.
   * While we had a long period of pre-releases and testing leading up to this release, and no crashes have been reported, it is possible that you come across inconsistencies or problems in production apps. Please report them on GitHub.
-* 💥 Breaking: Changed the prefix of files, classes, methods, variables and everything from `MGL` to `MLN`. ([#919](https://github.com/trackasia/trackasia-native/pull/919)).
+* 💥 Breaking: Changed the prefix of files, classes, methods, variables and everything from `MGL` to `MLN`. ([#919](https://github.com/track-asia/trackasia-native/pull/919)).
 
   > To migrate:
   > Change all your `MGL` prefixes to `MLN`. If you are using `NSKeyedArchiver` or similar mechanishm to save the state, the app may crash after this change when trying to unarchive the state using old names of the classes. You need to clean the saved state of the app and save it using new classes.
@@ -188,55 +188,55 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 
 ## 5.13.0 - January 05, 2023
 
-* Fix missing attribution [#236](https://github.com/trackasia/trackasia-native/pull/236)
-* Fix logging format strings [#266](https://github.com/trackasia/trackasia-native/pull/266)
-* Implement map projection functionality [#254](https://github.com/trackasia/trackasia-native/pull/254)
-* Fix warnings, mainly casting to smaller types [#270](https://github.com/trackasia/trackasia-native/pull/270)
+* Fix missing attribution [#236](https://github.com/track-asia/trackasia-native/pull/236)
+* Fix logging format strings [#266](https://github.com/track-asia/trackasia-native/pull/266)
+* Implement map projection functionality [#254](https://github.com/track-asia/trackasia-native/pull/254)
+* Fix warnings, mainly casting to smaller types [#270](https://github.com/track-asia/trackasia-native/pull/270)
 * Remove an unused static library (savings of 97 KB from iOS binary)
-* Add ClientOptions to be able to pass around client name and version [#365](https://github.com/trackasia/trackasia-native/pull/365)
-* Remove account from xcconfig [#382](https://github.com/trackasia/trackasia-native/pull/382)
-* Remove observation of key-path [#380](https://github.com/trackasia/trackasia-native/pull/380)
-* Fix for "NSExpression function is forbidden" [#411](https://github.com/trackasia/trackasia-native/pull/411)
-* Xcode 14 compatibility [#494](https://github.com/trackasia/trackasia-native/pull/494) [#599](https://github.com/trackasia/trackasia-native/pull/599)
+* Add ClientOptions to be able to pass around client name and version [#365](https://github.com/track-asia/trackasia-native/pull/365)
+* Remove account from xcconfig [#382](https://github.com/track-asia/trackasia-native/pull/382)
+* Remove observation of key-path [#380](https://github.com/track-asia/trackasia-native/pull/380)
+* Fix for "NSExpression function is forbidden" [#411](https://github.com/track-asia/trackasia-native/pull/411)
+* Xcode 14 compatibility [#494](https://github.com/track-asia/trackasia-native/pull/494) [#599](https://github.com/track-asia/trackasia-native/pull/599)
 
 ## 5.12.2 - December 02, 2021
 
 ### Improvements
 
-* Exposes the windowBit value from zlib in the compress/decompress helper utils [#147](https://github.com/trackasia/trackasia-native/pull/147)
-* Fix camera paddings reset on map view gestures performing [#188](https://github.com/trackasia/trackasia-native/pull/188)
+* Exposes the windowBit value from zlib in the compress/decompress helper utils [#147](https://github.com/track-asia/trackasia-native/pull/147)
+* Fix camera paddings reset on map view gestures performing [#188](https://github.com/track-asia/trackasia-native/pull/188)
 
 ## 5.12.1 - September 06, 2021
 
 ### Bug Fixes
 
-* ScaleBar enhancements [#120](https://github.com/trackasia/trackasia-native/pull/120), [#121](https://github.com/trackasia/trackasia-native/pull/121)
-* Invalid tile url template for TrackAsia style [#107](https://github.com/trackasia/trackasia-native/pull/107)
-* Address crash when localFontFamilyName is nil [#109](https://github.com/trackasia/trackasia-native/pull/109)
-* Fix for annotations stuttering and drifting when panning [#113](https://github.com/trackasia/trackasia-native/pull/113)
-* Adjust local glyphs [#122](https://github.com/trackasia/trackasia-native/pull/122)
-* Return correct Mapbox TileServerOptions [#132](https://github.com/trackasia/trackasia-native/pull/132)
+* ScaleBar enhancements [#120](https://github.com/track-asia/trackasia-native/pull/120), [#121](https://github.com/track-asia/trackasia-native/pull/121)
+* Invalid tile url template for TrackAsia style [#107](https://github.com/track-asia/trackasia-native/pull/107)
+* Address crash when localFontFamilyName is nil [#109](https://github.com/track-asia/trackasia-native/pull/109)
+* Fix for annotations stuttering and drifting when panning [#113](https://github.com/track-asia/trackasia-native/pull/113)
+* Adjust local glyphs [#122](https://github.com/track-asia/trackasia-native/pull/122)
+* Return correct Mapbox TileServerOptions [#132](https://github.com/track-asia/trackasia-native/pull/132)
 
 ### Other
 
-* Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/trackasia/trackasia-native/pull/129)
-* Upgrade to newest protozero [#148](https://github.com/trackasia/trackasia-native/pull/148)
-* Fix build for Xcode 12.5 & 13-beta. [#153](https://github.com/trackasia/trackasia-native/pull/153)
+* Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/track-asia/trackasia-native/pull/129)
+* Upgrade to newest protozero [#148](https://github.com/track-asia/trackasia-native/pull/148)
+* Fix build for Xcode 12.5 & 13-beta. [#153](https://github.com/track-asia/trackasia-native/pull/153)
 
 ## 5.12.0 - June 29, 2021
 
 ### Features
 
-* Added allowScrollGesturesDuringRotateOrZoom [#60](https://github.com/trackasia/trackasia-native/pull/62)
-* Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/trackasia/trackasia-native/pull/90)
+* Added allowScrollGesturesDuringRotateOrZoom [#60](https://github.com/track-asia/trackasia-native/pull/62)
+* Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/track-asia/trackasia-native/pull/90)
 
 ### Bug Fixes
 
-* Fix map stuttering by switching render call to use setNeedsDisplay [#60](https://github.com/trackasia/trackasia-native/pull/60)
-* Dispatch to main queue, rather than global [#64](https://github.com/trackasia/trackasia-native/pull/64)
-* Use DisplayLink to prevent crashes in willResignActive [#68](https://github.com/trackasia/trackasia-native/pull/68)
-* Ignore sizing and positioning for hidden elements in assertions [#80](https://github.com/trackasia/trackasia-native/pull/80)
-* Disable map snapshots by default [#83](https://github.com/trackasia/trackasia-native/pull/83)
+* Fix map stuttering by switching render call to use setNeedsDisplay [#60](https://github.com/track-asia/trackasia-native/pull/60)
+* Dispatch to main queue, rather than global [#64](https://github.com/track-asia/trackasia-native/pull/64)
+* Use DisplayLink to prevent crashes in willResignActive [#68](https://github.com/track-asia/trackasia-native/pull/68)
+* Ignore sizing and positioning for hidden elements in assertions [#80](https://github.com/track-asia/trackasia-native/pull/80)
+* Disable map snapshots by default [#83](https://github.com/track-asia/trackasia-native/pull/83)
 
 ## 5.11.0 - March 12, 2021
 
@@ -253,14 +253,14 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 ### Bug Fixes
 
 * Fixed an issue that caused a crash when custom location managers did not implement `MLNLocationManager.accuracyAuthorization`. (cherry pick from [#474](https://github.com/mapbox/mapbox-gl-native-ios/pull/474))
-* Fixed an issue where symbols flickered when zooming out. [#16](https://github.com/trackasia/trackasia-native/issues/16)
+* Fixed an issue where symbols flickered when zooming out. [#16](https://github.com/track-asia/trackasia-native/issues/16)
 * Benchmark app updated and fixes to the latest xcode version
-* iOS performance improvements [#44](https://github.com/trackasia/trackasia-native/pull/44)
+* iOS performance improvements [#44](https://github.com/track-asia/trackasia-native/pull/44)
 
 ### Other
 
 * mapbox-gl-js submodule has been replaced with trackasia-gl-js
-* Removed Mapbox Mobile Events and Telemetry [#7](https://github.com/trackasia/trackasia-native/pull/7)
+* Removed Mapbox Mobile Events and Telemetry [#7](https://github.com/track-asia/trackasia-native/pull/7)
 
 ## 5.10.0 - January 6, 2021
 

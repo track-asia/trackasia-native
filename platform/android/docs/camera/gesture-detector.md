@@ -1,6 +1,6 @@
 # Gesture Detector
 
-The gesture detector of TrackAsia Android is encapsulated in the [`trackasia-gestures-android`](https://github.com/trackasia/trackasia-gestures-android) package.
+The gesture detector of TrackAsia Android is encapsulated in the [`trackasia-gestures-android`](https://github.com/track-asia/trackasia-gestures-android) package.
 
 #### Gesture Listeners
 

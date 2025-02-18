@@ -22,7 +22,7 @@ import java.util.concurrent.TimeoutException
 /**
  * Integration test that validates if a snapshotter creation
  */
-@Ignore("https://github.com/trackasia/trackasia-native/issues/2317")
+@Ignore("https://github.com/track-asia/trackasia-native/issues/2317")
 @RunWith(AndroidJUnit4ClassRunner::class)
 class MapSnapshotterTest {
     @Rule

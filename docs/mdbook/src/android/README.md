@@ -30,7 +30,7 @@ With the first Gradle invocation, Gradle will take the value of the `MLN_API_KEY
 Run the configuration for the `TrackAsiaAndroidTestApp` module and select a device or emulator to deploy on.
 
 <p align="left">
-  <img src="https://github.com/trackasia/trackasia-native/assets/649392/5494925e-8cbb-4d5d-8033-8a2f141ede3c" alt="Android TestApp menu" width="15%">   <img src="https://github.com/trackasia/trackasia-native/assets/649392/f169db51-615d-4fca-b297-ac6197bec674" alt="Android TestApp showing Demotiles" width="15%">
+  <img src="https://github.com/track-asia/trackasia-native/assets/649392/5494925e-8cbb-4d5d-8033-8a2f141ede3c" alt="Android TestApp menu" width="15%">   <img src="https://github.com/track-asia/trackasia-native/assets/649392/f169db51-615d-4fca-b297-ac6197bec674" alt="Android TestApp showing Demotiles" width="15%">
 </p>
 
 ## Kotlin

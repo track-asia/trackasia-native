@@ -9,48 +9,48 @@
 ## 11.8.1
 
 > [!NOTE]
-> We are now releasing OpenGL ES and Vulkan variants of TrackAsia Android. See the [11.7.0 release notes](https://github.com/trackasia/trackasia-native/releases/tag/android-v11.7.0) for details.
+> We are now releasing OpenGL ES and Vulkan variants of TrackAsia Android. See the [11.7.0 release notes](https://github.com/track-asia/trackasia-native/releases/tag/android-v11.7.0) for details.
 
 ### ✨ Features and improvements
 
-- Bind global uniform buffers at the end of the custom layer tweaker ([#3186](https://github.com/trackasia/trackasia-native/pull/3186)).
+- Bind global uniform buffers at the end of the custom layer tweaker ([#3186](https://github.com/track-asia/trackasia-native/pull/3186)).
 
 ### 🐞 Bug fixes
 
-- (Vulkan) Fix TextureMode crash ([#3144](https://github.com/trackasia/trackasia-native/pull/3144)).
-- (Vulkan) Use timestamps for image descriptor updates ([#3152](https://github.com/trackasia/trackasia-native/pull/3152)).
-- Change runtime error to the nullptr returning ([#3184](https://github.com/trackasia/trackasia-native/pull/3184)).
+- (Vulkan) Fix TextureMode crash ([#3144](https://github.com/track-asia/trackasia-native/pull/3144)).
+- (Vulkan) Use timestamps for image descriptor updates ([#3152](https://github.com/track-asia/trackasia-native/pull/3152)).
+- Change runtime error to the nullptr returning ([#3184](https://github.com/track-asia/trackasia-native/pull/3184)).
 
 ## 11.8.0
 
 > [!NOTE]
-> We are now releasing OpenGL ES and Vulkan variants of TrackAsia Android. See the [11.7.0 release notes](https://github.com/trackasia/trackasia-native/releases/tag/android-v11.7.0) for details.
+> We are now releasing OpenGL ES and Vulkan variants of TrackAsia Android. See the [11.7.0 release notes](https://github.com/track-asia/trackasia-native/releases/tag/android-v11.7.0) for details.
 
 ### ✨ Features and improvements
 
-- Add PMTiles support ([#2882](https://github.com/trackasia/trackasia-native/pull/2882)).
-- Consolidate UBOs ([#3089](https://github.com/trackasia/trackasia-native/pull/3089)).
+- Add PMTiles support ([#2882](https://github.com/track-asia/trackasia-native/pull/2882)).
+- Consolidate UBOs ([#3089](https://github.com/track-asia/trackasia-native/pull/3089)).
 
 ### 🐞 Bug fixes
 
-- (Vulkan) Fix in-flight frame update Vulkan ([#3122](https://github.com/trackasia/trackasia-native/pull/3122)). Fixes jittery labels and some similar issues.
+- (Vulkan) Fix in-flight frame update Vulkan ([#3122](https://github.com/track-asia/trackasia-native/pull/3122)). Fixes jittery labels and some similar issues.
 
-We have a new feature in the C++ Core to constrain the screen (instead of the center of the camera) to some bounds ([#2475](https://github.com/trackasia/trackasia-native/pull/2475)). This functionality still has to be exposed to Android. If you are interested in implementing this, see [this issue](https://github.com/trackasia/trackasia-native/issues/3128).
+We have a new feature in the C++ Core to constrain the screen (instead of the center of the camera) to some bounds ([#2475](https://github.com/track-asia/trackasia-native/pull/2475)). This functionality still has to be exposed to Android. If you are interested in implementing this, see [this issue](https://github.com/track-asia/trackasia-native/issues/3128).
 
 ## 11.7.1
 
 > [!NOTE]
-> We are now releasing OpenGL ES and Vulkan variants of TrackAsia Android. See the [11.7.0 release notes](https://github.com/trackasia/trackasia-native/releases/tag/android-v11.7.0) for details.
+> We are now releasing OpenGL ES and Vulkan variants of TrackAsia Android. See the [11.7.0 release notes](https://github.com/track-asia/trackasia-native/releases/tag/android-v11.7.0) for details.
 
 ### ✨ Features and improvements
 
-- Batch up scheduling of deferred deletions ([#3030](https://github.com/trackasia/trackasia-native/pull/3030)).
-- Specify Vulkan version needed in AndroidManifest.xml ([#3095](https://github.com/trackasia/trackasia-native/pull/3095)).
+- Batch up scheduling of deferred deletions ([#3030](https://github.com/track-asia/trackasia-native/pull/3030)).
+- Specify Vulkan version needed in AndroidManifest.xml ([#3095](https://github.com/track-asia/trackasia-native/pull/3095)).
 
 ### 🐞 Bug fixes
 
-- Remove `Pass3D` ([#3077](https://github.com/trackasia/trackasia-native/pull/3077)).
-      Fixes issue where filters applied to fill extrusion layers are not rendered unless a manual zoom is applied to the map ([#3039](https://github.com/trackasia/trackasia-native/issues/3039)).
+- Remove `Pass3D` ([#3077](https://github.com/track-asia/trackasia-native/pull/3077)).
+      Fixes issue where filters applied to fill extrusion layers are not rendered unless a manual zoom is applied to the map ([#3039](https://github.com/track-asia/trackasia-native/issues/3039)).
 
 ## 11.7.0
 
@@ -60,186 +60,186 @@ This release marks the official release of TrackAsia Android with Vulkan support
 - `io.github.track-asia:android-sdk-opengl` (OpenGL ES).
 - `io.github.track-asia:android-sdk-vulkan` (Vulkan).
 
-Stability has proven to be excellent, but there are a few [known issues with Vulkan](https://github.com/trackasia/trackasia-native/issues?q=is%3Aissue%20state%3Aopen%20label%3AVulkan%20type%3ABug) that will be addressed in a future update.
+Stability has proven to be excellent, but there are a few [known issues with Vulkan](https://github.com/track-asia/trackasia-native/issues?q=is%3Aissue%20state%3Aopen%20label%3AVulkan%20type%3ABug) that will be addressed in a future update.
 
-Currently it is not possible to choose a backend at runtime. If you care about supporting devices that only support OpenGL ES and you want to use Vulkan, you will need to produce and ship [multiple APKs](https://developer.android.com/google/play/publishing/multiple-apks). Please see [this issue](https://github.com/trackasia/trackasia-native/issues/3079) if you are interested in choosing a rendering backend during initialization.
+Currently it is not possible to choose a backend at runtime. If you care about supporting devices that only support OpenGL ES and you want to use Vulkan, you will need to produce and ship [multiple APKs](https://developer.android.com/google/play/publishing/multiple-apks). Please see [this issue](https://github.com/track-asia/trackasia-native/issues/3079) if you are interested in choosing a rendering backend during initialization.
 
 Thanks to everyone who helped test the pre-releases!
 
 ### ✨ Features and improvements
 
-- Fix the issue that the empty polyline cannot be updated ([#3046](https://github.com/trackasia/trackasia-native/pull/3046)).
-- feat: add `getZoom` and `setZoom` function support for Android Auto ([#3037](https://github.com/trackasia/trackasia-native/pull/3037)).
-- Use TrackAsia Android as attribution string across languages ([#3080](https://github.com/trackasia/trackasia-native/pull/3080)).
-- Use CMake 3.24.0+ for Android ([#3065](https://github.com/trackasia/trackasia-native/pull/3065)).
+- Fix the issue that the empty polyline cannot be updated ([#3046](https://github.com/track-asia/trackasia-native/pull/3046)).
+- feat: add `getZoom` and `setZoom` function support for Android Auto ([#3037](https://github.com/track-asia/trackasia-native/pull/3037)).
+- Use TrackAsia Android as attribution string across languages ([#3080](https://github.com/track-asia/trackasia-native/pull/3080)).
+- Use CMake 3.24.0+ for Android ([#3065](https://github.com/track-asia/trackasia-native/pull/3065)).
 
 ### 🐞 Bug fixes
 
-- Fix crash on unsupported attribute type conversion ([#3066](https://github.com/trackasia/trackasia-native/pull/3066)).
+- Fix crash on unsupported attribute type conversion ([#3066](https://github.com/track-asia/trackasia-native/pull/3066)).
 
 ## 11.6.1
 
 ### 🐞 Bug fixes
 
-- Fix 16K alignment Android builds ([#2995](https://github.com/trackasia/trackasia-native/issues/2995)).
+- Fix 16K alignment Android builds ([#2995](https://github.com/track-asia/trackasia-native/issues/2995)).
 
 ### ✨ Features and improvements
 
-- Allow configuring a `Call.Factory` instead of a `OkHttpClient` ([https://github.com/trackasia/trackasia-native/pull/2987](#2987)). Since an `OkHttpClient` can be assigned to a `Call.Factory` this should not cause any issues.
+- Allow configuring a `Call.Factory` instead of a `OkHttpClient` ([https://github.com/track-asia/trackasia-native/pull/2987](#2987)). Since an `OkHttpClient` can be assigned to a `Call.Factory` this should not cause any issues.
 
 ### 🐞 Bug fixes
 
-- Fix puck rendering behavior Android ([#2957](https://github.com/trackasia/trackasia-native/pull/2957)).
+- Fix puck rendering behavior Android ([#2957](https://github.com/track-asia/trackasia-native/pull/2957)).
 
 ## 11.6.0
 
 ### ✨ Features and improvements
 
-- Add support for `text-variable-anchor-offset` property ([#2921](https://github.com/trackasia/trackasia-native/pull/2921)).
-- Change `parameters.currentLayer` to `index` instead of `layerIndex` ([#2956](https://github.com/trackasia/trackasia-native/pull/2956)).
+- Add support for `text-variable-anchor-offset` property ([#2921](https://github.com/track-asia/trackasia-native/pull/2921)).
+- Change `parameters.currentLayer` to `index` instead of `layerIndex` ([#2956](https://github.com/track-asia/trackasia-native/pull/2956)).
 
 ### 🐞 Bug fixes
 
-- Fix MapSnapshotter icon loading ([#2967](https://github.com/trackasia/trackasia-native/pull/2967)).
+- Fix MapSnapshotter icon loading ([#2967](https://github.com/track-asia/trackasia-native/pull/2967)).
 
 ## 11.5.2
 
 ### ✨ Features and improvements
 
-- Use Kotlin instead of Groovy for Android build configuration ([#2902](https://github.com/trackasia/trackasia-native/pull/2902)).
-- Performance improvements ([#2892](https://github.com/trackasia/trackasia-native/pull/2892)).
-- Remove workaround for emulator crashes, and apply proper fix: revert index buffers to dirty flag instead of timestamps ([#2927](https://github.com/trackasia/trackasia-native/pull/2927)).
+- Use Kotlin instead of Groovy for Android build configuration ([#2902](https://github.com/track-asia/trackasia-native/pull/2902)).
+- Performance improvements ([#2892](https://github.com/track-asia/trackasia-native/pull/2892)).
+- Remove workaround for emulator crashes, and apply proper fix: revert index buffers to dirty flag instead of timestamps ([#2927](https://github.com/track-asia/trackasia-native/pull/2927)).
 
 ### 🐞 Bug fixes
 
-- Fix line atlas, which was causing an issue with `line-pattern`s ([#2908](https://github.com/trackasia/trackasia-native/pull/2908)).
+- Fix line atlas, which was causing an issue with `line-pattern`s ([#2908](https://github.com/track-asia/trackasia-native/pull/2908)).
 
 ## 11.5.1
 
 ### ✨ Features and improvements
 
-- Add `PropertyFactory.iconPadding(Float)` overload for better backcompat ([#2880](https://github.com/trackasia/trackasia-native/pull/2880)).
+- Add `PropertyFactory.iconPadding(Float)` overload for better backcompat ([#2880](https://github.com/track-asia/trackasia-native/pull/2880)).
 
 ### 🐞 Bug fixes
 
-- Android renderThreadManager changed to non static ([#2872](https://github.com/trackasia/trackasia-native/pull/2872)).
-- Make sure `Scheduler::GetCurrent()` cannot return a nullptr ([#2887](https://github.com/trackasia/trackasia-native/pull/2887)). This should fix a crash on startup when the library is not initialized on the main thread.
+- Android renderThreadManager changed to non static ([#2872](https://github.com/track-asia/trackasia-native/pull/2872)).
+- Make sure `Scheduler::GetCurrent()` cannot return a nullptr ([#2887](https://github.com/track-asia/trackasia-native/pull/2887)). This should fix a crash on startup when the library is not initialized on the main thread.
 
 ## 11.5.0
 
 ### ✨ Features and improvements
 
-- Expose `RENDERMODE_CONTINUOUSLY` and `RENDERMODE_WHEN_DIRTY` ([#2801](https://github.com/trackasia/trackasia-native/pull/2801)). Toggling this can be helpful for development (e.g. when testing and optimizing performance).
-- Compile for Android with support for 16 KB page sizes ([#2852](https://github.com/trackasia/trackasia-native/pull/2852)).
-- Enable crash mitigation when running OpenGL in the Android emulator ([#2858](https://github.com/trackasia/trackasia-native/pull/2858)). Technically the crashes were caused by an issue with the Android Emulator, but we were able to find a workaround.
-- Add array support for `icon-padding` ([#2845](https://github.com/trackasia/trackasia-native/pull/2845)).
+- Expose `RENDERMODE_CONTINUOUSLY` and `RENDERMODE_WHEN_DIRTY` ([#2801](https://github.com/track-asia/trackasia-native/pull/2801)). Toggling this can be helpful for development (e.g. when testing and optimizing performance).
+- Compile for Android with support for 16 KB page sizes ([#2852](https://github.com/track-asia/trackasia-native/pull/2852)).
+- Enable crash mitigation when running OpenGL in the Android emulator ([#2858](https://github.com/track-asia/trackasia-native/pull/2858)). Technically the crashes were caused by an issue with the Android Emulator, but we were able to find a workaround.
+- Add array support for `icon-padding` ([#2845](https://github.com/track-asia/trackasia-native/pull/2845)).
   More information can be found in the [TrackAsia Style Spec Documentation](https://trackasia.com/trackasia-style-spec/types/#padding). This is the first (code) contribution from [@random3940](https://github.com/random3940)! 🎉
-- Use `thread_local` for thread local scheduler ([#2863](https://github.com/trackasia/trackasia-native/pull/2863)).
+- Use `thread_local` for thread local scheduler ([#2863](https://github.com/track-asia/trackasia-native/pull/2863)).
 
 ### 🐞 Bug fixes
 
-- Move WeakPtrFactory in `map_renderer.hpp` ([#2861](https://github.com/trackasia/trackasia-native/pull/2861)).
-- Fix updates hillshade geometry ([#2842](https://github.com/trackasia/trackasia-native/pull/2842)).
+- Move WeakPtrFactory in `map_renderer.hpp` ([#2861](https://github.com/track-asia/trackasia-native/pull/2861)).
+- Fix updates hillshade geometry ([#2842](https://github.com/track-asia/trackasia-native/pull/2842)).
 
 ## 11.4.0
 
 ### ✨ Features and improvements
 
-- Add `textFitWidth` and `textFitHeight` properties to sprites ([#2780](https://github.com/trackasia/trackasia-native/pull/2780)).
+- Add `textFitWidth` and `textFitHeight` properties to sprites ([#2780](https://github.com/track-asia/trackasia-native/pull/2780)).
   More information can be found in the [TrackAsia Style Spec](https://trackasia.com/trackasia-style-spec/sprite/#text-fit-properties).
-- Move UBO updates from render layers to tweakers ([#2703](https://github.com/trackasia/trackasia-native/pull/2703)).
-- Improve tile lifecycle determinism  ([#2819](https://github.com/trackasia/trackasia-native/pull/2819)).
-- Make sure swapBehavior is NoFlush ([#2827](https://github.com/trackasia/trackasia-native/pull/2827)).
+- Move UBO updates from render layers to tweakers ([#2703](https://github.com/track-asia/trackasia-native/pull/2703)).
+- Improve tile lifecycle determinism  ([#2819](https://github.com/track-asia/trackasia-native/pull/2819)).
+- Make sure swapBehavior is NoFlush ([#2827](https://github.com/track-asia/trackasia-native/pull/2827)).
 
 ### 🐞 Bug fixes
 
-- Ensure that all depth values are rendered before any color values ([#2811](https://github.com/trackasia/trackasia-native/pull/2811)).
+- Ensure that all depth values are rendered before any color values ([#2811](https://github.com/track-asia/trackasia-native/pull/2811)).
 
 ## 11.3.0
 
 ### ✨ Features and improvements
 
-- Added new map observer events: `onPreCompileShader`, `onPostCompileShader`, `onShaderCompileFailed`, `onGlyphsLoaded`, `onGlyphsError`, `onGlyphsRequested`, `onTileAction`, `onSpriteLoaded`, `onSpriteError`, `onSpriteRequested` ([#2694](https://github.com/trackasia/trackasia-native/pull/2694)).
-- Correct and revise OpenGL texture pooling ([#2709](https://github.com/trackasia/trackasia-native/pull/2709)).
-- Update Android dependencies ([#2794](https://github.com/trackasia/trackasia-native/pull/2794)).
-- Make project compatible again with Java 11, based on feedback from @alasram ([#2799](https://github.com/trackasia/trackasia-native/pull/2799)).
+- Added new map observer events: `onPreCompileShader`, `onPostCompileShader`, `onShaderCompileFailed`, `onGlyphsLoaded`, `onGlyphsError`, `onGlyphsRequested`, `onTileAction`, `onSpriteLoaded`, `onSpriteError`, `onSpriteRequested` ([#2694](https://github.com/track-asia/trackasia-native/pull/2694)).
+- Correct and revise OpenGL texture pooling ([#2709](https://github.com/track-asia/trackasia-native/pull/2709)).
+- Update Android dependencies ([#2794](https://github.com/track-asia/trackasia-native/pull/2794)).
+- Make project compatible again with Java 11, based on feedback from @alasram ([#2799](https://github.com/track-asia/trackasia-native/pull/2799)).
 
 ### 🐞 Bug fixes
 
-- Fix raster masking bug ([#2798](https://github.com/trackasia/trackasia-native/pull/2798)).
+- Fix raster masking bug ([#2798](https://github.com/track-asia/trackasia-native/pull/2798)).
 
 ## 11.2.0
 
 ### ✨ Features and improvements
 
-- Toggle tile cache final API ([#2723](https://github.com/trackasia/trackasia-native/pull/2723)).
+- Toggle tile cache final API ([#2723](https://github.com/track-asia/trackasia-native/pull/2723)).
     This is a new API on `TrackAsiaMap`: `setTileCacheEnabled()` and `getTileCacheEnabled()`. This tile cache is used to cache tiles on different zoom levels, disabling it will reduce memory usage.
-- Add `getOfflineRegion` Kotlin API ([#2516](https://github.com/trackasia/trackasia-native/pull/2516)). This is the first (code) contribution from [@JRWilding](https://github.com/JRWilding)! 🎉
-- Bump NDK version to 27.0.12077973, replace `ALooper_pollAll` with `ALooper_pollOnce` ([#2663](https://github.com/trackasia/trackasia-native/pull/2663)).
-- Remove OkHttp3 ProGuard rules ([#2665](https://github.com/trackasia/trackasia-native/pull/2665)).
-- Use C++20 ([#2659](https://github.com/trackasia/trackasia-native/pull/2659)).
-- Reuse prefetched tiles to avoid empty screen ([#2668](https://github.com/trackasia/trackasia-native/pull/2668)).
-- Update Android Dependencies, use [trackasia-gestures-android](https://github.com/trackasia/trackasia-gestures-android) ([#2714](https://github.com/trackasia/trackasia-native/pull/2714)).
-- Update dependency gradle to v8.10 ([#2721](https://github.com/trackasia/trackasia-native/pull/2721)).
-- Cleanup `mbgl/actor/mailbox*` implementation for repetition in ensuring valid weakScheduler exists before usage ([#2733](https://github.com/trackasia/trackasia-native/pull/2733)).
-- Use latest TrackAsia Style Spec ([#2756](https://github.com/trackasia/trackasia-native/pull/2756)).
+- Add `getOfflineRegion` Kotlin API ([#2516](https://github.com/track-asia/trackasia-native/pull/2516)). This is the first (code) contribution from [@JRWilding](https://github.com/JRWilding)! 🎉
+- Bump NDK version to 27.0.12077973, replace `ALooper_pollAll` with `ALooper_pollOnce` ([#2663](https://github.com/track-asia/trackasia-native/pull/2663)).
+- Remove OkHttp3 ProGuard rules ([#2665](https://github.com/track-asia/trackasia-native/pull/2665)).
+- Use C++20 ([#2659](https://github.com/track-asia/trackasia-native/pull/2659)).
+- Reuse prefetched tiles to avoid empty screen ([#2668](https://github.com/track-asia/trackasia-native/pull/2668)).
+- Update Android Dependencies, use [trackasia-gestures-android](https://github.com/track-asia/trackasia-gestures-android) ([#2714](https://github.com/track-asia/trackasia-native/pull/2714)).
+- Update dependency gradle to v8.10 ([#2721](https://github.com/track-asia/trackasia-native/pull/2721)).
+- Cleanup `mbgl/actor/mailbox*` implementation for repetition in ensuring valid weakScheduler exists before usage ([#2733](https://github.com/track-asia/trackasia-native/pull/2733)).
+- Use latest TrackAsia Style Spec ([#2756](https://github.com/track-asia/trackasia-native/pull/2756)).
   This PR adds two new APIs to `TransitionOptions` of `LocationIndicatorLayer`: `getBearingTransition()` and `setBearingTransition()`.
-- Use timestamps for attribute updates ([#2629](https://github.com/trackasia/trackasia-native/pull/2629)).
+- Use timestamps for attribute updates ([#2629](https://github.com/track-asia/trackasia-native/pull/2629)).
 
 ### 🐞 Bug fixes
 
-- Fix crash when feature contains invalid UTF-8 data ([#2693](https://github.com/trackasia/trackasia-native/pull/2693)).
-- Fix accidental regression conditional layer evaluation ([#2705](https://github.com/trackasia/trackasia-native/pull/2705)).
-- Ensure `ReentrantLock` is unlocked after being locked, and on same thread ([#2759](https://github.com/trackasia/trackasia-native/pull/2759)). This is the first (code) contributon from [@westnordost](https://github.com/westnordost)! 🎉
-- Add guard blocks and checks to `SymbolInstance` ([#2744](https://github.com/trackasia/trackasia-native/pull/2744)).
-  This fixes an exceedingly rare crash that a user is seeing in the field. The fix is not pretty, but we hope to better understand the problem in the future (see [this open issue](https://github.com/trackasia/trackasia-native/issues/2350)).
+- Fix crash when feature contains invalid UTF-8 data ([#2693](https://github.com/track-asia/trackasia-native/pull/2693)).
+- Fix accidental regression conditional layer evaluation ([#2705](https://github.com/track-asia/trackasia-native/pull/2705)).
+- Ensure `ReentrantLock` is unlocked after being locked, and on same thread ([#2759](https://github.com/track-asia/trackasia-native/pull/2759)). This is the first (code) contributon from [@westnordost](https://github.com/westnordost)! 🎉
+- Add guard blocks and checks to `SymbolInstance` ([#2744](https://github.com/track-asia/trackasia-native/pull/2744)).
+  This fixes an exceedingly rare crash that a user is seeing in the field. The fix is not pretty, but we hope to better understand the problem in the future (see [this open issue](https://github.com/track-asia/trackasia-native/issues/2350)).
 
 ## 11.1.0
 
 ### ✨ Features and improvements
 
-- Avoid logging error for onMove(0,0) on Android ([#2580](https://github.com/trackasia/trackasia-native/pull/2580)).
-- Experimental API to toggle tile cache in map view ([#2590](https://github.com/trackasia/trackasia-native/pull/2590)). This can reduce memory usage at the cost of having to parse tile data again when the zoom level changes.
-- Add TaggedScheduler, couple lifetime of tasks and orchestrator ([#2398](https://github.com/trackasia/trackasia-native/pull/2398)).
+- Avoid logging error for onMove(0,0) on Android ([#2580](https://github.com/track-asia/trackasia-native/pull/2580)).
+- Experimental API to toggle tile cache in map view ([#2590](https://github.com/track-asia/trackasia-native/pull/2590)). This can reduce memory usage at the cost of having to parse tile data again when the zoom level changes.
+- Add TaggedScheduler, couple lifetime of tasks and orchestrator ([#2398](https://github.com/track-asia/trackasia-native/pull/2398)).
 
 ### 🐞 Bug fixes
 
-- Fix null pointer dereference MapRenderer Android ([#2631](https://github.com/trackasia/trackasia-native/pull/2631)).
-- Take locks before signaling thread condition variables ([#2636](https://github.com/trackasia/trackasia-native/pull/2636)).
+- Fix null pointer dereference MapRenderer Android ([#2631](https://github.com/track-asia/trackasia-native/pull/2631)).
+- Take locks before signaling thread condition variables ([#2636](https://github.com/track-asia/trackasia-native/pull/2636)).
 
 ## 11.0.2-pre0
 
 ### ✨ Features and improvements
 
-- Add TaggedScheduler, couple lifetime of tasks and orchestrator ([#2398](https://github.com/trackasia/trackasia-native/pull/2398)).
+- Add TaggedScheduler, couple lifetime of tasks and orchestrator ([#2398](https://github.com/track-asia/trackasia-native/pull/2398)).
 
 ## 11.0.1
 
 ### ✨ Features and improvements
 
-- Updated included licenses third-party projects ([#2491](https://github.com/trackasia/trackasia-native/pull/2491)).
-- Move all `WeakPtrFactory` members to the end of the containing class ([#2472](https://github.com/trackasia/trackasia-native/pull/2472)).
+- Updated included licenses third-party projects ([#2491](https://github.com/track-asia/trackasia-native/pull/2491)).
+- Move all `WeakPtrFactory` members to the end of the containing class ([#2472](https://github.com/track-asia/trackasia-native/pull/2472)).
 
 ### 🐞 Bug fixes
 
-- Fixes crash that happened when parsing some PBF files ([Issue](https://github.com/trackasia/trackasia-native/issues/795), [PR](https://github.com/trackasia/trackasia-native/pull/2460)).
-- Shut down the mailbox on raster tiles as with GeometryTile to avoid processing messages after it's queued for destruction ([#2443](https://github.com/trackasia/trackasia-native/pull/2443)).
-- Increase the deferred cleanup timeout ([#2455](https://github.com/trackasia/trackasia-native/pull/2455)).
-- Fix crash caused `DefaultRefDeleter`, reported by Komoot ([#2487](https://github.com/trackasia/trackasia-native/pull/2487)).
+- Fixes crash that happened when parsing some PBF files ([Issue](https://github.com/track-asia/trackasia-native/issues/795), [PR](https://github.com/track-asia/trackasia-native/pull/2460)).
+- Shut down the mailbox on raster tiles as with GeometryTile to avoid processing messages after it's queued for destruction ([#2443](https://github.com/track-asia/trackasia-native/pull/2443)).
+- Increase the deferred cleanup timeout ([#2455](https://github.com/track-asia/trackasia-native/pull/2455)).
+- Fix crash caused `DefaultRefDeleter`, reported by Komoot ([#2487](https://github.com/track-asia/trackasia-native/pull/2487)).
 
 ## 11.0.0
 
-The rendering internals of TrackAsia Native have undergone major changes. We've had an extensive period of [pre-releases](https://github.com/trackasia/trackasia-native/issues/1608) leading up to this official release. While we've worked hard to minimize potential issues, it's possible that there may still be regressions. Therefore, it's important to conduct your own testing and report any encountered issues on GitHub.
+The rendering internals of TrackAsia Native have undergone major changes. We've had an extensive period of [pre-releases](https://github.com/track-asia/trackasia-native/issues/1608) leading up to this official release. While we've worked hard to minimize potential issues, it's possible that there may still be regressions. Therefore, it's important to conduct your own testing and report any encountered issues on GitHub.
 
 This release utilizes **OpenGL ES 3.0**. As a result, some older devices are no longer supported. If you require compatibility with devices that do not support OpenGL ES 3.0, it's recommended to continue using the 10.x.x release series.
 
 ### ✨ Features and improvements
 
-- Add support for custom `ModuleProvider` implementations (#[2231](https://github.com/trackasia/trackasia-native/pull/2231))
-- Allow setting padding when camera is tracking (#[2165](https://github.com/trackasia/trackasia-native/pull/2165)).
+- Add support for custom `ModuleProvider` implementations (#[2231](https://github.com/track-asia/trackasia-native/pull/2231))
+- Allow setting padding when camera is tracking (#[2165](https://github.com/track-asia/trackasia-native/pull/2165)).
 - Update user agent from Mapbox to TrackAsiaNative.
 
-- 💥 Breaking: Change package of all classes from `com.mapbox.mapboxsdk` to `com.trackasia.android` ([#1201](https://github.com/trackasia/trackasia-native/pull/1201)). This means you will need to fix your imports.
+- 💥 Breaking: Change package of all classes from `com.mapbox.mapboxsdk` to `com.trackasia.android` ([#1201](https://github.com/track-asia/trackasia-native/pull/1201)). This means you will need to fix your imports.
 
   > To migrate:
   > In your imports in each of your project files, replace `com.mapbox.mapboxsdk.` with `com.trackasia.android.*`.
@@ -259,25 +259,25 @@ This release utilizes **OpenGL ES 3.0**. As a result, some older devices are no 
 
 ### 🐞 Bug fixes
 
-- Fix "... has unresolved theme attributes" error in BitMapUtils ([#1274](https://github.com/trackasia/trackasia-native/issues/1274)).
+- Fix "... has unresolved theme attributes" error in BitMapUtils ([#1274](https://github.com/track-asia/trackasia-native/issues/1274)).
 
 ## 10.3.1
 
-This release includes [debug symbols](https://github.com/trackasia/trackasia-native/releases?q=android&expanded=true) on GitHub.
+This release includes [debug symbols](https://github.com/track-asia/trackasia-native/releases?q=android&expanded=true) on GitHub.
 
 ## 10.3.0
 
 ### ✨ Features and improvements
 
-* Add support for the [`slice` expression](https://trackasia.com/trackasia-style-spec/expressions/#slice) ([#1133](https://github.com/trackasia/trackasia-native/pull/1133))
-* Add support for [index-of expression](https://trackasia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/trackasia/trackasia-native/pull/1113))
-* Change to a more natural fling animation and allow setting `flingThreshold` and `flingAnimationBaseTime` in `UiSettings` ([#963](https://github.com/trackasia/trackasia-native/pull/963))
-* Add setting padding when camera is tracking ([#2165](https://github.com/trackasia/trackasia-native/pull/2165)).
+* Add support for the [`slice` expression](https://trackasia.com/trackasia-style-spec/expressions/#slice) ([#1133](https://github.com/track-asia/trackasia-native/pull/1133))
+* Add support for [index-of expression](https://trackasia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
+* Change to a more natural fling animation and allow setting `flingThreshold` and `flingAnimationBaseTime` in `UiSettings` ([#963](https://github.com/track-asia/trackasia-native/pull/963))
+* Add setting padding when camera is tracking ([#2165](https://github.com/track-asia/trackasia-native/pull/2165)).
 
 ### 🐞 Bug fixes
 
-* Fix regression in CameraUpdateFactory#zoomOut ([#1035](https://github.com/trackasia/trackasia-native/pull/1035))
-* `AndroidLocationEngineImpl` made public to create custom `LocationEngineProvider`([#850](https://github.com/trackasia/trackasia-native/pull/850))
+* Fix regression in CameraUpdateFactory#zoomOut ([#1035](https://github.com/track-asia/trackasia-native/pull/1035))
+* `AndroidLocationEngineImpl` made public to create custom `LocationEngineProvider`([#850](https://github.com/track-asia/trackasia-native/pull/850))
 
 ## 10.2.0
 
@@ -289,32 +289,32 @@ This version is identical to 10.0.2.
 
 ### ✨ Features and improvements
 
-- Change to a more natural fling animation and allow setting `flingThreshold` and `flingAnimationBaseTime` in `UiSettings` ([#963](https://github.com/trackasia/trackasia-native/pull/963))
-- Add support for the [`index-of` expression](https://trackasia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/trackasia/trackasia-native/pull/1113))
+- Change to a more natural fling animation and allow setting `flingThreshold` and `flingAnimationBaseTime` in `UiSettings` ([#963](https://github.com/track-asia/trackasia-native/pull/963))
+- Add support for the [`index-of` expression](https://trackasia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
 
 ### 🐞 Bug fixes
 
-- Fix regression in CameraUpdateFactory#zoomOut ([#1035](https://github.com/trackasia/trackasia-native/pull/1035))
-- `AndroidLocationEngineImpl` made public to create custom `LocationEngineProvider`([#850](https://github.com/trackasia/trackasia-native/pull/850))
+- Fix regression in CameraUpdateFactory#zoomOut ([#1035](https://github.com/track-asia/trackasia-native/pull/1035))
+- `AndroidLocationEngineImpl` made public to create custom `LocationEngineProvider`([#850](https://github.com/track-asia/trackasia-native/pull/850))
 
 ## 10.0.2 - February 23, 2023
 
 ### 🐞 Bug fixes
 
-- `MapboxFusedLocationEngineImpl` constructor made public to create custom `LocationEngineProvider`([#850](https://github.com/trackasia/trackasia-native/pull/850))
+- `MapboxFusedLocationEngineImpl` constructor made public to create custom `LocationEngineProvider`([#850](https://github.com/track-asia/trackasia-native/pull/850))
 
 ## 10.0.1 - February 22, 2023
 
 ### 🐞 Bug fixes
 
-- Fixed regression with `RasterSource` native code throwing an exception expecting bound after switching to `FloatArray` ([#830](https://github.com/trackasia/trackasia-native/pull/830)).
-- `LocationEngineProxy` was made public so that the migration path suggested in the 10.0.0 changelog for those wanting to use GMS Location Services can actually be implemented ([#832](https://github.com/trackasia/trackasia-native/pull/830)).
+- Fixed regression with `RasterSource` native code throwing an exception expecting bound after switching to `FloatArray` ([#830](https://github.com/track-asia/trackasia-native/pull/830)).
+- `LocationEngineProxy` was made public so that the migration path suggested in the 10.0.0 changelog for those wanting to use GMS Location Services can actually be implemented ([#832](https://github.com/track-asia/trackasia-native/pull/830)).
 
 ## 10.0.0 - February 15, 2023
 
 ### ✨ Features and improvements
 
-- 💥 Breaking: Changed resourcePrefix to `trackasia_` from `mapbox_` ([#647](https://github.com/trackasia/trackasia-native/pull/647)) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with TrackAsia logo.
+- 💥 Breaking: Changed resourcePrefix to `trackasia_` from `mapbox_` ([#647](https://github.com/track-asia/trackasia-native/pull/647)) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with TrackAsia logo.
 
   > To migrate:
   > If you use any of the public Android resources, you will get an error that they can not be found. Replace the prefix of each, e.g. `R.style.mapbox_LocationComponent` -> `R.style.trackasia_LocationComponent`.
@@ -334,12 +334,12 @@ This version is identical to 10.0.2.
   > locationComponent.activateLocationComponent(options)
   > ```
 
-- 💥 Breaking: the `LocationEngine` implemented with Google Location Services has been removed to make TrackAsia Native for Android fully FLOSS ([#379](https://github.com/trackasia/trackasia-native/issues/379)).
+- 💥 Breaking: the `LocationEngine` implemented with Google Location Services has been removed to make TrackAsia Native for Android fully FLOSS ([#379](https://github.com/track-asia/trackasia-native/issues/379)).
 
   > To migrate:
-  > Include the source code of the removed [`GoogleLocationEngineImpl`](https://github.com/trackasia/trackasia-native/blob/4a34caab7593f4f1b6d8c09c06a5e25d7c6cfc43/platform/android/TrackAsiaAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/GoogleLocationEngineImpl.java) in your source tree.
+  > Include the source code of the removed [`GoogleLocationEngineImpl`](https://github.com/track-asia/trackasia-native/blob/4a34caab7593f4f1b6d8c09c06a5e25d7c6cfc43/platform/android/TrackAsiaAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/GoogleLocationEngineImpl.java) in your source tree.
   >
-  > Pass an instance of `LocationEngine` based on `GoogleLocationEngineImpl` to `LocationComponentActivationOptions.Builder.locationEngine` (this was done in a now removed [`LocationEngineProvider`](https://github.com/trackasia/trackasia-native/blob/68d58d6f6f453d5c6cc0fa92fcc6c6cfe0cf967f/platform/android/TrackAsiaAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/LocationEngineProvider.java#L59) class):
+  > Pass an instance of `LocationEngine` based on `GoogleLocationEngineImpl` to `LocationComponentActivationOptions.Builder.locationEngine` (this was done in a now removed [`LocationEngineProvider`](https://github.com/track-asia/trackasia-native/blob/68d58d6f6f453d5c6cc0fa92fcc6c6cfe0cf967f/platform/android/TrackAsiaAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/LocationEngineProvider.java#L59) class):
   >
   > ```kotlin
   > val locationEngine = LocationEngineProxy<Any>(GoogleLocationEngineImpl(context))
@@ -349,116 +349,116 @@ This version is identical to 10.0.2.
 
 - 💥 Breaking: The static `LocationEngineResult.extractResult` can no longer extract a `LocationEngineResult` from a Google Play intent.
 
-  > To migrate, include and use the [previous implementation](https://github.com/trackasia/trackasia-native/blob/ea234edf67bb3aec75f077e15c1c30c99756b926/platform/android/TrackAsiaAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/LocationEngineResult.java#L97) in your source tree.
+  > To migrate, include and use the [previous implementation](https://github.com/track-asia/trackasia-native/blob/ea234edf67bb3aec75f077e15c1c30c99756b926/platform/android/TrackAsiaAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/LocationEngineResult.java#L97) in your source tree.
 
-- Improve Kotlinification of LatLng ([#742](https://github.com/trackasia/trackasia-native/issues))
-- Increment minSdkVersion from 14 to 21, as it covers 99.2%% of the newer devices since 2014 and lessens the backward compatibility burden ([#630](https://github.com/trackasia/trackasia-native/pull/630))
+- Improve Kotlinification of LatLng ([#742](https://github.com/track-asia/trackasia-native/issues))
+- Increment minSdkVersion from 14 to 21, as it covers 99.2%% of the newer devices since 2014 and lessens the backward compatibility burden ([#630](https://github.com/track-asia/trackasia-native/pull/630))
 
 ### 🐞 Bug fixes
 
-- Catches NaN for onMove event ([621](https://github.com/trackasia/trackasia-native/pull/621))
-- `BitmapUtils.mergeBitmap` was deprecated, `BitmapUtils.mergeBitmaps` is a new method that does not offset views rendered on top of snapshots ([#733](https://github.com/trackasia/trackasia-native/issues/733))
-- Fixed a crash when native code was accessing the LatLngBounds class [#655](https://github.com/trackasia/trackasia-native/pull/)
+- Catches NaN for onMove event ([621](https://github.com/track-asia/trackasia-native/pull/621))
+- `BitmapUtils.mergeBitmap` was deprecated, `BitmapUtils.mergeBitmaps` is a new method that does not offset views rendered on top of snapshots ([#733](https://github.com/track-asia/trackasia-native/issues/733))
+- Fixed a crash when native code was accessing the LatLngBounds class [#655](https://github.com/track-asia/trackasia-native/pull/)
 
 ### ⛵ Dependencies
 
-- Revert "Revert "Gradle update"" - Update Gradle from v3 to v7 ([#619](https://github.com/trackasia/trackasia-native/pull/619))
+- Revert "Revert "Gradle update"" - Update Gradle from v3 to v7 ([#619](https://github.com/track-asia/trackasia-native/pull/619))
 
 ## 9.6.0 - December 18, 2022
 
 ### ✨ Features and improvements
 
-- Add missing header guards ([#543](https://github.com/trackasia/trackasia-native/pull/543))
-- Removing unused versions sdk ([#515](https://github.com/trackasia/trackasia-native/pull/515))
-- (tag: node-v5.0.1-pre.0) Upgrade libs and remove Jetifier ([#218](https://github.com/trackasia/trackasia-native/pull/218))
-- Migrate examples in android TestApp to Kotlin ([#416](https://github.com/trackasia/trackasia-native/pull/416))
-- Add ClientOptions to be able to pass around client name and version ([#365](https://github.com/trackasia/trackasia-native/pull/365))
-- Use trackasia docs for more links ([#354](https://github.com/trackasia/trackasia-native/pull/354))
-- Use the TrackAsia style spec docs website ([#353](https://github.com/trackasia/trackasia-native/pull/353))
-- Refresh iOS & Android build docs ([5f679b55b](https://github.com/trackasia/trackasia-native/commit/5f679b55b))
-- Qt build improvements and documentation ([#277](https://github.com/trackasia/trackasia-native/pull/277))
-- Replace Mapbox with TrackAsia in README titles ([#297](https://github.com/trackasia/trackasia-native/pull/297))
-- Rename MaptilerFileSource to MBTilesFileSource ([#198](https://github.com/trackasia/trackasia-native/pull/198))
-- Changed missed MapBox reference to TrackAsia ([#253](https://github.com/trackasia/trackasia-native/pull/253))
-- Implement map projection functionality ([#254](https://github.com/trackasia/trackasia-native/pull/254))
-- chore: rename master -> main in CI and scripts ([#246](https://github.com/trackasia/trackasia-native/pull/246))
-- Feature - Bring back node support ([#217](https://github.com/trackasia/trackasia-native/pull/217))
-- Remove obsolete CI configurations ([#219](https://github.com/trackasia/trackasia-native/pull/219))
+- Add missing header guards ([#543](https://github.com/track-asia/trackasia-native/pull/543))
+- Removing unused versions sdk ([#515](https://github.com/track-asia/trackasia-native/pull/515))
+- (tag: node-v5.0.1-pre.0) Upgrade libs and remove Jetifier ([#218](https://github.com/track-asia/trackasia-native/pull/218))
+- Migrate examples in android TestApp to Kotlin ([#416](https://github.com/track-asia/trackasia-native/pull/416))
+- Add ClientOptions to be able to pass around client name and version ([#365](https://github.com/track-asia/trackasia-native/pull/365))
+- Use trackasia docs for more links ([#354](https://github.com/track-asia/trackasia-native/pull/354))
+- Use the TrackAsia style spec docs website ([#353](https://github.com/track-asia/trackasia-native/pull/353))
+- Refresh iOS & Android build docs ([5f679b55b](https://github.com/track-asia/trackasia-native/commit/5f679b55b))
+- Qt build improvements and documentation ([#277](https://github.com/track-asia/trackasia-native/pull/277))
+- Replace Mapbox with TrackAsia in README titles ([#297](https://github.com/track-asia/trackasia-native/pull/297))
+- Rename MaptilerFileSource to MBTilesFileSource ([#198](https://github.com/track-asia/trackasia-native/pull/198))
+- Changed missed MapBox reference to TrackAsia ([#253](https://github.com/track-asia/trackasia-native/pull/253))
+- Implement map projection functionality ([#254](https://github.com/track-asia/trackasia-native/pull/254))
+- chore: rename master -> main in CI and scripts ([#246](https://github.com/track-asia/trackasia-native/pull/246))
+- Feature - Bring back node support ([#217](https://github.com/track-asia/trackasia-native/pull/217))
+- Remove obsolete CI configurations ([#219](https://github.com/track-asia/trackasia-native/pull/219))
 
 ### 🐞 Bug fixes
 
-- Fixes potential NaN when calling `NativeMapView::nativeMoveBy` ([#501](https://github.com/trackasia/trackasia-native/pull/501))
-- Fix android ci workflows ([#476](https://github.com/trackasia/trackasia-native/pull/476))
-- Fix typo in geo.cpp ([#412](https://github.com/trackasia/trackasia-native/pull/412))
-- Fix render tests ([#351](https://github.com/trackasia/trackasia-native/pull/351))
-- fix shiftY calculation typo ([#285](https://github.com/trackasia/trackasia-native/pull/285))
-- [msvc] Fix warnings, mainly casting to smaller types ([#270](https://github.com/trackasia/trackasia-native/pull/270))
-- Fix street label appearance while animating near zoom level threshhold ([#267](https://github.com/trackasia/trackasia-native/pull/267))
+- Fixes potential NaN when calling `NativeMapView::nativeMoveBy` ([#501](https://github.com/track-asia/trackasia-native/pull/501))
+- Fix android ci workflows ([#476](https://github.com/track-asia/trackasia-native/pull/476))
+- Fix typo in geo.cpp ([#412](https://github.com/track-asia/trackasia-native/pull/412))
+- Fix render tests ([#351](https://github.com/track-asia/trackasia-native/pull/351))
+- fix shiftY calculation typo ([#285](https://github.com/track-asia/trackasia-native/pull/285))
+- [msvc] Fix warnings, mainly casting to smaller types ([#270](https://github.com/track-asia/trackasia-native/pull/270))
+- Fix street label appearance while animating near zoom level threshhold ([#267](https://github.com/track-asia/trackasia-native/pull/267))
 
 ### ⛵ Dependencies
 
-- Bump semver from 7.3.7 to 7.3.8 in /platform/android ([#530](https://github.com/trackasia/trackasia-native/pull/530))
-- Bump to JDK 11 in android CI and generate Gradle Wrapper ([#474](https://github.com/trackasia/trackasia-native/pull/474))
-- Bump ejs from 3.1.7 to 3.1.8 in /platform/android ([#470](https://github.com/trackasia/trackasia-native/pull/470))
-- Upgrade Gradle from 3.6.3 to 3.6.4 ([#456](https://github.com/trackasia/trackasia-native/pull/456))
-- Bump semver from 5.7.1 to 7.3.7 in /platform/android ([#461](https://github.com/trackasia/trackasia-native/pull/461))
-- Bump pixelmatch from 4.0.2 to 5.3.0 in /platform/android ([#460](https://github.com/trackasia/trackasia-native/pull/460))
-- Bump esm from 3.1.0 to 3.2.25 in /platform/android ([#463](https://github.com/trackasia/trackasia-native/pull/463))
-- Bump ejs from 2.7.4 to 3.1.7 in /platform/android ([#299](https://github.com/trackasia/trackasia-native/pull/299))
-- Bump lodash from 4.17.19 to 4.17.21 in /platform/android ([#195](https://github.com/trackasia/trackasia-native/pull/195))
+- Bump semver from 7.3.7 to 7.3.8 in /platform/android ([#530](https://github.com/track-asia/trackasia-native/pull/530))
+- Bump to JDK 11 in android CI and generate Gradle Wrapper ([#474](https://github.com/track-asia/trackasia-native/pull/474))
+- Bump ejs from 3.1.7 to 3.1.8 in /platform/android ([#470](https://github.com/track-asia/trackasia-native/pull/470))
+- Upgrade Gradle from 3.6.3 to 3.6.4 ([#456](https://github.com/track-asia/trackasia-native/pull/456))
+- Bump semver from 5.7.1 to 7.3.7 in /platform/android ([#461](https://github.com/track-asia/trackasia-native/pull/461))
+- Bump pixelmatch from 4.0.2 to 5.3.0 in /platform/android ([#460](https://github.com/track-asia/trackasia-native/pull/460))
+- Bump esm from 3.1.0 to 3.2.25 in /platform/android ([#463](https://github.com/track-asia/trackasia-native/pull/463))
+- Bump ejs from 2.7.4 to 3.1.7 in /platform/android ([#299](https://github.com/track-asia/trackasia-native/pull/299))
+- Bump lodash from 4.17.19 to 4.17.21 in /platform/android ([#195](https://github.com/track-asia/trackasia-native/pull/195))
 
 ## 9.5.2 - December 02, 2021
 
 ### Bug Fixes
 
-- raster layers stopped working in Android [#161](https://github.com/trackasia/trackasia-native/pull/161)
-- remove Mapbox's in favor of TrackAsia in attribution dialog [#160](https://github.com/trackasia/trackasia-native/pull/160)
-- queryRenderedFeatures returns wrong results - issue #184, [#147](https://github.com/trackasia/trackasia-native/pull/174)
+- raster layers stopped working in Android [#161](https://github.com/track-asia/trackasia-native/pull/161)
+- remove Mapbox's in favor of TrackAsia in attribution dialog [#160](https://github.com/track-asia/trackasia-native/pull/160)
+- queryRenderedFeatures returns wrong results - issue #184, [#147](https://github.com/track-asia/trackasia-native/pull/174)
 
 ## 9.5.1 - September 06, 2021
 
 ### Bug Fixes
 
-- Invalid tile url template for TrackAsia style [#107](https://github.com/trackasia/trackasia-native/pull/107)
-- Crash when inflating view on Android [#130](https://github.com/trackasia/trackasia-native/pull/130)
+- Invalid tile url template for TrackAsia style [#107](https://github.com/track-asia/trackasia-native/pull/107)
+- Crash when inflating view on Android [#130](https://github.com/track-asia/trackasia-native/pull/130)
 
 ### Other
 
-- Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/trackasia/trackasia-native/pull/129)
-- Upgrade to newest protozero [#148](https://github.com/trackasia/trackasia-native/pull/148)
-- Change NativeMapView.resizeView to use 0 instead of throwing IllegalArgumentException [#151](https://github.com/trackasia/trackasia-native/pull/151)
+- Fix perf regression in cached tiles of tile pyramid [#129](https://github.com/track-asia/trackasia-native/pull/129)
+- Upgrade to newest protozero [#148](https://github.com/track-asia/trackasia-native/pull/148)
+- Change NativeMapView.resizeView to use 0 instead of throwing IllegalArgumentException [#151](https://github.com/track-asia/trackasia-native/pull/151)
 
 ## 9.5.0 - June 29, 2021
 
 ### Features
 
-- Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/trackasia/trackasia-native/pull/90)
+- Replacing hardcoded configuration with configurable API and removing Mapbox assets and dependencies [#90](https://github.com/track-asia/trackasia-native/pull/90)
 
 ### Other
 
-- Migration from bintray [#77](https://github.com/trackasia/trackasia-native/pull/77)
+- Migration from bintray [#77](https://github.com/track-asia/trackasia-native/pull/77)
 
 ## 9.4.2 - May 6, 2021
 
 ### Other
 
-Switching from mapbox-java libraries to [trackasia fork](https://github.com/trackasia/trackasia-java)
+Switching from mapbox-java libraries to [trackasia fork](https://github.com/track-asia/trackasia-java)
 
 ## 9.4.0 - March 12, 2021
 
 ### Bug Fixes
 
-- Fixed an issue where symbols flickered when zooming out. [#16](https://github.com/trackasia/trackasia-native/issues/16)
+- Fixed an issue where symbols flickered when zooming out. [#16](https://github.com/track-asia/trackasia-native/issues/16)
 - Fixes crash caused by NullPointerException MapKeyListener [#464](https://github.com/mapbox/mapbox-gl-native-android/issues/464), cherry picked from [#466](https://github.com/mapbox/mapbox-gl-native-android/pull/466)
 - Fixed an issue where GPS puck keeps previous value when enabled. [#462]https://github.com/mapbox/mapbox-gl-native-android/issues/462, cherry picked from [#470](https://github.com/mapbox/mapbox-gl-native-android/pull/470)
-- Not changing location camera mode while disabled. [#24](https://github.com/trackasia/trackasia-native/issues/24)
-- Symbol layer flickering after zooming out. [#16](https://github.com/trackasia/trackasia-native/issues/16)
-- Avoid throwing null pointer exception on slow initialization [#22](https://github.com/trackasia/trackasia-native/issues/22)
+- Not changing location camera mode while disabled. [#24](https://github.com/track-asia/trackasia-native/issues/24)
+- Symbol layer flickering after zooming out. [#16](https://github.com/track-asia/trackasia-native/issues/16)
+- Avoid throwing null pointer exception on slow initialization [#22](https://github.com/track-asia/trackasia-native/issues/22)
 
 ### Other
 
 - mapbox-gl-js submodule has been replaced with trackasia-gl-js
-- Removed Telemetry [#7](https://github.com/trackasia/trackasia-native/pull/7)
+- Removed Telemetry [#7](https://github.com/track-asia/trackasia-native/pull/7)
 
 ## 9.3.0 - January 6, 2021
 

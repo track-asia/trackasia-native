@@ -60,7 +60,7 @@ class CustomGeometrySourceTest : BaseTest() {
         }
     }
 
-    @Ignore("https://github.com/trackasia/trackasia-native/issues/2488")
+    @Ignore("https://github.com/track-asia/trackasia-native/issues/2488")
     @Test
     fun threadsRestartedWhenSourceReAddedTest() {
         validateTestSetup()

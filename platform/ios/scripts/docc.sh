@@ -84,7 +84,7 @@ $(xcrun --find docc) "$cmd" platform/ios/TrackAsia.docc \
     --fallback-bundle-version 0.0.1  \
     --additional-symbol-graph-dir "$build_dir"/symbol-graphs \
     --source-service github \
-    --source-service-base-url https://github.com/trackasia/trackasia-native/blob/main \
+    --source-service-base-url https://github.com/track-asia/trackasia-native/blob/main \
     --checkout-path $(realpath .) \
     ${HOSTING_BASE_PATH:+--hosting-base-path "$HOSTING_BASE_PATH"} \
     --output-path "$build_dir"/TrackAsia.doccarchive

@@ -1,6 +1,6 @@
 site_name: TrackAsia Android Examples
 site_url: https://www.track-asia.com/trackasia-native/android/examples
-repo_url: https://github.com/trackasia/trackasia-native
+repo_url: https://github.com/track-asia/trackasia-native
 site_description: TrackAsia Android Examples
 edit_uri: edit/main/platform/android/docs
 copyright: Map data from <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>
@@ -9,7 +9,7 @@ extra_css:
   - assets/extra.css
 theme:
   name: 'material'
-  favicon: https://trackasia.org/favicon.ico
+  favicon: https://track-asia.com/favicon.ico
   logo: assets/logo.svg
   features:
     - content.code.copy

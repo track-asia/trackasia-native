@@ -3,10 +3,10 @@ import referenceSpec from './style-spec-reference/v8.json' with { type: "json" }
 /** @type {any} */
 let modifiedReferenceSpec = referenceSpec;
 
-// https://github.com/trackasia/trackasia-native/issues/250
+// https://github.com/track-asia/trackasia-native/issues/250
 delete modifiedReferenceSpec['layout_symbol']['text-rotation-alignment']["values"]['viewport-glyph']
 
-// https://github.com/trackasia//trackasia-native/issues/251
+// https://github.com/track-asia//trackasia-native/issues/251
 delete modifiedReferenceSpec['layout_symbol']['icon-overlap'];
 delete modifiedReferenceSpec['layout_symbol']['text-overlap'];
 modifiedReferenceSpec["layout_symbol"]["text-allow-overlap"]["requires"] = referenceSpec["layout_symbol"]["text-allow-overlap"]["requires"].filter(val => JSON.stringify(val) !== '{"!":"text-overlap"}');

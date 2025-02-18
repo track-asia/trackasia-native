@@ -1,7 +1,7 @@
 # @trackasia/trackasia-gl-native
 
 [![Version](https://img.shields.io/npm/v/@trackasia/trackasia-gl-native?style=flat)](https://www.npmjs.com/package/@trackasia/trackasia-gl-native)
-[![node-ci](https://github.com/trackasia/trackasia-native/actions/workflows/node-ci.yml/badge.svg)](https://github.com/trackasia/trackasia-native/actions/workflows/node-ci.yml)
+[![node-ci](https://github.com/track-asia/trackasia-native/actions/workflows/node-ci.yml/badge.svg)](https://github.com/track-asia/trackasia-native/actions/workflows/node-ci.yml)
 
 ## Installing
 
@@ -19,7 +19,7 @@ Run:
 npm install @trackasia/trackasia-gl-native
 ```
 
-Further platforms might work [with additional libraries installed](https://github.com/trackasia/trackasia-native/tree/main/platform/linux#prerequisites).
+Further platforms might work [with additional libraries installed](https://github.com/track-asia/trackasia-native/tree/main/platform/linux#prerequisites).
 
 ## Testing
 
@@ -138,7 +138,7 @@ If you omit the `request` method, the `map` object will use the default internal
 }
 ```
 
-The `kind` is an enum and defined in [`mbgl.Resource`](https://github.com/trackasia/trackasia-native/blob/main/include/mbgl/storage/resource.hpp):
+The `kind` is an enum and defined in [`mbgl.Resource`](https://github.com/track-asia/trackasia-native/blob/main/include/mbgl/storage/resource.hpp):
 
 ```json
 {
@@ -229,7 +229,7 @@ Stylesheets are free to use any protocols, but your implementation of `request` 
 
 ## Listening for log events
 
-The module imported with `require('trackasia-gl-native')` inherits from [`EventEmitter`](https://nodejs.org/api/events.html), and the `NodeLogObserver` will push log events to this. Log messages can have [`class`](https://github.com/trackasia/trackasia-native/blob/0dea8bad2ff68a95772a6e3b3a788946c0596f15/src/mbgl/util/event.cpp#L15-L35), [`severity`](https://github.com/trackasia/trackasia-native/blob/0dea8bad2ff68a95772a6e3b3a788946c0596f15/src/mbgl/util/event.cpp#L6-L13), `code` ([HTTP status codes](https://www.rfc-editor.org/rfc/rfc9110#name-status-codes)), and `text` parameters.
+The module imported with `require('trackasia-gl-native')` inherits from [`EventEmitter`](https://nodejs.org/api/events.html), and the `NodeLogObserver` will push log events to this. Log messages can have [`class`](https://github.com/track-asia/trackasia-native/blob/0dea8bad2ff68a95772a6e3b3a788946c0596f15/src/mbgl/util/event.cpp#L15-L35), [`severity`](https://github.com/track-asia/trackasia-native/blob/0dea8bad2ff68a95772a6e3b3a788946c0596f15/src/mbgl/util/event.cpp#L6-L13), `code` ([HTTP status codes](https://www.rfc-editor.org/rfc/rfc9110#name-status-codes)), and `text` parameters.
 
 ```js
 var mbgl = require('@trackasia/trackasia-gl-native');
@@ -243,4 +243,4 @@ mbgl.on('message', function(msg) {
 
 ## Contributing
 
-See [DEVELOPING.md](https://github.com/trackasia/trackasia-native/blob/main/platform/node/DEVELOPING.md) for instructions on building this module for development.
+See [DEVELOPING.md](https://github.com/track-asia/trackasia-native/blob/main/platform/node/DEVELOPING.md) for instructions on building this module for development.

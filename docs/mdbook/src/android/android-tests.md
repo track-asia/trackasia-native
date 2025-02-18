@@ -16,11 +16,11 @@ std::vector<std::string> arguments = {..., "-f", "background-color/literal"};
 
 Once the application quits, use the Device Explorer to navigate to `/data/data/com.trackasia.render_test_runner/files`.
 
-<img width="980" alt="image" src="https://github.com/trackasia/trackasia-native/assets/649392/0dc42d4a-6221-46b6-8352-1eb24d466e91">
+<img width="980" alt="image" src="https://github.com/track-asia/trackasia-native/assets/649392/0dc42d4a-6221-46b6-8352-1eb24d466e91">
 
 Double click `android-render-test-runner-style.html`. Right click on the opened tab and select _Open In > Browser_. You should see that a single render test passed.
 
-<img width="801" alt="image" src="https://github.com/trackasia/trackasia-native/assets/649392/33e88999-7787-492f-afd9-f5a3e3fd61f7">
+<img width="801" alt="image" src="https://github.com/track-asia/trackasia-native/assets/649392/33e88999-7787-492f-afd9-f5a3e3fd61f7">
 
 Alternatively to download (and open) the results from the command line, use:
 
@@ -54,11 +54,11 @@ adb shell "run-as com.trackasia.render_test_runner unzip -o /data/local/tmp/data
 
 Rerun the render test app and reload the Device Explorer. When you re-open the HTML file with the results you should now see a failing test:
 
-<img width="685" alt="image" src="https://github.com/trackasia/trackasia-native/assets/649392/303ad75a-cf74-4b8c-927c-c9bd59a79de4">
+<img width="685" alt="image" src="https://github.com/track-asia/trackasia-native/assets/649392/303ad75a-cf74-4b8c-927c-c9bd59a79de4">
 
 Now download the `actual.png` in `metrics/integration/render-tests/background-color/literal` with the Device Explorer. Replace the corresponding `expected.png` on your local file system. Upload the new render test data again and run the test app once more.
 
-<img width="800" alt="image" src="https://github.com/trackasia/trackasia-native/assets/649392/04734c6a-9cf1-489a-b9bb-8d857581261c">
+<img width="800" alt="image" src="https://github.com/track-asia/trackasia-native/assets/649392/04734c6a-9cf1-489a-b9bb-8d857581261c">
 
 Of we don't want to commit this change. But know you can add and debug (Android) render tests.
 

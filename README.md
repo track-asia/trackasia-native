@@ -1,4 +1,4 @@
-[![TrackAsia Logo](https://trackasia.org/img/trackasia-logo-big.svg)](https://trackasia.org/)
+[![TrackAsia Logo](https://track-asia.com/img/trackasia-logo-big.svg)](https://track-asia.com/)
 
 # TrackAsia Native
 
@@ -155,17 +155,17 @@ struct SimpleMap: UIViewRepresentable {
 }
 ```
 
-You can also use [TrackAsiaSwiftUI](https://github.com/trackasia/swiftui-dsl), a wrapper around TrackAsia Native iOS that offers a declarative API like SwiftUI.
+You can also use [TrackAsiaSwiftUI](https://github.com/track-asia/swiftui-dsl), a wrapper around TrackAsia Native iOS that offers a declarative API like SwiftUI.
 
 The [iOS Documentation](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia/) contains many examples and the entire API of the library. You might also want to check out the [TrackAsia Native iOS `README.md`](platform/ios/README.md).
 
 ## Node.js
 
-There is an [npm package](https://www.npmjs.com/package/@trackasia/trackasia-gl-native) for using TrackAsia Native in a Node.js project. The source code of this project [can be found in this repository](https://github.com/trackasia/trackasia-native/tree/main/platform/node).
+There is an [npm package](https://www.npmjs.com/package/@trackasia/trackasia-gl-native) for using TrackAsia Native in a Node.js project. The source code of this project [can be found in this repository](https://github.com/track-asia/trackasia-native/tree/main/platform/node).
 
 ## Qt
 
-Please check out the [`trackasia/trackasia-native-qt` repository](https://github.com/trackasia/trackasia-native-qt) to learn how to intergrate TrackAsia Native with a Qt project.
+Please check out the [`trackasia/trackasia-native-qt` repository](https://github.com/track-asia/trackasia-native-qt) to learn how to intergrate TrackAsia Native with a Qt project.
 
 ## Other Platforms
 
@@ -180,20 +180,20 @@ TrackAsia Native has at its core a C++ library. This is where the bulk of develo
 
 To get started with the code base, you need to clone the the repository including all its submodules.
 
-All contributors use pull requests from a private fork. [Fork the project](https://github.com/trackasia/trackasia-native/fork). Then run:
+All contributors use pull requests from a private fork. [Fork the project](https://github.com/track-asia/trackasia-native/fork). Then run:
 
 ```bash
 git clone --recurse-submodules git@github.com:<YOUR NAME>/trackasia-native.git
-git remote add origin https://github.com/trackasia/trackasia-native.git
+git remote add origin https://github.com/track-asia/trackasia-native.git
 ```
 
-Check out issues labelled as a [good first issue](https://github.com/trackasia/trackasia-native/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+Check out issues labelled as a [good first issue](https://github.com/track-asia/trackasia-native/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
 ## Core
 
 - [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - [TrackAsia Native Markdown Book](https://trackasia.com/trackasia-native/docs/book/design/ten-thousand-foot-view.html): architectural notes
-- [GitHub Wiki](https://github.com/trackasia/trackasia-native/wiki): low-friction way to share information with the community
+- [GitHub Wiki](https://github.com/track-asia/trackasia-native/wiki): low-friction way to share information with the community
 - [Core C++ API Documentation](https://trackasia.com/trackasia-native/cpp/api/) (unstable)
 
 ## Android
@@ -225,33 +225,33 @@ Join the `#trackasia-native` Slack channel at OSMUS. Get an invite at https://sl
 
 ### Bounties 💰
 
-Thanks to our sponsors, we are able to award bounties to developers making contributions toward certain [bounty directions](https://github.com/trackasia/trackasia/issues?q=is%3Aissue+is%3Aopen+label%3A%22bounty+direction%22). To get started doing bounties, refer to the [step-by-step bounties guide](https://trackasia.org/roadmap/step-by-step-bounties-guide/).
+Thanks to our sponsors, we are able to award bounties to developers making contributions toward certain [bounty directions](https://github.com/track-asia/trackasia/issues?q=is%3Aissue+is%3Aopen+label%3A%22bounty+direction%22). To get started doing bounties, refer to the [step-by-step bounties guide](https://track-asia.com/roadmap/step-by-step-bounties-guide/).
 
 We thank everyone who supported us financially in the past and special thanks to the people and organizations who support us with recurring donations!
 
-Read more about the TrackAsia Sponsorship Program at [https://trackasia.org/sponsors/](https://trackasia.org/sponsors/).
+Read more about the TrackAsia Sponsorship Program at [https://track-asia.com/sponsors/](https://track-asia.com/sponsors/).
 
 Gold:
 
-<a href="https://aws.amazon.com/location"><img src="https://trackasia.org/img/aws-logo.svg" alt="Logo AWS" width="25%"/></a>
+<a href="https://aws.amazon.com/location"><img src="https://track-asia.com/img/aws-logo.svg" alt="Logo AWS" width="25%"/></a>
 
-<a href="https://meta.com"><img src="https://trackasia.org/img/meta-logo.svg" alt="Logo Meta" width="25%"/></a>
+<a href="https://meta.com"><img src="https://track-asia.com/img/meta-logo.svg" alt="Logo Meta" width="25%"/></a>
 
 Silver:
 
-<a href="https://www.mierune.co.jp/?lang=en"><img src="https://trackasia.org/img/mierune-logo.svg" alt="Logo MIERUNE" width="25%"/></a>
+<a href="https://www.mierune.co.jp/?lang=en"><img src="https://track-asia.com/img/mierune-logo.svg" alt="Logo MIERUNE" width="25%"/></a>
 
-<a href="https://komoot.com/"><img src="https://trackasia.org/img/komoot-logo.svg" alt="Logo komoot" width="25%"/></a>
+<a href="https://komoot.com/"><img src="https://track-asia.com/img/komoot-logo.svg" alt="Logo komoot" width="25%"/></a>
 
-<a href="https://www.jawg.io/"><img src="https://trackasia.org/img/jawgmaps-logo.svg" alt="Logo JawgMaps" width="25%"/></a>
+<a href="https://www.jawg.io/"><img src="https://track-asia.com/img/jawgmaps-logo.svg" alt="Logo JawgMaps" width="25%"/></a>
 
-<a href="https://www.radar.com/"><img src="https://trackasia.org/img/radar-logo.svg" alt="Logo Radar" width="25%"/></a>
+<a href="https://www.radar.com/"><img src="https://track-asia.com/img/radar-logo.svg" alt="Logo Radar" width="25%"/></a>
 
-<a href="https://www.microsoft.com/"><img src="https://trackasia.org/img/msft-logo.svg" alt="Logo Microsoft" width="25%"/></a>
+<a href="https://www.microsoft.com/"><img src="https://track-asia.com/img/msft-logo.svg" alt="Logo Microsoft" width="25%"/></a>
 
-<a href="https://www.mappedin.com/"><img src="https://trackasia.org/img/mappedin-logo.svg" alt="Logo mappedin" width="25%"/></a>
+<a href="https://www.mappedin.com/"><img src="https://track-asia.com/img/mappedin-logo.svg" alt="Logo mappedin" width="25%"/></a>
 
-<a href="https://www.mapme.com/"><img src="https://trackasia.org/img/mapme-logo.svg" alt="Logo mapme" width="25%"/></a>
+<a href="https://www.mapme.com/"><img src="https://track-asia.com/img/mapme-logo.svg" alt="Logo mapme" width="25%"/></a>
 
 Backers and Supporters:
 

@@ -13,7 +13,7 @@ syntax supported by this SDK. For a more general introduction to predicates and
 expressions, consult the
 _[Predicate Programming Guide](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html)_
 in Apple developer documentation. For additional detail on how this SDK has
-extended the `NSExpression` class, see the [`NSExpression+MLNAdditions.h`](https://github.com/trackasia/trackasia-native/blob/main/platform/darwin/src/NSExpression%2BMLNAdditions.h) header.
+extended the `NSExpression` class, see the [`NSExpression+MLNAdditions.h`](https://github.com/track-asia/trackasia-native/blob/main/platform/darwin/src/NSExpression%2BMLNAdditions.h) header.
 
 ## Using predicates to filter vector data
 
@@ -266,7 +266,7 @@ NSExpression(format: "MLN_LET(floorCount, 2, $floorCount + 1)")
 
 ## TrackAsia-specific functions
 
-> Warning: Due to a change in iOS 15.5, some of these stopped working. See [#331](https://github.com/trackasia/trackasia-native/issues/331) for more information and workarounds.
+> Warning: Due to a change in iOS 15.5, some of these stopped working. See [#331](https://github.com/track-asia/trackasia-native/issues/331) for more information and workarounds.
 
 For compatibility with the TrackAsia Style Spec, the following functions
 are defined by this SDK. When setting a style layer property, you can call these

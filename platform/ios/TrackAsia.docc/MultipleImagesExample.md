@@ -21,7 +21,7 @@ ogr2ogr -f GeoJSON pois.json -t_srs EPSG:4326 nps-pois.shp
 tippecanoe -o pois-nps.mbtiles pois.json
 ```
 
-The resulting `.mbtiles` file can be hosted with a tile server such as [Martin](https://martin.track-asia.com/) or embedded in the app bundle as a resource. Since the file is quite small in this case we will use that last option in this example. Martin comes with a [`mbtiles` binary](https://trackasia.org/martin/mbtiles-meta.html) that allows us to inspect what the MBTiles file contains from the command line.
+The resulting `.mbtiles` file can be hosted with a tile server such as [Martin](https://martin.track-asia.com/) or embedded in the app bundle as a resource. Since the file is quite small in this case we will use that last option in this example. Martin comes with a [`mbtiles` binary](https://track-asia.com/martin/mbtiles-meta.html) that allows us to inspect what the MBTiles file contains from the command line.
 
 ```
 mbtiles meta-all pois-nps.mbtiles
