@@ -309,15 +309,15 @@ TEST(TrackAsia, CanonicalURL) {
         "https://maps.track-asia.com/styles/v1/streets.json?key=public_key",
         mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://maps/style", ""));
     EXPECT_EQ(
-        "https://demotiles.track-asia.com/tiles/tiles.json",
+        "https://maps.track-asia.com/tiles/tiles.json",
         mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::trackAsiaTileServerOptions, "trackasia://tiles/tiles", ""));
-    EXPECT_EQ("https://demotiles.track-asia.com/font/{fontstack}/{start}-{end}.pbf",
+    EXPECT_EQ("https://maps.track-asia.com/font/{fontstack}/{start}-{end}.pbf",
               mbgl::util::mapbox::normalizeGlyphsURL(
                   mapboxFixture::trackAsiaTileServerOptions, "trackasia://fonts/{fontstack}/{start}-{end}.pbf", ""));
 
     EXPECT_EQ("trackasia://tiles/tiles/{z}/{x}/{y}.pbf",
               mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::trackAsiaTileServerOptions,
-                                                      "https://demotiles.track-asia.com/tiles/{z}/{x}/{y}.pbf",
+                                                      "https://maps.track-asia.com/tiles/{z}/{x}/{y}.pbf",
                                                       SourceType::Vector,
                                                       512));
 }

@@ -42,7 +42,7 @@ Where `example.kt` is the path to the file.
 
 ### Static Assets
 
-Static assets are ideally uploaded to the [TrackAsia Native S3 Bucket](https://trackasia-native.s3.eu-central-1.amazonaws.com/index.html#android-documentation-resources/).
+Static assets are ideally uploaded to the [TrackAsia Native S3 Bucket](https://maplibre-native.s3.eu-central-1.amazonaws.com/index.html#android-documentation-resources/).
 
 Please open an issue with the ARN of your AWS account to get upload privileges.
 

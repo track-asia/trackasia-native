@@ -328,7 +328,7 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/trackasia/trackasia-gl-native-distribution/actions/workflows/$release_workflow_id/dispatches \
             -d '{"ref":"main","inputs":{
-              "changelog_url": "https://trackasia-native.s3.eu-central-1.amazonaws.com/changelogs/ios-${{ env.version }}.md",
+              "changelog_url": "https://maplibre-native.s3.eu-central-1.amazonaws.com/changelogs/ios-${{ env.version }}.md",
               "version":"${{ env.version }}",
               "download_url":"${{ fromJSON(steps.github_release.outputs.assets)[0].browser_download_url }}"}}'
 

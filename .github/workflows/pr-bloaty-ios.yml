@@ -6,7 +6,7 @@ on:
     types:
       - completed
 env:
-  download_url: https://trackasia-native.s3.eu-central-1.amazonaws.com
+  download_url: https://maplibre-native.s3.eu-central-1.amazonaws.com
 
 permissions:
   pull-requests: write

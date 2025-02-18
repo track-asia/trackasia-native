@@ -104,7 +104,7 @@
       "example": {
         "trackasia-demotiles": {
           "type": "vector",
-          "url": "https://demotiles.track-asia.com/tiles/tiles.json"
+          "url": "https://maps.track-asia.com/styles/v1/streets.json?key=public_key"
         },
         "trackasia-tilejson": {
           "type": "vector",
@@ -130,12 +130,12 @@
     "sprite": {
       "type": "sprite",
       "doc": "An array of `{id: 'my-sprite', url: 'https://example.com/sprite'}` objects. Each object should represent a unique URL to load a sprite from and and a unique ID to use as a prefix when referencing images from that sprite (i.e. 'my-sprite:image'). All the URLs are internally extended to load both .json and .png files. If the `id` field is equal to 'default', the prefix is omitted (just 'image' instead of 'default:image'). All the IDs and URLs must be unique. For backwards compatibility, instead of an array, one can also provide a single string that represent a URL to load the sprite from. The images in this case won't be prefixed.",
-      "example": "https://demotiles.track-asia.com/styles/osm-bright-gl-style/sprite"
+      "example": "https://maps.track-asia.com/styles/osm-bright-gl-style/sprite"
     },
     "glyphs": {
       "type": "string",
       "doc": "A URL template for loading signed-distance-field glyph sets in PBF format. \nThe URL must include:\n\n - `{fontstack}` - When requesting glyphs, this token is replaced with a comma separated list of fonts from a font stack specified in the text-font property of a symbol layer. \n\n - `{range}` - When requesting glyphs, this token is replaced with a range of 256 Unicode code points. For example, to load glyphs for the Unicode Basic Latin and Basic Latin-1 Supplement blocks, the range would be 0-255. The actual ranges that are loaded are determined at runtime based on what text needs to be displayed.\n\nThis property is required if any layer uses the `text-field` layout property. The URL must be absolute, containing the [scheme, authority and path components](https://en.wikipedia.org/wiki/URL#Syntax).",
-      "example": "https://demotiles.track-asia.com/font/{fontstack}/{range}.pbf"
+      "example": "https://maps.track-asia.com/font/{fontstack}/{range}.pbf"
     },
     "transition": {
       "type": "transition",

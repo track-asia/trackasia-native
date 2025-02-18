@@ -219,7 +219,7 @@ TileServerOptions TileServerOptions::TrackAsiaConfiguration() {
                                                  mbgl::util::DefaultStyle("trackasia://maps/style", "Basic", 1)};
 
     TileServerOptions options = TileServerOptions()
-                                    .withBaseURL("https://demotiles.track-asia.com")
+                                    .withBaseURL("https://maps.track-asia.com")
                                     .withUriSchemeAlias("trackasia")
                                     .withApiKeyParameterName("")
                                     .withSourceTemplate("/tiles/{domain}.json", "", {})

@@ -41,7 +41,7 @@ http_file(
     name = "pois_nps_mbtiles",
     downloaded_file_path = "pois-nps.mbtiles",
     sha256 = "6a218702a5a60bb6358494217cac2836a087355ac092f6b01f089d8b1b2842ca",
-    url = "https://trackasia-native.s3.eu-central-1.amazonaws.com/ios-swift-example-app-resources/pois-nps.mbtiles",
+    url = "https://maplibre-native.s3.eu-central-1.amazonaws.com/ios-swift-example-app-resources/pois-nps.mbtiles",
 )
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")

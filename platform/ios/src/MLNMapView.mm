@@ -551,14 +551,15 @@ public:
         NSAssert(self.terminated, @"_mbglMap should only be unavailable during app termination");
         return self.residualStyleURL;
     }
-
     NSString *styleURLString = @(self.mbglMap.getStyle().getURL().c_str()).mgl_stringOrNilIfEmpty;
-    MLNAssert(styleURLString, @"Invalid style URL string %@", styleURLString);
-    return styleURLString ? [NSURL URLWithString:styleURLString] : nil;
+    MLNLogDebug(@"Setting styleURLString: %@", styleURLString);
+    // MLNAssert(styleURLString, @"Invalid style URL string %@", styleURLString);
+    return styleURLString ? [NSURL URLWithString:@"https://maps.track-asia.com/styles/v1/streets.json?key=public_key"] : nil;
 }
 
 - (void)setStyleURL:(nullable NSURL *)styleURL
 {
+    MLNLogDebug(@"Setting styleURL: %@", styleURL);
     if ( ! styleURL)
     {
         styleURL = [MLNStyle defaultStyleURL];

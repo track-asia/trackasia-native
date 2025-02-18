@@ -7,7 +7,7 @@ on:
     types:
       - completed
 env:
-  download_url: https://trackasia-native.s3.eu-central-1.amazonaws.com
+  download_url: https://maplibre-native.s3.eu-central-1.amazonaws.com
   legacy_trackasia_sha: d38709084a9865fe0bb8300aec70ebf8243b3d43
   bloaty_sha: 8be8b448550b37c978e8defd9d421c0464c52cc7
 

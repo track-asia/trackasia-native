@@ -85,7 +85,7 @@ scripts/aws-device-farm/plot-android-benchmark-results.py
 
 We are running the Android benchmark on every merge with `main`.
 
-You can find the results per commit [here](https://trackasia-native.s3.eu-central-1.amazonaws.com/index.html#android-benchmark-render/) or pull them from our public S3 bucket:
+You can find the results per commit [here](https://maplibre-native.s3.eu-central-1.amazonaws.com/index.html#android-benchmark-render/) or pull them from our public S3 bucket:
 
 ```
 aws s3 sync s3://trackasia-native/android-benchmark-render/ .
