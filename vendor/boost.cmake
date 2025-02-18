@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-boost
     PROPERTIES
-        INTERFACE_MAPBOX_NAME "Boost C++ Libraries"
-        INTERFACE_MAPBOX_URL "https://www.boost.org"
-        INTERFACE_MAPBOX_AUTHOR "Boost authors"
-        INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/boost/LICENSE_1_0.txt
+        INTERFACE_TRACKASIA_NAME "Boost C++ Libraries"
+        INTERFACE_TRACKASIA_URL "https://www.boost.org"
+        INTERFACE_TRACKASIA_AUTHOR "Boost authors"
+        INTERFACE_TRACKASIA_LICENSE ${CMAKE_CURRENT_LIST_DIR}/boost/LICENSE_1_0.txt
 )

@@ -90,11 +90,12 @@ const LayerTypeInfo* CustomDrawableLayer::Impl::staticTypeInfo() noexcept {
 class LineDrawableTweaker : public gfx::DrawableTweaker {
 public:
     LineDrawableTweaker(const shaders::LineEvaluatedPropsUBO& properties)
-        : linePropertiesUBO(properties) {}
+        : propsUBO(properties) {}
+    ~LineDrawableTweaker() override = default;
 
-    void init(gfx::Drawable&) override {};
+    void init(gfx::Drawable&) override {}
 
-    void execute(gfx::Drawable& drawable, const PaintParameters& parameters) override {
+    void execute(gfx::Drawable& drawable, PaintParameters& parameters) override {
         if (!drawable.getTileID().has_value()) {
             return;
         }
@@ -107,41 +108,54 @@ public:
         const auto matrix = LayerTweaker::getTileMatrix(
             tileID, parameters, {{0, 0}}, style::TranslateAnchorType::Viewport, false, false, drawable, false);
 
-        const shaders::LineDynamicUBO dynamicUBO = {
-            /*units_to_pixels = */ {1.0f / parameters.pixelsToGLUnits[0], 1.0f / parameters.pixelsToGLUnits[1]}, 0, 0};
+#if MLN_UBO_CONSOLIDATION
+        shaders::LineDrawableUnionUBO drawableUBO;
+        drawableUBO.lineDrawableUBO = {
+#else
+        const shaders::LineDrawableUBO drawableUBO = {
+#endif
+            /* .matrix = */ util::cast<float>(matrix),
+            /* .ratio = */ 1.0f / tileID.pixelsToTileUnits(1.0f, zoom),
 
-        const shaders::LineDrawableUBO drawableUBO = {/*matrix = */ util::cast<float>(matrix),
-                                                      /*ratio = */ 1.0f / tileID.pixelsToTileUnits(1.0f, zoom),
-                                                      0,
-                                                      0,
-                                                      0};
-        const shaders::LineInterpolationUBO lineInterpolationUBO{/*color_t =*/0.f,
-                                                                 /*blur_t =*/0.f,
-                                                                 /*opacity_t =*/0.f,
-                                                                 /*gapwidth_t =*/0.f,
-                                                                 /*offset_t =*/0.f,
-                                                                 /*width_t =*/0.f,
-                                                                 0,
-                                                                 0};
+            /* .color_t = */ 0.f,
+            /* .blur_t = */ 0.f,
+            /* .opacity_t = */ 0.f,
+            /* .gapwidth_t = */ 0.f,
+            /* .offset_t = */ 0.f,
+            /* .width_t = */ 0.f,
+            /* .pad1 = */ 0
+        };
         auto& drawableUniforms = drawable.mutableUniformBuffers();
-        drawableUniforms.createOrUpdate(idLineDynamicUBO, &dynamicUBO, parameters.context);
-        drawableUniforms.createOrUpdate(idLineDrawableUBO, &drawableUBO, parameters.context);
-        drawableUniforms.createOrUpdate(idLineInterpolationUBO, &lineInterpolationUBO, parameters.context);
-        drawableUniforms.createOrUpdate(idLineEvaluatedPropsUBO, &linePropertiesUBO, parameters.context);
+        drawableUniforms.createOrUpdate(idLineDrawableUBO, &drawableUBO, parameters.context, true);
+        drawableUniforms.createOrUpdate(idLineEvaluatedPropsUBO, &propsUBO, parameters.context);
+
+        // We would need to set up `idLineExpressionUBO` if the expression mask isn't empty
+        assert(propsUBO.expressionMask == LineExpressionMask::None);
+
+        const LineExpressionUBO exprUBO = {
+            /* .color = */ nullptr,
+            /* .blur = */ nullptr,
+            /* .opacity = */ nullptr,
+            /* .gapwidth = */ nullptr,
+            /* .offset = */ nullptr,
+            /* .width = */ nullptr,
+            /* .floorWidth = */ nullptr,
+        };
+        drawableUniforms.createOrUpdate(idLineExpressionUBO, &exprUBO, parameters.context);
     };
 
 private:
-    shaders::LineEvaluatedPropsUBO linePropertiesUBO;
+    shaders::LineEvaluatedPropsUBO propsUBO;
 };
 
 class WideVectorDrawableTweaker : public gfx::DrawableTweaker {
 public:
-    WideVectorDrawableTweaker(const CustomDrawableLayerHost::Interface::LineOptions& options)
-        : options(options) {}
+    WideVectorDrawableTweaker(const CustomDrawableLayerHost::Interface::LineOptions& options_)
+        : options(options_) {}
 
-    void init(gfx::Drawable&) override {};
+    void init(gfx::Drawable&) override {}
 
-    void execute(gfx::Drawable& drawable, const PaintParameters& parameters) override {
+    void execute(gfx::Drawable& drawable, PaintParameters& parameters) override {
         if (!drawable.getTileID().has_value()) {
             return;
         }
@@ -164,29 +178,31 @@ public:
         matrix::diffsplit(pMatrix, pMatrixDiff, projMatrix);
 
         const auto renderableSize = parameters.backend.getDefaultRenderable().getSize();
-        shaders::WideVectorUniformsUBO uniform{
-            /*mvpMatrix     */ mvpMatrix,
-            /*mvpMatrixDiff */ mvpMatrixDiff,
-            /*mvMatrix      */ mvMatrix,
-            /*mvMatrixDiff  */ mvMatrixDiff,
-            /*pMatrix       */ pMatrix,
-            /*pMatrixDiff   */ pMatrixDiff,
-            /*frameSize     */ {(float)renderableSize.width, (float)renderableSize.height}};
+        shaders::WideVectorUniformsUBO uniform = {
+            /* .mvpMatrix = */ mvpMatrix,
+            /* .mvpMatrixDiff = */ mvpMatrixDiff,
+            /* .mvMatrix = */ mvMatrix,
+            /* .mvMatrixDiff = */ mvMatrixDiff,
+            /* .pMatrix = */ pMatrix,
+            /* .pMatrixDiff = */ pMatrixDiff,
+            /* .frameSize = */ {(float)renderableSize.width, (float)renderableSize.height},
+            /* .pad1 = */ 0,
+            /* .pad2 = */ 0};
 
-        shaders::WideVectorUniformWideVecUBO wideVec{
-            /*color         */ options.color,
-            /*w2            */ options.width,
-            /*offset        */ options.offset,
-            /*edge          */ 0.0f, // TODO: MLN does not provide a value. Analyze impact.
-            /*texRepeat     */ 0.0f, // N/A
-            /*texOffset     */ {},   // N/A
-            /*miterLimit    */ options.geometry.miterLimit,
-            /*join          */ static_cast<int32_t>(options.geometry.joinType),
-            /*cap           */ static_cast<int32_t>(options.geometry.beginCap), // TODO: MLN option for endCap to be
-                                                                                // implemented in the shader!
-            /*hasExp        */ false,                                           // N/A
-            /*interClipLimit*/ 0.0f                                             // N/A
-        };
+        shaders::WideVectorUniformWideVecUBO wideVec = {
+            /* .color = */ options.color,
+            /* .w2 = */ options.width,
+            /* .offset = */ options.offset,
+            /* .edge = */ 0.0f,      // TODO: MLN does not provide a value. Analyze impact.
+            /* .texRepeat = */ 0.0f, // N/A
+            /* .texOffset = */ {},   // N/A
+            /* .miterLimit = */ options.geometry.miterLimit,
+            /* .join = */ static_cast<int32_t>(options.geometry.joinType),
+            /* .cap = */ static_cast<int32_t>(options.geometry.beginCap), // TODO: MLN option for endCap to be
+                                                                          // implemented in the shader!
+            /* .hasExp = */ false,                                        // N/A
+            /* .interClipLimit = */ 0.0f,                                 // N/A
+            /* .pad1 = */ 0};
 
         auto& drawableUniforms = drawable.mutableUniformBuffers();
         drawableUniforms.createOrUpdate(idWideVectorUniformsUBO, &uniform, parameters.context);
@@ -202,10 +218,11 @@ public:
     FillDrawableTweaker(const Color& color_, float opacity_)
         : color(color_),
           opacity(opacity_) {}
+    ~FillDrawableTweaker() override = default;
 
-    void init(gfx::Drawable&) override {};
+    void init(gfx::Drawable&) override {}
 
-    void execute(gfx::Drawable& drawable, const PaintParameters& parameters) override {
+    void execute(gfx::Drawable& drawable, PaintParameters& parameters) override {
         if (!drawable.getTileID().has_value()) {
             return;
         }
@@ -217,26 +234,29 @@ public:
         const auto matrix = LayerTweaker::getTileMatrix(
             tileID, parameters, {{0, 0}}, style::TranslateAnchorType::Viewport, false, false, drawable, false);
 
-        const shaders::FillDrawableUBO fillDrawableUBO{/*matrix = */ util::cast<float>(matrix)};
+#if MLN_UBO_CONSOLIDATION
+        shaders::FillDrawableUnionUBO drawableUBO;
+        drawableUBO.fillDrawableUBO = {
+#else
+        const shaders::FillDrawableUBO drawableUBO = {
+#endif
+            /* .matrix = */ util::cast<float>(matrix),
 
-        const shaders::FillInterpolateUBO fillInterpolateUBO{
             /* .color_t = */ 0.f,
             /* .opacity_t = */ 0.f,
-            0,
-            0,
+            /* .pad1 = */ 0,
+            /* .pad2 = */ 0
         };
-        const shaders::FillEvaluatedPropsUBO fillPropertiesUBO{
-            /* .color = */ color,
-            /* .outline_color = */ Color::white(),
-            /* .opacity = */ opacity,
-            /* .fade = */ 0.f,
-            /* .width = */ 0.f,
-            0,
-        };
+
+        const shaders::FillEvaluatedPropsUBO propsUBO = {/* .color = */ color,
+                                                         /* .outline_color = */ Color::white(),
+                                                         /* .opacity = */ opacity,
+                                                         /* .fade = */ 0.f,
+                                                         /* .from_scale = */ 0.f,
+                                                         /* .to_scale = */ 0.f};
         auto& drawableUniforms = drawable.mutableUniformBuffers();
-        drawableUniforms.createOrUpdate(idFillDrawableUBO, &fillDrawableUBO, parameters.context);
-        drawableUniforms.createOrUpdate(idFillInterpolateUBO, &fillInterpolateUBO, parameters.context);
-        drawableUniforms.createOrUpdate(idFillEvaluatedPropsUBO, &fillPropertiesUBO, parameters.context);
+        drawableUniforms.createOrUpdate(idFillDrawableUBO, &drawableUBO, parameters.context);
+        drawableUniforms.createOrUpdate(idFillEvaluatedPropsUBO, &propsUBO, parameters.context);
     };
 
 private:
@@ -248,10 +268,11 @@ class SymbolDrawableTweaker : public gfx::DrawableTweaker {
 public:
     SymbolDrawableTweaker(const CustomDrawableLayerHost::Interface::SymbolOptions& options_)
         : options(options_) {}
+    ~SymbolDrawableTweaker() override = default;
 
-    void init(gfx::Drawable&) override {};
+    void init(gfx::Drawable&) override {}
 
-    void execute(gfx::Drawable& drawable, const PaintParameters& parameters) override {
+    void execute(gfx::Drawable& drawable, PaintParameters& parameters) override {
         if (!drawable.getTileID().has_value()) {
             return;
         }
@@ -263,8 +284,6 @@ public:
         const auto matrix = LayerTweaker::getTileMatrix(
             tileID, parameters, {{0, 0}}, style::TranslateAnchorType::Viewport, false, false, drawable, false);
 
-        const shaders::CustomSymbolIconDrawableUBO drawableUBO{/*matrix = */ util::cast<float>(matrix)};
-
         const auto pixelsToTileUnits = tileID.pixelsToTileUnits(
             1.0f, options.scaleWithMap ? tileID.canonical.z : parameters.state.getZoom());
         const float factor = options.scaleWithMap
@@ -274,22 +293,21 @@ public:
                                                        : std::array<float, 2>{parameters.pixelsToGLUnits[0] * factor,
                                                                               parameters.pixelsToGLUnits[1] * factor};
 
-        const shaders::CustomSymbolIconParametersUBO parametersUBO{
-            /*extrude_scale*/ {extrudeScale[0] * options.size.width, extrudeScale[1] * options.size.height},
-            /*anchor*/ options.anchor,
-            /*angle_degrees*/ options.angleDegrees,
-            /*scale_with_map*/ options.scaleWithMap,
-            /*pitch_with_map*/ options.pitchWithMap,
-            /*camera_to_center_distance*/ parameters.state.getCameraToCenterDistance(),
-            /*aspect_ratio*/ parameters.pixelsToGLUnits[0] / parameters.pixelsToGLUnits[1],
-            0,
-            0,
-            0};
+        const shaders::CustomSymbolIconDrawableUBO drawableUBO = {
+            /* .matrix = */ util::cast<float>(matrix),
+            /* .extrude_scale = */ {extrudeScale[0] * options.size.width, extrudeScale[1] * options.size.height},
+            /* .anchor = */ options.anchor,
+            /* .angle_degrees = */ options.angleDegrees,
+            /* .scale_with_map = */ options.scaleWithMap,
+            /* .pitch_with_map = */ options.pitchWithMap,
+            /* .camera_to_center_distance = */ parameters.state.getCameraToCenterDistance(),
+            /* .aspect_ratio = */ parameters.pixelsToGLUnits[0] / parameters.pixelsToGLUnits[1],
+            /* .pad1 = */ 0,
+            /* .pad2 = */ 0,
+            /* .pad3 = */ 0};
 
-        // set UBOs
         auto& drawableUniforms = drawable.mutableUniformBuffers();
         drawableUniforms.createOrUpdate(idCustomSymbolDrawableUBO, &drawableUBO, parameters.context);
-        drawableUniforms.createOrUpdate(idCustomSymbolParametersUBO, &parametersUBO, parameters.context);
     };
 
 private:
@@ -498,7 +516,7 @@ bool CustomDrawableLayerHost::Interface::addSymbol(const GeometryCoordinate& poi
         builder->setTexture(symbolOptions.texture, idCustomSymbolImageTexture);
     }
 
-    // create fill tweaker
+    // create symbol tweaker
     auto tweaker = std::make_shared<SymbolDrawableTweaker>(symbolOptions);
     builder->addTweaker(tweaker);
 
@@ -540,8 +558,8 @@ void CustomDrawableLayerHost::Interface::finish() {
                                                                           lineOptions.gapWidth,
                                                                           lineOptions.offset,
                                                                           lineOptions.width,
-                                                                          0,
-                                                                          0,
+                                                                          /*floorwidth=*/0,
+                                                                          LineExpressionMask::None,
                                                                           0};
                 auto tweaker = std::make_shared<LineDrawableTweaker>(linePropertiesUBO);
 

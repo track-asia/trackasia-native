@@ -13,7 +13,7 @@
   "glyphs": "local://glyphs/{fontstack}/{range}.pbf",
   "zoom": 0,
   "sources": {
-    "mapbox": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -30,13 +30,13 @@
       }
     },
     {
-      "id": "mapbox",
+      "id": "trackasia",
       "type": "symbol",
-      "source": "mapbox",
+      "source": "trackasia",
       "source-layer": "poi_label",
       "layout": {
         "icon-image": "dog-park-12",
-        "text-field": "mapbox",
+        "text-field": "trackasia",
         "text-font": [
           "Open Sans Semibold",
           "Arial Unicode MS Bold"

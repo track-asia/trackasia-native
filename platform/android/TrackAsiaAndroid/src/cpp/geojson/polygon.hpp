@@ -15,7 +15,7 @@ namespace geojson {
 class Polygon {
 public:
     using SuperTag = Geometry;
-    static constexpr auto Name() { return "org/trackasia/geojson/Polygon"; };
+    static constexpr auto Name() { return "com/trackasia/geojson/Polygon"; };
     static constexpr auto Type() { return "Polygon"; };
 
     static jni::Local<jni::Object<Polygon>> New(jni::JNIEnv &, const mbgl::Polygon<double> &);

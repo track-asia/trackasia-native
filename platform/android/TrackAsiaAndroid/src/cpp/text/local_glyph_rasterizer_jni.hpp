@@ -6,7 +6,7 @@
 
 /*
     android::LocalGlyphRasterizer is the JNI wrapper of
-    org/trackasia/android/text/LocalGlyphRasterizer
+    com/trackasia/android/text/LocalGlyphRasterizer
 
     mbgl::LocalGlyphRasterizer is the portable interface
     Both implementations are in local_glyph_rasterizer.cpp
@@ -17,7 +17,7 @@ namespace android {
 
 class LocalGlyphRasterizer {
 public:
-    static constexpr auto Name() { return "org/trackasia/android/text/LocalGlyphRasterizer"; };
+    static constexpr auto Name() { return "com/trackasia/android/text/LocalGlyphRasterizer"; };
 
     static void registerNative(jni::JNIEnv&);
 
@@ -26,7 +26,7 @@ public:
     PremultipliedImage drawGlyphBitmap(const std::string& fontFamily, const bool bold, const char16_t glyphID);
 
 private:
-    jni::Global<jni::Object<LocalGlyphRasterizer>> javaObject;
+    jni::Global<jni::Object<LocalGlyphRasterizer>, jni::EnvAttachingDeleter> javaObject;
 };
 
 } // namespace android

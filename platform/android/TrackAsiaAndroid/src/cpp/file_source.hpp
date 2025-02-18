@@ -24,11 +24,11 @@ namespace android {
  */
 class FileSource {
 public:
-    static constexpr auto Name() { return "org/trackasia/android/storage/FileSource"; };
+    static constexpr auto Name() { return "com/trackasia/android/storage/FileSource"; };
 
     struct ResourceTransformCallback {
         static constexpr auto Name() {
-            return "org/trackasia/android/storage/"
+            return "com/trackasia/android/storage/"
                    "FileSource$ResourceTransformCallback";
         }
 
@@ -40,7 +40,7 @@ public:
 
     struct ResourcesCachePathChangeCallback {
         static constexpr auto Name() {
-            return "org/trackasia/android/storage/"
+            return "com/trackasia/android/storage/"
                    "FileSource$ResourcesCachePathChangeCallback";
         }
 
@@ -93,7 +93,7 @@ private:
     mbgl::ResourceOptions resourceOptions;
     mbgl::ClientOptions clientOptions;
     std::unique_ptr<Actor<ResourceTransform::TransformCallback>> resourceTransform;
-    std::function<void()> pathChangeCallback;
+    std23::move_only_function<void()> pathChangeCallback;
     std::shared_ptr<mbgl::DatabaseFileSource> databaseSource;
     std::shared_ptr<mbgl::FileSource> onlineSource;
     std::shared_ptr<mbgl::FileSource> resourceLoader;

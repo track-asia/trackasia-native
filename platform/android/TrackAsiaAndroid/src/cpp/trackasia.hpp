@@ -9,7 +9,7 @@ namespace android {
 
 class TrackAsia {
 public:
-    static constexpr auto Name() { return "org/trackasia/android/TrackAsia"; };
+    static constexpr auto Name() { return "com/trackasia/android/TrackAsia"; };
     static jboolean hasInstance(jni::JNIEnv&);
     static jni::Local<jni::Object<AssetManager>> getAssetManager(jni::JNIEnv&);
     static void registerNative(jni::JNIEnv&);

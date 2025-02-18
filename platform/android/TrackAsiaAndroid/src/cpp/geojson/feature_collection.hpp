@@ -12,7 +12,7 @@ namespace geojson {
 
 class FeatureCollection {
 public:
-    static constexpr auto Name() { return "org/trackasia/geojson/FeatureCollection"; };
+    static constexpr auto Name() { return "com/trackasia/geojson/FeatureCollection"; };
 
     static mbgl::FeatureCollection convert(jni::JNIEnv&, const jni::Object<FeatureCollection>&);
 

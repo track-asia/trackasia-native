@@ -9,7 +9,7 @@ namespace android {
 
 class Polygon : private MultiPoint {
 public:
-    static constexpr auto Name() { return "org/trackasia/android/annotations/Polygon"; };
+    static constexpr auto Name() { return "com/trackasia/android/annotations/Polygon"; };
 
     static mbgl::FillAnnotation toAnnotation(jni::JNIEnv&, const jni::Object<Polygon>&);
 

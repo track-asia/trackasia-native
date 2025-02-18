@@ -6,12 +6,16 @@ TrackAsia Native for Android is a library for embedding interactive map views wi
 
 ## Getting Started
 
-Visit [https://track-asia.com/trackasia-native/docs/book/android/getting-started-guide.html](https://track-asia.com/trackasia-native/docs/book/android/getting-started-guide.html) to view the Getting Started Guide for TrackAsia Native for Android.
+Visit [https://trackasia.com/trackasia-native/android/examples/getting-started/](https://trackasia.com/trackasia-native/android/examples/getting-started/) to view the Getting Started Guide for TrackAsia Native for Android.
 
-## Documentation
+### Examples Documentation
 
-Visit [https://track-asia.com/trackasia-native/android/api/](https://track-asia.com/trackasia-native/android/api/) to view the current API reference Javadoc files for TrackAsia Native for Android.
+Visit [TrackAsia Android Example](https://trackasia.com/trackasia-native/android/examples/) to learn how to use TrackAsia Android.
+
+## API Documentation
+
+Visit [TrackAsia Android Dokka Docs](https://trackasia.com/trackasia-native/android/api/) to view the current API reference for TrackAsia Android.
 
 ## Contributing
 
-See [`DEVELOPING.md`](./DEVELOPING.md) for instructions on how to get started working on the codebase.
+See the [TrackAsia Android Developer Guide](https://trackasia.com/trackasia-native/docs/book/android) for instructions on how to build the project or how to work on the documentation.

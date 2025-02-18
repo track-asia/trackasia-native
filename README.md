@@ -1,4 +1,4 @@
-[![TrackAsia Logo](https://track-asia.com/img/trackasia-logo-big.svg)](https://track-asia.com/)
+[![TrackAsia Logo](https://trackasia.org/img/trackasia-logo-big.svg)](https://trackasia.org/)
 
 # TrackAsia Native
 
@@ -14,64 +14,244 @@ This project originated as a fork of Mapbox GL Native, before their switch to a 
 
 ## Getting Started
 
-To get started with TrackAsia Native, go to your platform below.
+## Android
 
-## Documentation
+Add [the latest version](https://central.sonatype.com/artifact/io.github.track-asia/android-sdk/versions) of TrackAsia Native Android as a dependency to your project.
 
-The documentation of TrackAsia Native is a work in progress. To get an architectural overview and to learn about the current state of the project and its path forward read the [TrackAsia Native Markdown Book](https://track-asia.com/trackasia-native/docs/book/). See below for platform-specific documentation.
+```gradle
+    dependencies {
+        ...
+        implementation 'io.github.track-asia:android-sdk:11.5.1'
+        ...
+    }
+```
 
-## Platforms
+Add a `MapView` to your layout XML file:
 
-- [⭐️ Android](platform/android/README.md)
-- [⭐️ iOS](platform/ios/README.md)
-- [GLFW](platform/glfw)
-- [Linux](platform/linux/README.md)
-- [Node.js](platform/node/README.md)
-- [Qt](platform/qt/README.md)
-- [Windows](platform/windows/README.md)
-- [macOS](platform/macos/README.md)
+```xml
+<com.trackasia.android.maps.MapView
+    android:id="@+id/mapView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />
+```
 
-Platforms with a ⭐️ are **TrackAsia Core Projects** and have a substantial amount of financial resources allocated to them. Learn about the different [project tiers](https://github.com/trackasia/trackasia/blob/main/PROJECT_TIERS.md#project-tiers).
+> [!TIP]
+> There are external projects such as [Ramani Maps](https://github.com/ramani-maps/ramani-maps) and [TrackAsia Compose Playground](https://github.com/Rallista/trackasia-compose-playground) available to intergrate TrackAsia Native Android with Compose-based projects.
 
-## Renderer Modularization & Metal
+Next, initialize the map in an activity:
 
-![image-metal](https://user-images.githubusercontent.com/53421382/214308933-66cd4efb-b5a5-4de3-b4b4-7ed59045a1c3.png)
+<details><summary>Show code</summary>
 
-TrackAsia Native for iOS 6.0.0 with Metal support has been released. See the [news announcement](https://track-asia.com/news/2024-01-19-metal-support-for-trackasia-native-ios-is-here/).
- 
+```kotlin
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.LayoutInflater
+import com.trackasia.android.Trackasia
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.testapp.R
+
+class MainActivity : AppCompatActivity() {
+
+    // Declare a variable for MapView
+    private lateinit var mapView: MapView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Init TrackAsia
+        TrackAsia.getInstance(this)
+
+        // Init layout view
+        val inflater = LayoutInflater.from(this)
+        val rootView = inflater.inflate(R.layout.activity_main, null)
+        setContentView(rootView)
+
+        // Init the MapView
+        mapView = rootView.findViewById(R.id.mapView)
+        mapView.getMapAsync { map ->
+            map.setStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
+            map.cameraPosition = CameraPosition.Builder().target(LatLng(0.0,0.0)).zoom(1.0).build()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mapView.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
+    }
+}
+```
+</details>
+
+For more information, refer to the [Android API Documentation](https://trackasia.com/trackasia-native/android/api/), [Android Examples Documentation](https://trackasia.com/trackasia-native/android/examples/getting-started/) or the [TrackAsia Native Android `README.md`](platform/android/README.md).
+
+## iOS
+
+You can find TrackAsia Native iOS on [Cocoapods](https://cocoapods.org/) and on the [Swift Package Index](https://swiftpackageindex.com/trackasia/trackasia-gl-native-distribution). You can also TrackAsia Native iOS [as a dependency to Xcode directly](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia-native-for-ios/gettingstarted/#Add-TrackAsia-Native-as-a-dependency).
+
+TrackAsia Native iOS uses UIKit. To intergrate it with an UIKit project, you can use
+
+```swift
+class SimpleMap: UIViewController, MLNMapViewDelegate {
+    var mapView: MLNMapView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mapView = MLNMapView(frame: view.bounds)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(mapView)
+        mapView.delegate = self
+    }
+
+    func mapView(_: MLNMapView, didFinishLoading _: MLNStyle) {
+    }
+}
+```
+
+You need to create a wrapper when using SwiftUI.
+
+```swift
+import TrackAsia
+
+struct SimpleMap: UIViewRepresentable {
+    func makeUIView(context _: Context) -> MLNMapView {
+        let mapView = MLNMapView()
+        return mapView
+    }
+
+    func updateUIView(_: MLNMapView, context _: Context) {}
+}
+```
+
+You can also use [TrackAsiaSwiftUI](https://github.com/trackasia/swiftui-dsl), a wrapper around TrackAsia Native iOS that offers a declarative API like SwiftUI.
+
+The [iOS Documentation](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia/) contains many examples and the entire API of the library. You might also want to check out the [TrackAsia Native iOS `README.md`](platform/ios/README.md).
+
+## Node.js
+
+There is an [npm package](https://www.npmjs.com/package/@trackasia/trackasia-gl-native) for using TrackAsia Native in a Node.js project. The source code of this project [can be found in this repository](https://github.com/trackasia/trackasia-native/tree/main/platform/node).
+
+## Qt
+
+Please check out the [`trackasia/trackasia-native-qt` repository](https://github.com/trackasia/trackasia-native-qt) to learn how to intergrate TrackAsia Native with a Qt project.
+
+## Other Platforms
+
+TrackAsia Native can also be built on [Linux](platform/linux/README.md), [Windows](platform/windows/README.md) and [macOS](platform/macos/README.md).
+
 ## Contributing
 
-To contribute to TrackAsia Native, see [`CONTRIBUTING.md`](CONTRIBUTING.md) and (if applicable) the specific instructions for the platform you want to contribute to.
+> [!NOTE]
+> This section is only relevant for people who want to contribute to TrackAsia Native.
 
-### Getting Involved
+TrackAsia Native has at its core a C++ library. This is where the bulk of development is currently happening.
+
+To get started with the code base, you need to clone the the repository including all its submodules.
+
+All contributors use pull requests from a private fork. [Fork the project](https://github.com/trackasia/trackasia-native/fork). Then run:
+
+```bash
+git clone --recurse-submodules git@github.com:<YOUR NAME>/trackasia-native.git
+git remote add origin https://github.com/trackasia/trackasia-native.git
+```
+
+Check out issues labelled as a [good first issue](https://github.com/trackasia/trackasia-native/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+
+## Core
+
+- [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- [TrackAsia Native Markdown Book](https://trackasia.com/trackasia-native/docs/book/design/ten-thousand-foot-view.html): architectural notes
+- [GitHub Wiki](https://github.com/trackasia/trackasia-native/wiki): low-friction way to share information with the community
+- [Core C++ API Documentation](https://trackasia.com/trackasia-native/cpp/api/) (unstable)
+
+## Android
+
+Open `platform/android` with Android Studio.
+
+More information: [`platform/android/DEVELOPING.md`](platform/android/DEVELOPING.md).
+
+## iOS
+
+You need to use [Bazel](https://bazel.build/) to generate an Xcode project. Install [`bazelisk`](https://formulae.brew.sh/formula/bazelisk) (a wrapper that installs the required Bazel version). Next, use:
+
+```bash
+bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
+xed platform/ios/TrackAsia.xcodeproj
+```
+
+To generate and open the Xcode project.
+
+More information: [`platform/ios/CONTRIBUTING.md`](platform/ios/CONTRIBUTING.md).
+
+## Other Platforms
+
+See [`/platform`](/platform) and navigate to the platform you are interested in for more information.
+
+## Getting Involved
 
 Join the `#trackasia-native` Slack channel at OSMUS. Get an invite at https://slack.openstreetmap.us/
 
 ### Bounties 💰
 
-Thanks to our sponsors, we are able to award bounties to developers making contributions toward certain [bounty directions](https://github.com/trackasia/trackasia/issues?q=is%3Aissue+is%3Aopen+label%3A%22bounty+direction%22). To get started doing bounties, refer to the [step-by-step bounties guide](https://track-asia.com/roadmap/step-by-step-bounties-guide/).
+Thanks to our sponsors, we are able to award bounties to developers making contributions toward certain [bounty directions](https://github.com/trackasia/trackasia/issues?q=is%3Aissue+is%3Aopen+label%3A%22bounty+direction%22). To get started doing bounties, refer to the [step-by-step bounties guide](https://trackasia.org/roadmap/step-by-step-bounties-guide/).
 
 We thank everyone who supported us financially in the past and special thanks to the people and organizations who support us with recurring donations!
 
-Read more about the TrackAsia Sponsorship Program at [https://track-asia.com/sponsors/](https://track-asia.com/sponsors/).
+Read more about the TrackAsia Sponsorship Program at [https://trackasia.org/sponsors/](https://trackasia.org/sponsors/).
 
 Gold:
 
-<a href="https://aws.amazon.com/location"><img src="https://track-asia.com/img/aws-logo.svg" alt="Logo AWS" width="25%"/></a>
+<a href="https://aws.amazon.com/location"><img src="https://trackasia.org/img/aws-logo.svg" alt="Logo AWS" width="25%"/></a>
 
-<a href="https://meta.com"><img src="https://track-asia.com/img/meta-logo.svg" alt="Logo Meta" width="25%"/></a>
+<a href="https://meta.com"><img src="https://trackasia.org/img/meta-logo.svg" alt="Logo Meta" width="25%"/></a>
 
 Silver:
 
-<a href="https://www.mierune.co.jp/?lang=en"><img src="https://track-asia.com/img/mierune-logo.svg" alt="Logo MIERUNE" width="25%"/></a>
+<a href="https://www.mierune.co.jp/?lang=en"><img src="https://trackasia.org/img/mierune-logo.svg" alt="Logo MIERUNE" width="25%"/></a>
 
-<a href="https://komoot.com/"><img src="https://track-asia.com/img/komoot-logo.svg" alt="Logo komoot" width="25%"/></a>
+<a href="https://komoot.com/"><img src="https://trackasia.org/img/komoot-logo.svg" alt="Logo komoot" width="25%"/></a>
 
-<a href="https://www.jawg.io/"><img src="https://track-asia.com/img/jawgmaps-logo.svg" alt="Logo JawgMaps" width="25%"/></a>
+<a href="https://www.jawg.io/"><img src="https://trackasia.org/img/jawgmaps-logo.svg" alt="Logo JawgMaps" width="25%"/></a>
 
-<a href="https://www.radar.com/"><img src="https://track-asia.com/img/radar-logo.svg" alt="Logo Radar" width="25%"/></a>
+<a href="https://www.radar.com/"><img src="https://trackasia.org/img/radar-logo.svg" alt="Logo Radar" width="25%"/></a>
 
-<a href="https://www.microsoft.com/"><img src="https://track-asia.com/img/msft-logo.svg" alt="Logo Microsoft" width="25%"/></a>
+<a href="https://www.microsoft.com/"><img src="https://trackasia.org/img/msft-logo.svg" alt="Logo Microsoft" width="25%"/></a>
+
+<a href="https://www.mappedin.com/"><img src="https://trackasia.org/img/mappedin-logo.svg" alt="Logo mappedin" width="25%"/></a>
+
+<a href="https://www.mapme.com/"><img src="https://trackasia.org/img/mapme-logo.svg" alt="Logo mapme" width="25%"/></a>
 
 Backers and Supporters:
 

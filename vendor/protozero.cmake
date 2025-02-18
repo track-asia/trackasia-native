@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-protozero
     PROPERTIES
-        INTERFACE_MAPBOX_NAME "protozero"
-        INTERFACE_MAPBOX_URL "https://github.com/mapbox/protozero"
-        INTERFACE_MAPBOX_AUTHOR "Mapbox"
-        INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/protozero/LICENSE.md
+        INTERFACE_TRACKASIA_NAME "protozero"
+        INTERFACE_TRACKASIA_URL "https://github.com/mapbox/protozero"
+        INTERFACE_TRACKASIA_AUTHOR "Mapbox"
+        INTERFACE_TRACKASIA_LICENSE ${CMAKE_CURRENT_LIST_DIR}/protozero/LICENSE.md
 )

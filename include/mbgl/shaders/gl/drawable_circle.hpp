@@ -11,16 +11,32 @@ struct ShaderSource<BuiltIn::CircleShader, gfx::Backend::Type::OpenGL> {
     static constexpr const char* vertex = R"(layout (location = 0) in vec2 a_pos;
 out vec3 v_data;
 
+layout (std140) uniform GlobalPaintParamsUBO {
+    highp vec2 u_pattern_atlas_texsize;
+    highp vec2 u_units_to_pixels;
+    highp vec2 u_world_size;
+    highp float u_camera_to_center_distance;
+    highp float u_symbol_fade_change;
+    highp float u_aspect_ratio;
+    highp float u_pixel_ratio;
+    highp float u_map_zoom;
+    lowp float global_pad1;
+};
+
 layout (std140) uniform CircleDrawableUBO {
     highp mat4 u_matrix;
     highp vec2 u_extrude_scale;
-    lowp vec2 drawable_pad1;
-};
-
-layout (std140) uniform CirclePaintParamsUBO {
-    highp float u_camera_to_center_distance;
-    lowp float params_pad1;
-    lowp vec2 params_pad2;
+    // Interpolations
+    lowp float u_color_t;
+    lowp float u_radius_t;
+    lowp float u_blur_t;
+    lowp float u_opacity_t;
+    lowp float u_stroke_color_t;
+    lowp float u_stroke_width_t;
+    lowp float u_stroke_opacity_t;
+    lowp float drawable_pad1;
+    lowp float drawable_pad2;
+    lowp float drawable_pad3;
 };
 
 layout (std140) uniform CircleEvaluatedPropsUBO {
@@ -34,17 +50,6 @@ layout (std140) uniform CircleEvaluatedPropsUBO {
     bool u_scale_with_map;
     bool u_pitch_with_map;
     lowp float props_pad1;
-};
-
-layout (std140) uniform CircleInterpolateUBO {
-    lowp float u_color_t;
-    lowp float u_radius_t;
-    lowp float u_blur_t;
-    lowp float u_opacity_t;
-    lowp float u_stroke_color_t;
-    lowp float u_stroke_width_t;
-    lowp float u_stroke_opacity_t;
-    lowp float interp_pad1;
 };
 
 #ifndef HAS_UNIFORM_u_color

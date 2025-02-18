@@ -15,7 +15,7 @@ target_sources(
 
 target_link_libraries(
     mbgl-vendor-csscolorparser
-    PRIVATE Mapbox::Base::optional mbgl-compiler-options
+    PRIVATE mbgl-compiler-options
 )
 
 target_include_directories(
@@ -30,8 +30,8 @@ endif()
 set_target_properties(
     mbgl-vendor-csscolorparser
     PROPERTIES
-        INTERFACE_MAPBOX_NAME "csscolorparser"
-        INTERFACE_MAPBOX_URL "https://github.com/mapbox/css-color-parser-cpp"
-        INTERFACE_MAPBOX_AUTHOR "Dean McNamee and Konstantin Käfer"
-        INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/csscolorparser/LICENSE
+        INTERFACE_TRACKASIA_NAME "csscolorparser"
+        INTERFACE_TRACKASIA_URL "https://github.com/mapbox/css-color-parser-cpp"
+        INTERFACE_TRACKASIA_AUTHOR "Dean McNamee and Konstantin Käfer"
+        INTERFACE_TRACKASIA_LICENSE ${CMAKE_CURRENT_LIST_DIR}/csscolorparser/LICENSE
 )

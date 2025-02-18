@@ -47,7 +47,7 @@ public:
 
 class StringUtils {
 public:
-    static constexpr auto Name() { return "org/trackasia/android/utils/StringUtils"; };
+    static constexpr auto Name() { return "com/trackasia/android/utils/StringUtils"; };
 
     static jni::Local<jni::String> unaccent(jni::JNIEnv&, const jni::String&);
 

@@ -25,7 +25,7 @@ RenderPass::RenderPass(CommandEncoder& commandEncoder_, const char* name, const 
                         const auto& c = *descriptor.clearColor;
                         colorTarget->setLoadAction(MTL::LoadActionClear);
                         colorTarget->setClearColor(MTL::ClearColor::Make(c.r, c.g, c.b, c.a));
-                        rpd = copy;
+                        rpd = std::move(copy);
                     }
                 }
             }
@@ -122,6 +122,10 @@ void RenderPass::bindVertex(const BufferResource& buf, std::size_t offset, std::
     buf.bindVertex(encoder, offset, index, actualSize);
 }
 
+void RenderPass::unbindVertex(std::size_t index) {
+    vertexBinds[index] = std::nullopt;
+}
+
 void RenderPass::bindFragment(const BufferResource& buf, std::size_t offset, std::size_t index, std::size_t size) {
     const auto actualSize = size ? size : buf.getSizeInBytes() - offset;
     assert(actualSize <= buf.getSizeInBytes());
@@ -142,6 +146,10 @@ void RenderPass::bindFragment(const BufferResource& buf, std::size_t offset, std
         fragmentBinds[index] = BindInfo{&buf, actualSize, offset};
     }
     buf.bindFragment(encoder, offset, index, actualSize);
+}
+
+void RenderPass::unbindFragment(std::size_t index) {
+    fragmentBinds[index] = std::nullopt;
 }
 
 void RenderPass::setDepthStencilState(const MTLDepthStencilStatePtr& state) {

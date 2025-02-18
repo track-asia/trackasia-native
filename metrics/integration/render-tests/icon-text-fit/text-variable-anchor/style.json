@@ -12,7 +12,7 @@
   ],
   "zoom": 14,
   "sources": {
-    "mapbox": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -33,7 +33,7 @@
     {
       "id": "road",
       "type": "symbol",
-      "source": "mapbox",
+      "source": "trackasia",
       "source-layer": "road_label",
       "layout": {
         "text-variable-anchor": ["left", "right", "bottom", "top"],

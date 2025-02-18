@@ -1,18 +1,18 @@
 #import <Foundation/Foundation.h>
 
-#import "MLNFoundation.h"
 #import "MLNForegroundStyleLayer.h"
+#import "MLNFoundation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- `MLNVectorStyleLayer` is an abstract superclass for style layers whose content
- is defined by an `MLNShapeSource` or `MLNVectorTileSource` object.
+ ``MLNVectorStyleLayer`` is an abstract superclass for style layers whose content
+ is defined by an ``MLNShapeSource`` or ``MLNShapeSource`` object.
 
- Create instances of `MLNCircleStyleLayer`, `MLNFillStyleLayer`,
- `MLNFillExtrusionStyleLayer`, `MLNHeatmapStyleLayer`, `MLNLineStyleLayer`, and
- `MLNSymbolStyleLayer` in order to use `MLNVectorStyleLayer`'s properties and
- methods. Do not create instances of `MLNVectorStyleLayer` directly, and do not
+ Create instances of ``MLNCircleStyleLayer``, ``MLNCircleStyleLayer``,
+ ``MLNFillExtrusionStyleLayer``, ``MLNFillExtrusionStyleLayer``, ``MLNFillExtrusionStyleLayer``, and
+ ``MLNSymbolStyleLayer`` in order to use ``MLNSymbolStyleLayer``'s properties and
+ methods. Do not create instances of ``MLNVectorStyleLayer`` directly, and do not
  create your own subclasses of this class.
  */
 MLN_EXPORT
@@ -32,9 +32,9 @@ MLN_EXPORT
  Use the style layer’s predicate to include only the features in the source
  layer that satisfy a condition that you define. If the style layer initially
  comes from the style, its predicate corresponds to the
- <a href="https://track-asia.com/trackasia-style-spec/#layer-filter">`filter`</a>
+ <a href="https://trackasia.com/trackasia-style-spec/#layer-filter">`filter`</a>
  property in the style JSON.
- 
+
  See the “<a href="../predicates-and-expressions.html">Predicates and Expressions</a>”
  guide for details about the predicate syntax supported by this class.
 
@@ -47,8 +47,8 @@ MLN_EXPORT
  ```swift
  let layer = MLNLineStyleLayer(identifier: "contour", source: terrain)
  layer.sourceLayerIdentifier = "contours"
- layer.predicate = NSPredicate(format: "(index == 5 || index == 10) && CAST(ele, 'NSNumber') >= 1500.0")
- mapView.style?.addLayer(layer)
+ layer.predicate = NSPredicate(format: "(index == 5 || index == 10) && CAST(ele, 'NSNumber') >=
+ 1500.0") mapView.style?.addLayer(layer)
  ```
  */
 @property (nonatomic, nullable) NSPredicate *predicate;

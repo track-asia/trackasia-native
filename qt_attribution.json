@@ -5,7 +5,7 @@
   "QtUsage": "Used in the TrackAsia Native backend of Qt Location.",
 
   "Description": "TrackAsia Native is a community led fork derived from mapbox-gl-native.",
-  "Homepage": "https://github.com/trackasia/trackasia-native",
+  "Homepage": "https://github.com/trackasia/trackasiaa-native",
   "LicenseId": "BSD-2-Clause",
   "License": "BSD 2-Clause License",
   "LicenseFile": "LICENSE.md",

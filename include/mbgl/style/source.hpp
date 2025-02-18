@@ -26,7 +26,7 @@ struct LayerTypeInfo;
 
 /**
  * The runtime representation of a
- * [source](https://track-asia.com/trackasia-style-spec/sources/) from
+ * [source](https://trackasia.com/trackasia-style-spec/sources/) from
  * the TrackAsia Style Specification.
  *
  * `Source` is an abstract base class; concrete derived classes are provided for

@@ -9,7 +9,7 @@
   ],
   "zoom": 0,
   "sources": {
-    "mapbox": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -26,9 +26,9 @@
       }
     },
     {
-      "id": "mapbox",
+      "id": "trackasia",
       "type": "circle",
-      "source": "mapbox",
+      "source": "trackasia",
       "source-layer": "poi_label",
       "paint": {
         "circle-color": "black",

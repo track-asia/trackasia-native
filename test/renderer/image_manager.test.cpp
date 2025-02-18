@@ -86,12 +86,12 @@ public:
 
     void onImagesAvailable(ImageMap icons,
                            ImageMap patterns,
-                           std::unordered_map<std::string, uint32_t> versionMap,
+                           ImageVersionMap versionMap,
                            uint64_t imageCorrelationID_) final {
         if (imagesAvailable && imageCorrelationID == imageCorrelationID_) imagesAvailable(icons, patterns, versionMap);
     }
 
-    std::function<void(ImageMap, ImageMap, std::unordered_map<std::string, uint32_t>)> imagesAvailable;
+    std::function<void(ImageMap, ImageMap, ImageVersionMap)> imagesAvailable;
     uint64_t imageCorrelationID = 0;
 };
 
@@ -105,7 +105,7 @@ TEST(ImageManager, NotifiesRequestorWhenSpriteIsLoaded) {
     ImageManagerObserver observer;
     imageManager.setObserver(&observer);
 
-    requestor.imagesAvailable = [&](ImageMap, ImageMap, std::unordered_map<std::string, uint32_t>) {
+    requestor.imagesAvailable = [&](ImageMap, ImageMap, ImageVersionMap) {
         notified = true;
     };
 
@@ -131,7 +131,7 @@ TEST(ImageManager, NotifiesRequestorImmediatelyIfDependenciesAreSatisfied) {
     StubImageRequestor requestor(imageManagerPtr);
     bool notified = false;
 
-    requestor.imagesAvailable = [&](ImageMap, ImageMap, std::unordered_map<std::string, uint32_t>) {
+    requestor.imagesAvailable = [&](ImageMap, ImageMap, ImageVersionMap) {
         notified = true;
     };
 
@@ -149,7 +149,7 @@ public:
     int count = 0;
     std::function<void(const std::string&)> imageMissing = [](const std::string&) {
     };
-    void onStyleImageMissing(const std::string& id, const std::function<void()>& done) override {
+    void onStyleImageMissing(const std::string& id, Scheduler::Task&& done) override {
         count++;
         imageMissing(id);
         done();
@@ -173,7 +173,7 @@ TEST(ImageManager, OnStyleImageMissingBeforeSpriteLoaded) {
 
     bool notified = false;
 
-    requestor.imagesAvailable = [&](ImageMap, ImageMap, std::unordered_map<std::string, uint32_t>) {
+    requestor.imagesAvailable = [&](ImageMap, ImageMap, ImageVersionMap) {
         notified = true;
     };
 
@@ -229,7 +229,7 @@ TEST(ImageManager, OnStyleImageMissingAfterSpriteLoaded) {
 
     bool notified = false;
 
-    requestor.imagesAvailable = [&](ImageMap, ImageMap, std::unordered_map<std::string, uint32_t>) {
+    requestor.imagesAvailable = [&](ImageMap, ImageMap, ImageVersionMap) {
         notified = true;
     };
 

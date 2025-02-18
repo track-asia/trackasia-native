@@ -1,0 +1,6 @@
+extra["signing.keyId"] = "A0455BA3"
+extra["signing.password"] = "secret"
+extra["signing.secretKeyRingFile"] = "${projectDir}/../signing-key.gpg"
+extra["ossrhUsername"] = "sangnguyen"
+extra["ossrhPassword"] = "@AbcSang070992"
+extra["sonatypeStagingProfileId"] = "31754de92605f9"

@@ -11,7 +11,7 @@ namespace android {
 
 class LatLngBounds : private mbgl::util::noncopyable {
 public:
-    static constexpr auto Name() { return "org/trackasia/android/geometry/LatLngBounds"; };
+    static constexpr auto Name() { return "com/trackasia/android/geometry/LatLngBounds"; };
 
     static jni::Local<jni::Object<LatLngBounds>> New(jni::JNIEnv&, mbgl::LatLngBounds);
 

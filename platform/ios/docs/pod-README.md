@@ -1,6 +1,6 @@
 # TrackAsia Native for iOS
 
-TrackAsia Native for iOS is an open-source framework for embedding interactive map views with scalable, customizable vector maps into Cocoa Touch applications on iOS 9.0 and above using Objective-C, Swift, or Interface Builder. It takes stylesheets that conform to the [TrackAsia Style Specification](https://track-asia.com/trackasia-style-spec/), applies them to vector tiles that conform to the [Mapbox Vector Tile Specification](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards/), and renders them using OpenGL.
+TrackAsia Native for iOS is an open-source framework for embedding interactive map views with scalable, customizable vector maps into Cocoa Touch applications on iOS 9.0 and above using Objective-C, Swift, or Interface Builder. It takes stylesheets that conform to the [TrackAsia Style Specification](https://trackasia.com/trackasia-style-spec/), applies them to vector tiles that conform to the [Mapbox Vector Tile Specification](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards/), and renders them using OpenGL.
 
 For more information, check out the [TrackAsia Native for iOS repository](https://github.com/trackasia/trackasia-native) and the [full changelog](https://github.com/trackasia/trackasia-native/blob/main/platform/ios/platform/ios/CHANGELOG.md) online.
 
@@ -92,6 +92,6 @@ class ViewController: UIViewController {
 }
 ```
 
-Full API documentation is included in this package, within the `documentation` folder. 
+Full API documentation is included in this package, within the `documentation` folder.
 
 We welcome your [bug reports, feature requests, and contributions](https://github.com/trackasia/trackasia-native/issues).

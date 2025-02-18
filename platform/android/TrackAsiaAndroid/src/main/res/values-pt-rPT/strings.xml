@@ -4,7 +4,7 @@
     <string name="trackasia_attributionsIconContentDescription">Ícone de atribuição. Ativar para mostrar a janela de atribuição.</string>
     <string name="trackasia_myLocationViewContentDescription">Vista de localização. Isto mostra a sua localização no mapa.</string>
     <string name="trackasia_mapActionDescription">A mostrar um Mapa criado com TrackAsia. Desloque arrastanto com 2 dedos. Zoom afastando ou aproximando os 2 dedos.</string>
-    <string name="trackasia_attributionsDialogTitle">Mapas TrackAsia SDK para Android</string>
+    <string name="trackasia_attributionsDialogTitle">TrackAsia Android</string>
     <string name="trackasia_attributionErrorNoBrowser">Não está nenhum navegador de Internet instalado no dispositivo. Não é possível abrir a página web.</string>
     <string name="trackasia_offline_error_region_definition_invalid">O OfflineRegionDefinition não cabe nos limites do mundo: %s</string>
     </resources>

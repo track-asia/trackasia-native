@@ -16,11 +16,11 @@ using namespace style;
 using namespace shaders;
 
 void HeatmapTextureLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters& parameters) {
-    const auto& evaluated = static_cast<const HeatmapLayerProperties&>(*evaluatedProperties).evaluated;
-
     if (layerGroup.empty()) {
         return;
     }
+
+    const auto& evaluated = static_cast<const HeatmapLayerProperties&>(*evaluatedProperties).evaluated;
 
 #if !defined(NDEBUG)
     const auto label = layerGroup.getName() + "-update-uniforms";
@@ -29,15 +29,15 @@ void HeatmapTextureLayerTweaker::execute(LayerGroupBase& layerGroup, const Paint
 
     propertiesUpdated = false;
 
+    mat4 matrix;
     const auto& size = parameters.staticData.backendSize;
-    mat4 viewportMat;
-    matrix::ortho(viewportMat, 0, size.width, size.height, 0, -1, 1);
-    const HeatmapTexturePropsUBO propsUBO = {
-        /* .matrix = */ util::cast<float>(viewportMat),
-        /* .world = */ {static_cast<float>(size.width), static_cast<float>(size.height)},
-        /* .opacity = */ evaluated.get<HeatmapOpacity>(),
-        /* .pad1 = */ 0,
-    };
+    matrix::ortho(matrix, 0, size.width, size.height, 0, -1, 1);
+
+    const HeatmapTexturePropsUBO propsUBO = {/* .matrix = */ util::cast<float>(matrix),
+                                             /* .opacity = */ evaluated.get<HeatmapOpacity>(),
+                                             /* .pad1 = */ 0,
+                                             /* .pad2 = */ 0,
+                                             /* .pad3 = */ 0};
     auto& layerUniforms = layerGroup.mutableUniformBuffers();
     layerUniforms.createOrUpdate(idHeatmapTexturePropsUBO, &propsUBO, parameters.context);
 }

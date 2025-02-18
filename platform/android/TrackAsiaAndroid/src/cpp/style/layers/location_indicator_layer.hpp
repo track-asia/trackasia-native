@@ -14,7 +14,7 @@ namespace android {
 class LocationIndicatorLayer : public Layer {
 public:
     using SuperTag = Layer;
-    static constexpr auto Name() { return "org/trackasia/android/location/LocationIndicatorLayer"; };
+    static constexpr auto Name() { return "com/trackasia/android/location/LocationIndicatorLayer"; };
 
     LocationIndicatorLayer(jni::JNIEnv&, jni::String&);
 
@@ -37,6 +37,8 @@ public:
     jni::Local<jni::Object<jni::ObjectTag>> getImageTiltDisplacement(jni::JNIEnv&);
 
     jni::Local<jni::Object<jni::ObjectTag>> getBearing(jni::JNIEnv&);
+    void setBearingTransition(jni::JNIEnv&, jlong duration, jlong delay);
+    jni::Local<jni::Object<TransitionOptions>> getBearingTransition(jni::JNIEnv&);
 
     jni::Local<jni::Object<jni::ObjectTag>> getLocation(jni::JNIEnv&);
     void setLocationTransition(jni::JNIEnv&, jlong duration, jlong delay);

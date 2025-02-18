@@ -18,6 +18,7 @@
 #include <mbgl/shaders/mtl/shader_program.hpp>
 #include <mbgl/util/logging.hpp>
 #include <mbgl/util/variant.hpp>
+#include <mbgl/util/hash.hpp>
 
 #include <Metal/Metal.hpp>
 
@@ -185,10 +186,15 @@ void Drawable::draw(PaintParameters& parameters) const {
     const auto debugGroup = parameters.encoder->createDebugGroup(debugLabel(*this));
 #endif
 
+    renderPass.unbindVertex(shaders::idGlobalUBOIndex);
+    renderPass.unbindFragment(shaders::idGlobalUBOIndex);
+    encoder->setVertexBytes(&uboIndex, sizeof(uboIndex), shaders::idGlobalUBOIndex);
+    encoder->setFragmentBytes(&uboIndex, sizeof(uboIndex), shaders::idGlobalUBOIndex);
+
     bindAttributes(renderPass);
     bindInstanceAttributes(renderPass);
-    bindUniformBuffers(renderPass);
     bindTextures(renderPass);
+    impl->uniformBuffers.bind(renderPass);
 
     if (!impl->indexes->getBuffer() || impl->indexes->getDirty()) {
         assert(!"Index buffer not uploaded");
@@ -210,7 +216,11 @@ void Drawable::draw(PaintParameters& parameters) const {
     encoder->setFrontFacingWinding(mapWindingMode(cullMode.winding));
 
     if (!impl->pipelineState) {
-        impl->pipelineState = shaderMTL.getRenderPipelineState(renderable, impl->vertexDesc, getColorMode());
+        impl->pipelineState = shaderMTL.getRenderPipelineState(
+            renderable,
+            impl->vertexDesc,
+            getColorMode(),
+            mbgl::util::hash(getColorMode().hash(), impl->vertexDescHash));
     }
     if (impl->pipelineState) {
         encoder->setRenderPipelineState(impl->pipelineState.get());
@@ -287,20 +297,26 @@ void Drawable::draw(PaintParameters& parameters) const {
             assert(static_cast<std::size_t>(maxIndex) < mlSegment.vertexLength);
 #endif
 
-            encoder->drawIndexedPrimitives(primitiveType,
-                                           mlSegment.indexLength,
-                                           indexType,
-                                           indexBuffer,
-                                           indexOffset,
-                                           instanceCount,
-                                           baseVertex,
-                                           baseInstance);
+            if (context.getBackend().isBaseVertexInstanceDrawingSupported()) {
+                encoder->drawIndexedPrimitives(primitiveType,
+                                               mlSegment.indexLength,
+                                               indexType,
+                                               indexBuffer,
+                                               indexOffset,
+                                               instanceCount,
+                                               baseVertex,
+                                               baseInstance);
+            } else {
+                encoder->drawIndexedPrimitives(
+                    primitiveType, mlSegment.indexLength, indexType, indexBuffer, indexOffset, instanceCount);
+            }
+
             context.renderingStats().numDrawCalls++;
         }
     }
 
+    impl->uniformBuffers.unbind(renderPass);
     unbindTextures(renderPass);
-    unbindUniformBuffers(renderPass);
     unbindAttributes(renderPass);
 }
 
@@ -330,6 +346,34 @@ void Drawable::setVertices(std::vector<uint8_t>&& data, std::size_t count, gfx::
     }
 }
 
+void Drawable::updateVertexAttributes(gfx::VertexAttributeArrayPtr vertices,
+                                      std::size_t vertexCount,
+                                      gfx::DrawMode mode,
+                                      gfx::IndexVectorBasePtr indexes,
+                                      const SegmentBase* segments,
+                                      std::size_t segmentCount) {
+    gfx::Drawable::setVertexAttributes(std::move(vertices));
+    impl->vertexCount = vertexCount;
+
+    std::vector<UniqueDrawSegment> drawSegs;
+    drawSegs.reserve(segmentCount);
+    for (std::size_t i = 0; i < segmentCount; ++i) {
+        const auto& seg = segments[i];
+        auto segCopy = SegmentBase{
+            // no copy constructor
+            seg.vertexOffset,
+            seg.indexOffset,
+            seg.vertexLength,
+            seg.indexLength,
+            seg.sortKey,
+        };
+        drawSegs.push_back(std::make_unique<Drawable::DrawSegment>(mode, std::move(segCopy)));
+    }
+
+    impl->indexes = std::move(indexes);
+    impl->segments = std::move(drawSegs);
+}
+
 const gfx::UniformBufferArray& Drawable::getUniformBuffers() const {
     return impl->uniformBuffers;
 }
@@ -352,10 +396,6 @@ void Drawable::bindAttributes(RenderPass& renderPass) const noexcept {
         if (buffer && buffer->get()) {
             assert(binding->vertexStride * impl->vertexCount <= getBufferSize(binding->vertexBufferResource));
             renderPass.bindVertex(buffer->get(), /*offset=*/0, attributeIndex);
-        } else {
-            const auto* shaderMTL = static_cast<const ShaderProgram*>(shader.get());
-            auto& context = renderPass.getCommandEncoder().getContext();
-            renderPass.bindVertex(context.getEmptyBuffer(), /*offset=*/0, attributeIndex);
         }
         attributeIndex += 1;
     }
@@ -370,36 +410,9 @@ void Drawable::bindInstanceAttributes(RenderPass& renderPass) const noexcept {
             const auto* buffer = static_cast<const mtl::VertexBufferResource*>(binding->vertexBufferResource);
             if (buffer && buffer->get()) {
                 renderPass.bindVertex(buffer->get(), /*offset=*/0, attributeIndex);
-            } else {
-                const auto* shaderMTL = static_cast<const ShaderProgram*>(shader.get());
-                auto& context = renderPass.getCommandEncoder().getContext();
-                renderPass.bindVertex(context.getEmptyBuffer(), /*offset=*/0, attributeIndex);
             }
         }
         attributeIndex += 1;
-    }
-}
-
-void Drawable::bindUniformBuffers(RenderPass& renderPass) const noexcept {
-    if (shader) {
-        const auto& uniformBlocks = shader->getUniformBlocks();
-        for (size_t id = 0; id < uniformBlocks.allocatedSize(); id++) {
-            const auto& block = uniformBlocks.get(id);
-            if (!block) continue;
-            const auto& uniformBuffer = getUniformBuffers().get(id);
-            if (uniformBuffer) {
-                const auto& buffer = static_cast<UniformBuffer&>(*uniformBuffer.get());
-                const auto& resource = buffer.getBufferResource();
-                const auto& mtlBlock = static_cast<const UniformBlock&>(*block);
-
-                if (mtlBlock.getBindVertex()) {
-                    renderPass.bindVertex(resource, /*offset=*/0, block->getIndex());
-                }
-                if (mtlBlock.getBindFragment()) {
-                    renderPass.bindFragment(resource, /*offset=*/0, block->getIndex());
-                }
-            }
-        }
     }
 }
 
@@ -508,7 +521,6 @@ void Drawable::upload(gfx::UploadPass& uploadPass_) {
         return;
     }
     const auto& shaderMTL = static_cast<const ShaderProgram&>(*shader);
-    const auto& shaderUniforms = shaderMTL.getUniformBlocks();
 
     auto& uploadPass = static_cast<UploadPass&>(uploadPass_);
     auto& contextBase = uploadPass.getContext();
@@ -522,7 +534,7 @@ void Drawable::upload(gfx::UploadPass& uploadPass_) {
         return;
     }
 
-    if (impl->indexes->getDirty()) {
+    if (!impl->indexes->getBuffer() || impl->indexes->getDirty()) {
         // Create or update a buffer for the index data.  We don't update any
         // existing buffer because it may still be in use by the previous frame.
         auto indexBufferResource{uploadPass.createIndexBufferResource(
@@ -535,7 +547,8 @@ void Drawable::upload(gfx::UploadPass& uploadPass_) {
         impl->indexes->setDirty(false);
     }
 
-    const bool buildAttribs = !vertexAttributes || vertexAttributes->isDirty() || !impl->vertexDesc;
+    const bool buildAttribs = !impl->vertexDesc || !vertexAttributes || !attributeUpdateTime ||
+                              vertexAttributes->isModifiedAfter(*attributeUpdateTime);
 
     if (buildAttribs) {
 #if !defined(NDEBUG)
@@ -555,13 +568,16 @@ void Drawable::upload(gfx::UploadPass& uploadPass_) {
                                                                     shader->getVertexAttributes(),
                                                                     *vertexAttributes,
                                                                     usage,
+                                                                    attributeUpdateTime,
                                                                     vertexBuffers);
-        impl->attributeBuffers = std::move(vertexBuffers);
 
         vertexAttributes->visitAttributes([](gfx::VertexAttribute& attrib) { attrib.setDirty(false); });
 
         if (impl->attributeBindings != attributeBindings_) {
             impl->attributeBindings = std::move(attributeBindings_);
+
+            // hash
+            std::size_t hash{0};
 
             // Create a layout descriptor for each attribute
             auto vertDesc = NS::RetainPtr(MTL::VertexDescriptor::vertexDescriptor());
@@ -595,16 +611,25 @@ void Drawable::upload(gfx::UploadPass& uploadPass_) {
                 vertDesc->attributes()->setObject(attribDesc.get(), index);
                 vertDesc->layouts()->setObject(layoutDesc.get(), index);
 
+                mbgl::util::hash_combine(hash,
+                                         mbgl::util::hash(index,
+                                                          binding->attribute.offset,
+                                                          binding->attribute.dataType,
+                                                          binding->vertexStride,
+                                                          static_cast<bool>(binding->vertexBufferResource)));
+
                 index += 1;
             }
 
             impl->vertexDesc = std::move(vertDesc);
+            impl->vertexDescHash = hash;
             impl->pipelineState.reset();
         }
     }
 
     // build instance buffer
-    const bool buildInstanceBuffer = (instanceAttributes && instanceAttributes->isDirty());
+    const bool buildInstanceBuffer =
+        (instanceAttributes && (!attributeUpdateTime || instanceAttributes->isModifiedAfter(*attributeUpdateTime)));
 
     if (buildInstanceBuffer) {
         // Build instance attribute buffers
@@ -616,8 +641,8 @@ void Drawable::upload(gfx::UploadPass& uploadPass_) {
                                                                    shader->getInstanceAttributes(),
                                                                    *instanceAttributes,
                                                                    usage,
+                                                                   attributeUpdateTime,
                                                                    instanceBuffers);
-        impl->instanceBuffers = std::move(instanceBuffers);
 
         // clear dirty flag
         instanceAttributes->visitAttributes([](gfx::VertexAttribute& attrib) { attrib.setDirty(false); });
@@ -633,6 +658,8 @@ void Drawable::upload(gfx::UploadPass& uploadPass_) {
     if (texturesNeedUpload) {
         uploadTextures(uploadPass);
     }
+
+    attributeUpdateTime = util::MonotonicTimer::now();
 }
 
 } // namespace mtl

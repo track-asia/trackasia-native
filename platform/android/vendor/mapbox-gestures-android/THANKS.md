@@ -1,1 +1,0 @@
-Authors of this library would like to send huge thanks to creators of [Android Gesture Detectors Framework](https://github.com/Almeros/android-gesture-detectors) for inspiration and a great library that served us for so many years.

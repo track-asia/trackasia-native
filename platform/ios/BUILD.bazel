@@ -1,9 +1,9 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
-load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_xcframework", "apple_xcframework")
-load("@build_bazel_rules_apple//apple:ios.bzl", "ios_application", "ios_framework")
-load("@build_bazel_rules_apple//apple:resources.bzl", "apple_resource_bundle")
-load("@build_bazel_rules_apple//apple:versioning.bzl", "apple_bundle_version")
 load("@darwin_config//:config.bzl", "BUNDLE_ID_PREFIX")
+load("@rules_apple//apple:apple.bzl", "apple_static_xcframework", "apple_xcframework")
+load("@rules_apple//apple:ios.bzl", "ios_application", "ios_framework")
+load("@rules_apple//apple:resources.bzl", "apple_resource_bundle")
+load("@rules_apple//apple:versioning.bzl", "apple_bundle_version")
 load(
     "@rules_xcodeproj//xcodeproj:defs.bzl",
     "top_level_target",
@@ -123,7 +123,8 @@ apple_xcframework(
     data = glob([
         "resources/*.lproj/**",
         "resources/*.xcassets/**",
-    ]),
+        "resources/metal-cpp-ignores.txt",
+    ]) + ["PrivacyInfo.xcprivacy"],
     infoplists = ["info_plist"],
     ios = {
         "simulator": [
@@ -159,6 +160,7 @@ apple_resource_bundle(
     resources = glob([
         "resources/*.lproj/**",
         "resources/*.xcassets/**",
+        "resources/metal-cpp-ignores.txt",
     ]),
     visibility = ["//visibility:public"],
 )
@@ -180,6 +182,11 @@ _IOS_APPLICATION_RESOURCES = [
     "app/Assets.xcassets/**",
 ])
 
+apple_bundle_version(
+    name = "trackasia_app_version",
+    build_version = "1.0.0",
+)
+
 ios_application(
     name = "App",
     bundle_id = "{}.trackasia.app".format(BUNDLE_ID_PREFIX),
@@ -191,6 +198,7 @@ ios_application(
     minimum_os_version = "12.0",
     provisioning_profile = "xcode_profile",
     resources = _IOS_APPLICATION_RESOURCES,
+    version = ":trackasia_app_version",
     visibility = ["//visibility:public"],
     deps = [
         "//platform:iosapp",
@@ -199,7 +207,7 @@ ios_application(
 
 ios_application(
     name = "AppDynamicLib",
-    bundle_id = "org.trackasia.app",
+    bundle_id = "com.trackasia.app",
     families = [
         "iphone",
         "ipad",
@@ -227,7 +235,10 @@ ios_application(
     infoplists = ["//platform/ios/benchmark:info_benchmark_plist"],
     minimum_os_version = "12.0",
     provisioning_profile = "xcode_profile",
-    resources = ["//platform/ios/benchmark:bundle_resources"],
+    resources = [
+        "//platform/ios/benchmark:bundle_resources",
+        "//platform/ios/benchmark/assets:benchmark_assets",
+    ],
     visibility = ["//visibility:public"],
     deps = [
         "//platform:ios-benchapp",
@@ -239,7 +250,9 @@ filegroup(
     name = "extra_files",
     srcs = [
         "BAZEL.md",
+        "CHANGELOG.md",
         "TrackAsia.podspec",
+        "PrivacyInfo.xcprivacy",
         "README.md",
         "RELEASE.md",
         "VERSION",
@@ -260,6 +273,13 @@ xcodeproj(
     top_level_targets = [
         top_level_target(
             "App",
+            target_environments = [
+                "simulator",
+                "device",
+            ],
+        ),
+        top_level_target(
+            "//platform/ios/app-swift:TrackAsiaApp",
             target_environments = [
                 "simulator",
                 "device",

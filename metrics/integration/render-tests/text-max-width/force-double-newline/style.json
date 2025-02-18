@@ -6,7 +6,7 @@
     }
   },
   "sources": {
-    "mapbox": {
+    "trackasia": {
       "type": "geojson",
       "data": {
         "type": "FeatureCollection",
@@ -38,7 +38,7 @@
     {
       "id": "literal",
       "type": "symbol",
-      "source": "mapbox",
+      "source": "trackasia",
       "layout": {
         "text-field": "abcde\n\nabcde",
         "text-font": [

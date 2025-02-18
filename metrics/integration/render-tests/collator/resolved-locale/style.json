@@ -8,7 +8,7 @@
     }
   },
   "sources": {
-    "mapbox": {
+    "trackasia": {
       "type": "geojson",
       "data": {
         "type": "FeatureCollection",
@@ -39,7 +39,7 @@
     {
       "id": "literal",
       "type": "symbol",
-      "source": "mapbox",
+      "source": "trackasia",
       "layout": {
         "text-field": ["concat",
             "en == ",

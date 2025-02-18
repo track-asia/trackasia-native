@@ -12,7 +12,7 @@ namespace geojson {
 
 class Geometry {
 public:
-    static constexpr auto Name() { return "org/trackasia/geojson/Geometry"; };
+    static constexpr auto Name() { return "com/trackasia/geojson/Geometry"; };
 
     static jni::Local<jni::Object<Geometry>> New(jni::JNIEnv&, mbgl::Geometry<double>);
 

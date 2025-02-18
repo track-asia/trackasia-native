@@ -23,25 +23,29 @@ struct ShaderSource<BuiltIn::LineGradientShader, gfx::Backend::Type::OpenGL> {
 layout (location = 0) in vec2 a_pos_normal;
 layout (location = 1) in vec4 a_data;
 
-layout (std140) uniform LineDynamicUBO {
+layout (std140) uniform GlobalPaintParamsUBO {
+    highp vec2 u_pattern_atlas_texsize;
     highp vec2 u_units_to_pixels;
-    lowp float dynamic_pad1, dynamic_pad2;
+    highp vec2 u_world_size;
+    highp float u_camera_to_center_distance;
+    highp float u_symbol_fade_change;
+    highp float u_aspect_ratio;
+    highp float u_pixel_ratio;
+    highp float u_map_zoom;
+    lowp float global_pad1;
 };
 
 layout (std140) uniform LineGradientDrawableUBO {
     highp mat4 u_matrix;
     mediump float u_ratio;
-    lowp float drawable_pad1, drawable_pad2, drawable_pad3;
-};
-
-layout (std140) uniform LineGradientInterpolationUBO {
+    // Interpolations
     lowp float u_blur_t;
     lowp float u_opacity_t;
     lowp float u_gapwidth_t;
     lowp float u_offset_t;
     lowp float u_width_t;
-    highp float interp_pad1;
-    highp vec2 interp_pad2;
+    lowp float drawable_pad1;
+    lowp float drawable_pad2;
 };
 
 layout (std140) uniform LineEvaluatedPropsUBO {
@@ -52,8 +56,8 @@ layout (std140) uniform LineEvaluatedPropsUBO {
     lowp float u_offset;
     mediump float u_width;
     lowp float u_floorwidth;
-    highp float props_pad1;
-    highp float props_pad2;
+    lowp float props_pad1;
+    lowp float props_pad2;
 };
 
 out vec2 v_normal;
@@ -156,23 +160,7 @@ mediump float width = u_width;
     v_width2 = vec2(outset, inset);
 }
 )";
-    static constexpr const char* fragment = R"(layout (std140) uniform LineGradientDrawableUBO {
-    highp mat4 u_matrix;
-    mediump float u_ratio;
-    lowp float drawable_pad1, drawable_pad2, drawable_pad3;
-};
-
-layout (std140) uniform LineGradientInterpolationUBO {
-    lowp float u_blur_t;
-    lowp float u_opacity_t;
-    lowp float u_gapwidth_t;
-    lowp float u_offset_t;
-    lowp float u_width_t;
-    highp float interp_pad1;
-    highp vec2 interp_pad2;
-};
-
-layout (std140) uniform LineEvaluatedPropsUBO {
+    static constexpr const char* fragment = R"(layout (std140) uniform LineEvaluatedPropsUBO {
     highp vec4 u_color;
     lowp float u_blur;
     lowp float u_opacity;
@@ -180,8 +168,8 @@ layout (std140) uniform LineEvaluatedPropsUBO {
     lowp float u_offset;
     mediump float u_width;
     lowp float u_floorwidth;
-    highp float props_pad1;
-    highp float props_pad2;
+    lowp float props_pad1;
+    lowp float props_pad2;
 };
 
 uniform sampler2D u_image;

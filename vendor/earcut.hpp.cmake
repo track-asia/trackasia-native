@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-earcut.hpp
     PROPERTIES
-        INTERFACE_MAPBOX_NAME "earcut.hpp"
-        INTERFACE_MAPBOX_URL "https://github.com/mapbox/earcut.hpp"
-        INTERFACE_MAPBOX_AUTHOR "Mapbox"
-        INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/earcut.hpp/LICENSE
+        INTERFACE_TRACKASIA_NAME "earcut.hpp"
+        INTERFACE_TRACKASIA_URL "https://github.com/mapbox/earcut.hpp"
+        INTERFACE_TRACKASIA_AUTHOR "Mapbox"
+        INTERFACE_TRACKASIA_LICENSE ${CMAKE_CURRENT_LIST_DIR}/earcut.hpp/LICENSE
 )

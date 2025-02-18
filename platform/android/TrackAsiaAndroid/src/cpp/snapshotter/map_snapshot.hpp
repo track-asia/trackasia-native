@@ -18,7 +18,7 @@ public:
     using PointForFn = mbgl::MapSnapshotter::PointForFn;
     using LatLngForFn = mbgl::MapSnapshotter::LatLngForFn;
 
-    static constexpr auto Name() { return "org/trackasia/android/snapshotter/MapSnapshot"; };
+    static constexpr auto Name() { return "com/trackasia/android/snapshotter/MapSnapshot"; };
 
     static void registerNative(jni::JNIEnv&);
 
@@ -30,7 +30,7 @@ public:
                                                     PointForFn pointForFn,
                                                     LatLngForFn latLngForFn);
 
-    MapSnapshot(jni::JNIEnv&){};
+    MapSnapshot(jni::JNIEnv&) {};
     MapSnapshot(float pixelRatio, PointForFn, LatLngForFn);
     ~MapSnapshot();
 

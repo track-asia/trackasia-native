@@ -17,7 +17,7 @@ std::string getCurrentThreadName() {
 }
 
 void setCurrentThreadName(const std::string& name) {
-    std::string qualifiedName = "com.mapbox.mbgl." + name;
+    std::string qualifiedName = "com.trackasia.mbgl." + name;
     pthread_setname_np(qualifiedName.c_str());
 }
 
@@ -30,7 +30,7 @@ void setCurrentThreadPriority(double priority) {
         Log::Warning(Event::General, "Invalid thread priority was provided");
         return;
     }
-    
+
     if (priority < 0.25) {
         [NSThread currentThread].qualityOfService = NSQualityOfServiceBackground;
     } else if (priority < 0.5) {

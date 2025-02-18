@@ -6,7 +6,7 @@
 
 A first approach was to simply move code from the plugins repository to `trackasia-native` (https://github.com/trackasia/trackasia-native/issues/1154), but the codebases had derived too much to be feasible on the go (there is no obvious path towards moving the new code whilst un-deprecating the deprecated methods; these two goals are incompatible).
 
-A better idea is to create a new and improved annotations API that combines the best of both worlds. 
+A better idea is to create a new and improved annotations API that combines the best of both worlds.
 
 ## Proposed Change
 

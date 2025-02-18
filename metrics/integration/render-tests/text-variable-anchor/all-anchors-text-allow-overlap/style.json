@@ -12,7 +12,7 @@
   ],
   "zoom": 16,
   "sources": {
-    "mapbox": {
+    "trackasia": {
       "type": "vector",
       "maxzoom": 14,
       "tiles": [
@@ -33,7 +33,7 @@
     {
       "id": "top",
       "type": "symbol",
-      "source": "mapbox",
+      "source": "trackasia",
       "source-layer": "poi_label",
       "filter": [
         "==",

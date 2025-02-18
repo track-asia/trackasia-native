@@ -28,7 +28,7 @@ jobs:
             testFile: "TrackAsiaAndroidTestApp-drawable-release-androidTest.apk",
             appFile: "TrackAsiaAndroidTestApp-drawable-release.apk",
             name: "Android Benchmark",
-            testFilter: "org.trackasia.android.benchmark.Benchmark",
+            testFilter: "com.trackasia.android.benchmark.Benchmark",
             # top devices, query with `aws list-device-pools --arn <project_arn>`
             devicePool: "arn:aws:devicefarm:us-west-2::devicepool:082d10e5-d7d7-48a5-ba5c-b33d66efa1f5",
             # benchmark-android.yaml

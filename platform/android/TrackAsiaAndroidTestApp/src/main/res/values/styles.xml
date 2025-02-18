@@ -50,7 +50,7 @@
         <item name="trackasia_elevation">0dp</item>
         <item name="trackasia_compassAnimationEnabled">false</item>
         <item name="trackasia_accuracyAnimationEnabled">false</item>
-        
+
         <item name="trackasia_layer_above">road-label</item>
     </style>
 

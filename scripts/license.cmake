@@ -2,7 +2,7 @@
 
 function(mbgl_generate_license param)
     # Fake targets or non relevant.
-    set(BLACKLIST "mbgl-compiler-options")
+    set(BLACKLIST "mbgl-compiler-options" "mbgl-rustutils")
 
     get_target_property(LIBRARIES ${param} LINK_LIBRARIES)
     list(INSERT LIBRARIES 0 ${param})
@@ -15,10 +15,10 @@ function(mbgl_generate_license param)
         endif()
 
         if(TARGET ${LIBRARY})
-            get_target_property(NAME ${LIBRARY} INTERFACE_MAPBOX_NAME)
-            get_target_property(URL ${LIBRARY} INTERFACE_MAPBOX_URL)
-            get_target_property(AUTHOR ${LIBRARY} INTERFACE_MAPBOX_AUTHOR)
-            get_target_property(LICENSE ${LIBRARY} INTERFACE_MAPBOX_LICENSE)
+            get_target_property(NAME ${LIBRARY} INTERFACE_TRACKASIA_NAME)
+            get_target_property(URL ${LIBRARY} INTERFACE_TRACKASIA_URL)
+            get_target_property(AUTHOR ${LIBRARY} INTERFACE_TRACKASIA_AUTHOR)
+            get_target_property(LICENSE ${LIBRARY} INTERFACE_TRACKASIA_LICENSE)
 
             if(NOT LICENSE OR NOT EXISTS ${LICENSE})
                 message(FATAL_ERROR "License not found for target: ${LIBRARY}")

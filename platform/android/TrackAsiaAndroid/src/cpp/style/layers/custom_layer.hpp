@@ -11,7 +11,7 @@ namespace android {
 class CustomLayer : public Layer {
 public:
     using SuperTag = Layer;
-    static constexpr auto Name() { return "org/trackasia/android/style/layers/CustomLayer"; };
+    static constexpr auto Name() { return "com/trackasia/android/style/layers/CustomLayer"; };
 
     static void registerNative(jni::JNIEnv&);
 

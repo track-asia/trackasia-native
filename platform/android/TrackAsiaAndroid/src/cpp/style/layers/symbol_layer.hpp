@@ -14,7 +14,7 @@ namespace android {
 class SymbolLayer : public Layer {
 public:
     using SuperTag = Layer;
-    static constexpr auto Name() { return "org/trackasia/android/style/layers/SymbolLayer"; };
+    static constexpr auto Name() { return "com/trackasia/android/style/layers/SymbolLayer"; };
 
     SymbolLayer(jni::JNIEnv&, jni::String&, jni::String&);
 
@@ -85,6 +85,8 @@ public:
     jni::Local<jni::Object<jni::ObjectTag>> getTextRadialOffset(jni::JNIEnv&);
 
     jni::Local<jni::Object<jni::ObjectTag>> getTextVariableAnchor(jni::JNIEnv&);
+
+    jni::Local<jni::Object<jni::ObjectTag>> getTextVariableAnchorOffset(jni::JNIEnv&);
 
     jni::Local<jni::Object<jni::ObjectTag>> getTextAnchor(jni::JNIEnv&);
 

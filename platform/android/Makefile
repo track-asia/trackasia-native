@@ -1,4 +1,5 @@
 export BUILDTYPE ?= Debug
+export RENDERER ?= drawable
 export IS_LOCAL_DEVELOPMENT ?= true
 export TARGET_BRANCH ?= main
 
@@ -11,6 +12,13 @@ else ifeq ($(BUILDTYPE), Sanitize)
 else ifeq ($(BUILDTYPE), Debug)
 else
   $(error BUILDTYPE must be Debug, Sanitize, Release or RelWithDebInfo)
+endif
+
+ifeq ($(RENDERER), drawable)
+else ifeq ($(RENDERER), legacy)
+else ifeq ($(RENDERER), vulkan)
+else
+  $(error RENDERER must be 'legacy' (OpenGL), 'drawable' (OpenGL) or 'vulkan')
 endif
 
 buildtype := $(shell echo "$(BUILDTYPE)" | tr "[A-Z]" "[a-z]")
@@ -61,21 +69,21 @@ define ANDROID_RULES
 
 .PHONY: android-test-lib-$1
 android-test-lib-$1:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 -Pmapbox.with_test=true :TrackAsiaAndroidTestApp:assemble$(BUILDTYPE)
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 -Pmapbox.with_test=true :TrackAsiaAndroidTestApp:assemble$(BUILDTYPE)
 
 .PHONY: android-benchmark-$1
 android-benchmark-$1:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 -Pmapbox.with_benchmark=true :TrackAsiaAndroidTestApp:assemble$(BUILDTYPE)
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 -Pmapbox.with_benchmark=true :TrackAsiaAndroidTestApp:assemble$(BUILDTYPE)
 
 # Build SDK for for specified abi
 .PHONY: android-lib-$1
 android-lib-$1:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :TrackAsiaAndroid:assemble$(BUILDTYPE)
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 :TrackAsiaAndroid:assemble$(RENDERER)$(BUILDTYPE)
 
 # Build test app and SDK for for specified abi
 .PHONY: android-$1
 android-$1:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :TrackAsiaAndroidTestApp:assemble$(BUILDTYPE)
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 :TrackAsiaAndroidTestApp:assemble$(BUILDTYPE)
 
 # Build the core test for specified abi
 .PHONY: android-core-test-$1
@@ -94,18 +102,6 @@ run-android-core-test-$1-%: android-core-test-$1
 	adb push test/fixtures $(MLN_ANDROID_LOCAL_WORK_DIR)/test > /dev/null 2>&1
 	adb push scripts/style-spec-reference/v8.json $(MLN_ANDROID_LOCAL_WORK_DIR)/scripts/style-spec-reference > /dev/null 2>&1
 	adb push TrackAsiaAndroid/build/intermediates/cmake/$(buildtype)/obj/$2/mbgl-test $(MLN_ANDROID_LOCAL_WORK_DIR) > /dev/null 2>&1
-
-# Create gtest filter for skipped tests.
-	$(eval SKIPPED_TESTS := -$(shell sed -n '/#\|^$$/!p' tests/skipped.txt | sed ':a;$!N;s/\n/:/g;ta'))
-
-	# Kick off the tests
-	adb shell "export LD_LIBRARY_PATH=$(MLN_ANDROID_LOCAL_WORK_DIR) && cd $(MLN_ANDROID_LOCAL_WORK_DIR) && chmod +x mbgl-test && ./mbgl-test --class_path=$(MLN_ANDROID_LOCAL_WORK_DIR)/classes.dex --gtest_filter=$$*:$(SKIPPED_TESTS)"
-
-	# Gather the results and unpack them
-	adb shell "cd $(MLN_ANDROID_LOCAL_WORK_DIR) && tar -cvzf results.tgz test/fixtures/*  > /dev/null 2>&1"
-	adb pull $(MLN_ANDROID_LOCAL_WORK_DIR)/results.tgz $(MLN_ANDROID_CORE_TEST_DIR)/ > /dev/null 2>&1
-	rm -rf $(MLN_ANDROID_CORE_TEST_DIR)/results && mkdir -p $(MLN_ANDROID_CORE_TEST_DIR)/results
-	tar -xzf $(MLN_ANDROID_CORE_TEST_DIR)/results.tgz --strip-components=2 -C $(MLN_ANDROID_CORE_TEST_DIR)/results
 
 # Run the core test for specified abi
 .PHONY: run-android-core-test-$1
@@ -139,24 +135,24 @@ run-android-benchmark-$1-%: android-benchmark-$1
 # Run the test app on connected android device with specified abi
 .PHONY: run-android-$1
 run-android-$1:
-	-adb uninstall org.trackasia.testapp 2> /dev/null
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :TrackAsiaAndroidTestApp:install$(BUILDTYPE) && adb shell am start -n org.trackasia.testapp/.activity.FeatureOverviewActivity
+	-adb uninstall com.trackasia.testapp 2> /dev/null
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 :TrackAsiaAndroidTestApp:install$(BUILDTYPE) && adb shell am start -n com.trackasia.testapp/.activity.FeatureOverviewActivity
 
 # Build test app instrumentation tests apk and test app apk for specified abi
 .PHONY: android-ui-test-$1
 android-ui-test-$1:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :TrackAsiaAndroidTestApp:assembleDebug :TrackAsiaAndroidTestApp:assembleAndroidTest
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 :TrackAsiaAndroidTestApp:assembleDebug :TrackAsiaAndroidTestApp:assembleAndroidTest
 
 # Run test app instrumentation tests on a connected android device or emulator with specified abi
 .PHONY: run-android-ui-test-$1
 run-android-ui-test-$1:
-	-adb uninstall org.trackasia.testapp 2> /dev/null
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :TrackAsiaAndroidTestApp:connectedAndroidTest
+	-adb uninstall com.trackasia.testapp 2> /dev/null
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 :TrackAsiaAndroidTestApp:connectedAndroidTest
 
 # Run Java Instrumentation tests on a connected android device or emulator with specified abi and test filter
 run-android-ui-test-$1-%:
-	-adb uninstall org.trackasia.testapp 2> /dev/null
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :TrackAsiaAndroidTestApp:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="$$*"
+	-adb uninstall com.trackasia.testapp 2> /dev/null
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 :TrackAsiaAndroidTestApp:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="$$*"
 
 # Symbolicate native stack trace with the specified abi
 .PHONY: android-ndk-stack-$1
@@ -166,7 +162,7 @@ android-ndk-stack-$1:
 # Run render tests with pixelmatch
 .PHONY: run-android-render-test-$1
 run-android-render-test-$1: $(BUILD_DEPS)
-	-adb uninstall org.trackasia.testapp 2> /dev/null
+	-adb uninstall com.trackasia.testapp 2> /dev/null
 	# delete old test results
 	rm -rf build/render-test/trackasia/
   # copy test definitions & ignore file to test app assets folder, clear old ones first
@@ -174,7 +170,7 @@ run-android-render-test-$1: $(BUILD_DEPS)
 	cp -r metrics/integration TrackAsiaAndroidTestApp/src/main/assets
 	cp platform/node/test/ignores.json TrackAsiaAndroidTestApp/src/main/assets/integration/ignores.json
 	# run RenderTest.java to generate static map images
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=$2 :TrackAsiaAndroidTestApp:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="org.trackasia.testapp.render.RenderTest"
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=$2 :TrackAsiaAndroidTestApp:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="com.trackasia.testapp.render.RenderTest"
 	# pull generated images from the device
 	adb pull "`adb shell 'printenv EXTERNAL_STORAGE' | tr -d '\r'`/trackasia/render" build/render-test
 	# copy expected result and run pixelmatch
@@ -211,22 +207,25 @@ run-android-ui-test-%: run-android-ui-test-arm-v7-%
 # Run Java Unit tests on the JVM of the development machine executing this
 .PHONY: run-android-unit-test
 run-android-unit-test:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none :TrackAsiaAndroid:testLegacyDebugUnitTest --info
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none :TrackAsiaAndroid:testLegacyDebugUnitTest --info
 run-android-unit-test-%:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none :TrackAsiaAndroid:testLegacyDebugUnitTest --info --tests "$*"
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none :TrackAsiaAndroid:testLegacyDebugUnitTest --info --tests "$*"
+
+DEBUG_TAR_FILE_NAME := $(if $(findstring drawable,$(RENDERER)),debug-symbols-opengl.tar.gz,debug-symbols-$(RENDERER).tar.gz)
 
 # Builds a release package and .tar.gz with debug symbols of the Android SDK
 .PHONY: apackage
-apackage: 
+apackage:
+	echo "Building for $(RENDERER)"
 	make android-lib-arm-v7 && make android-lib-arm-v8 && make android-lib-x86 && make android-lib-x86-64
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=all assembleDrawable$(BUILDTYPE)
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=all assemble$(RENDERER)$(BUILDTYPE)
 	mkdir -p build
-	tar -czvf build/debug-symbols.tar.gz -C TrackAsiaAndroid/build/intermediates/library_jni/drawableRelease/jni .
+	tar -czvf build/$(DEBUG_TAR_FILE_NAME) -C TrackAsiaAndroid/build/intermediates/library_jni/$(RENDERER)Release/*JniLibsProjectOnly/jni .
 
 # Build test app instrumentation tests apk and test app apk for all abi's
 .PHONY: android-ui-test
 android-ui-test:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=all :TrackAsiaAndroidTestApp:assembleDebug :TrackAsiaAndroidTestApp:assembleAndroidTest
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=all :TrackAsiaAndroidTestApp:assembleDebug :TrackAsiaAndroidTestApp:assembleAndroidTest
 
 #Run instrumentations tests on MicroSoft App Center, ${devices} can be "xiaomi","huawei","OnePlus","htc"
 .PHONY: run-android-test-app-center
@@ -236,12 +235,17 @@ run-android-test-app-center:
 # Uploads the compiled Android SDK to Maven Central Staging
 .PHONY: run-android-publish
 run-android-publish:
-	$(MLN_ANDROID_GRADLE_SINGLE_JOB)-Pmapbox.abis=all :TrackAsiaAndroid:publishReleasePublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+	$(MLN_ANDROID_GRADLE_SINGLE_JOB)-Ptrackasia.abis=all :TrackAsiaAndroid:publishAllPublicationsToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+
+.PHONY: run-android-local-publish
+run-android-local:
+	./gradlew publishToMavenLocal
+
 
 # Dump system graphics information for the test app
 .PHONY: android-gfxinfo
 android-gfxinfo:
-	adb shell dumpsys gfxinfo org.trackasia.testapp reset
+	adb shell dumpsys gfxinfo com.trackasia.testapp reset
 
 # Runs checkstyle and lint on the java code
 .PHONY: android-check
@@ -250,52 +254,47 @@ android-check : android-ktlint android-checkstyle android-lint-sdk android-lint-
 # Runs checkstyle on the java code
 .PHONY: android-checkstyle
 android-checkstyle:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none :TrackAsiaAndroid:checkstyle :TrackAsiaAndroidTestApp:checkstyle
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none :TrackAsiaAndroid:checkstyle :TrackAsiaAndroidTestApp:checkstyle
 
 # Runs checkstyle on the kotlin code
 .PHONY: android-ktlint
 android-ktlint:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none checkstyle
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none checkstyle
 
 # Runs lint on the Android SDK java code
 .PHONY: android-lint-sdk
 android-lint-sdk:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none :TrackAsiaAndroid:lint
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none :TrackAsiaAndroid:lint
 
 # Runs lint on the Android test app java code
 .PHONY: android-lint-test-app
 android-lint-test-app:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none :TrackAsiaAndroidTestApp:lint
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none :TrackAsiaAndroidTestApp:lint
 
 # Generates LICENSE.md file based on all Android project dependencies
 .PHONY: android-license
 android-license:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none :TrackAsiaAndroid:licenseReleaseReport
-	python scripts/generate-license.py
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none :TrackAsiaAndroid:licenseDrawableReleaseReport
+	python3 scripts/generate-license.py
 
 # Symbolicate ndk stack traces for the arm-v7 abi
 .PHONY: android-ndk-stack
 android-ndk-stack: android-ndk-stack-arm-v7
 
-# Updates Android's vendor submodules
-.PHONY: android-update-vendor
-android-update-vendor:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none updateVendorSubmodules
-
 # Run android nitpick script
 .PHONY: run-android-nitpick
-run-android-nitpick: android-update-vendor
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none androidNitpick
+run-android-nitpick:
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none androidNitpick
 
 # Creates a dependency graph using Graphviz
 .PHONY: android-graph
 android-graph:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=none :TrackAsiaAndroid:generateDependencyGraphMapboxLibraries
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=none :TrackAsiaAndroid:generateDependencyGraphMapboxLibraries
 
 # Lists tasks
 .PHONY: list-tasks
 list-tasks:
-	$(MLN_ANDROID_GRADLE) -Pmapbox.abis=all tasks
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=all tasks
 
 #### Miscellaneous targets #####################################################
 
@@ -304,6 +303,56 @@ clean:
 	-rm -rf ./TrackAsiaAndroid/build \
 	        ./TrackAsiaAndroid/.externalNativeBuild \
 	        ./TrackAsiaAndroidTestApp/build \
-	        ./TrackAsiaAndroidTestApp/src/androidTest/java/org/trackasia/android/testapp/activity/gen \
+	        ./TrackAsiaAndroidTestApp/src/androidTest/java/com/trackasia/android/testapp/activity/gen \
 	        ./TrackAsiaAndroid/src/main/assets \
 		    ./TrackAsiaAndroidTestApp/src/main/assets/integration
+
+### MkDocs Documentation ########################################################
+
+.PHONY: mkdocs
+mkdocs:
+	docker build -t squidfunk/mkdocs-material docs
+	docker run --rm -it -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material
+
+.PHONY: mkdocs-build
+mkdocs-build:
+	docker build -t squidfunk/mkdocs-material docs
+	docker run --rm -v ${PWD}:/docs squidfunk/mkdocs-material build --strict
+
+# release:
+#     ./gradlew :library:assembleRelease
+
+VERSION_NAME := 2.0.1
+
+checksums:
+	cd ~/.m2/repository/io/github/track-asia/android-sdk/$(VERSION_NAME)/ && \
+	md5sum android-sdk-$(VERSION_NAME).pom | cut -d ' ' -f 1 > android-sdk-$(VERSION_NAME).pom.md5 && \
+	md5sum android-sdk-$(VERSION_NAME).aar | cut -d ' ' -f 1 > android-sdk-$(VERSION_NAME).aar.md5 && \
+	md5sum android-sdk-$(VERSION_NAME)-sources.jar | cut -d ' ' -f 1 > android-sdk-$(VERSION_NAME)-sources.jar.md5 && \
+	md5sum android-sdk-$(VERSION_NAME).module | cut -d ' ' -f 1 > android-sdk-$(VERSION_NAME).module.md5 && \
+	sha1sum android-sdk-$(VERSION_NAME).pom | cut -d ' ' -f 1 > android-sdk-$(VERSION_NAME).pom.sha1 && \
+	sha1sum android-sdk-$(VERSION_NAME).aar | cut -d ' ' -f 1 > android-sdk-$(VERSION_NAME).aar.sha1 && \
+	sha1sum android-sdk-$(VERSION_NAME).module | cut -d ' ' -f 1 > android-sdk-$(VERSION_NAME).module.sha1 && \
+	sha1sum android-sdk-$(VERSION_NAME)-sources.jar | cut -d ' ' -f 1 > android-sdk-$(VERSION_NAME)-sources.jar.sha1
+
+checksums_opengl:
+	cd ~/.m2/repository/io/github/track-asia/android-sdk-opengl/$(VERSION_NAME)/ && \
+	md5sum android-sdk-opengl-$(VERSION_NAME).pom | cut -d ' ' -f 1 > android-sdk-opengl-$(VERSION_NAME).pom.md5 && \
+	md5sum android-sdk-opengl-$(VERSION_NAME).aar | cut -d ' ' -f 1 > android-sdk-opengl-$(VERSION_NAME).aar.md5 && \
+	md5sum android-sdk-opengl-$(VERSION_NAME)-sources.jar | cut -d ' ' -f 1 > android-sdk-opengl-$(VERSION_NAME)-sources.jar.md5 && \
+	md5sum android-sdk-opengl-$(VERSION_NAME).module | cut -d ' ' -f 1 > android-sdk-opengl-$(VERSION_NAME).module.md5 && \
+	sha1sum android-sdk-opengl-$(VERSION_NAME).pom | cut -d ' ' -f 1 > android-sdk-opengl-$(VERSION_NAME).pom.sha1 && \
+	sha1sum android-sdk-opengl-$(VERSION_NAME).aar | cut -d ' ' -f 1 > android-sdk-opengl-$(VERSION_NAME).aar.sha1 && \
+	sha1sum android-sdk-opengl-$(VERSION_NAME).module | cut -d ' ' -f 1 > android-sdk-opengl-$(VERSION_NAME).module.sha1 && \
+	sha1sum android-sdk-opengl-$(VERSION_NAME)-sources.jar | cut -d ' ' -f 1 > android-sdk-opengl-$(VERSION_NAME)-sources.jar.sha1
+
+checksums_vulkan:
+	cd ~/.m2/repository/io/github/track-asia/android-sdk-vulkan/$(VERSION_NAME)/ && \
+	md5sum android-sdk-vulkan-$(VERSION_NAME).pom | cut -d ' ' -f 1 > android-sdk-vulkan-$(VERSION_NAME).pom.md5 && \
+	md5sum android-sdk-vulkan-$(VERSION_NAME).aar | cut -d ' ' -f 1 > android-sdk-vulkan-$(VERSION_NAME).aar.md5 && \
+	md5sum android-sdk-vulkan-$(VERSION_NAME)-sources.jar | cut -d ' ' -f 1 > android-sdk-vulkan-$(VERSION_NAME)-sources.jar.md5 && \
+	md5sum android-sdk-vulkan-$(VERSION_NAME).module | cut -d ' ' -f 1 > android-sdk-vulkan-$(VERSION_NAME).module.md5 && \
+	sha1sum android-sdk-vulkan-$(VERSION_NAME).pom | cut -d ' ' -f 1 > android-sdk-vulkan-$(VERSION_NAME).pom.sha1 && \
+	sha1sum android-sdk-vulkan-$(VERSION_NAME).aar | cut -d ' ' -f 1 > android-sdk-vulkan-$(VERSION_NAME).aar.sha1 && \
+	sha1sum android-sdk-vulkan-$(VERSION_NAME).module | cut -d ' ' -f 1 > android-sdk-vulkan-$(VERSION_NAME).module.sha1 && \
+	sha1sum android-sdk-vulkan-$(VERSION_NAME)-sources.jar | cut -d ' ' -f 1 > android-sdk-vulkan-$(VERSION_NAME)-sources.jar.sha1

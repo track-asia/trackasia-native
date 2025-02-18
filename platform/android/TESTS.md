@@ -40,7 +40,7 @@ You can also have a run configuration:
 You can also run the tests from the command line with:
 
 ```
-$ ./gradlew -Pmapbox.abis=none test -p TrackAsiaAndroidTestApp
+$ ./gradlew -Ptrackasia.abis=none test -p TrackAsiaAndroidTestApp
 ```
 
 ### Running the UI/Application Exerciser Monkey
@@ -54,5 +54,5 @@ To exercise Monkey on the test app, install the package on the device (e.g. via 
 and then:
 
 ```
-$ adb shell monkey -p org.trackasia.testapp -v 500
+$ adb shell monkey -p com.trackasia.testapp -v 500
 ```

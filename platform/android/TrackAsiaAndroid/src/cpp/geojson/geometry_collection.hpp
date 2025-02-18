@@ -11,7 +11,7 @@ namespace geojson {
 class GeometryCollection {
 public:
     using SuperTag = Geometry;
-    static constexpr auto Name() { return "org/trackasia/geojson/GeometryCollection"; };
+    static constexpr auto Name() { return "com/trackasia/geojson/GeometryCollection"; };
     static constexpr auto Type() { return "GeometryCollection"; };
 
     static jni::Local<jni::Object<GeometryCollection>> New(jni::JNIEnv&,

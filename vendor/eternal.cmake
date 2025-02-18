@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-eternal
     PROPERTIES
-        INTERFACE_MAPBOX_NAME "eternal"
-        INTERFACE_MAPBOX_URL "https://github.com/mapbox/eternal"
-        INTERFACE_MAPBOX_AUTHOR "Mapbox"
-        INTERFACE_MAPBOX_LICENSE ${CMAKE_CURRENT_LIST_DIR}/eternal/LICENSE.md
+        INTERFACE_TRACKASIA_NAME "eternal"
+        INTERFACE_TRACKASIA_URL "https://github.com/mapbox/eternal"
+        INTERFACE_TRACKASIA_AUTHOR "Mapbox"
+        INTERFACE_TRACKASIA_LICENSE ${CMAKE_CURRENT_LIST_DIR}/eternal/LICENSE.md
 )

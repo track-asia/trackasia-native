@@ -13,11 +13,26 @@ layout (location = 1) in vec2 a_anchor_pos;
 layout (location = 2) in vec2 a_extrude;
 layout (location = 3) in vec2 a_placed;
 
-layout (std140) uniform CollisionCircleUBO {
-    highp mat4 u_matrix;
-    highp vec2 u_extrude_scale;
+layout (std140) uniform GlobalPaintParamsUBO {
+    highp vec2 u_pattern_atlas_texsize;
+    highp vec2 u_units_to_pixels;
+    highp vec2 u_world_size;
     highp float u_camera_to_center_distance;
+    highp float u_symbol_fade_change;
+    highp float u_aspect_ratio;
+    highp float u_pixel_ratio;
+    highp float u_map_zoom;
+    lowp float global_pad1;
+};
+
+layout (std140) uniform CollisionDrawableUBO {
+    highp mat4 u_matrix;
+};
+
+layout (std140) uniform CollisionTilePropsUBO {
+    highp vec2 u_extrude_scale;
     highp float u_overscale_factor;
+    lowp float drawable_pad1;
 };
 
 out float v_placed;
@@ -47,11 +62,22 @@ void main() {
     v_extrude_scale = u_extrude_scale * u_camera_to_center_distance * collision_perspective_ratio;
 }
 )";
-    static constexpr const char* fragment = R"(layout (std140) uniform CollisionCircleUBO {
-    highp mat4 u_matrix;
-    highp vec2 u_extrude_scale;
+    static constexpr const char* fragment = R"(layout (std140) uniform GlobalPaintParamsUBO {
+    highp vec2 u_pattern_atlas_texsize;
+    highp vec2 u_units_to_pixels;
+    highp vec2 u_world_size;
     highp float u_camera_to_center_distance;
+    highp float u_symbol_fade_change;
+    highp float u_aspect_ratio;
+    highp float u_pixel_ratio;
+    highp float u_map_zoom;
+    lowp float global_pad1;
+};
+
+layout (std140) uniform CollisionTilePropsUBO {
+    highp vec2 u_extrude_scale;
     highp float u_overscale_factor;
+    lowp float drawable_pad1;
 };
 
 in float v_placed;
