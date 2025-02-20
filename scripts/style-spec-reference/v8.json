@@ -1257,8 +1257,8 @@
       "sdk-support": {
         "basic functionality": {
           "js": "2.1.0",
-          "android": "https://github.com/trackasia/trackasiaa-native/issues/251",
-          "ios": "https://github.com/trackasia//trackasiaa-native/issues/251"
+          "android": "https://github.com/track-asia/trackasiaa-native/issues/251",
+          "ios": "https://github.com/track-asia//trackasiaa-native/issues/251"
         }
       },
       "expression": {
@@ -2096,13 +2096,13 @@
       "sdk-support": {
         "basic functionality": {
           "js": "3.3.0",
-          "ios": "https://github.com/trackasia//trackasiaa-native/issues/2358",
-          "android": "https://github.com/trackasia//trackasiaa-native/issues/2358"
+          "ios": "https://github.com/track-asia//trackasiaa-native/issues/2358",
+          "android": "https://github.com/track-asia//trackasiaa-native/issues/2358"
         },
         "data-driven styling": {
           "js": "3.3.0",
-          "ios": "https://github.com/trackasia//trackasiaa-native/issues/2358",
-          "android": "https://github.com/trackasia//trackasiaa-native/issues/2358"
+          "ios": "https://github.com/track-asia//trackasiaa-native/issues/2358",
+          "android": "https://github.com/track-asia//trackasiaa-native/issues/2358"
         }
       },
       "expression": {
@@ -2444,8 +2444,8 @@
       "sdk-support": {
         "basic functionality": {
           "js": "2.1.0",
-          "android": "https://github.com/trackasia//trackasiaa-native/issues/251",
-          "ios": "https://github.com/trackasia//trackasiaa-native/issues/251"
+          "android": "https://github.com/track-asia//trackasiaa-native/issues/251",
+          "ios": "https://github.com/track-asia//trackasiaa-native/issues/251"
         }
       },
       "expression": {
