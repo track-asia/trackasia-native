@@ -8,7 +8,7 @@ import com.trackasia.android.style.expressions.Expression.ExpressionLiteral
  *
  * @see GeoJsonSource
  *
- * @see [The online documentation](https://trackasia.com/trackasia-style-spec/.sources-geojson)
+ * @see [The online documentation](https://track-asia.com/trackasia-style-spec/.sources-geojson)
  */
 class GeoJsonOptions : HashMap<String?, Any?>() {
     /**

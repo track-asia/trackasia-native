@@ -6,7 +6,7 @@ Use an `NSPredicate` to show POI and road labels along a route.
 
 This example adds a dynamically styled GeoJSON route to the map, similar to <doc:LineStyleLayerExample>. However, two existing layers: the `poi` layer and the `road_label` part of the Americana style are adjusted as well. The contents of these layers are shown or hidden, based on whether they lay inside a polygon around the route. In this example, both the route and the area of the polygon along the route are hardcoded.
 
-The route is styled with three `MLNLineStyleLayer`s. We make use of the [interpolate expression](https://trackasia.com/trackasia-style-spec/expressions/#interpolate) to set the widths of these line layers at various zoom levels.
+The route is styled with three `MLNLineStyleLayer`s. We make use of the [interpolate expression](https://track-asia.com/trackasia-style-spec/expressions/#interpolate) to set the widths of these line layers at various zoom levels.
 
 <!-- include-example(POIAlongRouteExample) -->
 

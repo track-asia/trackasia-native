@@ -13,7 +13,7 @@ import java.util.*
 /**
  * GeoJson source, allows using FeatureCollections from Json.
  *
- * @see [the style specification](https://trackasia.com/trackasia-style-spec/.sources-geojson)
+ * @see [the style specification](https://track-asia.com/trackasia-style-spec/.sources-geojson)
  */
 @UiThread
 class GeoJsonSource : Source {

@@ -551,7 +551,7 @@ public:
         NSAssert(self.terminated, @"_mbglMap should only be unavailable during app termination");
         return self.residualStyleURL;
     }
-    NSString *styleURLString = @(self.mbglMap.getStyle().getURL().c_str()).mgl_stringOrNilIfEmpty;
+ NSString *styleURLString = @(self.mbglMap.getStyle().getURL().c_str()).mgl_stringOrNilIfEmpty;
     MLNAssert(styleURLString, @"Invalid style URL string %@", styleURLString);
     return styleURLString ? [NSURL URLWithString:styleURLString] : nil;
 }

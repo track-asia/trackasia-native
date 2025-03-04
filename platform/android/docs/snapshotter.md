@@ -1,6 +1,6 @@
 # Using the Snapshotter
 
-This guide will help you walk through how to use [MapSnapshotter](https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.snapshotter/-map-snapshotter/index.html).
+This guide will help you walk through how to use [MapSnapshotter](https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.snapshotter/-map-snapshotter/index.html).
 
 ## Map Snapshot with Local Style
 
@@ -142,7 +142,7 @@ Finally, we ensure to cancel the snapshotter in the `onStop` method to free up r
 
 {{ activity_source_note("MapSnapshotterWithinExpression.kt") }}
 
-In this example the map on top is a live while the map on the bottom is a snapshot that is updated as you pan the map. We style of the snapshot is modified: using a [within](https://trackasia.com/trackasia-style-spec/expressions/#within) expression only POIs within a certain distance to a line is shown. A highlight for this area is added to the map as are various points.
+In this example the map on top is a live while the map on the bottom is a snapshot that is updated as you pan the map. We style of the snapshot is modified: using a [within](https://track-asia.com/trackasia-style-spec/expressions/#within) expression only POIs within a certain distance to a line is shown. A highlight for this area is added to the map as are various points.
 
 <figure markdown="span">
   ![Screenshot of Map Snapshot with Expression](https://github.com/user-attachments/assets/e75922ad-6115-4549-bcb7-7a40e03a81f4){ width="300" }

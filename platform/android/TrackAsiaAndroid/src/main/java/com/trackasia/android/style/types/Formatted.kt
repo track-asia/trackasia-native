@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Represents a string broken into sections annotated with separate formatting options.
  *
- * @see [Style specification](https://trackasia.com/trackasia-style-spec/.types-formatted)
+ * @see [Style specification](https://track-asia.com/trackasia-style-spec/.types-formatted)
  */
 @Keep
 class Formatted(

@@ -3,7 +3,7 @@
 
 ## 6.0.1-pre.0
 * Add `textFitWidth` and `textFitHeight` properties to sprites ([#2780](https://github.com/track-asia/trackasia-native/pull/2780)).
-  More information can be found in the [TrackAsia Style Spec](https://trackasia.com/trackasia-style-spec/sprite/#text-fit-properties).
+  More information can be found in the [TrackAsia Style Spec](https://track-asia.com/trackasia-style-spec/sprite/#text-fit-properties).
 
 ## 6.0.0
 * [Note] This is the first release that is back on the main branch.
@@ -20,7 +20,7 @@
 ## 5.4.0
 
 * [Note] This is a OpenGL-2 release. It does not include metal support.
-* Add support for [multi sprites](https://github.com/track-asia/trackasia-native/pull/1858). More information on this feature can be found in the [Style Spec Documentation](https://trackasia.com/trackasia-style-spec/sprite/#multiple-sprite-sources).
+* Add support for [multi sprites](https://github.com/track-asia/trackasia-native/pull/1858). More information on this feature can be found in the [Style Spec Documentation](https://track-asia.com/trackasia-style-spec/sprite/#multiple-sprite-sources).
 
 ## 5.3.1
 

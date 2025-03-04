@@ -6,9 +6,9 @@ Embed interactive maps with scalable, customizable vector maps into iOS Applicat
 
 ## Documentation
 
-- See the [Getting Started](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia-native-for-ios/gettingstarted) Guide in the documentation.
-- [TrackAsia Native iOS Documentation](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia/)
+- See the [Getting Started](https://track-asia.com/trackasia-native/ios/latest/documentation/trackasia-native-for-ios/gettingstarted) Guide in the documentation.
+- [TrackAsia Native iOS Documentation](https://track-asia.com/trackasia-native/ios/latest/documentation/trackasia/)
 
 # Contributing
 
-See the [TrackAsia iOS Developer Guide](https://trackasia.com/trackasia-native/docs/book/ios) for instructions on how to build the project or how to work on the documentation.
+See the [TrackAsia iOS Developer Guide](https://track-asia.com/trackasia-native/docs/book/ios) for instructions on how to build the project or how to work on the documentation.

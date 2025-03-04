@@ -7,7 +7,7 @@ import java.net.URL
 /**
  * Raster source, allows using raster tiles as source.
  *
- * @see [The style specification](https://trackasia.com/trackasia-style-spec/.sources-raster)
+ * @see [The style specification](https://track-asia.com/trackasia-style-spec/.sources-raster)
  */
 class RasterSource : Source {
     /**

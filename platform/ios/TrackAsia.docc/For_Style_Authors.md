@@ -74,7 +74,7 @@ You set an `MLNMapView` object’s style either in code, by setting the
 `MLNMapView.styleURL` property, or in Interface Builder, by setting the “Style
 URL” inspectable. The URL must point to a local or remote style JSON file. The
 style JSON file format is defined by the
-[TrackAsia Style Spec](https://trackasia.com/trackasia-style-spec/).
+[TrackAsia Style Spec](https://track-asia.com/trackasia-style-spec/).
 
 ## Manipulating the style at runtime
 
@@ -260,7 +260,7 @@ In style JSON | In Objective-C | In Swift
 
 Each property representing a layout or paint attribute is set to an
 `NSExpression` object. `NSExpression` objects play the same role as
-[expressions in the TrackAsia Style Spec](https://trackasia.com/trackasia-style-spec/expressions/),
+[expressions in the TrackAsia Style Spec](https://track-asia.com/trackasia-style-spec/expressions/),
 but you create the former using a very different syntax. `NSExpression`’s format
 string syntax is reminiscent of a spreadsheet formula or an expression in a
 database query. See the

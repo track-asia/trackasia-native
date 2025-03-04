@@ -8,7 +8,7 @@ import java.net.URL
 /**
  * A raster DEM source.
  *
- * @see [The style specification](https://trackasia.com/trackasia-style-spec/.sources-raster-dem)
+ * @see [The style specification](https://track-asia.com/trackasia-style-spec/.sources-raster-dem)
  */
 
 @UiThread

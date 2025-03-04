@@ -1,6 +1,6 @@
 # Using a GeoJSON Source
 
-This guide will teach you how to use [`GeoJsonSource`](https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.style.sources/-geo-json-source/index.html) by deep diving into [GeoJSON](https://geojson.org/) file format.
+This guide will teach you how to use [`GeoJsonSource`](https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.style.sources/-geo-json-source/index.html) by deep diving into [GeoJSON](https://geojson.org/) file format.
 
 ## Goals
 

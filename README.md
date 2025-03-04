@@ -115,11 +115,11 @@ class MainActivity : AppCompatActivity() {
 ```
 </details>
 
-For more information, refer to the [Android API Documentation](https://trackasia.com/trackasia-native/android/api/), [Android Examples Documentation](https://trackasia.com/trackasia-native/android/examples/getting-started/) or the [TrackAsia Native Android `README.md`](platform/android/README.md).
+For more information, refer to the [Android API Documentation](https://track-asia.com/trackasia-native/android/api/), [Android Examples Documentation](https://track-asia.com/trackasia-native/android/examples/getting-started/) or the [TrackAsia Native Android `README.md`](platform/android/README.md).
 
 ## iOS
 
-You can find TrackAsia Native iOS on [Cocoapods](https://cocoapods.org/) and on the [Swift Package Index](https://swiftpackageindex.com/trackasia/trackasia-gl-native-distribution). You can also TrackAsia Native iOS [as a dependency to Xcode directly](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia-native-for-ios/gettingstarted/#Add-TrackAsia-Native-as-a-dependency).
+You can find TrackAsia Native iOS on [Cocoapods](https://cocoapods.org/) and on the [Swift Package Index](https://swiftpackageindex.com/trackasia/trackasia-gl-native-distribution). You can also TrackAsia Native iOS [as a dependency to Xcode directly](https://track-asia.com/trackasia-native/ios/latest/documentation/trackasia-native-for-ios/gettingstarted/#Add-TrackAsia-Native-as-a-dependency).
 
 TrackAsia Native iOS uses UIKit. To intergrate it with an UIKit project, you can use
 
@@ -157,7 +157,7 @@ struct SimpleMap: UIViewRepresentable {
 
 You can also use [TrackAsiaSwiftUI](https://github.com/track-asia/swiftui-dsl), a wrapper around TrackAsia Native iOS that offers a declarative API like SwiftUI.
 
-The [iOS Documentation](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia/) contains many examples and the entire API of the library. You might also want to check out the [TrackAsia Native iOS `README.md`](platform/ios/README.md).
+The [iOS Documentation](https://track-asia.com/trackasia-native/ios/latest/documentation/trackasia/) contains many examples and the entire API of the library. You might also want to check out the [TrackAsia Native iOS `README.md`](platform/ios/README.md).
 
 ## Node.js
 
@@ -192,9 +192,9 @@ Check out issues labelled as a [good first issue](https://github.com/track-asia/
 ## Core
 
 - [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- [TrackAsia Native Markdown Book](https://trackasia.com/trackasia-native/docs/book/design/ten-thousand-foot-view.html): architectural notes
+- [TrackAsia Native Markdown Book](https://track-asia.com/trackasia-native/docs/book/design/ten-thousand-foot-view.html): architectural notes
 - [GitHub Wiki](https://github.com/track-asia/trackasia-native/wiki): low-friction way to share information with the community
-- [Core C++ API Documentation](https://trackasia.com/trackasia-native/cpp/api/) (unstable)
+- [Core C++ API Documentation](https://track-asia.com/trackasia-native/cpp/api/) (unstable)
 
 ## Android
 

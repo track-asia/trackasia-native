@@ -20,7 +20,7 @@ import com.trackasia.android.style.layers.PropertyValue;
 /**
  * 
  *
- * @see <a href="https://trackasia.com/trackasia-style-spec/#layers-location-indicator">The online documentation</a>
+ * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-location-indicator">The online documentation</a>
  */
 @UiThread
 class LocationIndicatorLayer extends Layer {

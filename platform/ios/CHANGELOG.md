@@ -1,6 +1,6 @@
 # Changelog for TrackAsia Native for iOS
 
-TrackAsia welcomes participation and contributions from everyone. Please read [`TrackAsia iOS Developer Guide`](https://trackasia.com/trackasia-native/docs/book/ios/index.html) to get started.
+TrackAsia welcomes participation and contributions from everyone. Please read [`TrackAsia iOS Developer Guide`](https://track-asia.com/trackasia-native/docs/book/ios/index.html) to get started.
 
 ## 6.11.0
 
@@ -50,14 +50,14 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 ## 6.7.0
 
 - Add array support for icon-padding ([#2845](https://github.com/track-asia/trackasia-native/pull/2845)).
-  More information can be found in the [TrackAsia Style Spec Documentation](https://trackasia.com/trackasia-style-spec/types/#padding). This is the first (code) contribution from [@random3940](https://github.com/random3940)! 🎉
+  More information can be found in the [TrackAsia Style Spec Documentation](https://track-asia.com/trackasia-style-spec/types/#padding). This is the first (code) contribution from [@random3940](https://github.com/random3940)! 🎉
 - Fix updates hillshade geometry ([#2842](https://github.com/track-asia/trackasia-native/pull/2842)).
 - Use `thread_local` for thread local scheduler ([#2863](https://github.com/track-asia/trackasia-native/pull/2863)).
 
 ## 6.6.0
 
 - Add `textFitWidth` and `textFitHeight` properties to sprites ([#2780](https://github.com/track-asia/trackasia-native/pull/2780)).
-  More information can be found in the [TrackAsia Style Spec](https://trackasia.com/trackasia-style-spec/sprite/#text-fit-properties).
+  More information can be found in the [TrackAsia Style Spec](https://track-asia.com/trackasia-style-spec/sprite/#text-fit-properties).
 - Toggle tile cache final API ([#2723](https://github.com/track-asia/trackasia-native/pull/2723)).
   Using this API can reduce memory usage at the cost of having to parse tile data again when the zoom level changes.
 - Fixed annotation delay in demo app for 120Hz devices ([#2775](https://github.com/track-asia/trackasia-native/pull/2775)).
@@ -105,7 +105,7 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 
 ## 6.5.0
 
-- Allow uses to handle authorization for location services ([#2453](https://github.com/track-asia/trackasia-native/pull/2453)). See [`MLNMapview.shouldRequestAuthorizationToUseLocationServices`](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia/mlnmapview/shouldrequestauthorizationtouselocationservices).
+- Allow uses to handle authorization for location services ([#2453](https://github.com/track-asia/trackasia-native/pull/2453)). See [`MLNMapview.shouldRequestAuthorizationToUseLocationServices`](https://track-asia.com/trackasia-native/ios/latest/documentation/trackasia/mlnmapview/shouldrequestauthorizationtouselocationservices).
 - Fixed memory usage high in some cases ([#2442](https://github.com/track-asia/trackasia-native/pull/2442)).
 - Avoid processing raster tiles after destruction mailbox ([#2443](https://github.com/track-asia/trackasia-native/pull/2443)).
 - Annotation view recycling re-enabled ([#2454](https://github.com/track-asia/trackasia-native/pull/2454)). Fixes some issues with Annotations.
@@ -154,7 +154,7 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 
 ## 6.2.0
 
-- Add support for [multi sprites](https://github.com/track-asia/trackasia-native/pull/1858). More information on this feature can be found in the [Style Spec Documentation](https://trackasia.com/trackasia-style-spec/sprite/#multiple-sprite-sources).
+- Add support for [multi sprites](https://github.com/track-asia/trackasia-native/pull/1858). More information on this feature can be found in the [Style Spec Documentation](https://track-asia.com/trackasia-style-spec/sprite/#multiple-sprite-sources).
 - Fix for C++ header in public Objective-C header ([#2156](https://github.com/track-asia/trackasia-native/pull/q 56)).
 
 ## 6.1.1
@@ -1570,7 +1570,7 @@ This is the final scheduled version of the Mapbox iOS SDK that supports iOS 7. (
 - A two-finger vertical swipe now tilts the map into perspective mode. ([#2116](https://github.com/mapbox/mapbox-gl-native/pull/2116))
 - A new `MLNMapCamera` API allows you to transition multiple viewpoint properties, including rotation and pitch, simultaneously with an optional custom duration and timing function. ([#2193](https://github.com/mapbox/mapbox-gl-native/pull/2193))
 - A new user tracking mode, `MLNUserTrackingModeFollowWithCourse`, has been added for indicating the current direction of travel. ([#2068](https://github.com/mapbox/mapbox-gl-native/pull/2068))
-- Version 8 (`v8`) of the [Mapbox GL style spec](https://trackasia.com/trackasia-style-spec/) is now required. If you are using a custom `v7` style, it needs to be upgraded using [this migrator script](https://github.com/mapbox/mapbox-gl-style-spec/blob/mb-pages/migrations/v7.js). ([#2052](https://github.com/mapbox/mapbox-gl-native/pull/2052))
+- Version 8 (`v8`) of the [Mapbox GL style spec](https://track-asia.com/trackasia-style-spec/) is now required. If you are using a custom `v7` style, it needs to be upgraded using [this migrator script](https://github.com/mapbox/mapbox-gl-style-spec/blob/mb-pages/migrations/v7.js). ([#2052](https://github.com/mapbox/mapbox-gl-native/pull/2052))
 - Applications built with Mapbox GL no longer crash when Location Services launches them in background mode. ([#1821](https://github.com/mapbox/mapbox-gl-native/pull/1821), [#1869](https://github.com/mapbox/mapbox-gl-native/pull/1869))
 - Fixed a crash when adding annotations to an `MLNMapView` inside `-viewDidLoad`. ([#1874](https://github.com/mapbox/mapbox-gl-native/pull/1874))
 - The user location annotation view now indicates the location reading’s accuracy and the device’s heading. ([#2010](https://github.com/mapbox/mapbox-gl-native/pull/2010))

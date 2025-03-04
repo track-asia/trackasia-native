@@ -133,7 +133,7 @@ Thanks to everyone who helped test the pre-releases!
 - Compile for Android with support for 16 KB page sizes ([#2852](https://github.com/track-asia/trackasia-native/pull/2852)).
 - Enable crash mitigation when running OpenGL in the Android emulator ([#2858](https://github.com/track-asia/trackasia-native/pull/2858)). Technically the crashes were caused by an issue with the Android Emulator, but we were able to find a workaround.
 - Add array support for `icon-padding` ([#2845](https://github.com/track-asia/trackasia-native/pull/2845)).
-  More information can be found in the [TrackAsia Style Spec Documentation](https://trackasia.com/trackasia-style-spec/types/#padding). This is the first (code) contribution from [@random3940](https://github.com/random3940)! 🎉
+  More information can be found in the [TrackAsia Style Spec Documentation](https://track-asia.com/trackasia-style-spec/types/#padding). This is the first (code) contribution from [@random3940](https://github.com/random3940)! 🎉
 - Use `thread_local` for thread local scheduler ([#2863](https://github.com/track-asia/trackasia-native/pull/2863)).
 
 ### 🐞 Bug fixes
@@ -146,7 +146,7 @@ Thanks to everyone who helped test the pre-releases!
 ### ✨ Features and improvements
 
 - Add `textFitWidth` and `textFitHeight` properties to sprites ([#2780](https://github.com/track-asia/trackasia-native/pull/2780)).
-  More information can be found in the [TrackAsia Style Spec](https://trackasia.com/trackasia-style-spec/sprite/#text-fit-properties).
+  More information can be found in the [TrackAsia Style Spec](https://track-asia.com/trackasia-style-spec/sprite/#text-fit-properties).
 - Move UBO updates from render layers to tweakers ([#2703](https://github.com/track-asia/trackasia-native/pull/2703)).
 - Improve tile lifecycle determinism  ([#2819](https://github.com/track-asia/trackasia-native/pull/2819)).
 - Make sure swapBehavior is NoFlush ([#2827](https://github.com/track-asia/trackasia-native/pull/2827)).
@@ -269,8 +269,8 @@ This release includes [debug symbols](https://github.com/track-asia/trackasia-na
 
 ### ✨ Features and improvements
 
-* Add support for the [`slice` expression](https://trackasia.com/trackasia-style-spec/expressions/#slice) ([#1133](https://github.com/track-asia/trackasia-native/pull/1133))
-* Add support for [index-of expression](https://trackasia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
+* Add support for the [`slice` expression](https://track-asia.com/trackasia-style-spec/expressions/#slice) ([#1133](https://github.com/track-asia/trackasia-native/pull/1133))
+* Add support for [index-of expression](https://track-asia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
 * Change to a more natural fling animation and allow setting `flingThreshold` and `flingAnimationBaseTime` in `UiSettings` ([#963](https://github.com/track-asia/trackasia-native/pull/963))
 * Add setting padding when camera is tracking ([#2165](https://github.com/track-asia/trackasia-native/pull/2165)).
 
@@ -290,7 +290,7 @@ This version is identical to 10.0.2.
 ### ✨ Features and improvements
 
 - Change to a more natural fling animation and allow setting `flingThreshold` and `flingAnimationBaseTime` in `UiSettings` ([#963](https://github.com/track-asia/trackasia-native/pull/963))
-- Add support for the [`index-of` expression](https://trackasia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
+- Add support for the [`index-of` expression](https://track-asia.com/trackasia-style-spec/expressions/#index-of) ([#1113](https://github.com/track-asia/trackasia-native/pull/1113))
 
 ### 🐞 Bug fixes
 

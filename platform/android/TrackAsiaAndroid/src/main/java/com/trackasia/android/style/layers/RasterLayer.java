@@ -18,7 +18,7 @@ import com.trackasia.android.style.layers.TransitionOptions;
 /**
  * Raster map textures such as satellite imagery.
  *
- * @see <a href="https://trackasia.com/trackasia-style-spec/#layers-raster">The online documentation</a>
+ * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-raster">The online documentation</a>
  */
 @UiThread
 public class RasterLayer extends Layer {

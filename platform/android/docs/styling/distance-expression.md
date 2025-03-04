@@ -2,14 +2,14 @@
 
 {{ activity_source_note("DistanceExpressionActivity.kt") }}
 
-This example shows how you can modify a style to only show certain features within a certain distance to a point. For this the [distance expression](https://trackasia.com/trackasia-style-spec/expressions/#within) is used.
+This example shows how you can modify a style to only show certain features within a certain distance to a point. For this the [distance expression](https://track-asia.com/trackasia-style-spec/expressions/#within) is used.
 
 <figure markdown="span">
   ![Screenshot of map where only labels inside some circular area are shown]({{ s3_url("distance_expression_activity.png") }}){ width="400" }
   {{ openmaptiles_caption() }}
 </figure>
 
-First we add a [fill layer](https://trackasia.com/trackasia-style-spec/layers/#fill) and a GeoJSON source.
+First we add a [fill layer](https://track-asia.com/trackasia-style-spec/layers/#fill) and a GeoJSON source.
 
 ```kotlin
 --8<-- "TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/style/DistanceExpressionActivity.kt:FillLayer"

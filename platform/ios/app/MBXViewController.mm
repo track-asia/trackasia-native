@@ -1563,7 +1563,7 @@ CLLocationCoordinate2D randomWorldCoordinate(void) {
 - (NSURL*)radarImageURL:(int)index
 {
     return [NSURL URLWithString:
-            [NSString stringWithFormat:@"https://trackasia.com/trackasia-gl-js/docs/assets/radar%d.gif", index]];
+            [NSString stringWithFormat:@"https://track-asia.com/trackasia-gl-js/docs/assets/radar%d.gif", index]];
 }
 
 - (void)styleImageSource

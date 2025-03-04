@@ -19,7 +19,7 @@ import java.net.URL
  * The geographic location of the raster image content, supplied with `LatLngQuad`,
  * can be non-axis aligned.
  *
- * * @see [the style specification](https://trackasia.com/trackasia-style-spec/#sources-image)
+ * * @see [the style specification](https://track-asia.com/trackasia-style-spec/#sources-image)
  */
 @UiThread
 class ImageSource : Source {

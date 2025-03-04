@@ -13,7 +13,7 @@ Powerful, free and open-source mapping toolkit with full control over data sourc
 ## Overview
 
 [TrackAsia Native](https://github.com/track-asia/trackasia-native) is a map rendering toolkit with support for iOS. It can be used as an alternative to MapKit. You have full control over the data sources used for rendering the map, as well as the styling. You can even participate in the development as TrackAsia Native is free and open-source project.
-> Note: For information on creating and modifying map styles, see the [TrackAsia Style Spec documentation](https://trackasia.com/trackasia-style-spec/).
+> Note: For information on creating and modifying map styles, see the [TrackAsia Style Spec documentation](https://track-asia.com/trackasia-style-spec/).
 
 ## Topics
 

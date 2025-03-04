@@ -12,7 +12,7 @@ import java.util.*
 /**
  * Vector source, allows the use of vector tiles.
  *
- * @see [the style specification](https://trackasia.com/trackasia-style-spec/.sources-vector)
+ * @see [the style specification](https://track-asia.com/trackasia-style-spec/.sources-vector)
  */
 @UiThread
 class VectorSource : Source {

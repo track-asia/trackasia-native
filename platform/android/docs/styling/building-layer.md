@@ -2,7 +2,7 @@
 
 {{ activity_source_note("BuildingFillExtrusionActivity.kt") }}
 
-In this example will show how to add a [Fill Extrusion](https://trackasia.com/trackasia-style-spec/layers/#fill-extrusion) layer to a style.
+In this example will show how to add a [Fill Extrusion](https://track-asia.com/trackasia-style-spec/layers/#fill-extrusion) layer to a style.
 <figure markdown="span">
   <video controls width="400" poster="{{ s3_url("building_layer_thumbnail.jpg") }}" >
     <source src="{{ s3_url("building_layer.mp4") }}" />

@@ -1,6 +1,6 @@
 # iOS Documentation
 
-We use [DocC](https://www.swift.org/documentation/docc) for the TrackAsia iOS documentation. The live documentation site can be found [here](https://trackasia.com/trackasia-native/ios/latest/documentation/trackasia/).
+We use [DocC](https://www.swift.org/documentation/docc) for the TrackAsia iOS documentation. The live documentation site can be found [here](https://track-asia.com/trackasia-native/ios/latest/documentation/trackasia/).
 
 ## Resources
 

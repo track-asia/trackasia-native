@@ -41,7 +41,7 @@ You can learn how to use the API from TrackAsia Android by stuying the source co
 
 ## See Also
 
-- [TrackAsia Android API Documentation](https://trackasia.com/trackasia-native/android/api/)
+- [TrackAsia Android API Documentation](https://track-asia.com/trackasia-native/android/api/)
 - [Source code on GitHub](https://github.com/track-asia/trackasia-native/tree/main/platform/android)
 - [Latest releases](https://github.com/track-asia/trackasia-native/releases?q=android-v11&expanded=true)
 - [GitHub Discussions](https://github.com/track-asia/trackasia-native/discussions/categories/q-a?discussions_q=is%3Aopen+category%3AQ%26A+label%3Aandroid)

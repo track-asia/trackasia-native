@@ -24,7 +24,7 @@ import com.trackasia.android.utils.BitmapUtils
  * with an ImageSource
  *
  *
- * TrackAsia Native equivalent of https://trackasia.com/trackasia-gl-js/docs/examples/animate-images/
+ * TrackAsia Native equivalent of https://track-asia.com/trackasia-gl-js/docs/examples/animate-images/
  *
  */
 class AnimatedImageSourceActivity :

@@ -2,7 +2,7 @@
 
 {{ activity_source_note("CircleLayerActivity.kt") }}
 
-In this example we will add a circle layer for a GeoJSON source. We also show how you can use the [cluster](https://trackasia.com/trackasia-style-spec/sources/#cluster) property of a GeoJSON source.
+In this example we will add a circle layer for a GeoJSON source. We also show how you can use the [cluster](https://track-asia.com/trackasia-style-spec/sources/#cluster) property of a GeoJSON source.
 
 <figure markdown="span">
   <video controls width="400" poster="{{ s3_url("circle_layer_cluster_thumbnail.jpg") }}" >
@@ -16,7 +16,7 @@ Create a `GeoJsonSource` instance, pass a unique identifier for the source and t
 --8<-- "TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/style/CircleLayerActivity.kt:addBusStopSource"
 ```
 
-Now you can create a `CircleLayer`, pass it a unique identifier for the layer and the source identifier of the GeoJSON source just created. You can use a `PropertyFactory` to pass [circle layer properties](https://trackasia.com/trackasia-style-spec/layers/#circle). Lastly add the layer to your style.
+Now you can create a `CircleLayer`, pass it a unique identifier for the layer and the source identifier of the GeoJSON source just created. You can use a `PropertyFactory` to pass [circle layer properties](https://track-asia.com/trackasia-style-spec/layers/#circle). Lastly add the layer to your style.
 
 ```kotlin title="Create circle layer a small orange circle for each bus stop"
 --8<-- "TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/style/CircleLayerActivity.kt:addBusStopCircleLayer"
@@ -30,7 +30,7 @@ Next we will show you how you can use clustering. Create a `GeoJsonSource` as be
 --8<-- "TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/style/CircleLayerActivity.kt:addClusteredSource"
 ```
 
-When enabling clustering some [special attributes](https://trackasia.com/trackasia-style-spec/sources/#cluster) will be available to the points in the newly created layer. One is `cluster`, which is true if the point indicates a cluster. We want to show a bus stop for points that are **not** clustered.
+When enabling clustering some [special attributes](https://track-asia.com/trackasia-style-spec/sources/#cluster) will be available to the points in the newly created layer. One is `cluster`, which is true if the point indicates a cluster. We want to show a bus stop for points that are **not** clustered.
 
 ```kotlin title="Add a symbol layers for points that are not clustered"
 --8<-- "TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/style/CircleLayerActivity.kt:unclusteredLayer"

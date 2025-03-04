@@ -38,7 +38,7 @@ fun calculateRotationAngle(
  * Test activity showcasing using realtime GeoJSON to move a symbol on your map
  *
  *
- * TrackAsia Native equivalent of https://trackasia.com/trackasia-gl-js-docs/example/live-geojson/
+ * TrackAsia Native equivalent of https://track-asia.com/trackasia-gl-js-docs/example/live-geojson/
  *
  */
 class RealTimeGeoJsonActivity :

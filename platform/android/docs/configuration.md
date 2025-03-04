@@ -69,7 +69,7 @@ Finally you will see a result similar to this:
 
 For the full contents of `MapOptionsRuntimeActivity` and `MapOptionsXmlActivity`, please take a look at the source code of [TrackAsiaAndroidTestApp](https://github.com/track-asia/trackasia-native/tree/main/platform/android/TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/options).
 
-You can read more about `TrackAsiaMapOptions` in the [Android API documentation](https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.maps/-map-libre-map-options/index.html?query=open%20class%20TrackAsiaMapOptions%20:%20Parcelable).
+You can read more about `TrackAsiaMapOptions` in the [Android API documentation](https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.maps/-map-libre-map-options/index.html?query=open%20class%20TrackAsiaMapOptions%20:%20Parcelable).
 
 ### `SupportMapFragment` with the help of `TrackAsiaMapOptions`.
 
@@ -83,4 +83,4 @@ Let's see how this can be done in a sample activity:
 
 You can also find the full contents of `SupportMapFragmentActivity` in the [TrackAsiaAndroidTestApp](https://github.com/track-asia/trackasia-native/tree/main/platform/android/TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/fragment/SupportMapFragmentActivity.kt).
 
-To learn more about `SupportMapFragment`, please visit the [Android API documentation](https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.maps/-support-map-fragment/index.html?query=open%20class%20SupportMapFragment%20:%20Fragment,%20OnMapReadyCallback).
+To learn more about `SupportMapFragment`, please visit the [Android API documentation](https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.maps/-support-map-fragment/index.html?query=open%20class%20SupportMapFragment%20:%20Fragment,%20OnMapReadyCallback).

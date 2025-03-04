@@ -537,7 +537,7 @@
     "bearing": 0,
     "sources": {
         "trackasia": {
-            "url": "https://demotiles.track-asia.com/tiles/tiles.json",
+            "url": "https://maps.track-asia.com/styles/v1/streets.json?key=public_key",
             "type": "vector"
         },
         "crimea": {

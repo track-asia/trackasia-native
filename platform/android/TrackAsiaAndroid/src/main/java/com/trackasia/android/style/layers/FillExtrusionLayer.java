@@ -18,7 +18,7 @@ import com.trackasia.android.style.layers.TransitionOptions;
 /**
  * An extruded (3D) polygon.
  *
- * @see <a href="https://trackasia.com/trackasia-style-spec/#layers-fill-extrusion">The online documentation</a>
+ * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-fill-extrusion">The online documentation</a>
  */
 @UiThread
 public class FillExtrusionLayer extends Layer {

@@ -18,7 +18,7 @@ import com.trackasia.android.style.layers.TransitionOptions;
 /**
  * A filled circle.
  *
- * @see <a href="https://trackasia.com/trackasia-style-spec/#layers-circle">The online documentation</a>
+ * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-circle">The online documentation</a>
  */
 @UiThread
 public class CircleLayer extends Layer {

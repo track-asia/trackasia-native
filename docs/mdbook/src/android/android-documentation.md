@@ -2,11 +2,11 @@
 
 ## API Documentation
 
-We use Dokka for the TrackAsia Android API documentation. The live documentation site can be found [here](https://trackasia.com/trackasia-native/android/api/).
+We use Dokka for the TrackAsia Android API documentation. The live documentation site can be found [here](https://track-asia.com/trackasia-native/android/api/).
 
 ## Examples Documentation
 
-The documentation site with examples uses MkDocs along with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/). You can check out the site [here](https://trackasia.com/trackasia-native/android/examples/).
+The documentation site with examples uses MkDocs along with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/). You can check out the site [here](https://track-asia.com/trackasia-native/android/examples/).
 
 ### Building
 

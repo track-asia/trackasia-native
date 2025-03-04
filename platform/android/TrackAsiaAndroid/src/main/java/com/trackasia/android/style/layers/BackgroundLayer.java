@@ -18,7 +18,7 @@ import com.trackasia.android.style.layers.TransitionOptions;
 /**
  * The background color or pattern of the map.
  *
- * @see <a href="https://trackasia.com/trackasia-style-spec/#layers-background">The online documentation</a>
+ * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-background">The online documentation</a>
  */
 @UiThread
 public class BackgroundLayer extends Layer {

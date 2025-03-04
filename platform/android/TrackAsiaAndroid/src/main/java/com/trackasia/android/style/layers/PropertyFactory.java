@@ -11,7 +11,7 @@ import static com.trackasia.android.utils.ColorUtils.colorToRgbaString;
 /**
  * Constructs paint/layout properties for Layers
  *
- * @see <a href="https://trackasia.com/trackasia-style-spec/#layers">Layer style documentation</a>
+ * @see <a href="https://track-asia.com/trackasia-style-spec/#layers">Layer style documentation</a>
  */
 public class PropertyFactory {
 

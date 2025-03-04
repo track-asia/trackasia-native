@@ -2,7 +2,7 @@
 
 ## Documentation
 
-- For a high-level overview of TrackAsia Native, check out the [TrackAsia Native Markdown Book](https://trackasia.com/trackasia-native/docs/book/).
+- For a high-level overview of TrackAsia Native, check out the [TrackAsia Native Markdown Book](https://track-asia.com/trackasia-native/docs/book/).
 
 ## Source code checkout
 

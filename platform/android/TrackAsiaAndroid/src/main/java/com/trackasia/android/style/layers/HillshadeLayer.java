@@ -18,7 +18,7 @@ import com.trackasia.android.style.layers.TransitionOptions;
 /**
  * Client-side hillshading visualization based on DEM data. The implementation supports Mapbox Terrain RGB, Mapzen Terrarium tiles and custom encodings.
  *
- * @see <a href="https://trackasia.com/trackasia-style-spec/#layers-hillshade">The online documentation</a>
+ * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-hillshade">The online documentation</a>
  */
 @UiThread
 public class HillshadeLayer extends Layer {

@@ -2,7 +2,7 @@
 
 {{ activity_source_note("AnimatedImageSourceActivity.kt") }}
 
-In this example we will see how we can animate an image source. This is the TrackAsia Native equivalent of [this TrackAsia GL JS example](https://trackasia.com/trackasia-gl-js/docs/examples/animate-images/).
+In this example we will see how we can animate an image source. This is the TrackAsia Native equivalent of [this TrackAsia GL JS example](https://track-asia.com/trackasia-gl-js/docs/examples/animate-images/).
 
 <figure markdown="span">
   <video controls width="400" poster="{{ s3_url("animated_image_source_thumbnail.jpg") }}" >
@@ -11,7 +11,7 @@ In this example we will see how we can animate an image source. This is the Trac
   {{ openmaptiles_caption() }}
 </figure>
 
-We set up an [image source](https://trackasia.com/trackasia-style-spec/sources/#image) in a particular quad. Then we kick of a runnable that periodically updates the image source.
+We set up an [image source](https://track-asia.com/trackasia-style-spec/sources/#image) in a particular quad. Then we kick of a runnable that periodically updates the image source.
 
 ```kotlin title="Creating the image source"
 --8<-- "TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/style/AnimatedImageSourceActivity.kt:onMapReady"

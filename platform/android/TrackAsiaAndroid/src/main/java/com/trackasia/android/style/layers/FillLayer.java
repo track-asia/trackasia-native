@@ -18,7 +18,7 @@ import com.trackasia.android.style.layers.TransitionOptions;
 /**
  * A filled polygon with an optional stroked border.
  *
- * @see <a href="https://trackasia.com/trackasia-style-spec/#layers-fill">The online documentation</a>
+ * @see <a href="https://track-asia.com/trackasia-style-spec/#layers-fill">The online documentation</a>
  */
 @UiThread
 public class FillLayer extends Layer {

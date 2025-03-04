@@ -85,14 +85,14 @@ Here is the final results with different color configurations. For the complete 
 [^1]: A variety of [camera modes] determine how the camera will track the user location.
       They provide the right context to your users at the correct time.
 
-[LocationComponent]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component/index.html
+[LocationComponent]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component/index.html
 [Android Developer Documentation]: https://developer.android.com/training/location/permissions
-[onMapReadyCallback]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.maps/-on-map-ready-callback/index.html
-[PermissionManager]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.permissions/-permissions-manager/index.html
-[LocationComponentOptions]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component-options/index.html
+[onMapReadyCallback]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.maps/-on-map-ready-callback/index.html
+[PermissionManager]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.permissions/-permissions-manager/index.html
+[LocationComponentOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component-options/index.html
 [demotiles]: https://maps.track-asia.com/styles/v1/streets.json?key=public_key
 [predefined styles]: https://github.com/track-asia/trackasia-native/tree/main/src/mbgl/util/tile_server_options.cpp
-[LocationComponentActivationOptions]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component-activation-options/index.html
-[LocationEngine]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.engine/-location-engine/index.html
+[LocationComponentActivationOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component-activation-options/index.html
+[LocationEngine]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.engine/-location-engine/index.html
 [Test APP]: https://github.com/track-asia/trackasia-native/tree/main/platform/android/TrackAsiaAndroidTestApp/src/main/java/com/trackasia/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt
-[camera modes]: https://trackasia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.modes/-camera-mode/index.html
+[camera modes]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.modes/-camera-mode/index.html
