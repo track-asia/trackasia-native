@@ -14,7 +14,6 @@ import com.trackasia.android.testapp.styles.TestStyles
 class HillshadeLayerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fill_extrusion_layer)
@@ -28,13 +27,12 @@ class HillshadeLayerActivity : AppCompatActivity() {
                 val rasterDemSource = RasterDemSource(SOURCE_ID, SOURCE_URL)
                 val hillshadeLayer = HillshadeLayer(LAYER_ID, SOURCE_ID)
                 trackasiaMap.setStyle(
-                    Style
-                        .Builder()
+                    Style.Builder()
                         .fromUri(TestStyles.getPredefinedStyleWithFallback("Streets"))
                         .withLayerBelow(hillshadeLayer, LAYER_BELOW_ID)
-                        .withSource(rasterDemSource),
+                        .withSource(rasterDemSource)
                 )
-            },
+            }
         )
     }
 

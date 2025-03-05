@@ -443,7 +443,7 @@ global.propertyDoc = function (propertyName, property, layerType, kind) {
                     anchor = `paint-${property.original}`;
                     break;
             }
-            doc += `\n\nThis attribute corresponds to the <a href="https://trackasia.com/trackasia-style-spec/#${anchor}"><code>${property.original}</code></a> layout property in the TrackAsia Style Spec.`;
+            doc += `\n\nThis attribute corresponds to the <a href="https://track-asia.com/trackasia-style-spec/#${anchor}"><code>${property.original}</code></a> layout property in the TrackAsia Style Spec.`;
         }
         doc += '\n\nYou can set this property to an expression containing any of the following:\n\n';
         doc += `* Constant ${describeType(property)} values`;

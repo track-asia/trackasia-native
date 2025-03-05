@@ -19,6 +19,7 @@ import com.trackasia.android.testapp.databinding.ActivityRecyclerviewBinding
  */
 @SuppressLint("ClickableViewAccessibility")
 open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityRecyclerviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,35 +42,17 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
         (binding.recyclerView.adapter as ItemAdapter).onDestroy()
     }
 
-    open fun getMapItemLayoutId(): Int = R.layout.item_map_gl
+    open fun getMapItemLayoutId(): Int {
+        return R.layout.item_map_gl
+    }
 
-    class ItemAdapter(
-        private val activity: GLSurfaceRecyclerViewActivity,
-        private val inflater: LayoutInflater,
-    ) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
-        private val items: List<Any> =
-            listOf(
-                "one",
-                "two",
-                "three",
-                "four",
-                "five",
-                "seven",
-                "eight",
-                "nine",
-                "ten",
-                "eleven",
-                "twelve",
-                "thirteen",
-                "fourteen",
-                "fifteen",
-                "sixteen",
-                "seventeen",
-                "eighteen",
-                "nineteen",
-                "twenty",
-                "twenty-one",
-            )
+    class ItemAdapter(private val activity: GLSurfaceRecyclerViewActivity, private val inflater: LayoutInflater) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+
+        private val items: List<Any> = listOf(
+            "one", "two", "three", "four", "five", "seven", "eight", "nine", "ten",
+            "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
+            "nineteen", "twenty", "twenty-one"
+        )
 
         private var mapHolders: MutableList<MapHolder> = mutableListOf()
 
@@ -78,10 +61,7 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
             const val TYPE_TEXT = 1
         }
 
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int,
-        ): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
             return if (viewType == TYPE_MAP) {
                 val mapView = inflater.inflate(activity.getMapItemLayoutId(), parent, false) as MapView
                 val mapHolder = MapHolder(mapView)
@@ -111,12 +91,11 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
             }
         }
 
-        override fun getItemCount(): Int = items.count()
+        override fun getItemCount(): Int {
+            return items.count()
+        }
 
-        override fun onBindViewHolder(
-            holder: androidx.recyclerview.widget.RecyclerView.ViewHolder,
-            position: Int,
-        ) {
+        override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
             if (holder is TextHolder) {
                 holder.bind(items[position] as String)
             } else if (holder is MapHolder) {
@@ -124,12 +103,13 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
             }
         }
 
-        override fun getItemViewType(position: Int): Int =
-            if (items[position] is MapItem) {
+        override fun getItemViewType(position: Int): Int {
+            return if (items[position] is MapItem) {
                 TYPE_MAP
             } else {
                 TYPE_TEXT
             }
+        }
 
         fun onLowMemory() {
             for (mapHolder in mapHolders) {
@@ -147,13 +127,9 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
             }
         }
 
-        data class MapItem(
-            val style: String,
-        )
+        data class MapItem(val style: String)
+        class MapHolder(val mapView: MapView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mapView) {
 
-        class MapHolder(
-            val mapView: MapView,
-        ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mapView) {
             init {
                 // unfortunately, if there are multiple maps hosted in one activity, state saving is not possible
                 mapView.onCreate(null)
@@ -174,9 +150,7 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
             }
         }
 
-        class TextHolder(
-            val textView: TextView,
-        ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(textView) {
+        class TextHolder(val textView: TextView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(textView) {
             fun bind(item: String) {
                 textView.text = item
             }

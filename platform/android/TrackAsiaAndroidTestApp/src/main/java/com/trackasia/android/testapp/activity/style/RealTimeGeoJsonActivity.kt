@@ -21,10 +21,7 @@ import java.net.URI
 import java.net.URISyntaxException
 import kotlin.math.atan2
 
-fun calculateRotationAngle(
-    from: Point,
-    to: Point,
-): Float {
+fun calculateRotationAngle(from: Point, to: Point): Float {
     val longitudeDiff = to.longitude() - from.longitude()
     val latitudeDiff = to.latitude() - from.latitude()
 
@@ -41,9 +38,7 @@ fun calculateRotationAngle(
  * TrackAsia Native equivalent of https://track-asia.com/trackasia-gl-js-docs/example/live-geojson/
  *
  */
-class RealTimeGeoJsonActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class RealTimeGeoJsonActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
     private var handler: Handler? = null
@@ -66,16 +61,9 @@ class RealTimeGeoJsonActivity :
 
     override fun onMapReady(map: TrackAsiaMap) {
         trackasiaMap = map
-        trackasiaMap.cameraPosition =
-            CameraPosition
-                .Builder()
-                .target(netherlands)
-                .zoom(6.0)
-                .build()
-        trackasiaMap.setStyle(TestStyles.PROTOMAPS_WHITE) { style ->
-            // add source
-            ResourcesCompat
-                .getDrawable(resources, R.drawable.ic_airplanemode_active_black, theme)
+        trackasiaMap.cameraPosition = CameraPosition.Builder().target(netherlands).zoom(6.0).build()
+        trackasiaMap.setStyle(TestStyles.PROTOMAPS_WHITE) { style -> // add source
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_airplanemode_active_black, theme)
                 ?.let { style.addImage("plane", it) }
             // --8<-- [start:addSource]
             try {
@@ -89,10 +77,11 @@ class RealTimeGeoJsonActivity :
             val layer = SymbolLayer(ID_GEOJSON_LAYER, ID_GEOJSON_SOURCE)
             layer.setProperties(
                 PropertyFactory.iconImage("plane"),
-                PropertyFactory.iconAllowOverlap(true),
+                PropertyFactory.iconAllowOverlap(true)
             )
             style.addLayer(layer)
             // --8<-- [end:addLayer]
+
 
             // loop refresh geojson
             handler = Handler(Looper.getMainLooper())
@@ -165,7 +154,7 @@ class RealTimeGeoJsonActivity :
     // --8<-- [start:Runnable]
     private inner class RefreshGeoJsonRunnable(
         private val trackasiaMap: TrackAsiaMap,
-        private val handler: Handler,
+        private val handler: Handler
     ) : Runnable {
         override fun run() {
             val geoJsonSource = trackasiaMap.style!!.getSource(ID_GEOJSON_SOURCE) as GeoJsonSource

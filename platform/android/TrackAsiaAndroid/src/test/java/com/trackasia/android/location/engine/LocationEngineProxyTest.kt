@@ -1,11 +1,11 @@
 package com.trackasia.android.location.engine
 
 import android.location.LocationListener
-import com.trackasia.android.location.engine.AndroidLocationEngineImpl.AndroidLocationEngineCallbackTransport
 import org.assertj.core.api.Assertions.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.trackasia.android.location.engine.AndroidLocationEngineImpl.AndroidLocationEngineCallbackTransport
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
@@ -18,7 +18,6 @@ class LocationEngineProxyTest {
     @Mock
     private val engineImpl: LocationEngineImpl<LocationListener>? = null
     private var locationEngineProxy: LocationEngineProxy<LocationListener>? = null
-
     @Before
     fun setUp() {
         locationEngineProxy = LocationEngineProxy(engineImpl)
@@ -48,10 +47,7 @@ class LocationEngineProxyTest {
         `when`(engineImpl!!.createListener(callback)).thenReturn(transport)
         locationEngineProxy!!.getListener(callback!!)
         // J2K: using IDE suggestion "as LocationEngineCallback<LocationEngineResult>"
-        val anotherCallback: LocationEngineCallback<LocationEngineResult> =
-            mock(
-                LocationEngineCallback::class.java,
-            ) as LocationEngineCallback<LocationEngineResult>
+        val anotherCallback: LocationEngineCallback<LocationEngineResult> = mock(LocationEngineCallback::class.java) as LocationEngineCallback<LocationEngineResult>
         val anotherTransport = AndroidLocationEngineCallbackTransport(anotherCallback)
         `when`(engineImpl.createListener(anotherCallback)).thenReturn(anotherTransport)
         locationEngineProxy!!.getListener(anotherCallback)
@@ -73,10 +69,7 @@ class LocationEngineProxyTest {
         `when`(engineImpl!!.createListener(callback)).thenReturn(transport)
         locationEngineProxy!!.getListener(callback!!)
         // J2K: using IDE suggestion "as LocationEngineCallback<LocationEngineResult>"
-        val anotherCallback: LocationEngineCallback<LocationEngineResult> =
-            mock(
-                LocationEngineCallback::class.java,
-            ) as LocationEngineCallback<LocationEngineResult>
+        val anotherCallback: LocationEngineCallback<LocationEngineResult> = mock(LocationEngineCallback::class.java) as LocationEngineCallback<LocationEngineResult>
         val anotherTransport = AndroidLocationEngineCallbackTransport(anotherCallback)
         `when`(engineImpl.createListener(anotherCallback)).thenReturn(anotherTransport)
         locationEngineProxy!!.getListener(anotherCallback)

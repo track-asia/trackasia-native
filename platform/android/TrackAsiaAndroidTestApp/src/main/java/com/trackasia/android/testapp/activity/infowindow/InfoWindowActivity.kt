@@ -10,13 +10,13 @@ import com.trackasia.android.annotations.Marker
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.OnMapReadyCallback
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMap.OnInfoWindowClickListener
 import com.trackasia.android.maps.TrackAsiaMap.OnInfoWindowCloseListener
 import com.trackasia.android.maps.TrackAsiaMap.OnInfoWindowLongClickListener
 import com.trackasia.android.maps.TrackAsiaMap.OnMapLongClickListener
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import java.text.DecimalFormat
@@ -37,26 +37,25 @@ class InfoWindowActivity :
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
     private var customMarker: Marker? = null
-    private val mapLongClickListener =
-        OnMapLongClickListener { point ->
-            if (customMarker != null) {
-                // Remove previous added marker
-                trackasiaMap.removeAnnotation(customMarker!!)
-                customMarker = null
-            }
-
-            // Add marker on long click location with default marker image
-            customMarker =
-                trackasiaMap.addMarker(
-                    MarkerOptions()
-                        .title("Custom Marker")
-                        .snippet(
-                            DecimalFormat("#.#####").format(point.latitude) + ", " +
-                                DecimalFormat("#.#####").format(point.longitude),
-                        ).position(point),
-                )
-            true
+    private val mapLongClickListener = OnMapLongClickListener { point ->
+        if (customMarker != null) {
+            // Remove previous added marker
+            trackasiaMap.removeAnnotation(customMarker!!)
+            customMarker = null
         }
+
+        // Add marker on long click location with default marker image
+        customMarker = trackasiaMap.addMarker(
+            MarkerOptions()
+                .title("Custom Marker")
+                .snippet(
+                    DecimalFormat("#.#####").format(point.latitude) + ", " +
+                        DecimalFormat("#.#####").format(point.longitude)
+                )
+                .position(point)
+        )
+        true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,31 +78,30 @@ class InfoWindowActivity :
             MarkerOptions()
                 .title("Intersection")
                 .snippet("H St NW with 15th St NW")
-                .position(LatLng(38.9002073, -77.03364419)),
+                .position(LatLng(38.9002073, -77.03364419))
         )
         trackasiaMap.addMarker(
-            MarkerOptions()
-                .title("Intersection")
+            MarkerOptions().title("Intersection")
                 .snippet("E St NW with 17th St NW")
-                .position(LatLng(38.8954236, -77.0394623)),
+                .position(LatLng(38.8954236, -77.0394623))
         )
         trackasiaMap.addMarker(
-            MarkerOptions().title("The Ellipse").position(LatLng(38.89393, -77.03654)),
+            MarkerOptions().title("The Ellipse").position(LatLng(38.89393, -77.03654))
         )
         trackasiaMap.addMarker(MarkerOptions().position(LatLng(38.89596, -77.03434)))
         trackasiaMap.addMarker(
-            MarkerOptions().snippet("Lafayette Square").position(LatLng(38.89949, -77.03656)),
+            MarkerOptions().snippet("Lafayette Square").position(LatLng(38.89949, -77.03656))
         )
-        val marker =
-            trackasiaMap.addMarker(
-                MarkerOptions()
-                    .title("White House")
-                    .snippet(
-                        "The official residence and principal workplace of the President of the United States, " +
-                            "located at 1600 Pennsylvania Avenue NW in Washington, D.C. It has been the residence of every" +
-                            "U.S. president since John Adams in 1800.",
-                    ).position(LatLng(38.897705003219784, -77.03655168667463)),
-            )
+        val marker = trackasiaMap.addMarker(
+            MarkerOptions()
+                .title("White House")
+                .snippet(
+                    "The official residence and principal workplace of the President of the United States, " +
+                        "located at 1600 Pennsylvania Avenue NW in Washington, D.C. It has been the residence of every" +
+                        "U.S. president since John Adams in 1800."
+                )
+                .position(LatLng(38.897705003219784, -77.03655168667463))
+        )
 
         // open InfoWindow at startup
         trackasiaMap.selectMarker(marker)
@@ -182,8 +180,8 @@ class InfoWindowActivity :
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_toggle_concurrent_infowindow -> {
                 toggleConcurrentInfoWindow(!item.isChecked)
                 item.isChecked = !item.isChecked
@@ -196,4 +194,5 @@ class InfoWindowActivity :
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
 }

@@ -15,6 +15,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class TrackAsiaMapOptionsAttrsTest {
+
     @RelaxedMockK
     private lateinit var options: TrackAsiaMapOptions
 

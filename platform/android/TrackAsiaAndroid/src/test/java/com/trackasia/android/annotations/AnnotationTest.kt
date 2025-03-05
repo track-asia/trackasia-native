@@ -11,16 +11,16 @@ class AnnotationTest {
     @InjectMocks
     private val trackasiaMap = Mockito.mock(TrackAsiaMap::class.java)
     private var annotation: Annotation? = null
-    private val compare: Annotation =
-        object : Annotation() {
-            override fun getId(): Long = 1
+    private val compare: Annotation = object : Annotation() {
+        override fun getId(): Long {
+            return 1
         }
+    }
 
     @Before
     fun beforeTest() {
-        annotation =
-            object : Annotation() { // empty child
-            }
+        annotation = object : Annotation() { // empty child
+        }
     }
 
     @Test
@@ -34,7 +34,7 @@ class AnnotationTest {
         annotation!!.setTrackAsiaMap(trackasiaMap)
         annotation!!.remove()
         Mockito.verify(trackasiaMap, Mockito.times(1)).removeAnnotation(
-            annotation!!,
+            annotation!!
         )
     }
 
@@ -43,7 +43,7 @@ class AnnotationTest {
         annotation!!.id = 1
         annotation!!.remove()
         Mockito.verify(trackasiaMap, Mockito.times(0)).removeAnnotation(
-            annotation!!,
+            annotation!!
         )
     }
 

@@ -85,7 +85,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -97,7 +97,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -121,7 +121,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -133,7 +133,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -157,7 +157,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -169,7 +169,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -193,7 +193,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -205,7 +205,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -229,7 +229,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -241,7 +241,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -265,7 +265,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -277,7 +277,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -301,7 +301,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -313,7 +313,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -337,7 +337,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -349,7 +349,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -357,17 +357,17 @@ class MapChangeReceiverTest {
     @Test
     fun testOnWillStartRenderingFrameListener() {
         mapChangeEventManager!!.addOnWillStartRenderingFrameListener(
-            onWillStartRenderingFrameListener,
+            onWillStartRenderingFrameListener
         )
         mapChangeEventManager!!?.onWillStartRenderingFrame()
         Mockito.verify(onWillStartRenderingFrameListener)?.onWillStartRenderingFrame()
         mapChangeEventManager!!.removeOnWillStartRenderingFrameListener(
-            onWillStartRenderingFrameListener,
+            onWillStartRenderingFrameListener
         )
         mapChangeEventManager!!?.onWillStartRenderingFrame()
         Mockito.verify(onWillStartRenderingFrameListener)?.onWillStartRenderingFrame()
         mapChangeEventManager!!.addOnWillStartRenderingFrameListener(
-            onWillStartRenderingFrameListener,
+            onWillStartRenderingFrameListener
         )
         Logger.setLoggerDefinition(loggerDefinition)
         val exc: Exception = RuntimeException()
@@ -379,7 +379,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -391,7 +391,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -399,23 +399,21 @@ class MapChangeReceiverTest {
     @Test
     fun testOnDidFinishRenderingFrameListener() {
         mapChangeEventManager!!.addOnDidFinishRenderingFrameListener(
-            onDidFinishRenderingFrameListener,
+            onDidFinishRenderingFrameListener
         )
         mapChangeEventManager!!?.onDidFinishRenderingFrame(true, .0, .0)
         Mockito.verify(onDidFinishRenderingFrameListener)?.onDidFinishRenderingFrame(true, .0, .0)
         mapChangeEventManager!!.removeOnDidFinishRenderingFrameListener(
-            onDidFinishRenderingFrameListener,
+            onDidFinishRenderingFrameListener
         )
         mapChangeEventManager!!?.onDidFinishRenderingFrame(true, .0, .0)
-        Mockito.verify(onDidFinishRenderingFrameListener)?.onDidFinishRenderingFrame(true, .0, .0)
+        Mockito.verify(onDidFinishRenderingFrameListener)?.onDidFinishRenderingFrame(true,.0, .0)
         mapChangeEventManager!!.addOnDidFinishRenderingFrameListener(
-            onDidFinishRenderingFrameListener,
+            onDidFinishRenderingFrameListener
         )
         Logger.setLoggerDefinition(loggerDefinition)
         val exc: Exception = RuntimeException()
-        Mockito
-            .doThrow(exc)
-            .`when`(onDidFinishRenderingFrameListener)
+        Mockito.doThrow(exc).`when`(onDidFinishRenderingFrameListener)
             ?.onDidFinishRenderingFrame(true, .0, .0)
         try {
             mapChangeEventManager!!?.onDidFinishRenderingFrame(true, .0, .0)
@@ -424,13 +422,11 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
-        Mockito
-            .doThrow(err)
-            .`when`(onDidFinishRenderingFrameListener)
+        Mockito.doThrow(err).`when`(onDidFinishRenderingFrameListener)
             ?.onDidFinishRenderingFrame(true, .0, .0)
         try {
             mapChangeEventManager!!?.onDidFinishRenderingFrame(true, .0, .0)
@@ -439,7 +435,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -447,23 +443,21 @@ class MapChangeReceiverTest {
     @Test
     fun testOnDidFinishRenderingFrameFullyRenderedListener() {
         mapChangeEventManager!!.addOnDidFinishRenderingFrameListener(
-            onDidFinishRenderingFrameListener,
+            onDidFinishRenderingFrameListener
         )
         mapChangeEventManager!!?.onDidFinishRenderingFrame(false, .0, .0)
         Mockito.verify(onDidFinishRenderingFrameListener)?.onDidFinishRenderingFrame(false, .0, .0)
         mapChangeEventManager!!.removeOnDidFinishRenderingFrameListener(
-            onDidFinishRenderingFrameListener,
+            onDidFinishRenderingFrameListener
         )
         mapChangeEventManager!!?.onDidFinishRenderingFrame(false, .0, .0)
         Mockito.verify(onDidFinishRenderingFrameListener)?.onDidFinishRenderingFrame(false, .0, .0)
         mapChangeEventManager!!.addOnDidFinishRenderingFrameListener(
-            onDidFinishRenderingFrameListener,
+            onDidFinishRenderingFrameListener
         )
         Logger.setLoggerDefinition(loggerDefinition)
         val exc: Exception = RuntimeException()
-        Mockito
-            .doThrow(exc)
-            .`when`(onDidFinishRenderingFrameListener)
+        Mockito.doThrow(exc).`when`(onDidFinishRenderingFrameListener)
             ?.onDidFinishRenderingFrame(false, .0, .0)
         try {
             mapChangeEventManager!!?.onDidFinishRenderingFrame(false, .0, .0)
@@ -472,13 +466,11 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
-        Mockito
-            .doThrow(err)
-            .`when`(onDidFinishRenderingFrameListener)
+        Mockito.doThrow(err).`when`(onDidFinishRenderingFrameListener)
             ?.onDidFinishRenderingFrame(false, .0, .0)
         try {
             mapChangeEventManager!!?.onDidFinishRenderingFrame(false, .0, .0)
@@ -487,7 +479,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -498,7 +490,7 @@ class MapChangeReceiverTest {
         mapChangeEventManager!!?.onWillStartRenderingMap()
         Mockito.verify(onWillStartRenderingMapListener)?.onWillStartRenderingMap()
         mapChangeEventManager!!.removeOnWillStartRenderingMapListener(
-            onWillStartRenderingMapListener,
+            onWillStartRenderingMapListener
         )
         mapChangeEventManager!!?.onWillStartRenderingMap()
         Mockito.verify(onWillStartRenderingMapListener)?.onWillStartRenderingMap()
@@ -513,7 +505,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -525,7 +517,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -536,7 +528,7 @@ class MapChangeReceiverTest {
         mapChangeEventManager!!?.onDidFinishRenderingMap(true)
         Mockito.verify(onDidFinishRenderingMapListener)?.onDidFinishRenderingMap(true)
         mapChangeEventManager!!.removeOnDidFinishRenderingMapListener(
-            onDidFinishRenderingMapListener,
+            onDidFinishRenderingMapListener
         )
         mapChangeEventManager!!?.onDidFinishRenderingMap(true)
         Mockito.verify(onDidFinishRenderingMapListener)?.onDidFinishRenderingMap(true)
@@ -551,7 +543,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -563,7 +555,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -574,7 +566,7 @@ class MapChangeReceiverTest {
         mapChangeEventManager!!?.onDidFinishRenderingMap(false)
         Mockito.verify(onDidFinishRenderingMapListener)?.onDidFinishRenderingMap(false)
         mapChangeEventManager!!.removeOnDidFinishRenderingMapListener(
-            onDidFinishRenderingMapListener,
+            onDidFinishRenderingMapListener
         )
         mapChangeEventManager!!?.onDidFinishRenderingMap(false)
         Mockito.verify(onDidFinishRenderingMapListener)?.onDidFinishRenderingMap(false)
@@ -589,7 +581,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -601,7 +593,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -625,7 +617,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -637,7 +629,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -648,7 +640,7 @@ class MapChangeReceiverTest {
         mapChangeEventManager!!?.onDidFinishLoadingStyle()
         Mockito.verify(onDidFinishLoadingStyleListener)?.onDidFinishLoadingStyle()
         mapChangeEventManager!!.removeOnDidFinishLoadingStyleListener(
-            onDidFinishLoadingStyleListener,
+            onDidFinishLoadingStyleListener
         )
         mapChangeEventManager!!?.onDidFinishLoadingStyle()
         Mockito.verify(onDidFinishLoadingStyleListener)?.onDidFinishLoadingStyle()
@@ -663,7 +655,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -675,7 +667,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }
@@ -699,7 +691,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(exc),
+                ArgumentMatchers.eq(exc)
             )
         }
         val err: Error = ExecutionError("", Error())
@@ -711,7 +703,7 @@ class MapChangeReceiverTest {
             Mockito.verify(loggerDefinition)?.e(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.eq(err),
+                ArgumentMatchers.eq(err)
             )
         }
     }

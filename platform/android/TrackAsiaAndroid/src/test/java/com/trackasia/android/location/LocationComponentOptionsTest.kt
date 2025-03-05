@@ -31,32 +31,31 @@ class LocationComponentOptionsTest {
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        Mockito
-            .`when`(
-                context!!.obtainStyledAttributes(
-                    R.style.trackasia_LocationComponent,
-                    R.styleable.trackasia_LocationComponent,
-                ),
-            ).thenReturn(array)
-        Mockito
-            .`when`(
-                array!!.getResourceId(
-                    R.styleable.trackasia_LocationComponent_trackasia_foregroundDrawable,
-                    -1,
-                ),
-            ).thenReturn(R.drawable.trackasia_user_icon)
+        Mockito.`when`(
+            context!!.obtainStyledAttributes(
+                R.style.trackasia_LocationComponent,
+                R.styleable.trackasia_LocationComponent
+            )
+        )
+            .thenReturn(array)
+        Mockito.`when`(
+            array!!.getResourceId(
+                R.styleable.trackasia_LocationComponent_trackasia_foregroundDrawable,
+                -1
+            )
+        )
+            .thenReturn(R.drawable.trackasia_user_icon)
         Mockito.`when`(context.resources).thenReturn(resources)
     }
 
     @Test
     @Throws(Exception::class)
     fun sanity() {
-        val locationComponentOptions =
-            LocationComponentOptions
-                .builder(
-                    context!!,
-                ).accuracyAlpha(0.5f)
-                .build()
+        val locationComponentOptions = LocationComponentOptions.builder(
+            context!!
+        )
+            .accuracyAlpha(0.5f)
+            .build()
         Assert.assertNotNull(locationComponentOptions)
     }
 
@@ -66,10 +65,9 @@ class LocationComponentOptionsTest {
         thrown.expect(IllegalArgumentException::class.java)
         thrown.expectMessage(
             "Accuracy alpha value must be between 0.0 and " +
-                "1.0.",
+                "1.0."
         )
-        LocationComponentOptions
-            .builder(context!!)
+        LocationComponentOptions.builder(context!!)
             .accuracyAlpha(2f)
             .build()
     }
@@ -79,8 +77,7 @@ class LocationComponentOptionsTest {
     fun negativeElevation_causesExceptionToBeThrown() {
         thrown.expect(IllegalArgumentException::class.java)
         thrown.expectMessage("Invalid shadow size -500.0. Must be >= 0")
-        LocationComponentOptions
-            .builder(context!!)
+        LocationComponentOptions.builder(context!!)
             .elevation(-500f)
             .build()
     }
@@ -91,10 +88,9 @@ class LocationComponentOptionsTest {
         thrown.expect(IllegalArgumentException::class.java)
         thrown.expectMessage(
             "You cannot set both layerAbove and layerBelow options." +
-                " Choose one or the other.",
+                " Choose one or the other."
         )
-        LocationComponentOptions
-            .builder(context!!)
+        LocationComponentOptions.builder(context!!)
             .layerAbove("above")
             .layerBelow("below")
             .build()

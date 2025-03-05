@@ -7,8 +7,8 @@ import com.trackasia.android.AppCenter
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
 import org.junit.Assert.*
@@ -22,6 +22,7 @@ import java.util.concurrent.TimeoutException
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class RemoveUnusedImagesTest : AppCenter() {
+
     @Rule
     @JvmField
     var rule = ActivityTestRule(EspressoTestActivity::class.java)
@@ -59,7 +60,7 @@ class RemoveUnusedImagesTest : AppCenter() {
             mapView.addOnCanRemoveUnusedStyleImageListener {
                 callbackLatch.countDown()
                 trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 120.0), 8.0))
-                mapView.addOnDidFinishRenderingFrameListener { _, _, _ ->
+                mapView.addOnDidFinishRenderingFrameListener{ _, _, _ ->
                     assertNotNull(trackasiaMap.style!!.getImage("small"))
                     assertNotNull(trackasiaMap.style!!.getImage("large"))
                     latch.countDown()

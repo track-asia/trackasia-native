@@ -27,7 +27,6 @@ import timber.log.Timber
  */
 class MapChangeActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_simple)
@@ -37,25 +36,25 @@ class MapChangeActivity : AppCompatActivity() {
             OnCameraDidChangeListener { animated: Boolean ->
                 Timber.v(
                     "OnCamaraDidChange: animated: %s",
-                    animated,
+                    animated
                 )
-            },
+            }
         )
         mapView.addOnCameraWillChangeListener(
             OnCameraWillChangeListener { animated: Boolean ->
                 Timber.v(
                     "OnCameraWilChange: animated: %s",
-                    animated,
+                    animated
                 )
-            },
+            }
         )
         mapView.addOnDidFailLoadingMapListener(
             OnDidFailLoadingMapListener { errorMessage: String? ->
                 Timber.v(
                     "OnDidFailLoadingMap: %s",
-                    errorMessage,
+                    errorMessage
                 )
-            },
+            }
         )
         mapView.addOnDidFinishLoadingMapListener(OnDidFinishLoadingMapListener { Timber.v("OnDidFinishLoadingMap") })
         mapView.addOnDidFinishLoadingStyleListener(OnDidFinishLoadingStyleListener { Timber.v("OnDidFinishLoadingStyle") })
@@ -63,26 +62,26 @@ class MapChangeActivity : AppCompatActivity() {
             OnDidFinishRenderingFrameListener { fully: Boolean, frameEncodingTime: Double, frameRenderingTime: Double ->
                 Timber.v(
                     "OnDidFinishRenderingFrame: fully: %s",
-                    fully,
+                    fully
                 )
-            },
+            }
         )
         mapView.addOnDidFinishRenderingMapListener(
             OnDidFinishRenderingMapListener { fully: Boolean ->
                 Timber.v(
                     "OnDidFinishRenderingMap: fully: %s",
-                    fully,
+                    fully
                 )
-            },
+            }
         )
         mapView.addOnDidBecomeIdleListener(OnDidBecomeIdleListener { Timber.v("OnDidBecomeIdle") })
         mapView.addOnSourceChangedListener(
             OnSourceChangedListener { sourceId: String? ->
                 Timber.v(
                     "OnSourceChangedListener: source with id: %s",
-                    sourceId,
+                    sourceId
                 )
-            },
+            }
         )
         mapView.addOnWillStartLoadingMapListener(OnWillStartLoadingMapListener { Timber.v("OnWillStartLoadingMap") })
         mapView.addOnWillStartRenderingFrameListener(OnWillStartRenderingFrameListener { Timber.v("OnWillStartRenderingFrame") })
@@ -94,11 +93,11 @@ class MapChangeActivity : AppCompatActivity() {
                 trackasiaMap.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(55.754020, 37.620948),
-                        12.0,
+                        12.0
                     ),
-                    9000,
+                    9000
                 )
-            },
+            }
         )
     }
 

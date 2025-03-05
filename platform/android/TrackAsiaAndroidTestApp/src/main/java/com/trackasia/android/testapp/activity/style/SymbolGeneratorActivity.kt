@@ -14,11 +14,15 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.trackasia.geojson.FeatureCollection
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.Property
 import com.trackasia.android.style.layers.PropertyFactory
@@ -28,21 +32,14 @@ import com.trackasia.android.style.sources.Source
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.testapp.utils.ResourceUtils.readRawResource
-import com.trackasia.geojson.FeatureCollection
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
  * Test activity showcasing using a symbol generator that generates Bitmaps from Android SDK Views.
  */
-class SymbolGeneratorActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class SymbolGeneratorActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_symbol_generator)
@@ -67,10 +64,9 @@ class SymbolGeneratorActivity :
 
     private fun addSymbolClickListener() {
         trackasiaMap.addOnMapClickListener { point: LatLng? ->
-            val screenPoint =
-                trackasiaMap.projection.toScreenLocation(
-                    point!!,
-                )
+            val screenPoint = trackasiaMap.projection.toScreenLocation(
+                point!!
+            )
             val features = trackasiaMap.queryRenderedFeatures(screenPoint, LAYER_ID)
             if (!features.isEmpty()) {
                 val feature = features[0]
@@ -81,17 +77,16 @@ class SymbolGeneratorActivity :
                         Expression.match(
                             Expression.get(FEATURE_ID),
                             Expression.literal(1.0f),
-                            Expression.stop(feature.getStringProperty(FEATURE_ID), 0.3f),
-                        ),
-                    ),
+                            Expression.stop(feature.getStringProperty(FEATURE_ID), 0.3f)
+                        )
+                    )
                 )
                 Timber.v("Feature was clicked with data: %s", feature.toJson())
-                Toast
-                    .makeText(
-                        this@SymbolGeneratorActivity,
-                        "hello from: " + feature.getStringProperty(FEATURE_NAME),
-                        Toast.LENGTH_LONG,
-                    ).show()
+                Toast.makeText(
+                    this@SymbolGeneratorActivity,
+                    "hello from: " + feature.getStringProperty(FEATURE_NAME),
+                    Toast.LENGTH_LONG
+                ).show()
             }
             false
         }
@@ -179,7 +174,7 @@ class SymbolGeneratorActivity :
         }
     }
 
-    private fun loadDataTask(context: SymbolGeneratorActivity): FeatureCollection? {
+    private fun loadDataTask(context: SymbolGeneratorActivity) : FeatureCollection? {
         // read local geojson from raw folder
         val tinyCountriesJson = readRawResource(context, R.raw.tiny_countries)
         return FeatureCollection.fromJson(tinyCountriesJson)
@@ -193,80 +188,75 @@ class SymbolGeneratorActivity :
 
         // create expressions
         val iconImageExpression = Expression.string(Expression.get(Expression.literal(FEATURE_ID)))
-        val iconSizeExpression =
-            Expression.division(
-                Expression.number(
-                    Expression.get(
-                        Expression.literal(
-                            FEATURE_RANK,
-                        ),
-                    ),
-                ),
-                Expression.literal(2.0f),
-            )
-        val textSizeExpression =
-            Expression.product(
+        val iconSizeExpression = Expression.division(
+            Expression.number(
                 Expression.get(
                     Expression.literal(
-                        FEATURE_RANK,
-                    ),
-                ),
-                Expression.pi(),
-            )
-        val textFieldExpression =
-            Expression.concat(
-                Expression.upcase(Expression.literal("a ")),
-                Expression.upcase(
-                    Expression.string(
-                        Expression.get(Expression.literal(FEATURE_TYPE)),
-                    ),
-                ),
-                Expression.downcase(Expression.literal(" IN ")),
+                        FEATURE_RANK
+                    )
+                )
+            ),
+            Expression.literal(2.0f)
+        )
+        val textSizeExpression = Expression.product(
+            Expression.get(
+                Expression.literal(
+                    FEATURE_RANK
+                )
+            ),
+            Expression.pi()
+        )
+        val textFieldExpression = Expression.concat(
+            Expression.upcase(Expression.literal("a ")),
+            Expression.upcase(
                 Expression.string(
-                    Expression.get(
-                        Expression.literal(
-                            FEATURE_REGION,
-                        ),
-                    ),
-                ),
+                    Expression.get(Expression.literal(FEATURE_TYPE))
+                )
+            ),
+            Expression.downcase(Expression.literal(" IN ")),
+            Expression.string(
+                Expression.get(
+                    Expression.literal(
+                        FEATURE_REGION
+                    )
+                )
             )
-        val textColorExpression =
-            Expression.match(
-                Expression.get(Expression.literal(FEATURE_RANK)),
-                Expression.literal(1),
-                Expression.rgba(255, 0, 0, 1.0f),
-                Expression.literal(2),
-                Expression.rgba(0, 0, 255.0f, 1.0f),
-                Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f),
-            )
+        )
+        val textColorExpression = Expression.match(
+            Expression.get(Expression.literal(FEATURE_RANK)),
+            Expression.literal(1),
+            Expression.rgba(255, 0, 0, 1.0f),
+            Expression.literal(2),
+            Expression.rgba(0, 0, 255.0f, 1.0f),
+            Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f)
+        )
         Expression.rgba(
             Expression.division(Expression.literal(255), Expression.get(FEATURE_RANK)),
             Expression.literal(0.0f),
             Expression.literal(0.0f),
-            Expression.literal(1.0f),
+            Expression.literal(1.0f)
         )
 
         // create symbol layer
-        val symbolLayer =
-            SymbolLayer(LAYER_ID, SOURCE_ID)
-                .withProperties( // icon configuration
-                    PropertyFactory.iconImage(iconImageExpression),
-                    PropertyFactory.iconAllowOverlap(false),
-                    PropertyFactory.iconSize(iconSizeExpression),
-                    PropertyFactory.iconAnchor(Property.ICON_ANCHOR_BOTTOM),
-                    PropertyFactory.iconOffset(
-                        Expression.step(
-                            Expression.zoom(),
-                            Expression.literal(floatArrayOf(0f, 0f)),
-                            Expression.stop(1, arrayOf(0f, 0f)),
-                            Expression.stop(10, arrayOf(0f, -35f)),
-                        ),
-                    ), // text field configuration
-                    PropertyFactory.textField(textFieldExpression),
-                    PropertyFactory.textSize(textSizeExpression),
-                    PropertyFactory.textAnchor(Property.TEXT_ANCHOR_TOP),
-                    PropertyFactory.textColor(textColorExpression),
-                )
+        val symbolLayer = SymbolLayer(LAYER_ID, SOURCE_ID)
+            .withProperties( // icon configuration
+                PropertyFactory.iconImage(iconImageExpression),
+                PropertyFactory.iconAllowOverlap(false),
+                PropertyFactory.iconSize(iconSizeExpression),
+                PropertyFactory.iconAnchor(Property.ICON_ANCHOR_BOTTOM),
+                PropertyFactory.iconOffset(
+                    Expression.step(
+                        Expression.zoom(),
+                        Expression.literal(floatArrayOf(0f, 0f)),
+                        Expression.stop(1, arrayOf(0f, 0f)),
+                        Expression.stop(10, arrayOf(0f, -35f))
+                    )
+                ), // text field configuration
+                PropertyFactory.textField(textFieldExpression),
+                PropertyFactory.textSize(textSizeExpression),
+                PropertyFactory.textAnchor(Property.TEXT_ANCHOR_TOP),
+                PropertyFactory.textColor(textColorExpression)
+            )
 
         // add a geojson source to the map
         val source: Source = GeoJsonSource(SOURCE_ID, featureCollection)
@@ -295,7 +285,7 @@ class SymbolGeneratorActivity :
             PropertyFactory.iconSize(iconSizeExpressionResult),
             PropertyFactory.textSize(textSizeExpressionResult),
             PropertyFactory.textField(textFieldExpressionResult),
-            PropertyFactory.textColor(textColorExpressionResult),
+            PropertyFactory.textColor(textColorExpressionResult)
         )
         lifecycleScope.launch(Dispatchers.IO) {
             val bitmapHashMap = generateSymbolTask(this@SymbolGeneratorActivity, featureCollection)
@@ -308,8 +298,8 @@ class SymbolGeneratorActivity :
     @RequiresApi(Build.VERSION_CODES.M)
     private fun generateSymbolTask(
         context: Context,
-        featureCollection: FeatureCollection?,
-    ): HashMap<String, Bitmap> {
+         featureCollection: FeatureCollection?
+    ) : HashMap<String, Bitmap> {
         val imagesMap = HashMap<String, Bitmap>()
         featureCollection?.features()?.forEach {
             val countryName = it.getStringProperty(FEATURE_ID)

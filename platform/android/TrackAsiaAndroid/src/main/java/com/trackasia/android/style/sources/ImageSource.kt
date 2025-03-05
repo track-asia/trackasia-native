@@ -10,7 +10,6 @@ import com.trackasia.android.geometry.LatLngQuad
 import com.trackasia.android.utils.BitmapUtils
 import java.net.URI
 import java.net.URL
-
 /**
  * Image source, allows a georeferenced raster image to be shown on the map.
  *
@@ -95,11 +94,7 @@ class ImageSource : Source {
      * @param coordinates The Latitude and Longitude of the four corners of the image
      * @param resourceId  The resource ID of a Bitmap image
      */
-    constructor(
-        id: String?,
-        coordinates: LatLngQuad?,
-        @DrawableRes resourceId: Int,
-    ) : super() {
+    constructor(id: String?, coordinates: LatLngQuad?, @DrawableRes resourceId: Int) : super() {
         initialize(id, coordinates)
         setImage(resourceId)
     }
@@ -199,9 +194,7 @@ class ImageSource : Source {
      * @param resourceId The resource ID of a Bitmap image
      */
     @Throws(IllegalArgumentException::class)
-    fun setImage(
-        @DrawableRes resourceId: Int,
-    ) {
+    fun setImage(@DrawableRes resourceId: Int) {
         checkThread()
         val context = TrackAsia.getApplicationContext()
         val drawable = BitmapUtils.getDrawableFromRes(context, resourceId)
@@ -244,10 +237,7 @@ class ImageSource : Source {
     }
 
     @Keep
-    protected external fun initialize(
-        layerId: String?,
-        payload: LatLngQuad?,
-    )
+    protected external fun initialize(layerId: String?, payload: LatLngQuad?)
 
     @Keep
     protected external fun nativeSetUrl(url: String?)

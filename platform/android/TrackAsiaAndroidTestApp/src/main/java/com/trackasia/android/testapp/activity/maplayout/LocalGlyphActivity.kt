@@ -15,7 +15,6 @@ import com.trackasia.android.testapp.styles.TestStyles
  */
 class LocalGlyphActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_local_glyph)
@@ -27,16 +26,15 @@ class LocalGlyphActivity : AppCompatActivity() {
                 // Set initial position to Suzhou
                 trackasiaMap.moveCamera(
                     CameraUpdateFactory.newCameraPosition(
-                        CameraPosition
-                            .Builder()
+                        CameraPosition.Builder()
                             .target(LatLng(31.3003, 120.7457))
                             .zoom(11.0)
                             .bearing(0.0)
                             .tilt(0.0)
-                            .build(),
-                    ),
+                            .build()
+                    )
                 )
-            },
+            }
         )
     }
 

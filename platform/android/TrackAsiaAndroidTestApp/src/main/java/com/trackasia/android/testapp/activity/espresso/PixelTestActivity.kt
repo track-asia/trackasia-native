@@ -3,17 +3,16 @@ package com.trackasia.android.testapp.activity.espresso
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.testapp.R
 
 /**
  * Test activity used for instrumentation tests that require a specific device size.
  */
-class PixelTestActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class PixelTestActivity : AppCompatActivity(), OnMapReadyCallback {
+
     lateinit var mapView: MapView
     lateinit var trackasiaMap: TrackAsiaMap
 

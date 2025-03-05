@@ -14,6 +14,7 @@ import org.robolectric.shadows.ShadowLooper
 
 @RunWith(RobolectricTestRunner::class)
 class TransformTest {
+
     private lateinit var mapView: MapView
     private lateinit var nativeMapView: NativeMap
     private lateinit var transform: Transform
@@ -195,14 +196,15 @@ class TransformTest {
         val target = LatLng(1.0, 2.0)
         val expected = CameraPosition.Builder().target(target).build()
 
-        val callback =
-            object : TrackAsiaMap.CancelableCallback {
-                override fun onCancel(): Unit = throw IllegalStateException("onCancel shouldn't be called from onFinish")
-
-                override fun onFinish() {
-                    transform.animateCamera(trackasiaMap, CameraUpdateFactory.newCameraPosition(expected), 500, null)
-                }
+        val callback = object : TrackAsiaMap.CancelableCallback {
+            override fun onCancel() {
+                throw IllegalStateException("onCancel shouldn't be called from onFinish")
             }
+
+            override fun onFinish() {
+                transform.animateCamera(trackasiaMap, CameraUpdateFactory.newCameraPosition(expected), 500, null)
+            }
+        }
         transform.animateCamera(trackasiaMap, CameraUpdateFactory.newCameraPosition(expected), 500, callback)
     }
 }

@@ -7,7 +7,7 @@
         17.65431710431244,
         32.954120326746775
     ],
-    "glyphs": "https://demotiles.track-asia.com/font/{fontstack}/{range}.pbf",
+    "glyphs": "https://maps.track-asia.com/font/{fontstack}/{range}.pbf",
     "layers": [
         {
             "id": "background",
@@ -537,7 +537,7 @@
     "bearing": 0,
     "sources": {
         "trackasia": {
-            "url": "https://maps.track-asia.com/styles/v1/streets.json?key=public_key",
+            "url": "https://maps.track-asia.coms/tiles.json",
             "type": "vector"
         },
         "crimea": {

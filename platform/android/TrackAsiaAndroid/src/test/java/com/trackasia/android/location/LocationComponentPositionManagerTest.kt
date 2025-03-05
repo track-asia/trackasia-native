@@ -13,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class LocationComponentPositionManagerTest {
+
     private lateinit var style: Style
     private lateinit var layer: Layer
 

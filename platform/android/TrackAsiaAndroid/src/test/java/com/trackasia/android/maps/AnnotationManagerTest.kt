@@ -5,22 +5,22 @@ import com.trackasia.android.annotations.Annotation
 import com.trackasia.android.annotations.BaseMarkerOptions
 import com.trackasia.android.annotations.Marker
 import com.trackasia.android.annotations.MarkerOptions
-import com.trackasia.android.annotations.PolygonOptions
-import com.trackasia.android.annotations.PolylineOptions
 import com.trackasia.android.geometry.LatLng
 import org.junit.Assert
 import org.junit.Test
+import com.trackasia.android.annotations.PolygonOptions
+import com.trackasia.android.annotations.PolylineOptions
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 
 class AnnotationManagerTest {
+
     private val aNativeMapView: NativeMap = Mockito.mock(NativeMapView::class.java)
     private val aMapView = Mockito.mock(MapView::class.java)
     private val annotationsArray = LongSparseArray<Annotation>()
-    private val aIconManager =
-        Mockito.mock(
-            IconManager::class.java,
-        )
+    private val aIconManager = Mockito.mock(
+        IconManager::class.java
+    )
     private val aTrackAsiaMap = Mockito.mock(TrackAsiaMap::class.java)
 
     private val annotations: Annotations = AnnotationContainer(aNativeMapView, annotationsArray)
@@ -30,31 +30,29 @@ class AnnotationManagerTest {
     private val shapeAnnotations: ShapeAnnotations =
         ShapeAnnotationContainer(aNativeMapView, annotationsArray)
 
-    private val annotationManager =
-        AnnotationManager(
-            aMapView,
-            annotationsArray,
-            aIconManager,
-            annotations,
-            markers,
-            polygons,
-            polylines,
-            shapeAnnotations,
-        )
+
+    private val annotationManager = AnnotationManager(
+        aMapView,
+        annotationsArray,
+        aIconManager,
+        annotations,
+        markers,
+        polygons,
+        polylines,
+        shapeAnnotations
+    )
 
     @Test
     @Throws(Exception::class)
     fun checksAddAMarker() {
-        val aMarker =
-            Mockito.mock(
-                Marker::class.java,
-            )
+        val aMarker = Mockito.mock(
+            Marker::class.java
+        )
         val aId = 5L
         Mockito.`when`(aNativeMapView.addMarker(aMarker)).thenReturn(aId)
-        val aMarkerOptions =
-            Mockito.mock(
-                BaseMarkerOptions::class.java,
-            )
+        val aMarkerOptions = Mockito.mock(
+            BaseMarkerOptions::class.java
+        )
         val aTrackAsiaMap = Mockito.mock(TrackAsiaMap::class.java)
         Mockito.`when`(aMarkerOptions.marker).thenReturn(aMarker)
         annotationManager.addMarker(aMarkerOptions, aTrackAsiaMap)
@@ -73,16 +71,14 @@ class AnnotationManagerTest {
         markerList.add(firstMarkerOption)
         markerList.add(secondMarkerOption)
         val aTrackAsiaMap = Mockito.mock(TrackAsiaMap::class.java)
-        Mockito
-            .`when`(
-                aNativeMapView.addMarker(
-                    ArgumentMatchers.any(
-                        Marker::class.java,
-                    ),
-                ),
-            ).thenReturn(firstId, secondId)
-        Mockito
-            .`when`(aNativeMapView.addMarkers(ArgumentMatchers.anyList()))
+        Mockito.`when`(
+            aNativeMapView.addMarker(
+                ArgumentMatchers.any(
+                    Marker::class.java
+                )
+            )
+        ).thenReturn(firstId, secondId)
+        Mockito.`when`(aNativeMapView.addMarkers(ArgumentMatchers.anyList()))
             .thenReturn(longArrayOf(firstId, secondId))
         annotationManager.addMarkers(markerList, aTrackAsiaMap)
         Assert.assertEquals(2, annotationManager.annotations.size)
@@ -104,6 +100,7 @@ class AnnotationManagerTest {
         Assert.assertEquals(pId, resultPolygon.id)
         Assert.assertEquals(1, annotationManager.annotations.size)
         Assert.assertEquals(polygon, annotationManager.annotations[0])
+
     }
 
     @Test

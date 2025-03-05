@@ -15,21 +15,18 @@ import com.trackasia.android.location.modes.CameraMode
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 
 // # --8<-- [start:top]
-
 /**
  * This activity shows a basic usage of the LocationComponent's pulsing circle. There's no
  * customization of the pulsing circle's color, radius, speed, etc.
  */
-class BasicLocationPulsingCircleActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallback {
     private var lastLocation: Location? = null
     private lateinit var mapView: MapView
     private var permissionsManager: PermissionsManager? = null
@@ -55,8 +52,7 @@ class BasicLocationPulsingCircleActivity :
         trackasiaMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style ->
             locationComponent = trackasiaMap.locationComponent
             val locationComponentOptions =
-                LocationComponentOptions
-                    .builder(this@BasicLocationPulsingCircleActivity)
+                LocationComponentOptions.builder(this@BasicLocationPulsingCircleActivity)
                     .pulseEnabled(true)
                     .build()
             val locationComponentActivationOptions =
@@ -72,19 +68,20 @@ class BasicLocationPulsingCircleActivity :
     // # --8<-- [start:LocationComponentActivationOptions]
     private fun buildLocationComponentActivationOptions(
         style: Style,
-        locationComponentOptions: LocationComponentOptions,
-    ): LocationComponentActivationOptions =
-        LocationComponentActivationOptions
+        locationComponentOptions: LocationComponentOptions
+    ): LocationComponentActivationOptions {
+        return LocationComponentActivationOptions
             .builder(this, style)
             .locationComponentOptions(locationComponentOptions)
             .useDefaultLocationEngine(true)
             .locationEngineRequest(
-                LocationEngineRequest
-                    .Builder(750)
+                LocationEngineRequest.Builder(750)
                     .setFastestInterval(750)
                     .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
-                    .build(),
-            ).build()
+                    .build()
+            )
+            .build()
+    }
     // # --8<-- [end:LocationComponentActivationOptions]
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -113,21 +110,21 @@ class BasicLocationPulsingCircleActivity :
             }
             R.id.action_stop_pulsing -> {
                 locationComponent!!.applyStyle(
-                    LocationComponentOptions
-                        .builder(
-                            this@BasicLocationPulsingCircleActivity,
-                        ).pulseEnabled(false)
-                        .build(),
+                    LocationComponentOptions.builder(
+                        this@BasicLocationPulsingCircleActivity
+                    )
+                        .pulseEnabled(false)
+                        .build()
                 )
                 return true
             }
             R.id.action_start_pulsing -> {
                 locationComponent!!.applyStyle(
-                    LocationComponentOptions
-                        .builder(
-                            this@BasicLocationPulsingCircleActivity,
-                        ).pulseEnabled(true)
-                        .build(),
+                    LocationComponentOptions.builder(
+                        this@BasicLocationPulsingCircleActivity
+                    )
+                        .pulseEnabled(true)
+                        .build()
                 )
                 return true
             }
@@ -144,27 +141,23 @@ class BasicLocationPulsingCircleActivity :
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
             mapView.getMapAsync(this)
         } else {
-            permissionsManager =
-                PermissionsManager(
-                    object : PermissionsListener {
-                        override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-                            Toast
-                                .makeText(
-                                    this@BasicLocationPulsingCircleActivity,
-                                    "You need to accept location permissions.",
-                                    Toast.LENGTH_SHORT,
-                                ).show()
-                        }
+            permissionsManager = PermissionsManager(object : PermissionsListener {
+                override fun onExplanationNeeded(permissionsToExplain: List<String>) {
+                    Toast.makeText(
+                        this@BasicLocationPulsingCircleActivity,
+                        "You need to accept location permissions.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-                        override fun onPermissionResult(granted: Boolean) {
-                            if (granted) {
-                                mapView.getMapAsync(this@BasicLocationPulsingCircleActivity)
-                            } else {
-                                finish()
-                            }
-                        }
-                    },
-                )
+                override fun onPermissionResult(granted: Boolean) {
+                    if (granted) {
+                        mapView.getMapAsync(this@BasicLocationPulsingCircleActivity)
+                    } else {
+                        finish()
+                    }
+                }
+            })
             permissionsManager!!.requestLocationPermissions(this)
         }
     }
@@ -172,7 +165,7 @@ class BasicLocationPulsingCircleActivity :
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager!!.onRequestPermissionsResult(requestCode, permissions, grantResults)

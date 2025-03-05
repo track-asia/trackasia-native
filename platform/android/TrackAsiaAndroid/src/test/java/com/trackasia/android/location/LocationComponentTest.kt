@@ -9,9 +9,9 @@ import com.trackasia.android.location.engine.LocationEngine
 import com.trackasia.android.location.engine.LocationEngineRequest
 import com.trackasia.android.location.modes.CameraMode
 import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.Projection
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.Transform
 import org.junit.Assert
 import org.junit.Before
@@ -72,51 +72,20 @@ class LocationComponentTest {
     private lateinit var developerAnimationListeners: List<TrackAsiaMap.OnDeveloperAnimationListener>
 
     private val defaultOptions: LocationComponentActivationOptions
-        get() =
-            LocationComponentActivationOptions
-                .builder(
-                    context,
-                    style,
-                ).locationEngine(
-                    locationEngine,
-                ).locationEngineRequest(locationEngineRequest)
-                .locationComponentOptions(locationComponentOptions)
-                .build()
+        get() = LocationComponentActivationOptions.builder(context, style).locationEngine(locationEngine).locationEngineRequest(locationEngineRequest).locationComponentOptions(locationComponentOptions).build()
 
     @Before
     fun before() {
         MockitoAnnotations.initMocks(this)
         developerAnimationListeners = mutableListOf()
-        locationComponent =
-            LocationComponent(
-                trackasiaMap,
-                transform,
-                developerAnimationListeners,
-                currentListener,
-                lastListener,
-                locationLayerController,
-                locationCameraController,
-                locationAnimatorCoordinator,
-                staleStateManager,
-                compassEngine,
-                false,
-            )
+        locationComponent = LocationComponent(trackasiaMap, transform, developerAnimationListeners, currentListener, lastListener, locationLayerController, locationCameraController, locationAnimatorCoordinator, staleStateManager, compassEngine, false)
         doReturn(style).`when`(trackasiaMap).style
         `when`(style.isFullyLoaded).thenReturn(true)
     }
 
     @Test
     fun activateWithDefaultLocationEngineRequestAndOptionsTestDefaultLocationEngine() {
-        val options =
-            LocationComponentActivationOptions
-                .builder(
-                    context,
-                    style,
-                ).locationEngine(
-                    locationEngine,
-                ).locationEngineRequest(locationEngineRequest)
-                .locationComponentOptions(locationComponentOptions)
-                .build()
+        val options = LocationComponentActivationOptions.builder(context, style).locationEngine(locationEngine).locationEngineRequest(locationEngineRequest).locationComponentOptions(locationComponentOptions).build()
         locationComponent.activateLocationComponent(options)
 
         Assert.assertEquals(locationEngineRequest, locationComponent.locationEngineRequest)
@@ -125,16 +94,7 @@ class LocationComponentTest {
 
     @Test
     fun activateWithDefaultLocationEngineRequestAndOptionsTestCustomLocationEngine() {
-        val options =
-            LocationComponentActivationOptions
-                .builder(
-                    context,
-                    style,
-                ).useDefaultLocationEngine(
-                    false,
-                ).locationEngineRequest(locationEngineRequest)
-                .locationComponentOptions(locationComponentOptions)
-                .build()
+        val options = LocationComponentActivationOptions.builder(context, style).useDefaultLocationEngine(false).locationEngineRequest(locationEngineRequest).locationComponentOptions(locationComponentOptions).build()
         locationComponent.activateLocationComponent(options)
 
         Assert.assertEquals(locationEngineRequest, locationComponent.locationEngineRequest)
@@ -206,17 +166,7 @@ class LocationComponentTest {
 
         val callback = ArgumentCaptor.forClass(OnLocationCameraTransitionListener::class.java)
         locationComponent.setCameraMode(CameraMode.TRACKING, listener)
-        verify(
-            locationCameraController,
-        ).setCameraMode(
-            eq(CameraMode.TRACKING),
-            any(),
-            eq(TRANSITION_ANIMATION_DURATION_MS),
-            isNull(),
-            isNull(),
-            isNull(),
-            callback.capture(),
-        )
+        verify(locationCameraController).setCameraMode(eq(CameraMode.TRACKING), any(), eq(TRANSITION_ANIMATION_DURATION_MS), isNull(), isNull(), isNull(), callback.capture())
         callback.value.onLocationCameraTransitionFinished(CameraMode.TRACKING)
 
         verify(listener).onLocationCameraTransitionFinished(CameraMode.TRACKING)
@@ -234,17 +184,7 @@ class LocationComponentTest {
 
         val callback = ArgumentCaptor.forClass(OnLocationCameraTransitionListener::class.java)
         locationComponent.setCameraMode(CameraMode.TRACKING, listener)
-        verify(
-            locationCameraController,
-        ).setCameraMode(
-            eq(CameraMode.TRACKING),
-            any(),
-            eq(TRANSITION_ANIMATION_DURATION_MS),
-            isNull(),
-            isNull(),
-            isNull(),
-            callback.capture(),
-        )
+        verify(locationCameraController).setCameraMode(eq(CameraMode.TRACKING), any(), eq(TRANSITION_ANIMATION_DURATION_MS), isNull(), isNull(), isNull(), callback.capture())
         callback.value.onLocationCameraTransitionCanceled(CameraMode.TRACKING)
 
         verify(listener).onLocationCameraTransitionCanceled(CameraMode.TRACKING)
@@ -263,9 +203,7 @@ class LocationComponentTest {
 
         val callback = ArgumentCaptor.forClass(OnLocationCameraTransitionListener::class.java)
         locationComponent.setCameraMode(CameraMode.TRACKING, 1200, 14.0, 13.0, 45.0, listener)
-        verify(
-            locationCameraController,
-        ).setCameraMode(eq(CameraMode.TRACKING), any(), eq(1200L), eq(14.0), eq(13.0), eq(45.0), callback.capture())
+        verify(locationCameraController).setCameraMode(eq(CameraMode.TRACKING), any(), eq(1200L), eq(14.0), eq(13.0), eq(45.0), callback.capture())
         callback.value.onLocationCameraTransitionFinished(CameraMode.TRACKING)
 
         verify(listener).onLocationCameraTransitionFinished(CameraMode.TRACKING)
@@ -457,17 +395,7 @@ class LocationComponentTest {
         for (listener in developerAnimationListeners) {
             listener.onDeveloperAnimationStarted()
         }
-        verify(
-            locationCameraController,
-        ).setCameraMode(
-            eq(CameraMode.NONE),
-            isNull<Location>(),
-            eq(TRANSITION_ANIMATION_DURATION_MS),
-            isNull<Double>(),
-            isNull<Double>(),
-            isNull<Double>(),
-            any(),
-        )
+        verify(locationCameraController).setCameraMode(eq(CameraMode.NONE), isNull<Location>(), eq(TRANSITION_ANIMATION_DURATION_MS), isNull<Double>(), isNull<Double>(), isNull<Double>(), any())
     }
 
     @Test
@@ -535,11 +463,10 @@ class LocationComponentTest {
         `when`(trackasiaMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
 
         locationComponent.activateLocationComponent(
-            LocationComponentActivationOptions
-                .builder(context, style)
+            LocationComponentActivationOptions.builder(context, style)
                 .locationComponentOptions(locationComponentOptions)
                 .useDefaultLocationEngine(false)
-                .build(),
+                .build()
         )
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()
@@ -681,11 +608,10 @@ class LocationComponentTest {
         `when`(projection.getMetersPerPixelAtLatitude(location.latitude)).thenReturn(10.0)
         `when`(trackasiaMap.projection).thenReturn(projection)
         locationComponent.activateLocationComponent(
-            LocationComponentActivationOptions
-                .builder(context, style)
+            LocationComponentActivationOptions.builder(context, style)
                 .locationComponentOptions(locationComponentOptions)
                 .useDefaultLocationEngine(false)
-                .build(),
+                .build()
         )
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()
@@ -699,27 +625,13 @@ class LocationComponentTest {
     fun newLocation_accuracy_indicatorLayerRadiusValue() {
         val location = Location("test")
         location.accuracy = 50f
-        locationComponent =
-            LocationComponent(
-                trackasiaMap,
-                transform,
-                developerAnimationListeners,
-                currentListener,
-                lastListener,
-                locationLayerController,
-                locationCameraController,
-                locationAnimatorCoordinator,
-                staleStateManager,
-                compassEngine,
-                true,
-            )
+        locationComponent = LocationComponent(trackasiaMap, transform, developerAnimationListeners, currentListener, lastListener, locationLayerController, locationCameraController, locationAnimatorCoordinator, staleStateManager, compassEngine, true)
         locationComponent.activateLocationComponent(
-            LocationComponentActivationOptions
-                .builder(context, style)
+            LocationComponentActivationOptions.builder(context, style)
                 .locationComponentOptions(locationComponentOptions)
                 .useSpecializedLocationLayer(true)
                 .useDefaultLocationEngine(false)
-                .build(),
+                .build()
         )
         locationComponent.isLocationComponentEnabled = true
         locationComponent.onStart()

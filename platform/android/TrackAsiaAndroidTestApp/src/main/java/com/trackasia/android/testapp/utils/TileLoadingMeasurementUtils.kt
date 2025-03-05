@@ -27,36 +27,32 @@ import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.M)
 class TileLoadingMeasurementUtils {
+
     companion object {
+
         fun setUpTileLoadingMeasurement() {
             if (isTileLoadingMeasurementOn) {
-                val okHttpClient: OkHttpClient =
-                    Builder()
-                        .addNetworkInterceptor(TileLoadingInterceptor())
-                        .build()
+                val okHttpClient: OkHttpClient = Builder()
+                    .addNetworkInterceptor(TileLoadingInterceptor())
+                    .build()
                 HttpRequestUtil.setOkHttpClient(okHttpClient)
             }
         }
 
         private val isTileLoadingMeasurementOn: Boolean
-            get() =
-                isBooleanMetaDataValueOn(
-                    TrackAsiaConstants.KEY_META_DATA_MEASURE_TILE_DOWNLOAD_ON,
-                    TrackAsiaConstants.DEFAULT_MEASURE_TILE_DOWNLOAD_ON,
-                )
+            get() = isBooleanMetaDataValueOn(
+                TrackAsiaConstants.KEY_META_DATA_MEASURE_TILE_DOWNLOAD_ON,
+                TrackAsiaConstants.DEFAULT_MEASURE_TILE_DOWNLOAD_ON
+            )
 
-        private fun isBooleanMetaDataValueOn(
-            propKey: String,
-            defaultValue: Boolean,
-        ): Boolean {
+        private fun isBooleanMetaDataValueOn(propKey: String, defaultValue: Boolean): Boolean {
             try {
                 // Try getting a custom value from the app Manifest
                 val context = TrackAsia.getApplicationContext()
-                val appInfo =
-                    context.packageManager.getApplicationInfo(
-                        context.packageName,
-                        PackageManager.GET_META_DATA,
-                    )
+                val appInfo = context.packageManager.getApplicationInfo(
+                    context.packageName,
+                    PackageManager.GET_META_DATA
+                )
                 if (appInfo.metaData != null) {
                     return appInfo.metaData.getBoolean(propKey, defaultValue)
                 }
@@ -92,16 +88,13 @@ class TileLoadingMeasurementUtils {
                 return response
             }
 
-            private fun triggerPerformanceEvent(
-                response: Response,
-                elapsedMs: Long,
-            ) {
+            private fun triggerPerformanceEvent(response: Response, elapsedMs: Long) {
                 val attributes: MutableList<Attribute<String>> = ArrayList()
                 val request = getUrl(response.request)
                 attributes.add(Attribute("requestUrl", request))
                 attributes.add(Attribute("responseCode", response.code.toString()))
                 attributes.add(
-                    Attribute("connectionState", connectionState),
+                    Attribute("connectionState", connectionState)
                 )
                 val counters: MutableList<Attribute<Long>?> = ArrayList()
                 counters.add(Attribute("elapsedMS", elapsedMs))
@@ -133,7 +126,6 @@ class TileLoadingMeasurementUtils {
                 private const val CONNECTION_NONE = "none"
                 private const val CONNECTION_CELLULAR = "cellular"
                 private const val CONNECTION_WIFI = "wifi"
-
                 private fun getUrl(request: Request): String {
                     val url = request.url.toString()
                     return url.substring(0, url.indexOf('?'))
@@ -141,10 +133,8 @@ class TileLoadingMeasurementUtils {
 
                 private val ram: String
                     get() {
-                        val actManager =
-                            TrackAsia
-                                .getApplicationContext()
-                                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                        val actManager = TrackAsia.getApplicationContext()
+                            .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                         val memInfo = ActivityManager.MemoryInfo()
                         actManager.getMemoryInfo(memInfo)
                         return memInfo.totalMem.toString()
@@ -185,9 +175,6 @@ class TileLoadingMeasurementUtils {
             }
         }
 
-        private class Attribute<T>(
-            private val name: String,
-            private val value: T,
-        )
+        private class Attribute<T>(private val name: String, private val value: T)
     }
 }

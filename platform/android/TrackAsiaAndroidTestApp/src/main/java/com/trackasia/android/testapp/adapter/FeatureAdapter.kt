@@ -16,12 +16,9 @@ import com.trackasia.android.testapp.utils.FontCache
  * Adapts a Feature to a visual representation to be shown in a RecyclerView.
  *
  */
-class FeatureAdapter(
-    private val features: List<Feature>,
-) : RecyclerView.Adapter<FeatureAdapter.ViewHolder>() {
-    class ViewHolder(
-        view: View,
-    ) : RecyclerView.ViewHolder(view) {
+class FeatureAdapter(private val features: List<Feature>) :
+    RecyclerView.Adapter<FeatureAdapter.ViewHolder>() {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var labelView: TextView
         var descriptionView: TextView
 
@@ -34,22 +31,18 @@ class FeatureAdapter(
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_main_feature, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(
-        holder: ViewHolder,
-        position: Int,
-    ) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.labelView.text = features[position].getLabel()
         holder.descriptionView.text = features[position].getDescription()
     }
 
-    override fun getItemCount(): Int = features.size
+    override fun getItemCount(): Int {
+        return features.size
+    }
 }

@@ -18,9 +18,7 @@ import java.util.ArrayList
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
+ */ /**
  * A utility class to help log timings splits throughout a method call.
  * Typical usage is:
  *
@@ -49,10 +47,7 @@ import java.util.ArrayList
  * D/TAG     ( 3459): methodA: end, 16 ms
 </pre> *
  */
-class TimingLogger(
-    tag: String?,
-    label: String?,
-) {
+class TimingLogger(tag: String?, label: String?) {
     /**
      * The Log tag to use for checking Log.isLoggable and for
      * logging the timings.
@@ -88,10 +83,7 @@ class TimingLogger(
      * @param tag   the log tag to use while logging the timings
      * @param label a string to be displayed with each log
      */
-    fun reset(
-        tag: String?,
-        label: String?,
-    ) {
+    fun reset(tag: String?, label: String?) {
         this.tag = tag
         this.label = label
         reset()

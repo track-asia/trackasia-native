@@ -18,7 +18,6 @@ import com.trackasia.android.testapp.styles.TestStyles
 class MapPaddingActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_padding)
@@ -83,20 +82,18 @@ class MapPaddingActivity : AppCompatActivity() {
 
     private fun moveToBangalore() {
         val bangalore = LatLng(12.9810816, 77.6368034)
-        val cameraPosition =
-            CameraPosition
-                .Builder()
-                .zoom(16.0)
-                .target(bangalore)
-                .bearing(40.0)
-                .tilt(45.0)
-                .build()
+        val cameraPosition = CameraPosition.Builder()
+            .zoom(16.0)
+            .target(bangalore)
+            .bearing(40.0)
+            .tilt(45.0)
+            .build()
         trackasiaMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         trackasiaMap.addMarker(MarkerOptions().title("Center map").position(bangalore))
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_bangalore -> {
                 if (this::trackasiaMap.isInitialized) {
                     moveToBangalore()
@@ -105,4 +102,5 @@ class MapPaddingActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
 }

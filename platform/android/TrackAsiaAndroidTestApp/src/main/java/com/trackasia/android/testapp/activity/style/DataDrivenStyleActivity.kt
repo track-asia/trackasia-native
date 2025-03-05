@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.FillLayer
 import com.trackasia.android.style.layers.PropertyFactory
@@ -32,7 +32,6 @@ class DataDrivenStyleActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
     private var idleListener: IdleZoomListener? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_data_driven_style)
@@ -55,8 +54,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
             it.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(52.379189, 4.899431),
-                    14.0,
-                ),
+                    14.0
+                )
             )
         }
     }
@@ -66,8 +65,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
         trackasiaMap.addOnCameraIdleListener(
             IdleZoomListener(
                 trackasiaMap,
-                textView,
-            ).also { idleListener = it },
+                textView
+            ).also { idleListener = it }
         )
     }
 
@@ -114,8 +113,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
         mapView.onLowMemory()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_add_exponential_zoom_function -> {
                 addExponentialZoomFunction()
                 true
@@ -154,13 +153,13 @@ class DataDrivenStyleActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
 
     private fun addExponentialZoomFunction() {
         Timber.i("Add exponential zoom function")
         trackasiaMap.getStyle { style ->
-            style.layers
-                .filter { it.id.startsWith("water") }
-                .filterIsInstance<FillLayer>()
+            style.layers.filter { it.id.startsWith("water") }.filterIsInstance<FillLayer>()
                 .forEach { layer ->
                     // --8<-- [start:addExponentialZoomFunction]
                     layer.setProperties(
@@ -170,9 +169,9 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                                 Expression.zoom(),
                                 Expression.stop(1, Expression.color(Color.RED)),
                                 Expression.stop(5, Expression.color(Color.BLUE)),
-                                Expression.stop(10, Expression.color(Color.GREEN)),
-                            ),
-                        ),
+                                Expression.stop(10, Expression.color(Color.GREEN))
+                            )
+                        )
                     )
                     // --8<-- [end:addExponentialZoomFunction]
                     Timber.i("Fill color: %s", layer.fillColor)
@@ -192,9 +191,9 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f),
                             Expression.stop(1, Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f)),
                             Expression.stop(5, Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f)),
-                            Expression.stop(10, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f)),
-                        ),
-                    ),
+                            Expression.stop(10, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f))
+                        )
+                    )
                 )
                 // --8<-- [end:addIntervalZoomFunction]
 
@@ -214,9 +213,9 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                     Expression.get("stroke-width"),
                     Expression.stop(1f, Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f)),
                     Expression.stop(5f, Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f)),
-                    Expression.stop(10f, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f)),
-                ),
-            ),
+                    Expression.stop(10f, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f))
+                )
+            )
         )
         // --8<-- [end:addExponentialSourceFunction]
         Timber.i("Fill color: %s", layer.fillColor)
@@ -236,9 +235,9 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                     Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f),
                     Expression.literal("Prinseneiland"),
                     Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f),
-                    Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f),
-                ),
-            ),
+                    Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f)
+                )
+            )
         )
         // --8<-- [end:addCategoricalSourceFunction]
 
@@ -251,8 +250,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
         val layer = trackasiaMap.style!!.getLayerAs<FillLayer>(AMSTERDAM_PARKS_LAYER)!!
         layer.setProperties(
             PropertyFactory.fillOpacity(
-                Expression.get("fill-opacity"),
-            ),
+                Expression.get("fill-opacity")
+            )
         )
         // --8<-- [end:addIdentitySourceFunction]
         Timber.i("Fill opacity: %s", layer.fillOpacity)
@@ -269,9 +268,9 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                     Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f),
                     Expression.stop(1f, Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f)),
                     Expression.stop(2f, Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f)),
-                    Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f)),
-                ),
-            ),
+                    Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f))
+                )
+            )
         )
         // --8<-- [end:addIntervalSourceFunction]
         Timber.i("Fill color: %s", layer.fillColor)
@@ -293,8 +292,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
                             Expression.stop(1f, Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f)),
                             Expression.stop(2f, Expression.rgba(0.0f, 0.0f, 0.0f, 1.0f)),
-                            Expression.stop(3f, Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f)),
-                        ),
+                            Expression.stop(3f, Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f))
+                        )
                     ),
                     Expression.stop(
                         15,
@@ -303,8 +302,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
                             Expression.stop(1f, Expression.rgba(255.0f, 255.0f, 0.0f, 1.0f)),
                             Expression.stop(2f, Expression.rgba(211.0f, 211.0f, 211.0f, 1.0f)),
-                            Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f)),
-                        ),
+                            Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f))
+                        )
                     ),
                     Expression.stop(
                         18,
@@ -313,11 +312,11 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
                             Expression.stop(1f, Expression.rgba(0.0f, 0.0f, 0.0f, 1.0f)),
                             Expression.stop(2f, Expression.rgba(128.0f, 128.0f, 128.0f, 1.0f)),
-                            Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f)),
-                        ),
-                    ),
-                ),
-            ),
+                            Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f))
+                        )
+                    )
+                )
+            )
         )
         // --8<-- [end:addCompositeExponentialFunction]
         Timber.i("Fill color: %s", layer.fillColor)
@@ -339,8 +338,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
                             Expression.stop(1f, Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f)),
                             Expression.stop(2f, Expression.rgba(0.0f, 0.0f, 0.0f, 1.0f)),
-                            Expression.stop(3f, Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f)),
-                        ),
+                            Expression.stop(3f, Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f))
+                        )
                     ),
                     Expression.stop(
                         15,
@@ -349,8 +348,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
                             Expression.stop(1f, Expression.rgba(255.0f, 255.0f, 0.0f, 1.0f)),
                             Expression.stop(2f, Expression.rgba(211.0f, 211.0f, 211.0f, 1.0f)),
-                            Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f)),
-                        ),
+                            Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f))
+                        )
                     ),
                     Expression.stop(
                         18,
@@ -359,11 +358,11 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
                             Expression.stop(1f, Expression.rgba(0.0f, 0.0f, 0.0f, 1.0f)),
                             Expression.stop(2f, Expression.rgba(128.0f, 128.0f, 128.0f, 1.0f)),
-                            Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f)),
-                        ),
-                    ),
-                ),
-            ),
+                            Expression.stop(3f, Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f))
+                        )
+                    )
+                )
+            )
         )
         // --8<-- [end:addCompositeIntervalFunction]
         Timber.i("Fill color: %s", layer.fillColor)
@@ -384,8 +383,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         8f,
@@ -393,8 +392,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         9f,
@@ -402,8 +401,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         10f,
@@ -411,8 +410,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         11f,
@@ -420,8 +419,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         12f,
@@ -429,8 +428,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         13f,
@@ -438,8 +437,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         14f,
@@ -451,8 +450,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(0.0f, 255.0f, 0.0f, 1.0f),
                             Expression.literal("PrinsenEiland"),
                             Expression.rgba(0.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         15f,
@@ -460,8 +459,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         16f,
@@ -469,8 +468,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         17f,
@@ -478,8 +477,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         18f,
@@ -489,8 +488,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f),
                             Expression.literal("Jordaan"),
                             Expression.rgba(0.0f, 255.0f, 255.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         19f,
@@ -498,8 +497,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         20f,
@@ -507,8 +506,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         21f,
@@ -516,8 +515,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(255.0f, 0.0f, 0.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
                     ),
                     Expression.stop(
                         22f,
@@ -525,11 +524,11 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                             Expression.get("name"),
                             Expression.literal("Westerpark"),
                             Expression.rgba(0.0f, 0.0f, 255.0f, 1.0f),
-                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f),
-                        ),
-                    ),
-                ),
-            ),
+                            Expression.rgba(255.0f, 255.0f, 255.0f, 1.0f)
+                        )
+                    )
+                )
+            )
         )
         // --8<-- [end:addCompositeCategoricalFunction]
         Timber.i("Fill color: %s", layer.fillColor)
@@ -539,19 +538,17 @@ class DataDrivenStyleActivity : AppCompatActivity() {
         // Add a source
         val source: Source
         try {
-            source =
-                GeoJsonSource(
-                    "amsterdam-parks-source",
-                    ResourceUtils.readRawResource(this, R.raw.amsterdam),
-                )
+            source = GeoJsonSource(
+                "amsterdam-parks-source",
+                ResourceUtils.readRawResource(this, R.raw.amsterdam)
+            )
             trackasiaMap.style!!.addSource(source)
         } catch (ioException: IOException) {
-            Toast
-                .makeText(
-                    this@DataDrivenStyleActivity,
-                    "Couldn't add source: " + ioException.message,
-                    Toast.LENGTH_SHORT,
-                ).show()
+            Toast.makeText(
+                this@DataDrivenStyleActivity,
+                "Couldn't add source: " + ioException.message,
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
@@ -562,8 +559,8 @@ class DataDrivenStyleActivity : AppCompatActivity() {
                     .withProperties(
                         PropertyFactory.fillColor(Expression.color(Color.GREEN)),
                         PropertyFactory.fillOutlineColor(Expression.rgb(0, 0, 255)),
-                        PropertyFactory.fillAntialias(true),
-                    ),
+                        PropertyFactory.fillAntialias(true)
+                    )
             )
     }
 

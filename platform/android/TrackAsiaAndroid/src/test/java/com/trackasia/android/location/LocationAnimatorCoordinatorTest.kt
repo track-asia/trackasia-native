@@ -7,24 +7,25 @@ import android.util.SparseArray
 import android.view.animation.LinearInterpolator
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_PADDING_ANIM_DURATION
 import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_TILT_ANIM_DURATION
 import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_ZOOM_ANIM_DURATION
 import com.trackasia.android.location.TrackAsiaAnimator.*
 import com.trackasia.android.location.modes.RenderMode
-import com.trackasia.android.maps.Projection
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Projection
 import io.mockk.*
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.trackasia.android.location.LocationComponentConstants.DEFAULT_TRACKING_PADDING_ANIM_DURATION
 import org.mockito.Mockito
 import org.robolectric.RobolectricTestRunner
 import com.trackasia.testUtils.Assert as TrackAsiaAssert
 
 @RunWith(RobolectricTestRunner::class)
 class LocationAnimatorCoordinatorTest {
+
     private lateinit var locationAnimatorCoordinator: LocationAnimatorCoordinator
     private val cameraPosition: CameraPosition = CameraPosition.DEFAULT
 
@@ -35,12 +36,11 @@ class LocationAnimatorCoordinatorTest {
 
     @Before
     fun setUp() {
-        locationAnimatorCoordinator =
-            LocationAnimatorCoordinator(
-                projection,
-                animatorSetProvider,
-                animatorProvider,
-            )
+        locationAnimatorCoordinator = LocationAnimatorCoordinator(
+            projection,
+            animatorSetProvider,
+            animatorProvider
+        )
         configureAnimatorProvider()
         every { projection.getMetersPerPixelAtLatitude(any()) } answers { 1.0 }
         val startedAnimatorsSlot = slot<List<Animator>>()
@@ -60,8 +60,8 @@ class LocationAnimatorCoordinatorTest {
                 ANIMATOR_LAYER_ACCURACY,
                 ANIMATOR_ZOOM,
                 ANIMATOR_TILT,
-                ANIMATOR_PADDING,
-            ),
+                ANIMATOR_PADDING
+            )
         )
     }
 
@@ -78,7 +78,7 @@ class LocationAnimatorCoordinatorTest {
             TrackAsiaFloatAnimator(
                 floatsSlot.captured,
                 listenerSlot.captured,
-                maxFpsSlot.captured,
+                maxFpsSlot.captured
             )
         }
 
@@ -89,7 +89,7 @@ class LocationAnimatorCoordinatorTest {
             TrackAsiaLatLngAnimator(
                 latLngsSlot.captured,
                 listenerSlot.captured,
-                maxFpsSlot.captured,
+                maxFpsSlot.captured
             )
         }
 
@@ -100,7 +100,7 @@ class LocationAnimatorCoordinatorTest {
             TrackAsiaCameraAnimatorAdapter(
                 floatsSlot.captured,
                 listenerSlot.captured,
-                callback.captured,
+                callback.captured
             )
         }
         every {
@@ -109,7 +109,7 @@ class LocationAnimatorCoordinatorTest {
             TrackAsiaCameraAnimatorAdapter(
                 floatsSlot.captured,
                 listenerSlot.captured,
-                null,
+                null
             )
         }
 
@@ -196,17 +196,17 @@ class LocationAnimatorCoordinatorTest {
                 arrayOf(
                     LatLng(previousLocation.latitude, previousLocation.longitude),
                     LatLng(locationInter.latitude, locationInter.longitude),
-                    LatLng(location.latitude, location.longitude),
+                    LatLng(location.latitude, location.longitude)
                 ),
                 any(),
-                any(),
+                any()
             )
         }
         verify {
             animatorProvider.floatAnimator(
                 arrayOf(previousLocation.bearing, locationInter.bearing, location.bearing),
                 any(),
-                any(),
+                any()
             )
         }
     }
@@ -229,7 +229,7 @@ class LocationAnimatorCoordinatorTest {
             animatorProvider.floatAnimator(
                 arrayOf(0f, -5f, 0f),
                 any(),
-                any(),
+                any()
             )
         }
 
@@ -239,7 +239,7 @@ class LocationAnimatorCoordinatorTest {
             animatorProvider.floatAnimator(
                 arrayOf(0f, 0f),
                 any(),
-                any(),
+                any()
             )
         }
     }
@@ -264,11 +264,11 @@ class LocationAnimatorCoordinatorTest {
                         locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_LATLNG],
                         locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING],
                         locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_LATLNG],
-                        locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_GPS_BEARING],
-                    ),
+                        locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_GPS_BEARING]
+                    )
                 ),
                 any<LinearInterpolator>(),
-                0,
+                0
             )
         }
     }
@@ -294,11 +294,11 @@ class LocationAnimatorCoordinatorTest {
                         locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_LATLNG],
                         locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_GPS_BEARING],
                         locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_LATLNG],
-                        locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_GPS_BEARING],
-                    ),
+                        locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_GPS_BEARING]
+                    )
                 ),
                 any<LinearInterpolator>(),
-                more(1500L),
+                more(1500L)
             )
         }
     }
@@ -498,7 +498,7 @@ class LocationAnimatorCoordinatorTest {
             15.0,
             cameraPosition,
             DEFAULT_TRACKING_ZOOM_ANIM_DURATION,
-            null,
+            null
         )
 
         assertTrue(locationAnimatorCoordinator.animatorArray[ANIMATOR_ZOOM] != null)
@@ -511,7 +511,7 @@ class LocationAnimatorCoordinatorTest {
             zoom.toDouble(),
             cameraPosition,
             DEFAULT_TRACKING_ZOOM_ANIM_DURATION,
-            null,
+            null
         )
 
         val animator = locationAnimatorCoordinator.animatorArray[ANIMATOR_ZOOM]
@@ -525,7 +525,7 @@ class LocationAnimatorCoordinatorTest {
             doubleArrayOf(100.0, 200.0, 300.0, 400.0),
             cameraPosition,
             DEFAULT_TRACKING_PADDING_ANIM_DURATION,
-            null,
+            null
         )
 
         assertTrue(locationAnimatorCoordinator.animatorArray[ANIMATOR_PADDING] != null)
@@ -538,18 +538,12 @@ class LocationAnimatorCoordinatorTest {
             padding,
             cameraPosition,
             DEFAULT_TRACKING_PADDING_ANIM_DURATION,
-            null,
+            null
         )
 
         val animator = locationAnimatorCoordinator.animatorArray[ANIMATOR_PADDING]
         assertTrue(padding.contentEquals(animator.target as DoubleArray))
-        verify {
-            animatorSetProvider.startAnimation(
-                eq(listOf(animator)),
-                any<LinearInterpolator>(),
-                DEFAULT_TRACKING_PADDING_ANIM_DURATION,
-            )
-        }
+        verify { animatorSetProvider.startAnimation(eq(listOf(animator)), any<LinearInterpolator>(), DEFAULT_TRACKING_PADDING_ANIM_DURATION) }
     }
 
     @Test
@@ -558,7 +552,7 @@ class LocationAnimatorCoordinatorTest {
             30.0,
             cameraPosition,
             DEFAULT_TRACKING_TILT_ANIM_DURATION,
-            null,
+            null
         )
 
         assertTrue(locationAnimatorCoordinator.animatorArray[ANIMATOR_TILT] != null)
@@ -571,7 +565,7 @@ class LocationAnimatorCoordinatorTest {
             tilt.toDouble(),
             cameraPosition,
             DEFAULT_TRACKING_TILT_ANIM_DURATION,
-            null,
+            null
         )
 
         val animator = locationAnimatorCoordinator.animatorArray[ANIMATOR_TILT]
@@ -595,7 +589,7 @@ class LocationAnimatorCoordinatorTest {
             15.0,
             cameraPosition,
             DEFAULT_TRACKING_ZOOM_ANIM_DURATION,
-            null,
+            null
         )
         assertTrue(locationAnimatorCoordinator.animatorArray[ANIMATOR_ZOOM].isStarted)
 
@@ -610,7 +604,7 @@ class LocationAnimatorCoordinatorTest {
             doubleArrayOf(100.0, 200.0, 300.0, 400.0),
             cameraPosition,
             DEFAULT_TRACKING_PADDING_ANIM_DURATION,
-            null,
+            null
         )
         assertTrue(locationAnimatorCoordinator.animatorArray[ANIMATOR_PADDING].isStarted)
 
@@ -625,7 +619,7 @@ class LocationAnimatorCoordinatorTest {
             30.0,
             cameraPosition,
             DEFAULT_TRACKING_TILT_ANIM_DURATION,
-            null,
+            null
         )
         assertTrue(locationAnimatorCoordinator.animatorArray[ANIMATOR_TILT].isStarted)
 
@@ -650,10 +644,9 @@ class LocationAnimatorCoordinatorTest {
     fun addNewListener() {
         val listener = Mockito.mock(AnimationsValueChangeListener::class.java)
         val holder = AnimatorListenerHolder(RenderMode.NORMAL, listener)
-        val set =
-            HashSet<AnimatorListenerHolder>().also {
-                it.add(holder)
-            }
+        val set = HashSet<AnimatorListenerHolder>().also {
+            it.add(holder)
+        }
         locationAnimatorCoordinator.updateAnimatorListenerHolders(set)
 
         assertTrue(locationAnimatorCoordinator.listeners.contains(listener))
@@ -663,21 +656,19 @@ class LocationAnimatorCoordinatorTest {
     fun updateListeners() {
         val listener = Mockito.mock(AnimationsValueChangeListener::class.java)
         val holder = AnimatorListenerHolder(ANIMATOR_LAYER_LATLNG, listener)
-        val set =
-            HashSet<AnimatorListenerHolder>().also {
-                it.add(holder)
-            }
+        val set = HashSet<AnimatorListenerHolder>().also {
+            it.add(holder)
+        }
         locationAnimatorCoordinator.updateAnimatorListenerHolders(set)
 
         val listener2 = Mockito.mock(AnimationsValueChangeListener::class.java)
         val holder2 = AnimatorListenerHolder(ANIMATOR_LAYER_LATLNG, listener2)
         val listener3 = Mockito.mock(AnimationsValueChangeListener::class.java)
         val holder3 = AnimatorListenerHolder(ANIMATOR_LAYER_ACCURACY, listener3)
-        val set2 =
-            HashSet<AnimatorListenerHolder>().also {
-                it.add(holder2)
-                it.add(holder3)
-            }
+        val set2 = HashSet<AnimatorListenerHolder>().also {
+            it.add(holder2)
+            it.add(holder3)
+        }
         locationAnimatorCoordinator.updateAnimatorListenerHolders(set2)
 
         assertTrue(locationAnimatorCoordinator.listeners.size() == 2)
@@ -690,10 +681,9 @@ class LocationAnimatorCoordinatorTest {
         // setup accuracy animator
         val listener: AnimationsValueChangeListener<Float> = mockk(relaxUnitFun = true)
         val holder = AnimatorListenerHolder(ANIMATOR_LAYER_ACCURACY, listener)
-        val set =
-            HashSet<AnimatorListenerHolder>().also {
-                it.add(holder)
-            }
+        val set = HashSet<AnimatorListenerHolder>().also {
+            it.add(holder)
+        }
         locationAnimatorCoordinator.updateAnimatorListenerHolders(set)
         locationAnimatorCoordinator.feedNewAccuracyRadius(500f, true)
 
@@ -702,11 +692,10 @@ class LocationAnimatorCoordinatorTest {
         val holder2 = AnimatorListenerHolder(ANIMATOR_LAYER_LATLNG, listener2)
         val listener3: AnimationsValueChangeListener<*> = mockk()
         val holder3 = AnimatorListenerHolder(ANIMATOR_CAMERA_GPS_BEARING, listener3)
-        val set2 =
-            HashSet<AnimatorListenerHolder>().also {
-                it.add(holder2)
-                it.add(holder3)
-            }
+        val set2 = HashSet<AnimatorListenerHolder>().also {
+            it.add(holder2)
+            it.add(holder3)
+        }
         locationAnimatorCoordinator.updateAnimatorListenerHolders(set2)
 
         // try pushing an update to verify it was ignored
@@ -723,19 +712,12 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.setCompassAnimationEnabled(true)
         locationAnimatorCoordinator.feedNewCompassBearing(77f, cameraPosition)
 
-        val animators =
-            mutableListOf<Animator>(
-                locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_COMPASS_BEARING],
-                locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_COMPASS_BEARING],
-            )
+        val animators = mutableListOf<Animator>(
+            locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_COMPASS_BEARING],
+            locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_COMPASS_BEARING]
+        )
 
-        verify(exactly = 1) {
-            animatorSetProvider.startAnimation(
-                eq(animators),
-                ofType(LinearInterpolator::class),
-                eq(LocationComponentConstants.COMPASS_UPDATE_RATE_MS),
-            )
-        }
+        verify(exactly = 1) { animatorSetProvider.startAnimation(eq(animators), ofType(LinearInterpolator::class), eq(LocationComponentConstants.COMPASS_UPDATE_RATE_MS)) }
     }
 
     @Test
@@ -743,11 +725,10 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.setCompassAnimationEnabled(false)
         locationAnimatorCoordinator.feedNewCompassBearing(77f, cameraPosition)
 
-        val animators =
-            mutableListOf<Animator>(
-                locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_COMPASS_BEARING],
-                locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_COMPASS_BEARING],
-            )
+        val animators = mutableListOf<Animator>(
+            locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_COMPASS_BEARING],
+            locationAnimatorCoordinator.animatorArray[ANIMATOR_CAMERA_COMPASS_BEARING]
+        )
 
         verify(exactly = 1) { animatorSetProvider.startAnimation(eq(animators), ofType(LinearInterpolator::class), eq(0)) }
     }
@@ -757,18 +738,11 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.setAccuracyAnimationEnabled(true)
         locationAnimatorCoordinator.feedNewAccuracyRadius(150f, false)
 
-        val animators =
-            mutableListOf<Animator>(
-                locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_ACCURACY],
-            )
+        val animators = mutableListOf<Animator>(
+            locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_ACCURACY]
+        )
 
-        verify(exactly = 1) {
-            animatorSetProvider.startAnimation(
-                eq(animators),
-                ofType(LinearInterpolator::class),
-                eq(LocationComponentConstants.ACCURACY_RADIUS_ANIMATION_DURATION),
-            )
-        }
+        verify(exactly = 1) { animatorSetProvider.startAnimation(eq(animators), ofType(LinearInterpolator::class), eq(LocationComponentConstants.ACCURACY_RADIUS_ANIMATION_DURATION)) }
     }
 
     @Test
@@ -776,10 +750,9 @@ class LocationAnimatorCoordinatorTest {
         locationAnimatorCoordinator.setAccuracyAnimationEnabled(false)
         locationAnimatorCoordinator.feedNewAccuracyRadius(150f, false)
 
-        val animators =
-            mutableListOf<Animator>(
-                locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_ACCURACY],
-            )
+        val animators = mutableListOf<Animator>(
+            locationAnimatorCoordinator.animatorArray[ANIMATOR_LAYER_ACCURACY]
+        )
 
         verify(exactly = 1) { animatorSetProvider.startAnimation(eq(animators), ofType(LinearInterpolator::class), eq(0)) }
     }
@@ -815,12 +788,13 @@ class LocationAnimatorCoordinatorTest {
         assertTrue(locationAnimatorCoordinator.animatorArray.get(ANIMATOR_LAYER_GPS_BEARING) == null)
     }
 
-    private fun getListenerHoldersSet(vararg animatorTypes: Int): Set<AnimatorListenerHolder> =
-        HashSet<AnimatorListenerHolder>().also {
+    private fun getListenerHoldersSet(vararg animatorTypes: Int): Set<AnimatorListenerHolder> {
+        return HashSet<AnimatorListenerHolder>().also {
             for (type in animatorTypes) {
                 it.add(AnimatorListenerHolder(type, mockk(relaxUnitFun = true)))
             }
         }
+    }
 }
 
 private fun <E> SparseArray<E>.contains(listener: AnimationsValueChangeListener<*>?): Boolean {

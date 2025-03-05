@@ -32,7 +32,7 @@ class DDSCircleLayerExample: UIViewController, MLNMapViewDelegate {
 
     // Wait until the style is loaded before modifying the map style.
     func mapView(_: MLNMapView, didFinishLoading style: MLNStyle) {
-        let source = MLNVectorTileSource(identifier: "demotiles", configurationURL: URL(string: "https://demotiles.track-asia.com/tiles-omt/tiles.json")!)
+        let source = MLNVectorTileSource(identifier: "demotiles", configurationURL: URL(string: "https://maps.track-asia.com/tiles-omt/tiles.json")!)
 
         style.addSource(source)
 

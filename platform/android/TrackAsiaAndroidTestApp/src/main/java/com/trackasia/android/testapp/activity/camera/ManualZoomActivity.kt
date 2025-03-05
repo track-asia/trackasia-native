@@ -8,8 +8,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 
@@ -21,7 +21,6 @@ import com.trackasia.android.testapp.styles.TestStyles
 class ManualZoomActivity : AppCompatActivity() {
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manual_zoom)
@@ -30,7 +29,7 @@ class ManualZoomActivity : AppCompatActivity() {
         mapView.getMapAsync { trackasiaMap: TrackAsiaMap ->
             this@ManualZoomActivity.trackasiaMap = trackasiaMap
             trackasiaMap.setStyle(
-                Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid")),
+                Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"))
             )
             val uiSettings = this@ManualZoomActivity.trackasiaMap.uiSettings
             uiSettings.setAllGesturesEnabled(false)
@@ -42,8 +41,8 @@ class ManualZoomActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_zoom_in -> {
                 // # --8<-- [start:zoomIn]
                 trackasiaMap.animateCamera(CameraUpdateFactory.zoomIn())
@@ -74,14 +73,15 @@ class ManualZoomActivity : AppCompatActivity() {
                 trackasiaMap.animateCamera(
                     CameraUpdateFactory.zoomBy(
                         1.0,
-                        Point(view.measuredWidth / 4, view.measuredHeight / 4),
-                    ),
+                        Point(view.measuredWidth / 4, view.measuredHeight / 4)
+                    )
                 )
                 // # --8<-- [end:zoomToPoint]
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
 
     override fun onStart() {
         super.onStart()

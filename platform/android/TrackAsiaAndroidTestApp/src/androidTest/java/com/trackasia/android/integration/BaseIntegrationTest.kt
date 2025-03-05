@@ -11,6 +11,7 @@ import org.junit.Before
 const val TIMEOUT_UI_SEARCH_WAIT = 5000L
 
 abstract class BaseIntegrationTest : AppCenter() {
+
     protected lateinit var device: UiDevice
 
     @Before
@@ -25,10 +26,7 @@ abstract class BaseIntegrationTest : AppCenter() {
  * To resume an activity, you need to add a single instance launchmode to your manifest configuration.
  * <p>
  */
-fun UiDevice.launchActivity(
-    context: Context,
-    clazz: Class<*>,
-) {
+fun UiDevice.launchActivity(context: Context, clazz: Class<*>) {
     val applicationPackage = InstrumentationRegistry.getInstrumentation().targetContext.packageName
     val intent = Intent(context, clazz)
     intent.addFlags(FLAG_ACTIVITY_NEW_TASK)

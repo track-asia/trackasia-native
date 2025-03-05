@@ -21,6 +21,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
 class MapDialogFragmentTest : AppCenter() {
+
     @get:Rule
     var activityRule: ActivityTestRule<MapInDialogActivity> = ActivityTestRule(MapInDialogActivity::class.java)
 

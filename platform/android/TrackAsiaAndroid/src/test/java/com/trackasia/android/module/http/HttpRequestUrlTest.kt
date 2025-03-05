@@ -13,6 +13,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class HttpRequestUrlTest {
+
     @Before
     fun setUp() {
         TrackAsiaInjector.inject(mockk(relaxed = true), "pk.foobar", ConfigUtils.getMockedOptions())

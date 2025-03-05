@@ -15,7 +15,6 @@ import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.android.geometry.ProjectedMeters
 import com.trackasia.android.maps.renderer.MapRenderer
 import com.trackasia.android.style.layers.TransitionOptions
-import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.testapp.utils.TestConstants
 import org.junit.After
 import org.junit.Assert
@@ -23,9 +22,11 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.trackasia.android.testapp.styles.TestStyles
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class NativeMapViewTest : AppCenter() {
+
     private lateinit var nativeMapView: NativeMap
 
     companion object {
@@ -162,15 +163,13 @@ class NativeMapViewTest : AppCenter() {
     @Test
     @UiThreadTest
     fun testJumpTo() {
-        val expected =
-            CameraPosition
-                .Builder()
-                .bearing(BEARING_TEST)
-                .target(LATLNG_TEST)
-                .tilt(PITCH_TEST)
-                .zoom(ZOOM_TEST)
-                .padding(PADDING_TEST)
-                .build()
+        val expected = CameraPosition.Builder()
+            .bearing(BEARING_TEST)
+            .target(LATLNG_TEST)
+            .tilt(PITCH_TEST)
+            .zoom(ZOOM_TEST)
+            .padding(PADDING_TEST)
+            .build()
         // verify that the lazily set padding is ignored when a value is provided with the camera
         nativeMapView.contentPadding = doubleArrayOf(1.0, 2.0, 3.0, 4.0)
         nativeMapView.jumpTo(LATLNG_TEST, ZOOM_TEST, PITCH_TEST, BEARING_TEST, PADDING_TEST)
@@ -188,10 +187,9 @@ class NativeMapViewTest : AppCenter() {
     fun testLatLngForPixel() {
         val expected = LATLNG_TEST
         nativeMapView.setLatLng(LATLNG_TEST, 0)
-        val actual =
-            nativeMapView.latLngForPixel(
-                PointF((WIDTH / 2).toFloat(), (HEIGHT / 2).toFloat()),
-            )
+        val actual = nativeMapView.latLngForPixel(
+            PointF((WIDTH / 2).toFloat(), (HEIGHT / 2).toFloat())
+        )
         assertEquals("Latitude should match", expected.latitude, actual.latitude, DELTA_BIG)
         assertEquals("Longitude should match", expected.longitude, actual.longitude, DELTA_BIG)
     }
@@ -317,15 +315,13 @@ class NativeMapViewTest : AppCenter() {
     @Test
     @UiThreadTest
     fun testFlyTo() {
-        val expected =
-            CameraPosition
-                .Builder()
-                .zoom(12.0)
-                .tilt(30.0)
-                .target(LatLng(12.0, 14.0))
-                .bearing(20.0)
-                .padding(PADDING_TEST)
-                .build()
+        val expected = CameraPosition.Builder()
+            .zoom(12.0)
+            .tilt(30.0)
+            .target(LatLng(12.0, 14.0))
+            .bearing(20.0)
+            .padding(PADDING_TEST)
+            .build()
         // verify that the lazily set padding is ignored when a value is provided with the camera
         nativeMapView.contentPadding = doubleArrayOf(1.0, 2.0, 3.0, 4.0)
         nativeMapView.flyTo(expected.target!!, expected.zoom, expected.bearing, expected.tilt, PADDING_TEST, 0)
@@ -341,15 +337,13 @@ class NativeMapViewTest : AppCenter() {
     @Test
     @UiThreadTest
     fun testEaseTo() {
-        val expected =
-            CameraPosition
-                .Builder()
-                .zoom(12.0)
-                .tilt(30.0)
-                .target(LatLng(12.0, 14.0))
-                .bearing(20.0)
-                .padding(PADDING_TEST)
-                .build()
+        val expected = CameraPosition.Builder()
+            .zoom(12.0)
+            .tilt(30.0)
+            .target(LatLng(12.0, 14.0))
+            .bearing(20.0)
+            .padding(PADDING_TEST)
+            .build()
         // verify that the lazily set padding is ignored when a value is provided with the camera
         nativeMapView.contentPadding = doubleArrayOf(1.0, 2.0, 3.0, 4.0)
         nativeMapView.easeTo(expected.target!!, expected.zoom, expected.bearing, expected.tilt, PADDING_TEST, 0, false)
@@ -365,15 +359,13 @@ class NativeMapViewTest : AppCenter() {
     @Test
     @UiThreadTest
     fun testResetPosition() {
-        val expected =
-            CameraPosition
-                .Builder()
-                .zoom(0.0)
-                .tilt(0.0)
-                .target(LatLng(0.0, 0.0))
-                .bearing(0.0)
-                .padding(PADDING_TEST)
-                .build()
+        val expected = CameraPosition.Builder()
+            .zoom(0.0)
+            .tilt(0.0)
+            .target(LatLng(0.0, 0.0))
+            .bearing(0.0)
+            .padding(PADDING_TEST)
+            .build()
         nativeMapView.jumpTo(LatLng(1.0, 2.0), 12.0, 23.0, 1.0, PADDING_TEST)
         nativeMapView.resetPosition()
         val actual = nativeMapView.cameraPosition
@@ -388,21 +380,18 @@ class NativeMapViewTest : AppCenter() {
     @Test
     @UiThreadTest
     fun testGetCameraForLatLngBounds() {
-        val expected =
-            CameraPosition
-                .Builder()
-                .zoom(3.5258764777024005)
-                .tilt(0.0)
-                .target(LatLng(23.182767623652808, 13.999999999994088))
-                .bearing(0.0)
-                .build()
-        val actual =
-            nativeMapView.getCameraForLatLngBounds(
-                LatLngBounds.from(30.0, 16.0, 16.0, 12.0),
-                intArrayOf(0, 0, 0, 0),
-                0.0,
-                0.0,
-            )
+        val expected = CameraPosition.Builder()
+            .zoom(3.5258764777024005)
+            .tilt(0.0)
+            .target(LatLng(23.182767623652808, 13.999999999994088))
+            .bearing(0.0)
+            .build()
+        val actual = nativeMapView.getCameraForLatLngBounds(
+            LatLngBounds.from(30.0, 16.0, 16.0, 12.0),
+            intArrayOf(0, 0, 0, 0),
+            0.0,
+            0.0
+        )
         assertEquals("Bearing should match", expected.bearing, actual.bearing, TestConstants.BEARING_DELTA)
         assertEquals("Latitude should match", expected.target!!.latitude, actual.target!!.latitude, TestConstants.LAT_LNG_DELTA)
         assertEquals("Longitude should match", expected.target!!.longitude, actual.target!!.longitude, TestConstants.LAT_LNG_DELTA)
@@ -413,14 +402,12 @@ class NativeMapViewTest : AppCenter() {
     @Test
     @UiThreadTest
     fun testMoveBy() {
-        val expected =
-            CameraPosition
-                .Builder()
-                .zoom(0.0)
-                .tilt(0.0)
-                .target(LatLng(4.21494310024160, -4.218749958739409))
-                .bearing(0.0)
-                .build()
+        val expected = CameraPosition.Builder()
+            .zoom(0.0)
+            .tilt(0.0)
+            .target(LatLng(4.21494310024160, -4.218749958739409))
+            .bearing(0.0)
+            .build()
         nativeMapView.moveBy(12.0, 12.0, 0)
         val actual = nativeMapView.cameraPosition
         assertEquals("Bearing should match", expected.bearing, actual.bearing, TestConstants.BEARING_DELTA)
@@ -448,9 +435,8 @@ class NativeMapViewTest : AppCenter() {
         assertEquals(transitionOptions, nativeMapView.transitionOptions)
     }
 
-    class DummyRenderer(
-        context: Context,
-    ) : MapRenderer(context, null) {
+    class DummyRenderer(context: Context) : MapRenderer(context, null) {
+
         private var renderingRefreshMode: RenderingRefreshMode = RenderingRefreshMode.WHEN_DIRTY
 
         override fun requestRender() {
@@ -465,12 +451,16 @@ class NativeMapViewTest : AppCenter() {
             // no-op
         }
 
-        override fun getView(): View? = null
+        override fun getView(): View? {
+            return null;
+        }
 
-        override fun setRenderingRefreshMode(mode: RenderingRefreshMode) {
+        override fun setRenderingRefreshMode(mode : RenderingRefreshMode) {
             renderingRefreshMode = mode
         }
 
-        override fun getRenderingRefreshMode(): RenderingRefreshMode = renderingRefreshMode
+        override fun getRenderingRefreshMode() : RenderingRefreshMode{
+            return renderingRefreshMode
+        }
     }
 }

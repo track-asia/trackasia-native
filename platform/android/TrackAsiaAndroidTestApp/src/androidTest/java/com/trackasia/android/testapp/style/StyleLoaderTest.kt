@@ -3,8 +3,8 @@ package com.trackasia.android.testapp.style
 import android.view.View
 import androidx.test.espresso.UiController
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.action.TrackAsiaMapAction
 import com.trackasia.android.testapp.activity.EspressoTest
@@ -21,13 +21,13 @@ class StyleLoaderTest : EspressoTest() {
     fun testSetGetStyleJsonString() {
         validateTestSetup()
         TrackAsiaMapAction.invoke(
-            trackasiaMap,
+            trackasiaMap
         ) { uiController: UiController?, trackasiaMap: TrackAsiaMap ->
             try {
                 val expected =
                     readRawResource(
                         rule.activity,
-                        R.raw.local_style,
+                        R.raw.local_style
                     )
                 trackasiaMap.setStyle(Style.Builder().fromJson(expected))
                 val actual = trackasiaMap.style!!.json
@@ -42,13 +42,13 @@ class StyleLoaderTest : EspressoTest() {
     fun testDefaultStyleLoadWithActivityLifecycleChange() {
         validateTestSetup()
         TrackAsiaMapAction.invoke(
-            trackasiaMap,
+            trackasiaMap
         ) { uiController: UiController?, trackasiaMap: TrackAsiaMap ->
             try {
                 val expected =
                     readRawResource(
                         rule.activity,
-                        R.raw.local_style,
+                        R.raw.local_style
                     )
                 trackasiaMap.setStyle(Style.Builder().fromJson(expected))
 
@@ -63,7 +63,7 @@ class StyleLoaderTest : EspressoTest() {
                 Assert.assertEquals(
                     "Style URL should be empty",
                     "",
-                    trackasiaMap.style!!.uri,
+                    trackasiaMap.style!!.uri
                 )
                 Assert.assertEquals("Style json should match", expected, actual)
             } catch (exception: IOException) {

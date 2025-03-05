@@ -11,12 +11,8 @@ import com.trackasia.android.geometry.LatLng
  * @see MapSnapshotter
  */
 @Keep
-class MapSnapshot private constructor(
-    val nativePtr: Long,
-    bitmap: Bitmap,
-    attributions: Array<String>,
-    showLogo: Boolean,
-) {
+class MapSnapshot private constructor(val nativePtr: Long, bitmap: Bitmap, attributions: Array<String>, showLogo: Boolean) {
+
     /**
      * @return the large
      */

@@ -8,5 +8,8 @@ import com.trackasia.android.testapp.R
  */
 @SuppressLint("ClickableViewAccessibility")
 class TextureRecyclerViewActivity : GLSurfaceRecyclerViewActivity() {
-    override fun getMapItemLayoutId(): Int = R.layout.item_map_texture
+
+    override fun getMapItemLayoutId(): Int {
+        return R.layout.item_map_texture
+    }
 }

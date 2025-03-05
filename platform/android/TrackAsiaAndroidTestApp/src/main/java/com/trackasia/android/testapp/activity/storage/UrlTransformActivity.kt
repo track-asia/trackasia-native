@@ -26,10 +26,7 @@ class UrlTransformActivity : AppCompatActivity() {
      * Alternatively, unregister the callback in [Activity.onDestroy]
      */
     private class Transform : ResourceTransformCallback {
-        override fun onURL(
-            @Resource.Kind kind: Int,
-            url: String,
-        ): String {
+        override fun onURL(@Resource.Kind kind: Int, url: String): String {
             Timber.i("[%s] Could be rewriting %s", Thread.currentThread().name, url)
             return url
         }

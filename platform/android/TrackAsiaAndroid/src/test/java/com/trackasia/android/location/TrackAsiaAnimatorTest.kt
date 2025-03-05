@@ -10,25 +10,22 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class TrackAsiaAnimatorTest {
+
     @Test
     fun fps_unlimited() {
         val valueAnimator = mockk<ValueAnimator>()
         every { valueAnimator.animatedValue } answers { 5f }
         val listener = mockk<TrackAsiaAnimator.AnimationsValueChangeListener<Float>>()
         every { listener.onNewAnimationValue(any()) } answers {}
-        val mapboxAnimator =
-            TrackAsiaFloatAnimator(
-                floatArrayOf(
-                    0f,
-                    10f,
-                ).toTypedArray(),
-                listener,
-                Int.MAX_VALUE,
-            )
+        val mapboxAnimator = TrackAsiaFloatAnimator(
+            floatArrayOf(
+                0f,
+                10f
+            ).toTypedArray(), listener, Int.MAX_VALUE
+        )
 
-        for (i in 0 until 5) {
+        for (i in 0 until 5)
             mapboxAnimator.onAnimationUpdate(valueAnimator)
-        }
 
         verify(exactly = 5) { listener.onNewAnimationValue(5f) }
     }
@@ -39,15 +36,12 @@ class TrackAsiaAnimatorTest {
         every { valueAnimator.animatedValue } answers { 5f }
         val listener = mockk<TrackAsiaAnimator.AnimationsValueChangeListener<Float>>()
         every { listener.onNewAnimationValue(any()) } answers {}
-        val mapboxAnimator =
-            TrackAsiaFloatAnimator(
-                floatArrayOf(
-                    0f,
-                    10f,
-                ).toTypedArray(),
-                listener,
-                5,
-            )
+        val mapboxAnimator = TrackAsiaFloatAnimator(
+            floatArrayOf(
+                0f,
+                10f
+            ).toTypedArray(), listener, 5
+        )
 
         for (i in 0 until 5) {
             mapboxAnimator.onAnimationUpdate(valueAnimator)

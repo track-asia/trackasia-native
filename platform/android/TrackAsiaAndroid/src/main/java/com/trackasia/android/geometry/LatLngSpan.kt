@@ -67,7 +67,9 @@ class LatLngSpan : Parcelable {
      *
      * @return a bitmask indicating the set of special object types marshaled by this Parcelable object instance.
      */
-    override fun describeContents(): Int = 0
+    override fun describeContents(): Int {
+        return 0
+    }
 
     /**
      * Flatten this object in to a Parcel.
@@ -75,10 +77,7 @@ class LatLngSpan : Parcelable {
      * @param out   Parcel in which the object should be written
      * @param flags Additional flags about how the object should be written
      */
-    override fun writeToParcel(
-        out: Parcel,
-        flags: Int,
-    ) {
+    override fun writeToParcel(out: Parcel, flags: Int) {
         out.writeDouble(latitudeSpan)
         out.writeDouble(longitudeSpan)
     }
@@ -103,11 +102,14 @@ class LatLngSpan : Parcelable {
          * Inner class responsible for recreating Parcels into objects.
          */
         @JvmField
-        val CREATOR: Parcelable.Creator<LatLngSpan> =
-            object : Parcelable.Creator<LatLngSpan> {
-                override fun createFromParcel(parcel: Parcel): LatLngSpan = LatLngSpan(parcel)
-
-                override fun newArray(size: Int): Array<LatLngSpan?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<LatLngSpan> = object : Parcelable.Creator<LatLngSpan> {
+            override fun createFromParcel(parcel: Parcel): LatLngSpan {
+                return LatLngSpan(parcel)
             }
+
+            override fun newArray(size: Int): Array<LatLngSpan?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 }

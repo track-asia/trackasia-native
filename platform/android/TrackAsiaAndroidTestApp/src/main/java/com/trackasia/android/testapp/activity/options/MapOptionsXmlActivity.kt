@@ -2,18 +2,18 @@ package com.trackasia.android.testapp.activity.options
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.MapView
 import com.trackasia.android.maps.OnMapReadyCallback
-import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.styles.TestStyles
 
 /**
  *  TestActivity demonstrating configuring MapView with XML
  */
 
-class MapOptionsXmlActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class MapOptionsXmlActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
 
@@ -27,7 +27,7 @@ class MapOptionsXmlActivity :
 
     override fun onMapReady(trackasiaMap: TrackAsiaMap) {
         this.trackasiaMap = trackasiaMap
-        this.trackasiaMap.setStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
+        this.trackasiaMap.setStyle("https://maps.track-asia.com/style.json")
     }
 
     override fun onStart() {

@@ -6,21 +6,21 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMapOptions
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.styles.TestStyles
 
 /**
  *  TestActivity demonstrating configuring MapView with MapOptions
  */
-class MapOptionsRuntimeActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class MapOptionsRuntimeActivity : AppCompatActivity(), OnMapReadyCallback {
+
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_options_runtime)
@@ -30,13 +30,12 @@ class MapOptionsRuntimeActivity :
         trackasiaMapOptions.apply {
             apiBaseUri("https://api.track-asia.com")
             camera(
-                CameraPosition
-                    .Builder()
+                CameraPosition.Builder()
                     .bearing(0.0)
                     .target(LatLng(42.31230486601532, 64.63967338936439))
                     .zoom(3.9)
                     .tilt(0.0)
-                    .build(),
+                    .build()
             )
             maxPitchPreference(90.0)
             minPitchPreference(0.0)
@@ -60,7 +59,7 @@ class MapOptionsRuntimeActivity :
 
     override fun onMapReady(trackasiaMap: TrackAsiaMap) {
         this.trackasiaMap = trackasiaMap
-        this.trackasiaMap.setStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
+        this.trackasiaMap.setStyle("https://maps.track-asia.com/style.json")
     }
 
     override fun onStart() {

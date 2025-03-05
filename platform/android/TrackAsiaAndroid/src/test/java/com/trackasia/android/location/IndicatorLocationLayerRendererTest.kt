@@ -17,6 +17,7 @@ import org.junit.Before
 import org.junit.Test
 
 class IndicatorLocationLayerRendererTest {
+
     private val style: Style = mockk(relaxUnitFun = true)
     private val layerSourceProvider: LayerSourceProvider = mockk(relaxUnitFun = true)
     private val layer: Layer = mockk(relaxUnitFun = true)
@@ -92,7 +93,7 @@ class IndicatorLocationLayerRendererTest {
             layer.setProperties(
                 LocationPropertyFactory.topImage(FOREGROUND_ICON),
                 LocationPropertyFactory.bearingImage(BACKGROUND_ICON),
-                LocationPropertyFactory.shadowImage(SHADOW_ICON),
+                LocationPropertyFactory.shadowImage(SHADOW_ICON)
             )
         }
     }
@@ -105,7 +106,7 @@ class IndicatorLocationLayerRendererTest {
             layer.setProperties(
                 LocationPropertyFactory.topImage(FOREGROUND_ICON),
                 LocationPropertyFactory.bearingImage(BEARING_ICON),
-                LocationPropertyFactory.shadowImage(SHADOW_ICON),
+                LocationPropertyFactory.shadowImage(SHADOW_ICON)
             )
         }
     }
@@ -118,7 +119,7 @@ class IndicatorLocationLayerRendererTest {
             layer.setProperties(
                 LocationPropertyFactory.topImage(""),
                 LocationPropertyFactory.bearingImage(FOREGROUND_ICON),
-                LocationPropertyFactory.shadowImage(BACKGROUND_ICON),
+                LocationPropertyFactory.shadowImage(BACKGROUND_ICON)
             )
         }
         verify { layer.setProperties(LocationPropertyFactory.accuracyRadius(0f)) }
@@ -132,7 +133,7 @@ class IndicatorLocationLayerRendererTest {
             layer.setProperties(
                 LocationPropertyFactory.topImage(FOREGROUND_STALE_ICON),
                 LocationPropertyFactory.bearingImage(BACKGROUND_STALE_ICON),
-                LocationPropertyFactory.shadowImage(SHADOW_ICON),
+                LocationPropertyFactory.shadowImage(SHADOW_ICON)
             )
         }
     }
@@ -145,7 +146,7 @@ class IndicatorLocationLayerRendererTest {
             layer.setProperties(
                 LocationPropertyFactory.topImage(FOREGROUND_STALE_ICON),
                 LocationPropertyFactory.bearingImage(BEARING_STALE_ICON),
-                LocationPropertyFactory.shadowImage(SHADOW_ICON),
+                LocationPropertyFactory.shadowImage(SHADOW_ICON)
             )
         }
     }
@@ -158,7 +159,7 @@ class IndicatorLocationLayerRendererTest {
             layer.setProperties(
                 LocationPropertyFactory.topImage(""),
                 LocationPropertyFactory.bearingImage(FOREGROUND_STALE_ICON),
-                LocationPropertyFactory.shadowImage(BACKGROUND_STALE_ICON),
+                LocationPropertyFactory.shadowImage(BACKGROUND_STALE_ICON)
             )
         }
         verify { layer.setProperties(LocationPropertyFactory.accuracyRadius(0f)) }
@@ -174,7 +175,7 @@ class IndicatorLocationLayerRendererTest {
         verify {
             layer.setProperties(
                 LocationPropertyFactory.accuracyRadiusColor(exp),
-                LocationPropertyFactory.accuracyRadiusBorderColor(exp),
+                LocationPropertyFactory.accuracyRadiusBorderColor(exp)
             )
         }
     }
@@ -220,7 +221,7 @@ class IndicatorLocationLayerRendererTest {
             layer.setProperties(
                 LocationPropertyFactory.shadowImageSize(exp),
                 LocationPropertyFactory.bearingImageSize(exp),
-                LocationPropertyFactory.topImageSize(exp),
+                LocationPropertyFactory.topImageSize(exp)
             )
         }
     }
@@ -233,7 +234,7 @@ class IndicatorLocationLayerRendererTest {
             layer.setProperties(
                 LocationPropertyFactory.topImage(FOREGROUND_STALE_ICON),
                 LocationPropertyFactory.bearingImage(BACKGROUND_STALE_ICON),
-                LocationPropertyFactory.shadowImage(SHADOW_ICON),
+                LocationPropertyFactory.shadowImage(SHADOW_ICON)
             )
         }
     }
@@ -310,10 +311,7 @@ class IndicatorLocationLayerRendererTest {
     private val foregroundBitmap = mockk<Bitmap>()
     private val foregroundStaleBitmap = mockk<Bitmap>()
 
-    private fun addBitmaps(
-        withShadow: Boolean,
-        @RenderMode.Mode renderMode: Int,
-    ) {
+    private fun addBitmaps(withShadow: Boolean, @RenderMode.Mode renderMode: Int) {
         locationLayerRenderer.addBitmaps(
             renderMode,
             if (withShadow) shadowBitmap else null,
@@ -321,7 +319,7 @@ class IndicatorLocationLayerRendererTest {
             backgroundStaleBitmap,
             bearingBitmap,
             foregroundBitmap,
-            foregroundStaleBitmap,
+            foregroundStaleBitmap
         )
     }
 

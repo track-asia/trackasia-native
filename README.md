@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         // Init the MapView
         mapView = rootView.findViewById(R.id.mapView)
         mapView.getMapAsync { map ->
-            map.setStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
+            map.setStyle("https://maps.track-asia.com/style.json")
             map.cameraPosition = CameraPosition.Builder().target(LatLng(0.0,0.0)).zoom(1.0).build()
         }
     }
@@ -260,3 +260,10 @@ Backers and Supporters:
 ## License
 
 **TrackAsia Native** is licensed under the [BSD 2-Clause License](./LICENSE.md).
+
+bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
+xed platform/ios/TrackAsia.xcodeproj
+
+bazel build --compilation_mode=opt --features=dead_strip,thin_lto --objc_enable_binary_stripping \
+  --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:TrackAsia.dynamic --embed_label=trackasia_ios_2.0.0
+

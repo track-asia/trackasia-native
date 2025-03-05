@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.SupportMapFragment
 import com.trackasia.android.maps.TrackAsiaMapOptions
+import com.trackasia.android.maps.SupportMapFragment
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityRecyclerviewBinding
 import com.trackasia.android.testapp.styles.TestStyles
@@ -27,6 +27,7 @@ import com.trackasia.android.testapp.styles.TestStyles
  */
 @SuppressLint("ClickableViewAccessibility")
 class NestedViewPagerActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityRecyclerviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,36 +38,13 @@ class NestedViewPagerActivity : AppCompatActivity() {
         binding.recyclerView.adapter = ItemAdapter(this, LayoutInflater.from(this), supportFragmentManager)
     }
 
-    class ItemAdapter(
-        private val context: Context,
-        private val inflater: LayoutInflater,
-        private val fragmentManager: androidx.fragment.app.FragmentManager,
-    ) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
-        private val items =
-            listOf(
-                "one",
-                "two",
-                "three",
-                ViewPagerItem(),
-                "four",
-                "five",
-                "six",
-                "seven",
-                "eight",
-                "nine",
-                "ten",
-                "eleven",
-                "twelve",
-                "thirteen",
-                "fourteen",
-                "fifteen",
-                "sixteen",
-                "seventeen",
-                "eighteen",
-                "nineteen",
-                "twenty",
-                "twenty-one",
-            )
+    class ItemAdapter(private val context: Context, private val inflater: LayoutInflater, private val fragmentManager: androidx.fragment.app.FragmentManager) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+
+        private val items = listOf(
+            "one", "two", "three", ViewPagerItem(), "four", "five", "six", "seven", "eight", "nine", "ten",
+            "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
+            "nineteen", "twenty", "twenty-one"
+        )
 
         private var mapHolder: ViewPagerHolder? = null
 
@@ -75,10 +53,7 @@ class NestedViewPagerActivity : AppCompatActivity() {
             const val TYPE_TEXT = 1
         }
 
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int,
-        ): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
             return if (viewType == TYPE_VIEWPAGER) {
                 val viewPager = inflater.inflate(R.layout.item_viewpager, parent, false) as androidx.viewpager.widget.ViewPager
                 mapHolder = ViewPagerHolder(context, viewPager, fragmentManager)
@@ -88,40 +63,33 @@ class NestedViewPagerActivity : AppCompatActivity() {
             }
         }
 
-        override fun getItemCount(): Int = items.count()
+        override fun getItemCount(): Int {
+            return items.count()
+        }
 
-        override fun onBindViewHolder(
-            holder: androidx.recyclerview.widget.RecyclerView.ViewHolder,
-            position: Int,
-        ) {
+        override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
             if (holder.itemViewType == TYPE_TEXT) {
                 val textHolder = holder as TextHolder
                 textHolder.bind(items[position] as String)
             }
         }
 
-        override fun getItemViewType(position: Int): Int =
-            if (items[position] is ViewPagerItem) {
+        override fun getItemViewType(position: Int): Int {
+            return if (items[position] is ViewPagerItem) {
                 TYPE_VIEWPAGER
             } else {
                 TYPE_TEXT
             }
+        }
 
-        class TextHolder(
-            val textView: TextView,
-        ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(textView) {
+        class TextHolder(val textView: TextView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(textView) {
             fun bind(item: String) {
                 textView.text = item
             }
         }
 
         class ViewPagerItem
-
-        class ViewPagerHolder(
-            context: Context,
-            private val viewPager: androidx.viewpager.widget.ViewPager,
-            fragmentManager: androidx.fragment.app.FragmentManager,
-        ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(viewPager) {
+        class ViewPagerHolder(context: Context, private val viewPager: androidx.viewpager.widget.ViewPager, fragmentManager: androidx.fragment.app.FragmentManager) : androidx.recyclerview.widget.RecyclerView.ViewHolder(viewPager) {
             init {
                 viewPager.adapter = MapPagerAdapter(context, fragmentManager)
                 viewPager.setOnTouchListener { view, motionEvent ->
@@ -133,10 +101,8 @@ class NestedViewPagerActivity : AppCompatActivity() {
             }
         }
 
-        class MapPagerAdapter(
-            private val context: Context,
-            fm: FragmentManager,
-        ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        class MapPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
             override fun getItem(position: Int): androidx.fragment.app.Fragment {
                 val options = TrackAsiaMapOptions.createFromAttributes(context)
                 options.textureMode(true)
@@ -147,13 +113,7 @@ class NestedViewPagerActivity : AppCompatActivity() {
                 options.zoomGesturesEnabled(false)
                 when (position) {
                     0 -> {
-                        options.camera(
-                            CameraPosition
-                                .Builder()
-                                .target(LatLng(34.920526, 102.634774))
-                                .zoom(3.0)
-                                .build(),
-                        )
+                        options.camera(CameraPosition.Builder().target(LatLng(34.920526, 102.634774)).zoom(3.0).build())
                         val fragment = SupportMapFragment.newInstance(options)
                         fragment.getMapAsync { trackasiaMap -> trackasiaMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) }
                         return fragment
@@ -162,13 +122,7 @@ class NestedViewPagerActivity : AppCompatActivity() {
                         return EmptyFragment.newInstance()
                     }
                     2 -> {
-                        options.camera(
-                            CameraPosition
-                                .Builder()
-                                .target(LatLng(62.326440, 92.764913))
-                                .zoom(3.0)
-                                .build(),
-                        )
+                        options.camera(CameraPosition.Builder().target(LatLng(62.326440, 92.764913)).zoom(3.0).build())
                         val fragment = SupportMapFragment.newInstance(options)
                         fragment.getMapAsync { trackasiaMap -> trackasiaMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Pastel")) }
                         return fragment
@@ -177,17 +131,9 @@ class NestedViewPagerActivity : AppCompatActivity() {
                         return EmptyFragment.newInstance()
                     }
                     4 -> {
-                        options.camera(
-                            CameraPosition
-                                .Builder()
-                                .target(LatLng(-25.007786, 133.623852))
-                                .zoom(3.0)
-                                .build(),
-                        )
+                        options.camera(CameraPosition.Builder().target(LatLng(-25.007786, 133.623852)).zoom(3.0).build())
                         val fragment = SupportMapFragment.newInstance(options)
-                        fragment.getMapAsync { trackasiaMap ->
-                            trackasiaMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"))
-                        }
+                        fragment.getMapAsync { trackasiaMap -> trackasiaMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid")) }
                         return fragment
                     }
                     5 -> {
@@ -197,19 +143,21 @@ class NestedViewPagerActivity : AppCompatActivity() {
                 throw IllegalAccessError()
             }
 
-            override fun getCount(): Int = 6
+            override fun getCount(): Int {
+                return 6
+            }
         }
 
         class EmptyFragment : androidx.fragment.app.Fragment() {
             companion object {
-                fun newInstance(): EmptyFragment = EmptyFragment()
+                fun newInstance(): EmptyFragment {
+                    return EmptyFragment()
+                }
             }
 
-            override fun onCreateView(
-                inflater: LayoutInflater,
-                container: ViewGroup?,
-                savedInstanceState: Bundle?,
-            ): View = TextView(inflater.context)
+            override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+                return TextView(inflater.context)
+            }
         }
     }
 }

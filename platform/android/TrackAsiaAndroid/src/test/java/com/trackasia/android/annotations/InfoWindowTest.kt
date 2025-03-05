@@ -3,8 +3,8 @@ package com.trackasia.android.annotations
 import android.graphics.PointF
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Projection
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Projection
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.InjectMocks
@@ -41,10 +41,9 @@ class InfoWindowTest {
     @Test
     fun testOpen() {
         val latLng = LatLng(0.0, 0.0)
-        val projection =
-            Mockito.mock(
-                Projection::class.java,
-            )
+        val projection = Mockito.mock(
+            Projection::class.java
+        )
         Mockito.`when`(mTrackAsiaMap.projection).thenReturn(projection)
         Mockito.`when`(projection.toScreenLocation(latLng)).thenReturn(PointF(0f, 0f))
         val infoWindow = InfoWindow(mMapView, mTrackAsiaMap)
@@ -55,10 +54,9 @@ class InfoWindowTest {
     @Test
     fun testOpenClose() {
         val latLng = LatLng(0.0, 0.0)
-        val projection =
-            Mockito.mock(
-                Projection::class.java,
-            )
+        val projection = Mockito.mock(
+            Projection::class.java
+        )
         Mockito.`when`(mTrackAsiaMap.projection).thenReturn(projection)
         Mockito.`when`(projection.toScreenLocation(latLng)).thenReturn(PointF(0f, 0f))
         val infoWindow = InfoWindow(mMapView, mTrackAsiaMap)
@@ -70,10 +68,9 @@ class InfoWindowTest {
     @Test
     fun testUpdate() {
         val latLng = LatLng(0.0, 0.0)
-        val projection =
-            Mockito.mock(
-                Projection::class.java,
-            )
+        val projection = Mockito.mock(
+            Projection::class.java
+        )
         Mockito.`when`(mTrackAsiaMap.projection).thenReturn(projection)
         Mockito.`when`(projection.toScreenLocation(latLng)).thenReturn(PointF(0f, 0f))
         val infoWindow = InfoWindow(mMapView, mTrackAsiaMap)

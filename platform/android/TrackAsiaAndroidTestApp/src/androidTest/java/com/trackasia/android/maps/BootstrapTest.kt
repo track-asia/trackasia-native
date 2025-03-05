@@ -13,6 +13,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class BootstrapTest : AppCenter() {
+
     var apiKeyBackup: String? = null
 
     @Before
@@ -37,10 +38,10 @@ class BootstrapTest : AppCenter() {
 
         val tileServerOptions = TileServerOptions.get(WellKnownTileServer.TrackAsia)
         Assert.assertTrue(
-            Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count(),
+            Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count()
         )
         Assert.assertTrue(
-            Style.getPredefinedStyles().first().url == tileServerOptions.defaultStyles.first().url,
+            Style.getPredefinedStyles().first().url == tileServerOptions.defaultStyles.first().url
         )
 
         val fileSource = FileSource.getInstance(context)
@@ -57,10 +58,10 @@ class BootstrapTest : AppCenter() {
 
         val tileServerOptions = TileServerOptions.get(WellKnownTileServer.MapTiler)
         Assert.assertTrue(
-            Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count(),
+            Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count()
         )
         Assert.assertTrue(
-            Style.getPredefinedStyles().first().url == tileServerOptions.defaultStyles.first().url,
+            Style.getPredefinedStyles().first().url == tileServerOptions.defaultStyles.first().url
         )
 
         val fileSource = FileSource.getInstance(context)
@@ -81,10 +82,10 @@ class BootstrapTest : AppCenter() {
 
         val tileServerOptions = TileServerOptions.get(WellKnownTileServer.Mapbox)
         Assert.assertTrue(
-            Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count(),
+            Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count()
         )
         Assert.assertTrue(
-            Style.getPredefinedStyles().first().url == tileServerOptions.defaultStyles.first().url,
+            Style.getPredefinedStyles().first().url == tileServerOptions.defaultStyles.first().url
         )
 
         val fileSource = FileSource.getInstance(context)

@@ -8,11 +8,11 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.OnMapReadyCallback
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMap.CancelableCallback
 import com.trackasia.android.maps.TrackAsiaMap.OnCameraIdleListener
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import timber.log.Timber
@@ -23,30 +23,28 @@ import timber.log.Timber
  *
  * Shows how to use animate, ease and move camera update factory methods.
  */
-class CameraAnimationTypeActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class CameraAnimationTypeActivity : AppCompatActivity(), OnMapReadyCallback {
     // # --8<-- [start:callback]
     private val callback: CancelableCallback =
         object : CancelableCallback {
             override fun onCancel() {
                 Timber.i("Duration onCancel Callback called.")
-                Toast
-                    .makeText(
-                        applicationContext,
-                        "Ease onCancel Callback called.",
-                        Toast.LENGTH_LONG,
-                    ).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Ease onCancel Callback called.",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
             }
 
             override fun onFinish() {
                 Timber.i("Duration onFinish Callback called.")
-                Toast
-                    .makeText(
-                        applicationContext,
-                        "Ease onFinish Callback called.",
-                        Toast.LENGTH_LONG,
-                    ).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Ease onFinish Callback called.",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
             }
         }
     // # --8<-- [end:callback]
@@ -54,12 +52,11 @@ class CameraAnimationTypeActivity :
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
     private var cameraState = false
-    private val cameraIdleListener =
-        OnCameraIdleListener {
-            if (this::trackasiaMap.isInitialized) {
-                Timber.w(trackasiaMap.cameraPosition.toString())
-            }
+    private val cameraIdleListener = OnCameraIdleListener {
+        if (this::trackasiaMap.isInitialized) {
+            Timber.w(trackasiaMap.cameraPosition.toString())
         }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,8 +78,7 @@ class CameraAnimationTypeActivity :
         moveButton?.setOnClickListener { view: View? ->
             // # --8<-- [start:moveCamera]
             val cameraPosition =
-                CameraPosition
-                    .Builder()
+                CameraPosition.Builder()
                     .target(nextLatLng)
                     .zoom(14.0)
                     .tilt(30.0)
@@ -97,8 +93,7 @@ class CameraAnimationTypeActivity :
         easeButton?.setOnClickListener { view: View? ->
             // # --8<-- [start:easeCamera]
             val cameraPosition =
-                CameraPosition
-                    .Builder()
+                CameraPosition.Builder()
                     .target(nextLatLng)
                     .zoom(15.0)
                     .bearing(180.0)
@@ -107,7 +102,7 @@ class CameraAnimationTypeActivity :
             trackasiaMap.easeCamera(
                 CameraUpdateFactory.newCameraPosition(cameraPosition),
                 7500,
-                callback,
+                callback
             )
             // # --8<-- [end:easeCamera]
         }
@@ -117,16 +112,11 @@ class CameraAnimationTypeActivity :
         animateButton?.setOnClickListener { view: View? ->
             // # --8<-- [start:animateCamera]
             val cameraPosition =
-                CameraPosition
-                    .Builder()
-                    .target(nextLatLng)
-                    .bearing(270.0)
-                    .tilt(20.0)
-                    .build()
+                CameraPosition.Builder().target(nextLatLng).bearing(270.0).tilt(20.0).build()
             trackasiaMap.animateCamera(
                 CameraUpdateFactory.newCameraPosition(cameraPosition),
                 7500,
-                callback,
+                callback
             )
             // # --8<-- [end:animateCamera]
         }

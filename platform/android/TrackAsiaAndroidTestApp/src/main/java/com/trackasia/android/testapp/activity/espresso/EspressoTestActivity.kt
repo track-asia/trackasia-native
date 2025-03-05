@@ -12,7 +12,6 @@ import com.trackasia.android.testapp.R
 class EspressoTestActivity : AppCompatActivity() {
     lateinit var mapView: MapView
     protected lateinit var trackasiaMap: TrackAsiaMap
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_espresso_test)

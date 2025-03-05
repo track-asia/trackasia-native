@@ -10,14 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.OnMapReadyCallback
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMap.OnMapClickListener
 import com.trackasia.android.maps.TrackAsiaMapOptions
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.expressions.Expression.FormatEntry
 import com.trackasia.android.style.expressions.Expression.FormatOption
@@ -29,9 +32,6 @@ import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.style.sources.Source
 import com.trackasia.android.testapp.R
 import com.trackasia.android.utils.BitmapUtils
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
 import timber.log.Timber
 import java.util.Random
 
@@ -42,10 +42,7 @@ import java.util.Random
  * Showcases the ability to offline render a symbol layer by using a packaged style and fonts from the assets folder.
  *
  */
-class SymbolLayerActivity :
-    AppCompatActivity(),
-    OnMapClickListener,
-    OnMapReadyCallback {
+class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyCallback {
     private val random = Random()
     private var markerSource: GeoJsonSource? = null
     private var markerCollection: FeatureCollection? = null
@@ -54,7 +51,6 @@ class SymbolLayerActivity :
     private var numberFormatSymbolLayer: SymbolLayer? = null
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_symbollayer)
@@ -62,12 +58,11 @@ class SymbolLayerActivity :
         // Create map configuration
         val trackasiaMapOptions = TrackAsiaMapOptions.createFromAttributes(this)
         trackasiaMapOptions.camera(
-            CameraPosition
-                .Builder()
-                .target(
-                    LatLng(52.35273, 4.91638),
-                ).zoom(13.0)
-                .build(),
+            CameraPosition.Builder().target(
+                LatLng(52.35273, 4.91638)
+            )
+                .zoom(13.0)
+                .build()
         )
 
         // Create map programmatically, add to view hierarchy
@@ -90,55 +85,52 @@ class SymbolLayerActivity :
 
     override fun onMapReady(trackasiaMap: TrackAsiaMap) {
         this.trackasiaMap = trackasiaMap
-        val carBitmap =
-            BitmapUtils.getBitmapFromDrawable(
-                ResourcesCompat.getDrawable(resources, R.drawable.ic_directions_car_black, null),
-            )
+        val carBitmap = BitmapUtils.getBitmapFromDrawable(
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_directions_car_black, null)
+        )
 
         // marker source
-        markerCollection =
-            FeatureCollection.fromFeatures(
-                arrayOf(
-                    Feature.fromGeometry(
-                        Point.fromLngLat(4.91638, 52.35673),
-                        featureProperties("1", "Android"),
-                    ),
-                    Feature.fromGeometry(
-                        Point.fromLngLat(4.91638, 52.34673),
-                        featureProperties("2", "Car"),
-                    ),
+        markerCollection = FeatureCollection.fromFeatures(
+            arrayOf(
+                Feature.fromGeometry(
+                    Point.fromLngLat(4.91638, 52.35673),
+                    featureProperties("1", "Android")
                 ),
+                Feature.fromGeometry(
+                    Point.fromLngLat(4.91638, 52.34673),
+                    featureProperties("2", "Car")
+                )
             )
+        )
         markerSource = GeoJsonSource(MARKER_SOURCE, markerCollection)
 
         // marker layer
-        markerSymbolLayer =
-            SymbolLayer(MARKER_LAYER, MARKER_SOURCE)
-                .withProperties(
-                    PropertyFactory.iconImage(Expression.get(TITLE_FEATURE_PROPERTY)),
-                    PropertyFactory.iconIgnorePlacement(true),
-                    PropertyFactory.iconAllowOverlap(true),
-                    PropertyFactory.iconSize(
-                        Expression.switchCase(
-                            Expression.toBool(
-                                Expression.get(
-                                    SELECTED_FEATURE_PROPERTY,
-                                ),
-                            ),
-                            Expression.literal(1.5f),
-                            Expression.literal(1.0f),
+        markerSymbolLayer = SymbolLayer(MARKER_LAYER, MARKER_SOURCE)
+            .withProperties(
+                PropertyFactory.iconImage(Expression.get(TITLE_FEATURE_PROPERTY)),
+                PropertyFactory.iconIgnorePlacement(true),
+                PropertyFactory.iconAllowOverlap(true),
+                PropertyFactory.iconSize(
+                    Expression.switchCase(
+                        Expression.toBool(
+                            Expression.get(
+                                SELECTED_FEATURE_PROPERTY
+                            )
                         ),
-                    ),
-                    PropertyFactory.iconAnchor(Property.ICON_ANCHOR_BOTTOM),
-                    PropertyFactory.iconColor(Color.BLUE),
-                    PropertyFactory.textField(TEXT_FIELD_EXPRESSION),
-                    PropertyFactory.textFont(NORMAL_FONT_STACK),
-                    PropertyFactory.textColor(Color.BLUE),
-                    PropertyFactory.textAllowOverlap(true),
-                    PropertyFactory.textIgnorePlacement(true),
-                    PropertyFactory.textAnchor(Property.TEXT_ANCHOR_TOP),
-                    PropertyFactory.textSize(10f),
-                )
+                        Expression.literal(1.5f),
+                        Expression.literal(1.0f)
+                    )
+                ),
+                PropertyFactory.iconAnchor(Property.ICON_ANCHOR_BOTTOM),
+                PropertyFactory.iconColor(Color.BLUE),
+                PropertyFactory.textField(TEXT_FIELD_EXPRESSION),
+                PropertyFactory.textFont(NORMAL_FONT_STACK),
+                PropertyFactory.textColor(Color.BLUE),
+                PropertyFactory.textAllowOverlap(true),
+                PropertyFactory.textIgnorePlacement(true),
+                PropertyFactory.textAnchor(Property.TEXT_ANCHOR_TOP),
+                PropertyFactory.textSize(10f)
+            )
 
         // mapbox sign layer
         val mapboxSignSource: Source =
@@ -155,17 +147,16 @@ class SymbolLayerActivity :
                 Expression.numberFormat(
                     123.456789,
                     NumberFormatOption.locale("nl-NL"),
-                    NumberFormatOption.currency("EUR"),
-                ),
-            ),
+                    NumberFormatOption.currency("EUR")
+                )
+            )
         )
         trackasiaMap.setStyle(
-            Style
-                .Builder()
+            Style.Builder()
                 .fromUri("asset://streets.json")
                 .withImage("Car", carBitmap!!, false)
                 .withSources(markerSource, mapboxSignSource, numberFormatSource)
-                .withLayers(markerSymbolLayer, mapboxSignSymbolLayer, numberFormatSymbolLayer),
+                .withLayers(markerSymbolLayer, mapboxSignSymbolLayer, numberFormatSymbolLayer)
         )
 
         // Set a click-listener so we can manipulate the map
@@ -193,10 +184,10 @@ class SymbolLayerActivity :
                                 Expression.literal(1.0f),
                                 Expression.stop(
                                     feature.getStringProperty("id"),
-                                    if (selected) 0.3f else 1.0f,
-                                ),
-                            ),
-                        ),
+                                    if (selected) 0.3f else 1.0f
+                                )
+                            )
+                        )
                     )
                 }
             }
@@ -219,7 +210,7 @@ class SymbolLayerActivity :
                         PropertyFactory.textSize(10f)
                     } else {
                         PropertyFactory.textSize(20f)
-                    },
+                    }
                 )
             }
         }
@@ -255,33 +246,31 @@ class SymbolLayerActivity :
                         getRandomColorEntryForString("p"),
                         getRandomColorEntryForString("b"),
                         getRandomColorEntryForString("o"),
-                        getRandomColorEntryForString("x"),
-                    ),
+                        getRandomColorEntryForString("x")
+                    )
                 ),
                 PropertyFactory.textColor(Color.BLACK),
                 PropertyFactory.textFont(BOLD_FONT_STACK),
                 PropertyFactory.textSize(25f),
-                PropertyFactory.textRotationAlignment(Property.TEXT_ROTATION_ALIGNMENT_MAP),
+                PropertyFactory.textRotationAlignment(Property.TEXT_ROTATION_ALIGNMENT_MAP)
             )
         }
     }
 
-    private fun getRandomColorEntryForString(string: String): FormatEntry =
-        Expression.formatEntry(
+    private fun getRandomColorEntryForString(string: String): FormatEntry {
+        return Expression.formatEntry(
             string,
             FormatOption.formatTextColor(
                 Expression.rgb(
                     random.nextInt(256),
                     random.nextInt(256),
-                    random.nextInt(256),
-                ),
-            ),
+                    random.nextInt(256)
+                )
+            )
         )
+    }
 
-    private fun featureProperties(
-        id: String,
-        title: String,
-    ): JsonObject {
+    private fun featureProperties(id: String, title: String): JsonObject {
         val `object` = JsonObject()
         `object`.add(ID_FEATURE_PROPERTY, JsonPrimitive(id))
         `object`.add(TITLE_FEATURE_PROPERTY, JsonPrimitive(title))
@@ -332,8 +321,8 @@ class SymbolLayerActivity :
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_toggle_text_size -> {
                 toggleTextSize()
                 true
@@ -351,6 +340,7 @@ class SymbolLayerActivity :
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
 
     companion object {
         private const val ID_FEATURE_PROPERTY = "id"
@@ -366,27 +356,26 @@ class SymbolLayerActivity :
         private const val MAPBOX_SIGN_LAYER = "mapbox-sign-layer"
         private const val NUMBER_FORMAT_SOURCE = "mapbox-number-source"
         private const val NUMBER_FORMAT_LAYER = "mapbox-number-layer"
-        private val TEXT_FIELD_EXPRESSION =
-            Expression.switchCase(
-                Expression.toBool(Expression.get(SELECTED_FEATURE_PROPERTY)),
-                Expression.format(
-                    Expression.formatEntry(
-                        Expression.get(TITLE_FEATURE_PROPERTY),
-                        FormatOption.formatTextFont(BOLD_FONT_STACK),
-                    ),
-                    Expression.formatEntry("\nis fun!", FormatOption.formatFontScale(0.75)),
+        private val TEXT_FIELD_EXPRESSION = Expression.switchCase(
+            Expression.toBool(Expression.get(SELECTED_FEATURE_PROPERTY)),
+            Expression.format(
+                Expression.formatEntry(
+                    Expression.get(TITLE_FEATURE_PROPERTY),
+                    FormatOption.formatTextFont(BOLD_FONT_STACK)
                 ),
-                Expression.format(
-                    Expression.formatEntry("This is", FormatOption.formatFontScale(0.75)),
-                    Expression.formatEntry(
-                        Expression.concat(
-                            Expression.literal("\n"),
-                            Expression.get(TITLE_FEATURE_PROPERTY),
-                        ),
-                        FormatOption.formatFontScale(1.25),
-                        FormatOption.formatTextFont(BOLD_FONT_STACK),
+                Expression.formatEntry("\nis fun!", FormatOption.formatFontScale(0.75))
+            ),
+            Expression.format(
+                Expression.formatEntry("This is", FormatOption.formatFontScale(0.75)),
+                Expression.formatEntry(
+                    Expression.concat(
+                        Expression.literal("\n"),
+                        Expression.get(TITLE_FEATURE_PROPERTY)
                     ),
-                ),
+                    FormatOption.formatFontScale(1.25),
+                    FormatOption.formatTextFont(BOLD_FONT_STACK)
+                )
             )
+        )
     }
 }

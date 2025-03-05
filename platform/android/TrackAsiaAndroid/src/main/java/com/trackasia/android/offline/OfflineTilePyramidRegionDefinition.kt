@@ -57,13 +57,7 @@ class OfflineTilePyramidRegionDefinition : OfflineRegionDefinition {
      * @param pixelRatio pixel ratio of the device
      */
     @Keep
-    constructor(
-        styleURL: String?,
-        bounds: LatLngBounds,
-        minZoom: Double,
-        maxZoom: Double,
-        pixelRatio: Float,
-    ) : this(styleURL, bounds, minZoom, maxZoom, pixelRatio, false) {
+    constructor(styleURL: String?, bounds: LatLngBounds, minZoom: Double, maxZoom: Double, pixelRatio: Float) : this(styleURL, bounds, minZoom, maxZoom, pixelRatio, false) {
     }
 
     /**
@@ -94,13 +88,7 @@ class OfflineTilePyramidRegionDefinition : OfflineRegionDefinition {
      */
     constructor(parcel: Parcel) {
         styleURL = parcel.readString()
-        bounds =
-            LatLngBounds
-                .Builder()
-                .include(
-                    LatLng(parcel.readDouble(), parcel.readDouble()),
-                ).include(LatLng(parcel.readDouble(), parcel.readDouble()))
-                .build()
+        bounds = LatLngBounds.Builder().include(LatLng(parcel.readDouble(), parcel.readDouble())).include(LatLng(parcel.readDouble(), parcel.readDouble())).build()
         minZoom = parcel.readDouble()
         maxZoom = parcel.readDouble()
         pixelRatio = parcel.readFloat()
@@ -111,14 +99,13 @@ class OfflineTilePyramidRegionDefinition : OfflineRegionDefinition {
         get() = "tileregion"
 
     /*
-     * Parceable
-     */
-    override fun describeContents(): Int = 0
+   * Parceable
+   */
+    override fun describeContents(): Int {
+        return 0
+    }
 
-    override fun writeToParcel(
-        dest: Parcel,
-        flags: Int,
-    ) {
+    override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeString(styleURL)
         if (bounds != null) {
             dest.writeDouble(bounds.latitudeNorth)
@@ -134,11 +121,14 @@ class OfflineTilePyramidRegionDefinition : OfflineRegionDefinition {
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<*> =
-            object : Parcelable.Creator<Any?> {
-                override fun createFromParcel(`in`: Parcel): OfflineTilePyramidRegionDefinition? = OfflineTilePyramidRegionDefinition(`in`)
-
-                override fun newArray(size: Int): Array<OfflineTilePyramidRegionDefinition?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<*> = object : Parcelable.Creator<Any?> {
+            override fun createFromParcel(`in`: Parcel): OfflineTilePyramidRegionDefinition? {
+                return OfflineTilePyramidRegionDefinition(`in`)
             }
+
+            override fun newArray(size: Int): Array<OfflineTilePyramidRegionDefinition?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 }

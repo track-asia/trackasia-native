@@ -3,9 +3,7 @@ package com.trackasia.android.maps
 import com.trackasia.android.annotations.Icon
 import timber.log.Timber
 
-class IconManagerResolver(
-    trackasiaMap: TrackAsiaMap?,
-) {
+class IconManagerResolver(trackasiaMap: TrackAsiaMap?) {
     private var iconManager: IconManager? = null
 
     init {

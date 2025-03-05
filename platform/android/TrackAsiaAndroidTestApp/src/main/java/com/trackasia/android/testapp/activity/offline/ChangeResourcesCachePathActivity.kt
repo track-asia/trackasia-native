@@ -22,6 +22,7 @@ class ChangeResourcesCachePathActivity :
     AppCompatActivity(),
     AdapterView.OnItemClickListener,
     FileSource.ResourcesCachePathChangeCallback {
+
     companion object {
         private const val TAG = "Mbgl-ChangeResourcesCachePathActivity"
     }
@@ -58,12 +59,7 @@ class ChangeResourcesCachePathActivity :
         callback.onActivityDestroy()
     }
 
-    override fun onItemClick(
-        parent: AdapterView<*>?,
-        view: View?,
-        position: Int,
-        id: Long,
-    ) {
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         binding.listView.onItemClickListener = null
         val path: String = adapter.getItem(position) as String
         FileSource.setResourcesCachePath(path, callback)
@@ -78,17 +74,15 @@ class ChangeResourcesCachePathActivity :
         binding.listView.onItemClickListener = this
         Toast.makeText(this, "New path: $path", Toast.LENGTH_LONG).show()
 
-        offlineManager.listOfflineRegions(
-            object : OfflineManager.ListOfflineRegionsCallback {
-                override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    Logger.i(TAG, "Number of saved offline regions in the new path: ${offlineRegions?.size}")
-                }
+        offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
+            override fun onList(offlineRegions: Array<OfflineRegion>?) {
+                Logger.i(TAG, "Number of saved offline regions in the new path: ${offlineRegions?.size}")
+            }
 
-                override fun onError(error: String) {
-                    Logger.e(TAG, error)
-                }
-            },
-        )
+            override fun onError(error: String) {
+                Logger.e(TAG, error)
+            }
+        })
     }
 
     private fun Context.obtainExternalFilesPaths(): List<String> {
@@ -110,9 +104,8 @@ class ChangeResourcesCachePathActivity :
         return paths
     }
 
-    private class PathChangeCallback(
-        private var activity: ChangeResourcesCachePathActivity?,
-    ) : FileSource.ResourcesCachePathChangeCallback {
+    private class PathChangeCallback(private var activity: ChangeResourcesCachePathActivity?) : FileSource.ResourcesCachePathChangeCallback {
+
         override fun onSuccess(path: String) {
             activity?.onSuccess(path)
         }
@@ -126,21 +119,21 @@ class ChangeResourcesCachePathActivity :
         }
     }
 
-    class PathAdapter(
-        private val context: Context,
-        private val paths: List<String>,
-    ) : BaseAdapter() {
-        override fun getItem(position: Int): Any = paths[position]
+    class PathAdapter(private val context: Context, private val paths: List<String>) : BaseAdapter() {
 
-        override fun getItemId(position: Int): Long = position.toLong()
+        override fun getItem(position: Int): Any {
+            return paths[position]
+        }
 
-        override fun getCount(): Int = paths.size
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
 
-        override fun getView(
-            position: Int,
-            convertView: View?,
-            parent: ViewGroup?,
-        ): View {
+        override fun getCount(): Int {
+            return paths.size
+        }
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val viewHolder: ViewHolder
             val view: View
 

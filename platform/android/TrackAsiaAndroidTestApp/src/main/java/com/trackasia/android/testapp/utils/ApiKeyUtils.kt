@@ -3,13 +3,13 @@ package com.trackasia.android.testapp.utils
 import android.content.Context
 import android.os.Build
 import android.os.Environment
-import com.trackasia.android.TrackAsia
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import java.io.File
+import com.trackasia.android.TrackAsia
 import java.lang.Exception
+import java.io.File
 
 fun readFromJSON(): String? {
     val jsonFile = File("${Environment.getExternalStorageDirectory()}/instrumentation-test-input.json")
@@ -35,6 +35,7 @@ object ApiKeyUtils {
      * @return The api key or null if not found.
      */
     fun getApiKey(context: Context): String? {
+
         val fromJSON = readFromJSON()
         if (fromJSON !== null) return fromJSON
 
@@ -46,9 +47,8 @@ object ApiKeyUtils {
         } catch (exception: Exception) {
             // Use fallback on string resource, used for development
             // TODO:PP
-            val apiKeyResId =
-                context.resources
-                    .getIdentifier("api_key", "string", context.packageName)
+            val apiKeyResId = context.resources
+                .getIdentifier("api_key", "string", context.packageName)
             if (apiKeyResId != 0) context.getString(apiKeyResId) else null
         }
     }

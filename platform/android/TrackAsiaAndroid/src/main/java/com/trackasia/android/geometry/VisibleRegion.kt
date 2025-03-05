@@ -97,11 +97,7 @@ class VisibleRegion : Parcelable {
         if (other === this) {
             return true
         }
-        return farLeft == other.farLeft &&
-            farRight == other.farRight &&
-            nearLeft == other.nearLeft &&
-            nearRight == other.nearRight &&
-            latLngBounds == other.latLngBounds
+        return farLeft == other.farLeft && farRight == other.farRight && nearLeft == other.nearLeft && nearRight == other.nearRight && latLngBounds == other.latLngBounds
     }
 
     /**
@@ -109,29 +105,27 @@ class VisibleRegion : Parcelable {
      *
      * @return the string representation of this
      */
-    override fun toString(): String =
-        (
-            "[farLeft [" + farLeft + "], farRight [" + farRight + "], nearLeft [" + nearLeft + "], nearRight [" + nearRight +
-                "], latLngBounds [" +
-                latLngBounds +
-                "]]"
-        )
+    override fun toString(): String {
+        return ("[farLeft [" + farLeft + "], farRight [" + farRight + "], nearLeft [" + nearLeft + "], nearRight [" + nearRight + "], latLngBounds [" + latLngBounds + "]]")
+    }
 
     /**
      * Returns a hash code value for the object.
      *
      * @return the hash code
      */
-    override fun hashCode(): Int =
-        farLeft.hashCode() + 90 + (farRight.hashCode() + 90) * 1000 + (nearLeft.hashCode() + 180) * 1000000 +
-            (nearRight.hashCode() + 180) * 1000000000
+    override fun hashCode(): Int {
+        return farLeft.hashCode() + 90 + (farRight.hashCode() + 90) * 1000 + (nearLeft.hashCode() + 180) * 1000000 + (nearRight.hashCode() + 180) * 1000000000
+    }
 
     /**
      * Describe the kinds of special objects contained in this Parcelable instance's marshaled representation.
      *
      * @return a bitmask indicating the set of special object types marshaled by this Parcelable object instance.
      */
-    override fun describeContents(): Int = 0
+    override fun describeContents(): Int {
+        return 0
+    }
 
     /**
      * Flatten this object in to a Parcel.
@@ -139,10 +133,7 @@ class VisibleRegion : Parcelable {
      * @param out   The Parcel in which the object should be written.
      * @param flags Additional flags about how the object should be written
      */
-    override fun writeToParcel(
-        out: Parcel,
-        flags: Int,
-    ) {
+    override fun writeToParcel(out: Parcel, flags: Int) {
         out.writeParcelable(farLeft, flags)
         out.writeParcelable(farRight, flags)
         out.writeParcelable(nearLeft, flags)
@@ -155,11 +146,14 @@ class VisibleRegion : Parcelable {
          * Inner class responsible for recreating Parcels into objects.
          */
         @JvmField
-        val CREATOR: Parcelable.Creator<VisibleRegion> =
-            object : Parcelable.Creator<VisibleRegion> {
-                override fun createFromParcel(parcel: Parcel): VisibleRegion = VisibleRegion(parcel)
-
-                override fun newArray(size: Int): Array<VisibleRegion?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<VisibleRegion> = object : Parcelable.Creator<VisibleRegion> {
+            override fun createFromParcel(parcel: Parcel): VisibleRegion {
+                return VisibleRegion(parcel)
             }
+
+            override fun newArray(size: Int): Array<VisibleRegion?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 }

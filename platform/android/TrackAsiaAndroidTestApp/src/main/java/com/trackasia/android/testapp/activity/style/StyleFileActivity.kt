@@ -8,15 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
-import com.trackasia.android.testapp.R
-import com.trackasia.android.testapp.styles.TestStyles
-import com.trackasia.android.testapp.utils.ResourceUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
+import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.styles.TestStyles
+import com.trackasia.android.testapp.utils.ResourceUtils
 import timber.log.Timber
 import java.io.BufferedWriter
 import java.io.File
@@ -28,7 +28,6 @@ import java.io.FileWriter
 class StyleFileActivity : AppCompatActivity() {
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_style_file)
@@ -45,7 +44,7 @@ class StyleFileActivity : AppCompatActivity() {
                         withContext(Dispatchers.Main) {
                             cacheStylePath?.let {
                                 trackasiaMap.setStyle(
-                                    Style.Builder().fromUri("file://$it"),
+                                    Style.Builder().fromUri("file://$it")
                                 )
                             }
                         }
@@ -55,8 +54,8 @@ class StyleFileActivity : AppCompatActivity() {
                 fabStyleJson.setColorFilter(
                     ContextCompat.getColor(
                         this@StyleFileActivity,
-                        R.color.primary,
-                    ),
+                        R.color.primary
+                    )
                 )
                 fabStyleJson.setOnClickListener { view: View ->
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -85,30 +84,29 @@ class StyleFileActivity : AppCompatActivity() {
     /**
      * Task to write a style file to local disk and load it in the map view
      */
-    private fun createStyleFileTask(context: Context): String? =
-        try {
+    private fun createStyleFileTask(
+        context: Context,
+    ): String? {
+        return try {
             val cacheStyleFile = File.createTempFile("my-", ".style.json")
             cacheStyleFile.createNewFile()
             Timber.i("Writing style file to: %s", cacheStyleFile.getAbsolutePath())
             writeToFile(
                 cacheStyleFile,
-                ResourceUtils.readRawResource(context, R.raw.local_style),
+                ResourceUtils.readRawResource(context, R.raw.local_style)
             )
             cacheStyleFile.absolutePath
         } catch (exception: Exception) {
-            Toast
-                .makeText(
-                    context,
-                    "Could not create style file in cache dir",
-                    Toast.LENGTH_SHORT,
-                ).show()
+            Toast.makeText(
+                context,
+                "Could not create style file in cache dir",
+                Toast.LENGTH_SHORT
+            ).show()
             null
         }
+    }
 
-    private fun writeToFile(
-        file: File?,
-        contents: String,
-    ) {
+    private fun writeToFile(file: File?, contents: String) {
         var writer: BufferedWriter? = null
         try {
             writer = BufferedWriter(FileWriter(file))

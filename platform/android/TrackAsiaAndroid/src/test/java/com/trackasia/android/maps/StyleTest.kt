@@ -25,6 +25,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class StyleTest {
+
     private lateinit var trackasiaMap: TrackAsiaMap
 
     private lateinit var nativeMapView: NativeMap
@@ -40,16 +41,15 @@ class StyleTest {
         MockitoAnnotations.initMocks(this)
         TrackAsiaInjector.inject(context, "abcdef", ConfigUtils.getMockedOptions())
         nativeMapView = mockk(relaxed = true)
-        trackasiaMap =
-            TrackAsiaMap(
-                nativeMapView,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-            )
+        trackasiaMap = TrackAsiaMap(
+            nativeMapView,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
         every { nativeMapView.isDestroyed } returns false
         trackasiaMap.injectLocationComponent(spyk())
     }
@@ -85,7 +85,7 @@ class StyleTest {
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                TrackAsiaConstants.LAYER_ID_ANNOTATIONS,
+                TrackAsiaConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }
@@ -162,7 +162,7 @@ class StyleTest {
         verify(exactly = 1) {
             nativeMapView.addLayerBelow(
                 layer,
-                TrackAsiaConstants.LAYER_ID_ANNOTATIONS,
+                TrackAsiaConstants.LAYER_ID_ANNOTATIONS
             )
         }
     }
@@ -183,11 +183,8 @@ class StyleTest {
     fun testWithFromLoadingLayerBelow() {
         val layer = mockk<SymbolLayer>()
         every { layer.id } returns "1"
-        val builder =
-            Style
-                .Builder()
-                .fromUri(Style.getPredefinedStyle("Streets"))
-                .withLayerBelow(layer, "below")
+        val builder = Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
+            .withLayerBelow(layer, "below")
         trackasiaMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
         trackasiaMap.notifyStyleLoaded()
@@ -198,11 +195,8 @@ class StyleTest {
     fun testWithFromLoadingLayerAbove() {
         val layer = mockk<SymbolLayer>()
         every { layer.id } returns "1"
-        val builder =
-            Style
-                .Builder()
-                .fromUri(Style.getPredefinedStyle("Streets"))
-                .withLayerBelow(layer, "below")
+        val builder = Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
+            .withLayerBelow(layer, "below")
         trackasiaMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
         trackasiaMap.notifyStyleLoaded()
@@ -212,11 +206,8 @@ class StyleTest {
     @Test
     fun testWithFromLoadingTransitionOptions() {
         val transitionOptions = TransitionOptions(100, 200)
-        val builder =
-            Style
-                .Builder()
-                .fromUri(Style.getPredefinedStyle("Streets"))
-                .withTransition(transitionOptions)
+        val builder = Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
+            .withTransition(transitionOptions)
         trackasiaMap.setStyle(builder)
         verify(exactly = 1) { nativeMapView.styleUri = Style.getPredefinedStyle("Streets") }
         trackasiaMap.notifyStyleLoaded()
@@ -299,11 +290,8 @@ class StyleTest {
     @Test
     fun testGetNullWhileLoading() {
         val transitionOptions = TransitionOptions(100, 200)
-        val builder =
-            Style
-                .Builder()
-                .fromUri(Style.getPredefinedStyle("Streets"))
-                .withTransition(transitionOptions)
+        val builder = Style.Builder().fromUri(Style.getPredefinedStyle("Streets"))
+            .withTransition(transitionOptions)
         trackasiaMap.setStyle(builder)
         Assert.assertNull(trackasiaMap.style)
         trackasiaMap.notifyStyleLoaded()
@@ -380,7 +368,7 @@ class StyleTest {
             Assert.assertEquals(
                 "Source that failed to be added shouldn't be cached",
                 source1,
-                trackasiaMap.style!!.getSource("source1"),
+                trackasiaMap.style!!.getSource("source1")
             )
         }
     }
@@ -404,7 +392,7 @@ class StyleTest {
             Assert.assertEquals(
                 "Layer that failed to be added shouldn't be cached",
                 layer1,
-                trackasiaMap.style!!.getLayer("layer1"),
+                trackasiaMap.style!!.getLayer("layer1")
             )
         }
     }
@@ -423,7 +411,7 @@ class StyleTest {
         every {
             nativeMapView.addLayerBelow(
                 any(),
-                "",
+                ""
             )
         } throws CannotAddLayerException("Duplicate ID")
 
@@ -433,7 +421,7 @@ class StyleTest {
             Assert.assertEquals(
                 "Layer that failed to be added shouldn't be cached",
                 layer1,
-                trackasiaMap.style!!.getLayer("layer1"),
+                trackasiaMap.style!!.getLayer("layer1")
             )
         }
     }
@@ -452,7 +440,7 @@ class StyleTest {
         every {
             nativeMapView.addLayerAbove(
                 any(),
-                "",
+                ""
             )
         } throws CannotAddLayerException("Duplicate ID")
 
@@ -462,7 +450,7 @@ class StyleTest {
             Assert.assertEquals(
                 "Layer that failed to be added shouldn't be cached",
                 layer1,
-                trackasiaMap.style!!.getLayer("layer1"),
+                trackasiaMap.style!!.getLayer("layer1")
             )
         }
     }
@@ -486,7 +474,7 @@ class StyleTest {
             Assert.assertEquals(
                 "Layer that failed to be added shouldn't be cached",
                 layer1,
-                trackasiaMap.style!!.getLayer("layer1"),
+                trackasiaMap.style!!.getLayer("layer1")
             )
         }
     }

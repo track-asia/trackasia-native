@@ -8,13 +8,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import com.trackasia.geojson.Feature
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.testapp.utils.NavUtils
-import com.trackasia.geojson.Feature
 import timber.log.Timber
 
 /**
@@ -27,16 +27,13 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    // activity uses singleInstance for testing purposes
-                    // code below provides a default navigation when using the app
-                    NavUtils.navigateHome(this@QueryRenderedFeaturesBoxCountActivity)
-                }
-            },
-        )
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // activity uses singleInstance for testing purposes
+                // code below provides a default navigation when using the app
+                NavUtils.navigateHome(this@QueryRenderedFeaturesBoxCountActivity)
+            }
+        })
         setContentView(R.layout.activity_query_features_box)
         val selectionBox = findViewById<View>(R.id.selection_box)
 
@@ -50,23 +47,21 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
                 // Query
                 val top = selectionBox.top - mapView.top
                 val left = selectionBox.left - mapView.left
-                val box =
-                    RectF(
-                        left.toFloat(),
-                        top.toFloat(),
-                        (left + selectionBox.width).toFloat(),
-                        (top + selectionBox.height).toFloat(),
-                    )
+                val box = RectF(
+                    left.toFloat(),
+                    top.toFloat(),
+                    (left + selectionBox.width).toFloat(),
+                    (top + selectionBox.height).toFloat()
+                )
                 Timber.i("Querying box %s", box)
                 val features = trackasiaMap.queryRenderedFeatures(box)
 
                 // Show count
-                Toast
-                    .makeText(
-                        this@QueryRenderedFeaturesBoxCountActivity,
-                        String.format("%s features in box", features.size),
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                Toast.makeText(
+                    this@QueryRenderedFeaturesBoxCountActivity,
+                    String.format("%s features in box", features.size),
+                    Toast.LENGTH_SHORT
+                ).show()
 
                 // Debug output
                 debugOutput(features)
@@ -81,10 +76,8 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
                 "Got feature %s with %s properties and Geometry %s",
                 feature.id(),
                 if (feature.properties() != null) {
-                    feature
-                        .properties()!!
-                        .entrySet()
-                        .size
+                    feature.properties()!!
+                        .entrySet().size
                 } else {
                     "<null>"
                 },
@@ -92,7 +85,7 @@ class QueryRenderedFeaturesBoxCountActivity : AppCompatActivity() {
                     feature.geometry()!!::class.java.simpleName
                 } else {
                     "<null>"
-                },
+                }
             )
             if (feature.properties() != null) {
                 for ((key, value) in feature.properties()!!.entrySet()) {

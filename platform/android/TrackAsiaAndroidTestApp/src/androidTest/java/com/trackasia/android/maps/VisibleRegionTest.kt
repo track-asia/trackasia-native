@@ -15,9 +15,13 @@ import org.junit.Test
 
 @Ignore("https://github.com/track-asia/trackasia-native/issues/2468")
 class VisibleRegionTest : BaseTest() {
-    override fun getActivityClass(): Class<*> = PixelTestActivity::class.java
 
-    override fun beforeTest() {
+    override fun getActivityClass(): Class<*> {
+        return PixelTestActivity::class.java
+    }
+
+    override
+    fun beforeTest() {
         super.beforeTest()
         mapView = (rule.activity as PixelTestActivity).mapView
     }
@@ -27,18 +31,17 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
             val visibleRegion = trackasiaMap.projection.visibleRegion
             assertTrue(latLngs.all { visibleRegion.latLngBounds.contains(it) })
         }
@@ -49,24 +52,23 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(
                 mapView.width / 4,
                 mapView.height / 4,
                 mapView.width / 4,
-                mapView.height / 4,
+                mapView.height / 4
             )
 
             val visibleRegion = trackasiaMap.projection.getVisibleRegion(false)
@@ -81,18 +83,17 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(mapView.width / 4, 0, 0, 0)
 
@@ -108,18 +109,17 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(0, mapView.height / 4, 0, 0)
 
@@ -135,18 +135,17 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(0, 0, mapView.width / 4, 0)
 
@@ -162,18 +161,17 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(0, 0, 0, mapView.height / 4)
 
@@ -189,24 +187,20 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
-                        .also { it.longitude += 360 },
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
             val visibleRegion = trackasiaMap.projection.visibleRegion
             assertTrue(latLngs.all { visibleRegion.latLngBounds.contains(it) })
         }
@@ -217,24 +211,23 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(
                 mapView.width / 4,
                 mapView.height / 4,
                 mapView.width / 4,
-                mapView.height / 4,
+                mapView.height / 4
             )
 
             val visibleRegion = trackasiaMap.projection.getVisibleRegion(false)
@@ -249,24 +242,20 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
-                        .also { it.longitude += 360 },
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(mapView.width / 4, 0, 0, 0)
 
@@ -283,24 +272,20 @@ class VisibleRegionTest : BaseTest() {
         invoke(trackasiaMap) { ui: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             ui.loopMainThreadForAtLeast(5000)
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
-                        .also { it.longitude += 360 },
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(0, mapView.height / 4, 0, 0)
 
@@ -316,24 +301,20 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
-                        .also { it.longitude += 360 },
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(0, 0, mapView.width / 4, 0)
 
@@ -349,24 +330,20 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
-                        .also { it.longitude += 360 },
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
 
             trackasiaMap.setPadding(0, 0, 0, mapView.height / 4)
 
@@ -383,14 +360,13 @@ class VisibleRegionTest : BaseTest() {
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val d = Math.min(trackasiaMap.width, trackasiaMap.height) / 4
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f - d / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f + d / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f - d / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f + d / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f - d / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f + d / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f - d / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f + d / 2f)
+            )
 
             for (bearing in 45 until 360 step 45) {
                 trackasiaMap.moveCamera(CameraUpdateFactory.bearingTo(bearing.toDouble()))
@@ -406,16 +382,14 @@ class VisibleRegionTest : BaseTest() {
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val d = Math.min(trackasiaMap.width, trackasiaMap.height) / 4
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f - d / 2f, mapView.height / 2f),
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width / 2f + d / 2f, mapView.height / 2f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f - d / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f + d / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f - d / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f + d / 2f, mapView.height / 2f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f - d / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f + d / 2f)
+            )
 
             for (bearing in 45 until 360 step 45) {
                 trackasiaMap.moveCamera(CameraUpdateFactory.bearingTo(bearing.toDouble()))
@@ -430,18 +404,17 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
             val bounds = doubleArrayOf(0.0, 0.0, 0.0, 0.0)
             trackasiaMap.projection.getVisibleCoordinateBounds(bounds)
             val latLngBounds = LatLngBounds.from(bounds[0], bounds[1], bounds[2], bounds[3])
@@ -456,24 +429,20 @@ class VisibleRegionTest : BaseTest() {
         validateTestSetup()
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
-                        .also { it.longitude += 360 },
-                    trackasiaMap
-                        .getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
-                        .also { it.longitude += 360 },
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
-                    trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(0f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, 0f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), 0f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height / 2f)
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width.toFloat(), mapView.height.toFloat())
+                    .also { it.longitude += 360 },
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height.toFloat()),
+                trackasiaMap.getLatLngFromScreenCoords(0f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f)
+            )
             val bounds = doubleArrayOf(0.0, 0.0, 0.0, 0.0)
             trackasiaMap.projection.getVisibleCoordinateBounds(bounds)
             val latLngBounds = LatLngBounds.from(bounds[0], bounds[1], bounds[2], bounds[3])
@@ -503,14 +472,13 @@ class VisibleRegionTest : BaseTest() {
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val d = Math.min(trackasiaMap.width, trackasiaMap.height) / 4
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f - d / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f + d / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f - d / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f + d / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f - d / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f + d / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f - d / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f + d / 2f)
+            )
 
             for (bearing in 45 until 360 step 45) {
                 trackasiaMap.moveCamera(CameraUpdateFactory.bearingTo(bearing.toDouble()))
@@ -530,14 +498,13 @@ class VisibleRegionTest : BaseTest() {
         invoke(trackasiaMap) { _: UiController, trackasiaMap: TrackAsiaMap ->
             trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 179.0), 8.0))
             val d = Math.min(trackasiaMap.width, trackasiaMap.height) / 4
-            val latLngs =
-                listOf(
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f - d / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f + d / 2f, mapView.height / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f - d / 2f),
-                    trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f + d / 2f),
-                )
+            val latLngs = listOf(
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f - d / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f + d / 2f, mapView.height / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f - d / 2f),
+                trackasiaMap.getLatLngFromScreenCoords(mapView.width / 2f, mapView.height / 2f + d / 2f)
+            )
 
             for (bearing in 45 until 360 step 45) {
                 trackasiaMap.moveCamera(CameraUpdateFactory.bearingTo(bearing.toDouble()))
@@ -549,8 +516,7 @@ class VisibleRegionTest : BaseTest() {
         }
     }
 
-    private fun TrackAsiaMap.getLatLngFromScreenCoords(
-        x: Float,
-        y: Float,
-    ): LatLng = this.projection.fromScreenLocation(PointF(x, y))
+    private fun TrackAsiaMap.getLatLngFromScreenCoords(x: Float, y: Float): LatLng {
+        return this.projection.fromScreenLocation(PointF(x, y))
+    }
 }

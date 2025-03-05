@@ -33,11 +33,10 @@ class NoStyleActivity : AppCompatActivity() {
         binding.mapView.getMapAsync { map ->
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraTarget, cameraZoom))
             map.setStyle(
-                Style
-                    .Builder()
+                Style.Builder()
                     .withImage(imageId, imageIcon)
                     .withSource(GeoJsonSource(sourceId, URI("asset://points-sf.geojson")))
-                    .withLayer(SymbolLayer(layerId, sourceId).withProperties(iconImage(imageId))),
+                    .withLayer(SymbolLayer(layerId, sourceId).withProperties(iconImage(imageId)))
             )
         }
         // # --8<-- [end:setup]
@@ -73,10 +72,7 @@ class NoStyleActivity : AppCompatActivity() {
         binding.mapView.onDestroy()
     }
 
-    override fun onSaveInstanceState(
-        outState: Bundle,
-        outPersistentState: PersistableBundle,
-    ) {
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState?.let {
             binding.mapView.onSaveInstanceState(it)

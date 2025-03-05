@@ -3,19 +3,19 @@ package com.trackasia.android.testapp.activity.style
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.OnMapReadyCallback
-import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
-import com.trackasia.android.style.layers.*
-import com.trackasia.android.style.sources.CustomGeometrySource
-import com.trackasia.android.style.sources.GeometryTileProvider
-import com.trackasia.android.testapp.R
 import com.trackasia.geojson.Feature
 import com.trackasia.geojson.FeatureCollection
 import com.trackasia.geojson.MultiLineString
 import com.trackasia.geojson.Point
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
+import com.trackasia.android.style.layers.*
+import com.trackasia.android.style.sources.CustomGeometrySource
+import com.trackasia.android.style.sources.GeometryTileProvider
+import com.trackasia.android.testapp.R
 import java.util.*
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -23,9 +23,7 @@ import kotlin.math.floor
 /**
  * Test activity showcasing using CustomGeometrySource to create a grid overlay on the map.
  */
-class GridSourceActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class GridSourceActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
 
     // public for testing purposes
@@ -37,41 +35,37 @@ class GridSourceActivity :
      * grid.
      */
     internal class GridProvider : GeometryTileProvider {
-        override fun getFeaturesForBounds(
-            bounds: LatLngBounds,
-            zoomLevel: Int,
-        ): FeatureCollection {
+        override fun getFeaturesForBounds(bounds: LatLngBounds, zoomLevel: Int): FeatureCollection {
             val features: MutableList<Feature> = ArrayList()
-            val gridSpacing =
-                if (zoomLevel >= 13) {
-                    0.01
-                } else if (zoomLevel >= 11) {
-                    0.05
-                } else if (zoomLevel == 10) {
-                    .1
-                } else if (zoomLevel == 9) {
-                    0.25
-                } else if (zoomLevel == 8) {
-                    0.5
-                } else if (zoomLevel >= 6) {
-                    1.0
-                } else if (zoomLevel == 5) {
-                    2.0
-                } else if (zoomLevel >= 4) {
-                    5.0
-                } else if (zoomLevel == 2) {
-                    10.0
-                } else {
-                    20.0
-                }
+            val gridSpacing = if (zoomLevel >= 13) {
+                0.01
+            } else if (zoomLevel >= 11) {
+                0.05
+            } else if (zoomLevel == 10) {
+                .1
+            } else if (zoomLevel == 9) {
+                0.25
+            } else if (zoomLevel == 8) {
+                0.5
+            } else if (zoomLevel >= 6) {
+                1.0
+            } else if (zoomLevel == 5) {
+                2.0
+            } else if (zoomLevel >= 4) {
+                5.0
+            } else if (zoomLevel == 2) {
+                10.0
+            } else {
+                20.0
+            }
             var gridLines: MutableList<List<Point>> = mutableListOf()
             var y = ceil(bounds.latitudeNorth / gridSpacing) * gridSpacing
             while (y >= floor(bounds.latitudeSouth / gridSpacing) * gridSpacing) {
                 gridLines.add(
                     listOf(
                         Point.fromLngLat(bounds.longitudeWest, y),
-                        Point.fromLngLat(bounds.longitudeEast, y),
-                    ),
+                        Point.fromLngLat(bounds.longitudeEast, y)
+                    )
                 )
                 y -= gridSpacing
             }
@@ -82,8 +76,8 @@ class GridSourceActivity :
                 gridLines.add(
                     listOf(
                         Point.fromLngLat(x, bounds.latitudeSouth),
-                        Point.fromLngLat(x, bounds.latitudeNorth),
-                    ),
+                        Point.fromLngLat(x, bounds.latitudeNorth)
+                    )
                 )
                 x += gridSpacing
             }
@@ -104,14 +98,13 @@ class GridSourceActivity :
         source = CustomGeometrySource(ID_GRID_SOURCE, GridProvider())
         layer = LineLayer(ID_GRID_LAYER, ID_GRID_SOURCE)
         layer!!.setProperties(
-            PropertyFactory.lineColor(Color.parseColor("#000000")),
+            PropertyFactory.lineColor(Color.parseColor("#000000"))
         )
         map.setStyle(
-            Style
-                .Builder()
+            Style.Builder()
                 .fromUri(Style.getPredefinedStyles()[0].url)
                 .withLayer(layer!!)
-                .withSource(source!!),
+                .withSource(source!!)
         )
     }
 

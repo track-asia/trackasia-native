@@ -9,8 +9,8 @@ import com.trackasia.android.annotations.Marker
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.testapp.utils.IconUtils
@@ -22,7 +22,6 @@ class DynamicMarkerChangeActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
     private var marker: Marker? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dynamic_marker)
@@ -34,19 +33,19 @@ class DynamicMarkerChangeActivity : AppCompatActivity() {
                 map.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
                 trackasiaMap = map
                 // Create marker
-                val markerOptions =
-                    MarkerOptions()
-                        .position(LAT_LNG_CHELSEA)
-                        .icon(
-                            IconUtils.drawableToIcon(
-                                this@DynamicMarkerChangeActivity,
-                                R.drawable.ic_stars,
-                                ResourcesCompat.getColor(resources, R.color.blueAccent, theme),
-                            ),
-                        ).title(getString(R.string.dynamic_marker_chelsea_title))
-                        .snippet(getString(R.string.dynamic_marker_chelsea_snippet))
+                val markerOptions = MarkerOptions()
+                    .position(LAT_LNG_CHELSEA)
+                    .icon(
+                        IconUtils.drawableToIcon(
+                            this@DynamicMarkerChangeActivity,
+                            R.drawable.ic_stars,
+                            ResourcesCompat.getColor(resources, R.color.blueAccent, theme)
+                        )
+                    )
+                    .title(getString(R.string.dynamic_marker_chelsea_title))
+                    .snippet(getString(R.string.dynamic_marker_chelsea_snippet))
                 marker = map.addMarker(markerOptions)
-            },
+            }
         )
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setColorFilter(ContextCompat.getColor(this, R.color.primary))
@@ -61,24 +60,23 @@ class DynamicMarkerChangeActivity : AppCompatActivity() {
         // update marker
         marker!!.position =
             if (first) LAT_LNG_CHELSEA else LAT_LNG_ARSENAL
-        marker!!.icon =
-            IconUtils.drawableToIcon(
-                this,
-                R.drawable.ic_stars,
-                if (first) {
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.blueAccent,
-                        theme,
-                    )
-                } else {
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.redAccent,
-                        theme,
-                    )
-                },
-            )
+        marker!!.icon = IconUtils.drawableToIcon(
+            this,
+            R.drawable.ic_stars,
+            if (first) {
+                ResourcesCompat.getColor(
+                    resources,
+                    R.color.blueAccent,
+                    theme
+                )
+            } else {
+                ResourcesCompat.getColor(
+                    resources,
+                    R.color.redAccent,
+                    theme
+                )
+            }
+        )
         marker!!.title =
             if (first) getString(R.string.dynamic_marker_chelsea_title) else getString(R.string.dynamic_marker_arsenal_title)
         marker!!.snippet =

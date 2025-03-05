@@ -3,9 +3,9 @@ package com.trackasia.android.testapp.activity.style
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.*
 import com.trackasia.android.style.sources.GeoJsonSource
@@ -21,7 +21,6 @@ import java.net.URISyntaxException
 class HeatmapLayerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_heatmaplayer)
@@ -34,22 +33,22 @@ class HeatmapLayerActivity : AppCompatActivity() {
                 }
                 try {
                     trackasiaMap.setStyle(
-                        Style
-                            .Builder()
+                        Style.Builder()
                             .fromUri(TestStyles.getPredefinedStyleWithFallback("Pastel"))
                             .withSource(createEarthquakeSource())
                             .withLayerAbove(createHeatmapLayer(), "country_label")
-                            .withLayerBelow(createCircleLayer(), HEATMAP_LAYER_ID),
+                            .withLayerBelow(createCircleLayer(), HEATMAP_LAYER_ID)
                     )
                 } catch (exception: URISyntaxException) {
                     Timber.e(exception)
                 }
-            },
+            }
         )
     }
-
     // # --8<-- [start:createEarthquakeSource]
-    private fun createEarthquakeSource(): GeoJsonSource = GeoJsonSource(EARTHQUAKE_SOURCE_ID, URI(EARTHQUAKE_SOURCE_URL))
+    private fun createEarthquakeSource(): GeoJsonSource {
+        return GeoJsonSource(EARTHQUAKE_SOURCE_ID, URI(EARTHQUAKE_SOURCE_URL))
+    }
     // # --8<-- [end:createEarthquakeSource]
 
     private fun createHeatmapLayer(): HeatmapLayer {
@@ -61,29 +60,22 @@ class HeatmapLayerActivity : AppCompatActivity() {
             // to create a blur-like effect.
             PropertyFactory.heatmapColor(
                 Expression.interpolate(
-                    Expression.linear(),
-                    Expression.heatmapDensity(),
-                    Expression.literal(0),
-                    Expression.rgba(33, 102, 172, 0),
-                    Expression.literal(0.2),
-                    Expression.rgb(103, 169, 207),
-                    Expression.literal(0.4),
-                    Expression.rgb(209, 229, 240),
-                    Expression.literal(0.6),
-                    Expression.rgb(253, 219, 199),
-                    Expression.literal(0.8),
-                    Expression.rgb(239, 138, 98),
-                    Expression.literal(1),
-                    Expression.rgb(178, 24, 43),
-                ),
+                    Expression.linear(), Expression.heatmapDensity(),
+                    Expression.literal(0), Expression.rgba(33, 102, 172, 0),
+                    Expression.literal(0.2), Expression.rgb(103, 169, 207),
+                    Expression.literal(0.4), Expression.rgb(209, 229, 240),
+                    Expression.literal(0.6), Expression.rgb(253, 219, 199),
+                    Expression.literal(0.8), Expression.rgb(239, 138, 98),
+                    Expression.literal(1), Expression.rgb(178, 24, 43)
+                )
             ), // Increase the heatmap weight based on frequency and property magnitude
             PropertyFactory.heatmapWeight(
                 Expression.interpolate(
                     Expression.linear(),
                     Expression.get("mag"),
                     Expression.stop(0, 0),
-                    Expression.stop(6, 1),
-                ),
+                    Expression.stop(6, 1)
+                )
             ), // Increase the heatmap color weight weight by zoom level
             // heatmap-intensity is a multiplier on top of heatmap-weight
             PropertyFactory.heatmapIntensity(
@@ -91,25 +83,25 @@ class HeatmapLayerActivity : AppCompatActivity() {
                     Expression.linear(),
                     Expression.zoom(),
                     Expression.stop(0, 1),
-                    Expression.stop(9, 3),
-                ),
+                    Expression.stop(9, 3)
+                )
             ), // Adjust the heatmap radius by zoom level
             PropertyFactory.heatmapRadius(
                 Expression.interpolate(
                     Expression.linear(),
                     Expression.zoom(),
                     Expression.stop(0, 2),
-                    Expression.stop(9, 20),
-                ),
+                    Expression.stop(9, 20)
+                )
             ), // Transition from heatmap to circle layer by zoom level
             PropertyFactory.heatmapOpacity(
                 Expression.interpolate(
                     Expression.linear(),
                     Expression.zoom(),
                     Expression.stop(7, 1),
-                    Expression.stop(9, 0),
-                ),
-            ),
+                    Expression.stop(9, 0)
+                )
+            )
         )
         return layer
     }
@@ -126,45 +118,38 @@ class HeatmapLayerActivity : AppCompatActivity() {
                         Expression.linear(),
                         Expression.get("mag"),
                         Expression.stop(1, 1),
-                        Expression.stop(6, 4),
+                        Expression.stop(6, 4)
                     ),
                     Expression.literal(16),
                     Expression.interpolate(
                         Expression.linear(),
                         Expression.get("mag"),
                         Expression.stop(1, 5),
-                        Expression.stop(6, 50),
-                    ),
-                ),
+                        Expression.stop(6, 50)
+                    )
+                )
             ), // Color circle by earthquake magnitude
             PropertyFactory.circleColor(
                 Expression.interpolate(
-                    Expression.linear(),
-                    Expression.get("mag"),
-                    Expression.literal(1),
-                    Expression.rgba(33, 102, 172, 0),
-                    Expression.literal(2),
-                    Expression.rgb(103, 169, 207),
-                    Expression.literal(3),
-                    Expression.rgb(209, 229, 240),
-                    Expression.literal(4),
-                    Expression.rgb(253, 219, 199),
-                    Expression.literal(5),
-                    Expression.rgb(239, 138, 98),
-                    Expression.literal(6),
-                    Expression.rgb(178, 24, 43),
-                ),
+                    Expression.linear(), Expression.get("mag"),
+                    Expression.literal(1), Expression.rgba(33, 102, 172, 0),
+                    Expression.literal(2), Expression.rgb(103, 169, 207),
+                    Expression.literal(3), Expression.rgb(209, 229, 240),
+                    Expression.literal(4), Expression.rgb(253, 219, 199),
+                    Expression.literal(5), Expression.rgb(239, 138, 98),
+                    Expression.literal(6), Expression.rgb(178, 24, 43)
+                )
             ), // Transition from heatmap to circle layer by zoom level
             PropertyFactory.circleOpacity(
                 Expression.interpolate(
                     Expression.linear(),
                     Expression.zoom(),
                     Expression.stop(7, 0),
-                    Expression.stop(8, 1),
-                ),
+                    Expression.stop(8, 1)
+                )
             ),
             PropertyFactory.circleStrokeColor("white"),
-            PropertyFactory.circleStrokeWidth(1.0f),
+            PropertyFactory.circleStrokeWidth(1.0f)
         )
         return circleLayer
     }

@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.constants.TrackAsiaConstants
 import com.trackasia.android.geometry.LatLng
@@ -25,9 +28,6 @@ import com.trackasia.android.style.sources.Source
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.utils.BitmapUtils
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
 import timber.log.Timber
 import java.util.Objects
 import java.util.Random
@@ -47,14 +47,12 @@ class MapSnapshotterActivity : AppCompatActivity() {
         // Find the grid view and start snapshotting as soon
         // as the view is measured
         grid = findViewById(R.id.snapshot_grid)
-        grid.viewTreeObserver.addOnGlobalLayoutListener(
-            object : OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    grid.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    addSnapshots()
-                }
-            },
-        )
+        grid.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                grid.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                addSnapshots()
+            }
+        })
     }
 
     private fun addSnapshots() {
@@ -67,55 +65,50 @@ class MapSnapshotterActivity : AppCompatActivity() {
     }
 
     // # --8<-- [start:startSnapshot]
-    private fun startSnapshot(
-        row: Int,
-        column: Int,
-    ) {
+    private fun startSnapshot(row: Int, column: Int) {
         // # --8<-- [start:styleBuilder]
-        val styles =
-            arrayOf(
-                TestStyles.DEMOTILES,
-                TestStyles.AMERICANA,
-                TestStyles.OPENFREEMAP_LIBERY,
-                TestStyles.AWS_OPEN_DATA_STANDARD_LIGHT,
-                TestStyles.PROTOMAPS_LIGHT,
-                TestStyles.PROTOMAPS_DARK,
-                TestStyles.PROTOMAPS_WHITE,
-                TestStyles.PROTOMAPS_GRAYSCALE,
-                TestStyles.VERSATILES,
-            )
-        val builder =
-            Style.Builder().fromUri(
-                styles[(row * grid.rowCount + column) % styles.size],
-            )
+        val styles = arrayOf(
+            TestStyles.DEMOTILES,
+            TestStyles.AMERICANA,
+            TestStyles.OPENFREEMAP_LIBERY,
+            TestStyles.AWS_OPEN_DATA_STANDARD_LIGHT,
+            TestStyles.PROTOMAPS_LIGHT,
+            TestStyles.PROTOMAPS_DARK,
+            TestStyles.PROTOMAPS_WHITE,
+            TestStyles.PROTOMAPS_GRAYSCALE,
+            TestStyles.VERSATILES
+        )
+        val builder = Style.Builder().fromUri(
+            styles[(row * grid.rowCount + column) % styles.size]
+        )
         // # --8<-- [end:styleBuilder]
 
         // # --8<-- [start:mapSnapShotterOptions]
-        val options =
-            MapSnapshotter
-                .Options(
-                    grid.measuredWidth / grid.columnCount,
-                    grid.measuredHeight / grid.rowCount,
-                ).withPixelRatio(1f)
-                .withLocalIdeographFontFamily(TrackAsiaConstants.DEFAULT_FONT)
+        val options = MapSnapshotter.Options(
+            grid.measuredWidth / grid.columnCount,
+            grid.measuredHeight / grid.rowCount
+        )
+            .withPixelRatio(1f)
+            .withLocalIdeographFontFamily(TrackAsiaConstants.DEFAULT_FONT)
         // # --8<-- [end:mapSnapShotterOptions]
 
         // # --8<-- [start:setRegion]
         if (row % 2 == 0) {
             options.withRegion(
-                LatLngBounds
-                    .Builder()
+                LatLngBounds.Builder()
                     .include(
                         LatLng(
                             randomInRange(-80f, 80f).toDouble(),
-                            randomInRange(-160f, 160f).toDouble(),
-                        ),
-                    ).include(
+                            randomInRange(-160f, 160f).toDouble()
+                        )
+                    )
+                    .include(
                         LatLng(
                             randomInRange(-80f, 80f).toDouble(),
-                            randomInRange(-160f, 160f).toDouble(),
-                        ),
-                    ).build(),
+                            randomInRange(-160f, 160f).toDouble()
+                        )
+                    )
+                    .build()
             )
         }
         // # --8<-- [end:setRegion]
@@ -123,76 +116,72 @@ class MapSnapshotterActivity : AppCompatActivity() {
         // # --8<-- [start:setCameraPosition]
         if (column % 2 == 0) {
             options.withCameraPosition(
-                CameraPosition
-                    .Builder()
+                CameraPosition.Builder()
                     .target(
                         options.region?.center ?: LatLng(
                             randomInRange(-80f, 80f).toDouble(),
-                            randomInRange(-160f, 160f).toDouble(),
-                        ),
-                    ).bearing(randomInRange(0f, 360f).toDouble())
+                            randomInRange(-160f, 160f).toDouble()
+                        )
+                    )
+                    .bearing(randomInRange(0f, 360f).toDouble())
                     .tilt(randomInRange(0f, 60f).toDouble())
                     .zoom(randomInRange(0f, 10f).toDouble())
                     .padding(1.0, 1.0, 1.0, 1.0)
-                    .build(),
+                    .build()
             )
         }
         // # --8<-- [end:setCameraPosition]
 
         // # --8<-- [start:addMarkerLayer]
         if (row == 0 && column == 2) {
-            val carBitmap =
-                BitmapUtils.getBitmapFromDrawable(
-                    ResourcesCompat.getDrawable(resources, R.drawable.ic_directions_car_black, theme),
-                )
+            val carBitmap = BitmapUtils.getBitmapFromDrawable(
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_directions_car_black, theme)
+            )
 
             // Marker source
-            val markerCollection =
-                FeatureCollection.fromFeatures(
-                    arrayOf(
-                        Feature.fromGeometry(
-                            Point.fromLngLat(4.91638, 52.35673),
-                            featureProperties("1", "Android"),
-                        ),
-                        Feature.fromGeometry(
-                            Point.fromLngLat(4.91638, 12.34673),
-                            featureProperties("2", "Car"),
-                        ),
+            val markerCollection = FeatureCollection.fromFeatures(
+                arrayOf(
+                    Feature.fromGeometry(
+                        Point.fromLngLat(4.91638, 52.35673),
+                        featureProperties("1", "Android")
                     ),
+                    Feature.fromGeometry(
+                        Point.fromLngLat(4.91638, 12.34673),
+                        featureProperties("2", "Car")
+                    )
                 )
+            )
             val markerSource: Source = GeoJsonSource(MARKER_SOURCE, markerCollection)
 
             // Marker layer
-            val markerSymbolLayer =
-                SymbolLayer(MARKER_LAYER, MARKER_SOURCE)
-                    .withProperties(
-                        PropertyFactory.iconImage(Expression.get(TITLE_FEATURE_PROPERTY)),
-                        PropertyFactory.iconIgnorePlacement(true),
-                        PropertyFactory.iconAllowOverlap(true),
-                        PropertyFactory.iconSize(
-                            Expression.switchCase(
-                                Expression.toBool(Expression.get(SELECTED_FEATURE_PROPERTY)),
-                                Expression.literal(1.5f),
-                                Expression.literal(1.0f),
-                            ),
-                        ),
-                        PropertyFactory.iconAnchor(Property.ICON_ANCHOR_BOTTOM),
-                        PropertyFactory.iconColor(Color.BLUE),
-                    )
-            builder
-                .withImage("Car", Objects.requireNonNull(carBitmap!!), false)
+            val markerSymbolLayer = SymbolLayer(MARKER_LAYER, MARKER_SOURCE)
+                .withProperties(
+                    PropertyFactory.iconImage(Expression.get(TITLE_FEATURE_PROPERTY)),
+                    PropertyFactory.iconIgnorePlacement(true),
+                    PropertyFactory.iconAllowOverlap(true),
+                    PropertyFactory.iconSize(
+                        Expression.switchCase(
+                            Expression.toBool(Expression.get(SELECTED_FEATURE_PROPERTY)),
+                            Expression.literal(1.5f),
+                            Expression.literal(1.0f)
+                        )
+                    ),
+                    PropertyFactory.iconAnchor(Property.ICON_ANCHOR_BOTTOM),
+                    PropertyFactory.iconColor(Color.BLUE)
+                )
+            builder.withImage("Car", Objects.requireNonNull(carBitmap!!), false)
                 .withSources(markerSource)
                 .withLayers(markerSymbolLayer)
             options
                 .withRegion(null)
                 .withCameraPosition(
-                    CameraPosition
-                        .Builder()
+                    CameraPosition.Builder()
                         .target(
-                            LatLng(5.537109374999999, 52.07950600379697),
-                        ).zoom(1.0)
+                            LatLng(5.537109374999999, 52.07950600379697)
+                        )
+                        .zoom(1.0)
                         .padding(1.0, 1.0, 1.0, 1.0)
-                        .build(),
+                        .build()
                 )
         }
         // # --8<-- [end:addMarkerLayer]
@@ -201,21 +190,18 @@ class MapSnapshotterActivity : AppCompatActivity() {
         options.withStyleBuilder(builder)
         val snapshotter = MapSnapshotter(this@MapSnapshotterActivity, options)
 
-        snapshotter.setObserver(
-            object : MapSnapshotter.Observer {
-                override fun onDidFinishLoadingStyle() {
-                    Timber.i("onDidFinishLoadingStyle")
-                }
+        snapshotter.setObserver(object : MapSnapshotter.Observer {
+            override fun onDidFinishLoadingStyle() {
+                Timber.i("onDidFinishLoadingStyle")
+            }
 
-                override fun onStyleImageMissing(imageName: String) {
-                    val androidIcon =
-                        BitmapUtils.getBitmapFromDrawable(
-                            ResourcesCompat.getDrawable(resources, R.drawable.ic_android_2, theme),
-                        )
-                    snapshotter.addImage(imageName, androidIcon!!, false)
-                }
-            },
-        )
+            override fun onStyleImageMissing(imageName: String) {
+                val androidIcon = BitmapUtils.getBitmapFromDrawable(
+                    ResourcesCompat.getDrawable(resources, R.drawable.ic_android_2, theme)
+                )
+                snapshotter.addImage(imageName, androidIcon!!, false)
+            }
+        })
 
         snapshotter.start(
             object : MapSnapshotter.SnapshotReadyCallback {
@@ -225,10 +211,10 @@ class MapSnapshotterActivity : AppCompatActivity() {
                     imageView.setImageBitmap(snapshot.bitmap)
                     grid.addView(
                         imageView,
-                        GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(column)),
+                        GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(column))
                     )
                 }
-            },
+            }
         )
         snapshotters.add(snapshotter)
     }
@@ -243,10 +229,7 @@ class MapSnapshotterActivity : AppCompatActivity() {
         snapshotters.clear()
     }
 
-    private fun featureProperties(
-        id: String,
-        title: String,
-    ): JsonObject {
+    private fun featureProperties(id: String, title: String): JsonObject {
         val jsonObject = JsonObject()
         jsonObject.add(ID_FEATURE_PROPERTY, JsonPrimitive(id))
         jsonObject.add(TITLE_FEATURE_PROPERTY, JsonPrimitive(title))
@@ -263,10 +246,8 @@ class MapSnapshotterActivity : AppCompatActivity() {
         private const val MARKER_SOURCE = "marker-source"
         private const val MARKER_LAYER = "marker-layer"
         private val random = Random()
-
-        fun randomInRange(
-            min: Float,
-            max: Float,
-        ): Float = random.nextFloat() * (max - min) + min
+        fun randomInRange(min: Float, max: Float): Float {
+            return random.nextFloat() * (max - min) + min
+        }
     }
 }

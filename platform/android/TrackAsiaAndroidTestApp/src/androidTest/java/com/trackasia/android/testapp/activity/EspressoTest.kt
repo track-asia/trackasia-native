@@ -1,8 +1,8 @@
 package com.trackasia.android.testapp.activity
 
 import androidx.annotation.UiThread
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.activity.espresso.EspressoTestActivity
 import com.trackasia.android.testapp.styles.TestStyles
 
@@ -14,7 +14,9 @@ import com.trackasia.android.testapp.styles.TestStyles
  *
  */
 open class EspressoTest : BaseTest() {
-    override fun getActivityClass(): Class<*> = EspressoTestActivity::class.java
+    override fun getActivityClass(): Class<*> {
+        return EspressoTestActivity::class.java
+    }
 
     @UiThread
     override fun initMap(trackasiaMap: TrackAsiaMap) {

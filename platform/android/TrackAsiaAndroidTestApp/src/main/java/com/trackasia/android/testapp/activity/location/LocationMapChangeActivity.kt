@@ -11,18 +11,15 @@ import com.trackasia.android.location.modes.RenderMode
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.testapp.R
 
-class LocationMapChangeActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class LocationMapChangeActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
     private var permissionsManager: PermissionsManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_layer_map_change)
@@ -37,27 +34,23 @@ class LocationMapChangeActivity :
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
             mapView.getMapAsync(this)
         } else {
-            permissionsManager =
-                PermissionsManager(
-                    object : PermissionsListener {
-                        override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-                            Toast
-                                .makeText(
-                                    this@LocationMapChangeActivity,
-                                    "You need to accept location permissions.",
-                                    Toast.LENGTH_SHORT,
-                                ).show()
-                        }
+            permissionsManager = PermissionsManager(object : PermissionsListener {
+                override fun onExplanationNeeded(permissionsToExplain: List<String>) {
+                    Toast.makeText(
+                        this@LocationMapChangeActivity,
+                        "You need to accept location permissions.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-                        override fun onPermissionResult(granted: Boolean) {
-                            if (granted) {
-                                mapView.getMapAsync(this@LocationMapChangeActivity)
-                            } else {
-                                finish()
-                            }
-                        }
-                    },
-                )
+                override fun onPermissionResult(granted: Boolean) {
+                    if (granted) {
+                        mapView.getMapAsync(this@LocationMapChangeActivity)
+                    } else {
+                        finish()
+                    }
+                }
+            })
             permissionsManager!!.requestLocationPermissions(this)
         }
     }
@@ -65,7 +58,7 @@ class LocationMapChangeActivity :
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager!!.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -74,7 +67,7 @@ class LocationMapChangeActivity :
     override fun onMapReady(trackasiaMap: TrackAsiaMap) {
         this.trackasiaMap = trackasiaMap
         trackasiaMap.setStyle(
-            Style.Builder().fromUri(Utils.nextStyle()),
+            Style.Builder().fromUri(Utils.nextStyle())
         ) { style: Style -> activateLocationComponent(style) }
     }
 
@@ -85,25 +78,23 @@ class LocationMapChangeActivity :
             LocationComponentActivationOptions
                 .builder(this, style)
                 .useDefaultLocationEngine(true)
-                .build(),
+                .build()
         )
         locationComponent.isLocationComponentEnabled = true
         locationComponent.renderMode = RenderMode.COMPASS
         locationComponent.addOnLocationClickListener {
-            Toast
-                .makeText(
-                    this,
-                    "Location clicked",
-                    Toast.LENGTH_SHORT,
-                ).show()
+            Toast.makeText(
+                this,
+                "Location clicked",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         locationComponent.addOnLocationLongClickListener {
-            Toast
-                .makeText(
-                    this,
-                    "Location long clicked",
-                    Toast.LENGTH_SHORT,
-                ).show()
+            Toast.makeText(
+                this,
+                "Location long clicked",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

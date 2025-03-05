@@ -10,6 +10,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class OrientationChangeTest : BaseIntegrationTest() {
+
     @get:Rule
     var activityRule: ActivityTestRule<SimpleMapActivity> = ActivityTestRule(SimpleMapActivity::class.java)
 

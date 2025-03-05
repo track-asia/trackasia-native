@@ -18,6 +18,7 @@ import java.util.concurrent.TimeoutException
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class ImageMissingTest : AppCenter() {
+
     @Rule
     @JvmField
     var rule = ActivityTestRule(EspressoTestActivity::class.java)

@@ -13,6 +13,7 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4ClassRunner::class)
 class GLSurfaceViewReuseTest : BaseIntegrationTest() {
+
     @get:Rule
     var activityRule: ActivityTestRule<GLSurfaceRecyclerViewActivity> = ActivityTestRule(GLSurfaceRecyclerViewActivity::class.java)
 

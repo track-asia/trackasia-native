@@ -5,17 +5,17 @@ import android.content.res.Resources
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.util.DisplayMetrics
-import com.trackasia.android.TrackAsiaInjector.clear
-import com.trackasia.android.TrackAsiaInjector.inject
-import com.trackasia.android.exceptions.TrackAsiaConfigurationException
-import com.trackasia.android.maps.MapView
-import com.trackasia.android.utils.ConfigUtils.Companion.getMockedOptions
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException
+import com.trackasia.android.TrackAsiaInjector.clear
+import com.trackasia.android.TrackAsiaInjector.inject
+import com.trackasia.android.exceptions.TrackAsiaConfigurationException
+import com.trackasia.android.maps.MapView
+import com.trackasia.android.utils.ConfigUtils.Companion.getMockedOptions
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 
@@ -26,7 +26,6 @@ class TrackAsiaTest {
     @Rule
     @JvmField // J2K: https://stackoverflow.com/a/33449455
     var expectedException = ExpectedException.none()
-
     @Before
     fun before() {
         context = Mockito.mock(Context::class.java)
@@ -72,22 +71,13 @@ class TrackAsiaTest {
         Mockito.`when`(resources.displayMetrics).thenReturn(displayMetrics)
         Mockito.`when`(context!!.resources).thenReturn(resources)
         val typedArray = Mockito.mock(TypedArray::class.java)
-        Mockito
-            .`when`(
-                context!!.obtainStyledAttributes(
-                    ArgumentMatchers.nullable(AttributeSet::class.java),
-                    ArgumentMatchers.any(IntArray::class.java),
-                    ArgumentMatchers.anyInt(),
-                    ArgumentMatchers.anyInt(),
-                ),
-            ).thenReturn(typedArray)
+        Mockito.`when`(context!!.obtainStyledAttributes(ArgumentMatchers.nullable(AttributeSet::class.java), ArgumentMatchers.any(IntArray::class.java), ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt()))
+                .thenReturn(typedArray)
         expectedException.expect(TrackAsiaConfigurationException::class.java)
-        expectedException.expectMessage(
-            """
+        expectedException.expectMessage("""
 
-            Using MapView requires calling TrackAsia.getInstance(Context context, String apiKey, WellKnownTileServer wellKnownTileServer) before inflating or creating the view.
-            """.trimIndent(),
-        )
+    Using MapView requires calling TrackAsia.getInstance(Context context, String apiKey, WellKnownTileServer wellKnownTileServer) before inflating or creating the view.
+    """.trimIndent())
         MapView(context!!)
     }
 

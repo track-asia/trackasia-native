@@ -2,7 +2,6 @@ package com.trackasia.android.style.sources
 
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.expressions.Expression.ExpressionLiteral
-
 /**
  * Builder class for composing GeoJsonSource objects.
  *
@@ -113,11 +112,7 @@ class GeoJsonOptions : HashMap<String?, Any?>() {
      * @param mapExpr map expression produces the value of a single point, it shall be a valid expression
      * @return the current instance for chaining
      */
-    fun withClusterProperty(
-        propertyName: String,
-        operatorExpr: Expression,
-        mapExpr: Expression,
-    ): GeoJsonOptions {
+    fun withClusterProperty(propertyName: String, operatorExpr: Expression, mapExpr: Expression): GeoJsonOptions {
         val properties = if (containsKey("clusterProperties")) get("clusterProperties") as HashMap<String, Array<Any>>? else HashMap()
         val operator = if (operatorExpr is ExpressionLiteral) operatorExpr.toValue() else operatorExpr.toArray()
         val map: Any = mapExpr.toArray()

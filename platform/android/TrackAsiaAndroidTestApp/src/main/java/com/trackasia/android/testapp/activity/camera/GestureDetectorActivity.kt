@@ -17,22 +17,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.trackasia.android.annotations.Marker
-import com.trackasia.android.annotations.MarkerOptions
-import com.trackasia.android.camera.CameraUpdateFactory
-import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.gestures.AndroidGesturesManager
 import com.trackasia.android.gestures.MoveGestureDetector
 import com.trackasia.android.gestures.RotateGestureDetector
 import com.trackasia.android.gestures.ShoveGestureDetector
 import com.trackasia.android.gestures.StandardScaleGestureDetector
-import com.trackasia.android.maps.MapView
+import com.trackasia.android.annotations.Marker
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMap.CancelableCallback
 import com.trackasia.android.maps.TrackAsiaMap.OnMoveListener
 import com.trackasia.android.maps.TrackAsiaMap.OnRotateListener
 import com.trackasia.android.maps.TrackAsiaMap.OnScaleListener
 import com.trackasia.android.maps.TrackAsiaMap.OnShoveListener
+import com.trackasia.android.maps.MapView
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.testapp.utils.FontCache
@@ -47,7 +47,6 @@ class GestureDetectorActivity : AppCompatActivity() {
     private var gesturesManager: AndroidGesturesManager? = null
     private var marker: Marker? = null
     private var focalPointLatLng: LatLng? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gesture_detector)
@@ -116,67 +115,67 @@ class GestureDetectorActivity : AppCompatActivity() {
             object : OnMoveListener {
                 override fun onMoveBegin(detector: MoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_START, "MOVE START"),
+                        GestureAlert(GestureAlert.TYPE_START, "MOVE START")
                     )
                 }
 
                 override fun onMove(detector: MoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_PROGRESS, "MOVE PROGRESS"),
+                        GestureAlert(GestureAlert.TYPE_PROGRESS, "MOVE PROGRESS")
                     )
                 }
 
                 override fun onMoveEnd(detector: MoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_END, "MOVE END"),
+                        GestureAlert(GestureAlert.TYPE_END, "MOVE END")
                     )
                     recalculateFocalPoint()
                 }
-            },
+            }
         )
         // # --8<-- [end:addOnMoveListener]
         trackasiaMap.addOnRotateListener(
             object : OnRotateListener {
                 override fun onRotateBegin(detector: RotateGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_START, "ROTATE START"),
+                        GestureAlert(GestureAlert.TYPE_START, "ROTATE START")
                     )
                 }
 
                 override fun onRotate(detector: RotateGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_PROGRESS, "ROTATE PROGRESS"),
+                        GestureAlert(GestureAlert.TYPE_PROGRESS, "ROTATE PROGRESS")
                     )
                     recalculateFocalPoint()
                 }
 
                 override fun onRotateEnd(detector: RotateGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_END, "ROTATE END"),
+                        GestureAlert(GestureAlert.TYPE_END, "ROTATE END")
                     )
                 }
-            },
+            }
         )
         trackasiaMap.addOnScaleListener(
             object : OnScaleListener {
                 override fun onScaleBegin(detector: StandardScaleGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_START, "SCALE START"),
+                        GestureAlert(GestureAlert.TYPE_START, "SCALE START")
                     )
                     if (focalPointLatLng != null) {
                         gestureAlertsAdapter!!.addAlert(
                             GestureAlert(
                                 GestureAlert.TYPE_OTHER,
-                                "INCREASING MOVE THRESHOLD",
-                            ),
+                                "INCREASING MOVE THRESHOLD"
+                            )
                         )
                         gesturesManager!!.moveGestureDetector.moveThreshold =
                             ResourceUtils.convertDpToPx(this@GestureDetectorActivity, 175f)
                         gestureAlertsAdapter!!.addAlert(
                             GestureAlert(
                                 GestureAlert.TYPE_OTHER,
-                                "MANUALLY INTERRUPTING MOVE",
-                            ),
+                                "MANUALLY INTERRUPTING MOVE"
+                            )
                         )
                         gesturesManager!!.moveGestureDetector.interrupt()
                     }
@@ -185,46 +184,46 @@ class GestureDetectorActivity : AppCompatActivity() {
 
                 override fun onScale(detector: StandardScaleGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_PROGRESS, "SCALE PROGRESS"),
+                        GestureAlert(GestureAlert.TYPE_PROGRESS, "SCALE PROGRESS")
                     )
                 }
 
                 override fun onScaleEnd(detector: StandardScaleGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_END, "SCALE END"),
+                        GestureAlert(GestureAlert.TYPE_END, "SCALE END")
                     )
                     if (focalPointLatLng != null) {
                         gestureAlertsAdapter!!.addAlert(
                             GestureAlert(
                                 GestureAlert.TYPE_OTHER,
-                                "REVERTING MOVE THRESHOLD",
-                            ),
+                                "REVERTING MOVE THRESHOLD"
+                            )
                         )
                         gesturesManager!!.moveGestureDetector.moveThreshold = 0f
                     }
                 }
-            },
+            }
         )
         trackasiaMap.addOnShoveListener(
             object : OnShoveListener {
                 override fun onShoveBegin(detector: ShoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_START, "SHOVE START"),
+                        GestureAlert(GestureAlert.TYPE_START, "SHOVE START")
                     )
                 }
 
                 override fun onShove(detector: ShoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_PROGRESS, "SHOVE PROGRESS"),
+                        GestureAlert(GestureAlert.TYPE_PROGRESS, "SHOVE PROGRESS")
                     )
                 }
 
                 override fun onShoveEnd(detector: ShoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
-                        GestureAlert(GestureAlert.TYPE_END, "SHOVE END"),
+                        GestureAlert(GestureAlert.TYPE_END, "SHOVE END")
                     )
                 }
-            },
+            }
         )
     }
 
@@ -296,7 +295,7 @@ class GestureDetectorActivity : AppCompatActivity() {
                     override fun onFinish() {
                         recalculateFocalPoint()
                     }
-                },
+                }
             )
         } else {
             if (marker != null) {
@@ -320,9 +319,7 @@ class GestureDetectorActivity : AppCompatActivity() {
         private val updateHandler = Handler(Looper.getMainLooper())
         private val alerts: MutableList<GestureAlert> = ArrayList()
 
-        class ViewHolder internal constructor(
-            view: View,
-        ) : RecyclerView.ViewHolder(view) {
+        class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
             var alertMessageTv: TextView
 
             init {
@@ -332,29 +329,24 @@ class GestureDetectorActivity : AppCompatActivity() {
             }
         }
 
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int,
-        ): ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view =
-                LayoutInflater
-                    .from(parent.context)
+                LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_gesture_alert, parent, false)
             return ViewHolder(view)
         }
 
-        override fun onBindViewHolder(
-            holder: ViewHolder,
-            position: Int,
-        ) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val alert = alerts[position]
             holder.alertMessageTv.text = alert.message
             holder.alertMessageTv.setTextColor(
-                ContextCompat.getColor(holder.alertMessageTv.context, alert.color),
+                ContextCompat.getColor(holder.alertMessageTv.context, alert.color)
             )
         }
 
-        override fun getItemCount(): Int = alerts.size
+        override fun getItemCount(): Int {
+            return alerts.size
+        }
 
         fun addAlert(alert: GestureAlert) {
             for (gestureAlert in alerts) {
@@ -376,11 +368,10 @@ class GestureDetectorActivity : AppCompatActivity() {
         }
 
         @SuppressLint("NotifyDataSetChanged")
-        private val updateRunnable =
-            Runnable {
-                notifyDataSetChanged()
-                isUpdating = false
-            }
+        private val updateRunnable = Runnable {
+            notifyDataSetChanged()
+            isUpdating = false
+        }
 
         fun cancelUpdates() {
             updateHandler.removeCallbacksAndMessages(null)
@@ -390,14 +381,13 @@ class GestureDetectorActivity : AppCompatActivity() {
     private class GestureAlert(
         @field:Type @param:Type
         val alertType: Int,
-        val message: String?,
+        val message: String?
     ) {
         @Retention(AnnotationRetention.SOURCE)
         @IntDef(TYPE_NONE, TYPE_START, TYPE_PROGRESS, TYPE_END, TYPE_OTHER)
         annotation class Type
 
         @ColorInt var color = 0
-
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true

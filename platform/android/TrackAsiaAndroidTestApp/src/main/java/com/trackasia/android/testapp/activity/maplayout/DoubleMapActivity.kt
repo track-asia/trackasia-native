@@ -30,11 +30,10 @@ class DoubleMapActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             val options = TrackAsiaMapOptions.createFromAttributes(this, null)
             options.camera(
-                CameraPosition
-                    .Builder()
+                CameraPosition.Builder()
                     .target(MACHU_PICCHU)
                     .zoom(ZOOM_IN)
-                    .build(),
+                    .build()
             )
             val doubleMapFragment = DoubleMapFragment()
             doubleMapFragment.arguments = MapFragmentUtils.createFragmentArgs(options)
@@ -50,17 +49,15 @@ class DoubleMapActivity : AppCompatActivity() {
     class DoubleMapFragment : Fragment() {
         private lateinit var mapView: MapView
         private lateinit var mapViewMini: MapView
-
         override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
-            savedInstanceState: Bundle?,
-        ): View? = inflater.inflate(R.layout.fragment_double_map, container, false)
+            savedInstanceState: Bundle?
+        ): View? {
+            return inflater.inflate(R.layout.fragment_double_map, container, false)
+        }
 
-        override fun onViewCreated(
-            view: View,
-            savedInstanceState: Bundle?,
-        ) {
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
             // MapView large
@@ -69,8 +66,8 @@ class DoubleMapActivity : AppCompatActivity() {
             mapView.getMapAsync { trackasiaMap: TrackAsiaMap ->
                 trackasiaMap.setStyle(
                     TestStyles.getPredefinedStyleWithFallback(
-                        "Streets",
-                    ),
+                        "Streets"
+                    )
                 )
             }
             (view.findViewById<View>(R.id.container) as ViewGroup).addView(mapView, 0)
@@ -82,12 +79,10 @@ class DoubleMapActivity : AppCompatActivity() {
                 OnMapReadyCallback { trackasiaMap: TrackAsiaMap ->
                     trackasiaMap.moveCamera(
                         CameraUpdateFactory.newCameraPosition(
-                            CameraPosition
-                                .Builder()
-                                .target(MACHU_PICCHU)
+                            CameraPosition.Builder().target(MACHU_PICCHU)
                                 .zoom(ZOOM_OUT)
-                                .build(),
-                        ),
+                                .build()
+                        )
                     )
                     trackasiaMap.setStyle(Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Bright")))
                     val uiSettings = trackasiaMap.uiSettings
@@ -97,16 +92,15 @@ class DoubleMapActivity : AppCompatActivity() {
                     uiSettings.isLogoEnabled = false
                     trackasiaMap.addOnMapClickListener { point: LatLng? ->
                         // test if we can open 2 activities after each other
-                        Toast
-                            .makeText(
-                                mapViewMini.getContext(),
-                                "Creating a new Activity instance",
-                                Toast.LENGTH_SHORT,
-                            ).show()
+                        Toast.makeText(
+                            mapViewMini.getContext(),
+                            "Creating a new Activity instance",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         startActivity(Intent(mapViewMini.getContext(), DoubleMapActivity::class.java))
                         false
                     }
-                },
+                }
             )
         }
 

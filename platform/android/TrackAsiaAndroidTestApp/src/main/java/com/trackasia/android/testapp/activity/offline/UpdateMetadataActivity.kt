@@ -29,7 +29,6 @@ class UpdateMetadataActivity :
     AdapterView.OnItemLongClickListener {
     private var adapter: OfflineRegionMetadataAdapter? = null
     private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_metadata_update)
@@ -40,12 +39,7 @@ class UpdateMetadataActivity :
         listView.onItemLongClickListener = this
     }
 
-    override fun onItemClick(
-        parent: AdapterView<*>?,
-        view: View,
-        position: Int,
-        id: Long,
-    ) {
+    override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
         val region = adapter!!.getItem(position)
         val metadata = OfflineUtils.convertRegionName(region.metadata)
         val builder = AlertDialog.Builder(this)
@@ -58,12 +52,12 @@ class UpdateMetadataActivity :
         }
         builder.setView(input)
         builder.setPositiveButton(
-            "OK",
+            "OK"
         ) { dialog: DialogInterface?, which: Int ->
             OfflineUtils.convertRegionName(input.text.toString())?.let {
                 updateMetadata(
                     region,
-                    it,
+                    it
                 )
             }
         }
@@ -75,7 +69,7 @@ class UpdateMetadataActivity :
         parent: AdapterView<*>?,
         view: View,
         position: Int,
-        id: Long,
+        id: Long
     ): Boolean {
         val container = findViewById<ViewGroup>(R.id.container)
         container.removeAllViews()
@@ -83,7 +77,7 @@ class UpdateMetadataActivity :
         mapView.onCreate(null)
         mapView.getMapAsync { map: TrackAsiaMap ->
             map.setOfflineRegionDefinition(
-                adapter!!.getItem(position).definition,
+                adapter!!.getItem(position).definition
             )
         }
         mapView.onStart()
@@ -91,10 +85,7 @@ class UpdateMetadataActivity :
         return true
     }
 
-    private fun updateMetadata(
-        region: OfflineRegion,
-        metadata: ByteArray,
-    ) {
+    private fun updateMetadata(region: OfflineRegion, metadata: ByteArray) {
         region.updateMetadata(
             metadata,
             object : OfflineRegionUpdateMetadataCallback {
@@ -103,14 +94,13 @@ class UpdateMetadataActivity :
                 }
 
                 override fun onError(error: String) {
-                    Toast
-                        .makeText(
-                            this@UpdateMetadataActivity,
-                            "Region metadata update failed with $error",
-                            Toast.LENGTH_LONG,
-                        ).show()
+                    Toast.makeText(
+                        this@UpdateMetadataActivity,
+                        "Region metadata update failed with $error",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
-            },
+            }
         )
     }
 
@@ -120,24 +110,21 @@ class UpdateMetadataActivity :
     }
 
     private fun loadOfflineRegions() {
-        OfflineManager.getInstance(this).listOfflineRegions(
-            object : ListOfflineRegionsCallback {
-                override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    if (offlineRegions != null && offlineRegions.size > 0) {
-                        adapter!!.setOfflineRegions(listOf(*offlineRegions))
-                    }
+        OfflineManager.getInstance(this).listOfflineRegions(object : ListOfflineRegionsCallback {
+            override fun onList(offlineRegions: Array<OfflineRegion>?) {
+                if (offlineRegions != null && offlineRegions.size > 0) {
+                    adapter!!.setOfflineRegions(listOf(*offlineRegions))
                 }
+            }
 
-                override fun onError(error: String) {
-                    Toast
-                        .makeText(
-                            this@UpdateMetadataActivity,
-                            "Error loading regions $error",
-                            Toast.LENGTH_LONG,
-                        ).show()
-                }
-            },
-        )
+            override fun onError(error: String) {
+                Toast.makeText(
+                    this@UpdateMetadataActivity,
+                    "Error loading regions $error",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -149,35 +136,33 @@ class UpdateMetadataActivity :
         }
     }
 
-    private class OfflineRegionMetadataAdapter(
-        private val context: Context,
-    ) : BaseAdapter() {
+    private class OfflineRegionMetadataAdapter(private val context: Context) :
+        BaseAdapter() {
         private var offlineRegions: List<OfflineRegion>
-
         fun setOfflineRegions(offlineRegions: List<OfflineRegion>) {
             this.offlineRegions = offlineRegions
             notifyDataSetChanged()
         }
 
-        override fun getCount(): Int = offlineRegions.size
+        override fun getCount(): Int {
+            return offlineRegions.size
+        }
 
-        override fun getItem(position: Int): OfflineRegion = offlineRegions[position]
+        override fun getItem(position: Int): OfflineRegion {
+            return offlineRegions[position]
+        }
 
-        override fun getItemId(position: Int): Long = position.toLong()
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
 
-        override fun getView(
-            position: Int,
-            convertViewParam: View?,
-            parent: ViewGroup,
-        ): View {
+        override fun getView(position: Int, convertViewParam: View?, parent: ViewGroup): View {
             var convertView = convertViewParam
             val holder: ViewHolder
             if (convertView == null) {
                 holder = ViewHolder()
-                convertView =
-                    LayoutInflater
-                        .from(context)
-                        .inflate(android.R.layout.simple_list_item_1, parent, false)
+                convertView = LayoutInflater.from(context)
+                    .inflate(android.R.layout.simple_list_item_1, parent, false)
                 holder.text = convertView.findViewById<View>(android.R.id.text1) as TextView
                 convertView.tag = holder
             } else {

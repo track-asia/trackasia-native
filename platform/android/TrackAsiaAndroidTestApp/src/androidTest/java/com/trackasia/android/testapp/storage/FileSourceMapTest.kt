@@ -17,6 +17,7 @@ import java.util.concurrent.CountDownLatch
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 open class FileSourceMapTest : AppCenter() {
+
     private lateinit var fileSourceTestUtils: FileSourceTestUtils
 
     @get:Rule
@@ -47,7 +48,7 @@ open class FileSourceMapTest : AppCenter() {
                     override fun onError(message: String) {
                         Assert.fail("Resources path can be changed while the map is running")
                     }
-                },
+                }
             )
         }
         latch.await()

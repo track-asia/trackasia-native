@@ -3,11 +3,7 @@ package com.trackasia.android.snapshotter
 import android.graphics.BitmapFactory
 
 internal object MapSnaphotUtil {
-    fun calculateInSampleSize(
-        options: BitmapFactory.Options,
-        reqWidth: Int,
-        reqHeight: Int,
-    ): Int {
+    fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
         // Raw height and width of image
         val height = options.outHeight
         val width = options.outWidth

@@ -22,7 +22,6 @@ class TextureViewAnimationActivity : AppCompatActivity() {
     private lateinit var trackasiaMap: TrackAsiaMap
     private var handler: Handler? = null
     private var delayed: Runnable? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_textureview_animate)
@@ -57,21 +56,16 @@ class TextureViewAnimationActivity : AppCompatActivity() {
         }
     }
 
-    private fun flyTo(
-        trackasiaMap: TrackAsiaMap,
-        place: Int,
-        zoom: Double,
-    ) {
+    private fun flyTo(trackasiaMap: TrackAsiaMap, place: Int, zoom: Double) {
         trackasiaMap.animateCamera(
             CameraUpdateFactory.newLatLngZoom(PLACES[place], zoom),
             10000,
             object : CancelableCallback {
                 override fun onCancel() {
-                    delayed =
-                        Runnable {
-                            delayed = null
-                            flyTo(trackasiaMap, place, zoom)
-                        }
+                    delayed = Runnable {
+                        delayed = null
+                        flyTo(trackasiaMap, place, zoom)
+                    }
                     delayed?.let {
                         handler!!.postDelayed(it, 2000)
                     }
@@ -80,7 +74,7 @@ class TextureViewAnimationActivity : AppCompatActivity() {
                 override fun onFinish() {
                     flyTo(trackasiaMap, if (place == PLACES.size - 1) 0 else place + 1, zoom)
                 }
-            },
+            }
         )
     }
 
@@ -130,16 +124,15 @@ class TextureViewAnimationActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val PLACES =
-            arrayOf(
-                LatLng(37.7749, -122.4194), // SF
-                LatLng(38.9072, -77.0369), // DC
-                LatLng(52.3702, 4.8952), // AMS
-                LatLng(60.1699, 24.9384), // HEL
-                LatLng(-13.1639, -74.2236), // AYA
-                LatLng(52.5200, 13.4050), // BER
-                LatLng(12.9716, 77.5946), // BAN
-                LatLng(31.2304, 121.4737), // SHA
-            )
+        private val PLACES = arrayOf(
+            LatLng(37.7749, -122.4194), // SF
+            LatLng(38.9072, -77.0369), // DC
+            LatLng(52.3702, 4.8952), // AMS
+            LatLng(60.1699, 24.9384), // HEL
+            LatLng(-13.1639, -74.2236), // AYA
+            LatLng(52.5200, 13.4050), // BER
+            LatLng(12.9716, 77.5946), // BAN
+            LatLng(31.2304, 121.4737) // SHA
+        )
     }
 }

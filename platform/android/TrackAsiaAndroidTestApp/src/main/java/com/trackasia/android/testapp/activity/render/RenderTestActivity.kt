@@ -12,11 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.trackasia.android.snapshotter.MapSnapshot
-import com.trackasia.android.snapshotter.MapSnapshotter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.trackasia.android.snapshotter.MapSnapshot
+import com.trackasia.android.snapshotter.MapSnapshotter
 import okio.buffer
 import okio.source
 import timber.log.Timber
@@ -34,16 +34,14 @@ class RenderTestActivity : AppCompatActivity() {
     private var onRenderTestCompletionListener: OnRenderTestCompletionListener? = null
     private lateinit var mapSnapshotter: MapSnapshotter
     private var imageView: ImageView? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(ImageView(this@RenderTestActivity).also { imageView = it })
-        imageView!!.layoutParams =
-            FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                Gravity.CENTER,
-            )
+        imageView!!.layoutParams = FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            Gravity.CENTER
+        )
     }
 
     override fun onStop() {
@@ -54,12 +52,12 @@ class RenderTestActivity : AppCompatActivity() {
     //
     // Loads the ignore tests from assets folder
     //
-    private fun loadRenderIgnoreTask(renderTestActivity: RenderTestActivity): List<String> = loadIgnoreList(renderTestActivity.assets)
+    private fun loadRenderIgnoreTask(renderTestActivity: RenderTestActivity) : List<String> = loadIgnoreList(renderTestActivity.assets)
 
     //
     // Loads the render test definitions from assets folder
     //
-    private fun loadRenderDefinitionTask(renderTestActivity: RenderTestActivity): List<RenderTestDefinition> {
+    private fun loadRenderDefinitionTask(renderTestActivity: RenderTestActivity) : List<RenderTestDefinition> {
         val definitions: MutableList<RenderTestDefinition> = ArrayList()
         val assetManager = renderTestActivity.assets
         val categories =
@@ -72,26 +70,23 @@ class RenderTestActivity : AppCompatActivity() {
 
         for (counter in categories!!.indices.reversed()) {
             try {
-                val tests =
-                    assetManager.list(
-                        String.format(
-                            "%s/%s",
-                            RENDER_TEST_BASE_PATH,
-                            categories[counter],
-                        ),
+                val tests = assetManager.list(
+                    String.format(
+                        "%s/%s",
+                        RENDER_TEST_BASE_PATH,
+                        categories[counter]
                     )
+                )
                 for (test in tests!!) {
                     val styleJson = loadStyleJson(assetManager, categories[counter], test)
-                    val renderTestStyleDefinition =
-                        Gson()
-                            .fromJson(styleJson, RenderTestStyleDefinition::class.java)
-                    val definition =
-                        RenderTestDefinition(
-                            categories[counter],
-                            test,
-                            styleJson,
-                            renderTestStyleDefinition,
-                        )
+                    val renderTestStyleDefinition = Gson()
+                        .fromJson(styleJson, RenderTestStyleDefinition::class.java)
+                    val definition = RenderTestDefinition(
+                        categories[counter],
+                        test,
+                        styleJson,
+                        renderTestStyleDefinition
+                    )
                     if (!definition.hasOperations()) {
                         if (!EXCLUDED_TESTS.contains(definition.name + "," + definition.category)) {
                             definitions.add(definition)
@@ -100,7 +95,7 @@ class RenderTestActivity : AppCompatActivity() {
                         Timber.e(
                             "could not add test, test requires operations: %s from %s",
                             test,
-                            categories[counter],
+                            categories[counter]
                         )
                     }
                 }
@@ -121,10 +116,7 @@ class RenderTestActivity : AppCompatActivity() {
         }
     }
 
-    private fun render(
-        renderTestDefinition: RenderTestDefinition,
-        testSize: Int,
-    ) {
+    private fun render(renderTestDefinition: RenderTestDefinition, testSize: Int) {
         Timber.d("Render test %s,%s", renderTestDefinition.name, renderTestDefinition.category)
         mapSnapshotter = RenderTestSnapshotter(this, renderTestDefinition.toOptions())
         mapSnapshotter.start(
@@ -143,7 +135,7 @@ class RenderTestActivity : AppCompatActivity() {
                 override fun onError(error: String) {
                     Timber.e(error)
                 }
-            },
+            }
         )
     }
 
@@ -165,7 +157,9 @@ class RenderTestActivity : AppCompatActivity() {
     //
     // Save tests results to disk
     //
-    private fun saveResultToDiskTask(renderResultMap: Map<RenderTestDefinition, Bitmap>) {
+    private fun saveResultToDiskTask(
+        renderResultMap: Map<RenderTestDefinition, Bitmap>
+    ) {
         if (isExternalStorageWritable) {
             try {
                 val testResultDir = FileUtils.createTestResultRootFolder()
@@ -181,7 +175,7 @@ class RenderTestActivity : AppCompatActivity() {
 
     private fun writeResultToDisk(
         path: String,
-        result: Map.Entry<RenderTestDefinition, Bitmap>,
+        result: Map.Entry<RenderTestDefinition, Bitmap>
     ) {
         val definition = result.key
         val categoryName = definition.category
@@ -220,7 +214,7 @@ class RenderTestActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 startRenderTests(definitions)
             }
-        }
+         }
     }
 
     //
@@ -238,12 +232,10 @@ class RenderTestActivity : AppCompatActivity() {
         }
 
         fun createTestResultRootFolder(): File {
-            val testResultDir =
-                File(
-                    Environment
-                        .getExternalStorageDirectory()
-                        .toString() + File.separator + "mapbox" + File.separator + "render",
-                )
+            val testResultDir = File(
+                Environment.getExternalStorageDirectory()
+                    .toString() + File.separator + "mapbox" + File.separator + "render"
+            )
             if (testResultDir.exists()) {
                 // cleanup old files
                 deleteRecursive(testResultDir)
@@ -268,10 +260,7 @@ class RenderTestActivity : AppCompatActivity() {
             }
         }
 
-        fun createTestDirectory(
-            basePath: String,
-            testName: String?,
-        ): String {
+        fun createTestDirectory(basePath: String, testName: String?): String {
             val testDir = File("$basePath/$testName")
             if (!testDir.exists()) {
                 if (!testDir.mkdir()) {
@@ -281,17 +270,14 @@ class RenderTestActivity : AppCompatActivity() {
             return testDir.absolutePath
         }
 
-        fun writeTestResultToDisk(
-            testPath: String,
-            testResult: Bitmap,
-        ) {
+        fun writeTestResultToDisk(testPath: String, testResult: Bitmap) {
             val filePath = "$testPath/actual.png"
             try {
                 FileOutputStream(filePath).use { out ->
                     testResult.compress(
                         Bitmap.CompressFormat.PNG,
                         100,
-                        out,
+                        out
                     )
                 }
             } catch (exception: IOException) {
@@ -305,27 +291,26 @@ class RenderTestActivity : AppCompatActivity() {
         private const val RENDER_TEST_BASE_PATH = TEST_BASE_PATH + "/render-tests"
 
         // We additionally read out excluded tests from `/platform/node/test/ignore.json`
-        private val EXCLUDED_TESTS: ArrayList<String?> =
-            object : ArrayList<String?>() {
-                init {
-                    add("overlay,background-opacity")
-                    add("collision-lines-pitched,debug")
-                    add("1024-circle,extent")
-                    add("empty,empty")
-                    add("rotation-alignment-map,icon-pitch-scaling")
-                    add("rotation-alignment-viewport,icon-pitch-scaling")
-                    add("pitch15,line-pitch")
-                    add("pitch30,line-pitch")
-                    add("line-placement-true-pitched,text-keep-upright")
-                    add("180,raster-rotation")
-                    add("45,raster-rotation")
-                    add("90,raster-rotation")
-                    add("overlapping,raster-masking")
-                    add("missing,raster-loading")
-                    add("pitchAndBearing,line-pitch")
-                    add("overdraw,sparse-tileset")
-                }
+        private val EXCLUDED_TESTS: ArrayList<String?> = object : ArrayList<String?>() {
+            init {
+                add("overlay,background-opacity")
+                add("collision-lines-pitched,debug")
+                add("1024-circle,extent")
+                add("empty,empty")
+                add("rotation-alignment-map,icon-pitch-scaling")
+                add("rotation-alignment-viewport,icon-pitch-scaling")
+                add("pitch15,line-pitch")
+                add("pitch30,line-pitch")
+                add("line-placement-true-pitched,text-keep-upright")
+                add("180,raster-rotation")
+                add("45,raster-rotation")
+                add("90,raster-rotation")
+                add("overlapping,raster-masking")
+                add("missing,raster-loading")
+                add("pitchAndBearing,line-pitch")
+                add("overdraw,sparse-tileset")
             }
+        }
 
         private fun loadIgnoreList(assets: AssetManager): List<String> {
             val ignores: MutableList<String> = ArrayList()
@@ -345,25 +330,20 @@ class RenderTestActivity : AppCompatActivity() {
             return ignores
         }
 
-        private fun loadStyleJson(
-            assets: AssetManager,
-            category: String?,
-            test: String,
-        ): String? {
+        private fun loadStyleJson(assets: AssetManager, category: String?, test: String): String? {
             var styleJson: String? = null
             try {
-                assets
-                    .open(
-                        String.format(
-                            "%s/%s/%s/style.json",
-                            RENDER_TEST_BASE_PATH,
-                            category,
-                            test,
-                        ),
-                    ).use { input ->
-                        val source = input.source().buffer()
-                        styleJson = source.readByteString().string(Charset.forName("utf-8"))
-                    }
+                assets.open(
+                    String.format(
+                        "%s/%s/%s/style.json",
+                        RENDER_TEST_BASE_PATH,
+                        category,
+                        test
+                    )
+                ).use { input ->
+                    val source = input.source().buffer()
+                    styleJson = source.readByteString().string(Charset.forName("utf-8"))
+                }
             } catch (exception: IOException) {
                 Timber.e(exception)
             }

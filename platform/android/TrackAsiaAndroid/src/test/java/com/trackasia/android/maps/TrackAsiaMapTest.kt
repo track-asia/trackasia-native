@@ -21,6 +21,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class TrackAsiaMapTest {
+
     private lateinit var trackasiaMap: TrackAsiaMap
 
     private lateinit var nativeMapView: NativeMap
@@ -45,16 +46,15 @@ class TrackAsiaMapTest {
         developerAnimationListener = mockk(relaxed = true)
         nativeMapView = mockk(relaxed = true)
         transform = mockk(relaxed = true)
-        trackasiaMap =
-            TrackAsiaMap(
-                nativeMapView,
-                transform,
-                mockk(relaxed = true),
-                null,
-                null,
-                cameraChangeDispatcher,
-                listOf(developerAnimationListener),
-            )
+        trackasiaMap = TrackAsiaMap(
+            nativeMapView,
+            transform,
+            mockk(relaxed = true),
+            null,
+            null,
+            cameraChangeDispatcher,
+            listOf(developerAnimationListener)
+        )
         every { nativeMapView.isDestroyed } returns false
         every { nativeMapView.nativePtr } returns 5
         trackasiaMap.injectLocationComponent(spyk())
@@ -174,12 +174,7 @@ class TrackAsiaMapTest {
 
     @Test
     fun testCameraForLatLngBounds() {
-        val bounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng())
-                .include(LatLng(1.0, 1.0))
-                .build()
+        val bounds = LatLngBounds.Builder().include(LatLng()).include(LatLng(1.0, 1.0)).build()
         trackasiaMap.setLatLngBoundsForCameraTarget(bounds)
         verify { nativeMapView.setLatLngBounds(bounds) }
     }

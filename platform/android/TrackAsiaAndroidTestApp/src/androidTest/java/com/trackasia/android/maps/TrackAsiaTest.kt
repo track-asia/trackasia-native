@@ -2,19 +2,18 @@ package com.trackasia.android.maps
 
 import androidx.test.annotation.UiThreadTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.trackasia.android.AppCenter
-import com.trackasia.android.TrackAsia
-import com.trackasia.android.exceptions.TrackAsiaConfigurationException
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.trackasia.android.AppCenter
+import com.trackasia.android.TrackAsia
+import com.trackasia.android.exceptions.TrackAsiaConfigurationException
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class TrackAsiaTest : AppCenter() {
     private var realToken: String? = null
-
     @Before
     fun setup() {
         realToken = TrackAsia.getApiKey()
@@ -49,7 +48,7 @@ class TrackAsiaTest : AppCenter() {
     @UiThreadTest
     fun setNullApiKey() {
         Assert.assertThrows(
-            TrackAsiaConfigurationException::class.java,
+            TrackAsiaConfigurationException::class.java
         ) { TrackAsia.setApiKey(null) }
     }
 
@@ -58,6 +57,7 @@ class TrackAsiaTest : AppCenter() {
         if (realToken?.isNotEmpty() == true) {
             TrackAsia.setApiKey(realToken)
         }
+
     }
 
     companion object {

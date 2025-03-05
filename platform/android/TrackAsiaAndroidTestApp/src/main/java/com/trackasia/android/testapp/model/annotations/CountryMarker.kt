@@ -6,5 +6,5 @@ import com.trackasia.android.annotations.Marker
 class CountryMarker(
     baseMarkerOptions: BaseMarkerOptions<*, *>?,
     val abbrevName: String,
-    val flagRes: Int,
+    val flagRes: Int
 ) : Marker(baseMarkerOptions)

@@ -14,19 +14,15 @@ import com.trackasia.android.testapp.utils.NavUtils
  */
 class SimpleMapActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    // activity uses singleInstance for testing purposes
-                    // code below provides a default navigation when using the app
-                    NavUtils.navigateHome(this@SimpleMapActivity)
-                }
-            },
-        )
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // activity uses singleInstance for testing purposes
+                // code below provides a default navigation when using the app
+                NavUtils.navigateHome(this@SimpleMapActivity)
+            }
+        })
         setContentView(R.layout.activity_map_simple)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
@@ -34,7 +30,7 @@ class SimpleMapActivity : AppCompatActivity() {
             val key = ApiKeyUtils.getApiKey(applicationContext)
             if (key == null || key == "YOUR_API_KEY_GOES_HERE") {
                 it.setStyle(
-                    Style.Builder().fromUri("https://maps.track-asia.com/styles/v1/streets.json?key=public_key"),
+                    Style.Builder().fromUri("https://maps.track-asia.com/style.json")
                 )
             } else {
                 val styles = Style.getPredefinedStyles()

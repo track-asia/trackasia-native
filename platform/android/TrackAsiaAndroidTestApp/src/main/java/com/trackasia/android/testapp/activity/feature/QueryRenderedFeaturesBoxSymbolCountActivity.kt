@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.BackgroundLayer
 import com.trackasia.android.style.layers.PropertyFactory
@@ -38,29 +38,30 @@ class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
         mapView.getMapAsync { trackasiaMap: TrackAsiaMap ->
             this@QueryRenderedFeaturesBoxSymbolCountActivity.trackasiaMap = trackasiaMap
             try {
-                val testPoints =
-                    ResourceUtils.readRawResource(
-                        mapView.context,
-                        R.raw.test_points_utrecht,
-                    )
+                val testPoints = ResourceUtils.readRawResource(
+                    mapView.context,
+                    R.raw.test_points_utrecht
+                )
                 val markerImage =
                     BitmapFactory.decodeResource(resources, R.drawable.trackasia_marker_icon_default)
                 trackasiaMap.setStyle(
-                    Style
-                        .Builder()
+                    Style.Builder()
                         .withLayer(
                             BackgroundLayer("bg")
                                 .withProperties(
-                                    PropertyFactory.backgroundColor(Expression.rgb(120, 161, 226)),
-                                ),
-                        ).withLayer(
+                                    PropertyFactory.backgroundColor(Expression.rgb(120, 161, 226))
+                                )
+                        )
+                        .withLayer(
                             SymbolLayer("symbols-layer", "symbols-source")
                                 .withProperties(
-                                    PropertyFactory.iconImage("test-icon"),
-                                ),
-                        ).withSource(
-                            GeoJsonSource("symbols-source", testPoints),
-                        ).withImage("test-icon", markerImage),
+                                    PropertyFactory.iconImage("test-icon")
+                                )
+                        )
+                        .withSource(
+                            GeoJsonSource("symbols-source", testPoints)
+                        )
+                        .withImage("test-icon", markerImage)
                 )
             } catch (exception: IOException) {
                 exception.printStackTrace()
@@ -69,23 +70,21 @@ class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
                 // Query
                 val top = selectionBox.top - mapView.top
                 val left = selectionBox.left - mapView.left
-                val box =
-                    RectF(
-                        left.toFloat(),
-                        top.toFloat(),
-                        (left + selectionBox.width).toFloat(),
-                        (top + selectionBox.height).toFloat(),
-                    )
+                val box = RectF(
+                    left.toFloat(),
+                    top.toFloat(),
+                    (left + selectionBox.width).toFloat(),
+                    (top + selectionBox.height).toFloat()
+                )
                 Timber.i("Querying box %s", box)
                 val features = trackasiaMap.queryRenderedFeatures(box, "symbols-layer")
 
                 // Show count
-                Toast
-                    .makeText(
-                        this@QueryRenderedFeaturesBoxSymbolCountActivity,
-                        "${features.size} feature${if (features.size == 1) "" else "s"} in box",
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                 Toast.makeText(
+                    this@QueryRenderedFeaturesBoxSymbolCountActivity,
+                    "${features.size} feature${if (features.size == 1) "" else "s"} in box",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

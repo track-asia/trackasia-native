@@ -10,9 +10,9 @@ import com.trackasia.android.TrackAsia
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngQuad
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.style.layers.RasterLayer
 import com.trackasia.android.style.sources.ImageSource
 import com.trackasia.android.testapp.R
@@ -27,13 +27,10 @@ import com.trackasia.android.utils.BitmapUtils
  * TrackAsia Native equivalent of https://track-asia.com/trackasia-gl-js/docs/examples/animate-images/
  *
  */
-class AnimatedImageSourceActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private val handler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animated_image_source)
@@ -44,21 +41,19 @@ class AnimatedImageSourceActivity :
 
     override fun onMapReady(map: TrackAsiaMap) {
         // --8<-- [start:onMapReady]
-        val quad =
-            LatLngQuad(
-                LatLng(46.437, -80.425),
-                LatLng(46.437, -71.516),
-                LatLng(37.936, -71.516),
-                LatLng(37.936, -80.425),
-            )
+        val quad = LatLngQuad(
+            LatLng(46.437, -80.425),
+            LatLng(46.437, -71.516),
+            LatLng(37.936, -71.516),
+            LatLng(37.936, -80.425)
+        )
         val imageSource = ImageSource(ID_IMAGE_SOURCE, quad, R.drawable.southeast_radar_0)
         val layer = RasterLayer(ID_IMAGE_LAYER, ID_IMAGE_SOURCE)
         map.setStyle(
-            Style
-                .Builder()
+            Style.Builder()
                 .fromUri(TestStyles.AMERICANA)
                 .withSource(imageSource)
-                .withLayer(layer),
+                .withLayer(layer)
         ) { style: Style? ->
             runnable = RefreshImageRunnable(imageSource, handler)
             runnable?.let {
@@ -103,11 +98,10 @@ class AnimatedImageSourceActivity :
 
     private class RefreshImageRunnable internal constructor(
         private val imageSource: ImageSource,
-        private val handler: Handler,
+        private val handler: Handler
     ) : Runnable {
         private val drawables: Array<Bitmap?>
         private var drawableIndex: Int
-
         fun getBitmap(resourceId: Int): Bitmap? {
             val context = TrackAsia.getApplicationContext()
             val drawable = BitmapUtils.getDrawableFromRes(context, resourceId)
@@ -118,13 +112,13 @@ class AnimatedImageSourceActivity :
         }
 
         override fun run() {
-            // --8<-- [start:setImage]
+             // --8<-- [start:setImage]
             imageSource.setImage(drawables[drawableIndex++]!!)
             if (drawableIndex > 3) {
                 drawableIndex = 0
             }
             handler.postDelayed(this, 1000)
-            // --8<-- [end:setImage]
+             // --8<-- [end:setImage]
         }
 
         init {

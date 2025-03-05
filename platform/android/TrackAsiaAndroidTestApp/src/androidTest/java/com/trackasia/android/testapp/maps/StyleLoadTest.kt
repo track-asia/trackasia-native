@@ -2,8 +2,8 @@ package com.trackasia.android.testapp.maps
 
 import androidx.test.espresso.UiController
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.action.TrackAsiaMapAction
@@ -14,6 +14,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class StyleLoadTest : EspressoTest() {
+
     @Test
     fun updateSourceAfterStyleLoad() {
         validateTestSetup()

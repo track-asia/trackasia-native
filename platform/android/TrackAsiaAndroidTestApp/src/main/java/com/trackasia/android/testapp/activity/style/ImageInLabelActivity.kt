@@ -4,10 +4,13 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.expressions.Expression.FormatOption
 import com.trackasia.android.style.layers.PropertyFactory
@@ -16,18 +19,12 @@ import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.utils.BitmapUtils
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
 
 /**
  * Test image in label.
  */
-class ImageInLabelActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class ImageInLabelActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stretchable_image)
@@ -38,53 +35,50 @@ class ImageInLabelActivity :
 
     override fun onMapReady(trackasiaMap: TrackAsiaMap) {
         trackasiaMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style ->
-            val us =
-                BitmapUtils.getBitmapFromDrawable(
-                    ResourcesCompat.getDrawable(resources, R.drawable.ic_us, theme),
-                )
-            val android =
-                BitmapUtils.getBitmapFromDrawable(
-                    ResourcesCompat.getDrawable(resources, R.drawable.ic_android, theme),
-                )
+            val us = BitmapUtils.getBitmapFromDrawable(
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_us, theme)
+            )
+            val android = BitmapUtils.getBitmapFromDrawable(
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_android, theme)
+            )
             style.addImage("us", us!!)
             style.addImage("android", android!!)
             val point = Point.fromLngLat(-10.0, 0.0)
             val feature = Feature.fromGeometry(point)
             val originalCollection = FeatureCollection.fromFeature(feature)
             val originalSource = GeoJsonSource(ORIGINAL_SOURCE, originalCollection)
-            val originalLayer =
-                SymbolLayer(ORIGINAL_LAYER, ORIGINAL_SOURCE)
-                    .withProperties(
-                        PropertyFactory.textAllowOverlap(true),
-                        PropertyFactory.textField(
-                            Expression
-                                .format(
-                                    Expression.formatEntry(
-                                        Expression.literal("Android: "),
-                                        FormatOption.formatFontScale(1.0),
-                                        FormatOption.formatTextColor(Color.BLUE),
-                                        FormatOption.formatTextFont(
-                                            arrayOf(
-                                                "Ubuntu Medium",
-                                                "Arial Unicode MS Regular",
-                                            ),
-                                        ),
-                                    ),
-                                    Expression.formatEntry(Expression.image(Expression.literal("android"))),
-                                    Expression.formatEntry(
-                                        Expression.literal("Us: "),
-                                        FormatOption.formatFontScale(1.5),
-                                        FormatOption.formatTextColor(Color.YELLOW),
-                                    ),
-                                    Expression.formatEntry(Expression.image(Expression.literal("us"))),
-                                    Expression.formatEntry(
-                                        Expression.literal("suffix"),
-                                        FormatOption.formatFontScale(2.0),
-                                        FormatOption.formatTextColor(Color.CYAN),
-                                    ),
+            val originalLayer = SymbolLayer(ORIGINAL_LAYER, ORIGINAL_SOURCE)
+                .withProperties(
+                    PropertyFactory.textAllowOverlap(true),
+                    PropertyFactory.textField(
+                        Expression
+                            .format(
+                                Expression.formatEntry(
+                                    Expression.literal("Android: "),
+                                    FormatOption.formatFontScale(1.0),
+                                    FormatOption.formatTextColor(Color.BLUE),
+                                    FormatOption.formatTextFont(
+                                        arrayOf(
+                                            "Ubuntu Medium",
+                                            "Arial Unicode MS Regular"
+                                        )
+                                    )
                                 ),
-                        ),
+                                Expression.formatEntry(Expression.image(Expression.literal("android"))),
+                                Expression.formatEntry(
+                                    Expression.literal("Us: "),
+                                    FormatOption.formatFontScale(1.5),
+                                    FormatOption.formatTextColor(Color.YELLOW)
+                                ),
+                                Expression.formatEntry(Expression.image(Expression.literal("us"))),
+                                Expression.formatEntry(
+                                    Expression.literal("suffix"),
+                                    FormatOption.formatFontScale(2.0),
+                                    FormatOption.formatTextColor(Color.CYAN)
+                                )
+                            )
                     )
+                )
             style.addSource(originalSource)
             style.addLayer(originalLayer)
         }

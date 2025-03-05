@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
@@ -17,9 +20,6 @@ import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.testapp.utils.GeoParseUtil
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.IOException
 import java.text.DecimalFormat
@@ -29,14 +29,11 @@ import kotlin.math.min
 /**
  * Test activity showcasing adding a large amount of Markers.
  */
-class BulkMarkerActivity :
-    AppCompatActivity(),
-    OnItemSelectedListener {
+class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
     private var locations: List<LatLng>? = null
     private var progressDialog: ProgressDialog? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_marker_bulk)
@@ -51,12 +48,11 @@ class BulkMarkerActivity :
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val spinnerAdapter =
-            ArrayAdapter.createFromResource(
-                this,
-                R.array.bulk_marker_list,
-                android.R.layout.simple_spinner_item,
-            )
+        val spinnerAdapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.bulk_marker_list,
+            android.R.layout.simple_spinner_item
+        )
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         menuInflater.inflate(R.menu.menu_bulk_marker, menu)
         val item = menu.findItem(R.id.spinner)
@@ -66,12 +62,7 @@ class BulkMarkerActivity :
         return true
     }
 
-    override fun onItemSelected(
-        parent: AdapterView<*>?,
-        view: View,
-        position: Int,
-        id: Long,
-    ) {
+    override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
         val amount = Integer.valueOf(resources.getStringArray(R.array.bulk_marker_list)[position])
         if (locations == null) {
             progressDialog = ProgressDialog.show(this, "Loading", "Fetching markers", false)
@@ -86,10 +77,7 @@ class BulkMarkerActivity :
         }
     }
 
-    private fun onLatLngListLoaded(
-        latLngs: List<LatLng>?,
-        amount: Int,
-    ) {
+    private fun onLatLngListLoaded(latLngs: List<LatLng>?, amount: Int) {
         progressDialog!!.hide()
         locations = latLngs
         showMarkers(amount)
@@ -115,7 +103,7 @@ class BulkMarkerActivity :
                 MarkerOptions()
                     .position(latLng)
                     .title(i.toString())
-                    .snippet(formatter.format(latLng.latitude) + "`, " + formatter.format(latLng.longitude)),
+                    .snippet(formatter.format(latLng.latitude) + "`, " + formatter.format(latLng.longitude))
             )
         }
         trackasiaMap.addMarkers(markerOptionsList)
@@ -163,13 +151,14 @@ class BulkMarkerActivity :
         mapView.onLowMemory()
     }
 
-    private fun loadLocationTask(activity: BulkMarkerActivity): List<LatLng>? {
+    private fun loadLocationTask(
+        activity: BulkMarkerActivity,
+    ) : List<LatLng>? {
         try {
-            val json =
-                GeoParseUtil.loadStringFromAssets(
-                    activity.applicationContext,
-                    "points.geojson",
-                )
+            val json = GeoParseUtil.loadStringFromAssets(
+                activity.applicationContext,
+                "points.geojson"
+            )
             return GeoParseUtil.parseGeoJsonCoordinates(json)
         } catch (exception: IOException) {
             Timber.e(exception, "Could not add markers")

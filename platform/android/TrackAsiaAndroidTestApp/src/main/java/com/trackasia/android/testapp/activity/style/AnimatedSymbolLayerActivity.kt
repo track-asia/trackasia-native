@@ -12,19 +12,19 @@ import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.gson.JsonObject
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.PropertyFactory
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
 import com.trackasia.turf.TurfMeasurement
 import java.util.*
 
@@ -41,7 +41,6 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
     private var taxiSource: GeoJsonSource? = null
     private var passenger: LatLng? = null
     private val animators: MutableList<Animator> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animated_marker)
@@ -69,40 +68,32 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
         for (car in randomCars) {
             val isLongestDrive = longestDrive == car
             val valueAnimator = ValueAnimator.ofObject(LatLngEvaluator(), car.current, car.next)
-            valueAnimator.addUpdateListener(
-                object : AnimatorUpdateListener {
-                    private var latLng: LatLng? = null
-
-                    override fun onAnimationUpdate(animation: ValueAnimator) {
-                        latLng = animation.animatedValue as LatLng
-                        car.current = latLng
-                        if (isLongestDrive) {
-                            updateRandomCarSource()
-                        }
+            valueAnimator.addUpdateListener(object : AnimatorUpdateListener {
+                private var latLng: LatLng? = null
+                override fun onAnimationUpdate(animation: ValueAnimator) {
+                    latLng = animation.animatedValue as LatLng
+                    car.current = latLng
+                    if (isLongestDrive) {
+                        updateRandomCarSource()
                     }
-                },
-            )
+                }
+            })
             if (isLongestDrive) {
-                valueAnimator.addListener(
-                    object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            super.onAnimationEnd(animation)
-                            updateRandomDestinations()
-                            animateRandomRoutes(style)
-                        }
-                    },
-                )
-            }
-            valueAnimator.addListener(
-                object : AnimatorListenerAdapter() {
-                    override fun onAnimationStart(animation: Animator) {
-                        super.onAnimationStart(animation)
-                        car.feature
-                            .properties()!!
-                            .addProperty("bearing", Car.getBearing(car.current, car.next))
+                valueAnimator.addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        super.onAnimationEnd(animation)
+                        updateRandomDestinations()
+                        animateRandomRoutes(style)
                     }
-                },
-            )
+                })
+            }
+            valueAnimator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator) {
+                    super.onAnimationStart(animation)
+                    car.feature.properties()!!
+                        .addProperty("bearing", Car.getBearing(car.current, car.next))
+                }
+            })
             val offset = if (random.nextInt(2) == 0) 0 else random.nextInt(1000) + 250
             valueAnimator.startDelay = offset.toLong()
             valueAnimator.duration = car.duration - offset
@@ -115,37 +106,28 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
     // --8<-- [start:animateTaxi]
     private fun animateTaxi(style: Style) {
         val valueAnimator = ValueAnimator.ofObject(LatLngEvaluator(), taxi!!.current, taxi!!.next)
-        valueAnimator.addUpdateListener(
-            object : AnimatorUpdateListener {
-                private var latLng: LatLng? = null
-
-                override fun onAnimationUpdate(animation: ValueAnimator) {
-                    latLng = animation.animatedValue as LatLng
-                    taxi!!.current = latLng
-                    updateTaxiSource()
-                }
-            },
-        )
-        valueAnimator.addListener(
-            object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
-                    updatePassenger(style)
-                    animateTaxi(style)
-                }
-            },
-        )
-        valueAnimator.addListener(
-            object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator) {
-                    super.onAnimationStart(animation)
-                    taxi!!
-                        .feature
-                        .properties()!!
-                        .addProperty("bearing", Car.getBearing(taxi!!.current, taxi!!.next))
-                }
-            },
-        )
+        valueAnimator.addUpdateListener(object : AnimatorUpdateListener {
+            private var latLng: LatLng? = null
+            override fun onAnimationUpdate(animation: ValueAnimator) {
+                latLng = animation.animatedValue as LatLng
+                taxi!!.current = latLng
+                updateTaxiSource()
+            }
+        })
+        valueAnimator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                super.onAnimationEnd(animation)
+                updatePassenger(style)
+                animateTaxi(style)
+            }
+        })
+        valueAnimator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator) {
+                super.onAnimationStart(animation)
+                taxi!!.feature.properties()!!
+                    .addProperty("bearing", Car.getBearing(taxi!!.current, taxi!!.next))
+            }
+        })
         valueAnimator.duration = (7 * taxi!!.current!!.distanceTo(taxi!!.next!!)).toLong()
         valueAnimator.interpolator = AccelerateDecelerateInterpolator()
         valueAnimator.start()
@@ -161,17 +143,16 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
 
     private fun updatePassengerSource(style: Style) {
         val source = style.getSourceAs<GeoJsonSource>(PASSENGER_SOURCE)
-        val featureCollection =
-            FeatureCollection.fromFeatures(
-                arrayOf(
-                    Feature.fromGeometry(
-                        Point.fromLngLat(
-                            passenger!!.longitude,
-                            passenger!!.latitude,
-                        ),
-                    ),
-                ),
+        val featureCollection = FeatureCollection.fromFeatures(
+            arrayOf(
+                Feature.fromGeometry(
+                    Point.fromLngLat(
+                        passenger!!.longitude,
+                        passenger!!.latitude
+                    )
+                )
             )
+        )
         source!!.setGeoJson(featureCollection)
     }
 
@@ -225,30 +206,30 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
             next = latLngInBounds
             val properties = JsonObject()
             properties.addProperty(PROPERTY_BEARING, Car.getBearing(latLng, next))
-            val feature =
-                Feature.fromGeometry(
-                    Point.fromLngLat(
-                        latLng.longitude,
-                        latLng.latitude,
-                    ),
-                    properties,
-                )
-            randomCars.add(
-                Car(feature, next, duration),
+            val feature = Feature.fromGeometry(
+                Point.fromLngLat(
+                    latLng.longitude,
+                    latLng.latitude
+                ),
+                properties
             )
+            randomCars.add(
+                Car(feature, next, duration)
+            )
+
         }
         randomCarSource = GeoJsonSource(RANDOM_CAR_SOURCE, featuresFromRoutes())
         style.addSource(randomCarSource!!)
         style.addImage(
             RANDOM_CAR_IMAGE_ID,
-            ResourcesCompat.getDrawable(resources, R.drawable.ic_car_top, theme)!!,
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_car_top, theme)!!
         )
         val symbolLayer = SymbolLayer(RANDOM_CAR_LAYER, RANDOM_CAR_SOURCE)
         symbolLayer.withProperties(
             PropertyFactory.iconImage(RANDOM_CAR_IMAGE_ID),
             PropertyFactory.iconAllowOverlap(true),
             PropertyFactory.iconRotate(Expression.get(PROPERTY_BEARING)),
-            PropertyFactory.iconIgnorePlacement(true),
+            PropertyFactory.iconIgnorePlacement(true)
         )
 
         style.addLayerBelow(symbolLayer, "label_country_1")
@@ -257,20 +238,19 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
     // --8<-- [start:addPassenger]
     private fun addPassenger(style: Style) {
         passenger = latLngInBounds
-        val featureCollection =
-            FeatureCollection.fromFeatures(
-                arrayOf(
-                    Feature.fromGeometry(
-                        Point.fromLngLat(
-                            passenger!!.longitude,
-                            passenger!!.latitude,
-                        ),
-                    ),
-                ),
+        val featureCollection = FeatureCollection.fromFeatures(
+            arrayOf(
+                Feature.fromGeometry(
+                    Point.fromLngLat(
+                        passenger!!.longitude,
+                        passenger!!.latitude
+                    )
+                )
             )
+        )
         style.addImage(
             PASSENGER,
-            ResourcesCompat.getDrawable(resources, R.drawable.icon_burned, theme)!!,
+            ResourcesCompat.getDrawable(resources, R.drawable.icon_burned, theme)!!
         )
         val geoJsonSource = GeoJsonSource(PASSENGER_SOURCE, featureCollection)
         style.addSource(geoJsonSource)
@@ -278,7 +258,7 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
         symbolLayer.withProperties(
             PropertyFactory.iconImage(PASSENGER),
             PropertyFactory.iconIgnorePlacement(true),
-            PropertyFactory.iconAllowOverlap(true),
+            PropertyFactory.iconAllowOverlap(true)
         )
         style.addLayerBelow(symbolLayer, RANDOM_CAR_LAYER)
     }
@@ -289,19 +269,18 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
         val latLng = latLngInBounds
         val properties = JsonObject()
         properties.addProperty(PROPERTY_BEARING, Car.getBearing(latLng, passenger))
-        val feature =
-            Feature.fromGeometry(
-                Point.fromLngLat(
-                    latLng.longitude,
-                    latLng.latitude,
-                ),
-                properties,
-            )
+        val feature = Feature.fromGeometry(
+            Point.fromLngLat(
+                latLng.longitude,
+                latLng.latitude
+            ),
+            properties
+        )
         val featureCollection = FeatureCollection.fromFeatures(arrayOf(feature))
         taxi = Car(feature, passenger, duration)
         style.addImage(
             TAXI,
-            (ResourcesCompat.getDrawable(resources, R.drawable.ic_taxi_top, theme) as BitmapDrawable).bitmap,
+            (ResourcesCompat.getDrawable(resources, R.drawable.ic_taxi_top, theme) as BitmapDrawable).bitmap
         )
         taxiSource = GeoJsonSource(TAXI_SOURCE, featureCollection)
         style.addSource(taxiSource!!)
@@ -310,11 +289,12 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
             PropertyFactory.iconImage(TAXI),
             PropertyFactory.iconRotate(Expression.get(PROPERTY_BEARING)),
             PropertyFactory.iconAllowOverlap(true),
-            PropertyFactory.iconIgnorePlacement(true),
+            PropertyFactory.iconIgnorePlacement(true)
         )
         style.addLayer(symbolLayer)
     }
     // --8<-- [end:addTaxi]
+
 
     // --8<-- [start:latLngInBounds]
     private val latLngInBounds: LatLng
@@ -373,23 +353,14 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
      */
     private class LatLngEvaluator : TypeEvaluator<LatLng> {
         private val latLng = LatLng()
-
-        override fun evaluate(
-            fraction: Float,
-            startValue: LatLng,
-            endValue: LatLng,
-        ): LatLng {
+        override fun evaluate(fraction: Float, startValue: LatLng, endValue: LatLng): LatLng {
             latLng.latitude = startValue.latitude + (endValue.latitude - startValue.latitude) * fraction
             latLng.longitude = startValue.longitude + (endValue.longitude - startValue.longitude) * fraction
             return latLng
         }
     }
 
-    private class Car(
-        var feature: Feature,
-        next: LatLng?,
-        duration: Long,
-    ) {
+    private class Car(var feature: Feature, next: LatLng?, duration: Long) {
         var next: LatLng?
         var current: LatLng?
         val duration: Long
@@ -400,26 +371,22 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
         }
 
         fun updateFeature() {
-            feature =
-                Feature.fromGeometry(
-                    Point.fromLngLat(
-                        current!!.longitude,
-                        current!!.latitude,
-                    ),
+            feature = Feature.fromGeometry(
+                Point.fromLngLat(
+                    current!!.longitude,
+                    current!!.latitude
                 )
+            )
             feature.properties()!!.addProperty("bearing", getBearing(current, next))
         }
 
         companion object {
-            fun getBearing(
-                from: LatLng?,
-                to: LatLng?,
-            ): Float =
-                TurfMeasurement
-                    .bearing(
-                        Point.fromLngLat(from!!.longitude, from.latitude),
-                        Point.fromLngLat(to!!.longitude, to.latitude),
-                    ).toFloat()
+            fun getBearing(from: LatLng?, to: LatLng?): Float {
+                return TurfMeasurement.bearing(
+                    Point.fromLngLat(from!!.longitude, from.latitude),
+                    Point.fromLngLat(to!!.longitude, to.latitude)
+                ).toFloat()
+            }
         }
 
         init {

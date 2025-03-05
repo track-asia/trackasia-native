@@ -17,6 +17,7 @@ import java.util.*
  */
 @RunWith(AndroidJUnit4ClassRunner::class)
 class ImageTest : EspressoTest() {
+
     companion object {
         private const val IMAGE_ID = "test.image"
     }

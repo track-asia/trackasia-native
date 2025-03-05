@@ -7,12 +7,9 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
-class LockableBottomSheetBehavior<V : View?>(
-    context: Context,
-    attrs: AttributeSet?,
-) : BottomSheetBehavior<V>(context, attrs) {
+class LockableBottomSheetBehavior<V : View?>(context: Context, attrs: AttributeSet?) :
+    BottomSheetBehavior<V>(context, attrs) {
     private var locked = false
-
     fun setLocked(locked: Boolean) {
         this.locked = locked
     }
@@ -20,7 +17,7 @@ class LockableBottomSheetBehavior<V : View?>(
     override fun onInterceptTouchEvent(
         parent: CoordinatorLayout,
         child: V & Any,
-        event: MotionEvent,
+        event: MotionEvent
     ): Boolean {
         var handled = false
         if (!locked) {
@@ -32,7 +29,7 @@ class LockableBottomSheetBehavior<V : View?>(
     override fun onTouchEvent(
         parent: CoordinatorLayout,
         child: V & Any,
-        event: MotionEvent,
+        event: MotionEvent
     ): Boolean {
         var handled = false
         if (!locked) {
@@ -46,18 +43,17 @@ class LockableBottomSheetBehavior<V : View?>(
         child: V & Any,
         directTargetChild: View,
         target: View,
-        nestedScrollAxes: Int,
+        nestedScrollAxes: Int
     ): Boolean {
         var handled = false
         if (!locked) {
-            handled =
-                super.onStartNestedScroll(
-                    coordinatorLayout,
-                    child,
-                    directTargetChild,
-                    target,
-                    nestedScrollAxes,
-                )
+            handled = super.onStartNestedScroll(
+                coordinatorLayout,
+                child,
+                directTargetChild,
+                target,
+                nestedScrollAxes
+            )
         }
         return handled
     }
@@ -68,7 +64,7 @@ class LockableBottomSheetBehavior<V : View?>(
         target: View,
         dx: Int,
         dy: Int,
-        consumed: IntArray,
+        consumed: IntArray
     ) {
         if (!locked) {
             super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed)
@@ -78,7 +74,7 @@ class LockableBottomSheetBehavior<V : View?>(
     override fun onStopNestedScroll(
         coordinatorLayout: CoordinatorLayout,
         child: V & Any,
-        target: View,
+        target: View
     ) {
         if (!locked) {
             super.onStopNestedScroll(coordinatorLayout, child, target)
@@ -90,7 +86,7 @@ class LockableBottomSheetBehavior<V : View?>(
         child: V & Any,
         target: View,
         velocityX: Float,
-        velocityY: Float,
+        velocityY: Float
     ): Boolean {
         var handled = false
         if (!locked) {

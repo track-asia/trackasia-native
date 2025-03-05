@@ -18,9 +18,7 @@ class LocationEngineRequestTest {
 
     @Test
     fun checkBuilder() {
-        val request =
-            LocationEngineRequest
-                .Builder(2000L)
+        val request = LocationEngineRequest.Builder(2000L)
                 .setDisplacement(100.0f)
                 .setMaxWaitTime(5000L)
                 .setFastestInterval(500L)
@@ -42,9 +40,7 @@ class LocationEngineRequestTest {
     @Test
     fun checkRequestsNotEqual() {
         val request = LocationEngineRequest.Builder(2000L).build()
-        val otherRequest =
-            LocationEngineRequest
-                .Builder(2000L)
+        val otherRequest = LocationEngineRequest.Builder(2000L)
                 .setFastestInterval(500L)
                 .build()
         assertThat(request).isNotEqualTo(otherRequest)
@@ -60,9 +56,7 @@ class LocationEngineRequestTest {
     @Test
     fun checkRequestsNonEqualHashCode() {
         val request = LocationEngineRequest.Builder(2000L).build()
-        val otherRequest =
-            LocationEngineRequest
-                .Builder(2000L)
+        val otherRequest = LocationEngineRequest.Builder(2000L)
                 .setFastestInterval(500L)
                 .build()
         assertThat(request.hashCode()).isNotEqualTo(otherRequest.hashCode())

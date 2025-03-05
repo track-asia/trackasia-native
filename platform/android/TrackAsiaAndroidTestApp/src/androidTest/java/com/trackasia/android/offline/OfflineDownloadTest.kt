@@ -2,14 +2,14 @@ package com.trackasia.android.offline
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
+import org.junit.Ignore
+import com.trackasia.geojson.Point
 import com.trackasia.android.log.Logger
 import com.trackasia.android.testapp.activity.FeatureOverviewActivity
-import com.trackasia.android.testapp.styles.TestStyles
-import com.trackasia.geojson.Point
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.trackasia.android.testapp.styles.TestStyles
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -20,6 +20,7 @@ import java.util.concurrent.TimeoutException
 @Ignore("https://github.com/track-asia/trackasia-native/issues/2318")
 @RunWith(AndroidJUnit4ClassRunner::class)
 class OfflineDownloadTest : OfflineRegion.OfflineRegionObserver {
+
     @Rule
     @JvmField
     var rule = ActivityTestRule(FeatureOverviewActivity::class.java)
@@ -43,7 +44,7 @@ class OfflineDownloadTest : OfflineRegion.OfflineRegionObserver {
                     override fun onError(error: String) {
                         Logger.e(TAG, "Error while creating offline region: $error")
                     }
-                },
+                }
             )
         }
 
@@ -68,15 +69,16 @@ class OfflineDownloadTest : OfflineRegion.OfflineRegionObserver {
         Logger.e(TAG, "Tile count limited exceeded: $limit")
     }
 
-    private fun createTestRegionDefinition(): OfflineRegionDefinition =
-        OfflineGeometryRegionDefinition(
+    private fun createTestRegionDefinition(): OfflineRegionDefinition {
+        return OfflineGeometryRegionDefinition(
             TestStyles.getPredefinedStyleWithFallback("Streets"),
             Point.fromLngLat(50.847857, 4.360137),
             17.0,
             17.0,
             1.0f,
-            false,
+            false
         )
+    }
 
     companion object {
         const val TAG = "OfflineDownloadTest"

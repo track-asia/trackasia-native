@@ -16,20 +16,17 @@ import com.trackasia.android.location.modes.RenderMode
 import com.trackasia.android.location.permissions.PermissionsListener
 import com.trackasia.android.location.permissions.PermissionsManager
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 
-class ManualLocationUpdatesActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class ManualLocationUpdatesActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private var locationComponent: LocationComponent? = null
     private var locationEngine: LocationEngine? = null
     private var permissionsManager: PermissionsManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_manual_update)
@@ -38,7 +35,7 @@ class ManualLocationUpdatesActivity :
         fabManualUpdate.setOnClickListener { v: View? ->
             if (locationComponent != null && locationComponent!!.locationEngine == null) {
                 locationComponent!!.forceLocationUpdate(
-                    Utils.getRandomLocation(LatLngBounds.from(60.0, 25.0, 40.0, -5.0)),
+                    Utils.getRandomLocation(LatLngBounds.from(60.0, 25.0, 40.0, -5.0))
                 )
             }
         }
@@ -52,22 +49,20 @@ class ManualLocationUpdatesActivity :
                     fabToggle.setImageResource(R.drawable.ic_layers_clear)
                     fabManualUpdate.isEnabled = true
                     fabManualUpdate.alpha = 1f
-                    Toast
-                        .makeText(
-                            this@ManualLocationUpdatesActivity.applicationContext,
-                            "LocationEngine disabled, use manual updates",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                    Toast.makeText(
+                        this@ManualLocationUpdatesActivity.applicationContext,
+                        "LocationEngine disabled, use manual updates",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     fabToggle.setImageResource(R.drawable.ic_layers)
                     fabManualUpdate.isEnabled = false
                     fabManualUpdate.alpha = 0.5f
-                    Toast
-                        .makeText(
-                            this@ManualLocationUpdatesActivity.applicationContext,
-                            "LocationEngine enabled",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                    Toast.makeText(
+                        this@ManualLocationUpdatesActivity.applicationContext,
+                        "LocationEngine enabled",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -76,27 +71,23 @@ class ManualLocationUpdatesActivity :
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
             mapView.getMapAsync(this)
         } else {
-            permissionsManager =
-                PermissionsManager(
-                    object : PermissionsListener {
-                        override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-                            Toast
-                                .makeText(
-                                    this@ManualLocationUpdatesActivity.applicationContext,
-                                    "You need to accept location permissions.",
-                                    Toast.LENGTH_SHORT,
-                                ).show()
-                        }
+            permissionsManager = PermissionsManager(object : PermissionsListener {
+                override fun onExplanationNeeded(permissionsToExplain: List<String>) {
+                    Toast.makeText(
+                        this@ManualLocationUpdatesActivity.applicationContext,
+                        "You need to accept location permissions.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-                        override fun onPermissionResult(granted: Boolean) {
-                            if (granted) {
-                                mapView.getMapAsync(this@ManualLocationUpdatesActivity)
-                            } else {
-                                finish()
-                            }
-                        }
-                    },
-                )
+                override fun onPermissionResult(granted: Boolean) {
+                    if (granted) {
+                        mapView.getMapAsync(this@ManualLocationUpdatesActivity)
+                    } else {
+                        finish()
+                    }
+                }
+            })
             permissionsManager!!.requestLocationPermissions(this)
         }
     }
@@ -104,7 +95,7 @@ class ManualLocationUpdatesActivity :
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager!!.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -113,7 +104,7 @@ class ManualLocationUpdatesActivity :
     @SuppressLint("MissingPermission")
     override fun onMapReady(trackasiaMap: TrackAsiaMap) {
         trackasiaMap.setStyle(
-            Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Streets")),
+            Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Streets"))
         ) { style: Style? ->
             locationComponent = trackasiaMap.locationComponent
             locationComponent!!.activateLocationComponent(
@@ -121,12 +112,11 @@ class ManualLocationUpdatesActivity :
                     .builder(this, style!!)
                     .locationEngine(locationEngine)
                     .locationEngineRequest(
-                        LocationEngineRequest
-                            .Builder(500)
+                        LocationEngineRequest.Builder(500)
                             .setFastestInterval(500)
-                            .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
-                            .build(),
-                    ).build(),
+                            .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY).build()
+                    )
+                    .build()
             )
             locationComponent!!.isLocationComponentEnabled = true
             locationComponent!!.renderMode = RenderMode.COMPASS

@@ -5,6 +5,7 @@ import org.junit.Assert
 import org.junit.Test
 
 class ColorUtilsTest {
+
     @Test
     fun rgbaToColor_decimalComponent() {
         val input = "rgba(255,128.0000952303,0,0.7)"

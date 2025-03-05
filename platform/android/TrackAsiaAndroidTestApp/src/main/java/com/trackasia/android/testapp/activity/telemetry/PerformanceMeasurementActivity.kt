@@ -13,10 +13,10 @@ import com.trackasia.android.maps.MapView
 import com.trackasia.android.maps.Style
 import com.trackasia.android.module.http.HttpRequestUtil
 import com.trackasia.android.testapp.R
-import com.trackasia.android.testapp.styles.TestStyles
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.OkHttpClient.Builder
+import com.trackasia.android.testapp.styles.TestStyles
 import timber.log.Timber
 import java.util.*
 
@@ -25,21 +25,19 @@ import java.util.*
  */
 class PerformanceMeasurementActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_simple)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         val eventListener = EventListener()
-        val okHttpClient: OkHttpClient =
-            Builder()
-                .eventListener(eventListener)
-                .build()
+        val okHttpClient: OkHttpClient = Builder()
+            .eventListener(eventListener)
+            .build()
         HttpRequestUtil.setOkHttpClient(okHttpClient)
         mapView.getMapAsync {
             it.setStyle(
-                Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Streets")),
+                Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Streets"))
             )
         }
     }
@@ -82,7 +80,6 @@ class PerformanceMeasurementActivity : AppCompatActivity() {
 
     private class EventListener : okhttp3.EventListener() {
         private val startTimes: MutableMap<String, Long> = HashMap()
-
         override fun callStart(call: Call) {
             val url = call.request().url.toString()
             startTimes[url] = System.nanoTime()
@@ -104,22 +101,15 @@ class PerformanceMeasurementActivity : AppCompatActivity() {
         }
     }
 
-    private class Attribute<T>(
-        private val name: String,
-        private val value: T,
-    )
-
+    private class Attribute<T>(private val name: String, private val value: T)
     companion object {
-        private fun triggerPerformanceEvent(
-            style: String,
-            elapsed: Long,
-        ) {
+        private fun triggerPerformanceEvent(style: String, elapsed: Long) {
             val attributes: MutableList<Attribute<String>> = ArrayList()
             attributes.add(
-                Attribute("style_id", style),
+                Attribute("style_id", style)
             )
             attributes.add(
-                Attribute("test_perf_event", "true"),
+                Attribute("test_perf_event", "true")
             )
             val counters: MutableList<Attribute<Long>> = ArrayList()
             counters.add(Attribute("elapsed", elapsed))
@@ -142,10 +132,8 @@ class PerformanceMeasurementActivity : AppCompatActivity() {
 
         private val ram: String
             get() {
-                val actManager =
-                    TrackAsia
-                        .getApplicationContext()
-                        .getSystemService(ACTIVITY_SERVICE) as ActivityManager
+                val actManager = TrackAsia.getApplicationContext()
+                    .getSystemService(ACTIVITY_SERVICE) as ActivityManager
                 val memInfo = ActivityManager.MemoryInfo()
                 actManager.getMemoryInfo(memInfo)
                 return memInfo.totalMem.toString()

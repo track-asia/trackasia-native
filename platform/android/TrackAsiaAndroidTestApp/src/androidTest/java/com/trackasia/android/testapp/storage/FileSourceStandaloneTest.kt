@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class FileSourceStandaloneTest : AppCenter() {
+
     private lateinit var fileSourceTestUtils: FileSourceTestUtils
     private lateinit var fileSource: FileSource
 
@@ -77,7 +78,7 @@ class FileSourceStandaloneTest : AppCenter() {
                     override fun onError(message: String) {
                         Assert.fail("First attempt should succeed.")
                     }
-                },
+                }
             )
 
             FileSource.setResourcesCachePath(
@@ -91,7 +92,7 @@ class FileSourceStandaloneTest : AppCenter() {
                         Assert.assertEquals("Another resources cache path change is in progress", message)
                         secondLatch.countDown()
                     }
-                },
+                }
             )
         }
 

@@ -3,11 +3,11 @@ package com.trackasia.android.offline
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.Keep
-import com.trackasia.android.geometry.LatLngBounds
-import com.trackasia.android.geometry.LatLngBounds.Companion.from
 import com.trackasia.geojson.Feature
 import com.trackasia.geojson.Geometry
 import com.trackasia.turf.TurfMeasurement
+import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.geometry.LatLngBounds.Companion.from
 
 /**
  * An offline region defined by a style URL, geometry, zoom range, and
@@ -61,13 +61,7 @@ class OfflineGeometryRegionDefinition : OfflineRegionDefinition {
      * @param pixelRatio pixel ratio of the device
      */
     @Keep
-    constructor(
-        styleURL: String?,
-        geometry: Geometry?,
-        minZoom: Double,
-        maxZoom: Double,
-        pixelRatio: Float,
-    ) : this(styleURL, geometry, minZoom, maxZoom, pixelRatio, false)
+    constructor(styleURL: String?, geometry: Geometry?, minZoom: Double, maxZoom: Double, pixelRatio: Float) : this(styleURL, geometry, minZoom, maxZoom, pixelRatio, false)
 
     /**
      * Constructor to create an OfflineGeometryRegionDefinition from parameters.
@@ -123,14 +117,13 @@ class OfflineGeometryRegionDefinition : OfflineRegionDefinition {
         get() = "shaperegion"
 
     /*
-     * Parceable
-     */
-    override fun describeContents(): Int = 0
+   * Parceable
+   */
+    override fun describeContents(): Int {
+        return 0
+    }
 
-    override fun writeToParcel(
-        dest: Parcel,
-        flags: Int,
-    ) {
+    override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeString(styleURL)
         dest.writeString(Feature.fromGeometry(geometry).toJson())
         dest.writeDouble(minZoom)
@@ -141,11 +134,14 @@ class OfflineGeometryRegionDefinition : OfflineRegionDefinition {
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<*> =
-            object : Parcelable.Creator<Any?> {
-                override fun createFromParcel(`in`: Parcel): OfflineGeometryRegionDefinition? = OfflineGeometryRegionDefinition(`in`)
-
-                override fun newArray(size: Int): Array<OfflineGeometryRegionDefinition?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<*> = object : Parcelable.Creator<Any?> {
+            override fun createFromParcel(`in`: Parcel): OfflineGeometryRegionDefinition? {
+                return OfflineGeometryRegionDefinition(`in`)
             }
+
+            override fun newArray(size: Int): Array<OfflineGeometryRegionDefinition?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 }

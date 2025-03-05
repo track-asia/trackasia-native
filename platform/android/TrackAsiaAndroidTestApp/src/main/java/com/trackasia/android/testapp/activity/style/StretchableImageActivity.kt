@@ -4,6 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
 import com.trackasia.android.maps.*
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.*
@@ -12,12 +18,6 @@ import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.testapp.utils.GeoParseUtil
 import com.trackasia.android.utils.BitmapUtils
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.IOException
 import java.util.ArrayList
@@ -25,12 +25,9 @@ import java.util.ArrayList
 /**
  * Test stretchable image as a background for text..
  */
-class StretchableImageActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class StretchableImageActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stretchable_image)
@@ -42,14 +39,12 @@ class StretchableImageActivity :
     override fun onMapReady(trackasiaMap: TrackAsiaMap) {
         this.trackasiaMap = trackasiaMap
         trackasiaMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style ->
-            val popup =
-                BitmapUtils.getBitmapFromDrawable(
-                    ResourcesCompat.getDrawable(resources, R.drawable.popup, theme),
-                )
-            val popupDebug =
-                BitmapUtils.getBitmapFromDrawable(
-                    ResourcesCompat.getDrawable(resources, R.drawable.popup_debug, theme),
-                )
+            val popup = BitmapUtils.getBitmapFromDrawable(
+                ResourcesCompat.getDrawable(resources, R.drawable.popup, theme)
+            )
+            val popupDebug = BitmapUtils.getBitmapFromDrawable(
+                ResourcesCompat.getDrawable(resources, R.drawable.popup_debug, theme)
+            )
 
             // The two (blue) columns of pixels that can be stretched horizontally:
             //   - the pixels between x: 25 and x: 55 can be stretched
@@ -85,15 +80,14 @@ class StretchableImageActivity :
         if (style != null) {
             val featureCollection = FeatureCollection.fromJson(json)
             val stretchSource = GeoJsonSource(STRETCH_SOURCE, featureCollection)
-            val stretchLayer =
-                SymbolLayer(STRETCH_LAYER, STRETCH_SOURCE)
-                    .withProperties(
-                        PropertyFactory.textField(Expression.get("name")),
-                        PropertyFactory.iconImage(Expression.get("image-name")),
-                        PropertyFactory.iconAllowOverlap(true),
-                        PropertyFactory.textAllowOverlap(true),
-                        PropertyFactory.iconTextFit(Property.ICON_TEXT_FIT_BOTH),
-                    )
+            val stretchLayer = SymbolLayer(STRETCH_LAYER, STRETCH_SOURCE)
+                .withProperties(
+                    PropertyFactory.textField(Expression.get("name")),
+                    PropertyFactory.iconImage(Expression.get("image-name")),
+                    PropertyFactory.iconAllowOverlap(true),
+                    PropertyFactory.textAllowOverlap(true),
+                    PropertyFactory.iconTextFit(Property.ICON_TEXT_FIT_BOTH)
+                )
 
             // the original, unstretched image for comparison
             val point = Point.fromLngLat(-70.0, 0.0)
@@ -108,11 +102,11 @@ class StretchableImageActivity :
         }
     }
 
-    private fun loadFeatureTask(activity: StretchableImageActivity): String? {
+    private fun loadFeatureTask(activity: StretchableImageActivity) : String? {
         try {
             return GeoParseUtil.loadStringFromAssets(
                 activity.applicationContext,
-                "stretchable_image.geojson",
+                "stretchable_image.geojson"
             )
         } catch (exception: IOException) {
             Timber.e(exception, "Could not read feature")

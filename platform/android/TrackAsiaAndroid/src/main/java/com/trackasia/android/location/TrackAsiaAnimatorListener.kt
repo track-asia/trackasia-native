@@ -4,9 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import com.trackasia.android.maps.TrackAsiaMap
 
-internal class TrackAsiaAnimatorListener(
-    cancelableCallback: TrackAsiaMap.CancelableCallback?,
-) : AnimatorListenerAdapter() {
+internal class TrackAsiaAnimatorListener(cancelableCallback: TrackAsiaMap.CancelableCallback?) :
+    AnimatorListenerAdapter() {
     private val cancelableCallback: TrackAsiaMap.CancelableCallback?
 
     init {

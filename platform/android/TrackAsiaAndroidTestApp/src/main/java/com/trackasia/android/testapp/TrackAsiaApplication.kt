@@ -39,21 +39,19 @@ open class TrackAsiaApplication : MultiDexApplication() {
 
     private fun initializeStrictMode() {
         StrictMode.setThreadPolicy(
-            ThreadPolicy
-                .Builder()
+            ThreadPolicy.Builder()
                 .detectDiskReads()
                 .detectDiskWrites()
                 .detectNetwork()
                 .penaltyLog()
-                .build(),
+                .build()
         )
         StrictMode.setVmPolicy(
-            VmPolicy
-                .Builder()
+            VmPolicy.Builder()
                 .detectLeakedSqlLiteObjects()
                 .penaltyLog()
                 .penaltyDeath()
-                .build(),
+                .build()
         )
     }
 
@@ -76,7 +74,7 @@ open class TrackAsiaApplication : MultiDexApplication() {
                     "API key. During development, you can set the MLN_API_KEY environment variable for the SDK to " +
                     "automatically include it in the Test App. Otherwise, you can manually include it in the " +
                     "res/values/developer-config.xml file in the TrackAsiaAndroidTestApp folder."
-            )
+                )
 
         private fun validateApiKey(apiKey: String) {
             if (TextUtils.isEmpty(apiKey) || apiKey == DEFAULT_API_KEY) {

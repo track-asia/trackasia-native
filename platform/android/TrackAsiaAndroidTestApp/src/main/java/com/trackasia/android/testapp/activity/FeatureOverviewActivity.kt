@@ -13,14 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.adapter.FeatureAdapter
 import com.trackasia.android.testapp.adapter.FeatureSectionAdapter
 import com.trackasia.android.testapp.model.activity.Feature
 import com.trackasia.android.testapp.utils.ItemClickSupport
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.*
 
@@ -45,23 +45,16 @@ class FeatureOverviewActivity : AppCompatActivity() {
         recyclerView.addOnItemTouchListener(SimpleOnItemTouchListener())
         recyclerView.setHasFixedSize(true)
 
-        ItemClickSupport
-            .addTo(recyclerView)
-            .setOnItemClickListener(
-                object : ItemClickSupport.OnItemClickListener {
-                    override fun onItemClicked(
-                        recyclerView: RecyclerView?,
-                        position: Int,
-                        view: View?,
-                    ) {
-                        if (sectionAdapter!!.isSectionHeaderPosition(position).not()) {
-                            val itemPosition = sectionAdapter!!.getConvertedPosition(position)
-                            val feature = features!![itemPosition]
-                            startFeature(feature)
-                        }
+        ItemClickSupport.addTo(recyclerView)
+            .setOnItemClickListener(object : ItemClickSupport.OnItemClickListener {
+                override fun onItemClicked(recyclerView: RecyclerView?, position: Int, view: View?) {
+                    if (sectionAdapter!!.isSectionHeaderPosition(position).not()) {
+                        val itemPosition = sectionAdapter!!.getConvertedPosition(position)
+                        val feature = features!![itemPosition]
+                        startFeature(feature)
                     }
-                },
-            )
+                }
+            })
         if (savedInstanceState == null) {
             loadFeatures()
         } else {
@@ -73,13 +66,12 @@ class FeatureOverviewActivity : AppCompatActivity() {
     private fun loadFeatures() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                features =
-                    loadFeaturesTask(
-                        packageManager.getPackageInfo(
-                            packageName,
-                            PackageManager.GET_ACTIVITIES or PackageManager.GET_META_DATA,
-                        ),
+                features = loadFeaturesTask(
+                    packageManager.getPackageInfo(
+                        packageName,
+                        PackageManager.GET_ACTIVITIES or PackageManager.GET_META_DATA
                     )
+                )
                 withContext(Dispatchers.Main) {
                     onFeaturesLoaded(features)
                 }
@@ -104,13 +96,12 @@ class FeatureOverviewActivity : AppCompatActivity() {
             }
         }
 
-        sectionAdapter =
-            FeatureSectionAdapter(
-                this,
-                R.layout.section_main_layout,
-                R.id.section_text,
-                FeatureAdapter(features!!),
-            )
+        sectionAdapter = FeatureSectionAdapter(
+            this,
+            R.layout.section_main_layout,
+            R.id.section_text,
+            FeatureAdapter(features!!)
+        )
         sectionAdapter!!.setSections(sections.toTypedArray())
         recyclerView.adapter = sectionAdapter
     }
@@ -133,8 +124,7 @@ class FeatureOverviewActivity : AppCompatActivity() {
         val metaDataKey = getString(R.string.category)
         if (app != null) {
             for (info in app.activities) {
-                if (info.labelRes != 0 &&
-                    info.name.startsWith(packageName) &&
+                if (info.labelRes != 0 && info.name.startsWith(packageName) &&
                     info.name != FeatureOverviewActivity::class.java.name
                 ) {
                     val label = getString(info.labelRes)
@@ -145,23 +135,19 @@ class FeatureOverviewActivity : AppCompatActivity() {
             }
         }
         if (features.isNotEmpty()) {
-            val comparator =
-                Comparator { lhs: Feature, rhs: Feature ->
-                    var result = lhs.category.compareTo(rhs.category, ignoreCase = true)
-                    if (result == 0) {
-                        result = lhs.getLabel().compareTo(rhs.getLabel(), ignoreCase = true)
-                    }
-                    result
+            val comparator = Comparator { lhs: Feature, rhs: Feature ->
+                var result = lhs.category.compareTo(rhs.category, ignoreCase = true)
+                if (result == 0) {
+                    result = lhs.getLabel().compareTo(rhs.getLabel(), ignoreCase = true)
                 }
+                result
+            }
             Collections.sort(features, comparator)
         }
         return features
     }
 
-    private fun resolveMetaData(
-        bundle: Bundle?,
-        key: String,
-    ): String? {
+    private fun resolveMetaData(bundle: Bundle?, key: String): String? {
         var category: String? = null
         if (bundle != null) {
             category = bundle.getString(key)
@@ -169,14 +155,13 @@ class FeatureOverviewActivity : AppCompatActivity() {
         return category
     }
 
-    private fun resolveString(
-        @StringRes stringRes: Int,
-    ): String =
-        try {
+    private fun resolveString(@StringRes stringRes: Int): String {
+        return try {
             getString(stringRes)
         } catch (exception: NotFoundException) {
             "-"
         }
+    }
 
     companion object {
         private const val KEY_STATE_FEATURES = "featureList"

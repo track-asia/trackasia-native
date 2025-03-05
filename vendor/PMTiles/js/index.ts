@@ -354,7 +354,7 @@ export class FetchSource implements Source {
   /**
    * A [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) object, specfying custom [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) set for all requests to the remote archive.
    *
-   * This should be used instead of trackasia's [transformRequest](https://trackasia.com/trackasia-gl-js/docs/API/classes/Map/#example) for PMTiles archives.
+   * This should be used instead of trackasia's [transformRequest](https://track-asia.com/trackasia-gl-js/docs/API/classes/Map/#example) for PMTiles archives.
    */
   customHeaders: Headers;
   /** @hidden */

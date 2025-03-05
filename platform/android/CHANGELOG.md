@@ -6,6 +6,17 @@
 
 ### 🐞 Bug fixes
 
+## 11.8.2
+
+### ✨ Features and improvements
+
+- Eliminate copies in deferred cleanup ([#3035](https://github.com/track-asia/trackasia-native/pull/3035)).
+- (Custom Layer Support) Reset depth stencil state for render pass ([#3230](https://github.com/track-asia/trackasia-native/pull/3230)).
+
+### 🐞 Bug fixes
+
+- Fix texture view cleanup ([#3254](https://github.com/track-asia/trackasia-native/pull/3254)). Possible fix for [issue](https://github.com/track-asia/trackasia-native/issues/3241) reported by Lyft.
+
 ## 11.8.1
 
 > [!NOTE]

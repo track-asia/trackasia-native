@@ -11,6 +11,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class HttpRequestUtilTest {
+
     @Test
     fun replaceHttpClient() {
         TrackAsiaInjector.inject(mockk(relaxed = true), "", ConfigUtils.getMockedOptions())
@@ -22,14 +23,14 @@ class HttpRequestUtilTest {
         assertEquals(
             "Http client should have set to the mocked client",
             httpMock,
-            HttpRequestImpl.client,
+            HttpRequestImpl.client
         )
 
         HttpRequestUtil.setOkHttpClient(null)
         assertEquals(
             "Http client should have been reset to the default client",
             HttpRequestImpl.DEFAULT_CLIENT,
-            HttpRequestImpl.client,
+            HttpRequestImpl.client
         )
 
         TrackAsiaInjector.clear()

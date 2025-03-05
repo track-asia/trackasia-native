@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.annotations.Marker
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.OnMapReadyCallback
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMap.InfoWindowAdapter
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.model.annotations.CityStateMarker
 import com.trackasia.android.testapp.model.annotations.CityStateMarkerOptions
@@ -24,7 +24,6 @@ import com.trackasia.android.testapp.utils.IconUtils
 class InfoWindowAdapterActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_infowindow_adapter)
@@ -37,7 +36,7 @@ class InfoWindowAdapterActivity : AppCompatActivity() {
                     addMarkers()
                     addCustomInfoWindowAdapter()
                 }
-            },
+            }
         )
     }
 
@@ -50,24 +49,24 @@ class InfoWindowAdapterActivity : AppCompatActivity() {
                 "Vatican City",
                 41.902916,
                 12.453389,
-                "#009688",
-            ),
+                "#009688"
+            )
         )
         trackasiaMap.addMarker(
             generateCityStateMarker(
                 "San Marino",
                 43.942360,
                 12.457777,
-                "#795548",
-            ),
+                "#795548"
+            )
         )
         trackasiaMap.addMarker(
             generateCityStateMarker(
                 "Liechtenstein",
                 47.166000,
                 9.555373,
-                "#FF5722",
-            ),
+                "#FF5722"
+            )
         )
     }
 
@@ -75,7 +74,7 @@ class InfoWindowAdapterActivity : AppCompatActivity() {
         title: String,
         lat: Double,
         lng: Double,
-        color: String,
+        color: String
     ): CityStateMarkerOptions {
         val marker = CityStateMarkerOptions()
         marker.title(title)
@@ -88,21 +87,19 @@ class InfoWindowAdapterActivity : AppCompatActivity() {
     }
 
     private fun addCustomInfoWindowAdapter() {
-        trackasiaMap.infoWindowAdapter =
-            object : InfoWindowAdapter {
-                private val tenDp = resources.getDimension(R.dimen.attr_margin).toInt()
-
-                override fun getInfoWindow(marker: Marker): View? {
-                    val textView = TextView(this@InfoWindowAdapterActivity)
-                    textView.text = marker.title
-                    textView.setTextColor(Color.WHITE)
-                    if (marker is CityStateMarker) {
-                        textView.setBackgroundColor(Color.parseColor(marker.infoWindowBackgroundColor))
-                    }
-                    textView.setPadding(tenDp, tenDp, tenDp, tenDp)
-                    return textView
+        trackasiaMap.infoWindowAdapter = object : InfoWindowAdapter {
+            private val tenDp = resources.getDimension(R.dimen.attr_margin).toInt()
+            override fun getInfoWindow(marker: Marker): View? {
+                val textView = TextView(this@InfoWindowAdapterActivity)
+                textView.text = marker.title
+                textView.setTextColor(Color.WHITE)
+                if (marker is CityStateMarker) {
+                    textView.setBackgroundColor(Color.parseColor(marker.infoWindowBackgroundColor))
                 }
+                textView.setPadding(tenDp, tenDp, tenDp, tenDp)
+                return textView
             }
+        }
     }
 
     override fun onStart() {

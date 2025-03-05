@@ -14,7 +14,6 @@ import com.trackasia.android.testapp.styles.TestStyles
  */
 class TextureViewResizeActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_textureview_resize)

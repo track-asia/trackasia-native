@@ -16,12 +16,10 @@ class LatLngBoundsTest {
 
     @Before
     fun beforeTest() {
-        latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LAT_LNG_NULL_ISLAND)
-                .include(LAT_LNG_NOT_NULL_ISLAND)
-                .build()
+        latLngBounds = LatLngBounds.Builder()
+            .include(LAT_LNG_NULL_ISLAND)
+            .include(LAT_LNG_NOT_NULL_ISLAND)
+            .build()
     }
 
     @Test
@@ -47,7 +45,7 @@ class LatLngBoundsTest {
             "Span should be the same",
             2.0,
             latLngBounds!!.latitudeSpan,
-            DELTA,
+            DELTA
         )
     }
 
@@ -57,7 +55,7 @@ class LatLngBoundsTest {
             "Span should be the same",
             2.0,
             latLngBounds!!.longitudeSpan,
-            DELTA,
+            DELTA
         )
     }
 
@@ -67,39 +65,35 @@ class LatLngBoundsTest {
         Assert.assertEquals(
             "LatLngSpan should be the same",
             LatLngSpan(2.0, 2.0),
-            latLngSpan,
+            latLngSpan
         )
     }
 
     @Test
     fun dateLineSpanBuilder1() {
-        latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, -170.0))
-                .include(LatLng(-10.0, 170.0))
-                .build()
+        latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(10.0, -170.0))
+            .include(LatLng(-10.0, 170.0))
+            .build()
         val latLngSpan = latLngBounds!!.span
         Assert.assertEquals(
             "LatLngSpan should be the same",
             LatLngSpan(20.0, 340.0),
-            latLngSpan,
+            latLngSpan
         )
     }
 
     @Test
     fun dateLineSpanBuilder2() {
-        latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(-10.0, -170.0))
-                .include(LatLng(10.0, 170.0))
-                .build()
+        latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(-10.0, -170.0))
+            .include(LatLng(10.0, 170.0))
+            .build()
         val latLngSpan = latLngBounds!!.span
         Assert.assertEquals(
             "LatLngSpan should be the same",
             LatLngSpan(20.0, 340.0),
-            latLngSpan,
+            latLngSpan
         )
     }
 
@@ -110,7 +104,7 @@ class LatLngBoundsTest {
         Assert.assertEquals(
             "LatLngSpan should be the same",
             LatLngSpan(20.0, 20.0),
-            latLngSpan,
+            latLngSpan
         )
     }
 
@@ -121,7 +115,7 @@ class LatLngBoundsTest {
         Assert.assertEquals(
             "LatLngSpan should be the same",
             LatLngSpan(20.0, 340.0),
-            latLngSpan,
+            latLngSpan
         )
     }
 
@@ -132,7 +126,7 @@ class LatLngBoundsTest {
         Assert.assertEquals(
             "LatLngSpan should be shortest distance",
             LatLngSpan(20.0, 0.0),
-            latLngSpan,
+            latLngSpan
         )
     }
 
@@ -193,41 +187,35 @@ class LatLngBoundsTest {
 
     @Test
     fun notEmptySpan() {
-        latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LAT_LNG_NOT_NULL_ISLAND)
-                .include(LAT_LNG_NULL_ISLAND)
-                .build()
+        latLngBounds = LatLngBounds.Builder()
+            .include(LAT_LNG_NOT_NULL_ISLAND)
+            .include(LAT_LNG_NULL_ISLAND)
+            .build()
         Assert.assertFalse("Should not be empty", latLngBounds!!.isEmptySpan)
     }
 
     @Test
     fun includeSameLatLngs() {
-        latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LAT_LNG_NOT_NULL_ISLAND)
-                .include(LAT_LNG_NOT_NULL_ISLAND)
-                .include(LAT_LNG_NULL_ISLAND)
-                .include(LAT_LNG_NULL_ISLAND)
-                .build()
+        latLngBounds = LatLngBounds.Builder()
+            .include(LAT_LNG_NOT_NULL_ISLAND)
+            .include(LAT_LNG_NOT_NULL_ISLAND)
+            .include(LAT_LNG_NULL_ISLAND)
+            .include(LAT_LNG_NULL_ISLAND)
+            .build()
         Assert.assertEquals(latLngBounds!!.northEast, LAT_LNG_NOT_NULL_ISLAND)
         Assert.assertEquals(latLngBounds!!.southWest, LAT_LNG_NULL_ISLAND)
     }
 
     @Test
     fun toLatLngs() {
-        latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LAT_LNG_NOT_NULL_ISLAND)
-                .include(LAT_LNG_NULL_ISLAND)
-                .build()
+        latLngBounds = LatLngBounds.Builder()
+            .include(LAT_LNG_NOT_NULL_ISLAND)
+            .include(LAT_LNG_NULL_ISLAND)
+            .build()
         Assert.assertArrayEquals(
             "LatLngs should match",
             arrayOf(LAT_LNG_NOT_NULL_ISLAND, LAT_LNG_NULL_ISLAND),
-            latLngBounds!!.toLatLngs(),
+            latLngBounds!!.toLatLngs()
         )
     }
 
@@ -235,7 +223,7 @@ class LatLngBoundsTest {
     fun include() {
         Assert.assertTrue(
             "LatLng should be included",
-            latLngBounds!!.contains(LatLng(1.0, 1.0)),
+            latLngBounds!!.contains(LatLng(1.0, 1.0))
         )
     }
 
@@ -244,90 +232,76 @@ class LatLngBoundsTest {
         val points: MutableList<LatLng> = ArrayList()
         points.add(LAT_LNG_NULL_ISLAND)
         points.add(LAT_LNG_NOT_NULL_ISLAND)
-        val latLngBounds1 =
-            LatLngBounds
-                .Builder()
-                .includes(points)
-                .build()
-        val latLngBounds2 =
-            LatLngBounds
-                .Builder()
-                .include(LAT_LNG_NULL_ISLAND)
-                .include(LAT_LNG_NOT_NULL_ISLAND)
-                .build()
+        val latLngBounds1 = LatLngBounds.Builder()
+            .includes(points)
+            .build()
+        val latLngBounds2 = LatLngBounds.Builder()
+            .include(LAT_LNG_NULL_ISLAND)
+            .include(LAT_LNG_NOT_NULL_ISLAND)
+            .build()
         Assert.assertEquals("LatLngBounds should match", latLngBounds1, latLngBounds2)
     }
 
     @Test
     fun includesOrderDoesNotMatter() {
-        val sameLongitudeFirst =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(50.0, 10.0)) // southWest
-                .include(LatLng(60.0, 10.0))
-                .include(LatLng(60.0, 20.0)) // northEast
-                .include(LatLng(50.0, 20.0))
-                .include(LatLng(50.0, 10.0)) // southWest again
-                .build()
-        val sameLatitudeFirst =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(50.0, 20.0))
-                .include(LatLng(50.0, 10.0)) // southWest
-                .include(LatLng(60.0, 10.0))
-                .include(LatLng(60.0, 20.0)) // northEast
-                .include(LatLng(50.0, 20.0))
-                .build()
+        val sameLongitudeFirst = LatLngBounds.Builder()
+            .include(LatLng(50.0, 10.0)) // southWest
+            .include(LatLng(60.0, 10.0))
+            .include(LatLng(60.0, 20.0)) // northEast
+            .include(LatLng(50.0, 20.0))
+            .include(LatLng(50.0, 10.0)) // southWest again
+            .build()
+        val sameLatitudeFirst = LatLngBounds.Builder()
+            .include(LatLng(50.0, 20.0))
+            .include(LatLng(50.0, 10.0)) // southWest
+            .include(LatLng(60.0, 10.0))
+            .include(LatLng(60.0, 20.0)) // northEast
+            .include(LatLng(50.0, 20.0))
+            .build()
         Assert.assertEquals(sameLatitudeFirst, sameLongitudeFirst)
     }
 
     @Test
     fun includesOverDateline1() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, -170.0))
-                .include(LatLng(-10.0, -175.0))
-                .include(LatLng(0.0, -190.0))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(10.0, -170.0))
+            .include(LatLng(-10.0, -175.0))
+            .include(LatLng(0.0, -190.0))
+            .build()
         val latLngSpan = latLngBounds.span
         Assert.assertEquals(
             "LatLngSpan should be the same",
             LatLngSpan(20.0, 20.0),
-            latLngSpan,
+            latLngSpan
         )
     }
 
     @Test
     fun includesOverDateline2() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, 170.0))
-                .include(LatLng(-10.0, 175.0))
-                .include(LatLng(0.0, 190.0))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(10.0, 170.0))
+            .include(LatLng(-10.0, 175.0))
+            .include(LatLng(0.0, 190.0))
+            .build()
         Assert.assertEquals(
             "LatLngSpan should be the same",
             LatLngSpan(20.0, 20.0),
-            latLngBounds.span,
+            latLngBounds.span
         )
     }
 
     @Test
     fun includesOverDateline3() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, -190.0))
-                .include(LatLng(-10.0, -170.0))
-                .include(LatLng(0.0, -180.0))
-                .include(LatLng(5.0, -180.0))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(10.0, -190.0))
+            .include(LatLng(-10.0, -170.0))
+            .include(LatLng(0.0, -180.0))
+            .include(LatLng(5.0, -180.0))
+            .build()
         Assert.assertEquals(
             "LatLngSpan should be the same",
             LatLngSpan(20.0, 20.0),
-            latLngBounds.span,
+            latLngBounds.span
         )
     }
 
@@ -335,7 +309,7 @@ class LatLngBoundsTest {
     fun containsNot() {
         Assert.assertFalse(
             "LatLng should not be included",
-            latLngBounds!!.contains(LatLng(3.0, 1.0)),
+            latLngBounds!!.contains(LatLng(3.0, 1.0))
         )
     }
 
@@ -343,7 +317,7 @@ class LatLngBoundsTest {
     fun containsBoundsInWorld() {
         Assert.assertTrue(
             "LatLngBounds should be contained in the world",
-            world().contains(latLngBounds!!),
+            world().contains(latLngBounds!!)
         )
     }
 
@@ -353,42 +327,37 @@ class LatLngBoundsTest {
             "LatLngBounds world span should be 180, 360",
             GeometryConstants.LATITUDE_SPAN,
             world().latitudeSpan,
-            DELTA,
+            DELTA
         )
         Assert.assertEquals(
             "LatLngBounds world span should be 180, 360",
             GeometryConstants.LONGITUDE_SPAN,
             world().longitudeSpan,
-            DELTA,
+            DELTA
         )
     }
 
     @Test
     fun emptySpan() {
-        val latLngBounds =
-            from(
-                GeometryConstants.MIN_LATITUDE,
-                GeometryConstants.MAX_LONGITUDE,
-                GeometryConstants.MIN_LATITUDE,
-                GeometryConstants.MAX_LONGITUDE,
-            )
+        val latLngBounds = from(
+            GeometryConstants.MIN_LATITUDE,
+            GeometryConstants.MAX_LONGITUDE,
+            GeometryConstants.MIN_LATITUDE,
+            GeometryConstants.MAX_LONGITUDE
+        )
         Assert.assertTrue("LatLngBounds empty span", latLngBounds.isEmptySpan)
     }
 
     @Test
     fun containsBounds() {
-        val inner =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(-5.0, -5.0))
-                .include(LatLng(5.0, 5.0))
-                .build()
-        val outer =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(-10.0, -10.0))
-                .include(LatLng(10.0, 10.0))
-                .build()
+        val inner = LatLngBounds.Builder()
+            .include(LatLng(-5.0, -5.0))
+            .include(LatLng(5.0, 5.0))
+            .build()
+        val outer = LatLngBounds.Builder()
+            .include(LatLng(-10.0, -10.0))
+            .include(LatLng(10.0, 10.0))
+            .build()
         Assert.assertTrue(outer.contains(inner))
         Assert.assertFalse(inner.contains(outer))
     }
@@ -400,17 +369,15 @@ class LatLngBoundsTest {
 
     @Test
     fun equality() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LAT_LNG_NULL_ISLAND)
-                .include(LAT_LNG_NOT_NULL_ISLAND)
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LAT_LNG_NULL_ISLAND)
+            .include(LAT_LNG_NOT_NULL_ISLAND)
+            .build()
         Assert.assertEquals("equality should match", this.latLngBounds, latLngBounds)
         Assert.assertEquals(
             "not equal to a different object type",
             this.latLngBounds!!.equals(LAT_LNG_NOT_NULL_ISLAND),
-            false,
+            false
         )
     }
 
@@ -421,12 +388,10 @@ class LatLngBoundsTest {
 
     @Test
     fun intersect() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(1.0, 1.0))
-                .include(LAT_LNG_NULL_ISLAND)
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(1.0, 1.0))
+            .include(LAT_LNG_NULL_ISLAND)
+            .build()
         Assert.assertEquals(
             "intersect should match",
             latLngBounds,
@@ -434,19 +399,17 @@ class LatLngBoundsTest {
                 this.latLngBounds!!.getLatNorth(),
                 this.latLngBounds!!.getLonEast(),
                 this.latLngBounds!!.getLatSouth(),
-                this.latLngBounds!!.getLonWest(),
-            ),
+                this.latLngBounds!!.getLonWest()
+            )
         )
     }
 
     @Test
     fun intersectNot() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, 10.0))
-                .include(LatLng(9.0, 8.0))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(10.0, 10.0))
+            .include(LatLng(9.0, 8.0))
+            .build()
         Assert.assertNull(latLngBounds.intersect(this.latLngBounds!!))
     }
 
@@ -454,36 +417,32 @@ class LatLngBoundsTest {
     fun intersectNorthCheck() {
         exception.expect(IllegalArgumentException::class.java)
         exception.expectMessage("latitude must be between -90 and 90")
-        val intersectLatLngBounds =
-            from(10.0, 10.0, 0.0, 0.0)
-                .intersect(200.0, 200.0, 0.0, 0.0)
+        val intersectLatLngBounds = from(10.0, 10.0, 0.0, 0.0)
+            .intersect(200.0, 200.0, 0.0, 0.0)
     }
 
     @Test
     fun intersectSouthCheck() {
         exception.expect(IllegalArgumentException::class.java)
         exception.expectMessage("latitude must be between -90 and 90")
-        val intersectLatLngBounds =
-            from(0.0, 0.0, -10.0, -10.0)
-                .intersect(0.0, 0.0, -200.0, -200.0)
+        val intersectLatLngBounds = from(0.0, 0.0, -10.0, -10.0)
+            .intersect(0.0, 0.0, -200.0, -200.0)
     }
 
     @Test
     fun intersectSouthLessThanNorthCheck() {
         exception.expect(IllegalArgumentException::class.java)
         exception.expectMessage("latNorth cannot be less than latSouth")
-        val intersectLatLngBounds =
-            from(10.0, 10.0, 0.0, 0.0)
-                .intersect(0.0, 200.0, 20.0, 0.0)
+        val intersectLatLngBounds = from(10.0, 10.0, 0.0, 0.0)
+            .intersect(0.0, 200.0, 20.0, 0.0)
     }
 
     @Test
     fun intersectEastLessThanWestCheck() {
         exception.expect(IllegalArgumentException::class.java)
         exception.expectMessage("lonEast cannot be less than lonWest")
-        val intersectLatLngBounds =
-            from(10.0, -10.0, 0.0, 0.0)
-                .intersect(0.0, 200.0, 20.0, 0.0)
+        val intersectLatLngBounds = from(10.0, -10.0, 0.0, 0.0)
+            .intersect(0.0, 200.0, 20.0, 0.0)
     }
 
     fun intersectEastDoesNotWrapCheck() {
@@ -505,171 +464,141 @@ class LatLngBoundsTest {
 
     @Test
     fun innerUnion() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(1.0, 1.0))
-                .include(LAT_LNG_NULL_ISLAND)
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(1.0, 1.0))
+            .include(LAT_LNG_NULL_ISLAND)
+            .build()
         Assert.assertEquals(
             "union should match",
             latLngBounds,
             latLngBounds.intersect(
-                this.latLngBounds!!,
-            ),
+                this.latLngBounds!!
+            )
         )
     }
 
     @Test
     fun outerUnion() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, 10.0))
-                .include(LatLng(9.0, 8.0))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(10.0, 10.0))
+            .include(LatLng(9.0, 8.0))
+            .build()
         Assert.assertEquals(
             "outer union should match",
             latLngBounds.union(this.latLngBounds!!),
-            LatLngBounds
-                .Builder()
+            LatLngBounds.Builder()
                 .include(LatLng(10.0, 10.0))
                 .include(LAT_LNG_NULL_ISLAND)
-                .build(),
+                .build()
         )
     }
 
     @Test
     fun unionOverDateLine() {
-        val latLngBounds1 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, 170.0))
-                .include(LatLng(0.0, 160.0))
-                .build()
-        val latLngBounds2 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(0.0, 190.0))
-                .include(LatLng(-10.0, 200.0))
-                .build()
+        val latLngBounds1 = LatLngBounds.Builder()
+            .include(LatLng(10.0, 170.0))
+            .include(LatLng(0.0, 160.0))
+            .build()
+        val latLngBounds2 = LatLngBounds.Builder()
+            .include(LatLng(0.0, 190.0))
+            .include(LatLng(-10.0, 200.0))
+            .build()
         val union1 = latLngBounds1.union(latLngBounds2)
         val union2 = latLngBounds2.union(latLngBounds1)
         Assert.assertEquals(
             union1,
-            LatLngBounds
-                .Builder()
+            LatLngBounds.Builder()
                 .include(LatLng(10.0, 160.0))
                 .include(LatLng(-10.0, 200.0))
-                .build(),
+                .build()
         )
         Assert.assertEquals(union1, union2)
     }
 
     @Test
     fun unionOverDateLine2() {
-        val latLngBounds1 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, 170.0))
-                .include(LatLng(0.0, 160.0))
-                .build()
-        val latLngBounds2 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(0.0, 165.0))
-                .include(LatLng(-10.0, 200.0))
-                .build()
+        val latLngBounds1 = LatLngBounds.Builder()
+            .include(LatLng(10.0, 170.0))
+            .include(LatLng(0.0, 160.0))
+            .build()
+        val latLngBounds2 = LatLngBounds.Builder()
+            .include(LatLng(0.0, 165.0))
+            .include(LatLng(-10.0, 200.0))
+            .build()
         val union1 = latLngBounds1.union(latLngBounds2)
         val union2 = latLngBounds2.union(latLngBounds1)
         Assert.assertEquals(
             union1,
-            LatLngBounds
-                .Builder()
+            LatLngBounds.Builder()
                 .include(LatLng(10.0, 160.0))
                 .include(LatLng(-10.0, 200.0))
-                .build(),
+                .build()
         )
         Assert.assertEquals(union1, union2)
     }
 
     @Test
     fun unionOverDateLine3() {
-        val latLngBounds1 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, 195.0))
-                .include(LatLng(0.0, 160.0))
-                .build()
-        val latLngBounds2 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(0.0, 190.0))
-                .include(LatLng(-10.0, 200.0))
-                .build()
+        val latLngBounds1 = LatLngBounds.Builder()
+            .include(LatLng(10.0, 195.0))
+            .include(LatLng(0.0, 160.0))
+            .build()
+        val latLngBounds2 = LatLngBounds.Builder()
+            .include(LatLng(0.0, 190.0))
+            .include(LatLng(-10.0, 200.0))
+            .build()
         val union1 = latLngBounds1.union(latLngBounds2)
         val union2 = latLngBounds2.union(latLngBounds1)
         Assert.assertEquals(
             union1,
-            LatLngBounds
-                .Builder()
+            LatLngBounds.Builder()
                 .include(LatLng(10.0, 160.0))
                 .include(LatLng(-10.0, 200.0))
-                .build(),
+                .build()
         )
         Assert.assertEquals(union1, union2)
     }
 
     @Test
     fun unionOverDateLine4() {
-        val latLngBounds1 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, -160.0))
-                .include(LatLng(0.0, -200.0))
-                .build()
-        val latLngBounds2 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(0.0, -170.0))
-                .include(LatLng(-10.0, -175.0))
-                .build()
+        val latLngBounds1 = LatLngBounds.Builder()
+            .include(LatLng(10.0, -160.0))
+            .include(LatLng(0.0, -200.0))
+            .build()
+        val latLngBounds2 = LatLngBounds.Builder()
+            .include(LatLng(0.0, -170.0))
+            .include(LatLng(-10.0, -175.0))
+            .build()
         val union1 = latLngBounds1.union(latLngBounds2)
         val union2 = latLngBounds2.union(latLngBounds1)
         Assert.assertEquals(
             union1,
-            LatLngBounds
-                .Builder()
+            LatLngBounds.Builder()
                 .include(LatLng(10.0, -200.0))
                 .include(LatLng(-10.0, -160.0))
-                .build(),
+                .build()
         )
         Assert.assertEquals(union1, union2)
     }
 
     @Test
     fun unionOverDateLine5() {
-        val latLngBounds1 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, 200.0))
-                .include(LatLng(0.0, 160.0))
-                .build()
-        val latLngBounds2 =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(0.0, 170.0))
-                .include(LatLng(-10.0, 175.0))
-                .build()
+        val latLngBounds1 = LatLngBounds.Builder()
+            .include(LatLng(10.0, 200.0))
+            .include(LatLng(0.0, 160.0))
+            .build()
+        val latLngBounds2 = LatLngBounds.Builder()
+            .include(LatLng(0.0, 170.0))
+            .include(LatLng(-10.0, 175.0))
+            .build()
         val union1 = latLngBounds1.union(latLngBounds2)
         val union2 = latLngBounds2.union(latLngBounds1)
         Assert.assertEquals(
             union1,
-            LatLngBounds
-                .Builder()
+            LatLngBounds.Builder()
                 .include(LatLng(10.0, 160.0))
                 .include(LatLng(-10.0, 200.0))
-                .build(),
+                .build()
         )
         Assert.assertEquals(union1, union2)
     }
@@ -688,27 +617,24 @@ class LatLngBoundsTest {
     fun unionNorthCheck() {
         exception.expect(IllegalArgumentException::class.java)
         exception.expectMessage("latitude must be between -90 and 90")
-        val unionLatLngBounds =
-            from(10.0, 10.0, 0.0, 0.0)
-                .union(200.0, 200.0, 0.0, 0.0)
+        val unionLatLngBounds = from(10.0, 10.0, 0.0, 0.0)
+            .union(200.0, 200.0, 0.0, 0.0)
     }
 
     @Test
     fun unionSouthCheck() {
         exception.expect(IllegalArgumentException::class.java)
         exception.expectMessage("latitude must be between -90 and 90")
-        val unionLatLngBounds =
-            from(0.0, 0.0, -10.0, -10.0)
-                .union(0.0, 0.0, -200.0, -200.0)
+        val unionLatLngBounds = from(0.0, 0.0, -10.0, -10.0)
+            .union(0.0, 0.0, -200.0, -200.0)
     }
 
     @Test
     fun unionSouthLessThanNorthCheck() {
         exception.expect(IllegalArgumentException::class.java)
         exception.expectMessage("latNorth cannot be less than latSouth")
-        val unionLatLngBounds =
-            from(10.0, 10.0, 0.0, 0.0)
-                .union(0.0, 200.0, 20.0, 0.0)
+        val unionLatLngBounds = from(10.0, 10.0, 0.0, 0.0)
+            .union(0.0, 200.0, 20.0, 0.0)
     }
 
     @Test
@@ -735,16 +661,14 @@ class LatLngBoundsTest {
         val minLon = 6.0
         val maxLat = 20.0
         val maxLon = 21.0
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(minLat, minLon))
-                .include(LatLng(maxLat, maxLon))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(minLat, minLon))
+            .include(LatLng(maxLat, maxLon))
+            .build()
         Assert.assertEquals(
             "NorthWest should match",
             latLngBounds.northWest,
-            LatLng(maxLat, minLon),
+            LatLng(maxLat, minLon)
         )
     }
 
@@ -754,16 +678,14 @@ class LatLngBoundsTest {
         val minLon = 6.0
         val maxLat = 20.0
         val maxLon = 21.0
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(minLat, minLon))
-                .include(LatLng(maxLat, maxLon))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(minLat, minLon))
+            .include(LatLng(maxLat, maxLon))
+            .build()
         Assert.assertEquals(
             "SouthWest should match",
             latLngBounds.southWest,
-            LatLng(minLat, minLon),
+            LatLng(minLat, minLon)
         )
     }
 
@@ -773,16 +695,14 @@ class LatLngBoundsTest {
         val minLon = 6.0
         val maxLat = 20.0
         val maxLon = 21.0
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(minLat, minLon))
-                .include(LatLng(maxLat, maxLon))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(minLat, minLon))
+            .include(LatLng(maxLat, maxLon))
+            .build()
         Assert.assertEquals(
             "NorthEast should match",
             latLngBounds.northEast,
-            LatLng(maxLat, maxLon),
+            LatLng(maxLat, maxLon)
         )
     }
 
@@ -792,27 +712,23 @@ class LatLngBoundsTest {
         val minLon = 6.0
         val maxLat = 20.0
         val maxLon = 21.0
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(minLat, minLon))
-                .include(LatLng(maxLat, maxLon))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(minLat, minLon))
+            .include(LatLng(maxLat, maxLon))
+            .build()
         Assert.assertEquals(
             "SouthEast should match",
             latLngBounds.southEast,
-            LatLng(minLat, maxLon),
+            LatLng(minLat, maxLon)
         )
     }
 
     @Test
     fun testParcelable() {
-        val latLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(10.0, 10.0))
-                .include(LatLng(9.0, 8.0))
-                .build()
+        val latLngBounds = LatLngBounds.Builder()
+            .include(LatLng(10.0, 10.0))
+            .include(LatLng(9.0, 8.0))
+            .build()
         val parcel = MockParcel.obtain(latLngBounds)
         Assert.assertEquals("Parcel should match original object", parcel, latLngBounds)
     }
@@ -823,22 +739,22 @@ class LatLngBoundsTest {
         Assert.assertEquals(
             GeometryConstants.MIN_WRAP_LONGITUDE,
             bounds.getLonWest(),
-            DELTA,
+            DELTA
         )
         Assert.assertEquals(
             GeometryConstants.MIN_MERCATOR_LATITUDE,
             bounds.getLatSouth(),
-            DELTA,
+            DELTA
         )
         Assert.assertEquals(
             GeometryConstants.MAX_WRAP_LONGITUDE,
             bounds.getLonEast(),
-            DELTA,
+            DELTA
         )
         Assert.assertEquals(
             GeometryConstants.MAX_MERCATOR_LATITUDE,
             bounds.getLatNorth(),
-            DELTA,
+            DELTA
         )
         bounds = from(10, 288, 385)
         Assert.assertEquals(-78.75, bounds.getLonWest(), DELTA)

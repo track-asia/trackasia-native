@@ -7,12 +7,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
+import com.trackasia.geojson.Polygon
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMap.CancelableCallback
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.CircleLayer
 import com.trackasia.android.style.layers.FillLayer
@@ -31,10 +35,6 @@ import com.trackasia.android.style.sources.VectorSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import com.trackasia.android.testapp.utils.ResourceUtils
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
-import com.trackasia.geojson.Polygon
 import timber.log.Timber
 import java.io.IOException
 
@@ -45,33 +45,31 @@ class RuntimeStyleActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
     private var styleLoaded = false
-    private var lngLats =
+    private var lngLats = listOf(
         listOf(
-            listOf(
-                Point.fromLngLat(
-                    -15.468749999999998,
-                    41.77131167976407,
-                ),
-                Point.fromLngLat(
-                    15.468749999999998,
-                    41.77131167976407,
-                ),
-                Point.fromLngLat(
-                    15.468749999999998,
-                    58.26328705248601,
-                ),
-                Point.fromLngLat(
-                    -15.468749999999998,
-                    58.26328705248601,
-                ),
-                Point.fromLngLat(
-                    -15.468749999999998,
-                    41.77131167976407,
-                ),
+            Point.fromLngLat(
+                -15.468749999999998,
+                41.77131167976407
             ),
+            Point.fromLngLat(
+                15.468749999999998,
+                41.77131167976407
+            ),
+            Point.fromLngLat(
+                15.468749999999998,
+                58.26328705248601
+            ),
+            Point.fromLngLat(
+                -15.468749999999998,
+                58.26328705248601
+            ),
+            Point.fromLngLat(
+                -15.468749999999998,
+                41.77131167976407
+            )
         )
+    )
     var polygon = Polygon.fromLngLats(lngLats)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_runtime_style)
@@ -87,14 +85,13 @@ class RuntimeStyleActivity : AppCompatActivity() {
             trackasiaMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(52.379189, 4.899431),
-                    1.0,
-                ),
+                    1.0
+                )
             )
             trackasiaMap.setStyle(
-                Style
-                    .Builder()
+                Style.Builder()
                     .fromUri(TestStyles.getPredefinedStyleWithFallback("Streets")) // set custom transition
-                    .withTransition(TransitionOptions(250, 50)),
+                    .withTransition(TransitionOptions(250, 50))
             ) { style: Style ->
                 styleLoaded = true
                 style.getLayer("country_1")?.setProperties(
@@ -102,9 +99,9 @@ class RuntimeStyleActivity : AppCompatActivity() {
                         Expression.switchCase(
                             Expression.within(polygon),
                             Expression.literal(1.0f),
-                            Expression.literal(0.5f),
-                        ),
-                    ),
+                            Expression.literal(0.5f)
+                        )
+                    )
                 )
             }
         }
@@ -150,8 +147,8 @@ class RuntimeStyleActivity : AppCompatActivity() {
         mapView.onLowMemory()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        if (!styleLoaded) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (!styleLoaded) {
             false
         } else {
             when (item.itemId) {
@@ -253,11 +250,11 @@ class RuntimeStyleActivity : AppCompatActivity() {
                 else -> super.onOptionsItemSelected(item)
             }
         }
+    }
 
     private fun listLayers() {
-        val layers =
-            trackasiaMap.style!!
-                .layers
+        val layers = trackasiaMap.style!!
+            .layers
         val builder = StringBuilder("Layers:")
         for (layer in layers) {
             builder.append("\n")
@@ -267,9 +264,8 @@ class RuntimeStyleActivity : AppCompatActivity() {
     }
 
     private fun listSources() {
-        val sources =
-            trackasiaMap.style!!
-                .sources
+        val sources = trackasiaMap.style!!
+            .sources
         val builder = StringBuilder("Sources:")
         for (source in sources) {
             builder.append("\n")
@@ -295,13 +291,12 @@ class RuntimeStyleActivity : AppCompatActivity() {
                     val roadLayers =
                         arrayOf("road-label-small", "road-label-medium", "road-label-large")
                     for (roadLayer in roadLayers) {
-                        val layer =
-                            trackasiaMap.style!!
-                                .getLayer(roadLayer)
+                        val layer = trackasiaMap.style!!
+                            .getLayer(roadLayer)
                         layer?.setProperties(PropertyFactory.symbolPlacement(Property.SYMBOL_PLACEMENT_POINT))
                     }
                 }
-            },
+            }
         )
     }
 
@@ -316,15 +311,14 @@ class RuntimeStyleActivity : AppCompatActivity() {
             water.fillColorTransition = TransitionOptions(7500, 1000)
             water.setProperties(
                 PropertyFactory.visibility(Property.VISIBLE),
-                PropertyFactory.fillColor(Color.RED),
+                PropertyFactory.fillColor(Color.RED)
             )
         } else {
-            Toast
-                .makeText(
-                    this@RuntimeStyleActivity,
-                    "No water layer in this style",
-                    Toast.LENGTH_SHORT,
-                ).show()
+            Toast.makeText(
+                this@RuntimeStyleActivity,
+                "No water layer in this style",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -336,25 +330,23 @@ class RuntimeStyleActivity : AppCompatActivity() {
     private fun addParksLayer() {
         // Add a source
         // # --8<-- [start:source]
-        val source: Source =
-            try {
-                GeoJsonSource("amsterdam-spots", ResourceUtils.readRawResource(this, R.raw.amsterdam))
-            } catch (ioException: IOException) {
-                Toast
-                    .makeText(
-                        this@RuntimeStyleActivity,
-                        "Couldn't add source: " + ioException.message,
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                return
-            }
+        val source: Source = try {
+            GeoJsonSource("amsterdam-spots", ResourceUtils.readRawResource(this, R.raw.amsterdam))
+        } catch (ioException: IOException) {
+            Toast.makeText(
+                this@RuntimeStyleActivity,
+                "Couldn't add source: " + ioException.message,
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
         trackasiaMap.style!!.addSource(source)
         var layer: FillLayer? = FillLayer("parksLayer", "amsterdam-spots")
         layer!!.setProperties(
             PropertyFactory.fillColor(Color.RED),
             PropertyFactory.fillOutlineColor(Color.BLUE),
             PropertyFactory.fillOpacity(0.3f),
-            PropertyFactory.fillAntialias(true),
+            PropertyFactory.fillAntialias(true)
         )
         // # --8<-- [end:source]
 
@@ -364,16 +356,15 @@ class RuntimeStyleActivity : AppCompatActivity() {
                 Expression.eq(Expression.get("type"), Expression.literal("park")),
                 Expression.eq(
                     Expression.get("stroke-width"),
-                    Expression.literal(3),
-                ),
-            ),
+                    Expression.literal(3)
+                )
+            )
         )
         trackasiaMap.style!!.addLayerBelow(layer, "building")
         // layer.setPaintProperty(fillColor(Color.RED)); // XXX But not after the object is attached
 
         // Or get the object later and set it. It's all good.
-        trackasiaMap.style!!
-            .getLayer("parksLayer")!!
+        trackasiaMap.style!!.getLayer("parksLayer")!!
             .setProperties(PropertyFactory.fillColor(Color.RED))
 
         // You can get a typed layer, if you're sure it's of that type. Use with care
@@ -393,19 +384,17 @@ class RuntimeStyleActivity : AppCompatActivity() {
 
     private fun addDynamicParksLayer() {
         // Load some data
-        val parks: FeatureCollection =
-            try {
-                val json = ResourceUtils.readRawResource(this, R.raw.amsterdam)
-                FeatureCollection.fromJson(json)
-            } catch (ioException: IOException) {
-                Toast
-                    .makeText(
-                        this@RuntimeStyleActivity,
-                        "Couldn't add source: " + ioException.message,
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                return
-            }
+        val parks: FeatureCollection = try {
+            val json = ResourceUtils.readRawResource(this, R.raw.amsterdam)
+            FeatureCollection.fromJson(json)
+        } catch (ioException: IOException) {
+            Toast.makeText(
+                this@RuntimeStyleActivity,
+                "Couldn't add source: " + ioException.message,
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
 
         // Add an empty source
         trackasiaMap.style!!.addSource(GeoJsonSource("dynamic-park-source"))
@@ -414,7 +403,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
             PropertyFactory.fillColor(Color.GREEN),
             PropertyFactory.fillOutlineColor(Color.GREEN),
             PropertyFactory.fillOpacity(0.8f),
-            PropertyFactory.fillAntialias(true),
+            PropertyFactory.fillAntialias(true)
         )
 
         // Only show me parks
@@ -422,9 +411,9 @@ class RuntimeStyleActivity : AppCompatActivity() {
             Expression.all(
                 Expression.eq(
                     Expression.get("type"),
-                    Expression.literal("park"),
-                ),
-            ),
+                    Expression.literal("park")
+                )
+            )
         )
         trackasiaMap.style!!.addLayer(layer)
 
@@ -435,10 +424,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
         animateParksSource(parks, 0)
     }
 
-    private fun animateParksSource(
-        parks: FeatureCollection,
-        counter: Int,
-    ) {
+    private fun animateParksSource(parks: FeatureCollection, counter: Int) {
         val handler = Handler(mainLooper)
         handler.postDelayed(
             {
@@ -451,8 +437,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
                 val source = trackasiaMap.style!!.getSourceAs<GeoJsonSource>("dynamic-park-source")
                 if (source == null) {
                     Timber.e("Source not found")
-                    Toast
-                        .makeText(this@RuntimeStyleActivity, "Source not found", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@RuntimeStyleActivity, "Source not found", Toast.LENGTH_SHORT)
                         .show()
                     return@postDelayed
                 }
@@ -463,7 +448,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
                 // Re-post
                 animateParksSource(parks, park + 1)
             },
-            if (counter == 0) 100 else 1000.toLong(),
+            if (counter == 0) 100 else 1000.toLong()
         )
     }
 
@@ -477,13 +462,12 @@ class RuntimeStyleActivity : AppCompatActivity() {
             PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
             PropertyFactory.lineCap(Property.LINE_CAP_ROUND),
             PropertyFactory.lineColor(Color.RED),
-            PropertyFactory.lineWidth(20f),
+            PropertyFactory.lineWidth(20f)
         )
 
         // adding layers below "road" layers
-        val layers =
-            trackasiaMap.style!!
-                .layers
+        val layers = trackasiaMap.style!!
+            .layers
         var latestLayer: Layer? = null
         layers.reverse()
         for (currentLayer in layers) {
@@ -508,16 +492,15 @@ class RuntimeStyleActivity : AppCompatActivity() {
         layer!!.minZoom = 10f
         layer.maxZoom = 15f
         layer = trackasiaMap.style!!.getLayer("terrainLayer") as LineLayer?
-        Toast
-            .makeText(
-                this,
-                String.format(
-                    "Set min/max zoom to %s - %s",
-                    layer!!.minZoom,
-                    layer.maxZoom,
-                ),
-                Toast.LENGTH_SHORT,
-            ).show()
+        Toast.makeText(
+            this,
+            String.format(
+                "Set min/max zoom to %s - %s",
+                layer!!.minZoom,
+                layer.maxZoom
+            ),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun addRasterSourceLayer() {
@@ -542,9 +525,9 @@ class RuntimeStyleActivity : AppCompatActivity() {
                     Expression.stop(1, Expression.color(Color.GREEN)),
                     Expression.stop(4, Expression.color(Color.BLUE)),
                     Expression.stop(12, Expression.color(Color.RED)),
-                    Expression.stop(20, Expression.color(Color.BLACK)),
-                ),
-            ),
+                    Expression.stop(20, Expression.color(Color.BLACK))
+                )
+            )
         )
 
         // do some animations to show it off properly
@@ -568,7 +551,7 @@ class RuntimeStyleActivity : AppCompatActivity() {
             PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
             PropertyFactory.lineOpacity(0.6f),
             PropertyFactory.lineWidth(2.0f),
-            PropertyFactory.lineColor(Color.GREEN),
+            PropertyFactory.lineColor(Color.GREEN)
         )
         trackasiaMap.style!!.addLayer(lineLayer)
     }
@@ -578,8 +561,8 @@ class RuntimeStyleActivity : AppCompatActivity() {
         trackasiaMap.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(31.0, (-100).toDouble()),
-                3.0,
-            ),
+                3.0
+            )
         )
     }
 
@@ -588,8 +571,8 @@ class RuntimeStyleActivity : AppCompatActivity() {
         trackasiaMap.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(31.0, (-100).toDouble()),
-                3.0,
-            ),
+                3.0
+            )
         )
         val handler = Handler(mainLooper)
         handler.postDelayed(
@@ -605,18 +588,17 @@ class RuntimeStyleActivity : AppCompatActivity() {
                     states.fillColorTransition = TransitionOptions(2500, 0)
                     states.setProperties(
                         PropertyFactory.fillColor(Color.RED),
-                        PropertyFactory.fillOpacity(0.25f),
+                        PropertyFactory.fillOpacity(0.25f)
                     )
                 } else {
-                    Toast
-                        .makeText(
-                            this@RuntimeStyleActivity,
-                            "No states layer in this style",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                    Toast.makeText(
+                        this@RuntimeStyleActivity,
+                        "No states layer in this style",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
-            2000,
+            2000
         )
     }
 
@@ -625,8 +607,8 @@ class RuntimeStyleActivity : AppCompatActivity() {
         trackasiaMap.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(31.0, (-100).toDouble()),
-                3.0,
-            ),
+                3.0
+            )
         )
         val handler = Handler(mainLooper)
         handler.postDelayed(
@@ -644,23 +626,22 @@ class RuntimeStyleActivity : AppCompatActivity() {
                                 Expression.literal(25.0f),
                                 Expression.`in`(
                                     Expression.get("name"),
-                                    Expression.literal(arrayOf<Any>("California", "Illinois")),
+                                    Expression.literal(arrayOf<Any>("California", "Illinois"))
                                 ),
                                 Expression.literal(25.0f),
-                                Expression.literal(6.0f), // default value
-                            ),
-                        ),
+                                Expression.literal(6.0f) // default value
+                            )
+                        )
                     )
                 } else {
-                    Toast
-                        .makeText(
-                            this@RuntimeStyleActivity,
-                            "No states layer in this style",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                    Toast.makeText(
+                        this@RuntimeStyleActivity,
+                        "No states layer in this style",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
-            2000,
+            2000
         )
     }
 
@@ -680,18 +661,17 @@ class RuntimeStyleActivity : AppCompatActivity() {
                     counties.setProperties(
                         PropertyFactory.lineColor(Color.RED),
                         PropertyFactory.lineOpacity(0.75f),
-                        PropertyFactory.lineWidth(5f),
+                        PropertyFactory.lineWidth(5f)
                     )
                 } else {
-                    Toast
-                        .makeText(
-                            this@RuntimeStyleActivity,
-                            "No counties layer in this style",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                    Toast.makeText(
+                        this@RuntimeStyleActivity,
+                        "No counties layer in this style",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
-            2000,
+            2000
         )
     }
 
@@ -711,28 +691,27 @@ class RuntimeStyleActivity : AppCompatActivity() {
                         Expression.all(
                             Expression.gte(
                                 Expression.toNumber(Expression.get("HRRNUM")),
-                                Expression.literal(200),
+                                Expression.literal(200)
                             ),
                             Expression.lt(
                                 Expression.toNumber(Expression.get("HRRNUM")),
-                                Expression.literal(300),
-                            ),
-                        ),
+                                Expression.literal(300)
+                            )
+                        )
                     )
                     regions.setProperties(
                         PropertyFactory.fillColor(Color.BLUE),
-                        PropertyFactory.fillOpacity(0.5f),
+                        PropertyFactory.fillOpacity(0.5f)
                     )
                 } else {
-                    Toast
-                        .makeText(
-                            this@RuntimeStyleActivity,
-                            "No regions layer in this style",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                    Toast.makeText(
+                        this@RuntimeStyleActivity,
+                        "No regions layer in this style",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
-            2000,
+            2000
         )
     }
 

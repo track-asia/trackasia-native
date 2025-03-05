@@ -1,11 +1,11 @@
 package com.trackasia.android.maps
 
 import android.graphics.PointF
-import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.gestures.MoveGestureDetector
 import com.trackasia.android.gestures.RotateGestureDetector
 import com.trackasia.android.gestures.ShoveGestureDetector
 import com.trackasia.android.gestures.StandardScaleGestureDetector
+import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.TrackAsiaMap.*
 import org.junit.Before
 import org.junit.Test
@@ -21,67 +21,62 @@ class MapTouchListenersTest {
     fun setUp() {
         latLng = LatLng()
         pointF = PointF()
-        val projection =
-            Mockito.mock(
-                Projection::class.java,
-            )
+        val projection = Mockito.mock(
+            Projection::class.java
+        )
         Mockito.`when`(projection.fromScreenLocation(pointF!!)).thenReturn(latLng)
-        mapGestureDetector =
-            MapGestureDetector(
-                null,
-                null,
-                projection,
-                null,
-                null,
-                null,
-            )
+        mapGestureDetector = MapGestureDetector(
+            null,
+            null,
+            projection,
+            null,
+            null,
+            null
+        )
     }
 
     @Test
     @Throws(Exception::class)
     fun onMapClickListenerTest() {
-        val listener =
-            Mockito.mock(
-                OnMapClickListener::class.java,
-            )
+        val listener = Mockito.mock(
+            OnMapClickListener::class.java
+        )
         mapGestureDetector!!.addOnMapClickListener(listener)
         mapGestureDetector!!.notifyOnMapClickListeners(pointF!!)
         Mockito.verify(listener, Mockito.times(1)).onMapClick(
-            latLng!!,
+            latLng!!
         )
         mapGestureDetector!!.removeOnMapClickListener(listener)
         mapGestureDetector!!.notifyOnMapClickListeners(pointF!!)
         Mockito.verify(listener, Mockito.times(1)).onMapClick(
-            latLng!!,
+            latLng!!
         )
     }
 
     @Test
     @Throws(Exception::class)
     fun onMapLongClickListenerTest() {
-        val listener =
-            Mockito.mock(
-                OnMapLongClickListener::class.java,
-            )
+        val listener = Mockito.mock(
+            OnMapLongClickListener::class.java
+        )
         mapGestureDetector!!.addOnMapLongClickListener(listener)
         mapGestureDetector!!.notifyOnMapLongClickListeners(pointF!!)
         Mockito.verify(listener, Mockito.times(1)).onMapLongClick(
-            latLng!!,
+            latLng!!
         )
         mapGestureDetector!!.removeOnMapLongClickListener(listener)
         mapGestureDetector!!.notifyOnMapLongClickListeners(pointF!!)
         Mockito.verify(listener, Mockito.times(1)).onMapLongClick(
-            latLng!!,
+            latLng!!
         )
     }
 
     @Test
     @Throws(Exception::class)
     fun onFlingListenerTest() {
-        val listener =
-            Mockito.mock(
-                OnFlingListener::class.java,
-            )
+        val listener = Mockito.mock(
+            OnFlingListener::class.java
+        )
         mapGestureDetector!!.addOnFlingListener(listener)
         mapGestureDetector!!.notifyOnFlingListeners()
         Mockito.verify(listener, Mockito.times(1)).onFling()
@@ -94,10 +89,9 @@ class MapTouchListenersTest {
     @Throws(Exception::class)
     fun onMoveListenerTest() {
         val listener = Mockito.mock(OnMoveListener::class.java)
-        val detector =
-            Mockito.mock(
-                MoveGestureDetector::class.java,
-            )
+        val detector = Mockito.mock(
+            MoveGestureDetector::class.java
+        )
         mapGestureDetector!!.addOnMoveListener(listener)
         mapGestureDetector!!.notifyOnMoveBeginListeners(detector)
         mapGestureDetector!!.notifyOnMoveListeners(detector)
@@ -117,14 +111,12 @@ class MapTouchListenersTest {
     @Test
     @Throws(Exception::class)
     fun onRotateListenerTest() {
-        val listener =
-            Mockito.mock(
-                OnRotateListener::class.java,
-            )
-        val detector =
-            Mockito.mock(
-                RotateGestureDetector::class.java,
-            )
+        val listener = Mockito.mock(
+            OnRotateListener::class.java
+        )
+        val detector = Mockito.mock(
+            RotateGestureDetector::class.java
+        )
         mapGestureDetector!!.addOnRotateListener(listener)
         mapGestureDetector!!.notifyOnRotateBeginListeners(detector)
         mapGestureDetector!!.notifyOnRotateListeners(detector)
@@ -145,10 +137,9 @@ class MapTouchListenersTest {
     @Throws(Exception::class)
     fun onScaleListenerTest() {
         val listener = Mockito.mock(OnScaleListener::class.java)
-        val detector =
-            Mockito.mock(
-                StandardScaleGestureDetector::class.java,
-            )
+        val detector = Mockito.mock(
+            StandardScaleGestureDetector::class.java
+        )
         mapGestureDetector!!.addOnScaleListener(listener)
         mapGestureDetector!!.notifyOnScaleBeginListeners(detector)
         mapGestureDetector!!.notifyOnScaleListeners(detector)
@@ -169,10 +160,9 @@ class MapTouchListenersTest {
     @Throws(Exception::class)
     fun onShoveListenerTest() {
         val listener = Mockito.mock(OnShoveListener::class.java)
-        val detector =
-            Mockito.mock(
-                ShoveGestureDetector::class.java,
-            )
+        val detector = Mockito.mock(
+            ShoveGestureDetector::class.java
+        )
         mapGestureDetector!!.addShoveListener(listener)
         mapGestureDetector!!.notifyOnShoveBeginListeners(detector)
         mapGestureDetector!!.notifyOnShoveListeners(detector)

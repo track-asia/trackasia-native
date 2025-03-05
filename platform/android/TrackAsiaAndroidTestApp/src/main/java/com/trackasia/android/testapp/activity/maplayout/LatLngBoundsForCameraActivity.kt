@@ -15,12 +15,9 @@ import com.trackasia.android.testapp.styles.TestStyles
 /**
  * Test activity showcasing restricting user gestures to a bounds around Iceland, almost worldview and IDL.
  */
-class LatLngBoundsForCameraActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restricted_bounds)
@@ -69,12 +66,11 @@ class LatLngBoundsForCameraActivity :
     private fun showBoundsArea(bounds: LatLngBounds?) {
         trackasiaMap.clear()
         if (bounds != null) {
-            val boundsArea =
-                PolygonOptions()
-                    .add(bounds.northWest)
-                    .add(bounds.northEast)
-                    .add(bounds.southEast)
-                    .add(bounds.southWest)
+            val boundsArea = PolygonOptions()
+                .add(bounds.northWest)
+                .add(bounds.northEast)
+                .add(bounds.southEast)
+                .add(bounds.southWest)
             boundsArea.alpha(0.25f)
             boundsArea.fillColor(Color.RED)
             trackasiaMap.addPolygon(boundsArea)
@@ -124,23 +120,17 @@ class LatLngBoundsForCameraActivity :
     }
 
     companion object {
-        private val ICELAND_BOUNDS =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(66.852863, -25.985652))
-                .include(LatLng(62.985661, -12.626277))
-                .build()
-        private val ALMOST_WORLD_BOUNDS =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(20.0, 170.0))
-                .include(LatLng((-20).toDouble(), -170.0))
-                .build()
-        private val CROSS_IDL_BOUNDS =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(20.0, 170.0))
-                .include(LatLng((-20).toDouble(), 190.0))
-                .build()
+        private val ICELAND_BOUNDS = LatLngBounds.Builder()
+            .include(LatLng(66.852863, -25.985652))
+            .include(LatLng(62.985661, -12.626277))
+            .build()
+        private val ALMOST_WORLD_BOUNDS = LatLngBounds.Builder()
+            .include(LatLng(20.0, 170.0))
+            .include(LatLng((-20).toDouble(), -170.0))
+            .build()
+        private val CROSS_IDL_BOUNDS = LatLngBounds.Builder()
+            .include(LatLng(20.0, 170.0))
+            .include(LatLng((-20).toDouble(), 190.0))
+            .build()
     }
 }

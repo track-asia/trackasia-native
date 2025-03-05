@@ -15,25 +15,24 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class CameraUpdateFactoryTest : BaseTest() {
-    override fun getActivityClass(): Class<*> = DeviceIndependentTestActivity::class.java
+
+    override fun getActivityClass(): Class<*> {
+        return DeviceIndependentTestActivity::class.java
+    }
 
     @Test
     @UiThreadTest
     fun testLatLngBoundsUntiltedUnrotated() {
-        trackasiaMap.cameraPosition =
-            CameraPosition
-                .Builder()
-                .target(LatLng(60.0, 24.0))
-                .bearing(0.0)
-                .tilt(0.0)
-                .build()
+        trackasiaMap.cameraPosition = CameraPosition.Builder()
+            .target(LatLng(60.0, 24.0))
+            .bearing(0.0)
+            .tilt(0.0)
+            .build()
 
-        val bounds: LatLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(62.0, 26.0))
-                .include(LatLng(58.0, 22.0))
-                .build()
+        val bounds: LatLngBounds = LatLngBounds.Builder()
+            .include(LatLng(62.0, 26.0))
+            .include(LatLng(58.0, 22.0))
+            .build()
 
         trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0))
 
@@ -48,20 +47,16 @@ class CameraUpdateFactoryTest : BaseTest() {
     @Test
     @UiThreadTest
     fun testLatLngBoundsTilted() {
-        trackasiaMap.cameraPosition =
-            CameraPosition
-                .Builder()
-                .target(LatLng(60.0, 24.0))
-                .bearing(0.0)
-                .tilt(45.0)
-                .build()
+        trackasiaMap.cameraPosition = CameraPosition.Builder()
+            .target(LatLng(60.0, 24.0))
+            .bearing(0.0)
+            .tilt(45.0)
+            .build()
 
-        val bounds: LatLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(62.0, 26.0))
-                .include(LatLng(58.0, 22.0))
-                .build()
+        val bounds: LatLngBounds = LatLngBounds.Builder()
+            .include(LatLng(62.0, 26.0))
+            .include(LatLng(58.0, 22.0))
+            .build()
 
         trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0))
 
@@ -76,20 +71,16 @@ class CameraUpdateFactoryTest : BaseTest() {
     @Test
     @UiThreadTest
     fun testLatLngBoundsRotated() {
-        trackasiaMap.cameraPosition =
-            CameraPosition
-                .Builder()
-                .target(LatLng(60.0, 24.0))
-                .bearing(30.0)
-                .tilt(0.0)
-                .build()
+        trackasiaMap.cameraPosition = CameraPosition.Builder()
+            .target(LatLng(60.0, 24.0))
+            .bearing(30.0)
+            .tilt(0.0)
+            .build()
 
-        val bounds: LatLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(62.0, 26.0))
-                .include(LatLng(58.0, 22.0))
-                .build()
+        val bounds: LatLngBounds = LatLngBounds.Builder()
+            .include(LatLng(62.0, 26.0))
+            .include(LatLng(58.0, 22.0))
+            .build()
 
         trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0))
 
@@ -104,20 +95,16 @@ class CameraUpdateFactoryTest : BaseTest() {
     @Test
     @UiThreadTest
     fun testLatLngBoundsTiltedRotated() {
-        trackasiaMap.cameraPosition =
-            CameraPosition
-                .Builder()
-                .target(LatLng(60.0, 24.0))
-                .bearing(30.0)
-                .tilt(45.0)
-                .build()
+        trackasiaMap.cameraPosition = CameraPosition.Builder()
+            .target(LatLng(60.0, 24.0))
+            .bearing(30.0)
+            .tilt(45.0)
+            .build()
 
-        val bounds: LatLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(62.0, 26.0))
-                .include(LatLng(58.0, 22.0))
-                .build()
+        val bounds: LatLngBounds = LatLngBounds.Builder()
+            .include(LatLng(62.0, 26.0))
+            .include(LatLng(58.0, 22.0))
+            .build()
 
         trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0))
 
@@ -132,20 +119,16 @@ class CameraUpdateFactoryTest : BaseTest() {
     @Test
     @UiThreadTest
     fun testLatLngBoundsWithProvidedTiltAndRotation() {
-        trackasiaMap.cameraPosition =
-            CameraPosition
-                .Builder()
-                .target(LatLng(60.0, 24.0))
-                .bearing(0.0)
-                .tilt(0.0)
-                .build()
+        trackasiaMap.cameraPosition = CameraPosition.Builder()
+            .target(LatLng(60.0, 24.0))
+            .bearing(0.0)
+            .tilt(0.0)
+            .build()
 
-        val bounds: LatLngBounds =
-            LatLngBounds
-                .Builder()
-                .include(LatLng(62.0, 26.0))
-                .include(LatLng(58.0, 22.0))
-                .build()
+        val bounds: LatLngBounds = LatLngBounds.Builder()
+            .include(LatLng(62.0, 26.0))
+            .include(LatLng(58.0, 22.0))
+            .build()
 
         trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 30.0, 40.0, 0))
 
@@ -174,7 +157,7 @@ class CameraUpdateFactoryTest : BaseTest() {
         assertEquals(initialCameraPosition.target!!, resultingCameraPosition.target!!)
         assertEquals(
             PointF(initialPoint.x + leftPadding / 2, initialPoint.y - bottomPadding / 2),
-            trackasiaMap.projection.toScreenLocation(resultingCameraPosition.target!!),
+            trackasiaMap.projection.toScreenLocation(resultingCameraPosition.target!!)
         )
         Assert.assertArrayEquals(padding, resultingCameraPosition.padding, 0.0001)
     }
@@ -187,9 +170,7 @@ class CameraUpdateFactoryTest : BaseTest() {
         val topPadding = mapView.height / 4
         val rightPadding = mapView.width / 4
         val padding = doubleArrayOf(0.0, topPadding.toDouble(), rightPadding.toDouble(), 0.0)
-        trackasiaMap.moveCamera(
-            CameraUpdateFactory.newLatLngPadding(expectedTarget, 0.0, topPadding.toDouble(), rightPadding.toDouble(), 0.0),
-        )
+        trackasiaMap.moveCamera(CameraUpdateFactory.newLatLngPadding(expectedTarget, 0.0, topPadding.toDouble(), rightPadding.toDouble(), 0.0))
 
         Assert.assertArrayEquals(intArrayOf(0, topPadding, rightPadding, 0), trackasiaMap.padding)
 

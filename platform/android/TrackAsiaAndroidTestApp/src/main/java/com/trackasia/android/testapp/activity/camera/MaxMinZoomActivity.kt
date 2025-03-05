@@ -3,17 +3,16 @@ package com.trackasia.android.testapp.activity.camera
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.TrackAsiaMap.OnMapClickListener
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 import timber.log.Timber
 
 /** Test activity showcasing using maximum and minimum zoom levels to restrict camera movement. */
-class MaxMinZoomActivity :
-    AppCompatActivity(),
-    OnMapReadyCallback {
+class MaxMinZoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
 

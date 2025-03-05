@@ -10,8 +10,8 @@ import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.offline.OfflineManager
 import com.trackasia.android.offline.OfflineManager.CreateOfflineRegionCallback
 import com.trackasia.android.offline.OfflineManager.ListOfflineRegionsCallback
@@ -36,12 +36,10 @@ import java.util.ArrayList
  * Shows a map of Manhattan and allows the user to download and name a region.
  *
  */
-class OfflineActivity :
-    AppCompatActivity(),
-    DownloadRegionDialogListener {
+class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
     /*
-     * UI elements
-     */
+   * UI elements
+   */
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
     private var progressBar: ProgressBar? = null
@@ -52,11 +50,10 @@ class OfflineActivity :
         get() = TestStyles.getPredefinedStyleWithFallback("Streets")
 
     /*
-     * Offline objects
-     */
+   * Offline objects
+   */
     private var offlineManager: OfflineManager? = null
     private var offlineRegion: OfflineRegion? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offline)
@@ -77,14 +74,13 @@ class OfflineActivity :
             // Set initial position to UNHQ in NYC
             trackasiaMap.moveCamera(
                 CameraUpdateFactory.newCameraPosition(
-                    CameraPosition
-                        .Builder()
+                    CameraPosition.Builder()
                         .target(LatLng(40.749851, -73.967966))
                         .zoom(14.0)
                         .bearing(0.0)
                         .tilt(0.0)
-                        .build(),
-                ),
+                        .build()
+                )
             )
         }
 
@@ -137,8 +133,8 @@ class OfflineActivity :
     }
 
     /*
-     * Buttons logic
-     */
+   * Buttons logic
+   */
     private fun handleDownloadRegion() {
         Timber.d("handleDownloadRegion")
 
@@ -151,50 +147,46 @@ class OfflineActivity :
         Timber.d("handleListRegions")
 
         // Query the DB asynchronously
-        offlineManager!!.listOfflineRegions(
-            object : ListOfflineRegionsCallback {
-                override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    // Check result
-                    if (offlineRegions == null || offlineRegions.isEmpty()) {
-                        Toast
-                            .makeText(
-                                this@OfflineActivity,
-                                "You have no regions yet.",
-                                Toast.LENGTH_SHORT,
-                            ).show()
-                        return
-                    }
-
-                    // Get regions info
-                    val offlineRegionsNames = ArrayList<String>()
-                    for (offlineRegion in offlineRegions) {
-                        offlineRegionsNames.add(OfflineUtils.convertRegionName(offlineRegion.metadata))
-                    }
-
-                    // Create args
-                    val args = Bundle()
-                    args.putStringArrayList(OfflineListRegionsDialog.ITEMS, offlineRegionsNames)
-
-                    // Show dialog
-                    val offlineListRegionsDialog = OfflineListRegionsDialog()
-                    offlineListRegionsDialog.arguments = args
-                    offlineListRegionsDialog.show(supportFragmentManager, "list")
+        offlineManager!!.listOfflineRegions(object : ListOfflineRegionsCallback {
+            override fun onList(offlineRegions: Array<OfflineRegion>?) {
+                // Check result
+                if (offlineRegions == null || offlineRegions.isEmpty()) {
+                    Toast.makeText(
+                        this@OfflineActivity,
+                        "You have no regions yet.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
                 }
 
-                override fun onError(error: String) {
-                    Timber.e("Error: %s", error)
+                // Get regions info
+                val offlineRegionsNames = ArrayList<String>()
+                for (offlineRegion in offlineRegions) {
+                    offlineRegionsNames.add(OfflineUtils.convertRegionName(offlineRegion.metadata))
                 }
-            },
-        )
+
+                // Create args
+                val args = Bundle()
+                args.putStringArrayList(OfflineListRegionsDialog.ITEMS, offlineRegionsNames)
+
+                // Show dialog
+                val offlineListRegionsDialog = OfflineListRegionsDialog()
+                offlineListRegionsDialog.arguments = args
+                offlineListRegionsDialog.show(supportFragmentManager, "list")
+            }
+
+            override fun onError(error: String) {
+                Timber.e("Error: %s", error)
+            }
+        })
     }
 
     /*
-     * Dialogs
-     */
+   * Dialogs
+   */
     override fun onDownloadRegionDialogPositiveClick(regionName: String?) {
         if (TextUtils.isEmpty(regionName)) {
-            Toast
-                .makeText(this@OfflineActivity, "Region name cannot be empty.", Toast.LENGTH_SHORT)
+            Toast.makeText(this@OfflineActivity, "Region name cannot be empty.", Toast.LENGTH_SHORT)
                 .show()
             return
         }
@@ -208,14 +200,13 @@ class OfflineActivity :
         val minZoom = trackasiaMap.cameraPosition.zoom
         val maxZoom = trackasiaMap.maxZoomLevel
         val pixelRatio = this.resources.displayMetrics.density
-        val definition =
-            OfflineTilePyramidRegionDefinition(
-                STYLE_URL,
-                bounds,
-                minZoom,
-                maxZoom,
-                pixelRatio,
-            )
+        val definition = OfflineTilePyramidRegionDefinition(
+            STYLE_URL,
+            bounds,
+            minZoom,
+            maxZoom,
+            pixelRatio
+        )
 
         // Sample way of encoding metadata from a JSONObject
         val metadata = OfflineUtils.convertRegionName(regionName)
@@ -235,58 +226,56 @@ class OfflineActivity :
                     override fun onError(error: String) {
                         Timber.e("Error: %s", error)
                     }
-                },
+                }
             )
         }
     }
 
     private fun launchDownload() {
         // Set an observer
-        offlineRegion!!.setObserver(
-            object : OfflineRegionObserver {
-                override fun onStatusChanged(status: OfflineRegionStatus) {
-                    // Compute a percentage
-                    val percentage =
-                        if (status.requiredResourceCount >= 0) 100.0 * status.completedResourceCount / status.requiredResourceCount else 0.0
-                    if (status.isComplete) {
-                        // Download complete
-                        endProgress("Region downloaded successfully.")
-                        offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
-                        offlineRegion!!.setObserver(null)
-                        return
-                    } else if (status.isRequiredResourceCountPrecise) {
-                        // Switch to determinate state
-                        setPercentage(Math.round(percentage).toInt())
-                    }
-
-                    // Debug
-                    Timber.d(
-                        "%s/%s resources; %s bytes downloaded.",
-                        status.completedResourceCount.toString(),
-                        status.requiredResourceCount.toString(),
-                        status.completedResourceSize.toString(),
-                    )
-                }
-
-                override fun onError(error: OfflineRegionError) {
-                    Timber.e("onError: %s, %s", error.reason, error.message)
+        offlineRegion!!.setObserver(object : OfflineRegionObserver {
+            override fun onStatusChanged(status: OfflineRegionStatus) {
+                // Compute a percentage
+                val percentage =
+                    if (status.requiredResourceCount >= 0) 100.0 * status.completedResourceCount / status.requiredResourceCount else 0.0
+                if (status.isComplete) {
+                    // Download complete
+                    endProgress("Region downloaded successfully.")
                     offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
+                    offlineRegion!!.setObserver(null)
+                    return
+                } else if (status.isRequiredResourceCountPrecise) {
+                    // Switch to determinate state
+                    setPercentage(Math.round(percentage).toInt())
                 }
 
-                override fun mapboxTileCountLimitExceeded(limit: Long) {
-                    Timber.e("TrackAsia tile count limit exceeded: %s", limit)
-                    offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
-                }
-            },
-        )
+                // Debug
+                Timber.d(
+                    "%s/%s resources; %s bytes downloaded.",
+                    status.completedResourceCount.toString(),
+                    status.requiredResourceCount.toString(),
+                    status.completedResourceSize.toString()
+                )
+            }
+
+            override fun onError(error: OfflineRegionError) {
+                Timber.e("onError: %s, %s", error.reason, error.message)
+                offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
+            }
+
+            override fun mapboxTileCountLimitExceeded(limit: Long) {
+                Timber.e("TrackAsia tile count limit exceeded: %s", limit)
+                offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
+            }
+        })
 
         // Change the region state
         offlineRegion!!.setDownloadState(OfflineRegion.STATE_ACTIVE)
     }
 
     /*
-     * Progress bar
-     */
+   * Progress bar
+   */
     private fun startProgress() {
         // Disable buttons
         downloadRegion!!.isEnabled = false

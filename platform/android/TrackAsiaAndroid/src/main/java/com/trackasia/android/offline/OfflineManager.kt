@@ -24,9 +24,7 @@ import java.nio.channels.FileChannel
  * It'll help you list and create offline regions.
  */
 @UiThread
-class OfflineManager private constructor(
-    context: Context,
-) {
+class OfflineManager private constructor(context: Context) {
     // Native peer pointer
     @Keep
     private val nativePtr: Long = 0
@@ -170,7 +168,7 @@ class OfflineManager private constructor(
                         callback.onError(error)
                     }
                 }
-            },
+            }
         )
     }
 
@@ -182,10 +180,7 @@ class OfflineManager private constructor(
      *
      * @param callback the callback to be invoked
      */
-    fun getOfflineRegion(
-        regionID: Long,
-        callback: GetOfflineRegionCallback,
-    ) {
+    fun getOfflineRegion(regionID: Long, callback: GetOfflineRegionCallback) {
         fileSource.activate()
         getOfflineRegion(
             fileSource,
@@ -211,7 +206,7 @@ class OfflineManager private constructor(
                         callback.onError(error)
                     }
                 }
-            },
+            }
         )
     }
 
@@ -239,16 +234,12 @@ class OfflineManager private constructor(
      * @param path     secondary database writable path
      * @param callback completion/error callback
      */
-    fun mergeOfflineRegions(
-        path: String,
-        callback: MergeOfflineRegionsCallback,
-    ) {
+    fun mergeOfflineRegions(path: String, callback: MergeOfflineRegionsCallback) {
         val src = File(path)
         Thread {
             var errorMessage: String? = null
             if (src.canWrite()) {
-                handler.post {
-                    // path writable, merge and update schema in place if necessary
+                handler.post { // path writable, merge and update schema in place if necessary
                     mergeOfflineDatabaseFiles(src, callback, false)
                 }
             } else if (src.canRead()) {
@@ -256,8 +247,7 @@ class OfflineManager private constructor(
                 val dst = File(FileSource.getInternalCachePath(context), src.name)
                 try {
                     copyTempDatabaseFile(src, dst)
-                    handler.post {
-                        // merge and update schema using the copy
+                    handler.post { // merge and update schema using the copy
                         mergeOfflineDatabaseFiles(dst, callback, true)
                     }
                 } catch (ex: IOException) {
@@ -286,23 +276,21 @@ class OfflineManager private constructor(
      */
     fun resetDatabase(callback: FileSourceCallback?) {
         fileSource.activate()
-        nativeResetDatabase(
-            object : FileSourceCallback {
-                override fun onSuccess() {
-                    handler.post {
-                        fileSource.deactivate()
-                        callback?.onSuccess()
-                    }
+        nativeResetDatabase(object : FileSourceCallback {
+            override fun onSuccess() {
+                handler.post {
+                    fileSource.deactivate()
+                    callback?.onSuccess()
                 }
+            }
 
-                override fun onError(message: String) {
-                    handler.post {
-                        fileSource.deactivate()
-                        callback?.onError(message)
-                    }
+            override fun onError(message: String) {
+                handler.post {
+                    fileSource.deactivate()
+                    callback?.onError(message)
                 }
-            },
-        )
+            }
+        })
     }
 
     /**
@@ -319,23 +307,21 @@ class OfflineManager private constructor(
      */
     fun packDatabase(callback: FileSourceCallback?) {
         fileSource.activate()
-        nativePackDatabase(
-            object : FileSourceCallback {
-                override fun onSuccess() {
-                    handler.post {
-                        fileSource.deactivate()
-                        callback?.onSuccess()
-                    }
+        nativePackDatabase(object : FileSourceCallback {
+            override fun onSuccess() {
+                handler.post {
+                    fileSource.deactivate()
+                    callback?.onSuccess()
                 }
+            }
 
-                override fun onError(message: String) {
-                    handler.post {
-                        fileSource.deactivate()
-                        callback?.onError(message)
-                    }
+            override fun onError(message: String) {
+                handler.post {
+                    fileSource.deactivate()
+                    callback?.onError(message)
                 }
-            },
-        )
+            }
+        })
     }
 
     /**
@@ -354,23 +340,21 @@ class OfflineManager private constructor(
      */
     fun invalidateAmbientCache(callback: FileSourceCallback?) {
         fileSource.activate()
-        nativeInvalidateAmbientCache(
-            object : FileSourceCallback {
-                override fun onSuccess() {
-                    handler.post {
-                        fileSource.deactivate()
-                        callback?.onSuccess()
-                    }
+        nativeInvalidateAmbientCache(object : FileSourceCallback {
+            override fun onSuccess() {
+                handler.post {
+                    fileSource.deactivate()
+                    callback?.onSuccess()
                 }
+            }
 
-                override fun onError(message: String) {
-                    handler.post {
-                        fileSource.deactivate()
-                        callback?.onError(message)
-                    }
+            override fun onError(message: String) {
+                handler.post {
+                    fileSource.deactivate()
+                    callback?.onError(message)
                 }
-            },
-        )
+            }
+        })
     }
 
     /**
@@ -388,23 +372,21 @@ class OfflineManager private constructor(
      */
     fun clearAmbientCache(callback: FileSourceCallback?) {
         fileSource.activate()
-        nativeClearAmbientCache(
-            object : FileSourceCallback {
-                override fun onSuccess() {
-                    handler.post {
-                        fileSource.deactivate()
-                        callback?.onSuccess()
-                    }
+        nativeClearAmbientCache(object : FileSourceCallback {
+            override fun onSuccess() {
+                handler.post {
+                    fileSource.deactivate()
+                    callback?.onSuccess()
                 }
+            }
 
-                override fun onError(message: String) {
-                    handler.post {
-                        fileSource.deactivate()
-                        callback?.onError(message)
-                    }
+            override fun onError(message: String) {
+                handler.post {
+                    fileSource.deactivate()
+                    callback?.onError(message)
                 }
-            },
-        )
+            }
+        })
     }
 
     /**
@@ -431,10 +413,7 @@ class OfflineManager private constructor(
      * @param size     the maximum size of the ambient cache
      * @param callback the callback to be invoked when the the maximum size has been set or when the operation erred.
      */
-    fun setMaximumAmbientCacheSize(
-        size: Long,
-        callback: FileSourceCallback?,
-    ) {
+    fun setMaximumAmbientCacheSize(size: Long, callback: FileSourceCallback?) {
         fileSource.activate()
         nativeSetMaximumAmbientCacheSize(
             size,
@@ -453,7 +432,7 @@ class OfflineManager private constructor(
                         callback?.onError(message)
                     }
                 }
-            },
+            }
         )
     }
 
@@ -475,11 +454,7 @@ class OfflineManager private constructor(
         fun onError(message: String)
     }
 
-    private fun mergeOfflineDatabaseFiles(
-        file: File,
-        callback: MergeOfflineRegionsCallback,
-        isTemporaryFile: Boolean,
-    ) {
+    private fun mergeOfflineDatabaseFiles(file: File, callback: MergeOfflineRegionsCallback, isTemporaryFile: Boolean) {
         fileSource.activate()
         mergeOfflineRegions(
             fileSource,
@@ -504,7 +479,7 @@ class OfflineManager private constructor(
                         callback.onError(error)
                     }
                 }
-            },
+            }
         )
     }
 
@@ -523,15 +498,9 @@ class OfflineManager private constructor(
      * @param metadata   the metadata in bytes
      * @param callback   the callback to be invoked
      */
-    fun createOfflineRegion(
-        definition: OfflineRegionDefinition,
-        metadata: ByteArray,
-        callback: CreateOfflineRegionCallback,
-    ) {
+    fun createOfflineRegion(definition: OfflineRegionDefinition, metadata: ByteArray, callback: CreateOfflineRegionCallback) {
         if (!isValidOfflineRegionDefinition(definition)) {
-            callback.onError(
-                String.format(context.getString(R.string.trackasia_offline_error_region_definition_invalid), definition.bounds),
-            )
+            callback.onError(String.format(context.getString(R.string.trackasia_offline_error_region_definition_invalid), definition.bounds))
             return
         }
         ConnectivityReceiver.instance(context).activate()
@@ -556,7 +525,7 @@ class OfflineManager private constructor(
                         callback.onError(error)
                     }
                 }
-            },
+            }
         )
     }
 
@@ -566,7 +535,9 @@ class OfflineManager private constructor(
      * @param definition the offline region definition
      * @return true if the region fits the world bounds.
      */
-    private fun isValidOfflineRegionDefinition(definition: OfflineRegionDefinition): Boolean = world().contains(definition.bounds!!)
+    private fun isValidOfflineRegionDefinition(definition: OfflineRegionDefinition): Boolean {
+        return world().contains(definition.bounds!!)
+    }
 
     /**
      * Sets the maximum number of tiles that may be downloaded and stored on the current device.
@@ -607,32 +578,16 @@ class OfflineManager private constructor(
     protected external fun finalize()
 
     @Keep
-    private external fun listOfflineRegions(
-        fileSource: FileSource,
-        callback: ListOfflineRegionsCallback,
-    )
+    private external fun listOfflineRegions(fileSource: FileSource, callback: ListOfflineRegionsCallback)
 
     @Keep
-    private external fun getOfflineRegion(
-        fileSource: FileSource,
-        regionID: Long,
-        callback: GetOfflineRegionCallback,
-    )
+    private external fun getOfflineRegion(fileSource: FileSource, regionID: Long, callback: GetOfflineRegionCallback)
 
     @Keep
-    private external fun createOfflineRegion(
-        fileSource: FileSource,
-        definition: OfflineRegionDefinition,
-        metadata: ByteArray,
-        callback: CreateOfflineRegionCallback,
-    )
+    private external fun createOfflineRegion(fileSource: FileSource, definition: OfflineRegionDefinition, metadata: ByteArray, callback: CreateOfflineRegionCallback)
 
     @Keep
-    private external fun mergeOfflineRegions(
-        fileSource: FileSource,
-        path: String,
-        callback: MergeOfflineRegionsCallback,
-    )
+    private external fun mergeOfflineRegions(fileSource: FileSource, path: String, callback: MergeOfflineRegionsCallback)
 
     @Keep
     private external fun nativeResetDatabase(callback: FileSourceCallback?)
@@ -647,10 +602,7 @@ class OfflineManager private constructor(
     private external fun nativeClearAmbientCache(callback: FileSourceCallback?)
 
     @Keep
-    private external fun nativeSetMaximumAmbientCacheSize(
-        size: Long,
-        callback: FileSourceCallback?,
-    )
+    private external fun nativeSetMaximumAmbientCacheSize(size: Long, callback: FileSourceCallback?)
 
     /**
      * Insert the provided resource into the ambient cache
@@ -672,14 +624,7 @@ class OfflineManager private constructor(
      * @param mustRevalidate Indicates whether response can be used after it's stale
      */
     @Keep
-    external fun putResourceWithUrl(
-        url: String?,
-        data: ByteArray?,
-        modified: Long,
-        expires: Long,
-        etag: String?,
-        mustRevalidate: Boolean,
-    )
+    external fun putResourceWithUrl(url: String?, data: ByteArray?, modified: Long, expires: Long, etag: String?, mustRevalidate: Boolean)
 
     companion object {
         private const val TAG = "Mbgl - OfflineManager"
@@ -711,10 +656,7 @@ class OfflineManager private constructor(
         }
 
         @Throws(IOException::class)
-        private fun copyTempDatabaseFile(
-            sourceFile: File,
-            destFile: File,
-        ) {
+        private fun copyTempDatabaseFile(sourceFile: File, destFile: File) {
             if (!destFile.exists() && !destFile.createNewFile()) {
                 throw IOException("Unable to copy database file for merge.")
             }

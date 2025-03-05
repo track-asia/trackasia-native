@@ -41,20 +41,20 @@ class LocationComponentActivationOptionsTest {
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        Mockito
-            .`when`(
-                context!!.obtainStyledAttributes(
-                    R.style.trackasia_LocationComponent,
-                    R.styleable.trackasia_LocationComponent,
-                ),
-            ).thenReturn(array)
-        Mockito
-            .`when`(
-                array!!.getResourceId(
-                    R.styleable.trackasia_LocationComponent_trackasia_foregroundDrawable,
-                    -1,
-                ),
-            ).thenReturn(R.drawable.trackasia_user_icon)
+        Mockito.`when`(
+            context!!.obtainStyledAttributes(
+                R.style.trackasia_LocationComponent,
+                R.styleable.trackasia_LocationComponent
+            )
+        )
+            .thenReturn(array)
+        Mockito.`when`(
+            array!!.getResourceId(
+                R.styleable.trackasia_LocationComponent_trackasia_foregroundDrawable,
+                -1
+            )
+        )
+            .thenReturn(R.drawable.trackasia_user_icon)
         Mockito.`when`(context.resources).thenReturn(resources)
     }
 
@@ -62,21 +62,19 @@ class LocationComponentActivationOptionsTest {
     @Throws(Exception::class)
     fun sanity() {
         Mockito.`when`(style!!.isFullyLoaded).thenReturn(true)
-        val locationComponentOptions =
-            LocationComponentOptions
-                .builder(
-                    context!!,
-                ).accuracyAlpha(0.5f)
-                .build()
+        val locationComponentOptions = LocationComponentOptions.builder(
+            context!!
+        )
+            .accuracyAlpha(0.5f)
+            .build()
         Assert.assertNotNull(locationComponentOptions)
-        val locationComponentActivationOptions =
-            LocationComponentActivationOptions
-                .builder(
-                    context,
-                    style,
-                ).locationComponentOptions(locationComponentOptions)
-                .useDefaultLocationEngine(true)
-                .build()
+        val locationComponentActivationOptions = LocationComponentActivationOptions.builder(
+            context,
+            style
+        )
+            .locationComponentOptions(locationComponentOptions)
+            .useDefaultLocationEngine(true)
+            .build()
         Assert.assertNotNull(locationComponentActivationOptions)
     }
 
@@ -84,22 +82,20 @@ class LocationComponentActivationOptionsTest {
     @Throws(Exception::class)
     fun sanityWithDefaultPulsingCircle() {
         Mockito.`when`(style!!.isFullyLoaded).thenReturn(true)
-        val locationComponentOptions =
-            LocationComponentOptions
-                .builder(
-                    context!!,
-                ).accuracyAlpha(0.5f)
-                .pulseEnabled(true)
-                .build()
+        val locationComponentOptions = LocationComponentOptions.builder(
+            context!!
+        )
+            .accuracyAlpha(0.5f)
+            .pulseEnabled(true)
+            .build()
         Assert.assertNotNull(locationComponentOptions)
-        val locationComponentActivationOptions =
-            LocationComponentActivationOptions
-                .builder(
-                    context,
-                    style,
-                ).locationComponentOptions(locationComponentOptions)
-                .useDefaultLocationEngine(true)
-                .build()
+        val locationComponentActivationOptions = LocationComponentActivationOptions.builder(
+            context,
+            style
+        )
+            .locationComponentOptions(locationComponentOptions)
+            .useDefaultLocationEngine(true)
+            .build()
         Assert.assertNotNull(locationComponentActivationOptions)
     }
 
@@ -107,24 +103,22 @@ class LocationComponentActivationOptionsTest {
     @Throws(Exception::class)
     fun sanityWithCustomizedPulsingCircle() {
         Mockito.`when`(style!!.isFullyLoaded).thenReturn(true)
-        val locationComponentOptions =
-            LocationComponentOptions
-                .builder(
-                    context!!,
-                ).accuracyAlpha(0.5f)
-                .pulseEnabled(true)
-                .pulseColor(Color.RED)
-                .pulseInterpolator(LinearInterpolator())
-                .build()
+        val locationComponentOptions = LocationComponentOptions.builder(
+            context!!
+        )
+            .accuracyAlpha(0.5f)
+            .pulseEnabled(true)
+            .pulseColor(Color.RED)
+            .pulseInterpolator(LinearInterpolator())
+            .build()
         Assert.assertNotNull(locationComponentOptions)
-        val locationComponentActivationOptions =
-            LocationComponentActivationOptions
-                .builder(
-                    context,
-                    style,
-                ).locationComponentOptions(locationComponentOptions)
-                .useDefaultLocationEngine(true)
-                .build()
+        val locationComponentActivationOptions = LocationComponentActivationOptions.builder(
+            context,
+            style
+        )
+            .locationComponentOptions(locationComponentOptions)
+            .useDefaultLocationEngine(true)
+            .build()
         Assert.assertNotNull(locationComponentActivationOptions)
     }
 
@@ -135,16 +129,14 @@ class LocationComponentActivationOptionsTest {
         thrown.expectMessage(
             "You've provided both a style resource and a LocationComponentOptions" +
                 " object to the LocationComponentActivationOptions builder. You can't use both and " +
-                "you must choose one of the two to style the LocationComponent.",
+                "you must choose one of the two to style the LocationComponent."
         )
-        val locationComponentOptions =
-            LocationComponentOptions
-                .builder(
-                    context!!,
-                ).accuracyAlpha(0.5f)
-                .build()
-        LocationComponentActivationOptions
-            .builder(context, style!!)
+        val locationComponentOptions = LocationComponentOptions.builder(
+            context!!
+        )
+            .accuracyAlpha(0.5f)
+            .build()
+        LocationComponentActivationOptions.builder(context, style!!)
             .locationComponentOptions(locationComponentOptions)
             .styleRes(R.style.trackasia_LocationComponent)
             .build()
@@ -158,10 +150,9 @@ class LocationComponentActivationOptionsTest {
         thrown.expectMessage(
             "Style in LocationComponentActivationOptions isn't fully loaded. Wait for the " +
                 "map to fully load before passing the Style object to " +
-                "LocationComponentActivationOptions.",
+                "LocationComponentActivationOptions."
         )
-        LocationComponentActivationOptions
-            .builder(context!!, style)
+        LocationComponentActivationOptions.builder(context!!, style)
             .build()
     }
 }

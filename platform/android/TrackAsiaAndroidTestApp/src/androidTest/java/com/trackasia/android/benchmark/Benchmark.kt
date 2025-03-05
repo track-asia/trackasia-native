@@ -4,10 +4,10 @@ import android.app.Activity
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.trackasia.android.testapp.activity.benchmark.BenchmarkActivity
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.trackasia.android.testapp.activity.benchmark.BenchmarkActivity
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class Benchmark {

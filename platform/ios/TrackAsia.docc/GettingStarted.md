@@ -57,7 +57,7 @@ struct MyApp: App {
 }
 ```
 
-When running your app in the simulator you should be greeted with the default [Demotiles](https://demotiles.track-asia.com/) style:
+When running your app in the simulator you should be greeted with the default [Demotiles](https://maps.track-asia.com/) style:
 
 ![](DemotilesScreenshot.png)
 

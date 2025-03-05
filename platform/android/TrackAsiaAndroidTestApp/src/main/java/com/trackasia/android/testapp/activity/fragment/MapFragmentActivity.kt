@@ -1,5 +1,3 @@
-@file:Suppress("ktlint:standard:no-wildcard-imports")
-
 package com.trackasia.android.testapp.activity.fragment
 
 import android.os.Bundle
@@ -7,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.*
+import com.trackasia.android.maps.* // ktlint-disable no-wildcard-imports
 import com.trackasia.android.maps.MapFragment.OnMapViewReadyCallback
 import com.trackasia.android.maps.MapView.OnDidFinishRenderingFrameListener
 import com.trackasia.android.testapp.R
@@ -28,7 +26,6 @@ class MapFragmentActivity :
     private lateinit var trackasiaMap: TrackAsiaMap
     private lateinit var mapView: MapView
     private var initialCameraAnimation = true
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_fragment)
@@ -56,11 +53,10 @@ class MapFragmentActivity :
         options.minZoomPreference(9.0)
         options.maxZoomPreference(11.0)
         options.camera(
-            CameraPosition
-                .Builder()
+            CameraPosition.Builder()
                 .target(dc)
                 .zoom(11.0)
-                .build(),
+                .build()
         )
         return options
     }
@@ -82,15 +78,11 @@ class MapFragmentActivity :
         }
     }
 
-    override fun onDidFinishRenderingFrame(
-        fully: Boolean,
-        frameEncodingTime: Double,
-        frameRenderingTime: Double,
-    ) {
+    override fun onDidFinishRenderingFrame(fully: Boolean, frameEncodingTime: Double, frameRenderingTime: Double) {
         if (initialCameraAnimation && fully && this::trackasiaMap.isInitialized) {
             trackasiaMap.animateCamera(
                 CameraUpdateFactory.newCameraPosition(CameraPosition.Builder().tilt(45.0).build()),
-                5000,
+                5000
             )
             initialCameraAnimation = false
         }

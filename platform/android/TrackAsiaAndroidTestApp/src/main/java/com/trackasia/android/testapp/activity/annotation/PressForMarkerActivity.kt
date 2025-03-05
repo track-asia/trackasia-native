@@ -59,13 +59,12 @@ class PressForMarkerActivity : AppCompatActivity() {
         val title = (
             LAT_LON_FORMATTER.format(point.latitude) + ", " +
                 LAT_LON_FORMATTER.format(point.longitude)
-        )
+            )
         val snippet = "X = " + pixel.x.toInt() + ", Y = " + pixel.y.toInt()
-        val marker =
-            MarkerOptions()
-                .position(point)
-                .title(title)
-                .snippet(snippet)
+        val marker = MarkerOptions()
+            .position(point)
+            .title(title)
+            .snippet(snippet)
         markerList!!.add(marker)
         trackasiaMap.addMarker(marker)
     }
@@ -118,14 +117,15 @@ class PressForMarkerActivity : AppCompatActivity() {
         mapView.onLowMemory()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.menuItemReset -> {
                 resetMap()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
 
     companion object {
         private val LAT_LON_FORMATTER = DecimalFormat("#.#####")

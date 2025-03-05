@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
 
@@ -26,7 +26,7 @@ class FillExtrusionStyleTestActivity : AppCompatActivity() {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync { trackasiaMap: TrackAsiaMap ->
             trackasiaMap.setStyle(
-                Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Streets")),
+                Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Streets"))
             ) { style: Style? -> this@FillExtrusionStyleTestActivity.trackasiaMap = trackasiaMap }
         }
     }

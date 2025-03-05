@@ -161,11 +161,7 @@ class RasterDemSource : Source {
         }
 
     @Keep
-    protected external fun initialize(
-        layerId: String?,
-        payload: Any?,
-        tileSize: Int,
-    )
+    protected external fun initialize(layerId: String?, payload: Any?, tileSize: Int)
 
     @Keep
     @Throws(Throwable::class)

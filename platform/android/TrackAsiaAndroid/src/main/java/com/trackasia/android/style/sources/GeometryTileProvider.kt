@@ -1,8 +1,8 @@
 package com.trackasia.android.style.sources
 
 import androidx.annotation.WorkerThread
-import com.trackasia.android.geometry.LatLngBounds
 import com.trackasia.geojson.FeatureCollection
+import com.trackasia.android.geometry.LatLngBounds
 
 /**
  * Interface that defines methods for working with [CustomGeometrySource].
@@ -16,8 +16,5 @@ interface GeometryTileProvider {
      * @return Return a @{link FeatureCollection} to be displayed in the requested tile.
      */
     @WorkerThread
-    fun getFeaturesForBounds(
-        bounds: LatLngBounds,
-        zoomLevel: Int,
-    ): FeatureCollection
+    fun getFeaturesForBounds(bounds: LatLngBounds, zoomLevel: Int): FeatureCollection
 }

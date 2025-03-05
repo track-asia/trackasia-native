@@ -5,10 +5,13 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMap.OnMapClickListener
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.Property
 import com.trackasia.android.style.layers.PropertyFactory
@@ -16,9 +19,6 @@ import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
 import timber.log.Timber
 
 /**
@@ -32,20 +32,19 @@ class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
     private var isInitialPosition = true
     private var isSelected = false
     private var isShowingSymbolLayer = true
-    private val mapClickListener =
-        OnMapClickListener { point ->
-            val screenPoint = trackasiaMap.projection.toScreenLocation(point)
-            val featureList = trackasiaMap.queryRenderedFeatures(screenPoint, LAYER_ID)
-            if (!featureList.isEmpty()) {
-                val feature = featureList[0]
-                val selectedNow = feature.getBooleanProperty(KEY_PROPERTY_SELECTED)
-                isSelected = !selectedNow
-                updateSource(trackasiaMap.style)
-            } else {
-                Timber.e("No features found")
-            }
-            true
+    private val mapClickListener = OnMapClickListener { point ->
+        val screenPoint = trackasiaMap.projection.toScreenLocation(point)
+        val featureList = trackasiaMap.queryRenderedFeatures(screenPoint, LAYER_ID)
+        if (!featureList.isEmpty()) {
+            val feature = featureList[0]
+            val selectedNow = feature.getBooleanProperty(KEY_PROPERTY_SELECTED)
+            isSelected = !selectedNow
+            updateSource(trackasiaMap.style)
+        } else {
+            Timber.e("No features found")
         }
+        true
+    }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,19 +75,18 @@ class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
 
     private fun toggleSymbolLayerVisibility() {
         layer!!.setProperties(
-            PropertyFactory.visibility(if (isShowingSymbolLayer) Property.NONE else Property.VISIBLE),
+            PropertyFactory.visibility(if (isShowingSymbolLayer) Property.NONE else Property.VISIBLE)
         )
         isShowingSymbolLayer = !isShowingSymbolLayer
     }
 
     // # --8<-- [start:createFeatureCollection]
     private fun createFeatureCollection(): FeatureCollection {
-        val point =
-            if (isInitialPosition) {
-                Point.fromLngLat(-74.01618140, 40.701745)
-            } else {
-                Point.fromLngLat(-73.988097, 40.749864)
-            }
+        val point = if (isInitialPosition) {
+            Point.fromLngLat(-74.01618140, 40.701745)
+        } else {
+            Point.fromLngLat(-73.988097, 40.749864)
+        }
         val properties = JsonObject()
         properties.addProperty(KEY_PROPERTY_SELECTED, isSelected)
         val feature = Feature.fromGeometry(point, properties)
@@ -103,17 +101,17 @@ class ZoomFunctionSymbolLayerActivity : AppCompatActivity() {
                 Expression.step(
                     Expression.zoom(),
                     Expression.literal(BUS_MAKI_ICON_ID),
-                    Expression.stop(ZOOM_STOP_MAX_VALUE, CAFE_MAKI_ICON_ID),
-                ),
+                    Expression.stop(ZOOM_STOP_MAX_VALUE, CAFE_MAKI_ICON_ID)
+                )
             ),
             PropertyFactory.iconSize(
                 Expression.switchCase(
                     Expression.get(KEY_PROPERTY_SELECTED),
                     Expression.literal(3.0f),
-                    Expression.literal(1.0f),
-                ),
+                    Expression.literal(1.0f)
+                )
             ),
-            PropertyFactory.iconAllowOverlap(true),
+            PropertyFactory.iconAllowOverlap(true)
         )
         style.addLayer(layer!!)
     }

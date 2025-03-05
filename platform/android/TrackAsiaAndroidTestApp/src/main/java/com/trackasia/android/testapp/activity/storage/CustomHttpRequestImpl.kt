@@ -5,13 +5,18 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.ModuleProvider
 import com.trackasia.android.ModuleProviderImpl
-import com.trackasia.android.TrackAsia
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.TrackAsia
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.storage.FileSource
+import com.trackasia.android.storage.FileSource.ResourceTransformCallback
+import com.trackasia.android.storage.Resource
 import com.trackasia.android.testapp.R
+import com.trackasia.android.testapp.utils.ApiKeyUtils
 import com.trackasia.android.testapp.utils.ExampleCustomModuleProviderImpl
+import timber.log.Timber
 
 /**
  * This example activity shows how to provide your own HTTP request implementation.
@@ -31,8 +36,8 @@ class CustomHttpRequestImplActivity : AppCompatActivity() {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
             OnMapReadyCallback { trackasiaMap: TrackAsiaMap ->
-                trackasiaMap.setStyle(Style.Builder().fromUri("https://maps.track-asia.com/styles/v1/streets.json?key=public_key"))
-            },
+                trackasiaMap.setStyle(Style.Builder().fromUri("https://maps.track-asia.com/style.json"))
+            }
         )
     }
 

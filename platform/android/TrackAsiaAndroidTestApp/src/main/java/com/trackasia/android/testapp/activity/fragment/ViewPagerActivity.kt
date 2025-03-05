@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.maps.SupportMapFragment
 import com.trackasia.android.maps.TrackAsiaMapOptions
+import com.trackasia.android.maps.SupportMapFragment
 import com.trackasia.android.testapp.databinding.ActivityViewpagerBinding
 import com.trackasia.android.testapp.styles.TestStyles
 
@@ -16,6 +16,7 @@ import com.trackasia.android.testapp.styles.TestStyles
  * Test activity showcasing using the Android SDK ViewPager API to show MapFragments.
  */
 class ViewPagerActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityViewpagerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,18 +40,17 @@ class ViewPagerActivity : AppCompatActivity() {
         }
     }
 
-    internal class MapFragmentAdapter(
-        private val context: Context,
-        fragmentManager: FragmentManager,
-    ) : FragmentStatePagerAdapter(fragmentManager) {
-        override fun getCount(): Int = NUM_ITEMS
+    internal class MapFragmentAdapter(private val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+
+        override fun getCount(): Int {
+            return NUM_ITEMS
+        }
 
         override fun getItem(position: Int): androidx.fragment.app.Fragment {
             val options = TrackAsiaMapOptions.createFromAttributes(context)
             options.textureMode(true)
             options.camera(
-                CameraPosition
-                    .Builder()
+                CameraPosition.Builder()
                     .zoom(3.0)
                     .target(
                         when (position) {
@@ -69,8 +69,9 @@ class ViewPagerActivity : AppCompatActivity() {
                             else -> {
                                 LatLng(34.920526, 102.634774)
                             }
-                        },
-                    ).build(),
+                        }
+                    )
+                    .build()
             )
 
             val fragment = SupportMapFragment.newInstance(options)
@@ -78,7 +79,9 @@ class ViewPagerActivity : AppCompatActivity() {
             return fragment
         }
 
-        override fun getPageTitle(position: Int): CharSequence? = "Page $position"
+        override fun getPageTitle(position: Int): CharSequence? {
+            return "Page $position"
+        }
 
         companion object {
             private const val NUM_ITEMS = 5
@@ -95,7 +98,7 @@ fun SupportMapFragment.getMapAsync(index: Int) {
                 2 -> TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid")
                 3 -> TestStyles.getPredefinedStyleWithFallback("Bright")
                 else -> TestStyles.getPredefinedStyleWithFallback("Streets")
-            },
+            }
         )
     }
 }

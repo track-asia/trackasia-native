@@ -16,9 +16,8 @@ import java.util.*
 class TrackAsiaMapOptionsTest {
     @Test
     fun testSanity() {
-        Assert.assertNotNull(
-            "should not be null",
-            TrackAsiaMapOptions(),
+        Assert.assertNotNull("should not be null",
+            TrackAsiaMapOptions()
         )
     }
 
@@ -39,15 +38,15 @@ class TrackAsiaMapOptionsTest {
     fun testCompassGravity() {
         Assert.assertEquals(
             Gravity.TOP or Gravity.END,
-            TrackAsiaMapOptions().compassGravity,
+            TrackAsiaMapOptions().compassGravity
         )
         Assert.assertEquals(
             Gravity.BOTTOM,
-            TrackAsiaMapOptions().compassGravity(Gravity.BOTTOM).compassGravity,
+            TrackAsiaMapOptions().compassGravity(Gravity.BOTTOM).compassGravity
         )
         Assert.assertNotEquals(
             Gravity.START.toLong(),
-            TrackAsiaMapOptions().compassGravity(Gravity.BOTTOM).compassGravity.toLong(),
+            TrackAsiaMapOptions().compassGravity(Gravity.BOTTOM).compassGravity.toLong()
         )
     }
 
@@ -57,17 +56,15 @@ class TrackAsiaMapOptionsTest {
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
                 TrackAsiaMapOptions()
-                    .compassMargins(intArrayOf(0, 1, 2, 3))
-                    .compassMargins,
-            ),
+                    .compassMargins(intArrayOf(0, 1, 2, 3)).compassMargins
+            )
         )
         Assert.assertFalse(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
                 TrackAsiaMapOptions()
-                    .compassMargins(intArrayOf(0, 0, 0, 0))
-                    .compassMargins,
-            ),
+                    .compassMargins(intArrayOf(0, 0, 0, 0)).compassMargins
+            )
         )
     }
 
@@ -81,15 +78,15 @@ class TrackAsiaMapOptionsTest {
     fun testLogoGravity() {
         Assert.assertEquals(
             Gravity.BOTTOM or Gravity.START,
-            TrackAsiaMapOptions().logoGravity,
+            TrackAsiaMapOptions().logoGravity
         )
         Assert.assertEquals(
             Gravity.BOTTOM,
-            TrackAsiaMapOptions().logoGravity(Gravity.BOTTOM).logoGravity,
+            TrackAsiaMapOptions().logoGravity(Gravity.BOTTOM).logoGravity
         )
         Assert.assertNotEquals(
             Gravity.START.toLong(),
-            TrackAsiaMapOptions().logoGravity(Gravity.BOTTOM).logoGravity.toLong(),
+            TrackAsiaMapOptions().logoGravity(Gravity.BOTTOM).logoGravity.toLong()
         )
     }
 
@@ -99,17 +96,15 @@ class TrackAsiaMapOptionsTest {
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
                 TrackAsiaMapOptions()
-                    .logoMargins(intArrayOf(0, 1, 2, 3))
-                    .logoMargins,
-            ),
+                    .logoMargins(intArrayOf(0, 1, 2, 3)).logoMargins
+            )
         )
         Assert.assertFalse(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
                 TrackAsiaMapOptions()
-                    .logoMargins(intArrayOf(0, 0, 0, 0))
-                    .logoMargins,
-            ),
+                    .logoMargins(intArrayOf(0, 0, 0, 0)).logoMargins
+            )
         )
     }
 
@@ -118,7 +113,7 @@ class TrackAsiaMapOptionsTest {
         Assert.assertEquals(-1, TrackAsiaMapOptions().attributionTintColor)
         Assert.assertEquals(
             Color.RED,
-            TrackAsiaMapOptions().attributionTintColor(Color.RED).attributionTintColor,
+            TrackAsiaMapOptions().attributionTintColor(Color.RED).attributionTintColor
         )
     }
 
@@ -132,15 +127,15 @@ class TrackAsiaMapOptionsTest {
     fun testAttributionGravity() {
         Assert.assertEquals(
             Gravity.BOTTOM or Gravity.START,
-            TrackAsiaMapOptions().attributionGravity,
+            TrackAsiaMapOptions().attributionGravity
         )
         Assert.assertEquals(
             Gravity.BOTTOM,
-            TrackAsiaMapOptions().attributionGravity(Gravity.BOTTOM).attributionGravity,
+            TrackAsiaMapOptions().attributionGravity(Gravity.BOTTOM).attributionGravity
         )
         Assert.assertNotEquals(
             Gravity.START.toLong(),
-            TrackAsiaMapOptions().attributionGravity(Gravity.BOTTOM).attributionGravity.toLong(),
+            TrackAsiaMapOptions().attributionGravity(Gravity.BOTTOM).attributionGravity.toLong()
         )
     }
 
@@ -150,17 +145,15 @@ class TrackAsiaMapOptionsTest {
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
                 TrackAsiaMapOptions()
-                    .attributionMargins(intArrayOf(0, 1, 2, 3))
-                    .attributionMargins,
-            ),
+                    .attributionMargins(intArrayOf(0, 1, 2, 3)).attributionMargins
+            )
         )
         Assert.assertFalse(
             Arrays.equals(
                 intArrayOf(0, 1, 2, 3),
                 TrackAsiaMapOptions()
-                    .attributionMargins(intArrayOf(0, 0, 0, 0))
-                    .attributionMargins,
-            ),
+                    .attributionMargins(intArrayOf(0, 0, 0, 0)).attributionMargins
+            )
         )
     }
 
@@ -169,17 +162,17 @@ class TrackAsiaMapOptionsTest {
         Assert.assertEquals(
             TrackAsiaConstants.MINIMUM_ZOOM.toDouble(),
             TrackAsiaMapOptions().minZoomPreference,
-            DELTA,
+            DELTA
         )
         Assert.assertEquals(
             5.0,
             TrackAsiaMapOptions().minZoomPreference(5.0).minZoomPreference,
-            DELTA,
+            DELTA
         )
         Assert.assertNotEquals(
             2.0,
             TrackAsiaMapOptions().minZoomPreference(5.0).minZoomPreference,
-            DELTA,
+            DELTA
         )
     }
 
@@ -188,17 +181,17 @@ class TrackAsiaMapOptionsTest {
         Assert.assertEquals(
             TrackAsiaConstants.MAXIMUM_ZOOM.toDouble(),
             TrackAsiaMapOptions().maxZoomPreference,
-            DELTA,
+            DELTA
         )
         Assert.assertEquals(
             5.0,
             TrackAsiaMapOptions().maxZoomPreference(5.0).maxZoomPreference,
-            DELTA,
+            DELTA
         )
         Assert.assertNotEquals(
             2.0,
             TrackAsiaMapOptions().maxZoomPreference(5.0).maxZoomPreference,
-            DELTA,
+            DELTA
         )
     }
 
@@ -207,17 +200,17 @@ class TrackAsiaMapOptionsTest {
         Assert.assertEquals(
             TrackAsiaConstants.MINIMUM_PITCH.toDouble(),
             TrackAsiaMapOptions().minPitchPreference,
-            DELTA,
+            DELTA
         )
         Assert.assertEquals(
             5.0,
             TrackAsiaMapOptions().minPitchPreference(5.0).minPitchPreference,
-            DELTA,
+            DELTA
         )
         Assert.assertNotEquals(
             2.0,
             TrackAsiaMapOptions().minPitchPreference(5.0).minPitchPreference,
-            DELTA,
+            DELTA
         )
     }
 
@@ -226,17 +219,17 @@ class TrackAsiaMapOptionsTest {
         Assert.assertEquals(
             TrackAsiaConstants.MAXIMUM_PITCH.toDouble(),
             TrackAsiaMapOptions().maxPitchPreference,
-            DELTA,
+            DELTA
         )
         Assert.assertEquals(
             5.0,
             TrackAsiaMapOptions().maxPitchPreference(5.0).maxPitchPreference,
-            DELTA,
+            DELTA
         )
         Assert.assertNotEquals(
             2.0,
             TrackAsiaMapOptions().maxPitchPreference(5.0).maxPitchPreference,
-            DELTA,
+            DELTA
         )
     }
 
@@ -280,11 +273,11 @@ class TrackAsiaMapOptionsTest {
         val position = CameraPosition.Builder().build()
         Assert.assertEquals(
             CameraPosition.Builder(position).build(),
-            TrackAsiaMapOptions().camera(position).camera,
+            TrackAsiaMapOptions().camera(position).camera
         )
         Assert.assertNotEquals(
             CameraPosition.Builder().target(LatLng(1.0, 1.0)),
-            TrackAsiaMapOptions().camera(position),
+            TrackAsiaMapOptions().camera(position)
         )
         Assert.assertNull(TrackAsiaMapOptions().camera)
     }
@@ -307,7 +300,7 @@ class TrackAsiaMapOptionsTest {
         // Check mutations
         Assert.assertEquals(
             5,
-            TrackAsiaMapOptions().setPrefetchZoomDelta(5).prefetchZoomDelta,
+            TrackAsiaMapOptions().setPrefetchZoomDelta(5).prefetchZoomDelta
         )
     }
 
@@ -326,7 +319,7 @@ class TrackAsiaMapOptionsTest {
         val options = TrackAsiaMapOptions.createFromAttributes(RuntimeEnvironment.application, null)
         Assert.assertEquals(
             TrackAsiaConstants.DEFAULT_FONT,
-            options.localIdeographFontFamily,
+            options.localIdeographFontFamily
         )
     }
 

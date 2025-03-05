@@ -5,10 +5,8 @@ import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.TrackAsiaMap.OnCameraIdleListener
 import com.trackasia.android.testapp.R
 
-class IdleZoomListener(
-    private val trackasiaMap: TrackAsiaMap,
-    private val textView: TextView,
-) : OnCameraIdleListener {
+class IdleZoomListener(private val trackasiaMap: TrackAsiaMap, private val textView: TextView) :
+    OnCameraIdleListener {
     override fun onCameraIdle() {
         val context = textView.context
         val position = trackasiaMap.cameraPosition

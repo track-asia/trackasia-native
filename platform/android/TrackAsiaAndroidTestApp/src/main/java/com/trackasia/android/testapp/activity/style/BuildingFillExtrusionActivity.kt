@@ -7,9 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.trackasia.android.maps.MapView
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.FillExtrusionLayer
 import com.trackasia.android.style.layers.Property
@@ -31,7 +31,6 @@ class BuildingFillExtrusionActivity : AppCompatActivity() {
     private var isLowIntensityLight = false
     private var isRedColor = false
     private var isInitPosition = false
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_building_layer)
@@ -46,7 +45,7 @@ class BuildingFillExtrusionActivity : AppCompatActivity() {
                     setupBuildings(style)
                     setupLight()
                 }
-            },
+            }
         )
     }
 
@@ -57,15 +56,15 @@ class BuildingFillExtrusionActivity : AppCompatActivity() {
         fillExtrusionLayer.setFilter(
             Expression.all(
                 Expression.has("render_height"),
-                Expression.has("render_min_height"),
-            ),
+                Expression.has("render_min_height")
+            )
         )
         fillExtrusionLayer.minZoom = 15f
         fillExtrusionLayer.setProperties(
             PropertyFactory.fillExtrusionColor(Color.LTGRAY),
             PropertyFactory.fillExtrusionHeight(Expression.get("render_height")),
             PropertyFactory.fillExtrusionBase(Expression.get("render_min_height")),
-            PropertyFactory.fillExtrusionOpacity(0.9f),
+            PropertyFactory.fillExtrusionOpacity(0.9f)
         )
         style.addLayer(fillExtrusionLayer)
         // --8<-- [end:setupBuildings]

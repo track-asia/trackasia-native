@@ -4,10 +4,11 @@ import android.net.Uri
 import androidx.annotation.Keep
 import androidx.annotation.Size
 import androidx.annotation.UiThread
-import com.trackasia.android.style.expressions.Expression
 import com.trackasia.geojson.Feature
+import com.trackasia.android.style.expressions.Expression
 import java.net.URL
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Vector source, allows the use of vector tiles.
@@ -108,10 +109,7 @@ class VectorSource : Source {
      * @param filter         an optional filter expression to filter the returned Features
      * @return the features
      */
-    fun querySourceFeatures(
-        @Size(min = 1) sourceLayerIds: Array<String>,
-        filter: Expression?,
-    ): List<Feature> {
+    fun querySourceFeatures(@Size(min = 1) sourceLayerIds: Array<String>, filter: Expression?): List<Feature> {
         checkThread()
         val features = querySourceFeatures(sourceLayerIds, filter?.toArray())
         return listOf(*features)
@@ -139,10 +137,7 @@ class VectorSource : Source {
         }
 
     @Keep
-    protected external fun initialize(
-        layerId: String?,
-        payload: Any?,
-    )
+    protected external fun initialize(layerId: String?, payload: Any?)
 
     @Keep
     @Throws(Throwable::class)
@@ -152,8 +147,5 @@ class VectorSource : Source {
     protected external fun nativeGetUrl(): String?
 
     @Keep
-    private external fun querySourceFeatures(
-        sourceLayerId: Array<String>,
-        filter: Array<Any>?,
-    ): Array<Feature>
+    private external fun querySourceFeatures(sourceLayerId: Array<String>, filter: Array<Any>?): Array<Feature>
 }

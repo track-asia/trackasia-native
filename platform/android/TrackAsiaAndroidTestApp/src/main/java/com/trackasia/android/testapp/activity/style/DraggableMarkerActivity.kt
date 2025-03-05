@@ -7,22 +7,22 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.trackasia.android.gestures.AndroidGesturesManager
+import com.trackasia.android.gestures.MoveGestureDetector
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
 import com.trackasia.android.annotations.IconFactory
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
-import com.trackasia.android.gestures.AndroidGesturesManager
-import com.trackasia.android.gestures.MoveGestureDetector
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.PropertyFactory.*
 import com.trackasia.android.style.layers.SymbolLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.databinding.ActivityDraggableMarkerBinding
 import com.trackasia.android.testapp.styles.TestStyles
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
 
 /**
  * An Activity that showcases how to make symbols draggable.
@@ -34,7 +34,6 @@ class DraggableMarkerActivity : AppCompatActivity() {
         private const val markerImageId = "marker_icon_draggable"
 
         private var latestId: Long = 0
-
         fun generateMarkerId(): String {
             if (latestId == Long.MAX_VALUE) {
                 throw RuntimeException("You've added too many markers.")
@@ -52,13 +51,12 @@ class DraggableMarkerActivity : AppCompatActivity() {
     private lateinit var trackasiaMap: TrackAsiaMap
     private val featureCollection = FeatureCollection.fromFeatures(mutableListOf())
     private val source = GeoJsonSource(sourceId, featureCollection)
-    private val layer =
-        SymbolLayer(layerId, sourceId)
-            .withProperties(
-                iconImage(markerImageId),
-                iconAllowOverlap(true),
-                iconIgnorePlacement(true),
-            )
+    private val layer = SymbolLayer(layerId, sourceId)
+        .withProperties(
+            iconImage(markerImageId),
+            iconAllowOverlap(true),
+            iconIgnorePlacement(true)
+        )
 
     private var draggableSymbolsManager: DraggableSymbolsManager? = null
 
@@ -73,12 +71,11 @@ class DraggableMarkerActivity : AppCompatActivity() {
             this.trackasiaMap = trackasiaMap
 
             trackasiaMap.setStyle(
-                Style
-                    .Builder()
+                Style.Builder()
                     .fromUri(TestStyles.PROTOMAPS_LIGHT)
                     .withImage(markerImageId, IconFactory.getInstance(this).defaultMarker().bitmap)
                     .withSource(source)
-                    .withLayer(layer),
+                    .withLayer(layer)
             )
 
             // Add initial markers
@@ -90,8 +87,8 @@ class DraggableMarkerActivity : AppCompatActivity() {
             trackasiaMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(45.0, 8.0),
-                    3.0,
-                ),
+                    3.0
+                )
             )
 
             // --8<-- [start:addOnMapClickListener]
@@ -102,12 +99,12 @@ class DraggableMarkerActivity : AppCompatActivity() {
                     addMarker(it)
                 } else {
                     // Displaying marker info on marker click
-                    Snackbar
-                        .make(
-                            mapView,
-                            "Marker's position: %.4f, %.4f".format(it.latitude, it.longitude),
-                            Snackbar.LENGTH_LONG,
-                        ).show()
+                    Snackbar.make(
+                        mapView,
+                        "Marker's position: %.4f, %.4f".format(it.latitude, it.longitude),
+                        Snackbar.LENGTH_LONG
+                    )
+                        .show()
                 }
 
                 false
@@ -115,52 +112,45 @@ class DraggableMarkerActivity : AppCompatActivity() {
             // --8<-- [end:addOnMapClickListener]
 
             // --8<-- [start:draggableSymbolsManager]
-            draggableSymbolsManager =
-                DraggableSymbolsManager(
-                    mapView,
-                    trackasiaMap,
-                    featureCollection,
-                    source,
-                    layerId,
-                    actionBarHeight,
-                    0,
-                )
+            draggableSymbolsManager = DraggableSymbolsManager(
+                mapView,
+                trackasiaMap,
+                featureCollection,
+                source,
+                layerId,
+                actionBarHeight,
+                0
+            )
 
             // Adding symbol drag listeners
-            draggableSymbolsManager?.addOnSymbolDragListener(
-                object : DraggableSymbolsManager.OnSymbolDragListener {
-                    override fun onSymbolDragStarted(id: String) {
-                        binding.draggedMarkerPositionTv.visibility = View.VISIBLE
-                        Snackbar
-                            .make(
-                                mapView,
-                                "Marker drag started (%s)".format(id),
-                                Snackbar.LENGTH_SHORT,
-                            ).show()
-                    }
+            draggableSymbolsManager?.addOnSymbolDragListener(object : DraggableSymbolsManager.OnSymbolDragListener {
+                override fun onSymbolDragStarted(id: String) {
+                    binding.draggedMarkerPositionTv.visibility = View.VISIBLE
+                    Snackbar.make(
+                        mapView,
+                        "Marker drag started (%s)".format(id),
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .show()
+                }
 
-                    override fun onSymbolDrag(id: String) {
-                        val point =
-                            featureCollection
-                                .features()
-                                ?.find {
-                                    it.id() == id
-                                }?.geometry() as Point
-                        binding.draggedMarkerPositionTv.text =
-                            "Dragged marker's position: %.4f, %.4f".format(point.latitude(), point.longitude())
-                    }
+                override fun onSymbolDrag(id: String) {
+                    val point = featureCollection.features()?.find {
+                        it.id() == id
+                    }?.geometry() as Point
+                    binding.draggedMarkerPositionTv.text = "Dragged marker's position: %.4f, %.4f".format(point.latitude(), point.longitude())
+                }
 
-                    override fun onSymbolDragFinished(id: String) {
-                        binding.draggedMarkerPositionTv.visibility = View.GONE
-                        Snackbar
-                            .make(
-                                mapView,
-                                "Marker drag finished (%s)".format(id),
-                                Snackbar.LENGTH_SHORT,
-                            ).show()
-                    }
-                },
-            )
+                override fun onSymbolDragFinished(id: String) {
+                    binding.draggedMarkerPositionTv.visibility = View.GONE
+                    Snackbar.make(
+                        mapView,
+                        "Marker drag finished (%s)".format(id),
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            })
             // --8<-- [end:draggableSymbolsManager]
         }
     }
@@ -168,7 +158,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
     // --8<-- [start:addMarker]
     private fun addMarker(latLng: LatLng) {
         featureCollection.features()?.add(
-            Feature.fromGeometry(Point.fromLngLat(latLng.longitude, latLng.latitude), null, generateMarkerId()),
+            Feature.fromGeometry(Point.fromLngLat(latLng.longitude, latLng.latitude), null, generateMarkerId())
         )
         source.setGeoJson(featureCollection)
     }
@@ -180,7 +170,6 @@ class DraggableMarkerActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
     // --8<-- [start:DraggableSymbolsManager]
-
     /**
      * A manager, that allows dragging symbols after they are long clicked.
      * Since this manager lives outside of the Maps SDK, we need to intercept parent's motion events
@@ -213,8 +202,9 @@ class DraggableMarkerActivity : AppCompatActivity() {
         private val touchAreaShiftY: Int = 0,
         private val touchAreaShiftX: Int = 0,
         private val touchAreaMaxX: Int = mapView.width,
-        private val touchAreaMaxY: Int = mapView.height,
+        private val touchAreaMaxY: Int = mapView.height
     ) {
+
         private val androidGesturesManager: AndroidGesturesManager = AndroidGesturesManager(mapView.context, false)
         private var draggedSymbolId: String? = null
         private val onSymbolDragListeners: MutableList<OnSymbolDragListener> = mutableListOf()
@@ -222,14 +212,13 @@ class DraggableMarkerActivity : AppCompatActivity() {
         init {
             trackasiaMap.addOnMapLongClickListener {
                 // Starting the drag process on long click
-                draggedSymbolId =
-                    trackasiaMap.queryRenderedSymbols(it, symbolsLayerId).firstOrNull()?.id()?.also { id ->
-                        trackasiaMap.uiSettings.setAllGesturesEnabled(false)
-                        trackasiaMap.gesturesManager.moveGestureDetector.interrupt()
-                        notifyOnSymbolDragListeners {
-                            onSymbolDragStarted(id)
-                        }
+                draggedSymbolId = trackasiaMap.queryRenderedSymbols(it, symbolsLayerId).firstOrNull()?.id()?.also { id ->
+                    trackasiaMap.uiSettings.setAllGesturesEnabled(false)
+                    trackasiaMap.gesturesManager.moveGestureDetector.interrupt()
+                    notifyOnSymbolDragListeners {
+                        onSymbolDragStarted(id)
                     }
+                }
                 false
             }
 
@@ -237,13 +226,11 @@ class DraggableMarkerActivity : AppCompatActivity() {
         }
 
         inner class MyMoveGestureListener : MoveGestureDetector.OnMoveGestureListener {
-            override fun onMoveBegin(detector: MoveGestureDetector): Boolean = true
+            override fun onMoveBegin(detector: MoveGestureDetector): Boolean {
+                return true
+            }
 
-            override fun onMove(
-                detector: MoveGestureDetector,
-                distanceX: Float,
-                distanceY: Float,
-            ): Boolean {
+            override fun onMove(detector: MoveGestureDetector, distanceX: Float, distanceY: Float): Boolean {
                 if (detector.pointersCount > 1) {
                     // Stopping the drag when we don't work with a simple, on-pointer move anymore
                     stopDragging()
@@ -261,37 +248,30 @@ class DraggableMarkerActivity : AppCompatActivity() {
 
                     val latLng = trackasiaMap.projection.fromScreenLocation(point)
 
-                    symbolsCollection
-                        .features()
-                        ?.indexOfFirst {
-                            it.id() == draggedSymbolId
-                        }?.also { index ->
-                            symbolsCollection.features()?.get(index)?.also { oldFeature ->
-                                val properties = oldFeature.properties()
-                                val newFeature =
-                                    Feature.fromGeometry(
-                                        Point.fromLngLat(latLng.longitude, latLng.latitude),
-                                        properties,
-                                        draggedSymbolId,
-                                    )
-                                symbolsCollection.features()?.set(index, newFeature)
-                                symbolsSource.setGeoJson(symbolsCollection)
-                                notifyOnSymbolDragListeners {
-                                    onSymbolDrag(draggedSymbolId)
-                                }
-                                return true
+                    symbolsCollection.features()?.indexOfFirst {
+                        it.id() == draggedSymbolId
+                    }?.also { index ->
+                        symbolsCollection.features()?.get(index)?.also { oldFeature ->
+                            val properties = oldFeature.properties()
+                            val newFeature = Feature.fromGeometry(
+                                Point.fromLngLat(latLng.longitude, latLng.latitude),
+                                properties,
+                                draggedSymbolId
+                            )
+                            symbolsCollection.features()?.set(index, newFeature)
+                            symbolsSource.setGeoJson(symbolsCollection)
+                            notifyOnSymbolDragListeners {
+                                onSymbolDrag(draggedSymbolId)
                             }
+                            return true
                         }
+                    }
                 }
 
                 return false
             }
 
-            override fun onMoveEnd(
-                detector: MoveGestureDetector,
-                velocityX: Float,
-                velocityY: Float,
-            ) {
+            override fun onMoveEnd(detector: MoveGestureDetector, velocityX: Float, velocityY: Float) {
                 // Stopping the drag when move ends
                 stopDragging()
             }
@@ -325,9 +305,7 @@ class DraggableMarkerActivity : AppCompatActivity() {
 
         interface OnSymbolDragListener {
             fun onSymbolDragStarted(id: String)
-
             fun onSymbolDrag(id: String)
-
             fun onSymbolDragFinished(id: String)
         }
     }
@@ -363,16 +341,12 @@ class DraggableMarkerActivity : AppCompatActivity() {
         mapView.onDestroy()
     }
 
-    override fun onSaveInstanceState(
-        outState: Bundle,
-        outPersistentState: PersistableBundle,
-    ) {
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         mapView.onSaveInstanceState(outState)
     }
 }
 
-private fun TrackAsiaMap.queryRenderedSymbols(
-    latLng: LatLng,
-    layerId: String,
-): List<Feature> = this.queryRenderedFeatures(this.projection.toScreenLocation(latLng), layerId)
+private fun TrackAsiaMap.queryRenderedSymbols(latLng: LatLng, layerId: String): List<Feature> {
+    return this.queryRenderedFeatures(this.projection.toScreenLocation(latLng), layerId)
+}

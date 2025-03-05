@@ -5,30 +5,28 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.LineString
+import com.trackasia.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.geometry.LatLngBounds
+import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackAsiaMap
 import com.trackasia.android.style.layers.LineLayer
 import com.trackasia.android.style.layers.PropertyFactory
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.databinding.ActivityCollectionUpdateOnStyleChangeBinding
 import com.trackasia.android.testapp.styles.TestStyles
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.LineString
-import com.trackasia.geojson.Point
 import java.util.*
 
 /**
  * Test activity that verifies whether the GeoJsonSource transition over style changes can be smooth.
  */
-class CollectionUpdateOnStyleChange :
-    AppCompatActivity(),
-    OnMapReadyCallback,
-    Style.OnStyleLoaded {
+class CollectionUpdateOnStyleChange : AppCompatActivity(), OnMapReadyCallback, Style.OnStyleLoaded {
+
     private lateinit var binding: ActivityCollectionUpdateOnStyleChangeBinding
     private lateinit var trackasiaMap: TrackAsiaMap
     private var currentStyleIndex: Int = 0
@@ -40,12 +38,12 @@ class CollectionUpdateOnStyleChange :
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
         setupStyleChangeView()
-        Toast
-            .makeText(
-                this,
-                "Make sure that the collection doesn't blink on style change",
-                Toast.LENGTH_LONG,
-            ).show()
+        Toast.makeText(
+            this,
+            "Make sure that the collection doesn't blink on style change",
+            Toast.LENGTH_LONG
+        )
+            .show()
     }
 
     override fun onMapReady(map: TrackAsiaMap) {
@@ -60,12 +58,11 @@ class CollectionUpdateOnStyleChange :
     private fun setupLayer(style: Style) {
         // # --8<-- [start:setupLayer]
         val source = GeoJsonSource("source", featureCollection)
-        val lineLayer =
-            LineLayer("layer", "source")
-                .withProperties(
-                    PropertyFactory.lineColor(Color.RED),
-                    PropertyFactory.lineWidth(10f),
-                )
+        val lineLayer = LineLayer("layer", "source")
+            .withProperties(
+                PropertyFactory.lineColor(Color.RED),
+                PropertyFactory.lineWidth(10f)
+            )
 
         style.addSource(source)
         style.addLayer(lineLayer)
@@ -119,15 +116,14 @@ class CollectionUpdateOnStyleChange :
     }
 
     companion object {
-        private val STYLES =
-            arrayOf(
-                TestStyles.getPredefinedStyleWithFallback("Streets"),
-                TestStyles.getPredefinedStyleWithFallback("Outdoor"),
-                TestStyles.getPredefinedStyleWithFallback("Bright"),
-                TestStyles.getPredefinedStyleWithFallback("Pastel"),
-                TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"),
-                TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"),
-            )
+
+        private val STYLES = arrayOf(
+            TestStyles.getPredefinedStyleWithFallback("Streets"),
+            TestStyles.getPredefinedStyleWithFallback("Outdoor"),
+            TestStyles.getPredefinedStyleWithFallback("Bright"),
+            TestStyles.getPredefinedStyleWithFallback("Pastel"),
+            TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"),
+            TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"))
 
         private val featureCollection: FeatureCollection
 

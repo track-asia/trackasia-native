@@ -17,9 +17,10 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class StyleBuilderTest {
+
     @Test
     fun testFromUrl() {
-        val expected = "https://maps.track-asia.com/styles/v1/streets.json?key=public_key"
+        val expected = "https://maps.track-asia.com/style.json"
         val builder = Style.Builder()
         builder.fromUrl(expected)
         assertEquals(expected, builder.uri)
@@ -157,8 +158,8 @@ class StyleBuilderTest {
         assertTrue(
             BitmapUtils.equals(
                 BitmapUtils.getBitmapFromDrawable(drawable)!!,
-                builder.images[0].bitmap,
-            ),
+                builder.images[0].bitmap
+            )
         )
         assertEquals("id", builder.images[0].id)
         assertEquals(false, builder.images[0].sdf)
@@ -174,8 +175,8 @@ class StyleBuilderTest {
         assertTrue(
             BitmapUtils.equals(
                 BitmapUtils.getBitmapFromDrawable(drawable)!!,
-                builder.images[0].bitmap,
-            ),
+                builder.images[0].bitmap
+            )
         )
         assertEquals("id", builder.images[0].id)
         assertEquals(true, builder.images[0].sdf)
@@ -194,16 +195,16 @@ class StyleBuilderTest {
         assertTrue(
             BitmapUtils.equals(
                 BitmapUtils.getBitmapFromDrawable(drawable1)!!,
-                builder.images[0].bitmap,
-            ),
+                builder.images[0].bitmap
+            )
         )
         assertEquals("id1", builder.images[0].id)
         assertEquals(false, builder.images[0].sdf)
         assertTrue(
             BitmapUtils.equals(
                 BitmapUtils.getBitmapFromDrawable(drawable2)!!,
-                builder.images[1].bitmap,
-            ),
+                builder.images[1].bitmap
+            )
         )
         assertEquals("id2", builder.images[1].id)
         assertEquals(false, builder.images[1].sdf)
@@ -222,16 +223,16 @@ class StyleBuilderTest {
         assertTrue(
             BitmapUtils.equals(
                 BitmapUtils.getBitmapFromDrawable(drawable1)!!,
-                builder.images[0].bitmap,
-            ),
+                builder.images[0].bitmap
+            )
         )
         assertEquals("id1", builder.images[0].id)
         assertEquals(true, builder.images[0].sdf)
         assertTrue(
             BitmapUtils.equals(
                 BitmapUtils.getBitmapFromDrawable(drawable2)!!,
-                builder.images[1].bitmap,
-            ),
+                builder.images[1].bitmap
+            )
         )
         assertEquals("id2", builder.images[1].id)
         assertEquals(true, builder.images[1].sdf)

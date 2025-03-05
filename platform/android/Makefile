@@ -103,6 +103,18 @@ run-android-core-test-$1-%: android-core-test-$1
 	adb push scripts/style-spec-reference/v8.json $(MLN_ANDROID_LOCAL_WORK_DIR)/scripts/style-spec-reference > /dev/null 2>&1
 	adb push TrackAsiaAndroid/build/intermediates/cmake/$(buildtype)/obj/$2/mbgl-test $(MLN_ANDROID_LOCAL_WORK_DIR) > /dev/null 2>&1
 
+# Create gtest filter for skipped tests.
+	$(eval SKIPPED_TESTS := -$(shell sed -n '/#\|^$$/!p' tests/skipped.txt | sed ':a;$!N;s/\n/:/g;ta'))
+
+	# Kick off the tests
+	adb shell "export LD_LIBRARY_PATH=$(MLN_ANDROID_LOCAL_WORK_DIR) && cd $(MLN_ANDROID_LOCAL_WORK_DIR) && chmod +x mbgl-test && ./mbgl-test --class_path=$(MLN_ANDROID_LOCAL_WORK_DIR)/classes.dex --gtest_filter=$$*:$(SKIPPED_TESTS)"
+
+	# Gather the results and unpack them
+	adb shell "cd $(MLN_ANDROID_LOCAL_WORK_DIR) && tar -cvzf results.tgz test/fixtures/*  > /dev/null 2>&1"
+	adb pull $(MLN_ANDROID_LOCAL_WORK_DIR)/results.tgz $(MLN_ANDROID_CORE_TEST_DIR)/ > /dev/null 2>&1
+	rm -rf $(MLN_ANDROID_CORE_TEST_DIR)/results && mkdir -p $(MLN_ANDROID_CORE_TEST_DIR)/results
+	tar -xzf $(MLN_ANDROID_CORE_TEST_DIR)/results.tgz --strip-components=2 -C $(MLN_ANDROID_CORE_TEST_DIR)/results
+
 # Run the core test for specified abi
 .PHONY: run-android-core-test-$1
 run-android-core-test-$1: run-android-core-test-$1-*

@@ -10,8 +10,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.trackasia.android.camera.CameraUpdateFactory
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.layers.CustomLayer
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.model.customlayer.ExampleCustomLayer
@@ -29,7 +29,6 @@ class CustomLayerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private var customLayer: CustomLayer? = null
     private lateinit var fab: FloatingActionButton
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_layer)
@@ -40,8 +39,8 @@ class CustomLayerActivity : AppCompatActivity() {
             trackasiaMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(39.91448, -243.60947),
-                    10.0,
-                ),
+                    10.0
+                )
             )
             trackasiaMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { _: Style? -> initFab() }
         }
@@ -64,11 +63,10 @@ class CustomLayerActivity : AppCompatActivity() {
             customLayer = null
             fab.setImageResource(R.drawable.ic_layers)
         } else {
-            customLayer =
-                CustomLayer(
-                    "custom",
-                    ExampleCustomLayer.createContext(),
-                )
+            customLayer = CustomLayer(
+                "custom",
+                ExampleCustomLayer.createContext()
+            )
             style!!.addLayerBelow(customLayer!!, "building")
             fab.setImageResource(R.drawable.ic_layers_clear)
         }
@@ -120,8 +118,8 @@ class CustomLayerActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_update_layer -> {
                 updateLayer()
                 true
@@ -140,4 +138,5 @@ class CustomLayerActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
 }

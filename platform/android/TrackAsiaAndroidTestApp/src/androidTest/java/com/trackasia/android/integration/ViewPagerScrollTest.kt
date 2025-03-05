@@ -4,8 +4,8 @@ import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import androidx.test.uiautomator.UiSelector
-import com.trackasia.android.testapp.activity.fragment.ViewPagerActivity
 import org.junit.Ignore
+import com.trackasia.android.testapp.activity.fragment.ViewPagerActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,6 +16,7 @@ import org.junit.runner.RunWith
 @Ignore("https://github.com/track-asia/trackasia-native/issues/2316")
 @RunWith(AndroidJUnit4ClassRunner::class)
 class ViewPagerScrollTest : BaseIntegrationTest() {
+
     @get:Rule
     var activityRule: ActivityTestRule<ViewPagerActivity> = ActivityTestRule(ViewPagerActivity::class.java)
 

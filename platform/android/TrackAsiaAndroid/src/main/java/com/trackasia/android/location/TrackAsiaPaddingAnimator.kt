@@ -7,11 +7,14 @@ import com.trackasia.android.maps.TrackAsiaMap.CancelableCallback
 class TrackAsiaPaddingAnimator internal constructor(
     @Size(min = 2) values: Array<DoubleArray>,
     updateListener: AnimationsValueChangeListener<DoubleArray>,
-    cancelableCallback: CancelableCallback?,
-) : TrackAsiaAnimator<DoubleArray>(values, updateListener, Int.MAX_VALUE) {
+    cancelableCallback: CancelableCallback?
+) :
+    TrackAsiaAnimator<DoubleArray>(values, updateListener, Int.MAX_VALUE) {
     init {
         addListener(TrackAsiaAnimatorListener(cancelableCallback))
     }
 
-    public override fun provideEvaluator(): TypeEvaluator<DoubleArray> = PaddingEvaluator()
+    public override fun provideEvaluator(): TypeEvaluator<DoubleArray> {
+        return PaddingEvaluator()
+    }
 }

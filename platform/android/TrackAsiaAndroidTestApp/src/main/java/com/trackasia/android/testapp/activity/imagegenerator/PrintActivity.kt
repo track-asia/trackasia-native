@@ -13,12 +13,9 @@ import com.trackasia.android.testapp.styles.TestStyles
 /**
  * Test activity showcasing using the Snapshot API to print a Map.
  */
-class PrintActivity :
-    AppCompatActivity(),
-    TrackAsiaMap.SnapshotReadyCallback {
+class PrintActivity : AppCompatActivity(), TrackAsiaMap.SnapshotReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_print)

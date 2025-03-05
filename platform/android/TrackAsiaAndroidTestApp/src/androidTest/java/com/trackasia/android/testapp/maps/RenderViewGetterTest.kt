@@ -19,6 +19,7 @@ import java.util.concurrent.CountDownLatch
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class RenderViewGetterTest : AppCenter() {
+
     @Rule
     @JvmField
     var rule = ActivityTestRule(FeatureOverviewActivity::class.java)
@@ -40,13 +41,11 @@ class RenderViewGetterTest : AppCenter() {
     @UiThreadTest
     fun testTextureView() {
         rootView = rule.activity.findViewById(android.R.id.content)
-        mapView =
-            MapView(
-                rule.activity,
-                TrackAsiaMapOptions
-                    .createFromAttributes(rule.activity, null)
-                    .textureMode(true),
-            )
+        mapView = MapView(
+            rule.activity,
+            TrackAsiaMapOptions.createFromAttributes(rule.activity, null)
+                .textureMode(true)
+        )
         assertNotNull(mapView.renderView)
         assertTrue(mapView.renderView is TextureView)
     }

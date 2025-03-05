@@ -149,7 +149,7 @@ FOUNDATION_EXTERN MLN_EXPORT MLNExceptionName const MLNUserLocationAnnotationTyp
  The map view loads scalable vector tiles that conform to the
  <a href="https://github.com/mapbox/vector-tile-spec">Mapbox Vector Tile Specification</a>.
  It styles them with a style that conforms to the
- <a href="https://trackasia.com/trackasia-style-spec/">TrackAsia Style Spec</a>.
+ <a href="https://track-asia.com/trackasia-style-spec/">TrackAsia Style Spec</a>.
  Such styles can be designed with
  <a href="https://track-asia.com/maputnik/">Maputnik</a>.
 

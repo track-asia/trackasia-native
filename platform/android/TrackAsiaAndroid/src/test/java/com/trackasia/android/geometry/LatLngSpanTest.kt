@@ -17,9 +17,9 @@ class LatLngSpanTest {
         Assert.assertEquals(
             "latLngSpan is not equal to a LatLng",
             latLngSpan.equals(
-                LAT_LNG_NULL_ISLAND,
+                LAT_LNG_NULL_ISLAND
             ),
-            false,
+            false
         )
     }
 

@@ -7,18 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.JsonObject
+import com.trackasia.geojson.Feature
+import com.trackasia.geojson.FeatureCollection
+import com.trackasia.geojson.Point
 import com.trackasia.android.geometry.LatLng
 import com.trackasia.android.maps.MapView
-import com.trackasia.android.maps.Style
 import com.trackasia.android.maps.TrackAsiaMap
+import com.trackasia.android.maps.Style
 import com.trackasia.android.style.expressions.Expression
 import com.trackasia.android.style.layers.CircleLayer
 import com.trackasia.android.style.sources.GeoJsonSource
 import com.trackasia.android.testapp.R
 import com.trackasia.android.testapp.styles.TestStyles
-import com.trackasia.geojson.Feature
-import com.trackasia.geojson.FeatureCollection
-import com.trackasia.geojson.Point
 
 /**
  * Test activity showcasing using the query source features API to query feature counts
@@ -26,7 +26,6 @@ import com.trackasia.geojson.Point
 class QuerySourceFeaturesActivity : AppCompatActivity() {
     lateinit var mapView: MapView
     private lateinit var trackasiaMap: TrackAsiaMap
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_query_source_features)
@@ -47,46 +46,42 @@ class QuerySourceFeaturesActivity : AppCompatActivity() {
         // # --8<-- [start:JsonObject]
         val properties = JsonObject()
         properties.addProperty("key1", "value1")
-        val source =
-            GeoJsonSource(
-                "test-source",
-                FeatureCollection.fromFeatures(
-                    arrayOf(
-                        Feature.fromGeometry(Point.fromLngLat(17.1, 51.0), properties),
-                        Feature.fromGeometry(Point.fromLngLat(17.2, 51.0), properties),
-                        Feature.fromGeometry(Point.fromLngLat(17.3, 51.0), properties),
-                        Feature.fromGeometry(Point.fromLngLat(17.4, 51.0), properties),
-                    ),
-                ),
+        val source = GeoJsonSource(
+            "test-source",
+            FeatureCollection.fromFeatures(
+                arrayOf(
+                    Feature.fromGeometry(Point.fromLngLat(17.1, 51.0), properties),
+                    Feature.fromGeometry(Point.fromLngLat(17.2, 51.0), properties),
+                    Feature.fromGeometry(Point.fromLngLat(17.3, 51.0), properties),
+                    Feature.fromGeometry(Point.fromLngLat(17.4, 51.0), properties)
+                )
             )
+        )
         style.addSource(source)
         val visible = Expression.eq(Expression.get("key1"), Expression.literal("value1"))
         val invisible = Expression.neq(Expression.get("key1"), Expression.literal("value1"))
-        val layer =
-            CircleLayer("test-layer", source.id)
-                .withFilter(visible)
+        val layer = CircleLayer("test-layer", source.id)
+            .withFilter(visible)
         style.addLayer(layer)
         // # --8<-- [end:JsonObject]
 
         // Add a click listener
         trackasiaMap.addOnMapClickListener { point: LatLng? ->
             // Query
-            val features =
-                source.querySourceFeatures(
-                    Expression.eq(
-                        Expression.get("key1"),
-                        Expression.literal("value1"),
-                    ),
+            val features = source.querySourceFeatures(
+                Expression.eq(
+                    Expression.get("key1"),
+                    Expression.literal("value1")
                 )
-            Toast
-                .makeText(
-                    this@QuerySourceFeaturesActivity,
-                    String.format(
-                        "Found %s features",
-                        features.size,
-                    ),
-                    Toast.LENGTH_SHORT,
-                ).show()
+            )
+            Toast.makeText(
+                this@QuerySourceFeaturesActivity,
+                String.format(
+                    "Found %s features",
+                    features.size
+                ),
+                Toast.LENGTH_SHORT
+            ).show()
             false
         }
         val fab = findViewById<View>(R.id.fab) as FloatingActionButton

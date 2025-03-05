@@ -47,12 +47,11 @@ class PolylineActivity : AppCompatActivity() {
             trackasiaMap = it
             it.setStyle(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"))
             it.setOnPolylineClickListener { polyline: Polyline ->
-                Toast
-                    .makeText(
-                        this@PolylineActivity,
-                        "You clicked on polyline with id = " + polyline.id,
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                Toast.makeText(
+                    this@PolylineActivity,
+                    "You clicked on polyline with id = " + polyline.id,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             polylines = it.addPolylines(polylineOptions!!)
         }
@@ -87,11 +86,7 @@ class PolylineActivity : AppCompatActivity() {
             return options
         }
 
-    private fun generatePolyline(
-        start: LatLng,
-        end: LatLng,
-        color: String,
-    ): PolylineOptions {
+    private fun generatePolyline(start: LatLng, end: LatLng, color: String): PolylineOptions {
         val line = PolylineOptions()
         line.add(start)
         line.add(end)

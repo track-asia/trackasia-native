@@ -1,13 +1,14 @@
 package com.trackasia.android.testapp.utils
 
 import android.os.Build
-import com.trackasia.android.BuildConfig.GIT_REVISION
-import com.trackasia.android.testapp.BuildConfig
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.addJsonObject
+import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.putJsonArray
+import com.trackasia.android.BuildConfig.GIT_REVISION
+import com.trackasia.android.testapp.BuildConfig
 import java.util.ArrayList
 
 data class BenchmarkInputData(
@@ -15,9 +16,8 @@ data class BenchmarkInputData(
     val styleURLs: List<String>,
 ) {
     init {
-        if (styleNames.size != styleURLs.size) {
+        if (styleNames.size != styleURLs.size)
             throw Error("Different size: styleNames=$styleNames, styleURLs=$styleURLs")
-        }
     }
 }
 
@@ -25,23 +25,23 @@ data class BenchmarkRun(
     val styleName: String,
     val styleURL: String,
     val syncRendering: Boolean,
-    val duration: Int,
+    val duration: Int
 )
 
 data class BenchmarkRunResult(
     val fps: Double,
     val encodingTimeStore: FrameTimeStore,
     val renderingTimeStore: FrameTimeStore,
-    val thermalState: Int,
+    val thermalState: Int
 )
 
-data class BenchmarkResult(
-    var runs: ArrayList<Pair<BenchmarkRun, BenchmarkRunResult>>,
+data class BenchmarkResult (
+    var runs: ArrayList<Pair<BenchmarkRun, BenchmarkRunResult>>
 )
 
-// @SuppressLint("NewApi")
-fun jsonPayload(benchmarkResult: BenchmarkResult): JsonObject =
-    buildJsonObject {
+//@SuppressLint("NewApi")
+fun jsonPayload(benchmarkResult: BenchmarkResult): JsonObject {
+    return buildJsonObject {
         putJsonArray("results") {
             for (run in benchmarkResult.runs) {
                 addJsonObject {
@@ -63,6 +63,7 @@ fun jsonPayload(benchmarkResult: BenchmarkResult): JsonObject =
         put("gitRevision", JsonPrimitive(GIT_REVISION))
         put("timestamp", JsonPrimitive(System.currentTimeMillis()))
     }
+}
 
 class FrameTimeStore {
     private val timeValues = ArrayList<Double>(100000)
@@ -80,5 +81,7 @@ class FrameTimeStore {
         return timeValues.slice((99 * timeValues.size / 100)..<timeValues.size).average()
     }
 
-    fun average(): Double = timeValues.average()
+    fun average(): Double {
+        return timeValues.average()
+    }
 }

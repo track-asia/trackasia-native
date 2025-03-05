@@ -19,49 +19,42 @@ class UiSettingsTest {
     var mapview = Mockito.mock(MapView::class.java)
 
     @InjectMocks
-    var context =
-        Mockito.mock(
-            Context::class.java,
-        )
+    var context = Mockito.mock(
+        Context::class.java
+    )
 
     @InjectMocks
-    var resources =
-        Mockito.mock(
-            Resources::class.java,
-        )
+    var resources = Mockito.mock(
+        Resources::class.java
+    )
 
     @InjectMocks
-    var projection =
-        Mockito.mock(
-            Projection::class.java,
-        )
+    var projection = Mockito.mock(
+        Projection::class.java
+    )
 
     @InjectMocks
-    var focalPointChangeListener =
-        Mockito.mock(
-            FocalPointChangeListener::class.java,
-        )
+    var focalPointChangeListener = Mockito.mock(
+        FocalPointChangeListener::class.java
+    )
 
     @InjectMocks
     var compassView = Mockito.mock(CompassView::class.java)
 
     @InjectMocks
-    var attributionView =
-        Mockito.mock(
-            ImageView::class.java,
-        )
+    var attributionView = Mockito.mock(
+        ImageView::class.java
+    )
 
     @InjectMocks
-    var logoView =
-        Mockito.mock(
-            ImageView::class.java,
-        )
+    var logoView = Mockito.mock(
+        ImageView::class.java
+    )
 
     @InjectMocks
-    var layoutParams =
-        Mockito.mock(
-            FrameLayout.LayoutParams::class.java,
-        )
+    var layoutParams = Mockito.mock(
+        FrameLayout.LayoutParams::class.java
+    )
     private var uiSettings: UiSettings? = null
     private val trackasiaMapOptions: TrackAsiaMapOptions? = null
 
@@ -109,7 +102,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Compass gravity should be same",
             Gravity.START.toLong(),
-            uiSettings!!.compassGravity.toLong(),
+            uiSettings!!.compassGravity.toLong()
         )
     }
 
@@ -126,11 +119,11 @@ class UiSettingsTest {
         Assert.assertTrue("Compass margin top should be same", uiSettings!!.compassMarginTop == 2)
         Assert.assertTrue(
             "Compass margin right should be same",
-            uiSettings!!.compassMarginRight == 3,
+            uiSettings!!.compassMarginRight == 3
         )
         Assert.assertTrue(
             "Compass margin bottom should be same",
-            uiSettings!!.compassMarginBottom == 4,
+            uiSettings!!.compassMarginBottom == 4
         )
     }
 
@@ -139,13 +132,13 @@ class UiSettingsTest {
         Mockito.`when`(compassView.isFadeCompassViewFacingNorth).thenReturn(true)
         Assert.assertTrue(
             "Compass should fade when facing north by default.",
-            uiSettings!!.isCompassFadeWhenFacingNorth,
+            uiSettings!!.isCompassFadeWhenFacingNorth
         )
         uiSettings!!.setCompassFadeFacingNorth(false)
         Mockito.`when`(compassView.isFadeCompassViewFacingNorth).thenReturn(false)
         Assert.assertFalse(
             "Compass fading should be disabled",
-            uiSettings!!.isCompassFadeWhenFacingNorth,
+            uiSettings!!.isCompassFadeWhenFacingNorth
         )
     }
 
@@ -171,7 +164,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Logo gravity should be same",
             Gravity.END.toLong(),
-            uiSettings!!.logoGravity.toLong(),
+            uiSettings!!.logoGravity.toLong()
         )
     }
 
@@ -189,7 +182,7 @@ class UiSettingsTest {
         Assert.assertTrue("Compass margin right should be same", uiSettings!!.logoMarginRight == 3)
         Assert.assertTrue(
             "Compass margin bottom should be same",
-            uiSettings!!.logoMarginBottom == 4,
+            uiSettings!!.logoMarginBottom == 4
         )
     }
 
@@ -201,7 +194,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Attribution should be enabled",
             true,
-            uiSettings!!.isAttributionEnabled,
+            uiSettings!!.isAttributionEnabled
         )
     }
 
@@ -212,7 +205,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Attribution should be disabled",
             false,
-            uiSettings!!.isAttributionEnabled,
+            uiSettings!!.isAttributionEnabled
         )
     }
 
@@ -224,7 +217,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Attribution gravity should be same",
             Gravity.END.toLong(),
-            uiSettings!!.attributionGravity.toLong(),
+            uiSettings!!.attributionGravity.toLong()
         )
     }
 
@@ -239,19 +232,19 @@ class UiSettingsTest {
         uiSettings!!.setAttributionMargins(1, 2, 3, 4)
         Assert.assertTrue(
             "Attribution margin left should be same",
-            uiSettings!!.attributionMarginLeft == 1,
+            uiSettings!!.attributionMarginLeft == 1
         )
         Assert.assertTrue(
             "Attribution margin top should be same",
-            uiSettings!!.attributionMarginTop == 2,
+            uiSettings!!.attributionMarginTop == 2
         )
         Assert.assertTrue(
             "Attribution margin right should be same",
-            uiSettings!!.attributionMarginRight == 3,
+            uiSettings!!.attributionMarginRight == 3
         )
         Assert.assertTrue(
             "Attribution margin bottom should be same",
-            uiSettings!!.attributionMarginBottom == 4,
+            uiSettings!!.attributionMarginBottom == 4
         )
     }
 
@@ -261,7 +254,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate gesture should be enabled",
             true,
-            uiSettings!!.isRotateGesturesEnabled,
+            uiSettings!!.isRotateGesturesEnabled
         )
     }
 
@@ -271,7 +264,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate gesture should be disabled",
             false,
-            uiSettings!!.isRotateGesturesEnabled,
+            uiSettings!!.isRotateGesturesEnabled
         )
     }
 
@@ -281,13 +274,13 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate gesture should be false",
             false,
-            uiSettings!!.isRotateGesturesEnabled,
+            uiSettings!!.isRotateGesturesEnabled
         )
         uiSettings!!.isRotateGesturesEnabled = true
         Assert.assertEquals(
             "Rotate gesture should be true",
             true,
-            uiSettings!!.isRotateGesturesEnabled,
+            uiSettings!!.isRotateGesturesEnabled
         )
     }
 
@@ -297,7 +290,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Tilt gesture should be enabled",
             true,
-            uiSettings!!.isTiltGesturesEnabled,
+            uiSettings!!.isTiltGesturesEnabled
         )
     }
 
@@ -307,7 +300,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Tilt gesture should be disabled",
             false,
-            uiSettings!!.isTiltGesturesEnabled,
+            uiSettings!!.isTiltGesturesEnabled
         )
     }
 
@@ -317,7 +310,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Tilt gesture should be false",
             false,
-            uiSettings!!.isTiltGesturesEnabled,
+            uiSettings!!.isTiltGesturesEnabled
         )
         uiSettings!!.isTiltGesturesEnabled = true
         Assert.assertEquals("Tilt gesture should be true", true, uiSettings!!.isTiltGesturesEnabled)
@@ -329,7 +322,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Zoom gesture should be enabled",
             true,
-            uiSettings!!.isZoomGesturesEnabled,
+            uiSettings!!.isZoomGesturesEnabled
         )
     }
 
@@ -339,7 +332,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Zoom gesture should be disabled",
             false,
-            uiSettings!!.isZoomGesturesEnabled,
+            uiSettings!!.isZoomGesturesEnabled
         )
     }
 
@@ -349,7 +342,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Zoom gesture should be false",
             false,
-            uiSettings!!.isZoomGesturesEnabled,
+            uiSettings!!.isZoomGesturesEnabled
         )
         uiSettings!!.isZoomGesturesEnabled = true
         Assert.assertEquals("Zoom gesture should be true", true, uiSettings!!.isZoomGesturesEnabled)
@@ -361,7 +354,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "DoubleTap gesture should be enabled",
             true,
-            uiSettings!!.isDoubleTapGesturesEnabled,
+            uiSettings!!.isDoubleTapGesturesEnabled
         )
     }
 
@@ -371,7 +364,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "DoubleTap gesture should be disabled",
             false,
-            uiSettings!!.isDoubleTapGesturesEnabled,
+            uiSettings!!.isDoubleTapGesturesEnabled
         )
     }
 
@@ -381,13 +374,13 @@ class UiSettingsTest {
         Assert.assertEquals(
             "DoubleTap gesture should be false",
             false,
-            uiSettings!!.isDoubleTapGesturesEnabled,
+            uiSettings!!.isDoubleTapGesturesEnabled
         )
         uiSettings!!.isDoubleTapGesturesEnabled = true
         Assert.assertEquals(
             "DoubleTap gesture should be true",
             true,
-            uiSettings!!.isDoubleTapGesturesEnabled,
+            uiSettings!!.isDoubleTapGesturesEnabled
         )
     }
 
@@ -397,7 +390,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "QuickZoom gesture should be enabled",
             true,
-            uiSettings!!.isQuickZoomGesturesEnabled,
+            uiSettings!!.isQuickZoomGesturesEnabled
         )
     }
 
@@ -407,7 +400,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "QuickZoom gesture should be disabled",
             false,
-            uiSettings!!.isQuickZoomGesturesEnabled,
+            uiSettings!!.isQuickZoomGesturesEnabled
         )
     }
 
@@ -417,13 +410,13 @@ class UiSettingsTest {
         Assert.assertEquals(
             "QuickZoom gesture should be false",
             false,
-            uiSettings!!.isQuickZoomGesturesEnabled,
+            uiSettings!!.isQuickZoomGesturesEnabled
         )
         uiSettings!!.isQuickZoomGesturesEnabled = true
         Assert.assertEquals(
             "QuickZoom gesture should be true",
             true,
-            uiSettings!!.isQuickZoomGesturesEnabled,
+            uiSettings!!.isQuickZoomGesturesEnabled
         )
     }
 
@@ -433,7 +426,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scroll gesture should be enabled",
             true,
-            uiSettings!!.isScrollGesturesEnabled,
+            uiSettings!!.isScrollGesturesEnabled
         )
     }
 
@@ -443,7 +436,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scroll gesture should be disabled",
             false,
-            uiSettings!!.isScrollGesturesEnabled,
+            uiSettings!!.isScrollGesturesEnabled
         )
     }
 
@@ -453,7 +446,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scroll gesture should be enabled",
             true,
-            uiSettings!!.isHorizontalScrollGesturesEnabled,
+            uiSettings!!.isHorizontalScrollGesturesEnabled
         )
     }
 
@@ -463,7 +456,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scroll gesture should be disabled",
             false,
-            uiSettings!!.isHorizontalScrollGesturesEnabled,
+            uiSettings!!.isHorizontalScrollGesturesEnabled
         )
     }
 
@@ -473,13 +466,13 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scroll gesture should be false",
             false,
-            uiSettings!!.isScrollGesturesEnabled,
+            uiSettings!!.isScrollGesturesEnabled
         )
         uiSettings!!.isScrollGesturesEnabled = true
         Assert.assertEquals(
             "Scroll gesture should be true",
             true,
-            uiSettings!!.isScrollGesturesEnabled,
+            uiSettings!!.isScrollGesturesEnabled
         )
     }
 
@@ -489,7 +482,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scale velocity animation should be enabled",
             true,
-            uiSettings!!.isScaleVelocityAnimationEnabled,
+            uiSettings!!.isScaleVelocityAnimationEnabled
         )
     }
 
@@ -499,7 +492,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scale velocity animation should be disabled",
             false,
-            uiSettings!!.isScaleVelocityAnimationEnabled,
+            uiSettings!!.isScaleVelocityAnimationEnabled
         )
     }
 
@@ -509,7 +502,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate velocity animation should be enabled",
             true,
-            uiSettings!!.isRotateVelocityAnimationEnabled,
+            uiSettings!!.isRotateVelocityAnimationEnabled
         )
     }
 
@@ -519,7 +512,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate velocity animation should be disabled",
             false,
-            uiSettings!!.isRotateVelocityAnimationEnabled,
+            uiSettings!!.isRotateVelocityAnimationEnabled
         )
     }
 
@@ -529,7 +522,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Fling velocity animation should be enabled",
             true,
-            uiSettings!!.isFlingVelocityAnimationEnabled,
+            uiSettings!!.isFlingVelocityAnimationEnabled
         )
     }
 
@@ -539,7 +532,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Fling velocity animation should be disabled",
             false,
-            uiSettings!!.isFlingVelocityAnimationEnabled,
+            uiSettings!!.isFlingVelocityAnimationEnabled
         )
     }
 
@@ -549,17 +542,17 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scale velocity animation should be enabled",
             true,
-            uiSettings!!.isScaleVelocityAnimationEnabled,
+            uiSettings!!.isScaleVelocityAnimationEnabled
         )
         Assert.assertEquals(
             "Rotate velocity animation should be enabled",
             true,
-            uiSettings!!.isRotateVelocityAnimationEnabled,
+            uiSettings!!.isRotateVelocityAnimationEnabled
         )
         Assert.assertEquals(
             "Fling velocity animation should be enabled",
             true,
-            uiSettings!!.isFlingVelocityAnimationEnabled,
+            uiSettings!!.isFlingVelocityAnimationEnabled
         )
     }
 
@@ -569,17 +562,17 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scale velocity animation should be disabled",
             false,
-            uiSettings!!.isScaleVelocityAnimationEnabled,
+            uiSettings!!.isScaleVelocityAnimationEnabled
         )
         Assert.assertEquals(
             "Rotate velocity animation should be disabled",
             false,
-            uiSettings!!.isRotateVelocityAnimationEnabled,
+            uiSettings!!.isRotateVelocityAnimationEnabled
         )
         Assert.assertEquals(
             "Fling velocity animation should be disabled",
             false,
-            uiSettings!!.isFlingVelocityAnimationEnabled,
+            uiSettings!!.isFlingVelocityAnimationEnabled
         )
     }
 
@@ -589,7 +582,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate disabling should be enabled",
             true,
-            uiSettings!!.isDisableRotateWhenScaling,
+            uiSettings!!.isDisableRotateWhenScaling
         )
     }
 
@@ -599,7 +592,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate disabling should be disabled",
             false,
-            uiSettings!!.isDisableRotateWhenScaling,
+            uiSettings!!.isDisableRotateWhenScaling
         )
     }
 
@@ -609,7 +602,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scale threshold increase should be enabled",
             true,
-            uiSettings!!.isIncreaseScaleThresholdWhenRotating,
+            uiSettings!!.isIncreaseScaleThresholdWhenRotating
         )
     }
 
@@ -619,7 +612,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Scale threshold increase should be disabled",
             false,
-            uiSettings!!.isIncreaseScaleThresholdWhenRotating,
+            uiSettings!!.isIncreaseScaleThresholdWhenRotating
         )
     }
 
@@ -629,22 +622,22 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate gesture should be enabled",
             true,
-            uiSettings!!.isRotateGesturesEnabled,
+            uiSettings!!.isRotateGesturesEnabled
         )
         Assert.assertEquals(
             "Tilt gesture should be enabled",
             true,
-            uiSettings!!.isTiltGesturesEnabled,
+            uiSettings!!.isTiltGesturesEnabled
         )
         Assert.assertEquals(
             "Zoom gesture should be enabled",
             true,
-            uiSettings!!.isZoomGesturesEnabled,
+            uiSettings!!.isZoomGesturesEnabled
         )
         Assert.assertEquals(
             "Scroll gesture should be enabled",
             true,
-            uiSettings!!.isScrollGesturesEnabled,
+            uiSettings!!.isScrollGesturesEnabled
         )
     }
 
@@ -654,22 +647,22 @@ class UiSettingsTest {
         Assert.assertEquals(
             "Rotate gesture should be enabled",
             false,
-            uiSettings!!.isRotateGesturesEnabled,
+            uiSettings!!.isRotateGesturesEnabled
         )
         Assert.assertEquals(
             "Tilt gesture should be disabled",
             false,
-            uiSettings!!.isTiltGesturesEnabled,
+            uiSettings!!.isTiltGesturesEnabled
         )
         Assert.assertEquals(
             "Zoom gesture should be disabled",
             false,
-            uiSettings!!.isZoomGesturesEnabled,
+            uiSettings!!.isZoomGesturesEnabled
         )
         Assert.assertEquals(
             "Scroll gesture should be disabled",
             false,
-            uiSettings!!.isScrollGesturesEnabled,
+            uiSettings!!.isScrollGesturesEnabled
         )
     }
 
@@ -679,7 +672,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "All gestures check should return true",
             true,
-            uiSettings!!.areAllGesturesEnabled(),
+            uiSettings!!.areAllGesturesEnabled()
         )
     }
 
@@ -690,7 +683,7 @@ class UiSettingsTest {
         Assert.assertEquals(
             "All gestures check should return false",
             false,
-            uiSettings!!.areAllGesturesEnabled(),
+            uiSettings!!.areAllGesturesEnabled()
         )
     }
 
@@ -700,7 +693,7 @@ class UiSettingsTest {
             "Default zoom rate should be 1.0f",
             1.0f,
             uiSettings!!.zoomRate,
-            0f,
+            0f
         )
     }
 
@@ -711,7 +704,7 @@ class UiSettingsTest {
             "Zoom rate should be 0.83f",
             0.83f,
             uiSettings!!.zoomRate,
-            0f,
+            0f
         )
     }
 
