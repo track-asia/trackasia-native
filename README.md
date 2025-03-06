@@ -265,5 +265,5 @@ bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_fl
 xed platform/ios/TrackAsia.xcodeproj
 
 bazel build --compilation_mode=opt --features=dead_strip,thin_lto --objc_enable_binary_stripping \
-  --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:TrackAsia.dynamic --embed_label=trackasia_ios_2.0.0
+  --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:TrackAsia.dynamic --embed_label=trackasia_ios_2.0.1
 
