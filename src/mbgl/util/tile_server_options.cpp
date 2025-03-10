@@ -215,23 +215,43 @@ TileServerOptions TileServerOptions::DefaultConfiguration() {
 }
 
 TileServerOptions TileServerOptions::TrackAsiaConfiguration() {
-    std::vector<mbgl::util::DefaultStyle> styles{// https://maps.track-asia.com/style.json
-                                                 mbgl::util::DefaultStyle("trackasia://maps/style", "Basic", 1)};
+    std::vector<mbgl::util::DefaultStyle> styles{
+            mbgl::util::DefaultStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key", "Streets", 1)
+        };
 
     TileServerOptions options = TileServerOptions()
-                                    .withBaseURL("https://demotiles.track-asia.com")
+                                    .withBaseURL("https://maps.track-asia.com")
                                     .withUriSchemeAlias("trackasia")
                                     .withApiKeyParameterName("")
-                                    .withSourceTemplate("/tiles/{domain}.json", "", {})
+                                    .withSourceTemplate("/styles/v1/{domain}.json", "", {})
                                     .withStyleTemplate("{path}.json", "maps", {})
                                     .withSpritesTemplate("/{path}/sprite{scale}.{format}", "", {})
                                     .withGlyphsTemplate("/font/{fontstack}/{start}-{end}.pbf", "fonts", {})
                                     .withTileTemplate("/{path}", "tiles", {})
                                     .withDefaultStyles(styles)
-                                    .withDefaultStyle("Basic")
+                                    .withDefaultStyle("Streets")
                                     .setRequiresApiKey(false);
     return options;
 }
+
+//TileServerOptions TileServerOptions::TrackAsiaConfiguration() {
+//    std::vector<mbgl::util::DefaultStyle> styles{mbgl::util::DefaultStyle("trackasia://styles/v1/streets", "Streets", 1)};
+//
+//    TileServerOptions options = TileServerOptions()
+//                                .withBaseURL("https://demotiles.track-asia.com")
+//                                .withUriSchemeAlias("trackasia")
+//                                .withApiKeyParameterName("")
+//                                .withSourceTemplate("/styles/v1/{domain}.json", "", {})
+//                                .withStyleTemplate("{path}.json", "maps", {})
+//                                .withSpritesTemplate("/{path}/sprite{scale}.{format}", "", {})
+//                                .withGlyphsTemplate("/font/{fontstack}/{start}-{end}.pbf", "fonts", {})
+//                                .withTileTemplate("/{path}", "tiles", {})
+//                                .withDefaultStyles(styles)
+//                                .withDefaultStyle("streets")
+//                                .setRequiresApiKey(false);
+//    return options;
+//}
+
 
 //
 
