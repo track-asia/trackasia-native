@@ -90,7 +90,7 @@ Here is the final results with different color configurations. For the complete 
 [onMapReadyCallback]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.maps/-on-map-ready-callback/index.html
 [PermissionManager]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.permissions/-permissions-manager/index.html
 [LocationComponentOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component-options/index.html
-[demotiles]: https://maps.track-asia.com/style.json
+[demotiles]: https://maps.track-asia.com/styles/v1/streets.json?key=public_key
 [predefined styles]: https://github.com/track-asia/trackasia-native/tree/main/src/mbgl/util/tile_server_options.cpp
 [LocationComponentActivationOptions]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location/-location-component-activation-options/index.html
 [LocationEngine]: https://track-asia.com/trackasia-native/android/api/-map-libre%20-native%20-android/com.trackasia.android.location.engine/-location-engine/index.html

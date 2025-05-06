@@ -59,7 +59,7 @@ class MapOptionsRuntimeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(trackasiaMap: TrackAsiaMap) {
         this.trackasiaMap = trackasiaMap
-        this.trackasiaMap.setStyle("https://maps.track-asia.com/style.json")
+        this.trackasiaMap.setStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
     }
 
     override fun onStart() {

@@ -69,7 +69,7 @@ To follow this example from scratch, in Android Studio create a new "Empty Views
             // Init the MapView
             mapView = rootView.findViewById(R.id.mapView)
             mapView.getMapAsync { map ->
-                map.setStyle("https://maps.track-asia.com/style.json")
+                map.setStyle("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
                 map.cameraPosition = CameraPosition.Builder().target(LatLng(0.0,0.0)).zoom(1.0).build()
             }
         }

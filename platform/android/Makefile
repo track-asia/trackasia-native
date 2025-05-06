@@ -334,7 +334,7 @@ mkdocs-build:
 # release:
 #     ./gradlew :library:assembleRelease
 
-VERSION_NAME := 2.0.1
+VERSION_NAME := 2.0.2
 
 checksums:
 	cd ~/.m2/repository/io/github/track-asia/android-sdk/$(VERSION_NAME)/ && \

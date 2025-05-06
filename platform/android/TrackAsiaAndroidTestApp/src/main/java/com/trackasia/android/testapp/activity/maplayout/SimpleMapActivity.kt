@@ -30,7 +30,7 @@ class SimpleMapActivity : AppCompatActivity() {
             val key = ApiKeyUtils.getApiKey(applicationContext)
             if (key == null || key == "YOUR_API_KEY_GOES_HERE") {
                 it.setStyle(
-                    Style.Builder().fromUri("https://maps.track-asia.com/style.json")
+                    Style.Builder().fromUri("https://maps.track-asia.com/styles/v1/streets.json?key=public_key")
                 )
             } else {
                 val styles = Style.getPredefinedStyles()

@@ -3,7 +3,7 @@ package com.trackasia.android.testapp.styles
 import com.trackasia.android.maps.Style
 
 object TestStyles {
-    const val DEMOTILES = "https://maps.track-asia.com/style.json"
+    const val DEMOTILES = "https://maps.track-asia.com/styles/v1/streets.json?key=public_key"
 
     const val VERSATILES = "https://tiles.versatiles.org/assets/styles/colorful.json"
 

@@ -64,3 +64,4 @@ out.png
 ./platform/ios/.history/
 ./history/
 ./history
+.early.coverage
