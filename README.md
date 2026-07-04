@@ -37,7 +37,7 @@ Add a `MapView` to your layout XML file:
 ```
 
 > [!TIP]
-> There are external projects such as [Ramani Maps](https://github.com/ramani-maps/ramani-maps) and [TrackAsia Compose Playground](https://github.com/Rallista/trackasia-compose-playground) available to intergrate TrackAsia Native Android with Compose-based projects.
+> There are external projects such as [Ramani Maps](https://github.com/ramani-maps/ramani-maps) and [TrackAsia Compose Playground](https://github.com/Rallista/trackasia-compose-playground) available to integrate TrackAsia Native Android with Compose-based projects.
 
 Next, initialize the map in an activity:
 
@@ -121,7 +121,7 @@ For more information, refer to the [Android API Documentation](https://track-asi
 
 You can find TrackAsia Native iOS on [Cocoapods](https://cocoapods.org/) and on the [Swift Package Index](https://swiftpackageindex.com/trackasia/trackasia-gl-native-distribution). You can also TrackAsia Native iOS [as a dependency to Xcode directly](https://track-asia.com/trackasia-native/ios/latest/documentation/trackasia-native-for-ios/gettingstarted/#Add-TrackAsia-Native-as-a-dependency).
 
-TrackAsia Native iOS uses UIKit. To intergrate it with an UIKit project, you can use
+TrackAsia Native iOS uses UIKit. To integrate it with an UIKit project, you can use
 
 ```swift
 class SimpleMap: UIViewController, MLNMapViewDelegate {
@@ -165,7 +165,7 @@ There is an [npm package](https://www.npmjs.com/package/@trackasia/trackasia-gl-
 
 ## Qt
 
-Please check out the [`trackasia/trackasia-native-qt` repository](https://github.com/track-asia/trackasia-native-qt) to learn how to intergrate TrackAsia Native with a Qt project.
+Please check out the [`trackasia/trackasia-native-qt` repository](https://github.com/track-asia/trackasia-native-qt) to learn how to integrate TrackAsia Native with a Qt project.
 
 ## Other Platforms
 
@@ -178,7 +178,7 @@ TrackAsia Native can also be built on [Linux](platform/linux/README.md), [Window
 
 TrackAsia Native has at its core a C++ library. This is where the bulk of development is currently happening.
 
-To get started with the code base, you need to clone the the repository including all its submodules.
+To get started with the code base, you need to clone the repository including all its submodules.
 
 All contributors use pull requests from a private fork. [Fork the project](https://github.com/track-asia/trackasia-native/fork). Then run:
 
