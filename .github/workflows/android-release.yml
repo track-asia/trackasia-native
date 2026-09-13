@@ -2,6 +2,9 @@ name: android-release
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - "android-v*.*.*"
 
 jobs:
   build:
