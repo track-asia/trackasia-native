@@ -33,6 +33,7 @@ compile_commands.json
 /.vscode
 /platform/android/node_modules
 /platform/android/signing-key.text
+/platform/android/.env
 /platform/android/.java-version
 *.hprof
 /platform/ios/platform/ios/benchmark/assets/tiles/tiles
