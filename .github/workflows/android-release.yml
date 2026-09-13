@@ -6,6 +6,9 @@ on:
     tags:
       - "android-v*.*.*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -123,37 +126,26 @@ jobs:
         shell: bash
 
       - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
+        run: |
+          if ! gh release view "${{ steps.prepare_release.outputs.version_tag }}" >/dev/null 2>&1; then
+            gh release create "${{ steps.prepare_release.outputs.version_tag }}" \
+              --title "${{ steps.prepare_release.outputs.version_tag }}" \
+              --notes-file "${{ steps.prepare_release.outputs.release_notes }}"
+          fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.prepare_release.outputs.version_tag }}
-          release_name: ${{steps.prepare_release.outputs.version_tag }}
-          body_path: ${{ steps.prepare_release.outputs.release_notes }}
-          draft: false
-          prerelease: false
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload aar
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: platform/android/TrackAsiaAndroid/build/outputs/aar/TrackAsiaAndroid-drawable-release.aar
-          asset_name: TrackAsiaAndroid-release.aar
-          asset_content_type: application/zip
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ steps.prepare_release.outputs.version_tag }}
+        run: gh release upload "${RELEASE_TAG}" platform/android/TrackAsiaAndroid/build/outputs/aar/TrackAsiaAndroid-drawable-release.aar --clobber
 
       - name: Upload debug symbols
-        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: platform/android/build/debug-symbols.tar.gz
-          asset_name: debug-symbols.tar.gz
-          asset_content_type: application/gzip
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ steps.prepare_release.outputs.version_tag }}
+        run: gh release upload "${RELEASE_TAG}" platform/android/build/debug-symbols-opengl.tar.gz --clobber
 
       - name: Clean release
         run: |
