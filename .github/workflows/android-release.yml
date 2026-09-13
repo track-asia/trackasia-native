@@ -139,13 +139,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_TAG: ${{ steps.prepare_release.outputs.version_tag }}
-        run: gh release upload "${RELEASE_TAG}" platform/android/TrackAsiaAndroid/build/outputs/aar/TrackAsiaAndroid-drawable-release.aar --clobber
+        run: gh release upload "${RELEASE_TAG}" TrackAsiaAndroid/build/outputs/aar/TrackAsiaAndroid-drawable-release.aar --clobber
 
       - name: Upload debug symbols
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_TAG: ${{ steps.prepare_release.outputs.version_tag }}
-        run: gh release upload "${RELEASE_TAG}" platform/android/build/debug-symbols-opengl.tar.gz --clobber
+        run: gh release upload "${RELEASE_TAG}" build/debug-symbols-opengl.tar.gz --clobber
 
       - name: Clean release
         run: |
