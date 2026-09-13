@@ -232,7 +232,12 @@ apackage:
 	make android-lib-arm-v7 && make android-lib-arm-v8 && make android-lib-x86 && make android-lib-x86-64
 	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=all :TrackAsiaAndroid:assemble$(RENDERER)$(BUILDTYPE)
 	mkdir -p build
-	tar -czvf build/$(DEBUG_TAR_FILE_NAME) -C TrackAsiaAndroid/build/intermediates/library_jni/$(RENDERER)Release/*JniLibsProjectOnly/jni .
+	JNI_SYMBOLS_DIR="$$(find TrackAsiaAndroid/build/intermediates/library_jni/$(RENDERER)Release -type d -name jni -print -quit 2>/dev/null)"; \
+	if [ -z "$$JNI_SYMBOLS_DIR" ]; then \
+		echo "Unable to locate Android native libraries for debug symbols" >&2; \
+		exit 1; \
+	fi; \
+	tar -czvf build/$(DEBUG_TAR_FILE_NAME) -C "$$JNI_SYMBOLS_DIR" .
 
 # Build test app instrumentation tests apk and test app apk for all abi's
 .PHONY: android-ui-test
