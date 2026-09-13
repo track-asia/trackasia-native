@@ -229,10 +229,9 @@ DEBUG_TAR_FILE_NAME := $(if $(findstring drawable,$(RENDERER)),debug-symbols-ope
 .PHONY: apackage
 apackage:
 	echo "Building for $(RENDERER)"
-	make android-lib-arm-v7 && make android-lib-arm-v8 && make android-lib-x86 && make android-lib-x86-64
 	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=all :TrackAsiaAndroid:assemble$(RENDERER)$(BUILDTYPE)
 	mkdir -p build
-	JNI_SYMBOLS_DIR="$$(find TrackAsiaAndroid/build/intermediates/library_jni/$(RENDERER)Release -type d -name jni -print -quit 2>/dev/null)"; \
+	JNI_SYMBOLS_DIR="$$(find TrackAsiaAndroid/build/intermediates/cxx/RelWithDebInfo -type d -name obj -print -quit 2>/dev/null)"; \
 	if [ -z "$$JNI_SYMBOLS_DIR" ]; then \
 		echo "Unable to locate Android native libraries for debug symbols" >&2; \
 		exit 1; \
