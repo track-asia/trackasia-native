@@ -4,6 +4,8 @@
 
 ### ✨ Features and improvements
 
+- Replace the map logo resources with the TrackAsia brand icon without changing map behavior.
+
 ### 🐞 Bug fixes
 
 ## 11.8.2
