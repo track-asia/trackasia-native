@@ -4,6 +4,8 @@ TrackAsia welcomes participation and contributions from everyone. Please read [`
 
 ## main
 
+- Replace the map logo resources with the TrackAsia brand icon without changing map behavior.
+
 ## 6.12.0
 
 - Eliminate copies in deferred cleanup ([#3035](https://github.com/track-asia/trackasia-native/pull/3035)).
