@@ -230,7 +230,7 @@ DEBUG_TAR_FILE_NAME := $(if $(findstring drawable,$(RENDERER)),debug-symbols-ope
 apackage:
 	echo "Building for $(RENDERER)"
 	make android-lib-arm-v7 && make android-lib-arm-v8 && make android-lib-x86 && make android-lib-x86-64
-	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=all assemble$(RENDERER)$(BUILDTYPE)
+	$(MLN_ANDROID_GRADLE) -Ptrackasia.abis=all :TrackAsiaAndroid:assemble$(RENDERER)$(BUILDTYPE)
 	mkdir -p build
 	tar -czvf build/$(DEBUG_TAR_FILE_NAME) -C TrackAsiaAndroid/build/intermediates/library_jni/$(RENDERER)Release/*JniLibsProjectOnly/jni .
 
